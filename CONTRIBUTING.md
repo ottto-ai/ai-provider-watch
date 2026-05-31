@@ -21,6 +21,7 @@ AI Provider Watch accepts changes through pull requests.
 ```bash
 uv sync --all-extras
 uv run pytest
+uv run apw source test
 uv run apw validate
 uv run apw index --check
 ```
@@ -50,3 +51,8 @@ feed artifacts, and migration notes when older events need updates.
 Reviewed event data belongs under `data/events/`. Generated files under
 `data/feeds/`, `data/indexes/`, and `data/releases/` should be produced by
 `apw index`, not edited by hand.
+
+Finding candidates under `data/candidates/` are review input only. They can be
+generated from observation bundles with `apw candidate generate`, but they are
+not canonical provider facts until a maintainer promotes them into
+`data/events/`.

@@ -16,6 +16,12 @@ from ai_provider_watch.core.feeds import (
 )
 from ai_provider_watch.core.io import repo_root, write_json_text
 from ai_provider_watch.core.validation import validate
+from ai_provider_watch.pipeline.candidates import (
+    build_candidates,
+    ensure_unique_candidate_ids,
+    read_observation_bundle,
+    write_candidate_files,
+)
 from ai_provider_watch.source_watch.http import (
     fetch_source,
     read_fingerprint_state,
@@ -140,6 +146,50 @@ def cmd_source_fetch(args: argparse.Namespace) -> int:
     return 0
 
 
+def _path_from_root(root: Path, value: str) -> Path:
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    return root / path
+
+
+def cmd_candidate_generate(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    observations_path = _path_from_root(root, args.observations)
+    output_dir = _path_from_root(root, args.output)
+    try:
+        result = build_candidates(
+            read_observation_bundle(observations_path),
+            load_source_descriptors(root, enabled_only=False),
+            created_at=args.created_at,
+        )
+    except ValueError as exc:
+        print(f"candidate generation failed: {exc}", file=sys.stderr)
+        return 1
+    try:
+        ensure_unique_candidate_ids(result.candidates)
+    except ValueError as exc:
+        print(f"candidate generation failed: {exc}", file=sys.stderr)
+        return 1
+    if args.dry_run:
+        _print_json(result.candidates)
+        return 0
+
+    try:
+        written = write_candidate_files(output_dir, result.candidates, clean=args.clean)
+    except (FileExistsError, ValueError) as exc:
+        print(f"candidate generation failed: {exc}", file=sys.stderr)
+        return 1
+    _print_json(
+        {
+            "candidate_count": len(result.candidates),
+            "written_paths": [str(path.relative_to(root)) if path.is_relative_to(root) else str(path) for path in written],
+            "skipped_observations": result.skipped_observations,
+        }
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="apw")
     parser.add_argument("--root", help="APW repository root")
@@ -182,6 +232,19 @@ def build_parser() -> argparse.ArgumentParser:
     source_fetch_parser.add_argument("--timeout", type=float, default=20.0)
     source_fetch_parser.add_argument("--limit-bytes", type=int, default=1_000_000)
     source_fetch_parser.set_defaults(func=cmd_source_fetch)
+
+    candidate_parser = subparsers.add_parser("candidate", help="candidate extraction commands")
+    candidate_subparsers = candidate_parser.add_subparsers(dest="candidate_command", required=True)
+    candidate_generate_parser = candidate_subparsers.add_parser(
+        "generate",
+        help="generate review candidates from source observations",
+    )
+    candidate_generate_parser.add_argument("--observations", required=True)
+    candidate_generate_parser.add_argument("--output", default="data/candidates")
+    candidate_generate_parser.add_argument("--created-at", required=True)
+    candidate_generate_parser.add_argument("--clean", action="store_true")
+    candidate_generate_parser.add_argument("--dry-run", action="store_true")
+    candidate_generate_parser.set_defaults(func=cmd_candidate_generate)
     return parser
 
 

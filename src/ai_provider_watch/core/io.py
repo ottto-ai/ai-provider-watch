@@ -35,3 +35,10 @@ def event_paths(root: Path) -> list[Path]:
     if not events_root.exists():
         return []
     return sorted(path for path in events_root.rglob("*.json") if path.is_file())
+
+
+def candidate_paths(root: Path) -> list[Path]:
+    candidates_root = root / "data" / "candidates"
+    if not candidates_root.exists():
+        return []
+    return sorted(path for path in candidates_root.rglob("*.json") if path.is_file())

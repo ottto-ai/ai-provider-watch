@@ -14,7 +14,11 @@ During pre-release work, run from checkout:
 
 ```bash
 uv run apw latest
+uv run apw candidate generate --observations .apw/source-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 ```
+
+Candidate output is review-only. Agents may summarize candidates and check
+schemas, but they must not promote or publish events without maintainer review.
 
 ## MCP
 

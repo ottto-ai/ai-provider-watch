@@ -31,6 +31,31 @@ Impact is repeatable, not a paragraph. Each impact row has `scope_type`,
 Every published event needs at least one evidence row with `source_key`, `url`,
 `retrieved_at`, `authority`, and `content_sha256`.
 
+## Finding Candidates
+
+`FindingCandidate` is the review-stage shape between `Observation` and
+`ProviderEvent`. It is intentionally separate from published data:
+
+- `id` is stable over source key, fingerprint, and normalized claim text;
+- `claim_text` is a factual parser claim, not provider instructions;
+- `evidence_refs` include source URL, retrieval timestamp, authority, content
+  hash, and fingerprint;
+- candidate evidence URLs must use `https` and stay inside the source descriptor's
+  `allowed_domains`; browser-ambiguous URLs with backslashes or control
+  characters and URLs with embedded userinfo are rejected;
+- candidate evidence authority must match the referenced source descriptor;
+- candidate `provider_refs`, `source_keys`, and evidence source keys must be
+  internally consistent;
+- candidate fingerprints are compact SHA-256 values; snapshot refs are bounded
+  identifiers, not raw source excerpts;
+- parser claims cannot persist arbitrary nested payloads or raw source excerpts;
+- `review_status` starts as `needs_review`;
+- `parser.contract_version` is `apw.candidate_parser.v0`;
+- `untrusted_input_policy` records that source content is inert data.
+
+Candidates may be committed for review, but they are not canonical provider
+facts until a maintainer promotes them into `data/events/`.
+
 Validate with:
 
 ```bash
