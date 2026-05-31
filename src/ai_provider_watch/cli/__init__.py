@@ -22,6 +22,7 @@ from ai_provider_watch.pipeline.candidates import (
     read_observation_bundle,
     write_candidate_files,
 )
+from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
 from ai_provider_watch.source_watch.http import (
     fetch_source,
     read_fingerprint_state,
@@ -190,6 +191,27 @@ def cmd_candidate_generate(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_candidate_review_pr_body(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    observations_path = _path_from_root(root, args.observations)
+    candidate_dir = _path_from_root(root, args.candidates)
+    validation_output = ""
+    if args.validation_output:
+        validation_output_path = _path_from_root(root, args.validation_output)
+        if not validation_output_path.exists():
+            print(f"validation output not found: {validation_output_path}", file=sys.stderr)
+            return 1
+        validation_output = validation_output_path.read_text(encoding="utf-8")
+    body = build_review_pr_body(
+        read_observation_bundle(observations_path),
+        read_candidate_files(candidate_dir),
+        root=root,
+        validation_output=validation_output,
+    )
+    sys.stdout.write(body)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="apw")
     parser.add_argument("--root", help="APW repository root")
@@ -245,6 +267,14 @@ def build_parser() -> argparse.ArgumentParser:
     candidate_generate_parser.add_argument("--clean", action="store_true")
     candidate_generate_parser.add_argument("--dry-run", action="store_true")
     candidate_generate_parser.set_defaults(func=cmd_candidate_generate)
+    candidate_review_body_parser = candidate_subparsers.add_parser(
+        "review-pr-body",
+        help="render a draft candidate-review PR body",
+    )
+    candidate_review_body_parser.add_argument("--observations", required=True)
+    candidate_review_body_parser.add_argument("--candidates", default="data/candidates/review")
+    candidate_review_body_parser.add_argument("--validation-output")
+    candidate_review_body_parser.set_defaults(func=cmd_candidate_review_pr_body)
     return parser
 
 

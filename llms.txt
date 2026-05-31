@@ -22,4 +22,5 @@ uv run apw latest
 uv run apw diff --since 7d
 uv run apw explain <event-id>
 uv run apw candidate generate --observations <observations.json> --output .apw/candidates --created-at <iso-date-time>
+uv run apw candidate review-pr-body --observations <observations.json> --candidates data/candidates/review
 ```

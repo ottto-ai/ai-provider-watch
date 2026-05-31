@@ -28,4 +28,5 @@ uv run pytest
 uv run apw validate
 uv run apw index --check
 uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
+uv run apw candidate review-pr-body --observations tests/fixtures/observations/candidate-observations.json --candidates .apw/candidates
 ```

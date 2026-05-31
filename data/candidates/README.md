@@ -17,6 +17,13 @@ Maintainers may copy reviewed candidates into a PR when they need durable review
 context. Promotion to `data/events/` requires explicit human review and
 `uv run apw validate`.
 
+The scheduled source-refresh workflow writes deterministic generated review
+output to `data/candidates/review` when changed official sources produce
+candidate claims. That directory is cleaned on each workflow run so stale
+candidate files are removed through the next draft review PR. These PRs are not
+data releases and must not be merged as event publication without separate
+maintainer promotion.
+
 Candidate files must not include raw source bodies, quoted provider prose,
 screenshots, or arbitrary nested parser payloads. Keep source material in
 external evidence and commit only hashes, URLs, timestamps, and bounded factual
@@ -30,3 +37,12 @@ must match the referenced source descriptor. Candidate `provider_refs`,
 `source_keys`, and evidence source keys must refer to the same descriptor set.
 Evidence metadata is bounded to hashes, compact snapshot references, timestamps,
 and URLs.
+
+Render a draft review PR body from observations and candidate files:
+
+```bash
+uv run apw candidate review-pr-body \
+  --observations .apw/source-observations.json \
+  --candidates data/candidates/review \
+  --validation-output .apw/candidate-review-validation.txt
+```

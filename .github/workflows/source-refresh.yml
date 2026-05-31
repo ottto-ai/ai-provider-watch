@@ -21,27 +21,52 @@ jobs:
       - run: uv sync --all-extras
       - run: uv run apw source test
       - run: uv run apw source fetch --write-state --observations .apw/source-observations.json
+      - name: Generate review candidates
+        run: |
+          created_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "$created_at" > .apw/candidate-created-at.txt
+          uv run apw candidate generate \
+            --observations .apw/source-observations.json \
+            --output data/candidates/review \
+            --created-at "$created_at" \
+            --clean \
+            > .apw/candidate-generation.json
       - run: uv run apw validate
       - run: uv run apw index --check
-      - name: Open refresh PR when fingerprints changed
+      - name: Build candidate review PR body
+        run: |
+          created_at="$(cat .apw/candidate-created-at.txt)"
+          {
+            echo "uv run apw source test: pass"
+            echo "uv run apw source fetch --write-state --observations .apw/source-observations.json: pass"
+            echo "uv run apw candidate generate --observations .apw/source-observations.json --output data/candidates/review --created-at ${created_at} --clean: pass"
+            echo "uv run apw validate: pass"
+            echo "uv run apw index --check: pass"
+          } > .apw/candidate-review-validation.txt
+          uv run apw candidate review-pr-body \
+            --observations .apw/source-observations.json \
+            --candidates data/candidates/review \
+            --validation-output .apw/candidate-review-validation.txt \
+            > .apw/candidate-review-pr-body.md
+      - name: Open candidate review PR when source state changed
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet; then
-            echo "No source fingerprint changes."
+          if [ -z "$(git status --porcelain -- data/source-state/fingerprints.json data/candidates)" ]; then
+            echo "No source fingerprint or candidate changes."
             exit 0
           fi
 
-          branch="data/source-refresh-$(date -u +%Y%m%d-%H%M%S)"
+          branch="data/candidate-review-$(date -u +%Y%m%d-%H%M%S)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
-          git add data/source-state/fingerprints.json
-          git commit -m "data: refresh source fingerprints"
+          git add data/source-state/fingerprints.json data/candidates
+          git commit -m "data: review source candidates"
           git push --set-upstream origin "$branch"
           gh pr create \
             --draft \
             --base main \
             --head "$branch" \
-            --title "data: refresh source fingerprints" \
-            --body "Deterministic official-source fingerprint refresh. Observations are workflow-local and raw source content is not committed."
+            --title "data: review source candidates" \
+            --body-file .apw/candidate-review-pr-body.md
