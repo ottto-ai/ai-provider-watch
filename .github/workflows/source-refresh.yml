@@ -1,0 +1,47 @@
+name: Source Refresh
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --all-extras
+      - run: uv run apw source test
+      - run: uv run apw source fetch --write-state --observations .apw/source-observations.json
+      - run: uv run apw validate
+      - run: uv run apw index --check
+      - name: Open refresh PR when fingerprints changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then
+            echo "No source fingerprint changes."
+            exit 0
+          fi
+
+          branch="data/source-refresh-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add data/source-state/fingerprints.json
+          git commit -m "data: refresh source fingerprints"
+          git push --set-upstream origin "$branch"
+          gh pr create \
+            --draft \
+            --base main \
+            --head "$branch" \
+            --title "data: refresh source fingerprints" \
+            --body "Deterministic official-source fingerprint refresh. Observations are workflow-local and raw source content is not committed."

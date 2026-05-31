@@ -1,22 +1,13 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
 from ai_provider_watch.core.io import event_paths, read_json
-
-
-@dataclass(frozen=True)
-class ValidationIssue:
-    path: str
-    message: str
-
-    def render(self) -> str:
-        return f"{self.path}: {self.message}"
-
+from ai_provider_watch.core.issues import ValidationIssue
+from ai_provider_watch.sources.registry import validate_source_packages
 
 SCHEMA_FILES = {
     "event": "event.schema.json",
@@ -151,6 +142,7 @@ def validate(root: Path) -> list[ValidationIssue]:
     issues.extend(registry_issues)
     source_issues, source_keys = _validate_sources(root, schemas["source"], known_refs["provider"])
     issues.extend(source_issues)
+    issues.extend(validate_source_packages(root))
 
     event_ids: set[str] = set()
     for event_path in event_paths(root):
