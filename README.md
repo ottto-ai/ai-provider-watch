@@ -44,6 +44,7 @@ This repository is in pre-release foundation work. The first PR establishes:
 uv sync --all-extras
 uv run apw validate
 uv run apw index --check
+uv run apw source test
 uv run apw latest
 ```
 
@@ -65,6 +66,19 @@ Generated artifacts live under `data/`:
 The normalized factual event data and generated feed artifacts are dedicated to
 the public domain under CC0-1.0. Code, schemas, docs, tests, and tooling are
 Apache-2.0.
+
+## Source Refresh
+
+Official source packages can be checked locally:
+
+```bash
+uv run apw source test
+uv run apw source fetch --source openai.status
+```
+
+The scheduled source-refresh workflow fetches enabled official sources, stores
+only fingerprints, and opens a draft PR when a source fingerprint changes. It
+does not publish provider events or commit raw source content.
 
 ## First Providers
 

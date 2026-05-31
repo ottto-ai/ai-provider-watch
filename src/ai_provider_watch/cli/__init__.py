@@ -16,6 +16,13 @@ from ai_provider_watch.core.feeds import (
 )
 from ai_provider_watch.core.io import repo_root, write_json_text
 from ai_provider_watch.core.validation import validate
+from ai_provider_watch.source_watch.http import (
+    fetch_source,
+    read_fingerprint_state,
+    write_fingerprint_state,
+    write_observations,
+)
+from ai_provider_watch.sources.registry import load_source_descriptors, validate_source_packages
 
 
 def _root(value: str | None) -> Path:
@@ -87,6 +94,52 @@ def cmd_explain(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_source_test(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    issues = validate_source_packages(root)
+    if issues:
+        for issue in issues:
+            print(issue.render(), file=sys.stderr)
+        return 1
+    packages = sorted((root / "sources").glob("*/source.json"))
+    print(f"ok: validated {len(packages)} source packages")
+    return 0
+
+
+def cmd_source_fetch(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    state_path = root / args.state
+    observations_path = root / args.observations if args.observations else None
+    previous_state = read_fingerprint_state(state_path)
+    sources = load_source_descriptors(root, enabled_only=True)
+    if args.source:
+        wanted = set(args.source)
+        sources = [source for source in sources if source.key in wanted]
+    observations = [
+        fetch_source(
+            source,
+            previous_state,
+            timeout=args.timeout,
+            limit_bytes=args.limit_bytes,
+        )
+        for source in sources
+    ]
+    if observations_path:
+        write_observations(observations_path, observations)
+    if args.write_state:
+        write_fingerprint_state(state_path, observations)
+
+    changed = [observation.source_key for observation in observations if observation.changed]
+    _print_json(
+        {
+            "source_count": len(observations),
+            "changed_source_keys": changed,
+            "state_path": str(state_path.relative_to(root)),
+        }
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="apw")
     parser.add_argument("--root", help="APW repository root")
@@ -108,6 +161,27 @@ def build_parser() -> argparse.ArgumentParser:
     explain_parser = subparsers.add_parser("explain", help="explain one event")
     explain_parser.add_argument("event_id")
     explain_parser.set_defaults(func=cmd_explain)
+
+    source_parser = subparsers.add_parser("source", help="source package and fetch commands")
+    source_subparsers = source_parser.add_subparsers(dest="source_command", required=True)
+    source_test_parser = source_subparsers.add_parser("test", help="validate source packages")
+    source_test_parser.set_defaults(func=cmd_source_test)
+    source_fetch_parser = source_subparsers.add_parser("fetch", help="fetch enabled official sources")
+    source_fetch_parser.add_argument(
+        "--state",
+        default="data/source-state/fingerprints.json",
+        help="fingerprint state path relative to repo root",
+    )
+    source_fetch_parser.add_argument(
+        "--observations",
+        default=".apw/source-observations.json",
+        help="observation output path relative to repo root",
+    )
+    source_fetch_parser.add_argument("--write-state", action="store_true")
+    source_fetch_parser.add_argument("--source", action="append", help="limit to a source key")
+    source_fetch_parser.add_argument("--timeout", type=float, default=20.0)
+    source_fetch_parser.add_argument("--limit-bytes", type=int, default=1_000_000)
+    source_fetch_parser.set_defaults(func=cmd_source_fetch)
     return parser
 
 
