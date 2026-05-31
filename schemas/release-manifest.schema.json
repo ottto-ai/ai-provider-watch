@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/release-manifest.schema.json",
+  "title": "ReleaseManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "release_id", "created_at", "schema_versions", "artifacts", "checksums"],
+  "properties": {
+    "schema_version": { "const": "apw.release_manifest.v0" },
+    "release_id": { "type": "string", "minLength": 3 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "schema_versions": { "type": "object", "additionalProperties": { "type": "string" } },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "media_type", "sha256", "bytes"],
+        "properties": {
+          "path": { "type": "string" },
+          "media_type": { "type": "string" },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "bytes": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "checksums": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" } },
+    "source_commit": { "type": ["string", "null"] },
+    "generated_by": { "type": ["string", "null"] },
+    "notes": { "type": ["string", "null"] }
+  }
+}

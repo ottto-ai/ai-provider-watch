@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/event.schema.json",
+  "title": "ProviderEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "event_kind",
+    "lifecycle_status",
+    "provider_refs",
+    "event_date",
+    "observed_at",
+    "summary",
+    "severity",
+    "confidence",
+    "source_authority",
+    "evidence_refs",
+    "impacts",
+    "detail"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.provider_event.v0" },
+    "id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-z0-9][a-z0-9-]*$" },
+    "title": { "type": "string", "minLength": 8, "maxLength": 140 },
+    "event_kind": { "$ref": "#/$defs/event_kind" },
+    "lifecycle_status": { "enum": ["candidate", "reviewed", "published", "superseded", "retracted", "rejected"] },
+    "provider_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/ref" }
+    },
+    "event_date": { "type": "string", "format": "date" },
+    "date_confidence": { "enum": ["exact", "approximate", "unknown"] },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "announced_at": { "type": ["string", "null"], "format": "date-time" },
+    "effective_at": { "type": ["string", "null"], "format": "date-time" },
+    "expires_at": { "type": ["string", "null"], "format": "date-time" },
+    "migration_deadline": { "type": ["string", "null"], "format": "date-time" },
+    "summary": { "type": "string", "minLength": 20, "maxLength": 420 },
+    "severity": { "$ref": "#/$defs/severity" },
+    "confidence": { "$ref": "#/$defs/confidence" },
+    "source_authority": { "$ref": "#/$defs/source_authority" },
+    "evidence_refs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidence_ref" } },
+    "impacts": { "type": "array", "minItems": 1, "items": { "type": "object" } },
+    "detail": { "type": "object" },
+    "supersedes": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "superseded_by": { "type": ["array", "null"], "uniqueItems": true, "items": { "type": "string" } },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$" }
+    },
+    "limitations": { "type": "array", "items": { "type": "string", "minLength": 3, "maxLength": 240 } }
+  },
+  "$defs": {
+    "ref": { "type": "string", "pattern": "^(provider|surface|model|app|plan|endpoint|sdk|gateway|region|account):[a-z0-9][a-z0-9_./-]*$" },
+    "event_kind": {
+      "enum": [
+        "pricing_change",
+        "quota_change",
+        "rate_limit_change",
+        "model_launch",
+        "model_deprecation",
+        "model_retirement",
+        "default_model_change",
+        "token_accounting_change",
+        "caching_change",
+        "billing_channel_change",
+        "api_contract_change",
+        "sdk_behavior_change",
+        "status_incident",
+        "status_recovery",
+        "subscription_change",
+        "terms_policy_change",
+        "regional_availability_change",
+        "workflow_behavior_change",
+        "catalog_correction"
+      ]
+    },
+    "severity": { "enum": ["info", "low", "medium", "high", "critical"] },
+    "confidence": { "enum": ["low", "medium", "high", "confirmed"] },
+    "source_authority": {
+      "enum": [
+        "official_pricing",
+        "official_docs",
+        "official_status",
+        "official_repo",
+        "official_blog",
+        "official_staff_social",
+        "community_hint",
+        "third_party_catalog",
+        "manual"
+      ]
+    },
+    "evidence_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_key", "url", "retrieved_at", "authority", "content_sha256"],
+      "properties": {
+        "source_key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]*[a-z0-9]$|^[a-z0-9]$" },
+        "url": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "authority": { "$ref": "#/$defs/source_authority" },
+        "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "snapshot_ref": { "type": ["string", "null"] },
+        "quoted_excerpt": { "type": "string", "maxLength": 360 },
+        "quote_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "selector": { "type": "string", "maxLength": 160 },
+        "license_note": { "type": "string", "maxLength": 240 }
+      }
+    }
+  }
+}

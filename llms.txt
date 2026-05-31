@@ -1,0 +1,24 @@
+# AI Provider Watch
+
+AI Provider Watch publishes a machine-readable provider-change event feed for AI
+developer cost, quota, token accounting, model availability, defaults,
+deprecations, incidents, API contracts, and migration risk.
+
+Start here:
+
+- README: /README.md
+- Architecture: /docs/architecture.md
+- Event schema: /docs/schema/event.md
+- Agent consumption: /docs/agent-consumption.md
+- Contribution rules: /CONTRIBUTING.md
+- Root agent guide: /AGENTS.md
+
+Core commands:
+
+```bash
+uv run apw validate
+uv run apw index --check
+uv run apw latest
+uv run apw diff --since 7d
+uv run apw explain <event-id>
+```

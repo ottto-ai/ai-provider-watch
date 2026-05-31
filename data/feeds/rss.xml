@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>AI Provider Watch</title>
+    <link>https://github.com/ottto-ai/ai-provider-watch</link>
+    <description>Reviewed AI-provider change events.</description>
+  </channel>
+</rss>

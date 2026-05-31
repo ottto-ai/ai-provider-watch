@@ -1,0 +1,21 @@
+name: RFC
+description: Propose a larger APW design or governance change.
+title: "rfc: "
+labels: ["rfc", "needs-triage"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Tradeoffs

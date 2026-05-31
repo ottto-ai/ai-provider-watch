@@ -1,0 +1,17 @@
+name: Schema change
+description: Propose an event, impact, source, observation, or manifest schema change.
+title: "schema: "
+labels: ["schema", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+    validations:
+      required: true

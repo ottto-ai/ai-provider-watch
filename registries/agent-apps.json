@@ -1,0 +1,14 @@
+{
+  "schema_version": "apw.agent_apps.v0",
+  "agent_apps": [
+    {"id": "codex", "display_name": "Codex", "aliases": ["OpenAI Codex"], "maintainer": "OpenAI", "surface_kind": "coding_agent", "provider_dependency_mode": "subscription", "default_provider_refs": ["provider:openai"], "known_model_refs": [], "config_file_hints": ["AGENTS.md", ".codex/"], "evidence_refs": []},
+    {"id": "claude-code", "display_name": "Claude Code", "aliases": ["Claude Code"], "maintainer": "Anthropic", "surface_kind": "coding_agent", "provider_dependency_mode": "subscription", "default_provider_refs": ["provider:anthropic"], "known_model_refs": [], "config_file_hints": ["CLAUDE.md", ".claude/"], "evidence_refs": []},
+    {"id": "pi", "display_name": "Pi", "aliases": ["Pi"], "maintainer": "unknown", "surface_kind": "local_agent", "provider_dependency_mode": "mixed", "default_provider_refs": [], "known_model_refs": [], "config_file_hints": [], "evidence_refs": []},
+    {"id": "openclaw", "display_name": "OpenClaw", "aliases": ["OpenClo"], "maintainer": "community", "surface_kind": "local_agent", "provider_dependency_mode": "bring_your_own_key", "default_provider_refs": [], "known_model_refs": [], "config_file_hints": [], "evidence_refs": []},
+    {"id": "nanoclaw", "display_name": "NanoClaw", "aliases": ["NanoClo"], "maintainer": "community", "surface_kind": "local_agent", "provider_dependency_mode": "bring_your_own_key", "default_provider_refs": [], "known_model_refs": [], "config_file_hints": [], "evidence_refs": []},
+    {"id": "hermes", "display_name": "Hermes", "aliases": ["Hermes"], "maintainer": "community", "surface_kind": "local_agent", "provider_dependency_mode": "mixed", "default_provider_refs": [], "known_model_refs": [], "config_file_hints": [], "evidence_refs": []},
+    {"id": "cursor", "display_name": "Cursor", "aliases": ["Cursor"], "maintainer": "Anysphere", "surface_kind": "coding_agent", "provider_dependency_mode": "subscription", "default_provider_refs": [], "known_model_refs": [], "config_file_hints": [".cursor/"], "evidence_refs": []},
+    {"id": "copilot", "display_name": "GitHub Copilot", "aliases": ["Copilot"], "maintainer": "GitHub", "surface_kind": "coding_agent", "provider_dependency_mode": "subscription", "default_provider_refs": [], "known_model_refs": [], "config_file_hints": [".github/"], "evidence_refs": []},
+    {"id": "litellm", "display_name": "LiteLLM", "aliases": ["LiteLLM"], "maintainer": "BerriAI", "surface_kind": "gateway", "provider_dependency_mode": "gateway", "default_provider_refs": [], "known_model_refs": [], "config_file_hints": ["litellm.yaml", "config.yaml"], "evidence_refs": []}
+  ]
+}

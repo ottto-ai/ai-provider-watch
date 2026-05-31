@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/observation.schema.json",
+  "title": "Observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_key", "retrieved_at", "final_url", "http_status", "content_type", "content_sha256", "fingerprint", "changed"],
+  "properties": {
+    "schema_version": { "const": "apw.observation.v0" },
+    "source_key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]*[a-z0-9]$|^[a-z0-9]$" },
+    "retrieved_at": { "type": "string", "format": "date-time" },
+    "final_url": { "type": "string", "format": "uri" },
+    "http_status": { "type": "integer", "minimum": 100, "maximum": 599 },
+    "content_type": { "type": ["string", "null"] },
+    "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "fingerprint": { "type": "string", "minLength": 8 },
+    "changed": { "type": "boolean" },
+    "items": { "type": "array", "items": { "type": "object" } },
+    "raw_excerpt_hashes": { "type": "array", "items": { "type": "string", "pattern": "^[a-f0-9]{64}$" } },
+    "candidate_claims": { "type": "array", "items": { "type": "string" } },
+    "errors": { "type": "array", "items": { "type": "string" } },
+    "snapshot_ref": { "type": ["string", "null"] }
+  }
+}

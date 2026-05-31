@@ -1,0 +1,36 @@
+name: New source
+description: Propose a provider source descriptor or source package.
+title: "source: "
+labels: ["source", "needs-triage"]
+body:
+  - type: input
+    id: provider
+    attributes:
+      label: Provider
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Source URL
+    validations:
+      required: true
+  - type: dropdown
+    id: authority
+    attributes:
+      label: Source authority
+      options:
+        - official_pricing
+        - official_docs
+        - official_status
+        - official_repo
+        - official_blog
+        - official_staff_social
+        - community_hint
+        - third_party_catalog
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes

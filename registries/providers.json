@@ -1,0 +1,45 @@
+{
+  "schema_version": "apw.providers.v0",
+  "providers": [
+    {
+      "id": "openai",
+      "display_name": "OpenAI",
+      "aliases": ["OpenAI API", "ChatGPT"],
+      "official_domains": ["openai.com", "platform.openai.com", "status.openai.com"],
+      "provider_kind": "foundation_model_provider",
+      "homepage_url": "https://openai.com/"
+    },
+    {
+      "id": "anthropic",
+      "display_name": "Anthropic",
+      "aliases": ["Claude", "Claude API"],
+      "official_domains": ["anthropic.com", "docs.anthropic.com", "status.anthropic.com"],
+      "provider_kind": "foundation_model_provider",
+      "homepage_url": "https://www.anthropic.com/"
+    },
+    {
+      "id": "google",
+      "display_name": "Google Gemini / Vertex AI",
+      "aliases": ["Gemini", "Vertex AI", "Google AI"],
+      "official_domains": ["google.com", "cloud.google.com", "ai.google.dev"],
+      "provider_kind": "foundation_model_provider",
+      "homepage_url": "https://ai.google.dev/"
+    },
+    {
+      "id": "aws-bedrock",
+      "display_name": "AWS Bedrock",
+      "aliases": ["Amazon Bedrock", "Bedrock"],
+      "official_domains": ["aws.amazon.com", "docs.aws.amazon.com"],
+      "provider_kind": "cloud_provider",
+      "homepage_url": "https://aws.amazon.com/bedrock/"
+    },
+    {
+      "id": "azure-openai",
+      "display_name": "Azure OpenAI",
+      "aliases": ["Azure AI Foundry OpenAI", "Azure OpenAI Service"],
+      "official_domains": ["azure.microsoft.com", "learn.microsoft.com"],
+      "provider_kind": "cloud_provider",
+      "homepage_url": "https://azure.microsoft.com/products/ai-services/openai-service"
+    }
+  ]
+}

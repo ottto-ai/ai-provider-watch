@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    {
+      "bytes": 3,
+      "media_type": "application/json",
+      "path": "data/feeds/events.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "bytes": 0,
+      "media_type": "application/x-ndjson",
+      "path": "data/feeds/events.ndjson",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3,
+      "media_type": "application/json",
+      "path": "data/feeds/latest.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "bytes": 258,
+      "media_type": "application/rss+xml",
+      "path": "data/feeds/rss.xml",
+      "sha256": "736d0e623f0d3d8d64ee5d87f7338399dd5b8b3a7a13c4301c05d76dd6cc24aa"
+    },
+    {
+      "bytes": 354,
+      "media_type": "text/plain",
+      "path": "data/releases/dev/checksums.txt",
+      "sha256": "76707ca852ab325d0b88ede84733229f0144147982e35dd5e169a84ea86f2e2b"
+    }
+  ],
+  "checksums": {
+    "data/feeds/events.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "data/feeds/events.ndjson": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/feeds/latest.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "data/feeds/rss.xml": "736d0e623f0d3d8d64ee5d87f7338399dd5b8b3a7a13c4301c05d76dd6cc24aa",
+    "data/releases/dev/checksums.txt": "76707ca852ab325d0b88ede84733229f0144147982e35dd5e169a84ea86f2e2b"
+  },
+  "created_at": "1970-01-01T00:00:00Z",
+  "generated_by": "ai-provider-watch 0.1.0a0",
+  "notes": "Deterministic development manifest.",
+  "release_id": "dev",
+  "schema_version": "apw.release_manifest.v0",
+  "schema_versions": {
+    "event": "apw.provider_event.v0",
+    "event_detail": "apw.event_detail.v0",
+    "release_manifest": "apw.release_manifest.v0"
+  },
+  "source_commit": null
+}

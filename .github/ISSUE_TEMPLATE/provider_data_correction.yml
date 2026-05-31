@@ -1,0 +1,25 @@
+name: Provider data correction
+description: Report a factual correction to a provider event, source, or registry row.
+title: "data: "
+labels: ["data", "needs-triage"]
+body:
+  - type: textarea
+    id: correction
+    attributes:
+      label: Correction
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Source URLs
+      description: Include official source URLs when possible.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: I did not include credentials, private billing pages, cookies, or authenticated-console screenshots.
+          required: true
