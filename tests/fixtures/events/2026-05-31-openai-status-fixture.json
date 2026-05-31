@@ -1,0 +1,50 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-31-openai-status-fixture",
+  "title": "OpenAI Status Incident Fixture",
+  "event_kind": "status_incident",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai"],
+  "event_date": "2026-05-31",
+  "date_confidence": "exact",
+  "observed_at": "2026-05-31T00:00:00Z",
+  "summary": "Fixture event used to validate APW status incident schema behavior without publishing production data.",
+  "severity": "medium",
+  "confidence": "high",
+  "source_authority": "official_status",
+  "evidence_refs": [
+    {
+      "source_key": "openai.status",
+      "url": "https://status.openai.com/feed.atom",
+      "retrieved_at": "2026-05-31T00:00:00Z",
+      "authority": "official_status",
+      "content_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "license_note": "Fixture metadata only."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider",
+      "scope_ref": "provider:openai",
+      "impact_kind": "availability",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "high",
+      "api_usage_impact": "possible",
+      "who_should_care": ["platform_engineers", "reliability_engineers"],
+      "recommended_action": "Use this fixture only for schema and CLI regression tests."
+    }
+  ],
+  "detail": {
+    "kind": "status_incident",
+    "schema_version": "apw.event_detail.v0",
+    "provider_incident_id": "fixture",
+    "status": "resolved",
+    "started_at": "2026-05-31T00:00:00Z",
+    "resolved_at": "2026-05-31T00:10:00Z",
+    "components": ["api"],
+    "raw_status": "fixture"
+  },
+  "tags": ["source:official_status", "surface:api", "impact:availability_loss"],
+  "limitations": ["Fixture event is not part of the public feed."]
+}

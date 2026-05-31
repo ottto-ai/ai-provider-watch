@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-provider-watch"
+version = "0.1.0a0"
+description = "Open provider-change event feed for AI platform teams and agents."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "AI Provider Watch maintainers" }]
+keywords = ["ai", "providers", "pricing", "quotas", "finops", "agents"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+  "jsonschema>=4.23",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "ruff>=0.5.0",
+]
+
+[project.scripts]
+apw = "ai_provider_watch.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ottto-ai/ai-provider-watch"
+Repository = "https://github.com/ottto-ai/ai-provider-watch"
+Issues = "https://github.com/ottto-ai/ai-provider-watch/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

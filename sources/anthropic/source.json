@@ -1,0 +1,1 @@
+{"schema_version": "apw.source_package.v0", "provider_ref": "provider:anthropic", "source_keys": ["anthropic.pricing", "anthropic.status"], "status": "descriptor_shell", "fixtures": []}

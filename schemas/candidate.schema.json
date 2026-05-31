@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/candidate.schema.json",
+  "title": "FindingCandidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "source_keys", "claim_text", "candidate_kind", "evidence_refs", "created_at", "review_status"],
+  "properties": {
+    "schema_version": { "const": "apw.finding_candidate.v0" },
+    "id": { "type": "string", "minLength": 8 },
+    "source_keys": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "claim_text": { "type": "string", "minLength": 10, "maxLength": 2000 },
+    "candidate_kind": { "type": "string", "minLength": 3 },
+    "evidence_refs": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "created_at": { "type": "string", "format": "date-time" },
+    "review_status": { "enum": ["worth_a_look", "needs_review", "promoted", "rejected", "duplicate"] },
+    "suggested_detail": { "type": "object" },
+    "suggested_impacts": { "type": "array", "items": { "type": "object" } },
+    "llm_notes": { "type": ["string", "null"] },
+    "dedupe_key": { "type": ["string", "null"] }
+  }
+}
