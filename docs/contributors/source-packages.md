@@ -61,3 +61,12 @@ Provider-specific parser fixtures should cover:
 - empty/no-change observations;
 - malformed observation handling;
 - prompt-injection text treated as inert data.
+
+## Candidate Review Automation
+
+The daily workflow uses the same contract to create draft candidate-review PRs
+when official-source fingerprints change. A source package should therefore keep
+candidate output deterministic: stable IDs, stable `candidate_kind`, stable
+source/provider refs, and no raw provider content. The generated PR body lists
+observation counts, source keys, candidate file paths, validation output, and the
+review checklist, but it does not quote source page text or candidate claim text.

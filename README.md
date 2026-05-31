@@ -38,6 +38,7 @@ establishes:
   `apw explain` commands;
 - deterministic `apw candidate generate` command for review-only findings
   derived from source observations;
+- deterministic candidate-review PR body generation for daily source changes;
 - read-only MCP package shell;
 - CI and data-release dry-run workflow shell.
 
@@ -49,6 +50,7 @@ uv run apw validate
 uv run apw index --check
 uv run apw source test
 uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
+uv run apw candidate review-pr-body --observations tests/fixtures/observations/candidate-observations.json --candidates .apw/candidates
 uv run apw latest
 ```
 
@@ -81,8 +83,9 @@ uv run apw source fetch --source openai.status
 ```
 
 The scheduled source-refresh workflow fetches enabled official sources, stores
-only fingerprints, and opens a draft PR when a source fingerprint changes. It
-does not publish provider events or commit raw source content.
+only fingerprints, generates review candidates when parser claims exist, and
+opens a draft candidate-review PR when source state or candidate files change.
+It does not publish provider events or commit raw source content.
 
 Review candidates are separate from published events:
 
@@ -96,6 +99,15 @@ uv run apw candidate generate \
 Candidate files are maintainer-review input. Promotion to `data/events/` remains
 manual until parser precision, prompt-injection, and review-gate tests are
 strong enough.
+
+Render the same draft PR body used by automation:
+
+```bash
+uv run apw candidate review-pr-body \
+  --observations .apw/source-observations.json \
+  --candidates data/candidates/review \
+  --validation-output .apw/candidate-review-validation.txt
+```
 
 ## First Providers
 
