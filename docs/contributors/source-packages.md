@@ -32,9 +32,10 @@ uv run apw source test
 uv run apw validate
 ```
 
-Phase 2 source refresh uses fingerprints only. Raw source bodies are fetched,
-hashed, and discarded; the scheduled workflow commits only
-`data/source-state/fingerprints.json` when an enabled source changes.
+Phase 2 source refresh uses fingerprints plus sanitized parser output. Raw
+source bodies are fetched, parsed into bounded metadata, hashed, and discarded.
+The scheduled workflow commits only `data/source-state/fingerprints.json` and
+generated review candidates when an enabled source changes.
 
 ## Candidate Fixtures
 
@@ -43,6 +44,13 @@ metadata and parser-produced `candidate_claims`. They must not copy provider
 pages or execute source text. `candidate_claims` may carry only bounded
 `claim_text` plus an optional `candidate_kind`; raw excerpts, screenshots, HTML,
 JSON payloads, and arbitrary nested parser output are rejected by schema.
+
+The first parser layer is deliberately conservative. It emits a generic review
+claim when an official source fingerprint changes and, for Atom status feeds,
+stores hashed entry identifiers/titles plus timestamps rather than copied feed
+text. Provider-specific parsers should add richer factual extraction only when
+fixtures prove the output is deterministic, bounded, source-linked, and free of
+raw provider prose.
 
 Run the contract fixture:
 

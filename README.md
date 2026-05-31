@@ -100,6 +100,10 @@ Candidate files are maintainer-review input. Promotion to `data/events/` remains
 manual until parser precision, prompt-injection, and review-gate tests are
 strong enough.
 
+Current parser output is conservative by design: changed official sources create
+generic maintainer-review claims, and Atom status feeds expose hashed entry
+metadata instead of copied provider text.
+
 Render the same draft PR body used by automation:
 
 ```bash

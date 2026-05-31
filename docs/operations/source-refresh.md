@@ -39,7 +39,8 @@ source content must not receive release tokens.
 
 The daily workflow now builds a draft candidate-review PR after source refresh:
 
-1. fetch enabled official sources and update fingerprint state;
+1. fetch enabled official sources, parse sanitized observation metadata, and
+   update fingerprint state;
 2. clean and regenerate review-only candidates in `data/candidates/review`;
 3. run `apw validate` and `apw index --check`;
 4. render a PR body with observation counts, changed source keys, candidate
@@ -52,3 +53,7 @@ Candidate JSON can include bounded factual `claim_text`, but those files are not
 published events and require maintainer review before promotion to `data/events`.
 Because `data/candidates/review` is generated workflow output, each run replaces
 its JSON files instead of preserving stale candidates.
+
+Parser output is intentionally narrow at this stage. Changed official sources
+produce generic maintainer-review claims, and Atom status feeds expose hashed
+entry metadata instead of copied titles or feed bodies.
