@@ -13,12 +13,55 @@
     "http_status": { "type": "integer", "minimum": 100, "maximum": 599 },
     "content_type": { "type": ["string", "null"] },
     "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
-    "fingerprint": { "type": "string", "minLength": 8 },
+    "fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "changed": { "type": "boolean" },
     "items": { "type": "array", "items": { "type": "object" } },
     "raw_excerpt_hashes": { "type": "array", "items": { "type": "string", "pattern": "^[a-f0-9]{64}$" } },
-    "candidate_claims": { "type": "array", "items": { "type": "string" } },
+    "candidate_claims": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string", "minLength": 10, "maxLength": 2000 },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["claim_text"],
+            "properties": {
+              "claim_text": { "type": "string", "minLength": 10, "maxLength": 2000 },
+              "candidate_kind": {
+                "enum": [
+                  "api_contract_change",
+                  "billing_channel_change",
+                  "caching_change",
+                  "catalog_correction",
+                  "default_model_change",
+                  "model_deprecation",
+                  "model_launch",
+                  "model_retirement",
+                  "pricing_change",
+                  "quota_change",
+                  "rate_limit_change",
+                  "regional_availability_change",
+                  "sdk_behavior_change",
+                  "status_incident",
+                  "status_recovery",
+                  "subscription_change",
+                  "terms_policy_change",
+                  "token_accounting_change",
+                  "workflow_behavior_change",
+                  "unknown"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
     "errors": { "type": "array", "items": { "type": "string" } },
-    "snapshot_ref": { "type": ["string", "null"] }
+    "snapshot_ref": {
+      "type": ["string", "null"],
+      "maxLength": 240,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/@+-]{0,239}$"
+    }
   }
 }

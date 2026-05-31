@@ -64,6 +64,36 @@ Official provider-controlled sources can support reviewed publication after
 deterministic validation. Social, community, and third-party sources can create
 review candidates, but they do not publish canonical events unattended.
 
+## Candidate Pipeline
+
+`FindingCandidate` records are review packets, not facts. The deterministic
+candidate contract consumes observation metadata and parser-produced
+`candidate_claims`; it does not execute source text or treat provider prose as
+instructions. Candidate claims are deliberately narrow: bounded claim text plus
+an optional kind. Arbitrary nested parser output is not persisted. Candidate IDs
+are stable over source key, fingerprint, and claim text so refresh PRs can
+dedupe noisy source changes. Duplicate candidate IDs fail generation instead of
+overwriting review files, and default writes refuse to clobber existing
+candidate files. Evidence URLs must use `https` and match the source descriptor's
+`allowed_domains`; off-domain observation URLs are rejected instead of being
+labeled with official authority.
+Fingerprints are persisted only as SHA-256 values, and snapshot references are
+bounded identifiers rather than raw source payloads.
+
+Candidate files carry:
+
+- source keys and provider refs;
+- normalized claim text;
+- candidate kind;
+- evidence refs with source URL, retrieval timestamp, authority, content hash,
+  and fingerprint;
+- parser name and contract version;
+- review status and dedupe key;
+- an explicit untrusted-input policy.
+
+Promotion from candidate to `ProviderEvent` remains a maintainer-reviewed PR
+step.
+
 ## MCP Posture
 
 The MCP package is read-only by default. Publishing, source mutation, release

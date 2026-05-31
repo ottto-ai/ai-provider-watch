@@ -27,7 +27,8 @@ schemas, CLI, and docs are usable without an Ottto account.
 
 ## Current Status
 
-This repository is in pre-release foundation work. The first PR establishes:
+This repository is in pre-release foundation work. Current merged work
+establishes:
 
 - community, governance, security, and mixed-license files;
 - root/path-scoped agent instructions;
@@ -35,6 +36,8 @@ This repository is in pre-release foundation work. The first PR establishes:
 - provider, surface, model, and agent-app registries;
 - deterministic `apw validate`, `apw index`, `apw latest`, `apw diff`, and
   `apw explain` commands;
+- deterministic `apw candidate generate` command for review-only findings
+  derived from source observations;
 - read-only MCP package shell;
 - CI and data-release dry-run workflow shell.
 
@@ -45,6 +48,7 @@ uv sync --all-extras
 uv run apw validate
 uv run apw index --check
 uv run apw source test
+uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 uv run apw latest
 ```
 
@@ -79,6 +83,19 @@ uv run apw source fetch --source openai.status
 The scheduled source-refresh workflow fetches enabled official sources, stores
 only fingerprints, and opens a draft PR when a source fingerprint changes. It
 does not publish provider events or commit raw source content.
+
+Review candidates are separate from published events:
+
+```bash
+uv run apw candidate generate \
+  --observations .apw/source-observations.json \
+  --output .apw/candidates \
+  --created-at 2026-05-31T20:15:00Z
+```
+
+Candidate files are maintainer-review input. Promotion to `data/events/` remains
+manual until parser precision, prompt-injection, and review-gate tests are
+strong enough.
 
 ## First Providers
 

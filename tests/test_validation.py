@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+import shutil
 from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
@@ -21,3 +23,34 @@ def test_fixture_event_matches_schema() -> None:
     assert not list(Draft202012Validator(schemas["event_detail"], format_checker=FormatChecker()).iter_errors(event["detail"]))
     for impact in event["impacts"]:
         assert not list(Draft202012Validator(schemas["impact"], format_checker=FormatChecker()).iter_errors(impact))
+
+
+def test_validate_reports_malformed_source_descriptor_without_crashing(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    registry_path = tmp_path / "sources" / "registry.json"
+    registry = read_json(registry_path)
+    del registry["sources"][0]["allowed_domains"]
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("allowed_domains" in issue for issue in issues)
+
+
+def test_validate_reports_malformed_source_domain_item_without_crashing(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    registry_path = tmp_path / "sources" / "registry.json"
+    registry = read_json(registry_path)
+    for source in registry["sources"]:
+        if source["key"] == "openai.status":
+            source["allowed_domains"] = [123]
+            break
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("allowed_domains" in issue for issue in issues)

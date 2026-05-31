@@ -11,6 +11,7 @@ Core data model:
 - typed `EventDetail` union;
 - repeatable `ImpactAssessment` rows;
 - source-backed `EvidenceRef` rows;
+- review-only `FindingCandidate` records between observations and events;
 - separate provider, provider-surface, model, source, and agent-app registries.
 
 Security:
@@ -26,4 +27,5 @@ Validation:
 uv run pytest
 uv run apw validate
 uv run apw index --check
+uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 ```

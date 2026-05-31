@@ -5,9 +5,14 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
-from ai_provider_watch.core.io import event_paths, read_json
+from ai_provider_watch.core.io import candidate_paths, event_paths, read_json
 from ai_provider_watch.core.issues import ValidationIssue
-from ai_provider_watch.sources.registry import validate_source_packages
+from ai_provider_watch.core.temporal import is_rfc3339_date_time
+from ai_provider_watch.sources.registry import (
+    is_url_allowed_for_source,
+    load_source_descriptors,
+    validate_source_packages,
+)
 
 SCHEMA_FILES = {
     "event": "event.schema.json",
@@ -129,6 +134,29 @@ def _known_ref(ref: str, known_refs: dict[str, set[str]]) -> bool:
     return ref in known_refs.get(kind, set())
 
 
+def _candidate_time_issues(path: Path, candidate: dict[str, Any]) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    created_at = candidate.get("created_at")
+    if isinstance(created_at, str) and not is_rfc3339_date_time(created_at):
+        issues.append(ValidationIssue(str(path), "candidate created_at must be RFC 3339 date-time"))
+
+    evidence_refs = candidate.get("evidence_refs", [])
+    if not isinstance(evidence_refs, list):
+        return issues
+    for index, evidence in enumerate(evidence_refs):
+        if not isinstance(evidence, dict):
+            continue
+        retrieved_at = evidence.get("retrieved_at")
+        if isinstance(retrieved_at, str) and not is_rfc3339_date_time(retrieved_at):
+            issues.append(
+                ValidationIssue(
+                    str(path),
+                    f"candidate evidence_refs.{index}.retrieved_at must be RFC 3339 date-time",
+                )
+            )
+    return issues
+
+
 def validate(root: Path) -> list[ValidationIssue]:
     schemas = load_schemas(root)
     issues: list[ValidationIssue] = []
@@ -143,6 +171,9 @@ def validate(root: Path) -> list[ValidationIssue]:
     source_issues, source_keys = _validate_sources(root, schemas["source"], known_refs["provider"])
     issues.extend(source_issues)
     issues.extend(validate_source_packages(root))
+    sources_by_key = {
+        source.key: source for source in load_source_descriptors(root, enabled_only=False)
+    }
 
     event_ids: set[str] = set()
     for event_path in event_paths(root):
@@ -170,6 +201,112 @@ def validate(root: Path) -> list[ValidationIssue]:
             scope_ref = impact.get("scope_ref")
             if isinstance(scope_ref, str) and ":" in scope_ref and not _known_ref(scope_ref, known_refs):
                 issues.append(ValidationIssue(str(event_path), f"unknown impact scope {scope_ref}"))
+
+    candidate_ids: set[str] = set()
+    for candidate_path in candidate_paths(root):
+        candidate = read_json(candidate_path)
+        issues.extend(_issues(candidate_path, candidate, schemas["candidate"], "candidate"))
+        if not isinstance(candidate, dict):
+            continue
+        issues.extend(_candidate_time_issues(candidate_path, candidate))
+        candidate_id = candidate.get("id")
+        if isinstance(candidate_id, str):
+            if candidate_id in candidate_ids:
+                issues.append(ValidationIssue(str(candidate_path), f"duplicate candidate id {candidate_id}"))
+            candidate_ids.add(candidate_id)
+        candidate_provider_refs = candidate.get("provider_refs", [])
+        if isinstance(candidate_provider_refs, list):
+            for provider_ref in candidate_provider_refs:
+                if isinstance(provider_ref, str) and not _known_ref(provider_ref, known_refs):
+                    issues.append(
+                        ValidationIssue(str(candidate_path), f"unknown provider ref {provider_ref}")
+                    )
+        candidate_source_keys = candidate.get("source_keys", [])
+        candidate_source_key_values: set[str] = set()
+        if isinstance(candidate_source_keys, list):
+            for source_key in candidate_source_keys:
+                if isinstance(source_key, str) and source_key not in source_keys:
+                    issues.append(
+                        ValidationIssue(
+                            str(candidate_path), f"unknown candidate source key {source_key}"
+                        )
+                    )
+                if isinstance(source_key, str):
+                    candidate_source_key_values.add(source_key)
+        candidate_evidence_refs = candidate.get("evidence_refs", [])
+        candidate_evidence_source_key_values: set[str] = set()
+        if isinstance(candidate_evidence_refs, list):
+            for evidence in candidate_evidence_refs:
+                if not isinstance(evidence, dict):
+                    continue
+                evidence_source_key = evidence.get("source_key")
+                if isinstance(evidence_source_key, str):
+                    candidate_evidence_source_key_values.add(evidence_source_key)
+                if (
+                    isinstance(evidence_source_key, str)
+                    and candidate_source_key_values
+                    and evidence_source_key not in candidate_source_key_values
+                ):
+                    issues.append(
+                        ValidationIssue(
+                            str(candidate_path),
+                            f"candidate evidence source key {evidence_source_key} is not declared in source_keys",
+                        )
+                    )
+                if not isinstance(evidence_source_key, str):
+                    continue
+                if evidence_source_key not in source_keys:
+                    issues.append(
+                        ValidationIssue(
+                            str(candidate_path),
+                            f"unknown candidate evidence source key {evidence_source_key}",
+                        )
+                    )
+                    continue
+                evidence_source = sources_by_key.get(evidence_source_key)
+                evidence_url = evidence.get("url")
+                if (
+                    evidence_source is not None
+                    and isinstance(evidence_url, str)
+                    and not is_url_allowed_for_source(evidence_url, evidence_source)
+                ):
+                    issues.append(
+                        ValidationIssue(
+                            str(candidate_path),
+                            f"candidate evidence url is outside allowed domains for {evidence_source.key}: {evidence_url}",
+                        )
+                    )
+                if evidence_source is not None and evidence.get("authority") != evidence_source.authority:
+                    issues.append(
+                        ValidationIssue(
+                            str(candidate_path),
+                            f"candidate evidence authority does not match source {evidence_source.key}: {evidence.get('authority')}",
+                        )
+                    )
+        if candidate_source_key_values != candidate_evidence_source_key_values:
+            issues.append(
+                ValidationIssue(
+                    str(candidate_path),
+                    "candidate source_keys must match evidence source keys",
+                )
+            )
+        allowed_candidate_provider_refs: set[str] = set()
+        for source_key in candidate_evidence_source_key_values:
+            source = sources_by_key.get(source_key)
+            if source is not None:
+                allowed_candidate_provider_refs.update(source.provider_refs)
+        if allowed_candidate_provider_refs and isinstance(candidate_provider_refs, list):
+            for provider_ref in candidate_provider_refs:
+                if (
+                    isinstance(provider_ref, str)
+                    and provider_ref not in allowed_candidate_provider_refs
+                ):
+                    issues.append(
+                        ValidationIssue(
+                            str(candidate_path),
+                            f"candidate provider ref {provider_ref} is not declared by candidate evidence sources",
+                        )
+                    )
 
     manifest_path = root / "data" / "releases" / "dev" / "manifest.json"
     if manifest_path.exists():
