@@ -25,6 +25,9 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
     assert "permissions:\n  contents: read" in workflow
     assert "contents: write" not in workflow
     assert "id-token: write" not in workflow
+    assert "secrets." not in workflow
+    assert "gh release" not in workflow
+    assert "git tag" not in workflow
     assert "uv build --out-dir .apw/dist" in workflow
     assert "uv lock --check" in workflow
     assert "uv venv .apw/install-smoke --python 3.12 --seed" in workflow
@@ -39,5 +42,26 @@ def test_dependency_review_workflow_is_read_only() -> None:
 
     assert "workflow_dispatch:" in workflow
     assert "pull_request:" not in workflow
+    assert "base_ref:" in workflow
+    assert "head_ref:" in workflow
     assert "permissions:\n  contents: read\n  pull-requests: read" in workflow
-    assert "actions/dependency-review-action@v4" in workflow
+    assert "contents: write" not in workflow
+    assert "pull-requests: write" not in workflow
+    assert "id-token: write" not in workflow
+    assert "secrets." not in workflow
+    assert "pull_request_target:" not in workflow
+    assert "actions/dependency-review-action@v5" in workflow
+    assert "base-ref: ${{ inputs.base_ref }}" in workflow
+    assert "head-ref: ${{ inputs.head_ref }}" in workflow
+
+
+def test_source_refresh_workflow_has_no_release_token_path() -> None:
+    workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
+
+    assert "permissions:\n  contents: write\n  pull-requests: write" in workflow
+    assert "gh pr create" in workflow
+    assert "secrets." not in workflow
+    assert "id-token: write" not in workflow
+    assert "gh release" not in workflow
+    assert "git tag" not in workflow
+    assert "pull_request_target:" not in workflow

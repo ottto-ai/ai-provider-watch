@@ -34,6 +34,8 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert result.failed_checks == []
     assert result.report["release_id"] == "data-2026.06.01"
     assert result.report["source_commit"] == DUMMY_SHA
+    assert "uv lock --check" in result.report["validation_commands"]
+    assert "actionlint .github/workflows/*.yml" in result.report["validation_commands"]
     assert result.report_path.exists()
     report = json.loads(result.report_path.read_text(encoding="utf-8"))
     assert {check["name"] for check in report["checks"]} >= {
@@ -47,7 +49,17 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
         "codeql_workflow",
         "dependency_review_workflow",
         "release_workflow_guardrails",
+        "source_refresh_token_boundary",
         "dry_run_report_schema",
+    }
+    assert {check["name"] for check in report["external_required_checks"]} == {
+        "Artifact checksum review",
+        "Branch protection",
+        "CI test workflow",
+        "CodeQL analyze workflow",
+        "CodeQL code-scanning analysis",
+        "Dependency Review",
+        "Release token separation",
     }
     manifest_path = (
         result.output_dir

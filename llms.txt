@@ -11,6 +11,7 @@ Start here:
 - Event schema: /docs/schema/event.md
 - Agent consumption: /docs/agent-consumption.md
 - Source packages: /docs/contributors/source-packages.md
+- Release gates: /docs/operations/release-gates.md
 - Contribution rules: /CONTRIBUTING.md
 - Root agent guide: /AGENTS.md
 

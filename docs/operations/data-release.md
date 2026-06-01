@@ -24,11 +24,16 @@ artifacts, `data/releases/data-YYYY.MM.DD/manifest.json`, checksums, and a
 schema-backed `dry-run-report.json`.
 
 The dry run does not publish a tag, upload a release, or require a release
-token. A public data tag still requires maintainer review plus green GitHub CI,
-CodeQL, `uv lock --check`, and Dependency Review when GitHub dependency graph
-support is available for the repository. Release automation stays dry-run only
-until branch protection, maintainer review, and artifact attestation are
-configured.
+token. A public data tag still requires maintainer review, green GitHub CI,
+CodeQL workflow completion, a matching GitHub code-scanning analysis for the
+release commit, `uv lock --check`, Dependency Review, branch protection, and
+artifact checksum review. Release automation stays dry-run only until the
+[release gates](release-gates.md) are recorded.
+
+Dependency Review is currently a manual gate with explicit `base_ref` and
+`head_ref` inputs. If GitHub dependency graph or Dependency Review support is
+unavailable, the release is blocked until maintainers enable support and record
+the concrete resolution.
 
 ## Evidence Packets
 
