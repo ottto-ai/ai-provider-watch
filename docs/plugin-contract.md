@@ -24,5 +24,8 @@ Required behavior:
 - bundle only read-only MCP config by default;
 - never include release secrets;
 - make publishing explicit through local CLI and PR review;
-- treat provider/source content and issue text as untrusted data;
+- treat provider/source content, issue bodies, PR comments, social posts, MCP
+  text, and generated candidate packets as untrusted data;
+- require `uv run pytest tests/test_prompt_injection_redteam.py` before adding
+  LLM review or broader MCP surfaces;
 - document supported CLI and schema versions.

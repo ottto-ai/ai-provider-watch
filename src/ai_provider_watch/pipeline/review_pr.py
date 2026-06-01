@@ -1,11 +1,20 @@
 from __future__ import annotations
 
+import re
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from ai_provider_watch.core.io import read_json
+from ai_provider_watch.core.untrusted import contains_prompt_injection_marker
+from ai_provider_watch.pipeline.candidates import KNOWN_CANDIDATE_KINDS
+
+CANDIDATE_ID_PATTERN = re.compile(r"^candidate-[a-z0-9][a-z0-9-]*-[a-f0-9]{16}$")
+SOURCE_KEY_PATTERN = re.compile(r"^[a-z0-9][a-z0-9_.-]*[a-z0-9]$|^[a-z0-9]$")
+PROVIDER_REF_PATTERN = re.compile(r"^provider:[a-z0-9][a-z0-9_-]*$")
+RELATIVE_JSON_PATH_PATTERN = re.compile(r"^(?:[A-Za-z0-9._+-]+/)*[A-Za-z0-9._+-]+\.json$")
+FINGERPRINT_PATTERN = re.compile(r"^[a-f0-9]{64}$")
 
 
 @dataclass(frozen=True)
@@ -52,9 +61,62 @@ def _changed_source_keys(bundle: Any, observations: list[dict[str, Any]]) -> lis
 
 def _candidate_path(path: Path, root: Path) -> str:
     try:
-        return path.relative_to(root).as_posix()
+        rendered = path.relative_to(root).as_posix()
     except ValueError:
-        return path.as_posix()
+        rendered = path.as_posix()
+    if contains_prompt_injection_marker(rendered):
+        return "<invalid-path>"
+    return rendered if RELATIVE_JSON_PATH_PATTERN.fullmatch(rendered) else "<invalid-path>"
+
+
+def _safe_scalar(value: Any, pattern: re.Pattern[str], fallback: str) -> str:
+    if not isinstance(value, str):
+        return fallback
+    if contains_prompt_injection_marker(value):
+        return fallback
+    return value if pattern.fullmatch(value) else fallback
+
+
+def _safe_values(value: Any, pattern: re.Pattern[str]) -> str:
+    if not isinstance(value, list):
+        return "<invalid>"
+    safe = [_safe_scalar(item, pattern, "<invalid>") for item in value]
+    return ", ".join(safe) if safe else "<empty>"
+
+
+def _safe_candidate_kind(value: Any) -> str:
+    if not isinstance(value, str):
+        return "<invalid-kind>"
+    if contains_prompt_injection_marker(value):
+        return "<invalid-kind>"
+    return value if value in KNOWN_CANDIDATE_KINDS else "<invalid-kind>"
+
+
+def _safe_source_key(value: Any) -> str:
+    return _safe_scalar(value, SOURCE_KEY_PATTERN, "<invalid-source>")
+
+
+def _safe_fingerprint_prefix(value: Any) -> str:
+    if not isinstance(value, str) or not FINGERPRINT_PATTERN.fullmatch(value):
+        return "`<invalid>`"
+    return f"`{value[:12]}`"
+
+
+def _safe_http_status(value: Any) -> str:
+    if isinstance(value, int) and 100 <= value <= 599:
+        return str(value)
+    if isinstance(value, str) and value.isdigit():
+        status = int(value)
+        if 100 <= status <= 599:
+            return value
+    return "<invalid>"
+
+
+def _safe_validation_output(value: str) -> str:
+    output = value.strip() or "Validation output was not supplied."
+    if contains_prompt_injection_marker(output):
+        return "Validation output omitted because it contained prompt-like text."
+    return output
 
 
 def _candidate_rows(candidate_files: list[CandidateFile], root: Path) -> list[str]:
@@ -69,10 +131,10 @@ def _candidate_rows(candidate_files: list[CandidateFile], root: Path) -> list[st
             + " | ".join(
                 [
                     _candidate_path(candidate_file.path, root),
-                    str(candidate.get("id", "<missing>")),
-                    str(candidate.get("candidate_kind", "<missing>")),
-                    ", ".join(source_keys) if isinstance(source_keys, list) else "<invalid>",
-                    ", ".join(provider_refs) if isinstance(provider_refs, list) else "<invalid>",
+                    _safe_scalar(candidate.get("id"), CANDIDATE_ID_PATTERN, "<invalid-id>"),
+                    _safe_candidate_kind(candidate.get("candidate_kind")),
+                    _safe_values(source_keys, SOURCE_KEY_PATTERN),
+                    _safe_values(provider_refs, PROVIDER_REF_PATTERN),
                     str(len(evidence_refs) if isinstance(evidence_refs, list) else 0),
                 ]
             )
@@ -96,10 +158,8 @@ def build_review_pr_body(
         candidate = candidate_file.payload
         for source_key in candidate.get("source_keys", []):
             if isinstance(source_key, str):
-                candidate_count_by_source[source_key] += 1
-        candidate_kind = candidate.get("candidate_kind")
-        if isinstance(candidate_kind, str):
-            candidate_count_by_kind[candidate_kind] += 1
+                candidate_count_by_source[_safe_source_key(source_key)] += 1
+        candidate_count_by_kind[_safe_candidate_kind(candidate.get("candidate_kind"))] += 1
 
     lines = [
         "# Candidate Review",
@@ -118,7 +178,7 @@ def build_review_pr_body(
         "",
     ]
     if changed_source_keys:
-        lines.extend([f"- `{source_key}`" for source_key in changed_source_keys])
+        lines.extend([f"- `{_safe_source_key(source_key)}`" for source_key in changed_source_keys])
     else:
         lines.append("- None reported.")
 
@@ -132,20 +192,19 @@ def build_review_pr_body(
         ]
     )
     for observation in observations:
-        source_key = str(observation.get("source_key", "<missing>"))
+        source_key = _safe_source_key(observation.get("source_key"))
         claims = observation.get("candidate_claims", [])
         errors = observation.get("errors", [])
-        fingerprint = str(observation.get("fingerprint", ""))
         lines.append(
             "| "
             + " | ".join(
                 [
                     f"`{source_key}`",
                     "yes" if observation.get("changed") is True else "no",
-                    str(observation.get("http_status", "<missing>")),
+                    _safe_http_status(observation.get("http_status")),
                     str(len(claims) if isinstance(claims, list) else 0),
                     str(len(errors) if isinstance(errors, list) else 0),
-                    f"`{fingerprint[:12]}`" if fingerprint else "`<missing>`",
+                    _safe_fingerprint_prefix(observation.get("fingerprint")),
                 ]
             )
             + " |"
@@ -175,7 +234,7 @@ def build_review_pr_body(
             "## Validation",
             "",
             "```text",
-            validation_output.strip() or "Validation output was not supplied.",
+            _safe_validation_output(validation_output),
             "```",
             "",
             "## Reviewer Checklist",
