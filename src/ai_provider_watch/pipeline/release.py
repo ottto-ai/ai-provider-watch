@@ -169,6 +169,8 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
         [
             "workflow_dispatch:",
             "contents: read",
+            "id-token: write",
+            "attestations: write",
             "uv lock --check",
             "uv run pytest",
             "uv run apw source test",
@@ -176,6 +178,9 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
             "uv run apw index --check",
             "uv build --out-dir .apw/dist",
             "--require-clean",
+            "apw-release-dry-run.tgz",
+            "actions/attest@v4",
+            "subject-path: .apw/apw-release-dry-run.tgz",
             "actions/upload-artifact@v4",
         ],
     )
@@ -183,7 +188,6 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
         workflow,
         [
             "contents: write",
-            "id-token: write",
             "secrets.",
             "gh release",
             "git tag",
@@ -192,7 +196,7 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
     )
     passed = bool(workflow) and not missing and not forbidden
     if passed:
-        details = "release workflow is dry-run only, read-only, package-install checked, and artifact-only"
+        details = "release workflow is dry-run only, package-install checked, and attests its evidence bundle without release publishing authority"
     else:
         details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
     return _check("release_workflow_guardrails", passed, details)
@@ -227,7 +231,12 @@ def _external_release_gates() -> list[dict[str, str]]:
         {
             "name": "Branch protection",
             "status": "required",
-            "details": "Main must require PR review and required status checks before a public data tag is cut.",
+            "details": "Main must be protected by a branch rule or ruleset that requires PRs and required status checks before a public data tag is cut.",
+        },
+        {
+            "name": "Maintainer release approval",
+            "status": "required",
+            "details": "A listed release manager must approve the source commit, dry-run report, checksums, and release notes.",
         },
         {
             "name": "CI test workflow",
@@ -250,9 +259,24 @@ def _external_release_gates() -> list[dict[str, str]]:
             "details": "Dependency Review must pass in a manual base/head run before release after repository dependency graph support is enabled.",
         },
         {
+            "name": "Repository security settings",
+            "status": "required",
+            "details": "Dependency graph, Dependabot security updates, secret scanning, and push protection should be enabled or a maintainer must record why a setting is unavailable.",
+        },
+        {
             "name": "Artifact checksum review",
             "status": "required",
             "details": "Maintainers must compare dry-run manifest and checksums.txt hashes before publishing.",
+        },
+        {
+            "name": "Artifact attestation verification",
+            "status": "required",
+            "details": "Maintainers must verify the attested dry-run evidence bundle before using it as release evidence.",
+        },
+        {
+            "name": "Signed data tag",
+            "status": "required",
+            "details": "The public data tag must be signed by a release manager or created by a protected publisher after the publisher exists.",
         },
         {
             "name": "Release token separation",
@@ -260,6 +284,72 @@ def _external_release_gates() -> list[dict[str, str]]:
             "details": "No release token may be available to source-refresh, candidate-generation, or untrusted-content jobs.",
         },
     ]
+
+
+def _source_ownership_check(root: Path) -> ReleaseCheck:
+    owners_path = root / "SOURCE_OWNERS.md"
+    maintainers_path = root / "MAINTAINERS.md"
+    registry_path = root / "sources" / "registry.json"
+    missing_files = [
+        str(path.relative_to(root))
+        for path in [owners_path, maintainers_path, registry_path]
+        if not path.exists()
+    ]
+    if missing_files:
+        return _check("source_ownership", False, f"missing files: {', '.join(missing_files)}")
+
+    owners_text = owners_path.read_text(encoding="utf-8")
+    maintainers_text = maintainers_path.read_text(encoding="utf-8")
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    sources = registry.get("sources", [])
+    source_keys = sorted(source["key"] for source in sources)
+    missing_keys = [key for key in source_keys if f"`{key}`" not in owners_text]
+    role_keys = sorted({role for source in sources for role in source.get("maintainers", [])})
+    missing_roles = [
+        role
+        for role in role_keys
+        if role not in owners_text or role not in maintainers_text
+    ]
+    passed = not missing_keys and not missing_roles
+    if passed:
+        details = f"{len(source_keys)} source keys and {len(role_keys)} maintainer role keys have documented owners"
+    else:
+        parts = []
+        if missing_keys:
+            parts.append(f"missing source keys: {', '.join(missing_keys)}")
+        if missing_roles:
+            parts.append(f"missing role keys: {', '.join(missing_roles)}")
+        details = "; ".join(parts)
+    return _check("source_ownership", passed, details)
+
+
+def _maintainer_release_docs_check(root: Path) -> ReleaseCheck:
+    required_phrases = {
+        "GOVERNANCE.md": ["release manager", "source owner", "required status checks"],
+        "MAINTAINERS.md": ["apw-release-managers", "apw-data-maintainers"],
+        "ROADMAP.md": ["v0.1", "daily CalVer", "release gates"],
+        "SOURCE_OWNERS.md": ["Source owner", "openai.pricing"],
+        "docs/operations/repository-settings.md": ["branch protection", "Dependency Review", "gh api"],
+        "docs/operations/release-gates.md": ["gh attestation verify", "release manager"],
+        "docs/operations/data-release.md": ["data-YYYY.MM.DD", "attestation"],
+    }
+    failures: list[str] = []
+    for relative_path, phrases in required_phrases.items():
+        path = root / relative_path
+        if not path.exists():
+            failures.append(f"{relative_path}: missing")
+            continue
+        text = path.read_text(encoding="utf-8")
+        missing = [phrase for phrase in phrases if phrase not in text]
+        if missing:
+            failures.append(f"{relative_path}: missing {', '.join(missing)}")
+    return _check(
+        "maintainer_release_docs",
+        not failures,
+        "maintainer, source-owner, roadmap, repository-settings, and release docs are present"
+        if not failures
+        else "; ".join(failures),
+    )
 
 
 def _license_check(root: Path) -> ReleaseCheck:
@@ -464,6 +554,8 @@ def run_release_dry_run(
     checks.append(_dependency_review_workflow_check(root))
     checks.append(_release_workflow_guardrails_check(root))
     checks.append(_source_refresh_token_boundary_check(root))
+    checks.append(_source_ownership_check(root))
+    checks.append(_maintainer_release_docs_check(root))
 
     report = {
         "schema_version": RELEASE_DRY_RUN_SCHEMA_VERSION,

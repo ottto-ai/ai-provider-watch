@@ -40,6 +40,24 @@ New source packages must include:
 - allowed-domain and authority metadata.
 
 See [docs/contributors/source-packages.md](docs/contributors/source-packages.md).
+Every source key must also be covered in [SOURCE_OWNERS.md](SOURCE_OWNERS.md)
+before it can be used for automation or reviewed event evidence.
+
+## Release-Affecting Changes
+
+Workflow, release, data-feed, source-authority, and schema changes need extra
+care because downstream projects may consume APW feeds automatically.
+
+For those PRs:
+
+- keep the PR small enough for a release manager to audit;
+- update release docs and the public [ROADMAP.md](ROADMAP.md) when the release
+  contract changes;
+- run `uv run apw release dry-run --output .apw/release-dry-run`;
+- do not add release credentials, tags, or OIDC permissions to source refresh,
+  candidate generation, LLM review, MCP, issue, or PR-comment workflows;
+- document any branch protection, Dependency Review, artifact attestation, or
+  repository-setting blocker in the PR body.
 
 ## Schema Changes
 

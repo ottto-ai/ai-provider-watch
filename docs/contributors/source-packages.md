@@ -17,6 +17,7 @@ sources/openai/
 Acceptance rules:
 
 - descriptor has a stable `key`;
+- every source key is listed in [SOURCE_OWNERS.md](../../SOURCE_OWNERS.md);
 - source authority is declared;
 - allowed domains are explicit;
 - source automation posture is explicit;
