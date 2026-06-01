@@ -3,6 +3,11 @@
 /schemas/ @RonShub
 /sources/ @RonShub
 /data/ @RonShub
+SOURCE_OWNERS.md @RonShub
+ROADMAP.md @RonShub
+MAINTAINERS.md @RonShub
+GOVERNANCE.md @RonShub
+/docs/operations/ @RonShub
 /.github/workflows/ @RonShub
 /.github/CODEOWNERS @RonShub
 /LICENSES/ @RonShub

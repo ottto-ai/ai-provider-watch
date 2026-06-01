@@ -14,3 +14,5 @@
 - [ ] Provider/source content treated as untrusted data
 - [ ] Candidate files are review-only and contain no raw provider prose
 - [ ] Generated feeds and indexes updated when event data changed
+- [ ] `SOURCE_OWNERS.md` updated when source keys or source owner roles changed
+- [ ] Release-manager, branch-protection, Dependency Review, checksum, and attestation blockers documented when release workflows or generated data changed

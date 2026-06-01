@@ -47,6 +47,8 @@ establishes:
 - ecosystem mapping payloads for LiteLLM, models.dev, Langfuse, Helicone, and
   OpenLIT through `apw ecosystem render`;
 - a repo-root Codex plugin package with APW skills and read-only MCP config;
+- public maintainer roles, source-owner mapping, release-manager gates, and a
+  roadmap for v0.1 through v1.0;
 - a first reviewed canonical event seed set for OpenAI, Anthropic, Google
   Vertex AI, AWS Bedrock, and Azure OpenAI;
 - synthetic parser fixtures for status feeds, Statuspage-style status pages,
@@ -92,9 +94,10 @@ Generated artifacts live under `data/`:
 
 Release dry runs use CalVer IDs such as `data-2026.06.01`, build
 release-shaped artifacts under ignored `.apw/`, verify manifest checksums,
-license layout, dependency lock presence, workflow token boundaries, and
-required GitHub CI, CodeQL/code-scanning, Dependency Review, branch-protection,
-and artifact-review gates without publishing a tag.
+license layout, dependency lock presence, workflow token boundaries, source
+ownership, maintainer release docs, and required GitHub CI,
+CodeQL/code-scanning, Dependency Review, branch-protection, artifact-review,
+and attestation gates without publishing a tag.
 
 The normalized factual event data and generated feed artifacts are dedicated to
 the public domain under CC0-1.0. Code, schemas, docs, tests, and tooling are
@@ -209,6 +212,10 @@ change. Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
 For source packages, see
 [docs/contributors/source-packages.md](docs/contributors/source-packages.md).
+Source ownership is tracked in [SOURCE_OWNERS.md](SOURCE_OWNERS.md), release
+settings are tracked in
+[docs/operations/repository-settings.md](docs/operations/repository-settings.md),
+and roadmap priorities are tracked in [ROADMAP.md](ROADMAP.md).
 
 ## License
 

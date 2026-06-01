@@ -50,16 +50,22 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
         "dependency_review_workflow",
         "release_workflow_guardrails",
         "source_refresh_token_boundary",
+        "source_ownership",
+        "maintainer_release_docs",
         "dry_run_report_schema",
     }
     assert {check["name"] for check in report["external_required_checks"]} == {
         "Artifact checksum review",
+        "Artifact attestation verification",
         "Branch protection",
         "CI test workflow",
         "CodeQL analyze workflow",
         "CodeQL code-scanning analysis",
         "Dependency Review",
+        "Maintainer release approval",
+        "Repository security settings",
         "Release token separation",
+        "Signed data tag",
     }
     manifest_path = (
         result.output_dir

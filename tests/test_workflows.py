@@ -22,9 +22,8 @@ def test_source_refresh_workflow_cleans_generated_review_candidates() -> None:
 def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() -> None:
     workflow = (ROOT / ".github/workflows/release-data.yml").read_text(encoding="utf-8")
 
-    assert "permissions:\n  contents: read" in workflow
+    assert "permissions:\n  contents: read\n  id-token: write\n  attestations: write" in workflow
     assert "contents: write" not in workflow
-    assert "id-token: write" not in workflow
     assert "secrets." not in workflow
     assert "gh release" not in workflow
     assert "git tag" not in workflow
@@ -34,6 +33,9 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
     assert "python -m pip install .apw/dist/*.whl" in workflow
     assert "apw --root \"$PWD\" release dry-run" in workflow
     assert "--require-clean" in workflow
+    assert "apw-release-dry-run.tgz" in workflow
+    assert "actions/attest@v4" in workflow
+    assert "subject-path: .apw/apw-release-dry-run.tgz" in workflow
     assert "actions/upload-artifact@v4" in workflow
 
 
