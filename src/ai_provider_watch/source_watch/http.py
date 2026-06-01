@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from ai_provider_watch.core.io import read_json, write_json_text
+from ai_provider_watch.source_watch.parsers import ParsedSourcePayload, parse_source_payload
 from ai_provider_watch.sources.registry import SourceDescriptor
 
 USER_AGENT = "ai-provider-watch-source-refresh/0.1"
@@ -25,6 +26,7 @@ class SourceObservation:
     content_sha256: str
     fingerprint: str
     changed: bool
+    parsed: ParsedSourcePayload
 
     def to_json(self) -> dict[str, Any]:
         return {
@@ -37,11 +39,11 @@ class SourceObservation:
             "content_sha256": self.content_sha256,
             "fingerprint": self.fingerprint,
             "changed": self.changed,
-            "items": [],
-            "raw_excerpt_hashes": [],
-            "candidate_claims": [],
-            "errors": [],
-            "snapshot_ref": None,
+            "items": self.parsed.items,
+            "raw_excerpt_hashes": self.parsed.raw_excerpt_hashes,
+            "candidate_claims": self.parsed.candidate_claims,
+            "errors": self.parsed.errors,
+            "snapshot_ref": self.parsed.snapshot_ref,
         }
 
 
@@ -97,6 +99,8 @@ def fetch_source(
     content_sha = _sha256(raw)
     fingerprint = _sha256(normalize_bytes(raw))
     previous = previous_state.get("sources", {}).get(source.key, {}).get("fingerprint")
+    changed = previous != fingerprint
+    parsed = parse_source_payload(source, raw, changed=changed)
     return SourceObservation(
         source_key=source.key,
         retrieved_at=retrieved_at,
@@ -105,7 +109,8 @@ def fetch_source(
         content_type=content_type,
         content_sha256=content_sha,
         fingerprint=fingerprint,
-        changed=previous != fingerprint,
+        changed=changed,
+        parsed=parsed,
     )
 
 
