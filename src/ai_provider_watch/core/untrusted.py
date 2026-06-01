@@ -29,4 +29,5 @@ PROMPT_INJECTION_PATTERN = re.compile(
 
 
 def contains_prompt_injection_marker(value: str) -> bool:
-    return PROMPT_INJECTION_PATTERN.search(value) is not None
+    normalized = re.sub(r"[\s_-]+", " ", value.lower())
+    return PROMPT_INJECTION_PATTERN.search(value) is not None or PROMPT_INJECTION_PATTERN.search(normalized) is not None

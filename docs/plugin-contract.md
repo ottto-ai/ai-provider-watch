@@ -31,4 +31,7 @@ Required behavior:
 - use `apw review request` as the model-pluggable review contract for Codex or
   Vertex Gemini Flash; the plugin must not bundle merge, publish, source-write,
   release-token, OIDC, or tag authority;
+- bind only the tested read-only MCP adapter helpers from
+  `ai_provider_watch.mcp`; plugin packaging must fail if MCP exposes publish,
+  merge, source-write, release-token, OIDC, or tag capabilities;
 - document supported CLI and schema versions.
