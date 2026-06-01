@@ -1,1 +1,21 @@
-{"schema_version": "apw.source_package.v0", "provider_ref": "provider:anthropic", "source_keys": ["anthropic.pricing", "anthropic.status"], "status": "descriptor_shell", "fixtures": ["fixtures/expected-sources.json"]}
+{
+  "schema_version": "apw.source_package.v0",
+  "provider_ref": "provider:anthropic",
+  "source_keys": ["anthropic.pricing", "anthropic.status"],
+  "status": "parser_fixtures",
+  "fixtures": ["fixtures/expected-sources.json"],
+  "parser_fixtures": [
+    {
+      "source_key": "anthropic.pricing",
+      "input": "fixtures/pricing.html",
+      "expected": "fixtures/pricing.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "anthropic.status",
+      "input": "fixtures/status.html",
+      "expected": "fixtures/status.expected.json",
+      "changed": true
+    }
+  ]
+}

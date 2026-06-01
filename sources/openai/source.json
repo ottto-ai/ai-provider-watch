@@ -6,6 +6,12 @@
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [
     {
+      "source_key": "openai.pricing",
+      "input": "fixtures/pricing.html",
+      "expected": "fixtures/pricing.expected.json",
+      "changed": true
+    },
+    {
       "source_key": "openai.status",
       "input": "fixtures/status-feed.atom",
       "expected": "fixtures/status-feed.expected.json",

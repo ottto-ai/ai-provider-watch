@@ -55,11 +55,12 @@ Because `data/candidates/review` is generated workflow output, each run replaces
 its JSON files instead of preserving stale candidates.
 
 Parser output is intentionally narrow at this stage. Changed official sources
-produce generic maintainer-review claims, and Atom status feeds expose hashed
-entry metadata instead of copied titles or feed bodies. Provider model-doc
-parsers for Google Gemini docs and Azure OpenAI docs
-extract only allowlisted model identifier shapes after parser fixtures prove the
-output is deterministic. The parser fixture command is:
+produce generic maintainer-review claims. Atom and Statuspage-style status
+sources expose hashed refs and timestamps instead of copied titles or incident
+text. Provider model-doc parsers extract only allowlisted model identifier
+shapes, and pricing parsers emit bounded pricing/model signals such as
+input/output, cached input, cache write/hit, batch, priority, regional, and
+provisioned-throughput markers. The parser fixture command is:
 
 ```bash
 uv run apw source test

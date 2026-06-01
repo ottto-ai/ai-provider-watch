@@ -39,6 +39,9 @@ establishes:
 - deterministic `apw candidate generate` command for review-only findings
   derived from source observations;
 - deterministic candidate-review PR body generation for daily source changes;
+- synthetic parser fixtures for status feeds, Statuspage-style status pages,
+  model-doc identifiers, pricing signals, and AWS Bedrock model-card display
+  refs;
 - read-only MCP package shell;
 - CI and data-release dry-run workflow shell.
 
@@ -101,11 +104,13 @@ manual until parser precision, prompt-injection, and review-gate tests are
 strong enough.
 
 Current parser output is conservative by design: changed official sources create
-generic maintainer-review claims, and Atom status feeds expose hashed entry
-metadata instead of copied provider text. Provider model-doc parsers currently
-extract only bounded model identifiers from synthetic fixture-proven patterns;
-surrounding headings, descriptions, and page prose remain untrusted and are not
-copied.
+generic maintainer-review claims; Atom and Statuspage-style status sources
+expose hashes/timestamps instead of copied incident text; model-doc parsers
+extract only bounded model identifiers; and pricing parsers emit bounded
+pricing/model signals such as input/output, cached input, batch, priority,
+regional, and provisioned-throughput markers. Surrounding headings,
+descriptions, issue bodies, PR comments, social text, and page prose remain
+untrusted and are not copied.
 
 Render the same draft PR body used by automation:
 

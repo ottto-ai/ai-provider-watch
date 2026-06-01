@@ -46,11 +46,13 @@ pages or execute source text. `candidate_claims` may carry only bounded
 JSON payloads, and arbitrary nested parser output are rejected by schema.
 
 The first parser layer is deliberately conservative. It emits a generic review
-claim when an official source fingerprint changes and, for Atom status feeds,
-stores hashed entry identifiers/titles plus timestamps rather than copied feed
-text. Provider-specific parsers should add richer factual extraction only when
-fixtures prove the output is deterministic, bounded, source-linked, and free of
-raw provider prose.
+claim when an official source fingerprint changes; for Atom and
+Statuspage-style status sources it stores hashes/timestamps rather than copied
+incident text; for model docs it stores bounded model identifiers; and for
+pricing pages it stores bounded pricing/model signals rather than copied
+pricing-table prose. Provider-specific parsers should add richer factual
+extraction only when fixtures prove the output is deterministic, bounded,
+source-linked, and free of raw provider prose.
 
 Run the contract fixture:
 
@@ -88,9 +90,10 @@ Provider-specific parser fixtures should cover:
 `apw source test` runs those fixtures and compares the full sanitized parser
 payload exactly. Fixture inputs must be synthetic or minimal excerpts created
 for APW tests; do not commit real provider pages. Expected payloads may include
-bounded factual identifiers such as model IDs, hashes, RFC3339 timestamps, and
-templated candidate claims. They must not include copied provider headings,
-descriptions, incident titles, PR comments, issue bodies, or prompt-like text.
+bounded factual identifiers such as model IDs, pricing signal enums, hashes,
+RFC3339 timestamps, and templated candidate claims. They must not include copied
+provider headings, descriptions, incident titles, pricing-table prose, PR
+comments, issue bodies, or prompt-like text.
 
 ## Candidate Review Automation
 

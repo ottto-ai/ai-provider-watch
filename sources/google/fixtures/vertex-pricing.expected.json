@@ -1,0 +1,27 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "google.vertex_pricing",
+  "changed": true,
+  "expected": {
+    "items": [
+      {"kind": "model_ref", "model_id": "claude-3.5-haiku", "source_parser": "google_vertex_pricing"},
+      {"kind": "model_ref", "model_id": "gemini-2.5-pro", "source_parser": "google_vertex_pricing"},
+      {"kind": "model_ref", "model_id": "gpt-oss-120b", "source_parser": "google_vertex_pricing"},
+      {"kind": "pricing_signal", "signal": "batch", "source_parser": "google_vertex_pricing"},
+      {"kind": "pricing_signal", "signal": "cache_hit", "source_parser": "google_vertex_pricing"},
+      {"kind": "pricing_signal", "signal": "cache_write", "source_parser": "google_vertex_pricing"},
+      {"kind": "pricing_signal", "signal": "input_tokens", "source_parser": "google_vertex_pricing"},
+      {"kind": "pricing_signal", "signal": "output_tokens", "source_parser": "google_vertex_pricing"},
+      {"kind": "pricing_signal", "signal": "token_unit", "source_parser": "google_vertex_pricing"}
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "pricing_change",
+        "claim_text": "Google Gemini/Vertex pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}

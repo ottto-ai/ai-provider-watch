@@ -2,4 +2,5 @@
 
 OpenAI pricing and status sources. The status Atom parser has synthetic fixture
 coverage that hashes entry title/id values and keeps source prose out of parser
-payloads.
+payloads. The pricing parser emits bounded pricing/model signals from synthetic
+fixture-proven patterns.

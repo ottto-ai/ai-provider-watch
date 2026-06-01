@@ -20,6 +20,9 @@ Security:
 - Never expose release secrets to source-fetch or contributor-controlled jobs.
 - Use PR review for all publication.
 - MCP tools are read-only by default.
+- Parser fixtures cover status-feed hashing, Statuspage-style incident-link
+  hashing, bounded model identifiers, bounded pricing/model signals, and
+  candidate-review claims without copying provider prose.
 
 Validation:
 

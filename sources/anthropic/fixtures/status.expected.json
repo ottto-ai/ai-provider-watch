@@ -1,0 +1,28 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "anthropic.status",
+  "changed": true,
+  "expected": {
+    "items": [
+      {
+        "kind": "status_incident_ref",
+        "href_sha256": "93d37dbb7a6345f6db13950976b40a1e305867ed32fbadeeabc1d1c7dd8857fd",
+        "source_parser": "statuspage_html"
+      },
+      {
+        "kind": "status_timestamp",
+        "timestamp": "2026-05-31T18:30:00Z",
+        "source_parser": "statuspage_html"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "status_incident",
+        "claim_text": "Anthropic status source changed and needs maintainer review for possible incident or recovery changes."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}
