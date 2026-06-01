@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/ecosystem-mapping.schema.json",
+  "title": "EcosystemMapping",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "source",
+    "target",
+    "filters",
+    "event_count",
+    "records",
+    "untrusted_input_policy",
+    "delivery_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.ecosystem_mapping.v0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "source": { "$ref": "#/$defs/source" },
+    "target": { "$ref": "#/$defs/target" },
+    "filters": { "$ref": "#/$defs/filters" },
+    "event_count": { "type": "integer", "minimum": 0 },
+    "records": { "type": "array", "items": { "$ref": "#/$defs/record" } },
+    "untrusted_input_policy": { "type": "string", "minLength": 40, "maxLength": 400 },
+    "delivery_boundary": { "const": "mapping_only_no_third_party_api_calls" }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "url", "license"],
+      "properties": {
+        "name": { "const": "AI Provider Watch" },
+        "url": { "type": "string", "format": "uri" },
+        "license": { "const": "CC0-1.0" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "display_name", "category", "url", "strategy"],
+      "properties": {
+        "id": { "enum": ["litellm", "models-dev", "langfuse", "helicone", "openlit"] },
+        "display_name": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "category": { "enum": ["gateway", "model_catalog", "observability"] },
+        "url": { "type": "string", "format": "uri" },
+        "strategy": {
+          "enum": [
+            "gateway_config_annotation",
+            "catalog_annotation",
+            "trace_event_annotation",
+            "request_property_annotation",
+            "otel_attribute_annotation"
+          ]
+        }
+      }
+    },
+    "filters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["since", "risk", "provider", "kind", "event_id", "limit"],
+      "properties": {
+        "since": { "type": "string", "minLength": 2, "maxLength": 20 },
+        "risk": { "type": ["string", "null"], "enum": ["info", "low", "medium", "high", "critical", null] },
+        "provider": { "type": ["string", "null"], "maxLength": 120 },
+        "kind": { "type": ["string", "null"], "maxLength": 80 },
+        "event_id": { "type": ["string", "null"], "maxLength": 160 },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 100 }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event", "lookup", "mapping"],
+      "properties": {
+        "event": { "$ref": "#/$defs/event" },
+        "lookup": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "provider_refs",
+            "model_refs",
+            "replacement_refs",
+            "target_model_ids",
+            "impact_scope_refs"
+          ],
+          "properties": {
+            "provider_refs": { "type": "array", "items": { "type": "string" } },
+            "model_refs": { "type": "array", "items": { "type": "string" } },
+            "replacement_refs": { "type": "array", "items": { "type": "string" } },
+            "target_model_ids": { "type": "array", "items": { "type": "string" } },
+            "impact_scope_refs": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["strategy"],
+          "properties": {
+            "strategy": {
+              "enum": [
+                "gateway_config_annotation",
+                "catalog_annotation",
+                "trace_event_annotation",
+                "request_property_annotation",
+                "otel_attribute_annotation"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "event_kind",
+        "lifecycle_status",
+        "event_date",
+        "observed_at",
+        "effective_at",
+        "migration_deadline",
+        "severity",
+        "confidence",
+        "source_authority",
+        "provider_refs",
+        "summary",
+        "detail_refs",
+        "impacts",
+        "evidence_refs"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "title": { "type": "string", "minLength": 8, "maxLength": 140 },
+        "event_kind": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "lifecycle_status": { "type": "string", "minLength": 3, "maxLength": 40 },
+        "event_date": { "type": "string", "format": "date" },
+        "observed_at": { "type": "string", "format": "date-time" },
+        "effective_at": { "type": ["string", "null"], "format": "date-time" },
+        "migration_deadline": { "type": ["string", "null"], "format": "date-time" },
+        "severity": { "enum": ["info", "low", "medium", "high", "critical"] },
+        "confidence": { "enum": ["low", "medium", "high", "confirmed"] },
+        "source_authority": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "provider_refs": { "type": "array", "items": { "type": "string", "minLength": 3 } },
+        "summary": { "type": "string", "minLength": 20, "maxLength": 420 },
+        "detail_refs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["model_refs", "replacement_refs"],
+          "properties": {
+            "model_refs": { "type": "array", "items": { "type": "string" } },
+            "replacement_refs": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "impacts": { "type": "array", "items": { "type": "object" } },
+        "evidence_refs": { "type": "array", "items": { "type": "object" } }
+      }
+    }
+  }
+}

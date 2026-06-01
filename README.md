@@ -44,6 +44,8 @@ establishes:
   GitHub Action;
 - schema-backed generic webhook and Slack-compatible notification payloads
   through `apw notify`;
+- ecosystem mapping payloads for LiteLLM, models.dev, Langfuse, Helicone, and
+  OpenLIT through `apw ecosystem render`;
 - a first reviewed canonical event seed set for OpenAI, Anthropic, Google
   Vertex AI, AWS Bedrock, and Azure OpenAI;
 - synthetic parser fixtures for status feeds, Statuspage-style status pages,
@@ -67,6 +69,7 @@ uv run apw review request --candidates .apw/candidates --reviewer codex --create
 uv run apw repo check --repo . --since 3650d --risk low
 uv run apw notify webhook --since 7d --risk medium --output .apw/apw-webhook.json
 uv run apw notify slack --since 7d --risk medium --output .apw/apw-slack.json
+uv run apw ecosystem render --target litellm --since 30d --risk medium --output .apw/litellm-mapping.json
 uv run apw latest
 ```
 
@@ -195,6 +198,7 @@ See:
 - [Read-Only MCP Contract](docs/operations/mcp.md)
 - [Downstream GitHub Action](docs/integrations/github-action.md)
 - [Webhook And Slack Payloads](docs/integrations/webhooks.md)
+- [Ecosystem Mappings](docs/integrations/ecosystem-mappings.md)
 
 ## Contributing
 
