@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import hashlib
+from datetime import UTC, datetime
+from email.utils import format_datetime
 from html import escape
 from pathlib import Path
 from typing import Any
@@ -36,11 +38,11 @@ def _rss(events: list[dict[str, Any]]) -> str:
     for event in events[:50]:
         items.append(
             "    <item>\n"
-            f"      <guid>{escape(event['id'])}</guid>\n"
+            f"      <guid isPermaLink=\"false\">{escape(event['id'])}</guid>\n"
             f"      <title>{escape(event['title'])}</title>\n"
             f"      <description>{escape(event['summary'])}</description>\n"
             f"      <category>{escape(event['event_kind'])}</category>\n"
-            f"      <pubDate>{escape(event['observed_at'])}</pubDate>\n"
+            f"      <pubDate>{escape(_rss_pub_date(event['observed_at']))}</pubDate>\n"
             "    </item>"
         )
     return (
@@ -51,6 +53,18 @@ def _rss(events: list[dict[str, Any]]) -> str:
         + ("\n".join(items) + "\n" if items else "")
         + "  </channel>\n</rss>\n"
     )
+
+
+def _rss_pub_date(value: str) -> str:
+    normalized = value.strip()
+    if len(normalized) > 10 and normalized[10] == "t":
+        normalized = f"{normalized[:10]}T{normalized[11:]}"
+    if normalized.endswith(("Z", "z")):
+        normalized = f"{normalized[:-1]}+00:00"
+    parsed = datetime.fromisoformat(normalized)
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=UTC)
+    return format_datetime(parsed.astimezone(UTC), usegmt=True)
 
 
 def _event_time(events: list[dict[str, Any]]) -> str:
@@ -80,7 +94,7 @@ def build_artifacts(root: Path, release_id: str = "dev") -> dict[Path, str]:
     artifacts: dict[Path, str] = {
         Path("data/feeds/events.json"): write_json_text(events),
         Path("data/feeds/events.ndjson"): write_ndjson_text(events),
-        Path("data/feeds/latest.json"): write_json_text([_compact_event(event) for event in filter_events(events, min_severity="medium")[:20]]),
+        Path("data/feeds/latest.json"): write_json_text([_compact_event(event) for event in events[:20]]),
         Path("data/feeds/rss.xml"): _rss(events),
     }
 

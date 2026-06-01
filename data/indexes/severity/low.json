@@ -1,0 +1,86 @@
+[
+  {
+    "announced_at": "2025-02-24T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "New model availability; no forced migration deadline in the reviewed announcement.",
+      "model_refs": [
+        "model:claude-3-7-sonnet"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-02-24T00:00:00Z",
+    "event_date": "2025-02-24",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "849c1d78c6bec91d04418e2eade133b65c984f44c675d7d26cbd6c49e3d4ef13",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Claude 3.7 Sonnet announcement",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "anthropic.news",
+        "url": "https://www.anthropic.com/news/claude-3-7-sonnet"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-02-24-anthropic-claude-3-7-sonnet-launch",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Add the launched model to allowlists and test routing, pricing, and latency assumptions before setting it as a default.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "coding_agent_users",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Treat extended-thinking controls as a behavior and cost dimension when designing agent evaluation baselines.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "low",
+        "who_should_care": [
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical seed event; verify current model availability before changing production routing."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "low",
+    "source_authority": "official_blog",
+    "summary": "Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.",
+    "tags": [
+      "source:official_blog",
+      "provider:anthropic",
+      "impact:model_launch"
+    ],
+    "title": "Anthropic Launches Claude 3.7 Sonnet"
+  }
+]

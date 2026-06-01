@@ -1,7 +1,7 @@
 {
   "schema_version": "apw.source_package.v0",
   "provider_ref": "provider:google",
-  "source_keys": ["google.vertex_pricing", "google.ai_docs"],
+  "source_keys": ["google.vertex_pricing", "google.ai_docs", "google.vertex_model_versions"],
   "status": "parser_fixtures_partial",
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [

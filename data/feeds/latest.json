@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-01",
+    "event_kind": "model_retirement",
+    "id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "severity": "medium",
+    "summary": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.",
+    "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2025-02-24",
+    "event_kind": "model_launch",
+    "id": "2025-02-24-anthropic-claude-3-7-sonnet-launch",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "low",
+    "summary": "Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.",
+    "title": "Anthropic Launches Claude 3.7 Sonnet"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2024-12-04",
+    "event_kind": "caching_change",
+    "id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "medium",
+    "summary": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.",
+    "title": "Amazon Bedrock Adds Prompt Caching Preview"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2024-06-14",
+    "event_kind": "model_retirement",
+    "id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "severity": "medium",
+    "summary": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.",
+    "title": "Azure OpenAI Retires Legacy GPT-3 Model IDs"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2024-01-04",
+    "event_kind": "model_retirement",
+    "id": "2024-01-04-openai-gpt3-completions-retirement",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.",
+    "title": "OpenAI Retires Older GPT-3 Completions Models"
+  }
+]

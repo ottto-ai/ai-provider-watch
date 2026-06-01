@@ -1,0 +1,115 @@
+[
+  {
+    "announced_at": "2023-07-06T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2024-06-14T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Azure deployments using legacy GPT-3, Codex, or first-generation embedding IDs need migration to supported Azure OpenAI model deployments.",
+      "model_refs": [
+        "model:ada",
+        "model:babbage",
+        "model:curie",
+        "model:davinci",
+        "model:text-ada-001",
+        "model:text-babbage-001",
+        "model:text-curie-001",
+        "model:text-davinci-002",
+        "model:text-davinci-003",
+        "model:code-cushman-001",
+        "model:code-davinci-002",
+        "model:text-similarity-ada-001",
+        "model:text-similarity-babbage-001",
+        "model:text-similarity-curie-001",
+        "model:text-similarity-davinci-001",
+        "model:text-search-ada-doc-001",
+        "model:text-search-ada-query-001",
+        "model:text-search-babbage-doc-001",
+        "model:text-search-babbage-query-001",
+        "model:text-search-curie-doc-001",
+        "model:text-search-curie-query-001",
+        "model:text-search-davinci-doc-001",
+        "model:text-search-davinci-query-001",
+        "model:code-search-ada-code-001",
+        "model:code-search-ada-text-001",
+        "model:code-search-babbage-code-001",
+        "model:code-search-babbage-text-001"
+      ],
+      "replacement_refs": [
+        "model:gpt-35-turbo-instruct",
+        "model:text-embedding-3-small"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-06-14T00:00:00Z",
+    "event_date": "2024-06-14",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "a41c040bf14faf7e945d2bbcecac16c49a6cced3205a4fa1de9601012474595a",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Azure OpenAI retired model table",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "azure_openai.legacy_models",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Audit Azure OpenAI deployments and application configuration for retired legacy model IDs before replaying old examples or templates.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Map retired Azure OpenAI model IDs to currently supported Azure model deployments and update migration notes.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical seed event; APW did not observe the original 2023 deprecation in real time."
+    ],
+    "migration_deadline": "2024-06-14T00:00:00Z",
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_retirement"
+    ],
+    "title": "Azure OpenAI Retires Legacy GPT-3 Model IDs"
+  }
+]

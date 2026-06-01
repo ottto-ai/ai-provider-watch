@@ -1,0 +1,72 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+  "title": "Amazon Bedrock Adds Prompt Caching Preview",
+  "event_kind": "caching_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:aws-bedrock"],
+  "event_date": "2024-12-04",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-01T10:36:49Z",
+  "announced_at": "2024-12-04T18:00:00Z",
+  "effective_at": "2024-12-04T18:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/",
+      "retrieved_at": "2026-06-01T10:36:49Z",
+      "authority": "official_blog",
+      "content_sha256": "5b95e2edae20030b8aeca8d3b4c465ec2cd196d8e476d3fea73bd2ee742b1d27",
+      "snapshot_ref": "reviewed-source:2026-06-01",
+      "selector": "Amazon Bedrock prompt caching announcement",
+      "license_note": "Official provider page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "cost",
+      "direction": "decrease",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "possible",
+      "estimated_cost_effect": {
+        "direction": "decrease",
+        "magnitude": "provider-announced preview savings for supported repeated prompts",
+        "basis": "official AWS announcement",
+        "confidence": "high"
+      },
+      "who_should_care": ["platform_engineers", "finops", "coding_agent_users"],
+      "recommended_action": "Evaluate repeated system prompts and retrieval prefixes for supported Bedrock models before assuming cost reductions in production forecasts."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "low",
+      "confidence": "confirmed",
+      "api_usage_impact": "possible",
+      "who_should_care": ["platform_engineers", "product_engineers"],
+      "recommended_action": "Verify model, region, and account eligibility before adding cache-dependent request paths."
+    }
+  ],
+  "detail": {
+    "kind": "token_accounting_change",
+    "schema_version": "apw.event_detail.v0",
+    "metered_units": ["input_tokens", "cached_prompt_tokens"],
+    "old_accounting": "Repeated prompt content was processed without Bedrock prompt-cache reuse.",
+    "new_accounting": "Supported repeated prompt content can be cached and reused across calls, changing effective prompt-processing cost and latency.",
+    "examples": ["Long system prompts or reusable examples can become cache candidates when the model and region support the preview."]
+  },
+  "tags": ["source:official_blog", "provider:aws-bedrock", "impact:caching_change"],
+  "limitations": ["Preview availability was limited at launch; eligibility can vary by model, region, and account."]
+}

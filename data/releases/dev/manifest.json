@@ -1,44 +1,114 @@
 {
   "artifacts": [
     {
-      "bytes": 3,
+      "bytes": 19070,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      "sha256": "eeafb8feef2aa365b607d7a39e85d4cc7bacfd7d314723b7c048c493f2b544b0"
     },
     {
-      "bytes": 0,
+      "bytes": 15720,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "30293200055c6936ba0e6abf31eac2e76ff0d3efa2f7aa835076fe0fbe0eebce"
     },
     {
-      "bytes": 3,
+      "bytes": 2519,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      "sha256": "4080d929503ae80b655ced14617d66760cd35b652639ae618666adab3b4f2216"
     },
     {
-      "bytes": 258,
+      "bytes": 2658,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "736d0e623f0d3d8d64ee5d87f7338399dd5b8b3a7a13c4301c05d76dd6cc24aa"
+      "sha256": "e4090d079bf63923db4461375ce4aa1dd82f2300bdd2107d700048342f5e2c7d"
     },
     {
-      "bytes": 354,
+      "bytes": 3696,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/caching_change.json",
+      "sha256": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76"
+    },
+    {
+      "bytes": 3116,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/model_launch.json",
+      "sha256": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2"
+    },
+    {
+      "bytes": 12264,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/model_retirement.json",
+      "sha256": "3fe4691c9acb96e1c367f5d74b70a43edf28213ae99954b56722af593ddd8f51"
+    },
+    {
+      "bytes": 3116,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/anthropic.json",
+      "sha256": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2"
+    },
+    {
+      "bytes": 3696,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/aws-bedrock.json",
+      "sha256": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76"
+    },
+    {
+      "bytes": 4397,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/azure-openai.json",
+      "sha256": "6bc71815709a2ae09352062999680f302813ee1d43c6cef4d46661e7fdb52fb0"
+    },
+    {
+      "bytes": 3403,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/google.json",
+      "sha256": "24a506edb42f21bb7eedfbc53e75788875a01d0092d4d9b79d88cfbb288d65e8"
+    },
+    {
+      "bytes": 4470,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/openai.json",
+      "sha256": "95d4b26a2ada57993efc32b8b0cd933c88eeab385547a2b0dfedf8a1be3b0ff0"
+    },
+    {
+      "bytes": 3116,
+      "media_type": "application/json",
+      "path": "data/indexes/severity/low.json",
+      "sha256": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2"
+    },
+    {
+      "bytes": 15957,
+      "media_type": "application/json",
+      "path": "data/indexes/severity/medium.json",
+      "sha256": "713c039b6b6976d523613a2491f42899650ba6658e36e6b866df66e32afebbcc"
+    },
+    {
+      "bytes": 1377,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "76707ca852ab325d0b88ede84733229f0144147982e35dd5e169a84ea86f2e2b"
+      "sha256": "49c8a31947e62338fe7e4f3b5a66ee7a30d1ca94c84a112bb0d5e56939fe7f66"
     }
   ],
   "checksums": {
-    "data/feeds/events.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
-    "data/feeds/events.ndjson": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "data/feeds/latest.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
-    "data/feeds/rss.xml": "736d0e623f0d3d8d64ee5d87f7338399dd5b8b3a7a13c4301c05d76dd6cc24aa",
-    "data/releases/dev/checksums.txt": "76707ca852ab325d0b88ede84733229f0144147982e35dd5e169a84ea86f2e2b"
+    "data/feeds/events.json": "eeafb8feef2aa365b607d7a39e85d4cc7bacfd7d314723b7c048c493f2b544b0",
+    "data/feeds/events.ndjson": "30293200055c6936ba0e6abf31eac2e76ff0d3efa2f7aa835076fe0fbe0eebce",
+    "data/feeds/latest.json": "4080d929503ae80b655ced14617d66760cd35b652639ae618666adab3b4f2216",
+    "data/feeds/rss.xml": "e4090d079bf63923db4461375ce4aa1dd82f2300bdd2107d700048342f5e2c7d",
+    "data/indexes/kind/caching_change.json": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76",
+    "data/indexes/kind/model_launch.json": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2",
+    "data/indexes/kind/model_retirement.json": "3fe4691c9acb96e1c367f5d74b70a43edf28213ae99954b56722af593ddd8f51",
+    "data/indexes/provider/anthropic.json": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2",
+    "data/indexes/provider/aws-bedrock.json": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76",
+    "data/indexes/provider/azure-openai.json": "6bc71815709a2ae09352062999680f302813ee1d43c6cef4d46661e7fdb52fb0",
+    "data/indexes/provider/google.json": "24a506edb42f21bb7eedfbc53e75788875a01d0092d4d9b79d88cfbb288d65e8",
+    "data/indexes/provider/openai.json": "95d4b26a2ada57993efc32b8b0cd933c88eeab385547a2b0dfedf8a1be3b0ff0",
+    "data/indexes/severity/low.json": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2",
+    "data/indexes/severity/medium.json": "713c039b6b6976d523613a2491f42899650ba6658e36e6b866df66e32afebbcc",
+    "data/releases/dev/checksums.txt": "49c8a31947e62338fe7e4f3b5a66ee7a30d1ca94c84a112bb0d5e56939fe7f66"
   },
-  "created_at": "1970-01-01T00:00:00Z",
+  "created_at": "2026-06-01T10:36:49Z",
   "generated_by": "ai-provider-watch 0.1.0a0",
   "notes": "Deterministic development manifest.",
   "release_id": "dev",

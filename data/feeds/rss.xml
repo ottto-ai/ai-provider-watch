@@ -4,5 +4,40 @@
     <title>AI Provider Watch</title>
     <link>https://github.com/ottto-ai/ai-provider-watch</link>
     <description>Reviewed AI-provider change events.</description>
+    <item>
+      <guid isPermaLink="false">2026-06-01-google-vertex-gemini-2-0-flash-retirement</guid>
+      <title>Google Vertex AI Retires Gemini 2.0 Flash Stable Models</title>
+      <description>Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.</description>
+      <category>model_retirement</category>
+      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2025-02-24-anthropic-claude-3-7-sonnet-launch</guid>
+      <title>Anthropic Launches Claude 3.7 Sonnet</title>
+      <description>Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2024-12-04-aws-bedrock-prompt-caching-preview</guid>
+      <title>Amazon Bedrock Adds Prompt Caching Preview</title>
+      <description>AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.</description>
+      <category>caching_change</category>
+      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2024-06-14-azure-openai-legacy-gpt3-retirement</guid>
+      <title>Azure OpenAI Retires Legacy GPT-3 Model IDs</title>
+      <description>Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.</description>
+      <category>model_retirement</category>
+      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2024-01-04-openai-gpt3-completions-retirement</guid>
+      <title>OpenAI Retires Older GPT-3 Completions Models</title>
+      <description>OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.</description>
+      <category>model_retirement</category>
+      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
+    </item>
   </channel>
 </rss>
