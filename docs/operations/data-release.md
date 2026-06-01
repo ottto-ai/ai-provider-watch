@@ -29,3 +29,9 @@ CodeQL, `uv lock --check`, and Dependency Review when GitHub dependency graph
 support is available for the repository. Release automation stays dry-run only
 until branch protection, maintainer review, and artifact attestation are
 configured.
+
+## Evidence Packets
+
+- [2026-06-01 `data-2026.06.01` dry run](release-evidence/2026-06-01-data-2026.06.01-dry-run.md):
+  first successful manual workflow dry run on public `main`, with 15 passing
+  report checks and release-shaped artifact checksums. No tag was created.
