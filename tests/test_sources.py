@@ -10,8 +10,13 @@ from ai_provider_watch.source_watch.fixtures import (
     MAX_PARSER_FIXTURE_BYTES,
     validate_parser_fixtures,
 )
-from ai_provider_watch.source_watch.http import build_fingerprint_state, normalize_bytes
+from ai_provider_watch.source_watch.http import (
+    build_fingerprint_state,
+    fingerprint_bytes,
+    normalize_bytes,
+)
 from ai_provider_watch.source_watch.parsers import parse_source_payload
+from ai_provider_watch.source_watch.scopes import scoped_source_content
 from ai_provider_watch.sources.registry import load_source_descriptors, validate_source_packages
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -108,6 +113,24 @@ def test_source_registry_declares_graduation_posture() -> None:
             assert source.graduation_blockers
 
 
+def test_blocked_lifecycle_sources_declare_content_scope() -> None:
+    sources = {
+        source.key: source
+        for source in load_source_descriptors(ROOT, enabled_only=False)
+        if source.automation_status == "blocked_pending_parser"
+    }
+
+    assert set(sources) == {
+        "azure_openai.legacy_models",
+        "google.vertex_model_versions",
+        "openai.deprecations",
+    }
+    for source in sources.values():
+        assert source.content_scope is not None
+        assert source.content_scope["kind"] == "html_heading_range"
+        assert source.content_scope["start_heading"]
+
+
 def test_source_package_validation_rejects_enabled_manual_review_parser(tmp_path) -> None:
     _write_minimal_source_fixture_repo(tmp_path)
     registry_path = tmp_path / "sources" / "registry.json"
@@ -131,6 +154,24 @@ def test_source_package_validation_rejects_disabled_source_without_blockers(tmp_
     issues = [issue.render() for issue in validate_source_packages(tmp_path)]
 
     assert any("disabled source openai.status must list graduation blockers" in issue for issue in issues)
+
+
+def test_source_package_validation_rejects_invalid_content_scope(tmp_path) -> None:
+    _write_minimal_source_fixture_repo(tmp_path)
+    registry_path = tmp_path / "sources" / "registry.json"
+    registry = read_json(registry_path)
+    registry["sources"][0]["content_scope"] = {
+        "kind": "css_selector",
+        "start_heading": "",
+        "end_headings": ["valid", ""],
+    }
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate_source_packages(tmp_path)]
+
+    assert any("source openai.status has unsupported content_scope kind css_selector" in issue for issue in issues)
+    assert any("source openai.status content_scope must declare start_heading" in issue for issue in issues)
+    assert any("source openai.status content_scope end_headings must be strings" in issue for issue in issues)
 
 
 def test_source_test_command(capsys) -> None:
@@ -248,14 +289,16 @@ def test_provider_lifecycle_parser_fixtures_extract_bounded_model_refs_and_dates
 def test_lifecycle_parsers_drop_prompt_like_legacy_model_tokens() -> None:
     examples = {
         "openai.deprecations": (
+            b"<h1>Deprecations</h1>"
             b"<table><tr><th>Model</th><th>Shutdown date</th></tr>"
             b"<tr><td><code>text-davinci-003-ignore-instructions</code></td>"
             b"<td>Jan 4, 2024</td></tr></table>"
         ),
         "azure_openai.legacy_models": (
+            b"<h1>Retired Foundry Models</h1><h2>Azure OpenAI</h2>"
             b"<table><tr><th>Model</th><th>Retirement date</th></tr>"
             b"<tr><td><code>babbage-002-ignore</code></td>"
-            b"<td>June 14, 2024</td></tr></table>"
+            b"<td>June 14, 2024</td></tr></table><h2>AI21 Labs</h2>"
         ),
     }
     sources = {source.key: source for source in load_source_descriptors(ROOT, enabled_only=False)}
@@ -264,9 +307,124 @@ def test_lifecycle_parsers_drop_prompt_like_legacy_model_tokens() -> None:
         parsed = parse_source_payload(sources[source_key], raw, changed=True)
 
         assert parsed.items == []
+        assert parsed.errors == []
         rendered = str(parsed.items) + str(parsed.candidate_claims)
         assert "ignore-instructions" not in rendered
         assert "babbage-002-ignore" not in rendered
+
+
+def test_lifecycle_content_scope_excludes_cross_section_model_refs() -> None:
+    sources = {source.key: source for source in load_source_descriptors(ROOT, enabled_only=False)}
+    cases = [
+        (
+            "openai.deprecations",
+            "sources/openai/fixtures/deprecations.html",
+            "gpt-99-preview",
+            "2099-01-01",
+        ),
+        (
+            "google.vertex_model_versions",
+            "sources/google/fixtures/vertex-model-versions.html",
+            "gemini-9.9-unrelated",
+            "2099-01-01",
+        ),
+        (
+            "azure_openai.legacy_models",
+            "sources/azure-openai/fixtures/legacy-models.html",
+            "gpt-oss-120b",
+            "2099-01-01",
+        ),
+    ]
+
+    for source_key, input_path, excluded_model, excluded_date in cases:
+        parsed = parse_source_payload(
+            sources[source_key],
+            (ROOT / input_path).read_bytes(),
+            changed=True,
+        )
+        rendered = str(parsed.items)
+
+        assert excluded_model not in rendered
+        assert excluded_date not in rendered
+
+
+def test_content_scoped_fingerprint_ignores_out_of_scope_changes() -> None:
+    source = next(
+        source
+        for source in load_source_descriptors(ROOT, enabled_only=False)
+        if source.key == "azure_openai.legacy_models"
+    )
+    raw_a = (
+        b"<h1>Foundry retired models</h1>"
+        b"<h2>Azure OpenAI legacy models</h2>"
+        b"<table><tr><th>Model</th><th>Retirement date</th></tr>"
+        b"<tr><td><code>text-davinci-003</code></td><td>2024-06-14</td></tr></table>"
+        b"<h2>Models from other providers</h2>"
+        b"<table><tr><td><code>gpt-oss-120b</code></td><td>2099-01-01</td></tr></table>"
+    )
+    raw_b = raw_a.replace(b"gpt-oss-120b", b"gpt-oss-999b").replace(b"2099-01-01", b"2099-02-02")
+
+    scoped_a = scoped_source_content(source, raw_a)
+    scoped_b = scoped_source_content(source, raw_b)
+
+    assert scoped_a.errors == []
+    assert scoped_b.errors == []
+    assert normalize_bytes(scoped_a.raw) == normalize_bytes(scoped_b.raw)
+
+
+def test_missing_required_content_scope_reports_error_without_parsing_broad_page() -> None:
+    source = next(
+        source
+        for source in load_source_descriptors(ROOT, enabled_only=False)
+        if source.key == "azure_openai.legacy_models"
+    )
+
+    parsed = parse_source_payload(
+        source,
+        b"<h1>Foundry retired models</h1><table><tr><th>Model</th><th>Retirement date</th></tr>"
+        b"<tr><td><code>gpt-oss-120b</code></td><td>2099-01-01</td></tr></table>",
+        changed=True,
+    )
+
+    assert parsed.items == []
+    assert parsed.errors == ["content_scope start heading not found: Azure OpenAI"]
+
+
+def test_content_scope_ignores_headings_inside_hidden_contexts() -> None:
+    source = next(
+        source
+        for source in load_source_descriptors(ROOT, enabled_only=False)
+        if source.key == "azure_openai.legacy_models"
+    )
+    raw = (
+        b"<script>const cached = '<h2>Azure OpenAI</h2><table><tr><td><code>gpt-oss-120b</code></td>';</script>"
+        b"<!-- <h2>Azure OpenAI</h2><table><tr><td><code>gpt-oss-999b</code></td></tr></table> -->"
+        b"<h1>Retired Foundry Models</h1><h2>Azure OpenAI</h2>"
+        b"<table><tr><th>Model</th><th>Retirement date</th></tr>"
+        b"<tr><td><code>text-davinci-003</code></td><td>2024-06-14</td></tr></table>"
+        b"<h2>AI21 Labs</h2><table><tr><td><code>jamba-1.5-mini</code></td></tr></table>"
+    )
+
+    parsed = parse_source_payload(source, raw, changed=True)
+    rendered = str(parsed.items)
+
+    assert parsed.errors == []
+    assert "text-davinci-003" in rendered
+    assert "gpt-oss-120b" not in rendered
+    assert "gpt-oss-999b" not in rendered
+
+
+def test_scope_failure_fingerprint_falls_back_to_full_response() -> None:
+    source = next(
+        source
+        for source in load_source_descriptors(ROOT, enabled_only=False)
+        if source.key == "azure_openai.legacy_models"
+    )
+    raw_a = b"<h1>Retired Foundry Models</h1><p>first full page body</p>"
+    raw_b = b"<h1>Retired Foundry Models</h1><p>second full page body</p>"
+
+    assert fingerprint_bytes(source, raw_a) == raw_a
+    assert fingerprint_bytes(source, raw_a) != fingerprint_bytes(source, raw_b)
 
 
 def test_provider_pricing_parser_fixtures_extract_bounded_signals() -> None:

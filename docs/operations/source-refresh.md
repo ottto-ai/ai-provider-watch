@@ -36,6 +36,11 @@ eligibility:
 
 `enabled: false` does not mean a source is untrusted; it means APW will not fetch
 that source unattended until the descriptor's graduation blockers are resolved.
+When a descriptor declares `content_scope`, APW computes its fingerprint from
+the scoped HTML heading range and sends only that range to the parser. The full
+response hash remains available as `content_sha256`. If the heading range is not
+found, APW reports a parser error instead of parsing the broad page as
+provider-specific evidence.
 
 ## Review Candidate Contract
 

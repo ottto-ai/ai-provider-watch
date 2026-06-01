@@ -23,6 +23,7 @@ class SourceDescriptor:
     automation_status: str
     graduation_notes: str
     graduation_blockers: list[str]
+    content_scope: dict[str, Any] | None
     impact_hints: list[str]
 
     @classmethod
@@ -50,6 +51,7 @@ class SourceDescriptor:
             ]
             if isinstance(data.get("graduation_blockers"), list)
             else [],
+            content_scope=data.get("content_scope") if isinstance(data.get("content_scope"), dict) else None,
             impact_hints=list(impact_hints) if isinstance(impact_hints, list) else [],
         )
 
@@ -150,6 +152,33 @@ def validate_source_packages(root: Path) -> list[ValidationIssue]:
                     f"disabled source {source.key} must list graduation blockers",
                 )
             )
+        if source.content_scope is not None:
+            kind = source.content_scope.get("kind")
+            start_heading = source.content_scope.get("start_heading")
+            end_headings = source.content_scope.get("end_headings", [])
+            if kind != "html_heading_range":
+                issues.append(
+                    ValidationIssue(
+                        str(root / "sources" / "registry.json"),
+                        f"source {source.key} has unsupported content_scope kind {kind}",
+                    )
+                )
+            if not isinstance(start_heading, str) or not start_heading.strip():
+                issues.append(
+                    ValidationIssue(
+                        str(root / "sources" / "registry.json"),
+                        f"source {source.key} content_scope must declare start_heading",
+                    )
+                )
+            if not isinstance(end_headings, list) or not all(
+                isinstance(item, str) and item.strip() for item in end_headings
+            ):
+                issues.append(
+                    ValidationIssue(
+                        str(root / "sources" / "registry.json"),
+                        f"source {source.key} content_scope end_headings must be strings",
+                    )
+                )
 
     for package_path in sorted((root / "sources").glob("*/source.json")):
         package = read_json(package_path)

@@ -11,6 +11,7 @@ from typing import Any
 
 from ai_provider_watch.core.io import read_json, write_json_text
 from ai_provider_watch.source_watch.parsers import ParsedSourcePayload, parse_source_payload
+from ai_provider_watch.source_watch.scopes import scoped_source_content
 from ai_provider_watch.sources.registry import SourceDescriptor
 
 USER_AGENT = "ai-provider-watch-source-refresh/0.1"
@@ -79,6 +80,11 @@ def build_fingerprint_state(observations: list[SourceObservation]) -> dict[str, 
     }
 
 
+def fingerprint_bytes(source: SourceDescriptor, raw: bytes) -> bytes:
+    scoped = scoped_source_content(source, raw)
+    return raw if scoped.errors else scoped.raw
+
+
 def fetch_source(
     source: SourceDescriptor,
     previous_state: dict[str, Any],
@@ -97,7 +103,7 @@ def fetch_source(
         http_status = int(response.status)
 
     content_sha = _sha256(raw)
-    fingerprint = _sha256(normalize_bytes(raw))
+    fingerprint = _sha256(normalize_bytes(fingerprint_bytes(source, raw)))
     previous = previous_state.get("sources", {}).get(source.key, {}).get("fingerprint")
     changed = previous != fingerprint
     parsed = parse_source_payload(source, raw, changed=changed)

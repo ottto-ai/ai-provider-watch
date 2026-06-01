@@ -53,6 +53,13 @@ Enabled sources must not use the `manual_review` parser and must not list
 graduation blockers. Disabled sources must document blockers so maintainers can
 see why they are not part of deterministic refresh.
 
+Lifecycle pages that mix multiple product families should declare
+`content_scope` with `kind: html_heading_range`. APW applies that scope before
+fingerprinting and parsing, so out-of-scope sections can change without creating
+provider candidates for the scoped source. A scoped source still stays
+`blocked_pending_parser` until fixtures and live fetch evidence prove the
+heading range is stable enough for unattended refresh.
+
 ## Candidate Fixtures
 
 Candidate parsers emit review-only `FindingCandidate` JSON from observation
@@ -67,6 +74,8 @@ Statuspage-style status sources it stores hashes/timestamps rather than copied
 incident text; for model docs it stores bounded model identifiers; for lifecycle
 docs it stores bounded model identifiers and dates; and for pricing pages it
 stores bounded pricing/model signals rather than copied pricing-table prose.
+When a source descriptor declares `content_scope`, its parser fixture should
+prove that out-of-scope HTML sections are ignored.
 Provider-specific parsers should add richer factual
 extraction only when fixtures prove the output is deterministic, bounded,
 source-linked, and free of raw provider prose.

@@ -104,6 +104,8 @@ Source descriptors declare explicit graduation posture. `enabled_deterministic`
 sources are fetched by automation; `blocked_pending_parser` sources need parser
 fixtures before unattended refresh; `manual_review_only` sources can support
 reviewed events but remain maintainer-triggered.
+Broad lifecycle pages can additionally declare `content_scope` so APW hashes and
+parses only a maintainer-owned HTML heading range.
 
 Review candidates are separate from published events:
 
