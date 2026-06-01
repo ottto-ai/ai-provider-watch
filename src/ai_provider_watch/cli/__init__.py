@@ -31,6 +31,7 @@ from ai_provider_watch.pipeline.llm_review import (
     evaluate_review_result,
 )
 from ai_provider_watch.pipeline.release import parse_release_date, run_release_dry_run
+from ai_provider_watch.pipeline.repo_impact import repo_impact_report
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.source_watch.http import (
@@ -288,6 +289,28 @@ def cmd_review_eval(args: argparse.Namespace) -> int:
     return 0 if report["passed"] else 1
 
 
+def cmd_repo_check(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        report = repo_impact_report(
+            root,
+            Path(args.repo),
+            since=args.since,
+            risk=args.risk,
+        )
+    except ValueError as exc:
+        print(f"repo check failed: {exc}", file=sys.stderr)
+        return 1
+    output = write_json_text(report)
+    if args.output:
+        output_path = _path_from_root(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(output, encoding="utf-8")
+    else:
+        sys.stdout.write(output)
+    return 0
+
+
 def cmd_release_dry_run(args: argparse.Namespace) -> int:
     root = _root(args.root)
     try:
@@ -424,6 +447,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     review_eval_parser.add_argument("--output", help="write JSON eval report to this path instead of stdout")
     review_eval_parser.set_defaults(func=cmd_review_eval)
+
+    repo_parser = subparsers.add_parser("repo", help="downstream repository impact commands")
+    repo_subparsers = repo_parser.add_subparsers(dest="repo_command", required=True)
+    repo_check_parser = repo_subparsers.add_parser(
+        "check",
+        help="scan a downstream repo for refs affected by reviewed APW events",
+    )
+    repo_check_parser.add_argument("--repo", required=True, help="downstream repository path to scan")
+    repo_check_parser.add_argument("--since", default="3650d", help="event date cutoff or day window")
+    repo_check_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK), help="minimum event severity")
+    repo_check_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
+    repo_check_parser.set_defaults(func=cmd_repo_check)
 
     release_parser = subparsers.add_parser("release", help="release verification commands")
     release_subparsers = release_parser.add_subparsers(dest="release_command", required=True)

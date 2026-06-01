@@ -1,0 +1,48 @@
+name: AI Provider Watch Impact Check
+description: Scan a repository for AI provider refs and report matching reviewed APW events.
+
+inputs:
+  repo-path:
+    description: Downstream repository path to scan.
+    required: false
+    default: "."
+  since:
+    description: Event date cutoff or day window.
+    required: false
+    default: "3650d"
+  risk:
+    description: Minimum event severity.
+    required: false
+    default: "low"
+  fail-on-severity:
+    description: Optional severity threshold that fails the action when matched.
+    required: false
+    default: ""
+  output:
+    description: JSON report output path.
+    required: false
+    default: ".apw/impact-report.json"
+
+runs:
+  using: composite
+  steps:
+    - name: Install APW
+      shell: bash
+      run: python -m pip install "$GITHUB_ACTION_PATH"
+    - name: Run APW impact check
+      shell: bash
+      run: |
+        mkdir -p "$(dirname "${{ inputs.output }}")"
+        apw repo check \
+          --repo "${{ inputs.repo-path }}" \
+          --since "${{ inputs.since }}" \
+          --risk "${{ inputs.risk }}" \
+          --output "${{ inputs.output }}"
+    - name: Write APW summary
+      shell: bash
+      run: |
+        args=(--report "${{ inputs.output }}")
+        if [ -n "${{ inputs.fail-on-severity }}" ]; then
+          args+=(--fail-on-severity "${{ inputs.fail-on-severity }}")
+        fi
+        python "$GITHUB_ACTION_PATH/scripts/github_action_summary.py" "${args[@]}"
