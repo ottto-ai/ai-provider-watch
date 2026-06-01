@@ -42,6 +42,8 @@ establishes:
 - optional model-pluggable LLM review request packets for candidate PRs;
 - downstream repository impact reports through `apw repo check` and a composite
   GitHub Action;
+- schema-backed generic webhook and Slack-compatible notification payloads
+  through `apw notify`;
 - a first reviewed canonical event seed set for OpenAI, Anthropic, Google
   Vertex AI, AWS Bedrock, and Azure OpenAI;
 - synthetic parser fixtures for status feeds, Statuspage-style status pages,
@@ -63,6 +65,8 @@ uv run apw candidate generate --observations tests/fixtures/observations/candida
 uv run apw candidate review-pr-body --observations tests/fixtures/observations/candidate-observations.json --candidates .apw/candidates
 uv run apw review request --candidates .apw/candidates --reviewer codex --created-at 2026-05-31T20:15:00Z
 uv run apw repo check --repo . --since 3650d --risk low
+uv run apw notify webhook --since 7d --risk medium --output .apw/apw-webhook.json
+uv run apw notify slack --since 7d --risk medium --output .apw/apw-slack.json
 uv run apw latest
 ```
 
@@ -190,6 +194,7 @@ See:
 - [Plugin Contract](docs/plugin-contract.md)
 - [Read-Only MCP Contract](docs/operations/mcp.md)
 - [Downstream GitHub Action](docs/integrations/github-action.md)
+- [Webhook And Slack Payloads](docs/integrations/webhooks.md)
 
 ## Contributing
 

@@ -18,6 +18,8 @@ uv run apw candidate generate --observations .apw/source-observations.json --out
 uv run apw candidate review-pr-body --observations .apw/source-observations.json --candidates .apw/candidates
 uv run apw review request --candidates .apw/candidates --reviewer codex --created-at 2026-05-31T20:15:00Z
 uv run apw repo check --repo . --since 3650d --risk low
+uv run apw notify webhook --since 7d --risk medium --output .apw/apw-webhook.json
+uv run apw notify slack --since 7d --risk medium --output .apw/apw-slack.json
 ```
 
 Candidate output is review-only. Agents may summarize candidates and check
@@ -46,6 +48,14 @@ The root `action.yml` is a composite action for downstream repositories. It runs
 `apw repo check`, writes `.apw/impact-report.json`, and appends a job summary.
 It needs only `contents: read` for the common pull-request workflow and does not
 post PR comments or request write credentials by default.
+
+## Webhooks And Slack
+
+`apw notify webhook` and `apw notify slack` render schema-backed notification
+payloads from reviewed events. They write JSON to stdout or a file only. APW
+does not deliver payloads, read Slack/webhook secrets, or own retry state.
+Downstream operators can post the payloads from their own systems using the
+included idempotency key and retry guidance.
 
 ## MCP
 
