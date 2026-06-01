@@ -30,6 +30,7 @@ from ai_provider_watch.pipeline.llm_review import (
     build_review_request,
     evaluate_review_result,
 )
+from ai_provider_watch.pipeline.notifications import build_slack_payload, build_webhook_payload
 from ai_provider_watch.pipeline.release import parse_release_date, run_release_dry_run
 from ai_provider_watch.pipeline.repo_impact import repo_impact_report
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
@@ -311,6 +312,58 @@ def cmd_repo_check(args: argparse.Namespace) -> int:
     return 0
 
 
+def _write_or_print(root: Path, payload: Any, output: str | None) -> None:
+    rendered = write_json_text(payload)
+    if output:
+        output_path = _path_from_root(root, output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(rendered, encoding="utf-8")
+    else:
+        sys.stdout.write(rendered)
+
+
+def cmd_notify_webhook(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        payload = build_webhook_payload(
+            root,
+            since=args.since,
+            risk=args.risk,
+            provider=args.provider,
+            kind=args.kind,
+            event_id=args.event_id,
+            limit=args.limit,
+            created_at=args.created_at,
+            source_url=args.source_url,
+        )
+    except ValueError as exc:
+        print(f"notify webhook failed: {exc}", file=sys.stderr)
+        return 1
+    _write_or_print(root, payload, args.output)
+    return 0
+
+
+def cmd_notify_slack(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        payload = build_slack_payload(
+            root,
+            since=args.since,
+            risk=args.risk,
+            provider=args.provider,
+            kind=args.kind,
+            event_id=args.event_id,
+            limit=args.limit,
+            created_at=args.created_at,
+            source_url=args.source_url,
+        )
+    except ValueError as exc:
+        print(f"notify slack failed: {exc}", file=sys.stderr)
+        return 1
+    _write_or_print(root, payload, args.output)
+    return 0
+
+
 def cmd_release_dry_run(args: argparse.Namespace) -> int:
     root = _root(args.root)
     try:
@@ -459,6 +512,30 @@ def build_parser() -> argparse.ArgumentParser:
     repo_check_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK), help="minimum event severity")
     repo_check_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     repo_check_parser.set_defaults(func=cmd_repo_check)
+
+    notify_parser = subparsers.add_parser("notify", help="render downstream notification payloads")
+    notify_subparsers = notify_parser.add_subparsers(dest="notify_command", required=True)
+    notify_webhook_parser = notify_subparsers.add_parser("webhook", help="render a generic webhook JSON payload")
+    notify_slack_parser = notify_subparsers.add_parser("slack", help="render a Slack-compatible JSON payload")
+    for payload_parser, default_limit in (
+        (notify_webhook_parser, 20),
+        (notify_slack_parser, 5),
+    ):
+        payload_parser.add_argument("--since", default="7d", help="event date cutoff or day window")
+        payload_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK), help="minimum event severity")
+        payload_parser.add_argument("--provider", help="provider id or provider: ref")
+        payload_parser.add_argument("--kind", help="event kind filter")
+        payload_parser.add_argument("--event-id", help="single event id filter")
+        payload_parser.add_argument("--limit", type=int, default=default_limit, help="maximum events to include")
+        payload_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic payloads")
+        payload_parser.add_argument(
+            "--source-url",
+            default="https://github.com/ottto-ai/ai-provider-watch",
+            help="source URL to include in the payload",
+        )
+        payload_parser.add_argument("--output", help="write JSON payload to this path instead of stdout")
+    notify_webhook_parser.set_defaults(func=cmd_notify_webhook)
+    notify_slack_parser.set_defaults(func=cmd_notify_slack)
 
     release_parser = subparsers.add_parser("release", help="release verification commands")
     release_subparsers = release_parser.add_subparsers(dest="release_command", required=True)
