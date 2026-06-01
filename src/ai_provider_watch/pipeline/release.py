@@ -102,9 +102,164 @@ def _package_version_check() -> ReleaseCheck:
     )
 
 
-def _workflow_contains(root: Path, workflow: str, needle: str) -> bool:
+def _workflow_text(root: Path, workflow: str) -> str:
     path = root / ".github" / "workflows" / workflow
-    return path.exists() and needle in path.read_text(encoding="utf-8")
+    if not path.exists():
+        return ""
+    return path.read_text(encoding="utf-8")
+
+
+def _workflow_missing(text: str, required: list[str]) -> list[str]:
+    return [needle for needle in required if needle not in text]
+
+
+def _workflow_forbidden(text: str, forbidden: list[str]) -> list[str]:
+    return [needle for needle in forbidden if needle in text]
+
+
+def _codeql_workflow_check(root: Path) -> ReleaseCheck:
+    workflow = _workflow_text(root, "codeql.yml")
+    missing = _workflow_missing(
+        workflow,
+        [
+            "github/codeql-action/analyze",
+            "security-events: write",
+            "pull_request:",
+            "push:",
+        ],
+    )
+    forbidden = _workflow_forbidden(workflow, ["contents: write", "id-token: write", "secrets."])
+    passed = bool(workflow) and not missing and not forbidden
+    if passed:
+        details = "CodeQL workflow uploads code-scanning results with minimal write permission"
+    else:
+        details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
+    return _check("codeql_workflow", passed, details)
+
+
+def _dependency_review_workflow_check(root: Path) -> ReleaseCheck:
+    workflow = _workflow_text(root, "dependency-review.yml")
+    missing = _workflow_missing(
+        workflow,
+        [
+            "workflow_dispatch:",
+            "contents: read",
+            "pull-requests: read",
+            "actions/dependency-review-action@v5",
+            "base-ref: ${{ inputs.base_ref }}",
+            "head-ref: ${{ inputs.head_ref }}",
+        ],
+    )
+    forbidden = _workflow_forbidden(
+        workflow,
+        ["contents: write", "pull-requests: write", "id-token: write", "secrets.", "pull_request_target:"],
+    )
+    passed = bool(workflow) and not missing and not forbidden
+    if passed:
+        details = "Dependency Review can run manually with base/head refs and read-only permissions"
+    else:
+        details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
+    return _check("dependency_review_workflow", passed, details)
+
+
+def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
+    workflow = _workflow_text(root, "release-data.yml")
+    missing = _workflow_missing(
+        workflow,
+        [
+            "workflow_dispatch:",
+            "contents: read",
+            "uv lock --check",
+            "uv run pytest",
+            "uv run apw source test",
+            "uv run apw validate",
+            "uv run apw index --check",
+            "uv build --out-dir .apw/dist",
+            "--require-clean",
+            "actions/upload-artifact@v4",
+        ],
+    )
+    forbidden = _workflow_forbidden(
+        workflow,
+        [
+            "contents: write",
+            "id-token: write",
+            "secrets.",
+            "gh release",
+            "git tag",
+            "pull_request_target:",
+        ],
+    )
+    passed = bool(workflow) and not missing and not forbidden
+    if passed:
+        details = "release workflow is dry-run only, read-only, package-install checked, and artifact-only"
+    else:
+        details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
+    return _check("release_workflow_guardrails", passed, details)
+
+
+def _source_refresh_token_boundary_check(root: Path) -> ReleaseCheck:
+    workflow = _workflow_text(root, "source-refresh.yml")
+    missing = _workflow_missing(
+        workflow,
+        [
+            "contents: write",
+            "pull-requests: write",
+            "uv run apw source fetch",
+            "uv run apw candidate generate",
+            "gh pr create",
+        ],
+    )
+    forbidden = _workflow_forbidden(
+        workflow,
+        ["secrets.", "id-token: write", "gh release", "git tag", "pull_request_target:"],
+    )
+    passed = bool(workflow) and not missing and not forbidden
+    if passed:
+        details = "source refresh can open review PRs but has no secrets, id-token, tag, or release command path"
+    else:
+        details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
+    return _check("source_refresh_token_boundary", passed, details)
+
+
+def _external_release_gates() -> list[dict[str, str]]:
+    return [
+        {
+            "name": "Branch protection",
+            "status": "required",
+            "details": "Main must require PR review and required status checks before a public data tag is cut.",
+        },
+        {
+            "name": "CI test workflow",
+            "status": "required",
+            "details": "The release source commit must have a successful CI test workflow run.",
+        },
+        {
+            "name": "CodeQL analyze workflow",
+            "status": "required",
+            "details": "The release source commit must have a successful CodeQL workflow run.",
+        },
+        {
+            "name": "CodeQL code-scanning analysis",
+            "status": "required",
+            "details": "The release source commit must appear in GitHub code-scanning analyses for refs/heads/main.",
+        },
+        {
+            "name": "Dependency Review",
+            "status": "required",
+            "details": "Dependency Review must pass in a manual base/head run before release after repository dependency graph support is enabled.",
+        },
+        {
+            "name": "Artifact checksum review",
+            "status": "required",
+            "details": "Maintainers must compare dry-run manifest and checksums.txt hashes before publishing.",
+        },
+        {
+            "name": "Release token separation",
+            "status": "required",
+            "details": "No release token may be available to source-refresh, candidate-generation, or untrusted-content jobs.",
+        },
+    ]
 
 
 def _license_check(root: Path) -> ReleaseCheck:
@@ -305,28 +460,10 @@ def run_release_dry_run(
             "uv.lock is present; CI and release dry run execute uv lock --check",
         )
     )
-    checks.append(
-        _check(
-            "codeql_workflow",
-            _workflow_contains(root, "codeql.yml", "github/codeql-action/analyze"),
-            "CodeQL workflow present",
-        )
-    )
-    checks.append(
-        _check(
-            "dependency_review_workflow",
-            _workflow_contains(root, "dependency-review.yml", "actions/dependency-review-action"),
-            "Dependency Review workflow present",
-        )
-    )
-    release_workflow = (root / ".github" / "workflows" / "release-data.yml").read_text(encoding="utf-8")
-    checks.append(
-        _check(
-            "release_workflow_guardrails",
-            "contents: read" in release_workflow and "contents: write" not in release_workflow and "id-token: write" not in release_workflow,
-            "release dry-run workflow has read-only contents permission and no id-token permission",
-        )
-    )
+    checks.append(_codeql_workflow_check(root))
+    checks.append(_dependency_review_workflow_check(root))
+    checks.append(_release_workflow_guardrails_check(root))
+    checks.append(_source_refresh_token_boundary_check(root))
 
     report = {
         "schema_version": RELEASE_DRY_RUN_SCHEMA_VERSION,
@@ -336,27 +473,18 @@ def run_release_dry_run(
         "source_commit": source_commit,
         "output_dir": str(release_output_dir),
         "validation_commands": [
+            "uv lock --check",
             "uv run ruff check .",
             "uv run pytest",
             "uv run apw source test",
             "uv run apw validate",
             "uv run apw index --check",
+            "actionlint .github/workflows/*.yml",
             f"uv run apw release dry-run --release-date {release_date.isoformat()} --output {output_dir}",
         ],
         "checks": [check.__dict__ for check in checks],
         "release_artifacts": manifest["artifacts"],
-        "external_required_checks": [
-            {
-                "name": "CodeQL",
-                "status": "required",
-                "details": "GitHub CodeQL workflow must pass before a public data tag is cut.",
-            },
-            {
-                "name": "Dependency Review",
-                "status": "required",
-                "details": "Manual GitHub dependency-review workflow must pass before a public data tag is cut once dependency graph support is available; uv lock --check is the deterministic lock gate.",
-            },
-        ],
+        "external_required_checks": _external_release_gates(),
     }
     schema_check = _schema_check(root, report)
     checks.append(schema_check)

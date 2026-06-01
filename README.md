@@ -79,8 +79,9 @@ Generated artifacts live under `data/`:
 
 Release dry runs use CalVer IDs such as `data-2026.06.01`, build
 release-shaped artifacts under ignored `.apw/`, verify manifest checksums,
-license layout, dependency lock presence, and required GitHub
-CodeQL/dependency-review gates without publishing a tag.
+license layout, dependency lock presence, workflow token boundaries, and
+required GitHub CI, CodeQL/code-scanning, Dependency Review, branch-protection,
+and artifact-review gates without publishing a tag.
 
 The normalized factual event data and generated feed artifacts are dedicated to
 the public domain under CC0-1.0. Code, schemas, docs, tests, and tooling are

@@ -24,6 +24,9 @@ Security:
 - Never expose release secrets to source-fetch or contributor-controlled jobs.
 - Use PR review for all publication.
 - MCP tools are read-only by default.
+- Data release automation is dry-run only until branch protection, CI, CodeQL
+  workflow, GitHub code-scanning analysis, Dependency Review, artifact checksum
+  review, and release-token separation gates are recorded.
 - Parser fixtures cover status-feed hashing, Statuspage-style incident-link
   hashing, bounded model identifiers, lifecycle dates, bounded pricing/model
   signals, and candidate-review claims without copying provider prose.
