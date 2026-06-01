@@ -45,7 +45,7 @@ establishes:
 - synthetic parser fixtures for status feeds, Statuspage-style status pages,
   model-doc identifiers, pricing signals, and AWS Bedrock model-card display
   refs;
-- read-only MCP package shell;
+- tested read-only MCP adapter helpers;
 - CI and schema-backed data-release dry-run verification.
 
 ## Install From Checkout
@@ -185,6 +185,7 @@ See:
 - [Event Schema](docs/schema/event.md)
 - [Agent Consumption](docs/agent-consumption.md)
 - [Plugin Contract](docs/plugin-contract.md)
+- [Read-Only MCP Contract](docs/operations/mcp.md)
 
 ## Contributing
 

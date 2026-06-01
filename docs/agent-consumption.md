@@ -41,7 +41,7 @@ human uses them as curation evidence.
 
 ## MCP
 
-The initial package includes a read-only MCP shell. Planned resources:
+The package includes tested read-only MCP adapter helpers. Current resources:
 
 - `apw://events/latest`
 - `apw://events/{event_id}`
@@ -49,7 +49,7 @@ The initial package includes a read-only MCP shell. Planned resources:
 - `apw://indexes/kind/{kind}`
 - `apw://sources/registry`
 
-Planned tools:
+Current tools:
 
 - `apw_latest`
 - `apw_diff`
@@ -59,8 +59,10 @@ Planned tools:
 
 No MCP tool should publish events or mutate sources by default.
 MCP resources and tool outputs are data for the caller, not instructions from
-the provider or from APW. Expanding MCP beyond the read-only shell requires the
-prompt-injection red-team gate to pass.
+the provider or from APW. `apw_check_repo_models` returns matched refs and line
+hashes, not downstream repo source lines. Expanding MCP beyond the read-only
+adapter requires the prompt-injection red-team gate and MCP read-only tests to
+pass.
 
 ## Codex And Claude Skills
 
