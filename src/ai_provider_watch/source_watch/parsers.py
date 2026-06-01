@@ -29,6 +29,7 @@ KIND_LABELS = {
     "caching_change": "caching or token-accounting change",
     "model_deprecation": "model deprecation",
     "model_launch": "model availability change",
+    "model_retirement": "model retirement",
     "pricing_change": "pricing change",
     "quota_change": "quota or rate-limit change",
     "regional_availability_change": "regional availability change",
@@ -38,17 +39,28 @@ KIND_LABELS = {
 
 OPENAI_MODEL_PATTERN = re.compile(
     r"\bchat-latest\b(?![.-])"
+    r"|\bchatgpt-[0-9][a-z]?(?:-[a-z0-9]+)*\b(?![.-])"
     r"|"
     r"\bcodex-mini\b(?![.-])"
+    r"|\bcodex-mini-latest\b(?![.-])"
     r"|\bcomputer-use-preview\b(?![.-])"
     r"|\bsora(?:-[0-9][a-z0-9.-]*)?\b(?![.-])"
     r"|"
     r"\bdall-e-[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*\b"
-    r"|\bgpt-(?:(?:35|[0-9][a-z]?(?:\.[0-9])?)(?:-(?:[0-9]{4}(?:-[0-9]{2}-[0-9]{2})?|[0-9]{2,4}|16k|32k|audio|chat|codex|cyber|deep|diarize|global|instruct|max|mini|nano|preview|pro|realtime|regional|research|transcribe|tts|turbo|us|vision))*|audio(?:-mini)?(?:-[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*)?(?![.-])|chat-latest(?![.-])|image-[0-9][a-z0-9.-]*|oss-[0-9]+b(?![.-])|realtime(?:-mini)?(?:-(?:[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*|transcribe|translate|whisper))?(?![.-]))\b(?![.-]|\s+(?:chat|codex|cyber|max|mini|nano|pro)\b)"
+    r"|\bgpt-(?:(?:35|[0-9][a-z]?(?:\.[0-9])?)(?:-(?:[0-9]{4}(?:-[0-9]{2}-[0-9]{2})?|[0-9]{2,4}|16k|32k|audio|chat|codex|cyber|deep|diarize|global|instruct|latest|max|mini|nano|preview|pro|realtime|regional|research|transcribe|tts|turbo|us|vision))*|audio(?:-mini)?(?:-[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*)?(?![.-])|chat-latest(?![.-])|image-[0-9][a-z0-9.-]*|oss-[0-9]+b(?![.-])|realtime(?:-mini)?(?:-(?:[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*|transcribe|translate|whisper))?(?![.-]))\b(?![.-]|\s+(?:chat|codex|cyber|max|mini|nano|pro)\b)"
     r"|\bo[0-9](?:-[a-z0-9]+)*\b"
     r"|\btext-embedding-(?:[0-9][a-z0-9]*(?:-[a-z0-9]+)*|ada-[0-9]+)\b"
     r"|\btts(?:-hd)?(?:-[0-9][a-z0-9.-]*)?\b(?![.-])"
     r"|\bwhisper(?:-[0-9][a-z0-9.-]*)?\b(?![.-])",
+    re.IGNORECASE,
+)
+OPENAI_LEGACY_MODEL_PATTERN = re.compile(
+    r"\b(?:ada|babbage|curie|davinci)\b(?!-)"
+    r"|\b(?:ada|babbage|curie|davinci)-[0-9]{3}\b(?![.-])"
+    r"|\btext-(?:ada|babbage|curie|davinci)-[0-9]{3}\b(?![.-])"
+    r"|\bcode-(?:cushman|davinci)-[0-9]{3}\b(?![.-])"
+    r"|\btext-(?:similarity|search)-(?:ada|babbage|curie|davinci)-(?:doc-|query-)?[0-9]{3}\b(?![.-])"
+    r"|\bcode-search-(?:ada|babbage)-(?:code|text)-[0-9]{3}\b(?![.-])",
     re.IGNORECASE,
 )
 GEMINI_ID_PATTERN = re.compile(
@@ -70,6 +82,12 @@ MODEL_PARSER_PATTERNS = {
     "google_ai_models": GEMINI_ID_PATTERN,
 }
 
+LIFECYCLE_PARSER_PATTERNS = {
+    "azure_openai_legacy_models": [OPENAI_MODEL_PATTERN, OPENAI_LEGACY_MODEL_PATTERN],
+    "google_vertex_model_versions": [GEMINI_ID_PATTERN],
+    "openai_deprecations": [OPENAI_MODEL_PATTERN, OPENAI_LEGACY_MODEL_PATTERN],
+}
+
 MODEL_PARSER_CLAIMS = {
     "azure_openai_models": (
         "model_launch",
@@ -80,6 +98,24 @@ MODEL_PARSER_CLAIMS = {
         "model_launch",
         "Google Gemini/Vertex model documentation source changed and needs maintainer review "
         "for possible model availability or deprecation changes.",
+    ),
+}
+
+LIFECYCLE_PARSER_CLAIMS = {
+    "azure_openai_legacy_models": (
+        "model_retirement",
+        "Azure OpenAI legacy model documentation source changed and needs maintainer review "
+        "for possible model deprecation or retirement changes.",
+    ),
+    "google_vertex_model_versions": (
+        "model_retirement",
+        "Google Vertex AI model-version documentation source changed and needs maintainer "
+        "review for possible model lifecycle or retirement changes.",
+    ),
+    "openai_deprecations": (
+        "model_retirement",
+        "OpenAI deprecation documentation source changed and needs maintainer review "
+        "for possible model deprecation, retirement, or API contract changes.",
     ),
 }
 
@@ -144,6 +180,51 @@ PRICING_SIGNAL_KEYWORDS = {
     "regional_pricing": ("data zone", "global", "region", "regional"),
     "token_unit": ("1m tokens", "million tokens", "mtok", "per 1m"),
 }
+
+MONTHS = {
+    "jan": "01",
+    "january": "01",
+    "feb": "02",
+    "february": "02",
+    "mar": "03",
+    "march": "03",
+    "apr": "04",
+    "april": "04",
+    "may": "05",
+    "jun": "06",
+    "june": "06",
+    "jul": "07",
+    "july": "07",
+    "aug": "08",
+    "august": "08",
+    "sep": "09",
+    "sept": "09",
+    "september": "09",
+    "oct": "10",
+    "october": "10",
+    "nov": "11",
+    "november": "11",
+    "dec": "12",
+    "december": "12",
+}
+ISO_DATE_PATTERN = re.compile(r"\b[0-9]{4}-[0-9]{2}-[0-9]{2}\b")
+MONTH_DATE_PATTERN = re.compile(
+    r"\b("
+    + "|".join(MONTHS)
+    + r")\s+([0-9]{1,2}),\s+([0-9]{4})\b",
+    re.IGNORECASE,
+)
+LIFECYCLE_DATE_HEADER_TOKENS = ("deprecat", "discontinu", "retir", "shutdown", "sunset")
+DASH_TRANSLATION = str.maketrans(
+    {
+        "\u2010": "-",
+        "\u2011": "-",
+        "\u2012": "-",
+        "\u2013": "-",
+        "\u2014": "-",
+        "\u2212": "-",
+    }
+)
 
 DISALLOWED_MODEL_ID_SEGMENTS = {
     "agent",
@@ -244,12 +325,63 @@ class _VisibleHTMLParser(HTMLParser):
                 self.structured_parts.append(data)
 
 
+class _TableHTMLParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self._ignored_depth = 0
+        self._table_depth = 0
+        self._cell_depth = 0
+        self._current_table: list[list[str]] | None = None
+        self._current_row: list[str] | None = None
+        self._current_cell: list[str] | None = None
+        self.tables: list[list[list[str]]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        normalized_tag = tag.lower()
+        if normalized_tag in {"script", "style", "noscript"}:
+            self._ignored_depth += 1
+            return
+        if normalized_tag == "table":
+            self._table_depth += 1
+            if self._table_depth == 1:
+                self._current_table = []
+        elif normalized_tag == "tr" and self._table_depth:
+            self._current_row = []
+        elif normalized_tag in {"td", "th"} and self._table_depth:
+            self._cell_depth += 1
+            self._current_cell = []
+
+    def handle_endtag(self, tag: str) -> None:
+        normalized_tag = tag.lower()
+        if normalized_tag in {"script", "style", "noscript"} and self._ignored_depth:
+            self._ignored_depth -= 1
+            return
+        if normalized_tag in {"td", "th"} and self._cell_depth:
+            if self._current_row is not None and self._current_cell is not None:
+                self._current_row.append(_normalize_text(" ".join(self._current_cell)))
+            self._current_cell = None
+            self._cell_depth -= 1
+        elif normalized_tag == "tr" and self._table_depth:
+            if self._current_table is not None and self._current_row:
+                self._current_table.append(self._current_row)
+            self._current_row = None
+        elif normalized_tag == "table" and self._table_depth:
+            if self._table_depth == 1 and self._current_table:
+                self.tables.append(self._current_table)
+                self._current_table = None
+            self._table_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if not self._ignored_depth and self._cell_depth and self._current_cell is not None:
+            self._current_cell.append(data)
+
+
 def _sha256_text(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
 def _normalize_text(value: str) -> str:
-    return re.sub(r"\s+", " ", value).strip()
+    return re.sub(r"\s+", " ", value.translate(DASH_TRANSLATION)).strip()
 
 
 def _provider_label(source: SourceDescriptor) -> str:
@@ -284,6 +416,9 @@ def _source_area(source: SourceDescriptor) -> str:
 def _candidate_claim(source: SourceDescriptor) -> dict[str, str]:
     if source.parser in MODEL_PARSER_CLAIMS:
         candidate_kind, claim_text = MODEL_PARSER_CLAIMS[source.parser]
+        return {"candidate_kind": candidate_kind, "claim_text": claim_text}
+    if source.parser in LIFECYCLE_PARSER_CLAIMS:
+        candidate_kind, claim_text = LIFECYCLE_PARSER_CLAIMS[source.parser]
         return {"candidate_kind": candidate_kind, "claim_text": claim_text}
     if source.parser in PRICING_PARSER_NAMES:
         return {
@@ -371,6 +506,12 @@ def _structured_html_text(raw: bytes) -> str:
     return _normalize_text(" ".join(_visible_html_payload(raw).structured_parts))
 
 
+def _table_payload(raw: bytes) -> list[list[list[str]]]:
+    parser = _TableHTMLParser()
+    parser.feed(raw.decode("utf-8", errors="ignore"))
+    return parser.tables
+
+
 def _model_display_id(value: str) -> str:
     model_id = re.sub(r"[^a-z0-9.]+", "-", value.lower()).strip("-")
     if model_id.startswith("nova-"):
@@ -379,13 +520,15 @@ def _model_display_id(value: str) -> str:
 
 
 def _model_ids_from_text(text: str, parser_name: str) -> list[str]:
+    return _model_ids_from_patterns(
+        text,
+        PRICING_MODEL_PATTERNS.get(parser_name, []) + DISPLAY_MODEL_PATTERNS.get(parser_name, []),
+    )
+
+
+def _model_ids_from_patterns(text: str, patterns: list[re.Pattern[str]]) -> list[str]:
     model_ids: set[str] = set()
-    for pattern in PRICING_MODEL_PATTERNS.get(parser_name, []):
-        for match in pattern.finditer(text):
-            model_id = match.group(0).lower()
-            if _is_bounded_model_id(model_id):
-                model_ids.add(model_id)
-    for pattern in DISPLAY_MODEL_PATTERNS.get(parser_name, []):
+    for pattern in patterns:
         for match in pattern.finditer(text):
             model_id = _model_display_id(match.group(0))
             if _is_bounded_model_id(model_id):
@@ -444,6 +587,70 @@ def _pricing_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
     return model_items + signal_items
 
 
+def _lifecycle_dates_from_text(text: str) -> list[str]:
+    dates = set(ISO_DATE_PATTERN.findall(text))
+    for match in MONTH_DATE_PATTERN.finditer(text):
+        month = MONTHS[match.group(1).lower()]
+        day = int(match.group(2))
+        year = match.group(3)
+        dates.add(f"{year}-{month}-{day:02d}")
+    return sorted(dates)
+
+
+def _has_lifecycle_date_header(cell: str) -> bool:
+    lower_cell = cell.lower()
+    return "date" in lower_cell and any(
+        token in lower_cell for token in LIFECYCLE_DATE_HEADER_TOKENS
+    )
+
+
+def _lifecycle_table_text_and_dates(raw: bytes, parser_name: str) -> tuple[str, list[str]]:
+    selected_cells: list[str] = []
+    dates: set[str] = set()
+    model_patterns = LIFECYCLE_PARSER_PATTERNS[parser_name]
+    for table in _table_payload(raw):
+        headers: list[str] = []
+        for row in table:
+            if any(_has_lifecycle_date_header(cell) for cell in row):
+                headers = row
+                selected_cells.extend(row)
+                continue
+            if not headers:
+                continue
+            row_text = _normalize_text(" ".join(row))
+            if not _model_ids_from_patterns(row_text, model_patterns):
+                continue
+            selected_cells.extend(row)
+            for index, cell in enumerate(row):
+                header = headers[index] if index < len(headers) else ""
+                if _has_lifecycle_date_header(header):
+                    dates.update(_lifecycle_dates_from_text(cell))
+    return _normalize_text(" ".join(selected_cells)), sorted(dates)
+
+
+def _lifecycle_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
+    text, dates = _lifecycle_table_text_and_dates(raw, parser_name)
+    if not text:
+        text = _structured_html_text(raw)
+    model_items = [
+        {
+            "kind": "model_ref",
+            "model_id": model_id,
+            "source_parser": parser_name,
+        }
+        for model_id in _model_ids_from_patterns(text, LIFECYCLE_PARSER_PATTERNS[parser_name])
+    ]
+    date_items = [
+        {
+            "kind": "lifecycle_date",
+            "date": date_value,
+            "source_parser": parser_name,
+        }
+        for date_value in dates
+    ]
+    return model_items + date_items
+
+
 def _statuspage_items(raw: bytes) -> list[dict[str, str]]:
     parsed = _visible_html_payload(raw)
     href_items = [
@@ -489,6 +696,8 @@ def parse_source_payload(
         items, errors = _atom_items(raw)
     elif source.parser in MODEL_PARSER_PATTERNS:
         items = _model_ref_items(raw, source.parser)
+    elif source.parser in LIFECYCLE_PARSER_PATTERNS:
+        items = _lifecycle_items(raw, source.parser)
     elif source.parser in PRICING_PARSER_NAMES:
         items = _pricing_items(raw, source.parser)
     elif source.parser == "aws_bedrock_model_cards":

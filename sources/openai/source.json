@@ -2,7 +2,7 @@
   "schema_version": "apw.source_package.v0",
   "provider_ref": "provider:openai",
   "source_keys": ["openai.pricing", "openai.status", "openai.deprecations"],
-  "status": "parser_fixtures_partial",
+  "status": "parser_fixtures",
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [
     {
@@ -15,6 +15,12 @@
       "source_key": "openai.status",
       "input": "fixtures/status-feed.atom",
       "expected": "fixtures/status-feed.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "openai.deprecations",
+      "input": "fixtures/deprecations.html",
+      "expected": "fixtures/deprecations.expected.json",
       "changed": true
     }
   ]

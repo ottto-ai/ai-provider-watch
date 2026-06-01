@@ -20,6 +20,23 @@ The scheduled workflow runs daily and opens a draft PR only when
 Raw provider content is fetched, hashed, and discarded. Event promotion remains
 a separate maintainer-reviewed workflow.
 
+## Source Graduation Posture
+
+`sources/registry.json` separates fetch eligibility from reviewed-evidence
+eligibility:
+
+- `enabled_deterministic` sources are enabled and fixture-backed. The daily
+  workflow may fetch them and generate review candidates.
+- `blocked_pending_parser` sources are official evidence sources that stay
+  disabled until parser fixtures cover their structured lifecycle or policy
+  facts.
+- `manual_review_only` sources are official but broad, such as blog/news index
+  pages. Maintainers may cite them in reviewed events, but unattended refresh
+  must not select articles or publish events from them.
+
+`enabled: false` does not mean a source is untrusted; it means APW will not fetch
+that source unattended until the descriptor's graduation blockers are resolved.
+
 ## Review Candidate Contract
 
 APW-2.02 adds deterministic candidate generation from observation bundles:
@@ -58,9 +75,10 @@ Parser output is intentionally narrow at this stage. Changed official sources
 produce generic maintainer-review claims. Atom and Statuspage-style status
 sources expose hashed refs and timestamps instead of copied titles or incident
 text. Provider model-doc parsers extract only allowlisted model identifier
-shapes, and pricing parsers emit bounded pricing/model signals such as
-input/output, cached input, cache write/hit, batch, priority, regional, and
-provisioned-throughput markers. The parser fixture command is:
+shapes, lifecycle-doc parsers emit bounded model identifiers and dates, and
+pricing parsers emit bounded pricing/model signals such as input/output, cached
+input, cache write/hit, batch, priority, regional, and provisioned-throughput
+markers. The parser fixture command is:
 
 ```bash
 uv run apw source test

@@ -19,6 +19,7 @@ Acceptance rules:
 - descriptor has a stable `key`;
 - source authority is declared;
 - allowed domains are explicit;
+- source automation posture is explicit;
 - fixture inputs are included;
 - parser output has expected observations or review candidates;
 - no credentials are required by default;
@@ -37,6 +38,21 @@ source bodies are fetched, parsed into bounded metadata, hashed, and discarded.
 The scheduled workflow commits only `data/source-state/fingerprints.json` and
 generated review candidates when an enabled source changes.
 
+## Source Graduation
+
+Each source descriptor declares its publication posture:
+
+- `enabled_deterministic`: fetched by scheduled refresh and backed by parser
+  fixtures that emit only bounded metadata or review candidates.
+- `blocked_pending_parser`: official evidence source that should not be
+  fetched unattended until parser fixtures cover the relevant structured facts.
+- `manual_review_only`: official source that can support reviewed events but
+  remains maintainer-triggered because unattended source selection is too broad.
+
+Enabled sources must not use the `manual_review` parser and must not list
+graduation blockers. Disabled sources must document blockers so maintainers can
+see why they are not part of deterministic refresh.
+
 ## Candidate Fixtures
 
 Candidate parsers emit review-only `FindingCandidate` JSON from observation
@@ -48,9 +64,10 @@ JSON payloads, and arbitrary nested parser output are rejected by schema.
 The first parser layer is deliberately conservative. It emits a generic review
 claim when an official source fingerprint changes; for Atom and
 Statuspage-style status sources it stores hashes/timestamps rather than copied
-incident text; for model docs it stores bounded model identifiers; and for
-pricing pages it stores bounded pricing/model signals rather than copied
-pricing-table prose. Provider-specific parsers should add richer factual
+incident text; for model docs it stores bounded model identifiers; for lifecycle
+docs it stores bounded model identifiers and dates; and for pricing pages it
+stores bounded pricing/model signals rather than copied pricing-table prose.
+Provider-specific parsers should add richer factual
 extraction only when fixtures prove the output is deterministic, bounded,
 source-linked, and free of raw provider prose.
 

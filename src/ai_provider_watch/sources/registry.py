@@ -20,6 +20,9 @@ class SourceDescriptor:
     allowed_domains: list[str]
     enabled: bool
     parser: str
+    automation_status: str
+    graduation_notes: str
+    graduation_blockers: list[str]
     impact_hints: list[str]
 
     @classmethod
@@ -40,12 +43,24 @@ class SourceDescriptor:
             else [],
             enabled=bool(data.get("enabled", False)),
             parser=str(data.get("parser") or ""),
+            automation_status=str(data.get("automation_status") or ""),
+            graduation_notes=str(data.get("graduation_notes") or ""),
+            graduation_blockers=[
+                blocker for blocker in data.get("graduation_blockers", []) if isinstance(blocker, str)
+            ]
+            if isinstance(data.get("graduation_blockers"), list)
+            else [],
             impact_hints=list(impact_hints) if isinstance(impact_hints, list) else [],
         )
 
 
 STRICT_URI_CHAR_PATTERN = re.compile(r"^[A-Za-z0-9:/?#\[\]@!$&'()*+,;=._~%-]+$")
 BAD_PERCENT_ESCAPE_PATTERN = re.compile(r"%(?![0-9A-Fa-f]{2})")
+AUTOMATION_STATUSES = {
+    "enabled_deterministic",
+    "manual_review_only",
+    "blocked_pending_parser",
+}
 
 
 def load_source_descriptors(root: Path, *, enabled_only: bool = True) -> list[SourceDescriptor]:
@@ -88,8 +103,53 @@ def is_url_allowed_for_source(url: str, source: SourceDescriptor) -> bool:
 
 
 def validate_source_packages(root: Path) -> list[ValidationIssue]:
-    descriptors = {source.key for source in load_source_descriptors(root, enabled_only=False)}
+    descriptor_items = load_source_descriptors(root, enabled_only=False)
+    descriptors = {source.key for source in descriptor_items}
     issues: list[ValidationIssue] = []
+
+    for source in descriptor_items:
+        if source.automation_status not in AUTOMATION_STATUSES:
+            issues.append(
+                ValidationIssue(
+                    str(root / "sources" / "registry.json"),
+                    f"source {source.key} has invalid automation_status {source.automation_status}",
+                )
+            )
+        if source.enabled and source.automation_status != "enabled_deterministic":
+            issues.append(
+                ValidationIssue(
+                    str(root / "sources" / "registry.json"),
+                    f"enabled source {source.key} must use automation_status enabled_deterministic",
+                )
+            )
+        if not source.enabled and source.automation_status == "enabled_deterministic":
+            issues.append(
+                ValidationIssue(
+                    str(root / "sources" / "registry.json"),
+                    f"disabled source {source.key} must not use automation_status enabled_deterministic",
+                )
+            )
+        if source.enabled and source.parser == "manual_review":
+            issues.append(
+                ValidationIssue(
+                    str(root / "sources" / "registry.json"),
+                    f"enabled source {source.key} must not use manual_review parser",
+                )
+            )
+        if source.enabled and source.graduation_blockers:
+            issues.append(
+                ValidationIssue(
+                    str(root / "sources" / "registry.json"),
+                    f"enabled source {source.key} must not list graduation blockers",
+                )
+            )
+        if not source.enabled and not source.graduation_blockers:
+            issues.append(
+                ValidationIssue(
+                    str(root / "sources" / "registry.json"),
+                    f"disabled source {source.key} must list graduation blockers",
+                )
+            )
 
     for package_path in sorted((root / "sources").glob("*/source.json")):
         package = read_json(package_path)

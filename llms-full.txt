@@ -13,6 +13,8 @@ Core data model:
 - source-backed `EvidenceRef` rows;
 - review-only `FindingCandidate` records between observations and events;
 - separate provider, provider-surface, model, source, and agent-app registries.
+- source descriptors with explicit `enabled_deterministic`,
+  `blocked_pending_parser`, or `manual_review_only` graduation posture.
 
 Security:
 
@@ -21,8 +23,10 @@ Security:
 - Use PR review for all publication.
 - MCP tools are read-only by default.
 - Parser fixtures cover status-feed hashing, Statuspage-style incident-link
-  hashing, bounded model identifiers, bounded pricing/model signals, and
-  candidate-review claims without copying provider prose.
+  hashing, bounded model identifiers, lifecycle dates, bounded pricing/model
+  signals, and candidate-review claims without copying provider prose.
+- Disabled reviewed-evidence sources are not fetched unattended until their
+  graduation blockers are resolved.
 
 Validation:
 
@@ -31,6 +35,7 @@ uv run pytest
 uv run apw source test
 uv run apw validate
 uv run apw index --check
+uv run apw release dry-run --output .apw/release-dry-run
 uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 uv run apw candidate review-pr-body --observations tests/fixtures/observations/candidate-observations.json --candidates .apw/candidates
 ```

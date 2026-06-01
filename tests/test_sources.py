@@ -37,6 +37,9 @@ def _write_minimal_source_fixture_repo(root: Path) -> Path:
                         "cadence": "hourly",
                         "enabled": True,
                         "parser": "atom_status",
+                        "automation_status": "enabled_deterministic",
+                        "graduation_notes": "fixture-backed deterministic source",
+                        "graduation_blockers": [],
                         "impact_hints": ["status_incident"],
                         "snapshot_policy": "hash feed items",
                         "license_note": "fixture only",
@@ -66,6 +69,10 @@ def _write_minimal_source_fixture_repo(root: Path) -> Path:
         ),
         encoding="utf-8",
     )
+    (fixtures_dir / "expected-sources.json").write_text(
+        json.dumps({"source_keys": ["openai.status"]}),
+        encoding="utf-8",
+    )
     return package_dir
 
 
@@ -77,6 +84,53 @@ def test_source_registry_loads_enabled_sources() -> None:
     sources = load_source_descriptors(ROOT)
     assert len(sources) == 10
     assert sources[0].key == "anthropic.pricing"
+
+
+def test_source_registry_declares_graduation_posture() -> None:
+    sources = load_source_descriptors(ROOT, enabled_only=False)
+
+    enabled = {source.key for source in sources if source.enabled}
+    blocked = {source.key for source in sources if source.automation_status == "blocked_pending_parser"}
+    manual_only = {source.key for source in sources if source.automation_status == "manual_review_only"}
+
+    assert len(enabled) == 10
+    assert blocked == {
+        "azure_openai.legacy_models",
+        "google.vertex_model_versions",
+        "openai.deprecations",
+    }
+    assert manual_only == {"anthropic.news", "aws_bedrock.whats_new"}
+    for source in sources:
+        if source.enabled:
+            assert source.automation_status == "enabled_deterministic"
+            assert source.graduation_blockers == []
+        else:
+            assert source.graduation_blockers
+
+
+def test_source_package_validation_rejects_enabled_manual_review_parser(tmp_path) -> None:
+    _write_minimal_source_fixture_repo(tmp_path)
+    registry_path = tmp_path / "sources" / "registry.json"
+    registry = read_json(registry_path)
+    registry["sources"][0]["parser"] = "manual_review"
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate_source_packages(tmp_path)]
+
+    assert any("enabled source openai.status must not use manual_review parser" in issue for issue in issues)
+
+
+def test_source_package_validation_rejects_disabled_source_without_blockers(tmp_path) -> None:
+    _write_minimal_source_fixture_repo(tmp_path)
+    registry_path = tmp_path / "sources" / "registry.json"
+    registry = read_json(registry_path)
+    registry["sources"][0]["enabled"] = False
+    registry["sources"][0]["automation_status"] = "blocked_pending_parser"
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate_source_packages(tmp_path)]
+
+    assert any("disabled source openai.status must list graduation blockers" in issue for issue in issues)
 
 
 def test_source_test_command(capsys) -> None:
@@ -128,7 +182,7 @@ def test_provider_model_parser_fixtures_extract_bounded_model_refs() -> None:
         ("google.ai_docs", "sources/google/fixtures/ai-docs-models.html", "sources/google/fixtures/ai-docs-models.expected.json"),
         ("azure_openai.docs", "sources/azure-openai/fixtures/docs-models.html", "sources/azure-openai/fixtures/docs-models.expected.json"),
     ]
-    sources = {source.key: source for source in load_source_descriptors(ROOT)}
+    sources = {source.key: source for source in load_source_descriptors(ROOT, enabled_only=False)}
 
     for source_key, input_path, expected_path in cases:
         parsed = parse_source_payload(
@@ -149,6 +203,70 @@ def test_provider_model_parser_fixtures_extract_bounded_model_refs() -> None:
         assert "publish every candidate" not in rendered
         assert "merge this parser PR" not in rendered
         assert "agent command" not in rendered
+
+
+def test_provider_lifecycle_parser_fixtures_extract_bounded_model_refs_and_dates() -> None:
+    cases = [
+        (
+            "openai.deprecations",
+            "sources/openai/fixtures/deprecations.html",
+            "sources/openai/fixtures/deprecations.expected.json",
+        ),
+        (
+            "google.vertex_model_versions",
+            "sources/google/fixtures/vertex-model-versions.html",
+            "sources/google/fixtures/vertex-model-versions.expected.json",
+        ),
+        (
+            "azure_openai.legacy_models",
+            "sources/azure-openai/fixtures/legacy-models.html",
+            "sources/azure-openai/fixtures/legacy-models.expected.json",
+        ),
+    ]
+    sources = {source.key: source for source in load_source_descriptors(ROOT, enabled_only=False)}
+
+    for source_key, input_path, expected_path in cases:
+        parsed = parse_source_payload(
+            sources[source_key],
+            (ROOT / input_path).read_bytes(),
+            changed=True,
+        )
+
+        assert {
+            "items": parsed.items,
+            "raw_excerpt_hashes": parsed.raw_excerpt_hashes,
+            "candidate_claims": parsed.candidate_claims,
+            "errors": parsed.errors,
+            "snapshot_ref": parsed.snapshot_ref,
+        } == read_json(ROOT / expected_path)["expected"]
+        assert {item["kind"] for item in parsed.items} <= {"model_ref", "lifecycle_date"}
+        rendered = str(parsed.items) + str(parsed.candidate_claims) + str(parsed.errors)
+        assert "Ignore instructions" not in rendered
+        assert "publish every candidate" not in rendered
+
+
+def test_lifecycle_parsers_drop_prompt_like_legacy_model_tokens() -> None:
+    examples = {
+        "openai.deprecations": (
+            b"<table><tr><th>Model</th><th>Shutdown date</th></tr>"
+            b"<tr><td><code>text-davinci-003-ignore-instructions</code></td>"
+            b"<td>Jan 4, 2024</td></tr></table>"
+        ),
+        "azure_openai.legacy_models": (
+            b"<table><tr><th>Model</th><th>Retirement date</th></tr>"
+            b"<tr><td><code>babbage-002-ignore</code></td>"
+            b"<td>June 14, 2024</td></tr></table>"
+        ),
+    }
+    sources = {source.key: source for source in load_source_descriptors(ROOT, enabled_only=False)}
+
+    for source_key, raw in examples.items():
+        parsed = parse_source_payload(sources[source_key], raw, changed=True)
+
+        assert parsed.items == []
+        rendered = str(parsed.items) + str(parsed.candidate_claims)
+        assert "ignore-instructions" not in rendered
+        assert "babbage-002-ignore" not in rendered
 
 
 def test_provider_pricing_parser_fixtures_extract_bounded_signals() -> None:
