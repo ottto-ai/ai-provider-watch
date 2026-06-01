@@ -65,3 +65,20 @@ def test_source_refresh_workflow_has_no_release_token_path() -> None:
     assert "gh release" not in workflow
     assert "git tag" not in workflow
     assert "pull_request_target:" not in workflow
+
+
+def test_llm_review_request_workflow_is_read_only_and_artifact_only() -> None:
+    workflow = (ROOT / ".github/workflows/llm-review-request.yml").read_text(encoding="utf-8")
+
+    assert "workflow_dispatch:" in workflow
+    assert "permissions:\n  contents: read\n  pull-requests: read" in workflow
+    assert "contents: write" not in workflow
+    assert "pull-requests: write" not in workflow
+    assert "id-token: write" not in workflow
+    assert "secrets." not in workflow
+    assert "gh pr" not in workflow
+    assert "gh release" not in workflow
+    assert "git tag" not in workflow
+    assert "pull_request_target:" not in workflow
+    assert "uv run apw \"${args[@]}\"" in workflow
+    assert "actions/upload-artifact@v4" in workflow

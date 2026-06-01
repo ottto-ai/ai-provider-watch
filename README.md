@@ -39,6 +39,7 @@ establishes:
 - deterministic `apw candidate generate` command for review-only findings
   derived from source observations;
 - deterministic candidate-review PR body generation for daily source changes;
+- optional model-pluggable LLM review request packets for candidate PRs;
 - a first reviewed canonical event seed set for OpenAI, Anthropic, Google
   Vertex AI, AWS Bedrock, and Azure OpenAI;
 - synthetic parser fixtures for status feeds, Statuspage-style status pages,
@@ -58,6 +59,7 @@ uv run apw source test
 uv run apw release dry-run --output .apw/release-dry-run
 uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 uv run apw candidate review-pr-body --observations tests/fixtures/observations/candidate-observations.json --candidates .apw/candidates
+uv run apw review request --candidates .apw/candidates --reviewer codex --created-at 2026-05-31T20:15:00Z
 uv run apw latest
 ```
 
@@ -139,6 +141,23 @@ uv run apw candidate review-pr-body \
   --candidates data/candidates/review \
   --validation-output .apw/candidate-review-validation.txt
 ```
+
+Render a bounded optional LLM review request for Codex or Vertex Gemini Flash:
+
+```bash
+uv run apw review request \
+  --candidates data/candidates/review \
+  --reviewer codex \
+  --created-at 2026-05-31T20:15:00Z \
+  --output .apw/llm-review-request.json
+```
+
+The review request omits candidate claim text, treats all source/candidate text
+as untrusted data, and gives the reviewer no merge, publish, source-write, tag,
+release-token, or OIDC authority. Reviewer outputs can be checked with
+`apw review eval`, which validates the result schema and scores recall,
+curation precision, faithfulness to request evidence refs, and prompt-injection
+safety.
 
 ## First Providers
 
