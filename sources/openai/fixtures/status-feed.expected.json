@@ -1,0 +1,24 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "openai.status",
+  "changed": true,
+  "expected": {
+    "items": [
+      {
+        "kind": "atom_entry",
+        "title_sha256": "3cf71932bc05341010eef625e3b8ce1ff6f34a07cb60aafa2b738ece13b4bba1",
+        "id_sha256": "e007c3d55a3fdb66b1d62f5e18297dcbba7fa2436f6472b1ddc74f87388de67c",
+        "updated": "2026-05-31T20:00:00Z"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "status_incident",
+        "claim_text": "OpenAI status source changed and needs maintainer review for a possible status incident or recovery."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}

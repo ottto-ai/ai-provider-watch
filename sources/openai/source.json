@@ -1,1 +1,15 @@
-{"schema_version": "apw.source_package.v0", "provider_ref": "provider:openai", "source_keys": ["openai.pricing", "openai.status"], "status": "descriptor_shell", "fixtures": ["fixtures/expected-sources.json"]}
+{
+  "schema_version": "apw.source_package.v0",
+  "provider_ref": "provider:openai",
+  "source_keys": ["openai.pricing", "openai.status"],
+  "status": "parser_fixtures_partial",
+  "fixtures": ["fixtures/expected-sources.json"],
+  "parser_fixtures": [
+    {
+      "source_key": "openai.status",
+      "input": "fixtures/status-feed.atom",
+      "expected": "fixtures/status-feed.expected.json",
+      "changed": true
+    }
+  ]
+}

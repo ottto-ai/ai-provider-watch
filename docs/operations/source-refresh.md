@@ -56,4 +56,14 @@ its JSON files instead of preserving stale candidates.
 
 Parser output is intentionally narrow at this stage. Changed official sources
 produce generic maintainer-review claims, and Atom status feeds expose hashed
-entry metadata instead of copied titles or feed bodies.
+entry metadata instead of copied titles or feed bodies. Provider model-doc
+parsers for Google Gemini docs and Azure OpenAI docs
+extract only allowlisted model identifier shapes after parser fixtures prove the
+output is deterministic. The parser fixture command is:
+
+```bash
+uv run apw source test
+```
+
+Parser fixture expected output must not contain copied provider page prose,
+prompt-like source text, issue/PR bodies, or social content.

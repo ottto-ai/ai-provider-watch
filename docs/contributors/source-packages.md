@@ -70,6 +70,28 @@ Provider-specific parser fixtures should cover:
 - malformed observation handling;
 - prompt-injection text treated as inert data.
 
+`source.json` may also declare executable parser fixtures:
+
+```json
+{
+  "parser_fixtures": [
+    {
+      "source_key": "google.ai_docs",
+      "input": "fixtures/ai-docs-models.html",
+      "expected": "fixtures/ai-docs-models.expected.json",
+      "changed": true
+    }
+  ]
+}
+```
+
+`apw source test` runs those fixtures and compares the full sanitized parser
+payload exactly. Fixture inputs must be synthetic or minimal excerpts created
+for APW tests; do not commit real provider pages. Expected payloads may include
+bounded factual identifiers such as model IDs, hashes, RFC3339 timestamps, and
+templated candidate claims. They must not include copied provider headings,
+descriptions, incident titles, PR comments, issue bodies, or prompt-like text.
+
 ## Candidate Review Automation
 
 The daily workflow uses the same contract to create draft candidate-review PRs
