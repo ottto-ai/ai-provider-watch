@@ -13,7 +13,7 @@
     "source_descriptor": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["key", "provider_refs", "source_type", "authority", "url", "allowed_domains", "cadence", "enabled", "parser", "snapshot_policy", "license_note", "maintainers"],
+      "required": ["key", "provider_refs", "source_type", "authority", "url", "allowed_domains", "cadence", "enabled", "parser", "automation_status", "graduation_notes", "graduation_blockers", "snapshot_policy", "license_note", "maintainers"],
       "properties": {
         "key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]*[a-z0-9]$|^[a-z0-9]$" },
         "provider_refs": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^provider:[a-z0-9][a-z0-9_-]*$" } },
@@ -24,6 +24,9 @@
         "cadence": { "type": "string", "minLength": 3, "maxLength": 80 },
         "enabled": { "type": "boolean" },
         "parser": { "type": "string", "minLength": 3, "maxLength": 120 },
+        "automation_status": { "enum": ["enabled_deterministic", "manual_review_only", "blocked_pending_parser"] },
+        "graduation_notes": { "type": "string", "minLength": 3, "maxLength": 240 },
+        "graduation_blockers": { "type": "array", "items": { "type": "string", "minLength": 3, "maxLength": 160 } },
         "impact_hints": { "type": "array", "items": { "type": "string", "minLength": 3, "maxLength": 80 } },
         "rate_limit": { "type": ["string", "null"] },
         "robots_policy_note": { "type": ["string", "null"] },

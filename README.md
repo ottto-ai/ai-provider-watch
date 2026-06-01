@@ -100,6 +100,11 @@ only fingerprints, generates review candidates when parser claims exist, and
 opens a draft candidate-review PR when source state or candidate files change.
 It does not publish provider events or commit raw source content.
 
+Source descriptors declare explicit graduation posture. `enabled_deterministic`
+sources are fetched by automation; `blocked_pending_parser` sources need parser
+fixtures before unattended refresh; `manual_review_only` sources can support
+reviewed events but remain maintainer-triggered.
+
 Review candidates are separate from published events:
 
 ```bash
@@ -116,9 +121,10 @@ provider-controlled sources and do not copy raw provider page prose.
 Current parser output is conservative by design: changed official sources create
 generic maintainer-review claims; Atom and Statuspage-style status sources
 expose hashes/timestamps instead of copied incident text; model-doc parsers
-extract only bounded model identifiers; and pricing parsers emit bounded
-pricing/model signals such as input/output, cached input, batch, priority,
-regional, and provisioned-throughput markers. Surrounding headings,
+extract only bounded model identifiers; lifecycle-doc parsers extract bounded
+model identifiers and dates; and pricing parsers emit bounded pricing/model
+signals such as input/output, cached input, batch, priority, regional, and
+provisioned-throughput markers. Surrounding headings,
 descriptions, issue bodies, PR comments, social text, and page prose remain
 untrusted and are not copied.
 
