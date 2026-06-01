@@ -17,6 +17,7 @@ uv run apw latest
 uv run apw candidate generate --observations .apw/source-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 uv run apw candidate review-pr-body --observations .apw/source-observations.json --candidates .apw/candidates
 uv run apw review request --candidates .apw/candidates --reviewer codex --created-at 2026-05-31T20:15:00Z
+uv run apw repo check --repo . --since 3650d --risk low
 ```
 
 Candidate output is review-only. Agents may summarize candidates and check
@@ -38,6 +39,13 @@ mutate sources, tag releases, or read release credentials.
 Review notes intended for automation should conform to
 `schemas/llm-review-result.schema.json` and pass `apw review eval` before any
 human uses them as curation evidence.
+
+## GitHub Action
+
+The root `action.yml` is a composite action for downstream repositories. It runs
+`apw repo check`, writes `.apw/impact-report.json`, and appends a job summary.
+It needs only `contents: read` for the common pull-request workflow and does not
+post PR comments or request write credentials by default.
 
 ## MCP
 
