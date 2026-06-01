@@ -39,6 +39,8 @@ establishes:
 - deterministic `apw candidate generate` command for review-only findings
   derived from source observations;
 - deterministic candidate-review PR body generation for daily source changes;
+- a first reviewed canonical event seed set for OpenAI, Anthropic, Google
+  Vertex AI, AWS Bedrock, and Azure OpenAI;
 - synthetic parser fixtures for status feeds, Statuspage-style status pages,
   model-doc identifiers, pricing signals, and AWS Bedrock model-card display
   refs;
@@ -64,6 +66,7 @@ stabilizes.
 
 Generated artifacts live under `data/`:
 
+- `data/events/*.json`
 - `data/feeds/events.json`
 - `data/feeds/events.ndjson`
 - `data/feeds/latest.json`
@@ -100,8 +103,8 @@ uv run apw candidate generate \
 ```
 
 Candidate files are maintainer-review input. Promotion to `data/events/` remains
-manual until parser precision, prompt-injection, and review-gate tests are
-strong enough.
+manual. The initial seed events are reviewed by maintainers from official
+provider-controlled sources and do not copy raw provider page prose.
 
 Current parser output is conservative by design: changed official sources create
 generic maintainer-review claims; Atom and Statuspage-style status sources

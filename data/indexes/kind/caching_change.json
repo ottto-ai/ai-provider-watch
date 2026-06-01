@@ -1,0 +1,94 @@
+[
+  {
+    "announced_at": "2024-12-04T18:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "examples": [
+        "Long system prompts or reusable examples can become cache candidates when the model and region support the preview."
+      ],
+      "kind": "token_accounting_change",
+      "metered_units": [
+        "input_tokens",
+        "cached_prompt_tokens"
+      ],
+      "new_accounting": "Supported repeated prompt content can be cached and reused across calls, changing effective prompt-processing cost and latency.",
+      "old_accounting": "Repeated prompt content was processed without Bedrock prompt-cache reuse.",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-12-04T18:00:00Z",
+    "event_date": "2024-12-04",
+    "event_kind": "caching_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "5b95e2edae20030b8aeca8d3b4c465ec2cd196d8e476d3fea73bd2ee742b1d27",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Amazon Bedrock prompt caching announcement",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official AWS announcement",
+          "confidence": "high",
+          "direction": "decrease",
+          "magnitude": "provider-announced preview savings for supported repeated prompts"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Evaluate repeated system prompts and retrieval prefixes for supported Bedrock models before assuming cost reductions in production forecasts.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Verify model, region, and account eligibility before adding cache-dependent request paths.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "low",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Preview availability was limited at launch; eligibility can vary by model, region, and account."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:caching_change"
+    ],
+    "title": "Amazon Bedrock Adds Prompt Caching Preview"
+  }
+]
