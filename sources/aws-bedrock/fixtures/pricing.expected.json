@@ -1,0 +1,26 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "aws_bedrock.pricing",
+  "changed": true,
+  "expected": {
+    "items": [
+      {"kind": "model_ref", "model_id": "amazon-nova-premier", "source_parser": "aws_bedrock_pricing"},
+      {"kind": "model_ref", "model_id": "claude-sonnet-4.5", "source_parser": "aws_bedrock_pricing"},
+      {"kind": "pricing_signal", "signal": "batch", "source_parser": "aws_bedrock_pricing"},
+      {"kind": "pricing_signal", "signal": "input_tokens", "source_parser": "aws_bedrock_pricing"},
+      {"kind": "pricing_signal", "signal": "output_tokens", "source_parser": "aws_bedrock_pricing"},
+      {"kind": "pricing_signal", "signal": "provisioned_throughput", "source_parser": "aws_bedrock_pricing"},
+      {"kind": "pricing_signal", "signal": "regional_pricing", "source_parser": "aws_bedrock_pricing"},
+      {"kind": "pricing_signal", "signal": "token_unit", "source_parser": "aws_bedrock_pricing"}
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "pricing_change",
+        "claim_text": "AWS Bedrock pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}

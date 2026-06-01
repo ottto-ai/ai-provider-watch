@@ -1,7 +1,7 @@
 # AWS Bedrock Sources
 
 Amazon Bedrock pricing and model catalog sources. AWS moved the old supported
-models table to the current models-at-a-glance page, so Bedrock docs remain
-manual-review until APW adds a parser contract for the current catalog/card
-shape. Pricing remains manual-review until factual extraction fixtures are
-added.
+models table to the current models-at-a-glance page. APW now keeps this
+conservative by extracting only bounded display-model refs and pricing signals
+from synthetic fixture-proven patterns; source prose and model descriptions are
+not copied.

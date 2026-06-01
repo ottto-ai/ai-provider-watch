@@ -6,6 +6,12 @@
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [
     {
+      "source_key": "azure_openai.pricing",
+      "input": "fixtures/pricing.html",
+      "expected": "fixtures/pricing.expected.json",
+      "changed": true
+    },
+    {
       "source_key": "azure_openai.docs",
       "input": "fixtures/docs-models.html",
       "expected": "fixtures/docs-models.expected.json",

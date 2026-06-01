@@ -1,0 +1,26 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "anthropic.pricing",
+  "changed": true,
+  "expected": {
+    "items": [
+      {"kind": "model_ref", "model_id": "claude-opus-4.8", "source_parser": "anthropic_pricing"},
+      {"kind": "model_ref", "model_id": "claude-sonnet-4.5", "source_parser": "anthropic_pricing"},
+      {"kind": "pricing_signal", "signal": "batch", "source_parser": "anthropic_pricing"},
+      {"kind": "pricing_signal", "signal": "cache_hit", "source_parser": "anthropic_pricing"},
+      {"kind": "pricing_signal", "signal": "cache_write", "source_parser": "anthropic_pricing"},
+      {"kind": "pricing_signal", "signal": "input_tokens", "source_parser": "anthropic_pricing"},
+      {"kind": "pricing_signal", "signal": "output_tokens", "source_parser": "anthropic_pricing"},
+      {"kind": "pricing_signal", "signal": "token_unit", "source_parser": "anthropic_pricing"}
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "pricing_change",
+        "claim_text": "Anthropic pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}

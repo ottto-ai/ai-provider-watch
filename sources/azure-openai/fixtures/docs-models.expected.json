@@ -6,12 +6,32 @@
     "items": [
       {
         "kind": "model_ref",
+        "model_id": "chat-latest",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
         "model_id": "codex-mini",
         "source_parser": "azure_openai_models"
       },
       {
         "kind": "model_ref",
         "model_id": "computer-use-preview",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-35-turbo",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-35-turbo-16k",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-4-32k",
         "source_parser": "azure_openai_models"
       },
       {
@@ -52,6 +72,16 @@
       {
         "kind": "model_ref",
         "model_id": "gpt-realtime-mini",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-realtime-translate",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-realtime-whisper",
         "source_parser": "azure_openai_models"
       },
       {

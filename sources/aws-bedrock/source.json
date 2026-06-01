@@ -2,6 +2,20 @@
   "schema_version": "apw.source_package.v0",
   "provider_ref": "provider:aws-bedrock",
   "source_keys": ["aws_bedrock.pricing", "aws_bedrock.docs"],
-  "status": "descriptor_shell",
-  "fixtures": ["fixtures/expected-sources.json"]
+  "status": "parser_fixtures",
+  "fixtures": ["fixtures/expected-sources.json"],
+  "parser_fixtures": [
+    {
+      "source_key": "aws_bedrock.pricing",
+      "input": "fixtures/pricing.html",
+      "expected": "fixtures/pricing.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "aws_bedrock.docs",
+      "input": "fixtures/model-cards.html",
+      "expected": "fixtures/model-cards.expected.json",
+      "changed": true
+    }
+  ]
 }

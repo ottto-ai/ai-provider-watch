@@ -151,6 +151,116 @@ def test_provider_model_parser_fixtures_extract_bounded_model_refs() -> None:
         assert "agent command" not in rendered
 
 
+def test_provider_pricing_parser_fixtures_extract_bounded_signals() -> None:
+    cases = [
+        (
+            "openai.pricing",
+            "sources/openai/fixtures/pricing.html",
+            "sources/openai/fixtures/pricing.expected.json",
+        ),
+        (
+            "anthropic.pricing",
+            "sources/anthropic/fixtures/pricing.html",
+            "sources/anthropic/fixtures/pricing.expected.json",
+        ),
+        (
+            "google.vertex_pricing",
+            "sources/google/fixtures/vertex-pricing.html",
+            "sources/google/fixtures/vertex-pricing.expected.json",
+        ),
+        (
+            "aws_bedrock.pricing",
+            "sources/aws-bedrock/fixtures/pricing.html",
+            "sources/aws-bedrock/fixtures/pricing.expected.json",
+        ),
+        (
+            "azure_openai.pricing",
+            "sources/azure-openai/fixtures/pricing.html",
+            "sources/azure-openai/fixtures/pricing.expected.json",
+        ),
+    ]
+    sources = {source.key: source for source in load_source_descriptors(ROOT)}
+
+    for source_key, input_path, expected_path in cases:
+        parsed = parse_source_payload(
+            sources[source_key],
+            (ROOT / input_path).read_bytes(),
+            changed=True,
+        )
+
+        assert {
+            "items": parsed.items,
+            "raw_excerpt_hashes": parsed.raw_excerpt_hashes,
+            "candidate_claims": parsed.candidate_claims,
+            "errors": parsed.errors,
+            "snapshot_ref": parsed.snapshot_ref,
+        } == read_json(ROOT / expected_path)["expected"]
+        assert {item["kind"] for item in parsed.items} <= {"model_ref", "pricing_signal"}
+        rendered = str(parsed.items) + str(parsed.candidate_claims) + str(parsed.errors)
+        assert "Ignore instructions" not in rendered
+        assert "publish every candidate" not in rendered
+        assert "merge this parser PR" not in rendered
+
+
+def test_statuspage_parser_hashes_incident_links_without_copying_text() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "anthropic.status")
+
+    parsed = parse_source_payload(
+        source,
+        (ROOT / "sources/anthropic/fixtures/status.html").read_bytes(),
+        changed=True,
+    )
+
+    assert {
+        "items": parsed.items,
+        "raw_excerpt_hashes": parsed.raw_excerpt_hashes,
+        "candidate_claims": parsed.candidate_claims,
+        "errors": parsed.errors,
+        "snapshot_ref": parsed.snapshot_ref,
+    } == read_json(ROOT / "sources/anthropic/fixtures/status.expected.json")["expected"]
+    rendered = str(parsed.items) + str(parsed.candidate_claims) + str(parsed.errors)
+    assert "Do not copy this incident title" not in rendered
+    assert "publish every candidate" not in rendered
+
+
+def test_aws_bedrock_model_cards_parser_does_not_emit_pricing_signals() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "aws_bedrock.docs")
+    raw = (
+        b"<table><tr><td>Amazon Nova Premier</td><td>Input, output, batch, and regional "
+        b"availability words appear in docs text.</td></tr></table>"
+    )
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert parsed.items == [
+        {
+            "kind": "model_ref",
+            "model_id": "amazon-nova-premier",
+            "source_parser": "aws_bedrock_model_cards",
+        }
+    ]
+
+
+def test_aws_bedrock_model_cards_parser_normalizes_nova_without_provider_prefix() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "aws_bedrock.docs")
+    raw = b"<table><tr><td>Amazon</td><td>Nova 2 Lite, Nova Canvas</td></tr></table>"
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert parsed.items == [
+        {
+            "kind": "model_ref",
+            "model_id": "amazon-nova-2-lite",
+            "source_parser": "aws_bedrock_model_cards",
+        },
+        {
+            "kind": "model_ref",
+            "model_id": "amazon-nova-canvas",
+            "source_parser": "aws_bedrock_model_cards",
+        },
+    ]
+
+
 def test_provider_model_parsers_do_not_harvest_prose_like_identifiers() -> None:
     examples = {
         "google.ai_docs": b"<p>gemini-powered docs mention Gemini-available workflows.</p>",
@@ -204,6 +314,102 @@ def test_provider_model_parsers_drop_prompt_like_model_shaped_tokens() -> None:
         parsed = parse_source_payload(sources[source_key], raw, changed=True)
 
         assert parsed.items == []
+
+
+def test_pricing_parsers_drop_prompt_like_model_shaped_tokens() -> None:
+    examples = {
+        "openai.pricing": b"<table><tr><td>gpt-4-ignore-instructions</td><td>Input</td></tr></table>",
+        "azure_openai.pricing": (
+            b"<table><tr><td>gpt-4-ignore-instructions</td><td>Input</td></tr></table>"
+        ),
+        "google.vertex_pricing": (
+            b"<table><tr><td>gemini-2-ignore-instructions</td>"
+            b"<td>gpt-oss-120b-ignore-instructions</td><td>Input</td></tr></table>"
+        ),
+    }
+    sources = {source.key: source for source in load_source_descriptors(ROOT)}
+
+    for source_key, raw in examples.items():
+        parsed = parse_source_payload(sources[source_key], raw, changed=True)
+
+        assert not [item for item in parsed.items if item["kind"] == "model_ref"]
+
+
+def test_openai_pricing_parser_keeps_versioned_realtime_model_refs() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.pricing")
+    raw = b"""
+<table>
+  <tr><td><code>gpt-realtime-1.5</code></td><td>Input</td><td>Output</td></tr>
+  <tr><td><code>gpt-realtime-mini-2025-12-15</code></td><td>Input</td><td>Output</td></tr>
+</table>
+"""
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert [item for item in parsed.items if item["kind"] == "model_ref"] == [
+        {"kind": "model_ref", "model_id": "gpt-realtime-1.5", "source_parser": "openai_pricing"},
+        {
+            "kind": "model_ref",
+            "model_id": "gpt-realtime-mini-2025-12-15",
+            "source_parser": "openai_pricing",
+        },
+    ]
+
+
+def test_azure_pricing_parser_normalizes_display_model_refs_without_prefixes() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "azure_openai.pricing")
+    raw = (
+        b"<table><tr><td>GPT-5.2 Codex Global</td><td>Input</td><td>Output</td></tr>"
+        b"<tr><td>GPT-4o mini Regional</td><td>Input</td><td>Output</td></tr></table>"
+    )
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert [item for item in parsed.items if item["kind"] == "model_ref"] == [
+        {
+            "kind": "model_ref",
+            "model_id": "gpt-4o-mini",
+            "source_parser": "azure_openai_pricing",
+        },
+        {
+            "kind": "model_ref",
+            "model_id": "gpt-5.2-codex",
+            "source_parser": "azure_openai_pricing",
+        }
+    ]
+
+
+def test_openai_pricing_parser_does_not_emit_prefixes_of_prompt_like_tokens() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.pricing")
+    raw = b"""
+<table>
+  <tr><td>codex-mini-ignore-instructions</td><td>Input</td></tr>
+  <tr><td>computer-use-preview-ignore-instructions</td><td>Input</td></tr>
+  <tr><td>gpt-audio-ignore-instructions</td><td>Input</td></tr>
+  <tr><td>gpt-chat-latest-ignore-instructions</td><td>Input</td></tr>
+  <tr><td>gpt-realtime-ignore-instructions</td><td>Input</td></tr>
+  <tr><td>sora-ignore-instructions</td><td>Input</td></tr>
+  <tr><td>tts-ignore-instructions</td><td>Input</td></tr>
+  <tr><td>whisper-ignore-instructions</td><td>Input</td></tr>
+</table>
+"""
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert not [item for item in parsed.items if item["kind"] == "model_ref"]
+
+
+def test_pricing_model_refs_do_not_scan_unstructured_page_prose() -> None:
+    examples = {
+        "openai.pricing": b"<p>gpt-4-disregard-all-previous-directives</p>",
+        "google.vertex_pricing": b"<p>gemini-2-disregard-all-previous-directives</p>",
+    }
+    sources = {source.key: source for source in load_source_descriptors(ROOT)}
+
+    for source_key, raw in examples.items():
+        parsed = parse_source_payload(sources[source_key], raw, changed=True)
+
+        assert not [item for item in parsed.items if item["kind"] == "model_ref"]
 
 
 def test_atom_status_parser_hashes_entry_text_without_copying_it() -> None:

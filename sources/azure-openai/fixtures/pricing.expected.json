@@ -1,0 +1,27 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "azure_openai.pricing",
+  "changed": true,
+  "expected": {
+    "items": [
+      {"kind": "model_ref", "model_id": "gpt-5.2-codex", "source_parser": "azure_openai_pricing"},
+      {"kind": "model_ref", "model_id": "gpt-realtime-mini-2025-12-15", "source_parser": "azure_openai_pricing"},
+      {"kind": "pricing_signal", "signal": "batch", "source_parser": "azure_openai_pricing"},
+      {"kind": "pricing_signal", "signal": "cached_input", "source_parser": "azure_openai_pricing"},
+      {"kind": "pricing_signal", "signal": "input_tokens", "source_parser": "azure_openai_pricing"},
+      {"kind": "pricing_signal", "signal": "output_tokens", "source_parser": "azure_openai_pricing"},
+      {"kind": "pricing_signal", "signal": "priority_processing", "source_parser": "azure_openai_pricing"},
+      {"kind": "pricing_signal", "signal": "regional_pricing", "source_parser": "azure_openai_pricing"},
+      {"kind": "pricing_signal", "signal": "token_unit", "source_parser": "azure_openai_pricing"}
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "pricing_change",
+        "claim_text": "Azure OpenAI pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}

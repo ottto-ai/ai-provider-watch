@@ -6,6 +6,12 @@
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [
     {
+      "source_key": "google.vertex_pricing",
+      "input": "fixtures/vertex-pricing.html",
+      "expected": "fixtures/vertex-pricing.expected.json",
+      "changed": true
+    },
+    {
       "source_key": "google.ai_docs",
       "input": "fixtures/ai-docs-models.html",
       "expected": "fixtures/ai-docs-models.expected.json",
