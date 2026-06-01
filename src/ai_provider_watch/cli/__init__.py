@@ -23,6 +23,7 @@ from ai_provider_watch.pipeline.candidates import (
     write_candidate_files,
 )
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
+from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.source_watch.http import (
     fetch_source,
     read_fingerprint_state,
@@ -103,13 +104,13 @@ def cmd_explain(args: argparse.Namespace) -> int:
 
 def cmd_source_test(args: argparse.Namespace) -> int:
     root = _root(args.root)
-    issues = validate_source_packages(root)
+    issues = validate_source_packages(root) + validate_parser_fixtures(root)
     if issues:
         for issue in issues:
             print(issue.render(), file=sys.stderr)
         return 1
     packages = sorted((root / "sources").glob("*/source.json"))
-    print(f"ok: validated {len(packages)} source packages")
+    print(f"ok: validated {len(packages)} source packages and parser fixtures")
     return 0
 
 

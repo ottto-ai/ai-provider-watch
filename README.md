@@ -102,7 +102,10 @@ strong enough.
 
 Current parser output is conservative by design: changed official sources create
 generic maintainer-review claims, and Atom status feeds expose hashed entry
-metadata instead of copied provider text.
+metadata instead of copied provider text. Provider model-doc parsers currently
+extract only bounded model identifiers from synthetic fixture-proven patterns;
+surrounding headings, descriptions, and page prose remain untrusted and are not
+copied.
 
 Render the same draft PR body used by automation:
 

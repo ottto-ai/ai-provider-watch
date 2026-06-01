@@ -1,0 +1,108 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "azure_openai.docs",
+  "changed": true,
+  "expected": {
+    "items": [
+      {
+        "kind": "model_ref",
+        "model_id": "codex-mini",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "computer-use-preview",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-4.1",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-audio",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-audio-mini",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-chat-latest",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-image-1",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-oss-120b",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-realtime",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-realtime-mini",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "o3-mini",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "sora",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "sora-2",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "text-embedding-3-large",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "text-embedding-ada-002",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "tts",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "tts-hd",
+        "source_parser": "azure_openai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "whisper",
+        "source_parser": "azure_openai_models"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "Azure OpenAI model documentation source changed and needs maintainer review for possible model availability or deprecation changes."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}

@@ -1,3 +1,5 @@
 # Google Sources
 
-Initial shell for Gemini and Vertex AI docs and pricing sources. Parser fixtures arrive in Phase 2.
+Gemini and Vertex AI docs and pricing sources. The model-doc parser has
+synthetic fixture coverage for bounded `gemini-*` model identifiers. Pricing
+remains manual-review until factual extraction fixtures are added.

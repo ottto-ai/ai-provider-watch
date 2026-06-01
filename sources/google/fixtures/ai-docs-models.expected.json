@@ -1,0 +1,33 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "google.ai_docs",
+  "changed": true,
+  "expected": {
+    "items": [
+      {
+        "kind": "model_ref",
+        "model_id": "gemini-1.5-flash",
+        "source_parser": "google_ai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gemini-2.0-flash",
+        "source_parser": "google_ai_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gemini-2.5-pro",
+        "source_parser": "google_ai_models"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "Google Gemini/Vertex model documentation source changed and needs maintainer review for possible model availability or deprecation changes."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}

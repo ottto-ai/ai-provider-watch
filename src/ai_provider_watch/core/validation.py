@@ -8,6 +8,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 from ai_provider_watch.core.io import candidate_paths, event_paths, read_json
 from ai_provider_watch.core.issues import ValidationIssue
 from ai_provider_watch.core.temporal import is_rfc3339_date_time
+from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.sources.registry import (
     is_url_allowed_for_source,
     load_source_descriptors,
@@ -171,6 +172,7 @@ def validate(root: Path) -> list[ValidationIssue]:
     source_issues, source_keys = _validate_sources(root, schemas["source"], known_refs["provider"])
     issues.extend(source_issues)
     issues.extend(validate_source_packages(root))
+    issues.extend(validate_parser_fixtures(root))
     sources_by_key = {
         source.key: source for source in load_source_descriptors(root, enabled_only=False)
     }

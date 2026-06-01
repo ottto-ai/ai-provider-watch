@@ -1,3 +1,5 @@
 # OpenAI Sources
 
-Initial shell for OpenAI pricing and status sources. Parser fixtures arrive in Phase 2.
+OpenAI pricing and status sources. The status Atom parser has synthetic fixture
+coverage that hashes entry title/id values and keeps source prose out of parser
+payloads.
