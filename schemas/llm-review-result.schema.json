@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/llm-review-result.schema.json",
+  "title": "LLMReviewResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_schema_version",
+    "reviewer",
+    "verdict",
+    "findings",
+    "residual_risks",
+    "forbidden_actions_confirmed_absent"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.llm_review_result.v0" },
+    "request_schema_version": { "const": "apw.llm_review_request.v0" },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backend", "model"],
+      "properties": {
+        "backend": { "enum": ["codex", "vertex-gemini-flash"] },
+        "model": { "type": "string", "minLength": 3, "maxLength": 120 }
+      }
+    },
+    "verdict": { "enum": ["no_blockers_found", "changes_requested", "needs_human_review"] },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/finding" }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3, "maxLength": 360 }
+    },
+    "forbidden_actions_confirmed_absent": { "const": true }
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "category", "candidate_id", "summary", "evidence_refs", "suggested_fix", "confidence"],
+      "properties": {
+        "severity": { "enum": ["info", "low", "medium", "high", "critical"] },
+        "category": {
+          "enum": [
+            "schema",
+            "evidence",
+            "impact",
+            "prompt_injection",
+            "security",
+            "duplicate",
+            "other"
+          ]
+        },
+        "candidate_id": {
+          "type": ["string", "null"],
+          "pattern": "^candidate-[a-z0-9][a-z0-9-]*-[a-f0-9]{16}$"
+        },
+        "summary": { "type": "string", "minLength": 10, "maxLength": 500 },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source_key", "url"],
+            "properties": {
+              "source_key": { "type": "string", "minLength": 1, "maxLength": 120 },
+              "url": { "type": "string", "minLength": 3, "maxLength": 500 }
+            }
+          }
+        },
+        "suggested_fix": { "type": ["string", "null"], "maxLength": 1000 },
+        "confidence": { "enum": ["low", "medium", "high"] }
+      }
+    }
+  }
+}

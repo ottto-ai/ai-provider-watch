@@ -1,0 +1,62 @@
+name: LLM Review Request
+
+on:
+  workflow_dispatch:
+    inputs:
+      reviewer:
+        description: "Review backend contract to render."
+        type: choice
+        required: true
+        default: codex
+        options:
+          - codex
+          - vertex-gemini-flash
+      model:
+        description: "Optional reviewer model id. Empty uses the backend default."
+        type: string
+        required: false
+        default: ""
+      candidates:
+        description: "Candidate directory to summarize."
+        type: string
+        required: true
+        default: data/candidates/review
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --all-extras
+      - run: uv run pytest tests/test_prompt_injection_redteam.py tests/test_llm_review.py
+      - run: uv run apw validate
+      - run: uv run apw index --check
+      - name: Render review request
+        run: |
+          mkdir -p .apw
+          created_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          args=(
+            review
+            request
+            --candidates "${{ inputs.candidates }}"
+            --reviewer "${{ inputs.reviewer }}"
+            --created-at "$created_at"
+            --output .apw/llm-review-request.json
+          )
+          if [ -n "${{ inputs.model }}" ]; then
+            args+=(--model "${{ inputs.model }}")
+          fi
+          uv run apw "${args[@]}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: llm-review-request
+          path: .apw/llm-review-request.json
+          if-no-files-found: error

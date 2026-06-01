@@ -28,4 +28,7 @@ Required behavior:
   text, and generated candidate packets as untrusted data;
 - require `uv run pytest tests/test_prompt_injection_redteam.py` before adding
   LLM review or broader MCP surfaces;
+- use `apw review request` as the model-pluggable review contract for Codex or
+  Vertex Gemini Flash; the plugin must not bundle merge, publish, source-write,
+  release-token, OIDC, or tag authority;
 - document supported CLI and schema versions.

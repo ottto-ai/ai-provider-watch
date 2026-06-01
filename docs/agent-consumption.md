@@ -16,6 +16,7 @@ During pre-release work, run from checkout:
 uv run apw latest
 uv run apw candidate generate --observations .apw/source-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 uv run apw candidate review-pr-body --observations .apw/source-observations.json --candidates .apw/candidates
+uv run apw review request --candidates .apw/candidates --reviewer codex --created-at 2026-05-31T20:15:00Z
 ```
 
 Candidate output is review-only. Agents may summarize candidates and check
@@ -28,6 +29,15 @@ Prompt-injection regression fixtures live at
 that processes provider pages, issue bodies, PR comments, social posts, MCP
 resource text, or generated candidate packets must keep those payloads inert and
 pass `uv run pytest tests/test_prompt_injection_redteam.py`.
+
+The optional `apw review request` command renders a bounded JSON packet for
+Codex or `vertex-gemini-flash`. It omits candidate claim text, includes only
+sanitized metadata and evidence refs, and declares forbidden actions for the
+reviewer. Agents may use it to produce review notes, not to merge, publish,
+mutate sources, tag releases, or read release credentials.
+Review notes intended for automation should conform to
+`schemas/llm-review-result.schema.json` and pass `apw review eval` before any
+human uses them as curation evidence.
 
 ## MCP
 

@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/llm-review-request.schema.json",
+  "title": "LLMReviewRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "reviewer",
+    "prompt",
+    "input_policy",
+    "capabilities",
+    "required_local_checks",
+    "candidate_count",
+    "candidates",
+    "output_contract"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.llm_review_request.v0" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backend", "display_name", "model", "execution"],
+      "properties": {
+        "backend": { "enum": ["codex", "vertex-gemini-flash"] },
+        "display_name": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "model": { "type": "string", "minLength": 3, "maxLength": 120 },
+        "execution": { "const": "manual_or_operator_owned" }
+      }
+    },
+    "prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "text"],
+      "properties": {
+        "version": { "const": "apw.llm_review_prompt.v0" },
+        "text": { "type": "string", "minLength": 80, "maxLength": 3000 }
+      }
+    },
+    "input_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["untrusted_surfaces", "claim_text_policy", "redteam_fixture"],
+      "properties": {
+        "untrusted_surfaces": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "provider_page",
+              "issue_body",
+              "pr_comment",
+              "social_post",
+              "mcp_resource",
+              "generated_candidate"
+            ]
+          }
+        },
+        "claim_text_policy": { "type": "string", "minLength": 10, "maxLength": 160 },
+        "redteam_fixture": { "const": "tests/fixtures/redteam/untrusted-input-cases.json" }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_actions", "forbidden_actions"],
+      "properties": {
+        "allowed_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "forbidden_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    },
+    "required_local_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 3, "maxLength": 160 }
+    },
+    "candidate_count": { "type": "integer", "minimum": 0 },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate_summary" }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "allowed_verdicts", "required_fields"],
+      "properties": {
+        "schema_version": { "const": "apw.llm_review_result.v0" },
+        "allowed_verdicts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["no_blockers_found", "changes_requested", "needs_human_review"] }
+        },
+        "required_fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["verdict", "findings", "residual_risks"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "candidate_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "id",
+        "candidate_kind",
+        "source_keys",
+        "provider_refs",
+        "review_status",
+        "claim_text",
+        "evidence_refs"
+      ],
+      "properties": {
+        "path": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "id": { "type": "string", "minLength": 3, "maxLength": 120 },
+        "candidate_kind": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "source_keys": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "provider_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "review_status": { "type": "string", "minLength": 3, "maxLength": 40 },
+        "claim_text": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["included", "policy", "char_count", "sha256", "prompt_like"],
+          "properties": {
+            "included": { "const": false },
+            "policy": { "type": "string", "minLength": 10, "maxLength": 120 },
+            "char_count": { "type": "integer", "minimum": 0 },
+            "sha256": { "type": "string", "pattern": "^(<invalid-sha256>|[a-f0-9]{64})$" },
+            "prompt_like": { "type": "boolean" }
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_key",
+              "url",
+              "authority",
+              "retrieved_at",
+              "content_sha256",
+              "fingerprint"
+            ],
+            "properties": {
+              "source_key": { "type": "string", "minLength": 1, "maxLength": 120 },
+              "url": { "type": "string", "minLength": 3, "maxLength": 500 },
+              "authority": { "type": "string", "minLength": 3, "maxLength": 80 },
+              "retrieved_at": { "type": "string", "minLength": 3, "maxLength": 40 },
+              "content_sha256": { "type": "string", "pattern": "^(<invalid-sha256>|[a-f0-9]{64})$" },
+              "fingerprint": { "type": "string", "pattern": "^(<invalid-sha256>|[a-f0-9]{64})$" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,8 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from jsonschema import Draft202012Validator, FormatChecker
+
 from ai_provider_watch.core.feeds import (
     SEVERITY_RANK,
     artifact_diffs,
@@ -14,13 +16,19 @@ from ai_provider_watch.core.feeds import (
     load_events,
     write_artifacts,
 )
-from ai_provider_watch.core.io import repo_root, write_json_text
+from ai_provider_watch.core.io import read_json, repo_root, write_json_text
 from ai_provider_watch.core.validation import validate
 from ai_provider_watch.pipeline.candidates import (
     build_candidates,
     ensure_unique_candidate_ids,
     read_observation_bundle,
     write_candidate_files,
+)
+from ai_provider_watch.pipeline.llm_review import (
+    DEFAULT_REVIEWER,
+    REVIEWER_BACKENDS,
+    build_review_request,
+    evaluate_review_result,
 )
 from ai_provider_watch.pipeline.release import parse_release_date, run_release_dry_run
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
@@ -214,6 +222,72 @@ def cmd_candidate_review_pr_body(args: argparse.Namespace) -> int:
     return 0
 
 
+def _created_at(value: str | None) -> str:
+    if value:
+        return value
+    return datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def cmd_review_request(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    candidate_dir = _path_from_root(root, args.candidates)
+    try:
+        request = build_review_request(
+            read_candidate_files(candidate_dir),
+            root=root,
+            created_at=_created_at(args.created_at),
+            reviewer=args.reviewer,
+            model=args.model,
+        )
+    except ValueError as exc:
+        print(f"review request failed: {exc}", file=sys.stderr)
+        return 1
+    output = write_json_text(request)
+    if args.output:
+        output_path = _path_from_root(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(output, encoding="utf-8")
+    else:
+        sys.stdout.write(output)
+    return 0
+
+
+def _schema_errors(root: Path, schema_filename: str, payload: Any) -> list[str]:
+    schema = read_json(root / "schemas" / schema_filename)
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    return [
+        f"{'.'.join(str(part) for part in error.path) or '<root>'}: {error.message}"
+        for error in sorted(validator.iter_errors(payload), key=lambda item: list(item.path))
+    ]
+
+
+def cmd_review_eval(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    request = read_json(_path_from_root(root, args.request))
+    result = read_json(_path_from_root(root, args.result))
+    errors = [
+        *(f"request {error}" for error in _schema_errors(root, "llm-review-request.schema.json", request)),
+        *(f"result {error}" for error in _schema_errors(root, "llm-review-result.schema.json", result)),
+    ]
+    if errors:
+        for error in errors:
+            print(f"review eval failed: {error}", file=sys.stderr)
+        return 1
+    report = evaluate_review_result(
+        request,
+        result,
+        expected_candidate_ids=set(args.expected_candidate_id or []),
+    )
+    output = write_json_text(report)
+    if args.output:
+        output_path = _path_from_root(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(output, encoding="utf-8")
+    else:
+        sys.stdout.write(output)
+    return 0 if report["passed"] else 1
+
+
 def cmd_release_dry_run(args: argparse.Namespace) -> int:
     root = _root(args.root)
     try:
@@ -314,6 +388,42 @@ def build_parser() -> argparse.ArgumentParser:
     candidate_review_body_parser.add_argument("--candidates", default="data/candidates/review")
     candidate_review_body_parser.add_argument("--validation-output")
     candidate_review_body_parser.set_defaults(func=cmd_candidate_review_pr_body)
+
+    review_parser = subparsers.add_parser("review", help="LLM and agent review helper commands")
+    review_subparsers = review_parser.add_subparsers(dest="review_command", required=True)
+    review_request_parser = review_subparsers.add_parser(
+        "request",
+        help="render a bounded review-only request packet for Codex or another reviewer",
+    )
+    review_request_parser.add_argument("--candidates", default="data/candidates/review")
+    review_request_parser.add_argument(
+        "--reviewer",
+        choices=sorted(REVIEWER_BACKENDS),
+        default=DEFAULT_REVIEWER,
+    )
+    review_request_parser.add_argument(
+        "--model",
+        help="reviewer model identifier; defaults by reviewer backend",
+    )
+    review_request_parser.add_argument(
+        "--created-at",
+        help="RFC3339 timestamp for deterministic review packets; defaults to now in UTC",
+    )
+    review_request_parser.add_argument("--output", help="write JSON request to this path instead of stdout")
+    review_request_parser.set_defaults(func=cmd_review_request)
+    review_eval_parser = review_subparsers.add_parser(
+        "eval",
+        help="validate and score a review result against a review request",
+    )
+    review_eval_parser.add_argument("--request", required=True)
+    review_eval_parser.add_argument("--result", required=True)
+    review_eval_parser.add_argument(
+        "--expected-candidate-id",
+        action="append",
+        help="candidate id expected to be found within the review packet window",
+    )
+    review_eval_parser.add_argument("--output", help="write JSON eval report to this path instead of stdout")
+    review_eval_parser.set_defaults(func=cmd_review_eval)
 
     release_parser = subparsers.add_parser("release", help="release verification commands")
     release_subparsers = release_parser.add_subparsers(dest="release_command", required=True)

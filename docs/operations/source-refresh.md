@@ -115,3 +115,20 @@ Run the red-team gate with:
 ```bash
 uv run pytest tests/test_prompt_injection_redteam.py
 ```
+
+## Optional LLM Review Packet
+
+After a candidate-review PR is generated, maintainers can render a bounded
+review packet for Codex or Vertex Gemini Flash:
+
+```bash
+uv run apw review request \
+  --candidates data/candidates/review \
+  --reviewer codex \
+  --created-at 2026-05-31T20:15:00Z \
+  --output .apw/llm-review-request.json
+```
+
+The packet is review-only. It omits candidate claim text, records claim hashes,
+declares forbidden actions, and gives the reviewer no merge, event-publish,
+source-write, release-token, OIDC, or tag authority.
