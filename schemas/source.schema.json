@@ -27,6 +27,7 @@
         "automation_status": { "enum": ["enabled_deterministic", "manual_review_only", "blocked_pending_parser"] },
         "graduation_notes": { "type": "string", "minLength": 3, "maxLength": 240 },
         "graduation_blockers": { "type": "array", "items": { "type": "string", "minLength": 3, "maxLength": 160 } },
+        "content_scope": { "$ref": "#/$defs/content_scope" },
         "impact_hints": { "type": "array", "items": { "type": "string", "minLength": 3, "maxLength": 80 } },
         "rate_limit": { "type": ["string", "null"] },
         "robots_policy_note": { "type": ["string", "null"] },
@@ -34,6 +35,16 @@
         "license_note": { "type": "string", "minLength": 3, "maxLength": 240 },
         "maintainers": { "type": "array", "items": { "type": "string" } },
         "fixtures": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "content_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "start_heading"],
+      "properties": {
+        "kind": { "const": "html_heading_range" },
+        "start_heading": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "end_headings": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 120 } }
       }
     }
   }

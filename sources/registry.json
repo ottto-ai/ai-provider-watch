@@ -54,11 +54,16 @@
       "enabled": false,
       "parser": "openai_deprecations",
       "automation_status": "blocked_pending_parser",
-      "graduation_notes": "Synthetic lifecycle fixtures exist, but live deprecation tables still need broader model-shape coverage before unattended refresh.",
+      "graduation_notes": "Synthetic lifecycle fixtures and heading-range scope exist, but live deprecation tables still need broader model-shape coverage before unattended refresh.",
       "graduation_blockers": [
         "needs display-style model-name coverage such as GPT-4.5 Preview and GPT-4.1 mini",
         "needs current preview/search model-id coverage from live deprecation tables"
       ],
+      "content_scope": {
+        "kind": "html_heading_range",
+        "start_heading": "Deprecations",
+        "end_headings": ["Other provider notices", "Migration guides"]
+      },
       "impact_hints": ["model_deprecation", "model_retirement", "api_contract_change"],
       "rate_limit": "maintainer-triggered only",
       "robots_policy_note": "Respect provider robots and cache headers.",
@@ -186,11 +191,16 @@
       "enabled": false,
       "parser": "google_vertex_model_versions",
       "automation_status": "blocked_pending_parser",
-      "graduation_notes": "Synthetic lifecycle fixtures exist, but live model-version tables still need broader Gemini-family model-shape coverage.",
+      "graduation_notes": "Synthetic lifecycle fixtures and heading-range scope exist, but live model-version tables still need broader Gemini-family model-shape coverage.",
       "graduation_blockers": [
         "needs Gemini Live/native-audio model-id coverage",
         "needs Gemini embedding and non-numeric Gemini-family lifecycle row coverage"
       ],
+      "content_scope": {
+        "kind": "html_heading_range",
+        "start_heading": "Model versions and lifecycle",
+        "end_headings": ["What's next", "Other model families"]
+      },
       "impact_hints": ["model_launch", "model_deprecation", "model_retirement"],
       "rate_limit": "maintainer-triggered only",
       "robots_policy_note": "Respect provider robots and cache headers.",
@@ -318,11 +328,16 @@
       "enabled": false,
       "parser": "azure_openai_legacy_models",
       "automation_status": "blocked_pending_parser",
-      "graduation_notes": "Synthetic lifecycle fixtures exist, but the live URL redirects to a broader Foundry retired-model page and must not be fetched unattended yet.",
+      "graduation_notes": "Synthetic lifecycle fixtures and heading-range scope exist, but the live URL redirects to a broader Foundry retired-model page and must not be fetched unattended yet.",
       "graduation_blockers": [
-        "needs source URL or fingerprinting scoped to the Azure OpenAI section only",
+        "needs live-fetch proof that the heading-range scope matches the redirected Azure OpenAI section",
         "needs live-page fixtures proving non-Azure Foundry sections do not create Azure candidates"
       ],
+      "content_scope": {
+        "kind": "html_heading_range",
+        "start_heading": "Azure OpenAI",
+        "end_headings": ["AI21 Labs", "Models from other providers"]
+      },
       "impact_hints": ["model_deprecation", "model_retirement"],
       "rate_limit": "maintainer-triggered only",
       "robots_policy_note": "Respect provider robots and cache headers.",

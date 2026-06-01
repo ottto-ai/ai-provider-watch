@@ -9,6 +9,7 @@ from typing import Any
 from defusedxml import ElementTree as DET
 
 from ai_provider_watch.core.temporal import is_rfc3339_date_time
+from ai_provider_watch.source_watch.scopes import scoped_source_content
 from ai_provider_watch.sources.registry import SourceDescriptor
 
 MAX_ATOM_TIMESTAMP_LENGTH = 40
@@ -692,8 +693,12 @@ def parse_source_payload(
 ) -> ParsedSourcePayload:
     items: list[dict[str, Any]] = []
     errors: list[str] = []
+    scoped = scoped_source_content(source, raw)
+    raw = scoped.raw
+    errors.extend(scoped.errors)
     if source.parser == "atom_status":
-        items, errors = _atom_items(raw)
+        items, atom_errors = _atom_items(raw)
+        errors.extend(atom_errors)
     elif source.parser in MODEL_PARSER_PATTERNS:
         items = _model_ref_items(raw, source.parser)
     elif source.parser in LIFECYCLE_PARSER_PATTERNS:

@@ -82,6 +82,9 @@ candidate files. Evidence URLs must use `https` and match the source descriptor'
 labeled with official authority.
 Fingerprints are persisted only as SHA-256 values, and snapshot references are
 bounded identifiers rather than raw source payloads.
+When a source descriptor declares `content_scope`, APW computes the fingerprint
+from the scoped content while keeping `content_sha256` as the full response
+hash.
 
 Candidate files carry:
 
