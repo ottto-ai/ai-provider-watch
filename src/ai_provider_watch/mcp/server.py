@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import hashlib
+import json
+import os
 import re
+import sys
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
@@ -373,3 +376,95 @@ def assert_read_only_contract() -> None:
         text = write_json_text(descriptor)
         if "contents: write" in text or "pull-requests: write" in text or "secrets." in text:
             raise AssertionError("read-only MCP descriptor exposes a privileged workflow surface")
+
+
+def _jsonrpc_result(message_id: Any, result: Any) -> dict[str, Any]:
+    return {"jsonrpc": "2.0", "id": message_id, "result": result}
+
+
+def _jsonrpc_error(message_id: Any, code: int, message: str) -> dict[str, Any]:
+    return {"jsonrpc": "2.0", "id": message_id, "error": {"code": code, "message": message}}
+
+
+def _server_root() -> Path:
+    configured = os.environ.get("APW_REPO_ROOT")
+    return repo_root(Path(configured) if configured else Path.cwd())
+
+
+def _handle_jsonrpc(payload: dict[str, Any]) -> dict[str, Any] | None:
+    method = payload.get("method")
+    message_id = payload.get("id")
+    params = payload.get("params", {})
+    if method == "notifications/initialized":
+        return None
+    if not isinstance(method, str):
+        return _jsonrpc_error(message_id, -32600, "invalid request")
+    try:
+        if method == "initialize":
+            return _jsonrpc_result(
+                message_id,
+                {
+                    "protocolVersion": "2024-11-05",
+                    "capabilities": {"resources": {}, "tools": {}},
+                    "serverInfo": {"name": "ai-provider-watch", "version": "0.1.0"},
+                },
+            )
+        if method == "resources/list":
+            return _jsonrpc_result(message_id, {"resources": resources()})
+        if method == "resources/read":
+            uri = params.get("uri") if isinstance(params, dict) else None
+            if not isinstance(uri, str):
+                return _jsonrpc_error(message_id, -32602, "resources/read requires uri")
+            content = read_resource(uri, _server_root())
+            return _jsonrpc_result(
+                message_id,
+                {
+                    "contents": [
+                        {
+                            "uri": content.uri,
+                            "mimeType": content.mime_type,
+                            "text": content.text,
+                        }
+                    ]
+                },
+            )
+        if method == "tools/list":
+            return _jsonrpc_result(message_id, {"tools": tools()})
+        if method == "tools/call":
+            name = params.get("name") if isinstance(params, dict) else None
+            arguments = params.get("arguments", {}) if isinstance(params, dict) else {}
+            if not isinstance(name, str) or not isinstance(arguments, dict):
+                return _jsonrpc_error(message_id, -32602, "tools/call requires name and arguments")
+            result = call_tool(name, arguments, _server_root())
+            return _jsonrpc_result(
+                message_id,
+                {"content": [{"type": "text", "text": write_json_text(result)}], "isError": False},
+            )
+    except Exception as exc:
+        return _jsonrpc_error(message_id, -32000, str(exc))
+    return _jsonrpc_error(message_id, -32601, f"unsupported method: {method}")
+
+
+def serve_stdio() -> int:
+    assert_read_only_contract()
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            payload = json.loads(line)
+        except json.JSONDecodeError:
+            response = _jsonrpc_error(None, -32700, "parse error")
+        else:
+            if not isinstance(payload, dict):
+                response = _jsonrpc_error(None, -32600, "invalid request")
+            else:
+                response = _handle_jsonrpc(payload)
+        if response is not None:
+            sys.stdout.write(json.dumps(response, sort_keys=True) + "\n")
+            sys.stdout.flush()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(serve_stdio())
