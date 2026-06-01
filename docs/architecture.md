@@ -21,6 +21,7 @@ apw index
 apw latest
 apw diff --since 7d
 apw explain <event-id>
+apw release dry-run
 ```
 
 LLM or agent curation is optional and must be fenced by validation, source
@@ -41,6 +42,8 @@ allowlists, and human review.
 - `ImpactAssessment`: affected scope row.
 - `EvidenceRef`: source-backed proof pointer.
 - `ReleaseManifest`: published artifact manifest with checksums.
+- `ReleaseDryRunReport`: local pre-release evidence bundle with checks,
+  generated CalVer artifacts, and required external gates.
 
 Use a stable `ProviderEvent` envelope plus typed `EventDetail` union and
 repeatable `ImpactAssessment` rows. Unknown extensions belong under explicitly

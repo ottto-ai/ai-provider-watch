@@ -23,6 +23,7 @@ SCHEMA_FILES = {
     "observation": "observation.schema.json",
     "candidate": "candidate.schema.json",
     "release_manifest": "release-manifest.schema.json",
+    "release_dry_run": "release-dry-run.schema.json",
 }
 
 DETAIL_BY_EVENT_KIND = {

@@ -22,6 +22,7 @@ from ai_provider_watch.pipeline.candidates import (
     read_observation_bundle,
     write_candidate_files,
 )
+from ai_provider_watch.pipeline.release import parse_release_date, run_release_dry_run
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.source_watch.http import (
@@ -213,6 +214,43 @@ def cmd_candidate_review_pr_body(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_release_dry_run(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        release_date = parse_release_date(args.release_date)
+    except ValueError as exc:
+        print(f"release dry run failed: invalid --release-date: {exc}", file=sys.stderr)
+        return 1
+    try:
+        result = run_release_dry_run(
+            root,
+            release_date=release_date,
+            output_dir=_path_from_root(root, args.output),
+            release_id=args.release_id,
+            source_commit=args.source_commit,
+            require_clean=args.require_clean,
+        )
+    except ValueError as exc:
+        print(f"release dry run failed: {exc}", file=sys.stderr)
+        return 1
+    if result.failed_checks:
+        for check in result.failed_checks:
+            print(f"failed: {check.name}: {check.details}", file=sys.stderr)
+        print(f"wrote release dry-run report: {result.report_path}", file=sys.stderr)
+        return 1
+    _print_json(
+        {
+            "release_id": result.report["release_id"],
+            "check_count": len(result.report["checks"]),
+            "artifact_count": len(result.report["release_artifacts"]),
+            "report_path": str(result.report_path.relative_to(root))
+            if result.report_path.is_relative_to(root)
+            else str(result.report_path),
+        }
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="apw")
     parser.add_argument("--root", help="APW repository root")
@@ -276,6 +314,26 @@ def build_parser() -> argparse.ArgumentParser:
     candidate_review_body_parser.add_argument("--candidates", default="data/candidates/review")
     candidate_review_body_parser.add_argument("--validation-output")
     candidate_review_body_parser.set_defaults(func=cmd_candidate_review_pr_body)
+
+    release_parser = subparsers.add_parser("release", help="release verification commands")
+    release_subparsers = release_parser.add_subparsers(dest="release_command", required=True)
+    release_dry_run_parser = release_subparsers.add_parser(
+        "dry-run",
+        help="verify and stage a local data release dry run without publishing",
+    )
+    release_dry_run_parser.add_argument("--release-date", help="release date as YYYY-MM-DD; defaults to today in UTC")
+    release_dry_run_parser.add_argument(
+        "--release-id",
+        help="override CalVer release id; must match data-YYYY.MM.DD and --release-date",
+    )
+    release_dry_run_parser.add_argument("--source-commit", help="override source commit SHA for offline dry runs")
+    release_dry_run_parser.add_argument("--output", default=".apw/release-dry-run")
+    release_dry_run_parser.add_argument(
+        "--require-clean",
+        action="store_true",
+        help="fail when tracked files are modified",
+    )
+    release_dry_run_parser.set_defaults(func=cmd_release_dry_run)
     return parser
 
 

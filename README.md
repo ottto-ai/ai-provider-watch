@@ -45,15 +45,17 @@ establishes:
   model-doc identifiers, pricing signals, and AWS Bedrock model-card display
   refs;
 - read-only MCP package shell;
-- CI and data-release dry-run workflow shell.
+- CI and schema-backed data-release dry-run verification.
 
 ## Install From Checkout
 
 ```bash
 uv sync --all-extras
+uv lock --check
 uv run apw validate
 uv run apw index --check
 uv run apw source test
+uv run apw release dry-run --output .apw/release-dry-run
 uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 uv run apw candidate review-pr-body --observations tests/fixtures/observations/candidate-observations.json --candidates .apw/candidates
 uv run apw latest
@@ -74,6 +76,11 @@ Generated artifacts live under `data/`:
 - `data/indexes/provider/*.json`
 - `data/indexes/kind/*.json`
 - `data/releases/dev/manifest.json`
+
+Release dry runs use CalVer IDs such as `data-2026.06.01`, build
+release-shaped artifacts under ignored `.apw/`, verify manifest checksums,
+license layout, dependency lock presence, and required GitHub
+CodeQL/dependency-review gates without publishing a tag.
 
 The normalized factual event data and generated feed artifacts are dedicated to
 the public domain under CC0-1.0. Code, schemas, docs, tests, and tooling are

@@ -7,7 +7,7 @@
   "required": ["schema_version", "release_id", "created_at", "schema_versions", "artifacts", "checksums"],
   "properties": {
     "schema_version": { "const": "apw.release_manifest.v0" },
-    "release_id": { "type": "string", "minLength": 3 },
+    "release_id": { "type": "string", "pattern": "^(dev|data-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2})$" },
     "created_at": { "type": "string", "format": "date-time" },
     "schema_versions": { "type": "object", "additionalProperties": { "type": "string" } },
     "artifacts": {

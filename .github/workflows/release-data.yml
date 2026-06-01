@@ -16,6 +16,25 @@ jobs:
         with:
           python-version: "3.12"
       - run: uv sync --all-extras
+      - run: uv lock --check
+      - run: uv run ruff check .
       - run: uv run pytest
+      - run: uv run apw source test
       - run: uv run apw validate
       - run: uv run apw index --check
+      - run: uv build --out-dir .apw/dist
+      - name: Install package and run release dry-run
+        run: |
+          uv venv .apw/install-smoke --python 3.12 --seed
+          . .apw/install-smoke/bin/activate
+          python -m pip install .apw/dist/*.whl
+          apw --root "$PWD" validate
+          apw --root "$PWD" release dry-run \
+            --release-date "$(date -u +%F)" \
+            --output .apw/release-dry-run \
+            --require-clean
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apw-release-dry-run
+          path: .apw/release-dry-run
+          if-no-files-found: error
