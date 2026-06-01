@@ -1,22 +1,19 @@
 # Codex Plugin Contract
 
-Phase 0 reserves the APW Codex plugin contract. The installable plugin package is
-deferred until the event schema, read-only MCP surface, and repo skills are
-stable.
+APW now ships a repo-root Codex plugin package. The package bundles APW skills,
+the tested read-only MCP server config, and plugin metadata without adding any
+release, merge, source-write, OIDC, tag, or credential authority.
 
-Future package shape:
+Package shape:
 
 ```text
-plugins/ai-provider-watch-codex/
-  .codex-plugin/plugin.json
-  skills/
-    apw-source-author/SKILL.md
-    apw-event-review/SKILL.md
-    apw-repo-impact-check/SKILL.md
-    apw-release-manager/SKILL.md
-  .mcp.json
-  assets/
-    icon.png
+.codex-plugin/plugin.json
+.mcp.json
+skills/
+  apw-source-author/SKILL.md
+  apw-event-review/SKILL.md
+  apw-repo-impact-check/SKILL.md
+  apw-release-manager/SKILL.md
 ```
 
 Required behavior:
@@ -35,3 +32,5 @@ Required behavior:
   `ai_provider_watch.mcp`; plugin packaging must fail if MCP exposes publish,
   merge, source-write, release-token, OIDC, or tag capabilities;
 - document supported CLI and schema versions.
+
+See `docs/operations/codex-plugin.md` for install shape and validation.

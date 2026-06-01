@@ -46,6 +46,7 @@ establishes:
   through `apw notify`;
 - ecosystem mapping payloads for LiteLLM, models.dev, Langfuse, Helicone, and
   OpenLIT through `apw ecosystem render`;
+- a repo-root Codex plugin package with APW skills and read-only MCP config;
 - a first reviewed canonical event seed set for OpenAI, Anthropic, Google
   Vertex AI, AWS Bedrock, and Azure OpenAI;
 - synthetic parser fixtures for status feeds, Statuspage-style status pages,
@@ -199,6 +200,7 @@ See:
 - [Downstream GitHub Action](docs/integrations/github-action.md)
 - [Webhook And Slack Payloads](docs/integrations/webhooks.md)
 - [Ecosystem Mappings](docs/integrations/ecosystem-mappings.md)
+- [Codex Plugin](docs/operations/codex-plugin.md)
 
 ## Contributing
 

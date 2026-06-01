@@ -93,5 +93,6 @@ pass.
 ## Codex And Claude Skills
 
 Repo-scoped skills live under `.agents/skills/` and `.claude/skills/`.
-Installable Codex plugin packaging is deferred until schema, skills, and
-read-only MCP contract are stable.
+The repo-root Codex plugin package lives at `.codex-plugin/plugin.json`, mirrors
+the APW skills under `skills/`, and binds `.mcp.json` to the read-only MCP
+server.
