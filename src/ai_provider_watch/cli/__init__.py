@@ -24,6 +24,7 @@ from ai_provider_watch.pipeline.candidates import (
     read_observation_bundle,
     write_candidate_files,
 )
+from ai_provider_watch.pipeline.ecosystem import ECOSYSTEM_TARGETS, build_ecosystem_mapping
 from ai_provider_watch.pipeline.llm_review import (
     DEFAULT_REVIEWER,
     REVIEWER_BACKENDS,
@@ -364,6 +365,28 @@ def cmd_notify_slack(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_ecosystem_render(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        payload = build_ecosystem_mapping(
+            root,
+            target=args.target,
+            since=args.since,
+            risk=args.risk,
+            provider=args.provider,
+            kind=args.kind,
+            event_id=args.event_id,
+            limit=args.limit,
+            created_at=args.created_at,
+            source_url=args.source_url,
+        )
+    except ValueError as exc:
+        print(f"ecosystem render failed: {exc}", file=sys.stderr)
+        return 1
+    _write_or_print(root, payload, args.output)
+    return 0
+
+
 def cmd_release_dry_run(args: argparse.Namespace) -> int:
     root = _root(args.root)
     try:
@@ -536,6 +559,28 @@ def build_parser() -> argparse.ArgumentParser:
         payload_parser.add_argument("--output", help="write JSON payload to this path instead of stdout")
     notify_webhook_parser.set_defaults(func=cmd_notify_webhook)
     notify_slack_parser.set_defaults(func=cmd_notify_slack)
+
+    ecosystem_parser = subparsers.add_parser("ecosystem", help="render ecosystem integration mapping payloads")
+    ecosystem_subparsers = ecosystem_parser.add_subparsers(dest="ecosystem_command", required=True)
+    ecosystem_render_parser = ecosystem_subparsers.add_parser(
+        "render",
+        help="render target-specific mapping payloads for catalog, gateway, or observability tools",
+    )
+    ecosystem_render_parser.add_argument("--target", required=True, choices=sorted(ECOSYSTEM_TARGETS))
+    ecosystem_render_parser.add_argument("--since", default="7d", help="event date cutoff or day window")
+    ecosystem_render_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK), help="minimum event severity")
+    ecosystem_render_parser.add_argument("--provider", help="provider id or provider: ref")
+    ecosystem_render_parser.add_argument("--kind", help="event kind filter")
+    ecosystem_render_parser.add_argument("--event-id", help="single event id filter")
+    ecosystem_render_parser.add_argument("--limit", type=int, default=20, help="maximum events to include")
+    ecosystem_render_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic payloads")
+    ecosystem_render_parser.add_argument(
+        "--source-url",
+        default="https://github.com/ottto-ai/ai-provider-watch",
+        help="source URL to include in the payload",
+    )
+    ecosystem_render_parser.add_argument("--output", help="write JSON payload to this path instead of stdout")
+    ecosystem_render_parser.set_defaults(func=cmd_ecosystem_render)
 
     release_parser = subparsers.add_parser("release", help="release verification commands")
     release_subparsers = release_parser.add_subparsers(dest="release_command", required=True)

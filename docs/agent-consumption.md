@@ -20,6 +20,7 @@ uv run apw review request --candidates .apw/candidates --reviewer codex --create
 uv run apw repo check --repo . --since 3650d --risk low
 uv run apw notify webhook --since 7d --risk medium --output .apw/apw-webhook.json
 uv run apw notify slack --since 7d --risk medium --output .apw/apw-slack.json
+uv run apw ecosystem render --target litellm --since 30d --risk medium --output .apw/litellm-mapping.json
 ```
 
 Candidate output is review-only. Agents may summarize candidates and check
@@ -56,6 +57,13 @@ payloads from reviewed events. They write JSON to stdout or a file only. APW
 does not deliver payloads, read Slack/webhook secrets, or own retry state.
 Downstream operators can post the payloads from their own systems using the
 included idempotency key and retry guidance.
+
+## Ecosystem Mappings
+
+`apw ecosystem render` creates target-specific mapping payloads for LiteLLM,
+models.dev, Langfuse, Helicone, and OpenLIT. These payloads are docs/examples
+for downstream operators and agents; APW does not call those APIs or mutate
+their catalogs, traces, request properties, or OpenTelemetry streams.
 
 ## MCP
 

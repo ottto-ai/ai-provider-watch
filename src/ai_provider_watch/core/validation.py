@@ -26,6 +26,7 @@ SCHEMA_FILES = {
     "llm_review_result": "llm-review-result.schema.json",
     "webhook_payload": "webhook-payload.schema.json",
     "slack_payload": "slack-payload.schema.json",
+    "ecosystem_mapping": "ecosystem-mapping.schema.json",
     "release_manifest": "release-manifest.schema.json",
     "release_dry_run": "release-dry-run.schema.json",
 }
