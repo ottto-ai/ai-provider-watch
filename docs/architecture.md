@@ -73,13 +73,13 @@ review candidates, but they do not publish canonical events unattended.
 candidate contract consumes observation metadata and parser-produced
 `candidate_claims`; it does not execute source text or treat provider prose as
 instructions. Candidate claims are deliberately narrow: bounded claim text plus
-an optional kind. Arbitrary nested parser output is not persisted. Candidate IDs
-are stable over source key, fingerprint, and claim text so refresh PRs can
-dedupe noisy source changes. Duplicate candidate IDs fail generation instead of
-overwriting review files, and default writes refuse to clobber existing
-candidate files. Evidence URLs must use `https` and match the source descriptor's
-`allowed_domains`; off-domain observation URLs are rejected instead of being
-labeled with official authority.
+an optional kind. Prompt-like claim text is rejected. Arbitrary nested parser
+output is not persisted. Candidate IDs are stable over source key, fingerprint,
+and claim text so refresh PRs can dedupe noisy source changes. Duplicate
+candidate IDs fail generation instead of overwriting review files, and default
+writes refuse to clobber existing candidate files. Evidence URLs must use
+`https` and match the source descriptor's `allowed_domains`; off-domain
+observation URLs are rejected instead of being labeled with official authority.
 Fingerprints are persisted only as SHA-256 values, and snapshot references are
 bounded identifiers rather than raw source payloads.
 When a source descriptor declares `content_scope`, APW computes the fingerprint
@@ -99,6 +99,11 @@ Candidate files carry:
 
 Promotion from candidate to `ProviderEvent` remains a maintainer-reviewed PR
 step.
+
+Prompt-injection regressions live in
+`tests/fixtures/redteam/untrusted-input-cases.json` and are exercised by
+`tests/test_prompt_injection_redteam.py`. New agent-facing surfaces must pass
+those cases before they can process provider/source/candidate text.
 
 ## MCP Posture
 

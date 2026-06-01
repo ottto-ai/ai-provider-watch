@@ -91,3 +91,27 @@ uv run apw source test
 
 Parser fixture expected output must not contain copied provider page prose,
 prompt-like source text, issue/PR bodies, or social content.
+
+## Prompt-Injection Red Team
+
+APW keeps explicit red-team payloads in
+`tests/fixtures/redteam/untrusted-input-cases.json`. These payloads cover
+provider pages, issue bodies, PR comments, social posts, MCP resource text, and
+generated candidate packets.
+
+Required behavior:
+
+- parser output may contain bounded facts such as model identifiers, dates,
+  hashes, or parser-owned candidate claims, but not source instructions;
+- candidate generation rejects prompt-like `claim_text`;
+- candidate review PR bodies summarize paths, IDs, kinds, counts, and validation
+  output without quoting provider prose or candidate claim text;
+- MCP and future LLM review surfaces must treat all source/candidate text as
+  inert data and must not expose publish, merge, release-token, or source
+  mutation authority.
+
+Run the red-team gate with:
+
+```bash
+uv run pytest tests/test_prompt_injection_redteam.py
+```

@@ -8,6 +8,7 @@ from typing import Any
 
 from ai_provider_watch.core.io import read_json, write_json_text
 from ai_provider_watch.core.temporal import is_rfc3339_date_time, require_rfc3339_date_time
+from ai_provider_watch.core.untrusted import contains_prompt_injection_marker
 from ai_provider_watch.sources.registry import SourceDescriptor, is_url_allowed_for_source
 
 PARSER_CONTRACT_VERSION = "apw.candidate_parser.v0"
@@ -183,7 +184,11 @@ def build_candidates(
         for raw_claim in claims:
             claim_text, requested_kind = _claim_parts(raw_claim)
             claim_text = _normalize_text(claim_text)
-            if len(claim_text) < 10 or len(claim_text) > 2000:
+            if (
+                len(claim_text) < 10
+                or len(claim_text) > 2000
+                or contains_prompt_injection_marker(claim_text)
+            ):
                 skipped.append(str(source_key))
                 continue
 
