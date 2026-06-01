@@ -89,7 +89,14 @@ def _media_type(path: str) -> str:
     return "application/octet-stream"
 
 
-def build_artifacts(root: Path, release_id: str = "dev") -> dict[Path, str]:
+def build_artifacts(
+    root: Path,
+    release_id: str = "dev",
+    *,
+    source_commit: str | None = None,
+    created_at: str | None = None,
+    notes: str | None = None,
+) -> dict[Path, str]:
     events = load_events(root)
     artifacts: dict[Path, str] = {
         Path("data/feeds/events.json"): write_json_text(events),
@@ -116,13 +123,13 @@ def build_artifacts(root: Path, release_id: str = "dev") -> dict[Path, str]:
     manifest = {
         "schema_version": "apw.release_manifest.v0",
         "release_id": release_id,
-        "created_at": _event_time(events),
+        "created_at": created_at or _event_time(events),
         "schema_versions": {"event": "apw.provider_event.v0", "event_detail": "apw.event_detail.v0", "release_manifest": "apw.release_manifest.v0"},
         "artifacts": manifest_artifacts,
         "checksums": {artifact["path"]: artifact["sha256"] for artifact in manifest_artifacts},
-        "source_commit": None,
+        "source_commit": source_commit,
         "generated_by": f"ai-provider-watch {__version__}",
-        "notes": "Deterministic development manifest.",
+        "notes": notes or "Deterministic development manifest.",
     }
     artifacts[Path(f"data/releases/{release_id}/manifest.json")] = write_json_text(manifest)
     return artifacts

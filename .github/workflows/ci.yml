@@ -18,7 +18,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: uv sync --all-extras
+      - run: uv lock --check
       - run: uv run ruff check .
       - run: uv run pytest
+      - run: uv run apw source test
       - run: uv run apw validate
       - run: uv run apw index --check
+      - run: uv run apw release dry-run --output .apw/ci-release-dry-run

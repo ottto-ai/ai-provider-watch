@@ -3,8 +3,10 @@
 ## Validation
 
 - [ ] `uv run pytest`
+- [ ] `uv lock --check`
 - [ ] `uv run apw validate`
 - [ ] `uv run apw index --check`
+- [ ] `uv run apw release dry-run --output .apw/release-dry-run` when release/data artifacts are affected
 
 ## Data And Source Safety
 

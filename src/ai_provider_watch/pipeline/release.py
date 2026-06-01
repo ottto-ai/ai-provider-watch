@@ -1,0 +1,382 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+import subprocess
+from dataclasses import dataclass
+from datetime import UTC, date, datetime
+from importlib.metadata import PackageNotFoundError, version
+from pathlib import Path
+from typing import Any
+
+from jsonschema import Draft202012Validator, FormatChecker
+
+from ai_provider_watch import __version__
+from ai_provider_watch.core.feeds import artifact_diffs, build_artifacts, write_artifacts
+from ai_provider_watch.core.io import write_json_text
+from ai_provider_watch.core.validation import load_schemas, validate
+from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
+from ai_provider_watch.sources.registry import validate_source_packages
+
+RELEASE_DRY_RUN_SCHEMA_VERSION = "apw.release_dry_run.v0"
+RELEASE_ID_PATTERN = re.compile(r"^data-\d{4}\.\d{2}\.\d{2}$")
+
+
+@dataclass(frozen=True)
+class ReleaseCheck:
+    name: str
+    status: str
+    details: str
+
+
+@dataclass(frozen=True)
+class ReleaseDryRunResult:
+    report: dict[str, Any]
+    failed_checks: list[ReleaseCheck]
+    output_dir: Path
+    report_path: Path
+
+
+def calver_release_id(release_date: date) -> str:
+    return f"data-{release_date:%Y.%m.%d}"
+
+
+def parse_release_id_date(release_id: str) -> date:
+    if not RELEASE_ID_PATTERN.fullmatch(release_id):
+        raise ValueError(f"release_id must match data-YYYY.MM.DD: {release_id}")
+    try:
+        return date.fromisoformat(release_id.removeprefix("data-").replace(".", "-"))
+    except ValueError as exc:
+        raise ValueError(f"release_id must contain a valid calendar date: {release_id}") from exc
+
+
+def parse_release_date(value: str | None) -> date:
+    if value is None:
+        return datetime.now(UTC).date()
+    return date.fromisoformat(value)
+
+
+def _check(name: str, passed: bool, details: str) -> ReleaseCheck:
+    return ReleaseCheck(name=name, status="pass" if passed else "fail", details=details)
+
+
+def _sha256_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _git_output(root: Path, *args: str) -> str | None:
+    try:
+        result = subprocess.run(
+            ["git", *args],
+            cwd=root,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return result.stdout.strip()
+
+
+def _source_commit(root: Path, override: str | None) -> str | None:
+    if override:
+        return override
+    return _git_output(root, "rev-parse", "HEAD")
+
+
+def _is_working_tree_clean(root: Path) -> bool:
+    status = _git_output(root, "status", "--porcelain", "--untracked-files=all")
+    return status == ""
+
+
+def _package_version_check() -> ReleaseCheck:
+    try:
+        installed = version("ai-provider-watch")
+    except PackageNotFoundError:
+        return _check("package_install", False, "ai-provider-watch package metadata is not installed")
+    return _check(
+        "package_install",
+        installed == __version__,
+        f"installed package version {installed}; imported package version {__version__}",
+    )
+
+
+def _workflow_contains(root: Path, workflow: str, needle: str) -> bool:
+    path = root / ".github" / "workflows" / workflow
+    return path.exists() and needle in path.read_text(encoding="utf-8")
+
+
+def _license_check(root: Path) -> ReleaseCheck:
+    required = [
+        "LICENSES/Apache-2.0.txt",
+        "LICENSES/CC0-1.0.txt",
+        "DATA_LICENSE.md",
+        "REUSE.toml",
+    ]
+    missing = [path for path in required if not (root / path).exists()]
+    reuse = (root / "REUSE.toml").read_text(encoding="utf-8") if not missing else ""
+    has_apache = "SPDX-License-Identifier = \"Apache-2.0\"" in reuse
+    has_cc0 = "SPDX-License-Identifier = \"CC0-1.0\"" in reuse and "\"data/**\"" in reuse
+    passed = not missing and has_apache and has_cc0
+    details = "Apache-2.0 code/docs/schemas and CC0-1.0 data annotations present"
+    if missing:
+        details = f"missing license files: {', '.join(missing)}"
+    elif not has_apache or not has_cc0:
+        details = "REUSE.toml does not contain expected Apache-2.0 and CC0-1.0 annotations"
+    return _check("license_layout", passed, details)
+
+
+def _checksum_check(artifacts: dict[Path, str], manifest: dict[str, Any]) -> ReleaseCheck:
+    mismatches: list[str] = []
+    for artifact in manifest.get("artifacts", []):
+        path = Path(artifact["path"])
+        text = artifacts.get(path)
+        if text is None:
+            mismatches.append(f"{path}: missing from artifact map")
+            continue
+        digest = _sha256_text(text)
+        if digest != artifact["sha256"]:
+            mismatches.append(f"{path}: manifest sha256 does not match content")
+        if len(text.encode("utf-8")) != artifact["bytes"]:
+            mismatches.append(f"{path}: manifest byte count does not match content")
+    checksums = manifest.get("checksums", {})
+    for path, digest in checksums.items():
+        text = artifacts.get(Path(path))
+        if text is None or _sha256_text(text) != digest:
+            mismatches.append(f"{path}: checksums map does not match content")
+    checksum_artifact = next(
+        (Path(path) for path in checksums if path.endswith("/checksums.txt")),
+        None,
+    )
+    if checksum_artifact is None:
+        mismatches.append("manifest does not include checksums.txt artifact")
+    else:
+        checksum_text = artifacts.get(checksum_artifact)
+        if checksum_text is None:
+            mismatches.append(f"{checksum_artifact}: missing from artifact map")
+        else:
+            listed_paths: set[Path] = set()
+            for line in checksum_text.splitlines():
+                try:
+                    digest, path = line.split("  ", 1)
+                except ValueError:
+                    mismatches.append(f"{checksum_artifact}: malformed checksum line {line!r}")
+                    continue
+                listed_path = Path(path)
+                listed_paths.add(listed_path)
+                text = artifacts.get(listed_path)
+                if text is None:
+                    mismatches.append(f"{checksum_artifact}: listed unknown artifact {listed_path}")
+                elif _sha256_text(text) != digest:
+                    mismatches.append(f"{checksum_artifact}: digest mismatch for {listed_path}")
+            manifest_path = Path(str(checksum_artifact).replace("checksums.txt", "manifest.json"))
+            expected_paths = set(artifacts) - {checksum_artifact, manifest_path}
+            if listed_paths != expected_paths:
+                missing = ", ".join(
+                    str(path) for path in sorted(expected_paths - listed_paths, key=str)
+                )
+                extra = ", ".join(
+                    str(path) for path in sorted(listed_paths - expected_paths, key=str)
+                )
+                mismatches.append(
+                    f"{checksum_artifact}: listed paths differ from generated artifacts"
+                    f" (missing: {missing or 'none'}; extra: {extra or 'none'})"
+                )
+    return _check(
+        "release_checksums",
+        not mismatches,
+        "manifest hashes, byte counts, and checksums.txt entries match generated content"
+        if not mismatches
+        else "; ".join(mismatches),
+    )
+
+
+def _schema_check(root: Path, report: dict[str, Any]) -> ReleaseCheck:
+    schema = load_schemas(root)["release_dry_run"]
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    errors = sorted(validator.iter_errors(report), key=lambda item: list(item.path))
+    if not errors:
+        return _check("dry_run_report_schema", True, "release dry-run report matches schema")
+    rendered = []
+    for error in errors:
+        location = ".".join(str(part) for part in error.path)
+        rendered.append(f"{location}: {error.message}" if location else error.message)
+    return _check("dry_run_report_schema", False, "; ".join(rendered))
+
+
+def _release_manifest_schema_check(root: Path, manifest: dict[str, Any]) -> ReleaseCheck:
+    schema = load_schemas(root)["release_manifest"]
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    errors = sorted(validator.iter_errors(manifest), key=lambda item: list(item.path))
+    if not errors:
+        return _check("release_manifest_schema", True, "CalVer release manifest matches schema")
+    rendered = []
+    for error in errors:
+        location = ".".join(str(part) for part in error.path)
+        rendered.append(f"{location}: {error.message}" if location else error.message)
+    return _check("release_manifest_schema", False, "; ".join(rendered))
+
+
+def run_release_dry_run(
+    root: Path,
+    *,
+    release_date: date,
+    output_dir: Path,
+    release_id: str | None = None,
+    source_commit: str | None = None,
+    require_clean: bool = False,
+) -> ReleaseDryRunResult:
+    resolved_release_id = release_id or calver_release_id(release_date)
+    release_id_date = parse_release_id_date(resolved_release_id)
+    if release_id_date != release_date:
+        raise ValueError(
+            f"release_id date must match release_date {release_date.isoformat()}: {resolved_release_id}"
+        )
+    source_commit = _source_commit(root, source_commit)
+    created_at = datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    release_output_dir = output_dir / resolved_release_id
+    artifacts_root = release_output_dir / "artifacts"
+    report_path = release_output_dir / "dry-run-report.json"
+
+    checks: list[ReleaseCheck] = [
+        _check(
+            "release_id_calver",
+            True,
+            f"release id {resolved_release_id}",
+        ),
+        _check(
+            "source_commit",
+            source_commit is not None and bool(re.fullmatch(r"[0-9a-f]{40}", source_commit)),
+            source_commit or "git source commit unavailable",
+        ),
+        _check(
+            "working_tree_clean",
+            (not require_clean) or _is_working_tree_clean(root),
+            "working tree clean" if require_clean else "not required for this dry run",
+        ),
+        _package_version_check(),
+    ]
+
+    validation_issues = validate(root)
+    checks.append(
+        _check(
+            "schema_and_repo_validation",
+            not validation_issues,
+            "apw validate checks passed" if not validation_issues else "; ".join(issue.render() for issue in validation_issues),
+        )
+    )
+    source_issues = validate_source_packages(root) + validate_parser_fixtures(root)
+    checks.append(
+        _check(
+            "source_package_fixtures",
+            not source_issues,
+            "source package and parser fixtures passed" if not source_issues else "; ".join(issue.render() for issue in source_issues),
+        )
+    )
+
+    dev_diffs = artifact_diffs(root, build_artifacts(root))
+    checks.append(
+        _check(
+            "generated_dev_artifacts_current",
+            not dev_diffs,
+            "tracked dev feeds, indexes, and manifest are current"
+            if not dev_diffs
+            else f"out of date: {', '.join(dev_diffs)}",
+        )
+    )
+
+    release_artifacts = build_artifacts(
+        root,
+        resolved_release_id,
+        source_commit=source_commit,
+        created_at=created_at,
+        notes="Dry-run CalVer data release manifest. No tag or artifact was published.",
+    )
+    manifest_path = Path(f"data/releases/{resolved_release_id}/manifest.json")
+    manifest = read_json_from_text(release_artifacts[manifest_path])
+    checks.append(_release_manifest_schema_check(root, manifest))
+    checks.append(_checksum_check(release_artifacts, manifest))
+    checks.append(_license_check(root))
+    checks.append(
+        _check(
+            "dependency_lock",
+            (root / "uv.lock").exists(),
+            "uv.lock is present; CI and release dry run execute uv lock --check",
+        )
+    )
+    checks.append(
+        _check(
+            "codeql_workflow",
+            _workflow_contains(root, "codeql.yml", "github/codeql-action/analyze"),
+            "CodeQL workflow present",
+        )
+    )
+    checks.append(
+        _check(
+            "dependency_review_workflow",
+            _workflow_contains(root, "dependency-review.yml", "actions/dependency-review-action"),
+            "Dependency Review workflow present",
+        )
+    )
+    release_workflow = (root / ".github" / "workflows" / "release-data.yml").read_text(encoding="utf-8")
+    checks.append(
+        _check(
+            "release_workflow_guardrails",
+            "contents: read" in release_workflow and "contents: write" not in release_workflow and "id-token: write" not in release_workflow,
+            "release dry-run workflow has read-only contents permission and no id-token permission",
+        )
+    )
+
+    report = {
+        "schema_version": RELEASE_DRY_RUN_SCHEMA_VERSION,
+        "release_id": resolved_release_id,
+        "release_date": release_date.isoformat(),
+        "created_at": created_at,
+        "source_commit": source_commit,
+        "output_dir": str(release_output_dir),
+        "validation_commands": [
+            "uv run ruff check .",
+            "uv run pytest",
+            "uv run apw source test",
+            "uv run apw validate",
+            "uv run apw index --check",
+            f"uv run apw release dry-run --release-date {release_date.isoformat()} --output {output_dir}",
+        ],
+        "checks": [check.__dict__ for check in checks],
+        "release_artifacts": manifest["artifacts"],
+        "external_required_checks": [
+            {
+                "name": "CodeQL",
+                "status": "required",
+                "details": "GitHub CodeQL workflow must pass before a public data tag is cut.",
+            },
+            {
+                "name": "Dependency Review",
+                "status": "required",
+                "details": "Manual GitHub dependency-review workflow must pass before a public data tag is cut once dependency graph support is available; uv lock --check is the deterministic lock gate.",
+            },
+        ],
+    }
+    schema_check = _schema_check(root, report)
+    checks.append(schema_check)
+    report["checks"] = [check.__dict__ for check in checks]
+
+    write_artifacts(artifacts_root, release_artifacts)
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(write_json_text(report), encoding="utf-8")
+
+    failed_checks = [check for check in checks if check.status != "pass"]
+    return ReleaseDryRunResult(
+        report=report,
+        failed_checks=failed_checks,
+        output_dir=release_output_dir,
+        report_path=report_path,
+    )
+
+
+def read_json_from_text(text: str) -> Any:
+    try:
+        return json.loads(text)
+    except Exception as exc:  # pragma: no cover
+        raise ValueError(f"invalid generated release manifest JSON: {exc}") from exc

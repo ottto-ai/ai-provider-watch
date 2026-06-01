@@ -18,3 +18,26 @@ def test_latest_outputs_json(capsys) -> None:
 def test_validate_command(capsys) -> None:
     assert main(["--root", str(ROOT), "validate"]) == 0
     assert "ok: validated" in capsys.readouterr().out
+
+
+def test_release_dry_run_command(tmp_path, capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "dry-run",
+                "--release-date",
+                "2026-06-01",
+                "--source-commit",
+                "0123456789abcdef0123456789abcdef01234567",
+                "--output",
+                str(tmp_path),
+            ]
+        )
+        == 0
+    )
+    output = json.loads(capsys.readouterr().out)
+    assert output["release_id"] == "data-2026.06.01"
+    assert output["artifact_count"] > 0
