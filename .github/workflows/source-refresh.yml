@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: astral-sh/setup-uv@v7
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: uv sync --all-extras
@@ -58,6 +58,14 @@ jobs:
           fi
 
           branch="data/candidate-review-$(date -u +%Y%m%d-%H%M%S)"
+          pr_created=0
+          cleanup_branch() {
+            if [ "$pr_created" != "1" ]; then
+              git push origin --delete "$branch" >/dev/null 2>&1 || true
+            fi
+          }
+          trap cleanup_branch EXIT
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
@@ -70,3 +78,5 @@ jobs:
             --head "$branch" \
             --title "data: review source candidates" \
             --body-file .apw/candidate-review-pr-body.md
+          pr_created=1
+          trap - EXIT
