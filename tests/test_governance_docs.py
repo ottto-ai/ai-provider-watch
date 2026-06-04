@@ -64,3 +64,23 @@ def test_event_promotion_playbook_keeps_human_review_gates() -> None:
         ".apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json",
     ]:
         assert phrase in playbook
+
+
+def test_python_package_release_docs_have_non_alpha_criteria() -> None:
+    docs = (ROOT / "docs/operations/python-package-release.md").read_text(
+        encoding="utf-8"
+    )
+
+    for phrase in [
+        "The first non-alpha Python package target is `v0.1.0`",
+        "Compatibility Promise",
+        "Pre-1.0 caveats",
+        "Non-Alpha Release Checklist",
+        "Non-Alpha Smoke Commands",
+        "installed package data",
+        "Attach the exact wheel and sdist artifacts to the matching GitHub release",
+        "Rollback And Yank Policy",
+        "delete and recreate a version or tag",
+        "PyPI Trusted Publishing",
+    ]:
+        assert phrase in docs
