@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/repo-impact.schema.json",
+  "title": "RepoImpactReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repo_path",
+    "since",
+    "risk",
+    "scanned_files",
+    "matched_refs",
+    "match_count",
+    "events",
+    "event_count",
+    "untrusted_input_policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.repo_impact.v0" },
+    "repo_path": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "since": { "type": "string", "minLength": 2, "maxLength": 20 },
+    "risk": { "type": ["string", "null"], "enum": ["info", "low", "medium", "high", "critical", null] },
+    "scanned_files": { "type": "integer", "minimum": 0, "maximum": 500 },
+    "matched_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3, "maxLength": 180 },
+      "uniqueItems": true
+    },
+    "match_count": { "type": "integer", "minimum": 0 },
+    "events": { "type": "array", "items": { "$ref": "#/$defs/event" } },
+    "event_count": { "type": "integer", "minimum": 0 },
+    "untrusted_input_policy": { "type": "string", "minLength": 40, "maxLength": 400 }
+  },
+  "$defs": {
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "event_kind",
+        "event_date",
+        "severity",
+        "confidence",
+        "provider_refs",
+        "matched_refs",
+        "summary"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "title": { "type": "string", "minLength": 8, "maxLength": 140 },
+        "event_kind": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "event_date": { "type": "string", "format": "date" },
+        "severity": { "enum": ["info", "low", "medium", "high", "critical"] },
+        "confidence": { "enum": ["low", "medium", "high", "confirmed"] },
+        "provider_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 180 }
+        },
+        "matched_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 180 }
+        },
+        "summary": { "type": "string", "minLength": 20, "maxLength": 420 }
+      }
+    }
+  }
+}

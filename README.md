@@ -40,8 +40,8 @@ establishes:
   derived from source observations;
 - deterministic candidate-review PR body generation for daily source changes;
 - optional model-pluggable LLM review request packets for candidate PRs;
-- downstream repository impact reports through `apw repo check` and a composite
-  GitHub Action;
+- schema-backed downstream repository impact reports through `apw repo check`
+  and a composite GitHub Action;
 - schema-backed generic webhook and Slack-compatible notification payloads
   through `apw notify`;
 - ecosystem mapping payloads for LiteLLM, models.dev, Langfuse, Helicone, and

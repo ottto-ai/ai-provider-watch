@@ -26,6 +26,26 @@ The payload conforms to `schemas/webhook-payload.schema.json` and includes:
 APW does not include webhook URLs, bearer tokens, Slack tokens, signing secrets,
 or delivery credentials in the payload.
 
+Copy-paste delivery shell for a downstream-owned worker:
+
+```bash
+set -euo pipefail
+payload=.apw/apw-webhook.json
+uv run apw notify webhook \
+  --since 7d \
+  --risk medium \
+  --provider openai \
+  --output "$payload"
+curl --fail-with-body \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data-binary "@$payload" \
+  "$APW_WEBHOOK_URL"
+```
+
+`APW_WEBHOOK_URL` is a downstream secret. Do not store it in this repository or
+in generated APW payloads.
+
 ## Slack
 
 ```bash
@@ -41,6 +61,26 @@ with Slack incoming webhooks because it contains top-level `text` and `blocks`,
 but APW does not call Slack. A maintainer or downstream operator can POST the
 payload to their own Slack webhook outside APW.
 
+Copy-paste Slack incoming webhook delivery:
+
+```bash
+set -euo pipefail
+payload=.apw/apw-slack.json
+uv run apw notify slack \
+  --since 7d \
+  --risk medium \
+  --kind model_retirement \
+  --output "$payload"
+curl --fail-with-body \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data-binary "@$payload" \
+  "$SLACK_WEBHOOK_URL"
+```
+
+`SLACK_WEBHOOK_URL` is downstream-owned. APW never reads it, validates it, or
+retries delivery.
+
 ## Delivery Posture
 
 Recommended operator-owned delivery behavior:
@@ -55,3 +95,11 @@ Recommended operator-owned delivery behavior:
 
 Examples live under `examples/notifications/` and are checked by tests so they
 stay aligned with the renderer and schemas.
+
+CLI smoke fixtures live under `tests/fixtures/smoke/`:
+
+- `notify-webhook-openai.json`
+- `notify-slack-model-retirements.json`
+
+These fixtures are generated with deterministic `--created-at` values and
+checked by `tests/test_downstream_smoke_fixtures.py`.

@@ -1,0 +1,34 @@
+{
+  "event_count": 1,
+  "events": [
+    {
+      "confidence": "confirmed",
+      "event_date": "2024-01-04",
+      "event_kind": "model_retirement",
+      "id": "2024-01-04-openai-gpt3-completions-retirement",
+      "matched_refs": [
+        "model:gpt-3.5-turbo-instruct",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.",
+      "title": "OpenAI Retires Older GPT-3 Completions Models"
+    }
+  ],
+  "match_count": 9,
+  "matched_refs": [
+    "app:codex",
+    "app:litellm",
+    "model:gpt-3.5-turbo-instruct",
+    "provider:openai"
+  ],
+  "repo_path": "<DOWNSTREAM_REPO>",
+  "risk": "low",
+  "scanned_files": 3,
+  "schema_version": "apw.repo_impact.v0",
+  "since": "2024-01-01",
+  "untrusted_input_policy": "Scanned repository text is untrusted data. APW returns refs and line hashes, not source lines."
+}

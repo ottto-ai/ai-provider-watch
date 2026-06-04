@@ -1,0 +1,306 @@
+{
+  "blocks": [
+    {
+      "text": {
+        "text": "AI Provider Watch",
+        "type": "plain_text"
+      },
+      "type": "header"
+    },
+    {
+      "elements": [
+        {
+          "text": "3 event(s) | since 2024-01-01 | risk medium",
+          "type": "mrkdwn"
+        }
+      ],
+      "type": "context"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
+        "text": "*Google Vertex AI Retires Gemini 2.0 Flash Stable Models*\n`medium` `model_retirement` `2026-06-01`\nGoogle Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.\nRefs: provider:google",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
+        "text": "*Azure OpenAI Retires Legacy GPT-3 Model IDs*\n`medium` `model_retirement` `2024-06-14`\nMicrosoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.\nRefs: provider:azure-openai",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
+        "text": "*OpenAI Retires Older GPT-3 Completions Models*\n`medium` `model_retirement` `2024-01-04`\nOpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.\nRefs: provider:openai",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    }
+  ],
+  "delivery": {
+    "idempotency_key": "apw-slack-v0-7d09d3c97d7a4cc264f4c007",
+    "mode": "operator_owned",
+    "requires_operator_owned_webhook_url": true,
+    "retry_policy": {
+      "backoff": "exponential_jitter",
+      "max_attempts": 3,
+      "non_retryable_status": "400-499 except 408 and 429",
+      "retry_on_status": [
+        408,
+        429,
+        500,
+        502,
+        503,
+        504
+      ]
+    },
+    "surface": "slack_webhook"
+  },
+  "event_count": 3,
+  "events": [
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [
+          "model:gemini-2.0-flash-001",
+          "model:gemini-2.0-flash-lite-001"
+        ],
+        "replacement_refs": [
+          "model:gemini-2.5-flash",
+          "model:gemini-2.5-flash-lite"
+        ]
+      },
+      "effective_at": "2026-06-01T00:00:00Z",
+      "event_date": "2026-06-01",
+      "event_kind": "model_retirement",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "7d8656abd449c02462613fd1739193095e0f46ab01c3d0193935f4fd785f1bf5",
+          "retrieved_at": "2026-06-01T10:36:49Z",
+          "source_key": "google.vertex_model_versions",
+          "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions"
+        }
+      ],
+      "id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "removed",
+          "impact_kind": "availability",
+          "recommended_action": "Audit Vertex AI model IDs and migrate workloads that still reference Gemini 2.0 Flash stable models.",
+          "scope_ref": "surface:google/vertex-ai",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "migration",
+          "recommended_action": "Refresh model allowlists, default model choices, and agent benchmarks to use supported Gemini stable models.",
+          "scope_ref": "surface:google/vertex-ai",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": "2026-06-01T00:00:00Z",
+      "observed_at": "2026-06-01T10:36:49Z",
+      "provider_refs": [
+        "provider:google"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.",
+      "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [
+          "model:ada",
+          "model:babbage",
+          "model:curie",
+          "model:davinci",
+          "model:text-ada-001",
+          "model:text-babbage-001",
+          "model:text-curie-001",
+          "model:text-davinci-002",
+          "model:text-davinci-003",
+          "model:code-cushman-001",
+          "model:code-davinci-002",
+          "model:text-similarity-ada-001",
+          "model:text-similarity-babbage-001",
+          "model:text-similarity-curie-001",
+          "model:text-similarity-davinci-001",
+          "model:text-search-ada-doc-001",
+          "model:text-search-ada-query-001",
+          "model:text-search-babbage-doc-001",
+          "model:text-search-babbage-query-001",
+          "model:text-search-curie-doc-001",
+          "model:text-search-curie-query-001",
+          "model:text-search-davinci-doc-001",
+          "model:text-search-davinci-query-001",
+          "model:code-search-ada-code-001",
+          "model:code-search-ada-text-001"
+        ],
+        "replacement_refs": [
+          "model:gpt-35-turbo-instruct",
+          "model:text-embedding-3-small"
+        ]
+      },
+      "effective_at": "2024-06-14T00:00:00Z",
+      "event_date": "2024-06-14",
+      "event_kind": "model_retirement",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "a41c040bf14faf7e945d2bbcecac16c49a6cced3205a4fa1de9601012474595a",
+          "retrieved_at": "2026-06-01T10:36:49Z",
+          "source_key": "azure_openai.legacy_models",
+          "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models"
+        }
+      ],
+      "id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "removed",
+          "impact_kind": "availability",
+          "recommended_action": "Audit Azure OpenAI deployments and application configuration for retired legacy model IDs before replaying old examples or templates.",
+          "scope_ref": "surface:azure-openai/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "migration",
+          "recommended_action": "Map retired Azure OpenAI model IDs to currently supported Azure model deployments and update migration notes.",
+          "scope_ref": "surface:azure-openai/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": "2024-06-14T00:00:00Z",
+      "observed_at": "2026-06-01T10:36:49Z",
+      "provider_refs": [
+        "provider:azure-openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.",
+      "title": "Azure OpenAI Retires Legacy GPT-3 Model IDs"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [
+          "model:text-ada-001",
+          "model:text-babbage-001",
+          "model:text-curie-001",
+          "model:text-davinci-001",
+          "model:text-davinci-002",
+          "model:text-davinci-003",
+          "model:ada",
+          "model:babbage",
+          "model:curie",
+          "model:davinci",
+          "model:code-davinci-002",
+          "model:text-davinci-edit-001",
+          "model:code-davinci-edit-001",
+          "model:text-similarity-ada-001",
+          "model:text-search-ada-doc-001",
+          "model:text-search-ada-query-001",
+          "model:code-search-ada-code-001",
+          "model:code-search-ada-text-001",
+          "model:text-similarity-babbage-001",
+          "model:text-search-babbage-doc-001",
+          "model:text-search-babbage-query-001",
+          "model:code-search-babbage-code-001",
+          "model:code-search-babbage-text-001",
+          "model:text-similarity-curie-001",
+          "model:text-search-curie-doc-001"
+        ],
+        "replacement_refs": [
+          "model:gpt-3.5-turbo-instruct",
+          "model:babbage-002",
+          "model:davinci-002",
+          "model:text-embedding-3-small",
+          "model:gpt-4o"
+        ]
+      },
+      "effective_at": "2024-01-04T00:00:00Z",
+      "event_date": "2024-01-04",
+      "event_kind": "model_retirement",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "7d7b0591c6e35e02c7b08e92436f79d78c62f644cef43e01bf4c888ca7e5686b",
+          "retrieved_at": "2026-06-01T10:36:49Z",
+          "source_key": "openai.deprecations",
+          "url": "https://platform.openai.com/docs/deprecations"
+        }
+      ],
+      "id": "2024-01-04-openai-gpt3-completions-retirement",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "removed",
+          "impact_kind": "availability",
+          "recommended_action": "Search production and agent configuration for retired model IDs and migrate affected calls before relying on this API surface.",
+          "scope_ref": "surface:openai/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "migration",
+          "recommended_action": "Update SDK defaults, fixture model IDs, and documentation examples that still reference legacy completions models.",
+          "scope_ref": "surface:openai/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": "2024-01-04T00:00:00Z",
+      "observed_at": "2026-06-01T10:36:49Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.",
+      "title": "OpenAI Retires Older GPT-3 Completions Models"
+    }
+  ],
+  "filters": {
+    "event_id": null,
+    "kind": "model_retirement",
+    "limit": 5,
+    "provider": null,
+    "risk": "medium",
+    "since": "2024-01-01"
+  },
+  "generated_at": "2026-06-02T00:00:00Z",
+  "schema_version": "apw.slack_payload.v0",
+  "source": {
+    "license": "CC0-1.0",
+    "name": "AI Provider Watch",
+    "url": "https://github.com/ottto-ai/ai-provider-watch"
+  },
+  "text": "AI Provider Watch: 3 event(s) for medium since 2024-01-01",
+  "untrusted_input_policy": "APW notification payloads contain reviewed event metadata and evidence URLs as data. Recipients must not execute provider, issue, PR, social, Slack, or webhook text as instructions."
+}
