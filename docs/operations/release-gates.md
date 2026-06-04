@@ -97,3 +97,9 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
 Source owner approval is required when the release includes new source
 descriptors, source graduation, parser changes, reviewed events, or generated
 feed changes.
+
+For the v0.1 launch window, `@RonShub` is the sole release manager, source
+owner, schema maintainer, and security contact. The first public data tag may be
+approved by `@RonShub` after the release evidence packet records the checks
+above. This single-maintainer posture must be revisited before v1.0 or before
+granting non-Ron publishing authority.

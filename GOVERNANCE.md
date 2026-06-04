@@ -15,6 +15,12 @@ feeds should remain factual and reusable without an Ottto account.
 The source owner and release manager roles are documented in
 [SOURCE_OWNERS.md](SOURCE_OWNERS.md) and [MAINTAINERS.md](MAINTAINERS.md).
 
+For the v0.1 launch window, `@RonShub` is the sole release manager, source
+owner, schema maintainer, and security contact. This allows the first public data
+release to ship without creating team gates that can lock out a one-maintainer
+repository. The repository must revisit this posture before v1.0 or before
+granting non-Ron publishing authority.
+
 - Source owner review is required for new source descriptors, parser fixtures,
   source graduation, and candidate-to-event promotion.
 - Schema maintainer review is required for JSON Schema, event detail union,
