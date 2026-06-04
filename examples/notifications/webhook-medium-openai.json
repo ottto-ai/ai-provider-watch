@@ -1,7 +1,7 @@
 {
   "delivery": {
     "content_type": "application/json",
-    "idempotency_key": "apw-webhook-v0-fa9fb3a3d852599f0915eed4",
+    "idempotency_key": "apw-webhook-v0-48726b7a3e970410c38a60b6",
     "method": "POST",
     "mode": "operator_owned",
     "retry_policy": {
@@ -18,8 +18,49 @@
       ]
     }
   },
-  "event_count": 1,
+  "event_count": 2,
   "events": [
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-04T19:12:00Z",
+      "event_date": "2026-06-04",
+      "event_kind": "status_incident",
+      "evidence_refs": [
+        {
+          "authority": "official_status",
+          "content_sha256": "8d3311ad6083dc333213540f1f5ae8148e97ead3c1ecc97cdc8853df296c3785",
+          "retrieved_at": "2026-06-04T21:20:13Z",
+          "source_key": "openai.status",
+          "url": "https://status.openai.com/incidents/01KTA0V0N4KT7VV50DTJZ85XTA"
+        }
+      ],
+      "id": "2026-06-04-openai-image-api-401-errors",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "availability",
+          "recommended_action": "Check Image API retries, alert thresholds, and incident annotations for June 4, 2026 before attributing 401 spikes to application credentials.",
+          "scope_ref": "surface:openai/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-04T21:20:13Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_status",
+      "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
+      "title": "OpenAI Image API Requests Returned 401 Errors"
+    },
     {
       "confidence": "confirmed",
       "detail_refs": {

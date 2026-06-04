@@ -1,6 +1,54 @@
 [
   {
     "confidence": "confirmed",
+    "event_date": "2026-06-04",
+    "event_kind": "status_incident",
+    "id": "2026-06-04-openai-image-api-401-errors",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
+    "title": "OpenAI Image API Requests Returned 401 Errors"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-04",
+    "event_kind": "status_incident",
+    "id": "2026-06-04-openai-codex-compaction-latency",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "low",
+    "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
+    "title": "OpenAI Codex Compaction Had Increased Latency"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-03",
+    "event_kind": "status_incident",
+    "id": "2026-06-03-anthropic-opus-4-7-elevated-errors",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "medium",
+    "summary": "Anthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.",
+    "title": "Anthropic Reported Elevated Errors on Opus 4.7"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-03",
+    "event_kind": "status_incident",
+    "id": "2026-06-03-anthropic-claude-code-services-degraded",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "medium",
+    "summary": "Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.",
+    "title": "Anthropic Reported Degraded Claude Code Services"
+  },
+  {
+    "confidence": "confirmed",
     "event_date": "2026-06-01",
     "event_kind": "model_retirement",
     "id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",

@@ -1,28 +1,28 @@
 {
   "artifacts": [
     {
-      "bytes": 19070,
+      "bytes": 30247,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "eeafb8feef2aa365b607d7a39e85d4cc7bacfd7d314723b7c048c493f2b544b0"
+      "sha256": "9eceb477460674a762333c6e35841a453da78539c23c279253837764c654e527"
     },
     {
-      "bytes": 15720,
+      "bytes": 25009,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "30293200055c6936ba0e6abf31eac2e76ff0d3efa2f7aa835076fe0fbe0eebce"
+      "sha256": "8a36d6a2a7bc874d24ae484a84d0fd8de912269f8d513f8e8caf7e7ed53e4088"
     },
     {
-      "bytes": 2519,
+      "bytes": 4392,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",
-      "sha256": "4080d929503ae80b655ced14617d66760cd35b652639ae618666adab3b4f2216"
+      "sha256": "4858c6b48c617667093a1fa7ef3c35c99c587a8123b130533cf64d535060cb67"
     },
     {
-      "bytes": 2658,
+      "bytes": 4444,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "e4090d079bf63923db4461375ce4aa1dd82f2300bdd2107d700048342f5e2c7d"
+      "sha256": "8e99e035441b812f778f61b79b60c29da36e49c455239763283f850a449bee4b"
     },
     {
       "bytes": 3696,
@@ -43,10 +43,16 @@
       "sha256": "3fe4691c9acb96e1c367f5d74b70a43edf28213ae99954b56722af593ddd8f51"
     },
     {
-      "bytes": 3116,
+      "bytes": 11180,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/status_incident.json",
+      "sha256": "6d1ded4685dadd9bdef6e4af9f59b256f11735518f846f3bac2ff2c16b44ca1a"
+    },
+    {
+      "bytes": 8942,
       "media_type": "application/json",
       "path": "data/indexes/provider/anthropic.json",
-      "sha256": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2"
+      "sha256": "59a30ffd7730dced8117e92544f56798f81af5c6edd3084b974a49eb1baba807"
     },
     {
       "bytes": 3696,
@@ -67,48 +73,49 @@
       "sha256": "24a506edb42f21bb7eedfbc53e75788875a01d0092d4d9b79d88cfbb288d65e8"
     },
     {
-      "bytes": 4470,
+      "bytes": 9821,
       "media_type": "application/json",
       "path": "data/indexes/provider/openai.json",
-      "sha256": "95d4b26a2ada57993efc32b8b0cd933c88eeab385547a2b0dfedf8a1be3b0ff0"
+      "sha256": "dd140cf082dca708a6cc8afbbcc50acd6955cdfd2be09b761ea51f20a0d8c61f"
     },
     {
-      "bytes": 3116,
+      "bytes": 5750,
       "media_type": "application/json",
       "path": "data/indexes/severity/low.json",
-      "sha256": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2"
+      "sha256": "e9d67c61c6fed39d907ffb979be77b3f7902d36ab56b2aede6943c19643a56f3"
     },
     {
-      "bytes": 15957,
+      "bytes": 24500,
       "media_type": "application/json",
       "path": "data/indexes/severity/medium.json",
-      "sha256": "713c039b6b6976d523613a2491f42899650ba6658e36e6b866df66e32afebbcc"
+      "sha256": "2ce07fe68f63f6d57ae845596a47794676b21130c4da1e94207790e88d7fb879"
     },
     {
-      "bytes": 1377,
+      "bytes": 1482,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "49c8a31947e62338fe7e4f3b5a66ee7a30d1ca94c84a112bb0d5e56939fe7f66"
+      "sha256": "8d08511fefa9145d4d6ce9e40ac47b0b306866f4cf7014e9c6dfd2a7b6ae00eb"
     }
   ],
   "checksums": {
-    "data/feeds/events.json": "eeafb8feef2aa365b607d7a39e85d4cc7bacfd7d314723b7c048c493f2b544b0",
-    "data/feeds/events.ndjson": "30293200055c6936ba0e6abf31eac2e76ff0d3efa2f7aa835076fe0fbe0eebce",
-    "data/feeds/latest.json": "4080d929503ae80b655ced14617d66760cd35b652639ae618666adab3b4f2216",
-    "data/feeds/rss.xml": "e4090d079bf63923db4461375ce4aa1dd82f2300bdd2107d700048342f5e2c7d",
+    "data/feeds/events.json": "9eceb477460674a762333c6e35841a453da78539c23c279253837764c654e527",
+    "data/feeds/events.ndjson": "8a36d6a2a7bc874d24ae484a84d0fd8de912269f8d513f8e8caf7e7ed53e4088",
+    "data/feeds/latest.json": "4858c6b48c617667093a1fa7ef3c35c99c587a8123b130533cf64d535060cb67",
+    "data/feeds/rss.xml": "8e99e035441b812f778f61b79b60c29da36e49c455239763283f850a449bee4b",
     "data/indexes/kind/caching_change.json": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76",
     "data/indexes/kind/model_launch.json": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2",
     "data/indexes/kind/model_retirement.json": "3fe4691c9acb96e1c367f5d74b70a43edf28213ae99954b56722af593ddd8f51",
-    "data/indexes/provider/anthropic.json": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2",
+    "data/indexes/kind/status_incident.json": "6d1ded4685dadd9bdef6e4af9f59b256f11735518f846f3bac2ff2c16b44ca1a",
+    "data/indexes/provider/anthropic.json": "59a30ffd7730dced8117e92544f56798f81af5c6edd3084b974a49eb1baba807",
     "data/indexes/provider/aws-bedrock.json": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76",
     "data/indexes/provider/azure-openai.json": "6bc71815709a2ae09352062999680f302813ee1d43c6cef4d46661e7fdb52fb0",
     "data/indexes/provider/google.json": "24a506edb42f21bb7eedfbc53e75788875a01d0092d4d9b79d88cfbb288d65e8",
-    "data/indexes/provider/openai.json": "95d4b26a2ada57993efc32b8b0cd933c88eeab385547a2b0dfedf8a1be3b0ff0",
-    "data/indexes/severity/low.json": "3fa7525dfbcd8ede68dacf6f720505e7e34c317892ca21b7200aaed170d8d7c2",
-    "data/indexes/severity/medium.json": "713c039b6b6976d523613a2491f42899650ba6658e36e6b866df66e32afebbcc",
-    "data/releases/dev/checksums.txt": "49c8a31947e62338fe7e4f3b5a66ee7a30d1ca94c84a112bb0d5e56939fe7f66"
+    "data/indexes/provider/openai.json": "dd140cf082dca708a6cc8afbbcc50acd6955cdfd2be09b761ea51f20a0d8c61f",
+    "data/indexes/severity/low.json": "e9d67c61c6fed39d907ffb979be77b3f7902d36ab56b2aede6943c19643a56f3",
+    "data/indexes/severity/medium.json": "2ce07fe68f63f6d57ae845596a47794676b21130c4da1e94207790e88d7fb879",
+    "data/releases/dev/checksums.txt": "8d08511fefa9145d4d6ce9e40ac47b0b306866f4cf7014e9c6dfd2a7b6ae00eb"
   },
-  "created_at": "2026-06-01T10:36:49Z",
+  "created_at": "2026-06-04T21:20:13Z",
   "generated_by": "ai-provider-watch 0.1.0a0",
   "notes": "Deterministic development manifest.",
   "release_id": "dev",

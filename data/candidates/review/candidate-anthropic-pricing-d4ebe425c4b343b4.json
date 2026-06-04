@@ -26,7 +26,10 @@
   "provider_refs": [
     "provider:anthropic"
   ],
-  "review_status": "needs_review",
+  "limitations": [
+    "Rejected for publication in this review: source changed, but parser output does not identify a dated pricing or token-accounting delta."
+  ],
+  "review_status": "rejected",
   "schema_version": "apw.finding_candidate.v0",
   "source_keys": [
     "anthropic.pricing"

@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-04-openai-image-api-401-errors",
+  "title": "OpenAI Image API Requests Returned 401 Errors",
+  "event_kind": "status_incident",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai"],
+  "event_date": "2026-06-04",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-04T21:20:13Z",
+  "announced_at": "2026-06-04T19:12:00Z",
+  "effective_at": "2026-06-04T19:12:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_status",
+  "evidence_refs": [
+    {
+      "source_key": "openai.status",
+      "url": "https://status.openai.com/incidents/01KTA0V0N4KT7VV50DTJZ85XTA",
+      "retrieved_at": "2026-06-04T21:20:13Z",
+      "authority": "official_status",
+      "content_sha256": "8d3311ad6083dc333213540f1f5ae8148e97ead3c1ecc97cdc8853df296c3785",
+      "snapshot_ref": "reviewed-source:2026-06-04",
+      "selector": "Image API 401 status incident",
+      "license_note": "Official status page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/api",
+      "impact_kind": "availability",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "product_engineers", "reliability_engineers"],
+      "recommended_action": "Check Image API retries, alert thresholds, and incident annotations for June 4, 2026 before attributing 401 spikes to application credentials."
+    }
+  ],
+  "detail": {
+    "kind": "status_incident",
+    "schema_version": "apw.event_detail.v0",
+    "provider_incident_id": "01KTA0V0N4KT7VV50DTJZ85XTA",
+    "status": "resolved",
+    "started_at": "2026-06-04T19:12:00Z",
+    "resolved_at": "2026-06-04T19:52:18Z",
+    "components": ["APIs", "Image API"],
+    "raw_status": "resolved degraded performance"
+  },
+  "tags": ["source:official_status", "provider:openai", "impact:status_incident", "surface:api"],
+  "limitations": ["OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."]
+}

@@ -26,7 +26,10 @@
   "provider_refs": [
     "provider:azure-openai"
   ],
-  "review_status": "needs_review",
+  "limitations": [
+    "Rejected for publication in this review: fresh source observation matched committed source state; no dated model availability delta was confirmed."
+  ],
+  "review_status": "rejected",
   "schema_version": "apw.finding_candidate.v0",
   "source_keys": [
     "azure_openai.docs"
