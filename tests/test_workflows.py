@@ -69,6 +69,24 @@ def test_source_refresh_workflow_has_no_release_token_path() -> None:
     assert "pull_request_target:" not in workflow
 
 
+def test_source_refresh_workflow_cleans_branch_when_pr_create_fails() -> None:
+    workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
+
+    assert "pr_created=0" in workflow
+    assert 'if [ "$pr_created" != "1" ]; then' in workflow
+    assert 'git push origin --delete "$branch"' in workflow
+    assert "trap cleanup_branch EXIT" in workflow
+    assert "pr_created=1" in workflow
+    assert "trap - EXIT" in workflow
+
+
+def test_source_refresh_workflow_uses_node24_compatible_setup_python() -> None:
+    workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
+
+    assert "actions/setup-python@v6" in workflow
+    assert "actions/setup-python@v5" not in workflow
+
+
 def test_llm_review_request_workflow_is_read_only_and_artifact_only() -> None:
     workflow = (ROOT / ".github/workflows/llm-review-request.yml").read_text(encoding="utf-8")
 

@@ -56,6 +56,26 @@ Required release posture:
 If an availability or plan limitation prevents a setting, record the limitation
 in release evidence before publishing.
 
+## Actions Workflow Permissions
+
+The source-refresh workflow opens draft candidate-review PRs with the default
+`GITHUB_TOKEN`. The repository must keep default workflow permissions read-only
+and explicitly allow Actions to create pull requests:
+
+```bash
+gh api "repos/$REPO/actions/permissions/workflow" \
+  --jq '{default_workflow_permissions, can_approve_pull_request_reviews}'
+```
+
+Expected release posture:
+
+- `default_workflow_permissions` is `read`;
+- `can_approve_pull_request_reviews` is `true`.
+
+GitHub exposes pull-request creation and approval under the same repository
+setting. APW workflows do not approve PRs, and untrusted source-refresh jobs must
+not receive release tokens, OIDC credentials, or repository secrets.
+
 ## Maintainer Teams
 
 Configure these teams or equivalent repository roles:

@@ -70,6 +70,11 @@ The daily workflow now builds a draft candidate-review PR after source refresh:
 5. commit only `data/source-state/fingerprints.json` plus sanitized candidate
    JSON.
 
+The repository-level GitHub Actions workflow permission must allow Actions to
+create pull requests. The workflow still uses only the default `GITHUB_TOKEN`,
+does not receive release tokens or secrets, and deletes the generated remote
+branch if PR creation fails after the branch push.
+
 The PR body intentionally omits provider page bodies and candidate claim text.
 Candidate JSON can include bounded factual `claim_text`, but those files are not
 published events and require maintainer review before promotion to `data/events`.
