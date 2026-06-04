@@ -4,6 +4,10 @@ APW data-release automation stays dry-run only until maintainers record every
 gate in this runbook. The release dry-run report is necessary evidence, not a
 publishing approval.
 
+The scheduled data-release workflow is also dry-run only. It creates attested
+release-shaped evidence for the current `main` commit, but it must not create
+tags, GitHub releases, or canonical provider events.
+
 ## Deterministic Local Gates
 
 Run from a clean checkout of the intended release commit:

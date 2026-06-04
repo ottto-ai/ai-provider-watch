@@ -25,6 +25,12 @@ it. The bundle includes release-shaped feed artifacts,
 `data/releases/data-YYYY.MM.DD/manifest.json`, checksums, and a schema-backed
 `dry-run-report.json`.
 
+The GitHub data-release workflow runs daily and on manual dispatch. Scheduled
+runs are dry-run evidence only: they do not tag, upload a release, update source
+state, or process provider page content. The job keeps `contents: read`, uses
+OIDC only for artifact attestation, and serializes runs with workflow
+concurrency so a slow dry run does not overlap the next one.
+
 The dry run does not publish a tag, upload a release, or require a release
 token. A public data tag still requires maintainer review, green GitHub CI,
 CodeQL workflow completion, a matching GitHub code-scanning analysis for the

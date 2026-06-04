@@ -1,12 +1,18 @@
 name: Data Release Dry Run
 
 on:
+  schedule:
+    - cron: "43 7 * * *"
   workflow_dispatch:
 
 permissions:
   contents: read
   id-token: write
   attestations: write
+
+concurrency:
+  group: data-release-dry-run-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   dry-run:
