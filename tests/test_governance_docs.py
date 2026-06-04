@@ -27,6 +27,7 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         ROOT / "docs/operations/repository-settings.md",
         ROOT / "docs/operations/release-gates.md",
         ROOT / "docs/operations/data-release.md",
+        ROOT / "docs/operations/data-publisher.md",
         ROOT / "docs/operations/event-promotion.md",
     ]
     combined = "\n".join(path.read_text(encoding="utf-8") for path in paths)
@@ -39,6 +40,8 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         "gh attestation verify",
         "daily CalVer",
         "data-YYYY.MM.DD",
+        "data-release",
+        "no-op",
         "release-token separation",
     ]:
         assert phrase in combined

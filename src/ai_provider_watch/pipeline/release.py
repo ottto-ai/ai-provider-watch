@@ -203,6 +203,51 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
     return _check("release_workflow_guardrails", passed, details)
 
 
+def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
+    workflow = _workflow_text(root, "data-publisher.yml")
+    missing = _workflow_missing(
+        workflow,
+        [
+            "workflow_dispatch:",
+            "publish_mode:",
+            "no-op",
+            "permissions:\n  contents: read",
+            "group: data-release-publisher-${{ github.ref }}",
+            "if: github.ref == 'refs/heads/main'",
+            "environment:\n      name: data-release",
+            "uv lock --check",
+            "uv run ruff check .",
+            "uv run pytest",
+            "uv run apw source test",
+            "uv run apw validate",
+            "uv run apw index --check",
+            "uv run apw release dry-run",
+            "--require-clean",
+            "no data tag or GitHub data release was created",
+        ],
+    )
+    forbidden = _workflow_forbidden(
+        workflow,
+        [
+            "contents: write",
+            "id-token: write",
+            "attestations: write",
+            "secrets.",
+            "gh release",
+            "git tag",
+            "pull_request:",
+            "pull_request_target:",
+            "schedule:",
+        ],
+    )
+    passed = bool(workflow) and not missing and not forbidden
+    if passed:
+        details = "data publisher is protected, main-only, no-op-only, and has no release publishing authority"
+    else:
+        details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
+    return _check("data_publisher_noop_workflow", passed, details)
+
+
 def _source_refresh_token_boundary_check(root: Path) -> ReleaseCheck:
     workflow = _workflow_text(root, "source-refresh.yml")
     missing = _workflow_missing(
@@ -277,7 +322,12 @@ def _external_release_gates() -> list[dict[str, str]]:
         {
             "name": "Signed data tag",
             "status": "required",
-            "details": "The public data tag must be signed by a release manager or created by a protected publisher after the publisher exists.",
+            "details": "The public data tag must be signed by a release manager or created by a protected publisher after the signed-tag mechanism is approved.",
+        },
+        {
+            "name": "Protected data publisher",
+            "status": "required",
+            "details": "Real publication requires a protected data-release environment, release-manager approval, and a deliberate change from no-op publisher mode.",
         },
         {
             "name": "Release token separation",
@@ -333,6 +383,7 @@ def _maintainer_release_docs_check(root: Path) -> ReleaseCheck:
         "docs/operations/repository-settings.md": ["branch protection", "Dependency Review", "gh api"],
         "docs/operations/release-gates.md": ["gh attestation verify", "release manager"],
         "docs/operations/data-release.md": ["data-YYYY.MM.DD", "attestation"],
+        "docs/operations/data-publisher.md": ["data-release", "no-op", "signed-tag"],
     }
     failures: list[str] = []
     for relative_path, phrases in required_phrases.items():
@@ -554,6 +605,7 @@ def run_release_dry_run(
     checks.append(_codeql_workflow_check(root))
     checks.append(_dependency_review_workflow_check(root))
     checks.append(_release_workflow_guardrails_check(root))
+    checks.append(_data_publisher_noop_workflow_check(root))
     checks.append(_source_refresh_token_boundary_check(root))
     checks.append(_source_ownership_check(root))
     checks.append(_maintainer_release_docs_check(root))

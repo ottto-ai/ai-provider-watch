@@ -37,8 +37,9 @@ CodeQL workflow completion, a matching GitHub code-scanning analysis for the
 release commit, `uv lock --check`, Dependency Review, branch protection,
 repository security settings, artifact checksum review, attestation
 verification, release manager approval, and a signed tag plan. Release
-automation stays dry-run only until the [release gates](release-gates.md) and
-[repository settings](repository-settings.md) are recorded.
+automation stays dry-run only until the [release gates](release-gates.md),
+[repository settings](repository-settings.md), and
+[guarded data publisher](data-publisher.md) controls are recorded.
 
 Dependency Review is currently a manual gate with explicit `base_ref` and
 `head_ref` inputs. If GitHub dependency graph or Dependency Review support is

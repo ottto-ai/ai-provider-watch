@@ -5,22 +5,35 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _workflow(name: str) -> str:
+    return (ROOT / ".github" / "workflows" / name).read_text(encoding="utf-8")
+
+
+def _assert_no_release_authority(workflow: str) -> None:
+    assert "secrets." not in workflow
+    assert "id-token: write" not in workflow
+    assert "attestations: write" not in workflow
+    assert "gh release" not in workflow
+    assert "git tag" not in workflow
+    assert "pull_request_target:" not in workflow
+
+
 def test_source_refresh_workflow_detects_untracked_candidate_files() -> None:
-    workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
+    workflow = _workflow("source-refresh.yml")
 
     assert "git status --porcelain -- data/source-state/fingerprints.json data/candidates" in workflow
     assert "git diff --quiet -- data/source-state/fingerprints.json data/candidates" not in workflow
 
 
 def test_source_refresh_workflow_cleans_generated_review_candidates() -> None:
-    workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
+    workflow = _workflow("source-refresh.yml")
 
     assert "--output data/candidates/review" in workflow
     assert "--clean" in workflow
 
 
 def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() -> None:
-    workflow = (ROOT / ".github/workflows/release-data.yml").read_text(encoding="utf-8")
+    workflow = _workflow("release-data.yml")
 
     assert "schedule:" in workflow
     assert 'cron: "43 7 * * *"' in workflow
@@ -49,7 +62,7 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
 
 
 def test_dependency_review_workflow_is_read_only() -> None:
-    workflow = (ROOT / ".github/workflows/dependency-review.yml").read_text(encoding="utf-8")
+    workflow = _workflow("dependency-review.yml")
 
     assert "workflow_dispatch:" in workflow
     assert "pull_request:" not in workflow
@@ -67,7 +80,7 @@ def test_dependency_review_workflow_is_read_only() -> None:
 
 
 def test_python_publish_workflow_uses_trusted_publishing_environment() -> None:
-    workflow = (ROOT / ".github/workflows/publish-python.yml").read_text(encoding="utf-8")
+    workflow = _workflow("publish-python.yml")
 
     assert '      - "v*"' in workflow
     assert "pull_request:" not in workflow
@@ -90,19 +103,15 @@ def test_python_publish_workflow_uses_trusted_publishing_environment() -> None:
 
 
 def test_source_refresh_workflow_has_no_release_token_path() -> None:
-    workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
+    workflow = _workflow("source-refresh.yml")
 
     assert "permissions:\n  contents: write\n  pull-requests: write" in workflow
     assert "gh pr create" in workflow
-    assert "secrets." not in workflow
-    assert "id-token: write" not in workflow
-    assert "gh release" not in workflow
-    assert "git tag" not in workflow
-    assert "pull_request_target:" not in workflow
+    _assert_no_release_authority(workflow)
 
 
 def test_source_refresh_workflow_cleans_branch_when_pr_create_fails() -> None:
-    workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
+    workflow = _workflow("source-refresh.yml")
 
     assert "pr_created=0" in workflow
     assert 'if [ "$pr_created" != "1" ]; then' in workflow
@@ -113,26 +122,62 @@ def test_source_refresh_workflow_cleans_branch_when_pr_create_fails() -> None:
 
 
 def test_source_refresh_workflow_uses_node24_compatible_setup_python() -> None:
-    workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
+    workflow = _workflow("source-refresh.yml")
 
     assert "actions/setup-python@v6" in workflow
     assert "actions/setup-python@v5" not in workflow
 
 
 def test_llm_review_request_workflow_is_read_only_and_artifact_only() -> None:
-    workflow = (ROOT / ".github/workflows/llm-review-request.yml").read_text(encoding="utf-8")
+    workflow = _workflow("llm-review-request.yml")
 
     assert "workflow_dispatch:" in workflow
     assert "permissions:\n  contents: read\n  pull-requests: read" in workflow
     assert "contents: write" not in workflow
     assert "pull-requests: write" not in workflow
     assert "id-token: write" not in workflow
-    assert "secrets." not in workflow
     assert "gh pr" not in workflow
-    assert "gh release" not in workflow
-    assert "git tag" not in workflow
-    assert "pull_request_target:" not in workflow
+    _assert_no_release_authority(workflow)
     assert "actions/setup-python@v6" in workflow
     assert "actions/setup-python@v5" not in workflow
     assert "uv run apw \"${args[@]}\"" in workflow
     assert "actions/upload-artifact@v7" in workflow
+
+
+def test_untrusted_content_workflows_have_no_release_authority() -> None:
+    for name in [
+        "source-refresh.yml",
+        "llm-review-request.yml",
+        "codex-review.yml",
+    ]:
+        _assert_no_release_authority(_workflow(name))
+
+
+def test_data_publisher_workflow_is_protected_noop_only() -> None:
+    workflow = _workflow("data-publisher.yml")
+
+    assert "workflow_dispatch:" in workflow
+    assert "schedule:" not in workflow
+    assert "pull_request:" not in workflow
+    assert "pull_request_target:" not in workflow
+    assert "publish_mode:" in workflow
+    assert "default: no-op" in workflow
+    assert "options:\n          - no-op" in workflow
+    assert "permissions:\n  contents: read" in workflow
+    assert "contents: write" not in workflow
+    assert "id-token: write" not in workflow
+    assert "attestations: write" not in workflow
+    assert "secrets." not in workflow
+    assert "if: github.ref == 'refs/heads/main'" in workflow
+    assert "environment:\n      name: data-release" in workflow
+    assert "uv lock --check" in workflow
+    assert "uv run ruff check ." in workflow
+    assert "uv run pytest" in workflow
+    assert "uv run apw source test" in workflow
+    assert "uv run apw validate" in workflow
+    assert "uv run apw index --check" in workflow
+    assert "uv run apw release dry-run" in workflow
+    assert "--require-clean" in workflow
+    assert "gh release" not in workflow
+    assert "git tag" not in workflow
+    assert "no data tag or GitHub data release was created" in workflow

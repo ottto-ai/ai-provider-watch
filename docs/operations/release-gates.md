@@ -6,7 +6,9 @@ publishing approval.
 
 The scheduled data-release workflow is also dry-run only. It creates attested
 release-shaped evidence for the current `main` commit, but it must not create
-tags, GitHub releases, or canonical provider events.
+tags, GitHub releases, or canonical provider events. The separate data publisher
+workflow is protected and no-op only until the signed-tag mechanism and
+release-manager approval are recorded.
 
 ## Deterministic Local Gates
 
@@ -86,6 +88,11 @@ performs no tag or release operation and uploads only ignored dry-run artifacts.
 A future real publisher must be a separate protected-environment job that
 consumes reviewed artifacts from a trusted release commit.
 
+The current publisher contract lives in
+[data-publisher.md](data-publisher.md). It requires the `data-release`
+environment and `main`, runs release dry-run checks, and does not request write,
+secret, OIDC, tag, or release-upload authority.
+
 ## Maintainer Release Approval
 
 A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
@@ -97,6 +104,7 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
 - artifact checksums and manifest contents;
 - `gh attestation verify` output for the dry-run bundle;
 - release notes and signed `data-YYYY.MM.DD` tag plan.
+- protected `data-release` environment approval for any publisher run.
 
 Source owner approval is required when the release includes new source
 descriptors, source graduation, parser changes, reviewed events, or generated

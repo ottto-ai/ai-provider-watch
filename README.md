@@ -49,6 +49,8 @@ establishes:
 - a repo-root Codex plugin package with APW skills and read-only MCP config;
 - public maintainer roles, source-owner mapping, release-manager gates, and a
   roadmap for v0.1 through v1.0;
+- a protected no-op data-publisher workflow contract for future guarded
+  `data-YYYY.MM.DD` publication;
 - a first reviewed canonical event seed set for OpenAI, Anthropic, Google
   Vertex AI, AWS Bedrock, and Azure OpenAI;
 - synthetic parser fixtures for status feeds, Statuspage-style status pages,
