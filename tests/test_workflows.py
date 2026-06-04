@@ -36,7 +36,7 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
     assert "apw-release-dry-run.tgz" in workflow
     assert "actions/attest@v4" in workflow
     assert "subject-path: .apw/apw-release-dry-run.tgz" in workflow
-    assert "actions/upload-artifact@v4" in workflow
+    assert "actions/upload-artifact@v7" in workflow
 
 
 def test_dependency_review_workflow_is_read_only() -> None:
@@ -71,6 +71,8 @@ def test_python_publish_workflow_uses_trusted_publishing_environment() -> None:
     assert "pypa/gh-action-pypi-publish@release/v1" in workflow
     assert "packages-dir: dist/" in workflow
     assert "print-hash: true" in workflow
+    assert "actions/upload-artifact@v7" in workflow
+    assert "actions/download-artifact@v8" in workflow
     assert "username:" not in workflow
     assert "password:" not in workflow
     assert "secrets." not in workflow
@@ -121,5 +123,7 @@ def test_llm_review_request_workflow_is_read_only_and_artifact_only() -> None:
     assert "gh release" not in workflow
     assert "git tag" not in workflow
     assert "pull_request_target:" not in workflow
+    assert "actions/setup-python@v6" in workflow
+    assert "actions/setup-python@v5" not in workflow
     assert "uv run apw \"${args[@]}\"" in workflow
-    assert "actions/upload-artifact@v4" in workflow
+    assert "actions/upload-artifact@v7" in workflow
