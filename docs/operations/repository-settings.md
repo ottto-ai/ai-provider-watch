@@ -13,7 +13,14 @@ Required behavior:
 - required branch to be up to date before merge;
 - force pushes disabled;
 - branch deletion disabled;
+- at least one approving review for protected branches;
 - CODEOWNERS review enabled after maintainer teams are configured.
+
+For v0.1, the repository intentionally uses a single-maintainer posture:
+`@RonShub` is the explicit CODEOWNER, release manager, source owner, schema
+maintainer, and security contact. Team-only CODEOWNERS gates are deferred until
+there is a second maintainer or equivalent team structure, because enabling them
+too early can lock out the launch maintainer.
 
 Check current branch protection:
 
@@ -87,8 +94,8 @@ Configure these teams or equivalent repository roles:
 | `ai-provider-watch-schema` | `apw-schema-maintainers` | Schema compatibility review. |
 | `ai-provider-watch-security` | `apw-security` | Security and workflow-token review. |
 
-Until teams exist, `@RonShub` remains the explicit CODEOWNER and release
-manager.
+Until teams exist, `@RonShub` remains the explicit CODEOWNER, release manager,
+source owner, schema maintainer, and security contact for v0.1 operations.
 
 ## Attestation Verification
 

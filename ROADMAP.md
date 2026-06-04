@@ -14,11 +14,15 @@ Required before the first public data tag:
 - branch protection or repository ruleset on `main`;
 - required status checks for CI and CodeQL;
 - Dependency Review support through GitHub dependency graph;
-- source owner and release manager roles configured;
+- source owner and release manager authority configured;
 - signed `data-YYYY.MM.DD` tag or protected publisher path;
 - attested release evidence bundle verified with `gh attestation verify`;
 - maintainer release approval recorded with checksum review;
 - release-token separation from source refresh and candidate workflows.
+
+For v0.1, `@RonShub` is the sole release manager, source owner, schema
+maintainer, and security contact. Team-based maintainer rotation remains a v1.0
+stability item so the first launch does not depend on premature team gates.
 
 The daily CalVer data release cadence remains dry-run only until these release
 gates pass.
