@@ -1,0 +1,4 @@
+recursive-include data *.json *.md *.ndjson *.txt *.xml
+recursive-include registries *.json
+recursive-include schemas *.json
+recursive-include sources *.atom *.html *.json *.md

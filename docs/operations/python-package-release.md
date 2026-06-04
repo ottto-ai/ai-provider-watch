@@ -19,9 +19,7 @@ reached a `1.0` API contract.
 
 - install smoke from PyPI in a fresh environment;
 - CLI smoke against checkout data;
-- CLI smoke against installed package data, or an explicit documented
-  replacement if maintainers decide APW should remain checkout-data-only before
-  `v0.2.0`;
+- CLI smoke against installed package data without `--root`;
 - schema/feed compatibility statement for downstream users;
 - package rollback/yank policy;
 - GitHub release asset policy.
@@ -153,12 +151,23 @@ apw --root "$APW_CHECKOUT" diff --since 30d
 apw --root "$APW_CHECKOUT" explain 2026-06-01-google-vertex-gemini-2-0-flash-retirement
 ```
 
-Installed package data must also be tested before `v0.1.0`. If APW has bundled
-read-only package data by then, run the equivalent CLI commands without
-`--root`. If APW intentionally remains checkout-data-only for `v0.1.0`, record
-that decision in the release evidence and README, and keep the first non-alpha
-release blocked until downstream users have a documented way to obtain matching
-data artifacts.
+Installed package data must also be tested before `v0.1.0`. Run these commands
+from a directory that is not inside an APW checkout:
+
+```bash
+mkdir -p /tmp/apw-installed-data-smoke
+cd /tmp/apw-installed-data-smoke
+apw validate
+apw index --check
+apw latest --limit 3
+apw diff --since 30d
+apw explain 2026-06-01-google-vertex-gemini-2-0-flash-retirement
+```
+
+These read commands use bundled package data. Source refresh, candidate
+generation, event promotion, index writes, and release dry runs still require an
+explicit checkout root because they mutate repository-shaped files or require
+Git state.
 
 ## Rollback And Yank Policy
 

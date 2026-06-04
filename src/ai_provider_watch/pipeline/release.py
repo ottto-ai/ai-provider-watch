@@ -177,6 +177,7 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
             "uv run apw validate",
             "uv run apw index --check",
             "uv build --out-dir .apw/dist",
+            "apw latest --limit 1 >/tmp/apw-installed-latest.json",
             "--require-clean",
             "apw-release-dry-run.tgz",
             "actions/attest@v4",

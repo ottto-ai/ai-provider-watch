@@ -76,6 +76,21 @@ uv run apw ecosystem render --target litellm --since 30d --risk medium --output 
 uv run apw latest
 ```
 
+Installed wheels include read-only public APW data. After `pip install
+ai-provider-watch`, these commands work outside a checkout without `--root`:
+
+```bash
+apw validate
+apw index --check
+apw latest --limit 3
+apw diff --since 30d
+apw explain 2026-06-01-google-vertex-gemini-2-0-flash-retirement
+```
+
+Write workflows such as source refresh, candidate generation, event promotion,
+index generation, and release dry runs still require an explicit APW checkout
+root.
+
 Python package publication uses PyPI Trusted Publishing through the protected
 `pypi` environment. See
 [docs/operations/python-package-release.md](docs/operations/python-package-release.md).

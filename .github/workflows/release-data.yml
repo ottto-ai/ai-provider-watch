@@ -36,6 +36,13 @@ jobs:
           uv venv .apw/install-smoke --python 3.12 --seed
           . .apw/install-smoke/bin/activate
           python -m pip install .apw/dist/*.whl
+          smoke_dir="$(mktemp -d)"
+          (
+            cd "$smoke_dir"
+            apw validate
+            apw index --check
+            apw latest --limit 1 >/tmp/apw-installed-latest.json
+          )
           apw --root "$PWD" validate
           apw --root "$PWD" release dry-run \
             --release-date "$(date -u +%F)" \

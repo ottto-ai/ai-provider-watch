@@ -37,6 +37,9 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
     assert "uv lock --check" in workflow
     assert "uv venv .apw/install-smoke --python 3.12 --seed" in workflow
     assert "python -m pip install .apw/dist/*.whl" in workflow
+    assert "apw validate" in workflow
+    assert "apw index --check" in workflow
+    assert "apw latest --limit 1 >/tmp/apw-installed-latest.json" in workflow
     assert "apw --root \"$PWD\" release dry-run" in workflow
     assert "--require-clean" in workflow
     assert "apw-release-dry-run.tgz" in workflow
