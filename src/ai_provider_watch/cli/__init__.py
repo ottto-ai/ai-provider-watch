@@ -16,7 +16,7 @@ from ai_provider_watch.core.feeds import (
     load_events,
     write_artifacts,
 )
-from ai_provider_watch.core.io import read_json, repo_root, write_json_text
+from ai_provider_watch.core.io import package_data_root, read_json, repo_root, write_json_text
 from ai_provider_watch.core.validation import validate
 from ai_provider_watch.pipeline.candidates import (
     build_candidates,
@@ -47,6 +47,23 @@ from ai_provider_watch.sources.registry import load_source_descriptors, validate
 
 def _root(value: str | None) -> Path:
     return repo_root(Path(value) if value else None)
+
+
+def _is_package_data_root(root: Path) -> bool:
+    try:
+        return root.resolve() == package_data_root().resolve()
+    except OSError:
+        return False
+
+
+def _require_checkout_root(args: argparse.Namespace, root: Path, command: str) -> bool:
+    if args.root is None and _is_package_data_root(root):
+        print(
+            f"{command} requires an APW checkout; rerun inside a checkout or pass --root",
+            file=sys.stderr,
+        )
+        return False
+    return True
 
 
 def _print_json(value: Any) -> None:
@@ -81,6 +98,8 @@ def cmd_index(args: argparse.Namespace) -> int:
             return 1
         print("ok: generated artifacts are current")
         return 0
+    if not _require_checkout_root(args, root, "index"):
+        return 1
     write_artifacts(root, artifacts)
     print(f"wrote {len(artifacts)} artifacts")
     return 0
@@ -128,8 +147,10 @@ def cmd_source_test(args: argparse.Namespace) -> int:
 
 def cmd_source_fetch(args: argparse.Namespace) -> int:
     root = _root(args.root)
+    if not _require_checkout_root(args, root, "source fetch"):
+        return 1
     state_path = root / args.state
-    observations_path = root / args.observations if args.observations else None
+    observations_path = _output_path(root, args.observations) if args.observations else None
     previous_state = read_fingerprint_state(state_path)
     sources = load_source_descriptors(root, enabled_only=True)
     if args.source:
@@ -167,10 +188,21 @@ def _path_from_root(root: Path, value: str) -> Path:
     return root / path
 
 
+def _output_path(root: Path, value: str) -> Path:
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    if _is_package_data_root(root):
+        return Path.cwd() / path
+    return root / path
+
+
 def cmd_candidate_generate(args: argparse.Namespace) -> int:
     root = _root(args.root)
+    if not _require_checkout_root(args, root, "candidate generate"):
+        return 1
     observations_path = _path_from_root(root, args.observations)
-    output_dir = _path_from_root(root, args.output)
+    output_dir = _output_path(root, args.output)
     try:
         result = build_candidates(
             read_observation_bundle(observations_path),
@@ -247,7 +279,7 @@ def cmd_review_request(args: argparse.Namespace) -> int:
         return 1
     output = write_json_text(request)
     if args.output:
-        output_path = _path_from_root(root, args.output)
+        output_path = _output_path(root, args.output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(output, encoding="utf-8")
     else:
@@ -283,7 +315,7 @@ def cmd_review_eval(args: argparse.Namespace) -> int:
     )
     output = write_json_text(report)
     if args.output:
-        output_path = _path_from_root(root, args.output)
+        output_path = _output_path(root, args.output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(output, encoding="utf-8")
     else:
@@ -305,7 +337,7 @@ def cmd_repo_check(args: argparse.Namespace) -> int:
         return 1
     output = write_json_text(report)
     if args.output:
-        output_path = _path_from_root(root, args.output)
+        output_path = _output_path(root, args.output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(output, encoding="utf-8")
     else:
@@ -316,7 +348,7 @@ def cmd_repo_check(args: argparse.Namespace) -> int:
 def _write_or_print(root: Path, payload: Any, output: str | None) -> None:
     rendered = write_json_text(payload)
     if output:
-        output_path = _path_from_root(root, output)
+        output_path = _output_path(root, output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(rendered, encoding="utf-8")
     else:
@@ -389,6 +421,8 @@ def cmd_ecosystem_render(args: argparse.Namespace) -> int:
 
 def cmd_release_dry_run(args: argparse.Namespace) -> int:
     root = _root(args.root)
+    if not _require_checkout_root(args, root, "release dry-run"):
+        return 1
     try:
         release_date = parse_release_date(args.release_date)
     except ValueError as exc:

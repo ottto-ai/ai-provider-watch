@@ -5,13 +5,33 @@ from pathlib import Path
 from typing import Any
 
 
+def package_data_root() -> Path:
+    """Return bundled read-only package data when installed from a wheel."""
+    return Path(__file__).resolve().parents[1] / "_data"
+
+
+def is_apw_data_root(path: Path) -> bool:
+    return (
+        (path / "schemas").is_dir()
+        and (path / "data" / "events").is_dir()
+        and (path / "registries").is_dir()
+        and (path / "sources" / "registry.json").is_file()
+    )
+
+
 def repo_root(start: Path | None = None) -> Path:
     current = (start or Path.cwd()).resolve()
     if current.is_file():
         current = current.parent
     for candidate in [current, *current.parents]:
-        if (candidate / "pyproject.toml").exists() and (candidate / "schemas").is_dir():
+        if (candidate / "pyproject.toml").exists() and is_apw_data_root(candidate):
             return candidate
+        if is_apw_data_root(candidate) and candidate.name == "_data":
+            return candidate
+    if start is None:
+        bundled = package_data_root()
+        if is_apw_data_root(bundled):
+            return bundled
     raise FileNotFoundError(f"could not find AI Provider Watch repo root from {current}")
 
 
