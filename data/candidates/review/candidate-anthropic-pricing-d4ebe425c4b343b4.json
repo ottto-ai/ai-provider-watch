@@ -1,0 +1,35 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "Anthropic pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes.",
+  "created_at": "2026-06-04T11:03:55Z",
+  "dedupe_key": "anthropic.pricing:pricing_change:0c194d7d0a4826db8fe511ed",
+  "evidence_refs": [
+    {
+      "authority": "official_pricing",
+      "content_sha256": "0681840323d6d74f25f02fcd0662698ab64bb30ccffa9600a39a08965da3cf71",
+      "fingerprint": "279c5ad266270f8ad86557e5dfa04a6477ff84729e9ec22e2b27987d2ad69081",
+      "retrieved_at": "2026-06-04T11:03:35Z",
+      "snapshot_ref": null,
+      "source_key": "anthropic.pricing",
+      "url": "https://platform.claude.com/docs/en/about-claude/pricing"
+    }
+  ],
+  "id": "candidate-anthropic-pricing-d4ebe425c4b343b4",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_pricing"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.pricing"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

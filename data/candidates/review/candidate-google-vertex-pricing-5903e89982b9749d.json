@@ -1,0 +1,35 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "Google Gemini/Vertex pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes.",
+  "created_at": "2026-06-04T11:03:55Z",
+  "dedupe_key": "google.vertex_pricing:pricing_change:6a82f2635e4510e47909a098",
+  "evidence_refs": [
+    {
+      "authority": "official_pricing",
+      "content_sha256": "e43d13a61b8fad5a5c22a3137a3e943c85548a963a948547a7704146c431a9d6",
+      "fingerprint": "252015dff213911de45acb18a7bf5d8785e34898b3bfdb6c24ed4fc6b4175909",
+      "retrieved_at": "2026-06-04T11:03:53Z",
+      "snapshot_ref": null,
+      "source_key": "google.vertex_pricing",
+      "url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing"
+    }
+  ],
+  "id": "candidate-google-vertex-pricing-5903e89982b9749d",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "google_vertex_pricing"
+  },
+  "provider_refs": [
+    "provider:google"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "google.vertex_pricing"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
