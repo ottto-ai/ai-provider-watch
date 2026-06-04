@@ -26,7 +26,10 @@
   "provider_refs": [
     "provider:google"
   ],
-  "review_status": "needs_review",
+  "limitations": [
+    "Rejected for publication in this review: parser output lists current models but no official dated model lifecycle delta was confirmed."
+  ],
+  "review_status": "rejected",
   "schema_version": "apw.finding_candidate.v0",
   "source_keys": [
     "google.ai_docs"

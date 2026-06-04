@@ -26,7 +26,10 @@
   "provider_refs": [
     "provider:openai"
   ],
-  "review_status": "needs_review",
+  "limitations": [
+    "Promoted by splitting the status candidate into reviewed incident events for OpenAI Image API 401 errors and Codex compaction latency."
+  ],
+  "review_status": "promoted",
   "schema_version": "apw.finding_candidate.v0",
   "source_keys": [
     "openai.status"

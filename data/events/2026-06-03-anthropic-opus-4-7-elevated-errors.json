@@ -1,0 +1,67 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-03-anthropic-opus-4-7-elevated-errors",
+  "title": "Anthropic Reported Elevated Errors on Opus 4.7",
+  "event_kind": "status_incident",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:anthropic"],
+  "event_date": "2026-06-03",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-04T21:19:51Z",
+  "announced_at": "2026-06-03T07:10:00Z",
+  "effective_at": "2026-06-03T07:10:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Anthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_status",
+  "evidence_refs": [
+    {
+      "source_key": "anthropic.status",
+      "url": "https://status.claude.com/incidents/thp2kyjx60qn",
+      "retrieved_at": "2026-06-04T21:19:51Z",
+      "authority": "official_status",
+      "content_sha256": "7888f7c1e6dc1c20dc326007e23592015cec9bae48852c3e5c18b80bcb8d13ef",
+      "snapshot_ref": "reviewed-source:2026-06-04",
+      "selector": "Opus 4.7 elevated errors status incident",
+      "license_note": "Official status page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:anthropic/api",
+      "impact_kind": "availability",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "api_usage_impact": "possible",
+      "who_should_care": ["platform_engineers", "product_engineers", "reliability_engineers"],
+      "recommended_action": "Annotate Anthropic API errors for June 3, 2026 and check model-specific fallbacks before changing Opus routing thresholds."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:claude-code",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "api_usage_impact": "possible",
+      "who_should_care": ["coding_agent_users", "platform_engineers"],
+      "recommended_action": "Correlate Claude Code failures around the incident window with provider status before changing local agent configuration."
+    }
+  ],
+  "detail": {
+    "kind": "status_incident",
+    "schema_version": "apw.event_detail.v0",
+    "provider_incident_id": "thp2kyjx60qn",
+    "status": "resolved",
+    "started_at": "2026-06-03T07:10:00Z",
+    "resolved_at": "2026-06-03T07:38:00Z",
+    "components": ["claude.ai", "Claude Console", "Claude API", "Claude Code"],
+    "raw_status": "resolved"
+  },
+  "tags": ["source:official_status", "provider:anthropic", "impact:status_incident", "app:claude-code"],
+  "limitations": ["The status page names the model display surface but APW does not yet maintain a registered model ref for Opus 4.7."]
+}

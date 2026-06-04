@@ -1,5 +1,148 @@
 [
   {
+    "announced_at": "2026-06-04T19:12:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "components": [
+        "APIs",
+        "Image API"
+      ],
+      "kind": "status_incident",
+      "provider_incident_id": "01KTA0V0N4KT7VV50DTJZ85XTA",
+      "raw_status": "resolved degraded performance",
+      "resolved_at": "2026-06-04T19:52:18Z",
+      "schema_version": "apw.event_detail.v0",
+      "started_at": "2026-06-04T19:12:00Z",
+      "status": "resolved"
+    },
+    "effective_at": "2026-06-04T19:12:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "status_incident",
+    "evidence_refs": [
+      {
+        "authority": "official_status",
+        "content_sha256": "8d3311ad6083dc333213540f1f5ae8148e97ead3c1ecc97cdc8853df296c3785",
+        "license_note": "Official status page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-04T21:20:13Z",
+        "selector": "Image API 401 status incident",
+        "snapshot_ref": "reviewed-source:2026-06-04",
+        "source_key": "openai.status",
+        "url": "https://status.openai.com/incidents/01KTA0V0N4KT7VV50DTJZ85XTA"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-image-api-401-errors",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "availability",
+        "recommended_action": "Check Image API retries, alert thresholds, and incident annotations for June 4, 2026 before attributing 401 spikes to application credentials.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-04T21:20:13Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_status",
+    "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
+    "tags": [
+      "source:official_status",
+      "provider:openai",
+      "impact:status_incident",
+      "surface:api"
+    ],
+    "title": "OpenAI Image API Requests Returned 401 Errors"
+  },
+  {
+    "announced_at": "2026-06-04T02:57:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "components": [
+        "Codex"
+      ],
+      "kind": "status_incident",
+      "provider_incident_id": "01KT890WC7YQYMX39GY5VG9QAB",
+      "raw_status": "resolved degraded performance",
+      "resolved_at": "2026-06-04T04:37:16Z",
+      "schema_version": "apw.event_detail.v0",
+      "started_at": "2026-06-04T02:57:00Z",
+      "status": "resolved"
+    },
+    "effective_at": "2026-06-04T02:57:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "status_incident",
+    "evidence_refs": [
+      {
+        "authority": "official_status",
+        "content_sha256": "e82345414b31d185a7474ae032a3f29772f37945be4864cabc8f75439df65d30",
+        "license_note": "Official status page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-04T21:20:13Z",
+        "selector": "Codex compaction latency status incident",
+        "snapshot_ref": "reviewed-source:2026-06-04",
+        "source_key": "openai.status",
+        "url": "https://status.openai.com/incidents/01KT890WC7YQYMX39GY5VG9QAB"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-codex-compaction-latency",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Annotate Codex latency or timeout spikes on June 4, 2026 before tuning compaction workflows or task retry policies.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-04T21:20:13Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "low",
+    "source_authority": "official_status",
+    "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
+    "tags": [
+      "source:official_status",
+      "provider:openai",
+      "impact:status_incident",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex Compaction Had Increased Latency"
+  },
+  {
     "announced_at": "2026-06-03T07:10:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",
@@ -157,89 +300,5 @@
       "app:claude-code"
     ],
     "title": "Anthropic Reported Degraded Claude Code Services"
-  },
-  {
-    "announced_at": "2025-02-24T00:00:00Z",
-    "confidence": "confirmed",
-    "date_confidence": "exact",
-    "detail": {
-      "deadline": null,
-      "kind": "model_lifecycle",
-      "lifecycle_action": "launch",
-      "migration_notes": "New model availability; no forced migration deadline in the reviewed announcement.",
-      "model_refs": [
-        "model:claude-3-7-sonnet"
-      ],
-      "replacement_refs": [],
-      "schema_version": "apw.event_detail.v0"
-    },
-    "effective_at": "2025-02-24T00:00:00Z",
-    "event_date": "2025-02-24",
-    "event_kind": "model_launch",
-    "evidence_refs": [
-      {
-        "authority": "official_blog",
-        "content_sha256": "849c1d78c6bec91d04418e2eade133b65c984f44c675d7d26cbd6c49e3d4ef13",
-        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
-        "retrieved_at": "2026-06-01T10:36:49Z",
-        "selector": "Claude 3.7 Sonnet announcement",
-        "snapshot_ref": "reviewed-source:2026-06-01",
-        "source_key": "anthropic.news",
-        "url": "https://www.anthropic.com/news/claude-3-7-sonnet"
-      }
-    ],
-    "expires_at": null,
-    "id": "2025-02-24-anthropic-claude-3-7-sonnet-launch",
-    "impacts": [
-      {
-        "api_usage_impact": "possible",
-        "confidence": "confirmed",
-        "direction": "added",
-        "impact_kind": "availability",
-        "recommended_action": "Add the launched model to allowlists and test routing, pricing, and latency assumptions before setting it as a default.",
-        "scope_ref": "surface:anthropic/api",
-        "scope_type": "provider_surface",
-        "severity": "low",
-        "subscription_impact": "possible",
-        "who_should_care": [
-          "platform_engineers",
-          "coding_agent_users",
-          "product_engineers"
-        ]
-      },
-      {
-        "api_usage_impact": "possible",
-        "confidence": "confirmed",
-        "direction": "added",
-        "impact_kind": "behavior",
-        "recommended_action": "Treat extended-thinking controls as a behavior and cost dimension when designing agent evaluation baselines.",
-        "scope_ref": "surface:anthropic/api",
-        "scope_type": "provider_surface",
-        "severity": "low",
-        "who_should_care": [
-          "platform_engineers",
-          "coding_agent_users"
-        ]
-      }
-    ],
-    "lifecycle_status": "reviewed",
-    "limitations": [
-      "Historical seed event; verify current model availability before changing production routing."
-    ],
-    "migration_deadline": null,
-    "observed_at": "2026-06-01T10:36:49Z",
-    "provider_refs": [
-      "provider:anthropic"
-    ],
-    "schema_version": "apw.provider_event.v0",
-    "severity": "low",
-    "source_authority": "official_blog",
-    "summary": "Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.",
-    "tags": [
-      "source:official_blog",
-      "provider:anthropic",
-      "impact:model_launch"
-    ],
-    "title": "Anthropic Launches Claude 3.7 Sonnet"
   }
 ]

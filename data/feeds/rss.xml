@@ -5,6 +5,34 @@
     <link>https://github.com/ottto-ai/ai-provider-watch</link>
     <description>Reviewed AI-provider change events.</description>
     <item>
+      <guid isPermaLink="false">2026-06-04-openai-image-api-401-errors</guid>
+      <title>OpenAI Image API Requests Returned 401 Errors</title>
+      <description>OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.</description>
+      <category>status_incident</category>
+      <pubDate>Thu, 04 Jun 2026 21:20:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-04-openai-codex-compaction-latency</guid>
+      <title>OpenAI Codex Compaction Had Increased Latency</title>
+      <description>OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.</description>
+      <category>status_incident</category>
+      <pubDate>Thu, 04 Jun 2026 21:20:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-03-anthropic-opus-4-7-elevated-errors</guid>
+      <title>Anthropic Reported Elevated Errors on Opus 4.7</title>
+      <description>Anthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.</description>
+      <category>status_incident</category>
+      <pubDate>Thu, 04 Jun 2026 21:19:51 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-03-anthropic-claude-code-services-degraded</guid>
+      <title>Anthropic Reported Degraded Claude Code Services</title>
+      <description>Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.</description>
+      <category>status_incident</category>
+      <pubDate>Thu, 04 Jun 2026 21:19:51 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-01-google-vertex-gemini-2-0-flash-retirement</guid>
       <title>Google Vertex AI Retires Gemini 2.0 Flash Stable Models</title>
       <description>Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.</description>

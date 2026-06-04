@@ -26,7 +26,10 @@
   "provider_refs": [
     "provider:anthropic"
   ],
-  "review_status": "needs_review",
+  "limitations": [
+    "Promoted by splitting the status candidate into reviewed incident events for Anthropic Opus 4.7 and Claude Code service degradation."
+  ],
+  "review_status": "promoted",
   "schema_version": "apw.finding_candidate.v0",
   "source_keys": [
     "anthropic.status"
