@@ -27,6 +27,7 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         ROOT / "docs/operations/repository-settings.md",
         ROOT / "docs/operations/release-gates.md",
         ROOT / "docs/operations/data-release.md",
+        ROOT / "docs/operations/event-promotion.md",
     ]
     combined = "\n".join(path.read_text(encoding="utf-8") for path in paths)
 
@@ -41,3 +42,25 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         "release-token separation",
     ]:
         assert phrase in combined
+
+
+def test_event_promotion_playbook_keeps_human_review_gates() -> None:
+    playbook = (ROOT / "docs/operations/event-promotion.md").read_text(
+        encoding="utf-8"
+    )
+
+    for phrase in [
+        "Source-Owner Checklist",
+        "Release-Manager Checklist",
+        "Promote One Candidate",
+        "Close As Duplicate",
+        "Reject As Noisy",
+        "Split A Candidate",
+        "Source refresh, candidate generation, LLM review, issue automation, PR-comment",
+        "must not receive release tokens",
+        "data/events/",
+        "uv run apw validate",
+        "uv run apw index --check",
+        ".apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json",
+    ]:
+        assert phrase in playbook

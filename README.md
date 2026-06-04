@@ -138,7 +138,9 @@ uv run apw candidate generate \
 
 Candidate files are maintainer-review input. Promotion to `data/events/` remains
 manual. The initial seed events are reviewed by maintainers from official
-provider-controlled sources and do not copy raw provider page prose.
+provider-controlled sources and do not copy raw provider page prose. See the
+[event promotion playbook](docs/operations/event-promotion.md) for the
+source-owner checklist and release-manager gates.
 
 Current parser output is conservative by design: changed official sources create
 generic maintainer-review claims; Atom and Statuspage-style status sources
@@ -203,6 +205,7 @@ See:
 - [Agent Consumption](docs/agent-consumption.md)
 - [Plugin Contract](docs/plugin-contract.md)
 - [Read-Only MCP Contract](docs/operations/mcp.md)
+- [Event Promotion](docs/operations/event-promotion.md)
 - [Downstream GitHub Action](docs/integrations/github-action.md)
 - [Webhook And Slack Payloads](docs/integrations/webhooks.md)
 - [Ecosystem Mappings](docs/integrations/ecosystem-mappings.md)

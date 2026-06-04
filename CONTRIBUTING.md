@@ -73,4 +73,6 @@ Reviewed event data belongs under `data/events/`. Generated files under
 Finding candidates under `data/candidates/` are review input only. They can be
 generated from observation bundles with `apw candidate generate`, but they are
 not canonical provider facts until a maintainer promotes them into
-`data/events/`.
+`data/events/`. Maintainers should follow
+[docs/operations/event-promotion.md](docs/operations/event-promotion.md) when
+promoting, rejecting, deduplicating, or splitting candidates.
