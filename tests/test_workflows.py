@@ -22,6 +22,12 @@ def test_source_refresh_workflow_cleans_generated_review_candidates() -> None:
 def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() -> None:
     workflow = (ROOT / ".github/workflows/release-data.yml").read_text(encoding="utf-8")
 
+    assert "schedule:" in workflow
+    assert 'cron: "43 7 * * *"' in workflow
+    assert "workflow_dispatch:" in workflow
+    assert "concurrency:" in workflow
+    assert "group: data-release-dry-run-${{ github.ref }}" in workflow
+    assert "cancel-in-progress: false" in workflow
     assert "permissions:\n  contents: read\n  id-token: write\n  attestations: write" in workflow
     assert "contents: write" not in workflow
     assert "secrets." not in workflow

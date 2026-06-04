@@ -55,7 +55,7 @@ establishes:
   model-doc identifiers, pricing signals, and AWS Bedrock model-card display
   refs;
 - tested read-only MCP adapter helpers;
-- CI and schema-backed data-release dry-run verification.
+- CI and scheduled schema-backed data-release dry-run verification.
 
 ## Install From Checkout
 
