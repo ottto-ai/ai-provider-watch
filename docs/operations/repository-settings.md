@@ -111,3 +111,15 @@ gh attestation verify .apw/apw-release-dry-run.tgz \
 The attestation proves workflow provenance for the evidence bundle. It is not a
 publishing approval; a release manager must still review checksums, release
 notes, source commit, and branch/ruleset state.
+
+## Data Release Environment
+
+Create a protected environment named `data-release` before using the guarded
+publisher workflow as release evidence. During v0.1, the environment must
+require `@RonShub` approval and must not contain secrets while the workflow is
+no-op only.
+
+The publisher workflow is intentionally separate from source refresh, candidate
+generation, and LLM review workflows. It should run only from trusted `main`
+commits and should remain `contents: read` until a signed-tag mechanism is
+approved in a follow-up PR.

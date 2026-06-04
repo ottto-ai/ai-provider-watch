@@ -1,0 +1,75 @@
+name: Data Release Publisher
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_date:
+        description: "UTC release date for data-YYYY.MM.DD. Empty uses today."
+        required: false
+        type: string
+        default: ""
+      publish_mode:
+        description: "Only no-op is enabled until release-manager approval."
+        required: true
+        type: choice
+        default: no-op
+        options:
+          - no-op
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-release-publisher-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  no-op:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: data-release
+    steps:
+      - name: Guard trusted ref and no-op mode
+        env:
+          PUBLISH_MODE: ${{ inputs.publish_mode }}
+        run: |
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$PUBLISH_MODE" = "no-op"
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: uv sync --all-extras
+      - run: uv lock --check
+      - run: uv run ruff check .
+      - run: uv run pytest
+      - run: uv run apw source test
+      - run: uv run apw validate
+      - run: uv run apw index --check
+      - name: Run publisher no-op dry run
+        env:
+          INPUT_RELEASE_DATE: ${{ inputs.release_date }}
+        run: |
+          release_date="$INPUT_RELEASE_DATE"
+          if [ -z "$release_date" ]; then
+            release_date="$(date -u +%F)"
+          fi
+          case "$release_date" in
+            [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;;
+            *) echo "release_date must be YYYY-MM-DD" >&2; exit 1 ;;
+          esac
+          echo "APW_RELEASE_DATE=$release_date" >> "$GITHUB_ENV"
+          uv run apw release dry-run \
+            --release-date "$release_date" \
+            --output .apw/data-publisher-noop \
+            --require-clean
+      - name: Write no-op summary
+        run: |
+          {
+            echo "## Data publisher no-op"
+            echo "- Source ref: $GITHUB_SHA"
+            echo "- Release date: $APW_RELEASE_DATE"
+            echo "- Result: no data tag or GitHub data release was created."
+          } >> "$GITHUB_STEP_SUMMARY"
