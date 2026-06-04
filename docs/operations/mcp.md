@@ -25,6 +25,21 @@ The adapter has no tools for merging PRs, publishing events, mutating source
 state, writing `data/events`, creating release tags, reading release tokens, or
 requesting OIDC credentials.
 
+## Forbidden Paths
+
+MCP hosts must not expose APW tools that do any of the following:
+
+- publish or promote provider events;
+- mutate `data/events`, `data/candidates`, `data/source-state`, or source
+  descriptors;
+- create, sign, or push release tags;
+- merge PRs, apply labels, or comment using release credentials;
+- read provider credentials, GitHub release tokens, PyPI tokens, Slack webhook
+  URLs, OpenTelemetry credentials, or downstream API keys.
+
+Those paths stay in the local CLI plus PR-review workflow. MCP resources and
+tool outputs are data for the caller, not instructions to execute.
+
 ## Local Smoke
 
 ```python
