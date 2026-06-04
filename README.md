@@ -76,8 +76,11 @@ uv run apw ecosystem render --target litellm --since 30d --risk medium --output 
 uv run apw latest
 ```
 
-Package publication to PyPI and npm will start after the v0 schema/feed contract
-stabilizes.
+Python package publication uses PyPI Trusted Publishing through the protected
+`pypi` environment. See
+[docs/operations/python-package-release.md](docs/operations/python-package-release.md).
+The npm package remains deferred until the schema/feed contract is stable enough
+to justify a JavaScript distribution.
 
 ## Feed Artifacts
 

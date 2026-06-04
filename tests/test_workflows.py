@@ -57,6 +57,27 @@ def test_dependency_review_workflow_is_read_only() -> None:
     assert "head-ref: ${{ inputs.head_ref }}" in workflow
 
 
+def test_python_publish_workflow_uses_trusted_publishing_environment() -> None:
+    workflow = (ROOT / ".github/workflows/publish-python.yml").read_text(encoding="utf-8")
+
+    assert '      - "v*"' in workflow
+    assert "pull_request:" not in workflow
+    assert "pull_request_target:" not in workflow
+    assert "permissions:\n  contents: read" in workflow
+    assert "needs: build" in workflow
+    assert "if: startsWith(github.ref, 'refs/tags/v')" in workflow
+    assert "environment:\n      name: pypi" in workflow
+    assert "id-token: write" in workflow
+    assert "pypa/gh-action-pypi-publish@release/v1" in workflow
+    assert "packages-dir: dist/" in workflow
+    assert "print-hash: true" in workflow
+    assert "username:" not in workflow
+    assert "password:" not in workflow
+    assert "secrets." not in workflow
+    assert "gh release" not in workflow
+    assert "git tag" not in workflow
+
+
 def test_source_refresh_workflow_has_no_release_token_path() -> None:
     workflow = (ROOT / ".github/workflows/source-refresh.yml").read_text(encoding="utf-8")
 
