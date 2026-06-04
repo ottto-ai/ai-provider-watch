@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: astral-sh/setup-uv@v7
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: uv sync --all-extras
@@ -55,7 +55,7 @@ jobs:
             args+=(--model "${{ inputs.model }}")
           fi
           uv run apw "${args[@]}"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: llm-review-request
           path: .apw/llm-review-request.json

@@ -181,7 +181,7 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
             "apw-release-dry-run.tgz",
             "actions/attest@v4",
             "subject-path: .apw/apw-release-dry-run.tgz",
-            "actions/upload-artifact@v4",
+            "actions/upload-artifact@v7",
         ],
     )
     forbidden = _workflow_forbidden(
