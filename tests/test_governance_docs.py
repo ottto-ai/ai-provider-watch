@@ -43,6 +43,11 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         "data-release",
         "no-op",
         "release-token separation",
+        "manual Ron-signed",
+        "git tag -s",
+        "git tag -v",
+        "Do not store signing keys in Actions",
+        "artifact attestations",
     ]:
         assert phrase in combined
 

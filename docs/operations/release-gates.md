@@ -1,14 +1,34 @@
 # Release Gates
 
-APW data-release automation stays dry-run only until maintainers record every
-gate in this runbook. The release dry-run report is necessary evidence, not a
-publishing approval.
+APW data-release automation stays dry-run only until maintainers deliberately
+approve and test a real publisher. The release dry-run report is necessary
+evidence, not a publishing approval.
 
 The scheduled data-release workflow is also dry-run only. It creates attested
 release-shaped evidence for the current `main` commit, but it must not create
 tags, GitHub releases, or canonical provider events. The separate data publisher
-workflow is protected and no-op only until the signed-tag mechanism and
-release-manager approval are recorded.
+workflow is protected and no-op only in v0.1.
+
+## v0.1 Signed Tag Policy
+
+The approved v0.1 publishing mechanism is manual release-manager publication
+with Ron-signed Git tags:
+
+```bash
+git tag -s data-YYYY.MM.DD
+git tag -v data-YYYY.MM.DD
+git push origin data-YYYY.MM.DD
+```
+
+GitHub artifact attestations are provenance evidence for release dry-run
+artifacts. They do not replace the release manager's signed Git tag. Do not
+store signing keys in GitHub Actions, repository secrets, environment secrets,
+or jobs that process provider/source/candidate text.
+
+Future daily tag automation requires a separate PR with explicit release-manager
+approval, tests for the chosen signature posture, and evidence that source
+refresh, candidate generation, LLM review, issue, PR-comment, social, and MCP
+lanes still have no release authority.
 
 ## Deterministic Local Gates
 
@@ -103,7 +123,7 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
 - Dependency Review result;
 - artifact checksums and manifest contents;
 - `gh attestation verify` output for the dry-run bundle;
-- release notes and signed `data-YYYY.MM.DD` tag plan.
+- release notes and manual Ron-signed `data-YYYY.MM.DD` tag plan.
 - protected `data-release` environment approval for any publisher run.
 
 Source owner approval is required when the release includes new source
