@@ -5,6 +5,26 @@ The guarded data publisher is a protected-environment workflow for future
 release gates from a trusted `main` commit and records that no data tag or
 GitHub data release was created.
 
+## Approved v0.1 Publishing Mechanism
+
+For v0.1, real public data publication is manual release-manager work:
+
+1. run the release gates from a clean checkout of the intended `main` commit;
+2. verify CI, CodeQL, Dependency Review, release dry-run checksums, and artifact
+   attestation evidence;
+3. create a manual Ron-signed Git tag with `git tag -s data-YYYY.MM.DD`;
+4. verify the signed tag with `git tag -v data-YYYY.MM.DD`;
+5. publish the matching GitHub data release with the release evidence packet.
+
+Do not store signing keys in Actions, repository secrets, environment secrets,
+or OIDC-backed jobs. GitHub artifact attestations are provenance evidence for
+the dry-run artifact bundle; they are not a replacement for the release
+manager's signed Git tag.
+
+The protected `data-publisher.yml` workflow remains no-op in v0.1. It may be
+used as an approval/evidence gate, but not as the actor that creates data tags
+or GitHub releases.
+
 ## Threat Model
 
 Source refresh, candidate generation, LLM review, issue bodies, PR comments,
@@ -60,10 +80,13 @@ The workflow checks:
 It does not create tags, upload releases, read secrets, request OIDC, or process
 provider/source/candidate text beyond the reviewed repository checkout.
 
-## Real Publishing Gate
+## Future Automated Publishing Gate
 
-Do not add real `data-YYYY.MM.DD` publishing until a release manager approves a
-signed-tag mechanism and a follow-up PR changes this workflow deliberately.
+Do not add automated `data-YYYY.MM.DD` publishing until a release manager
+approves a new mechanism and a follow-up PR changes this workflow deliberately.
+That future PR must treat the v0.1 manual signed-tag policy as the baseline and
+explain why automation is worth the additional key-management and release-token
+risk.
 
 Before enabling real publication, the follow-up PR must add tests proving:
 
@@ -76,7 +99,10 @@ Before enabling real publication, the follow-up PR must add tests proving:
 - Dependency Review, CI, CodeQL workflow, and code-scanning analysis are green
   for the release commit;
 - the selected tag mechanism signs or otherwise provides the approved signature
-  posture.
+  posture;
+- signing keys are never available to workflows that process provider pages,
+  source observations, generated candidates, issue bodies, PR comments, social
+  posts, or MCP resource text.
 
-Until those tests and the signed-tag decision land, public data publication
-stays manual and release-manager approved.
+Until those tests and a new automation decision land, public data publication
+stays manual, Ron-signed, and release-manager approved.
