@@ -1,20 +1,20 @@
 {
   "candidate_kind": "status_incident",
   "claim_text": "Anthropic status source changed and needs maintainer review for possible incident or recovery changes.",
-  "created_at": "2026-06-04T11:03:55Z",
+  "created_at": "2026-06-05T10:16:47Z",
   "dedupe_key": "anthropic.status:status_incident:112cd5504684fc54409d4691",
   "evidence_refs": [
     {
       "authority": "official_status",
-      "content_sha256": "a590b868708f7c4e61211b55947f486dd2abae503b7fcb0121b8a358f6bfeb93",
-      "fingerprint": "9ce2dda73a66103fd66b372ccb8295299904107e721e4887efffb38b3a329f7f",
-      "retrieved_at": "2026-06-04T11:03:36Z",
+      "content_sha256": "03920f472feb6ee5bf8a4191a543de2c4ccdaa2177305279319a61cb807953f7",
+      "fingerprint": "6af46323e17c902befd0afb1501ed4a3b8a120f30a71cc9177fb390d4afbd97b",
+      "retrieved_at": "2026-06-05T10:16:28Z",
       "snapshot_ref": null,
       "source_key": "anthropic.status",
       "url": "https://status.claude.com/"
     }
   ],
-  "id": "candidate-anthropic-status-3be0bf5deb1f1902",
+  "id": "candidate-anthropic-status-b940b90834744804",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."
@@ -26,10 +26,7 @@
   "provider_refs": [
     "provider:anthropic"
   ],
-  "limitations": [
-    "Promoted by splitting the status candidate into reviewed incident events for Anthropic Opus 4.7 and Claude Code service degradation."
-  ],
-  "review_status": "promoted",
+  "review_status": "needs_review",
   "schema_version": "apw.finding_candidate.v0",
   "source_keys": [
     "anthropic.status"

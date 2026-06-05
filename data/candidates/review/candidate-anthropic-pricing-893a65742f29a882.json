@@ -1,20 +1,20 @@
 {
   "candidate_kind": "pricing_change",
   "claim_text": "Anthropic pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes.",
-  "created_at": "2026-06-04T11:03:55Z",
+  "created_at": "2026-06-05T10:16:47Z",
   "dedupe_key": "anthropic.pricing:pricing_change:0c194d7d0a4826db8fe511ed",
   "evidence_refs": [
     {
       "authority": "official_pricing",
-      "content_sha256": "0681840323d6d74f25f02fcd0662698ab64bb30ccffa9600a39a08965da3cf71",
-      "fingerprint": "279c5ad266270f8ad86557e5dfa04a6477ff84729e9ec22e2b27987d2ad69081",
-      "retrieved_at": "2026-06-04T11:03:35Z",
+      "content_sha256": "f30fbd3ccbff4a894e1e4c155379dc7b63c74dfda4c661c3c3e2ab083257ca98",
+      "fingerprint": "5a31570974d0050b883e924888dc83e38ee8f0396f74bb07692d7812767d6466",
+      "retrieved_at": "2026-06-05T10:16:27Z",
       "snapshot_ref": null,
       "source_key": "anthropic.pricing",
       "url": "https://platform.claude.com/docs/en/about-claude/pricing"
     }
   ],
-  "id": "candidate-anthropic-pricing-d4ebe425c4b343b4",
+  "id": "candidate-anthropic-pricing-893a65742f29a882",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."
@@ -26,10 +26,7 @@
   "provider_refs": [
     "provider:anthropic"
   ],
-  "limitations": [
-    "Rejected for publication in this review: source changed, but parser output does not identify a dated pricing or token-accounting delta."
-  ],
-  "review_status": "rejected",
+  "review_status": "needs_review",
   "schema_version": "apw.finding_candidate.v0",
   "source_keys": [
     "anthropic.pricing"

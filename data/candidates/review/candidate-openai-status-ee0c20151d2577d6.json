@@ -1,20 +1,20 @@
 {
   "candidate_kind": "status_incident",
   "claim_text": "OpenAI status source changed and needs maintainer review for a possible status incident or recovery.",
-  "created_at": "2026-06-04T11:03:55Z",
+  "created_at": "2026-06-05T10:16:47Z",
   "dedupe_key": "openai.status:status_incident:a9266ebdbb2c3b25ad60aa4a",
   "evidence_refs": [
     {
       "authority": "official_status",
-      "content_sha256": "8009dabc188bf0d10f3d1e899250c015b26932e1e2be9db41f162f60f8f4a8b5",
-      "fingerprint": "172322d9d7ab07924a2bb40248c0189745c0fa49d77256902698a9487ec8a9d8",
-      "retrieved_at": "2026-06-04T11:03:54Z",
+      "content_sha256": "2d23fac9c90492a023efb4327404b82890079df3242469b52fafcf5dc618f978",
+      "fingerprint": "e337cda0106e9f6a3fbccc9434dcb5abac7a4480832dffe250a60d7a4290b819",
+      "retrieved_at": "2026-06-05T10:16:47Z",
       "snapshot_ref": null,
       "source_key": "openai.status",
       "url": "https://status.openai.com/feed.atom"
     }
   ],
-  "id": "candidate-openai-status-44d7c9aa6a62e64d",
+  "id": "candidate-openai-status-ee0c20151d2577d6",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."
@@ -26,10 +26,7 @@
   "provider_refs": [
     "provider:openai"
   ],
-  "limitations": [
-    "Promoted by splitting the status candidate into reviewed incident events for OpenAI Image API 401 errors and Codex compaction latency."
-  ],
-  "review_status": "promoted",
+  "review_status": "needs_review",
   "schema_version": "apw.finding_candidate.v0",
   "source_keys": [
     "openai.status"
