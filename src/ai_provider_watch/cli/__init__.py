@@ -27,6 +27,7 @@ from ai_provider_watch.pipeline.candidates import (
 from ai_provider_watch.pipeline.ecosystem import ECOSYSTEM_TARGETS, build_ecosystem_mapping
 from ai_provider_watch.pipeline.llm_review import (
     DEFAULT_REVIEWER,
+    REVIEW_DECISIONS,
     REVIEWER_BACKENDS,
     build_review_request,
     evaluate_review_result,
@@ -300,6 +301,19 @@ def cmd_review_eval(args: argparse.Namespace) -> int:
     root = _root(args.root)
     request = read_json(_path_from_root(root, args.request))
     result = read_json(_path_from_root(root, args.result))
+    expected_decisions: dict[str, str] | None = None
+    if args.expected_decision:
+        expected_decisions = {}
+        for item in args.expected_decision:
+            if "=" not in item:
+                print("review eval failed: expected decision must use candidate_id=decision", file=sys.stderr)
+                return 1
+            candidate_id, decision = item.split("=", 1)
+            if decision not in REVIEW_DECISIONS:
+                allowed = ", ".join(REVIEW_DECISIONS)
+                print(f"review eval failed: expected decision must be one of: {allowed}", file=sys.stderr)
+                return 1
+            expected_decisions[candidate_id] = decision
     errors = [
         *(f"request {error}" for error in _schema_errors(root, "llm-review-request.schema.json", request)),
         *(f"result {error}" for error in _schema_errors(root, "llm-review-result.schema.json", result)),
@@ -311,7 +325,8 @@ def cmd_review_eval(args: argparse.Namespace) -> int:
     report = evaluate_review_result(
         request,
         result,
-        expected_candidate_ids=set(args.expected_candidate_id or []),
+        expected_candidate_ids=set(args.expected_candidate_id or []) or set(expected_decisions or {}),
+        expected_decisions=expected_decisions,
     )
     output = write_json_text(report)
     if args.output:
@@ -554,6 +569,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--expected-candidate-id",
         action="append",
         help="candidate id expected to be found within the review packet window",
+    )
+    review_eval_parser.add_argument(
+        "--expected-decision",
+        action="append",
+        help="expected advisory curation decision as candidate_id=promote|reject|duplicate|split|needs_human_review",
     )
     review_eval_parser.add_argument("--output", help="write JSON eval report to this path instead of stdout")
     review_eval_parser.set_defaults(func=cmd_review_eval)

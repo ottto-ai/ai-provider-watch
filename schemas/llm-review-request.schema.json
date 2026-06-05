@@ -84,7 +84,7 @@
     "output_contract": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schema_version", "allowed_verdicts", "required_fields"],
+      "required": ["schema_version", "allowed_verdicts", "allowed_review_decisions", "required_fields"],
       "properties": {
         "schema_version": { "const": "apw.llm_review_result.v0" },
         "allowed_verdicts": {
@@ -95,7 +95,12 @@
         "required_fields": {
           "type": "array",
           "minItems": 1,
-          "items": { "enum": ["verdict", "findings", "residual_risks"] }
+          "items": { "enum": ["verdict", "findings", "review_decisions", "residual_risks"] }
+        },
+        "allowed_review_decisions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["promote", "reject", "duplicate", "split", "needs_human_review"] }
         }
       }
     }

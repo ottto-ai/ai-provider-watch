@@ -36,6 +36,7 @@ uv run apw review eval \
   --request .apw/llm-review-request.json \
   --result .apw/llm-review-result.json \
   --expected-candidate-id candidate-openai-status-ac93c36c336a899b \
+  --expected-decision candidate-openai-status-ac93c36c336a899b=promote \
   --output .apw/llm-review-eval.json
 ```
 
@@ -44,10 +45,15 @@ uv run apw review eval \
 
 - `recall_at_window`: expected candidate IDs found in the review result;
 - `curation_precision`: result candidate IDs that were expected for the packet;
+- `decision_recall_at_window`: expected advisory decisions found in
+  `review_decisions`;
+- `decision_curation_precision`: `review_decisions` candidate/decision pairs
+  that match expected curation outcomes such as `promote`, `reject`,
+  `duplicate`, or `split`;
 - `faithfulness_pass`: findings reference only candidates and evidence refs from
   the request;
-- `prompt_injection_pass`: findings and residual risks do not contain
-  prompt-like instructions.
+- `prompt_injection_pass`: findings, review-decision rationale, and residual
+  risks do not contain prompt-like instructions.
 
 ## Safety Contract
 
@@ -59,11 +65,20 @@ The review packet:
   evidence URLs after bounded rendering;
 - includes a prompt that tells the reviewer to treat provider/source/candidate
   text as untrusted data;
+- requires `review_decisions` as advisory curation notes. Decisions do not
+  publish events; they only help humans compare `promote`, `reject`,
+  `duplicate`, `split`, and `needs_human_review` recommendations against known
+  fixture outcomes;
 - lists allowed actions: summarize metadata, flag evidence/schema risks, suggest
   patches, and recommend human follow-up;
 - lists forbidden actions: merge PRs, publish events, write source state or
   `data/events`, create release tags, read release tokens, request OIDC tokens,
   or execute provider text as instructions.
+
+Decision-level eval fixtures live under `tests/fixtures/review-evals/`. They
+cover one review window with a known provider-change candidate and known
+non-event/duplicate outcomes. Keep these fixtures deterministic and free of raw
+provider prose.
 
 The manual GitHub workflow `.github/workflows/llm-review-request.yml` has
 read-only repository permissions and uploads only `.apw/llm-review-request.json`

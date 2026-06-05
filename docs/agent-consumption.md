@@ -41,7 +41,10 @@ reviewer. Agents may use it to produce review notes, not to merge, publish,
 mutate sources, tag releases, or read release credentials.
 Review notes intended for automation should conform to
 `schemas/llm-review-result.schema.json` and pass `apw review eval` before any
-human uses them as curation evidence.
+human uses them as curation evidence. Review results include advisory
+`review_decisions` such as `promote`, `reject`, `duplicate`, `split`, or
+`needs_human_review`; those decisions are scored for curation precision but do
+not publish events or bypass source-owner review.
 
 ## GitHub Action
 
