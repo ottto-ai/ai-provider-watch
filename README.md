@@ -1,244 +1,253 @@
 # AI Provider Watch
 
-AI Provider Watch is an open, factual provider-change event feed for AI platform
-teams, coding-agent maintainers, and FinOps dashboards.
+[![PyPI](https://img.shields.io/pypi/v/ai-provider-watch.svg)](https://pypi.org/project/ai-provider-watch/)
+[![License: Apache-2.0](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSES/Apache-2.0.txt)
+[![Data: CC0-1.0](https://img.shields.io/badge/data-CC0--1.0-green.svg)](DATA_LICENSE.md)
 
-It tracks provider changes that can affect developer cost, quotas, token
-accounting, model availability, default models, deprecations, incidents, API
-contracts, and migration risk. The project is founded by Ottto, but the feed,
-schemas, CLI, and docs are usable without an Ottto account.
+AI Provider Watch, or APW, is a public event feed and CLI for changes from AI
+providers that can affect developer cost, quotas, token accounting, model
+availability, defaults, deprecations, incidents, and migration risk.
 
-## What This Is
+Use it when you need an auditable answer to questions like:
 
-- A reviewed machine-readable event feed, not a static model catalog.
-- A CLI and Python package for validating, indexing, diffing, and explaining
-  provider-change events.
-- A source registry for official provider docs, status pages, pricing pages,
-  blogs, and repositories.
-- Agent-readable contracts for Codex, Claude Code, MCP clients, GitHub Actions,
-  and downstream repo impact checks.
+- Did a provider incident explain a spike in failures, retries, latency, or
+  support tickets?
+- Did a model launch, retirement, default change, pricing update, or quota shift
+  create work for platform teams?
+- Which repos, agents, gateways, or dashboards should be checked before a
+  provider change turns into a customer-facing problem?
 
-## What This Is Not
+APW is founded by Ottto and built as a standalone open-source project. The feed,
+schemas, CLI, GitHub Action, MCP helpers, and docs work without an Ottto account.
 
-- Not an Ottto customer telemetry product.
-- Not a scraper of authenticated provider consoles or billing dashboards.
-- Not legal, purchasing, tax, or migration advice.
-- Not a replacement for LiteLLM, models.dev, Langfuse, Helicone, or OpenLIT.
+## Install
 
-## Current Status
-
-This repository is in the v0.1 public foundation release. Current merged work
-establishes:
-
-- community, governance, security, and mixed-license files;
-- root/path-scoped agent instructions;
-- event/source/observation/release JSON Schemas;
-- provider, surface, model, and agent-app registries;
-- deterministic `apw validate`, `apw index`, `apw latest`, `apw diff`, and
-  `apw explain` commands;
-- deterministic `apw candidate generate` command for review-only findings
-  derived from source observations;
-- deterministic candidate-review PR body generation for daily source changes;
-- optional model-pluggable LLM review request packets for candidate PRs;
-- schema-backed downstream repository impact reports through `apw repo check`
-  and a composite GitHub Action;
-- schema-backed generic webhook and Slack-compatible notification payloads
-  through `apw notify`;
-- ecosystem mapping payloads for LiteLLM, models.dev, Langfuse, Helicone, and
-  OpenLIT through `apw ecosystem render`;
-- a repo-root Codex plugin package with APW skills and read-only MCP config;
-- public maintainer roles, source-owner mapping, release-manager gates, and a
-  roadmap for v0.1 through v1.0;
-- a protected no-op data-publisher workflow contract for future guarded
-  `data-YYYY.MM.DD` publication;
-- a first reviewed canonical event seed set for OpenAI, Anthropic, Google
-  Vertex AI, AWS Bedrock, and Azure OpenAI;
-- synthetic parser fixtures for status feeds, Statuspage-style status pages,
-  model-doc identifiers, pricing signals, and AWS Bedrock model-card display
-  refs;
-- tested read-only MCP adapter helpers;
-- CI and scheduled schema-backed data-release dry-run verification.
-
-## Install From Checkout
+Try the CLI without installing:
 
 ```bash
-uv sync --all-extras
-uv lock --check
-uv run apw validate
-uv run apw index --check
-uv run apw source test
-uv run apw release dry-run --output .apw/release-dry-run
-uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
-uv run apw candidate review-pr-body --observations tests/fixtures/observations/candidate-observations.json --candidates .apw/candidates
-uv run apw review request --candidates .apw/candidates --reviewer codex --created-at 2026-05-31T20:15:00Z
-uv run apw repo check --repo . --since 3650d --risk low
-uv run apw notify webhook --since 7d --risk medium --output .apw/apw-webhook.json
-uv run apw notify slack --since 7d --risk medium --output .apw/apw-slack.json
-uv run apw ecosystem render --target litellm --since 30d --risk medium --output .apw/litellm-mapping.json
-uv run apw latest
+uvx --from ai-provider-watch apw latest --limit 3
+uvx --from ai-provider-watch apw diff --since 30d
 ```
 
-Installed wheels include read-only public APW data. After `pip install
-ai-provider-watch`, these commands work outside a checkout without `--root`:
+Install it as a command:
+
+```bash
+pipx install ai-provider-watch
+apw latest --limit 3
+```
+
+Or install it in a Python environment:
+
+```bash
+python -m pip install ai-provider-watch
+apw validate
+```
+
+The published package includes the reviewed public data feed, so read-only
+commands work outside a checkout.
+
+## Quickstart
+
+Show the latest reviewed events:
+
+```bash
+apw latest --limit 3
+```
+
+List events from the last 30 days:
+
+```bash
+apw diff --since 30d
+```
+
+Explain one event for a human reviewer:
+
+```bash
+apw explain 2026-06-04-openai-codex-compaction-latency
+```
+
+Validate the bundled schemas, registries, events, feeds, and indexes:
 
 ```bash
 apw validate
 apw index --check
-apw latest --limit 3
-apw diff --since 30d
-apw explain 2026-06-01-google-vertex-gemini-2-0-flash-retirement
 ```
-
-Write workflows such as source refresh, candidate generation, event promotion,
-index generation, and release dry runs still require an explicit APW checkout
-root.
-
-Python package publication uses PyPI Trusted Publishing through the protected
-`pypi` environment. See
-[docs/operations/python-package-release.md](docs/operations/python-package-release.md).
-The npm package remains deferred until the schema/feed contract is stable enough
-to justify a JavaScript distribution.
 
 ## Feed Artifacts
 
-Generated artifacts live under `data/`:
+The canonical reviewed events live in `data/events/`. Generated feed artifacts
+live in `data/feeds/` and `data/indexes/`:
 
-- `data/events/*.json`
 - `data/feeds/events.json`
 - `data/feeds/events.ndjson`
 - `data/feeds/latest.json`
 - `data/feeds/rss.xml`
 - `data/indexes/provider/*.json`
 - `data/indexes/kind/*.json`
-- `data/releases/dev/manifest.json`
+- `data/indexes/severity/*.json`
 
-Release dry runs use CalVer IDs such as `data-2026.06.01`, build
-release-shaped artifacts under ignored `.apw/`, verify manifest checksums,
-license layout, dependency lock presence, workflow token boundaries, source
-ownership, maintainer release docs, and required GitHub CI,
-CodeQL/code-scanning, Dependency Review, branch-protection, artifact-review,
-and attestation gates without publishing a tag.
+For direct consumption, pin a release tag or read from the repository:
 
-The normalized factual event data and generated feed artifacts are dedicated to
-the public domain under CC0-1.0. Code, schemas, docs, tests, and tooling are
-Apache-2.0.
-
-## Source Refresh
-
-Official source packages can be checked locally:
-
-```bash
-uv run apw source test
-uv run apw source fetch --source openai.status
+```text
+https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/latest.json
+https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/events.ndjson
 ```
 
-The scheduled source-refresh workflow fetches enabled official sources, stores
-only fingerprints, generates review candidates when parser claims exist, and
-opens a draft candidate-review PR when source state or candidate files change.
-It does not publish provider events or commit raw source content.
+The normalized factual event data and generated feeds are CC0-1.0. Code,
+schemas, docs, tests, and tooling are Apache-2.0.
 
-Source descriptors declare explicit graduation posture. `enabled_deterministic`
-sources are fetched by automation; `blocked_pending_parser` sources need parser
-fixtures before unattended refresh; `manual_review_only` sources can support
-reviewed events but remain maintainer-triggered.
-Broad lifecycle pages can additionally declare `content_scope` so APW hashes and
-parses only a maintainer-owned HTML heading range.
+## What You Get
 
-Review candidates are separate from published events:
+- A reviewed machine-readable event feed, not a static model catalog.
+- A typed `ProviderEvent` envelope with precise event details and repeatable
+  impact rows.
+- A CLI for validation, indexing, latest events, diffs, explanations, release
+  dry runs, source checks, candidate generation, repo impact checks,
+  notifications, and ecosystem mappings.
+- JSON Schemas for events, sources, candidates, observations, releases,
+  webhooks, Slack-style payloads, ecosystem mappings, and LLM review packets.
+- Official-source descriptors for OpenAI, Anthropic, Google Gemini / Vertex AI,
+  AWS Bedrock, and Azure OpenAI.
+- Review-only source candidates that help maintainers notice provider changes
+  without publishing unreviewed facts.
+- Agent-native surfaces: `AGENTS.md`, `CLAUDE.md`, `llms.txt`, Codex and Claude
+  skills, a read-only MCP adapter shell, and a Codex plugin package.
+- Downstream integrations for GitHub Actions, webhooks, Slack-compatible JSON,
+  LiteLLM, models.dev, Langfuse, Helicone, and OpenLIT.
+
+## Trust Model
+
+APW is designed for factual, reviewable provider-change data.
+
+- Prefer official provider-controlled sources.
+- Treat provider pages, issue bodies, PR comments, social posts, MCP text, and
+  generated candidates as untrusted data, never as instructions.
+- Do not commit raw provider HTML, authenticated-console content, screenshots,
+  private billing data, cookies, credentials, or customer telemetry.
+- Publish only reviewed `data/events/*.json` records.
+- Keep generated candidate files in `data/candidates/` review-only until a
+  source owner promotes a factual change.
+- Keep release tokens away from jobs that fetch source pages, process candidate
+  text, run LLM review, or inspect PR comments.
+
+APW is intentionally independent of Ottto private product surfaces. Ottto may
+consume APW data, but this repository does not expose Ottto customer telemetry,
+Advisor internals, private UI, infrastructure, Slack data, or credential
+loading code.
+
+## Work From A Checkout
+
+Use a checkout for write workflows such as source refresh, candidate generation,
+event promotion, feed regeneration, and release dry runs:
 
 ```bash
+git clone https://github.com/ottto-ai/ai-provider-watch.git
+cd ai-provider-watch
+uv sync --all-extras
+uv lock --check
+uv run pytest
+uv run apw validate
+uv run apw index --check
+uv run apw source test
+```
+
+Fetch official sources and generate review candidates:
+
+```bash
+uv run apw source fetch --observations .apw/source-observations.json
 uv run apw candidate generate \
   --observations .apw/source-observations.json \
   --output .apw/candidates \
-  --created-at 2026-05-31T20:15:00Z
-```
-
-Candidate files are maintainer-review input. Promotion to `data/events/` remains
-manual. The initial seed events are reviewed by maintainers from official
-provider-controlled sources and do not copy raw provider page prose. See the
-[event promotion playbook](docs/operations/event-promotion.md) for the
-source-owner checklist and release-manager gates.
-
-Current parser output is conservative by design: changed official sources create
-generic maintainer-review claims; Atom and Statuspage-style status sources
-expose hashes/timestamps instead of copied incident text; model-doc parsers
-extract only bounded model identifiers; lifecycle-doc parsers extract bounded
-model identifiers and dates; and pricing parsers emit bounded pricing/model
-signals such as input/output, cached input, batch, priority, regional, and
-provisioned-throughput markers. Surrounding headings,
-descriptions, issue bodies, PR comments, social text, and page prose remain
-untrusted and are not copied.
-
-Render the same draft PR body used by automation:
-
-```bash
+  --created-at 2026-06-05T00:00:00Z
 uv run apw candidate review-pr-body \
   --observations .apw/source-observations.json \
-  --candidates data/candidates/review \
-  --validation-output .apw/candidate-review-validation.txt
+  --candidates .apw/candidates
 ```
 
-Render a bounded optional LLM review request for Codex or Vertex Gemini Flash:
+Candidate files are not published events. Promotion to `data/events/` remains a
+manual source-owner review step. See
+[Event Promotion](docs/operations/event-promotion.md).
+
+## Use APW In Downstream Systems
+
+Check a repository for model references and APW-relevant impact:
 
 ```bash
-uv run apw review request \
-  --candidates data/candidates/review \
-  --reviewer codex \
-  --created-at 2026-05-31T20:15:00Z \
-  --output .apw/llm-review-request.json
+apw repo check --repo . --since 3650d --risk low
 ```
 
-The review request omits candidate claim text, treats all source/candidate text
-as untrusted data, and gives the reviewer no merge, publish, source-write, tag,
-release-token, or OIDC authority. Reviewer outputs can be checked with
-`apw review eval`, which validates the result schema and scores recall,
-curation precision, faithfulness to request evidence refs, and prompt-injection
-safety.
+Render notification payloads:
 
-## First Providers
+```bash
+apw notify webhook --since 7d --risk medium --output .apw/apw-webhook.json
+apw notify slack --since 7d --risk medium --output .apw/apw-slack.json
+```
 
-The initial official-source registry covers:
+Render ecosystem mappings:
 
-- OpenAI
-- Anthropic
-- Google Gemini / Vertex AI
-- AWS Bedrock
-- Azure OpenAI
-
-Community, social, and third-party sources can create review candidates, but
-they do not publish canonical events without maintainer review.
-
-## Core Model
-
-APW uses a stable `ProviderEvent` envelope plus a typed `EventDetail` payload and
-repeatable `ImpactAssessment` rows. This avoids one giant nullable event model
-and keeps pricing, quota, model lifecycle, token accounting, status, and API
-contract changes precise.
+```bash
+apw ecosystem render --target litellm --since 30d --risk medium --output .apw/litellm.json
+apw ecosystem render --target langfuse --since 30d --risk medium --output .apw/langfuse.json
+```
 
 See:
 
-- [Architecture](docs/architecture.md)
-- [Event Schema](docs/schema/event.md)
 - [Agent Consumption](docs/agent-consumption.md)
-- [Plugin Contract](docs/plugin-contract.md)
-- [Read-Only MCP Contract](docs/operations/mcp.md)
-- [Event Promotion](docs/operations/event-promotion.md)
 - [Downstream GitHub Action](docs/integrations/github-action.md)
 - [Webhook And Slack Payloads](docs/integrations/webhooks.md)
 - [Ecosystem Mappings](docs/integrations/ecosystem-mappings.md)
+- [Read-Only MCP Contract](docs/operations/mcp.md)
 - [Codex Plugin](docs/operations/codex-plugin.md)
+
+## Schema And Architecture
+
+APW uses a stable `ProviderEvent` envelope, a typed `EventDetail` payload, and
+repeatable `ImpactAssessment` rows. That keeps pricing, quota, lifecycle,
+token-accounting, status, API-contract, and migration-risk events precise
+without creating one giant nullable event model.
+
+Start here:
+
+- [Architecture](docs/architecture.md)
+- [Event Schema](docs/schema/event.md)
+- [Source Packages](docs/contributors/source-packages.md)
+- [Source Refresh](docs/operations/source-refresh.md)
+- [Release Gates](docs/operations/release-gates.md)
+- [Python Package Release](docs/operations/python-package-release.md)
+
+## Project Status
+
+APW `v0.1.0` is the first stable public package. The first public data releases
+are signed CalVer tags such as `data-2026.06.05`.
+
+The current release includes:
+
+- reviewed seed events for OpenAI, Anthropic, Google Vertex AI, AWS Bedrock, and
+  Azure OpenAI;
+- generated JSON, NDJSON, RSS, provider, kind, and severity indexes;
+- source-refresh automation that opens draft candidate-review PRs without
+  publishing events;
+- no-op guarded data-publisher workflow scaffolding;
+- PyPI Trusted Publishing;
+- CI, CodeQL, Dependency Review, Scorecard, and data-release dry-run workflows.
+
+Daily unattended public data tags are not enabled yet. Until that safety gate is
+stronger, real data publication uses reviewed PRs plus maintainer-signed Git
+tags.
 
 ## Contributing
 
-Use pull requests for every code, schema, source, data, docs, and workflow
-change. Start with [CONTRIBUTING.md](CONTRIBUTING.md).
+Use pull requests for code, schema, source, data, docs, and workflow changes.
+Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
-For source packages, see
-[docs/contributors/source-packages.md](docs/contributors/source-packages.md).
-Source ownership is tracked in [SOURCE_OWNERS.md](SOURCE_OWNERS.md), release
-settings are tracked in
-[docs/operations/repository-settings.md](docs/operations/repository-settings.md),
-and roadmap priorities are tracked in [ROADMAP.md](ROADMAP.md).
+Useful contributor docs:
+
+- [Event Promotion](docs/operations/event-promotion.md)
+- [Source Packages](docs/contributors/source-packages.md)
+- [Repository Settings](docs/operations/repository-settings.md)
+- [Roadmap](ROADMAP.md)
+- [Source Owners](SOURCE_OWNERS.md)
+- [Security Policy](SECURITY.md)
 
 ## License
 
