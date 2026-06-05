@@ -27,7 +27,7 @@ schemas, CLI, and docs are usable without an Ottto account.
 
 ## Current Status
 
-This repository is in pre-release foundation work. Current merged work
+This repository is in the v0.1 public foundation release. Current merged work
 establishes:
 
 - community, governance, security, and mixed-license files;
