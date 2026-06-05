@@ -116,7 +116,7 @@
     "data/releases/dev/checksums.txt": "8d08511fefa9145d4d6ce9e40ac47b0b306866f4cf7014e9c6dfd2a7b6ae00eb"
   },
   "created_at": "2026-06-04T21:20:13Z",
-  "generated_by": "ai-provider-watch 0.1.0a0",
+  "generated_by": "ai-provider-watch 0.1.0",
   "notes": "Deterministic development manifest.",
   "release_id": "dev",
   "schema_version": "apw.release_manifest.v0",
