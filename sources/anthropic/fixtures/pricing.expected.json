@@ -6,6 +6,10 @@
     "items": [
       {"kind": "model_ref", "model_id": "claude-opus-4.8", "source_parser": "anthropic_pricing"},
       {"kind": "model_ref", "model_id": "claude-sonnet-4.5", "source_parser": "anthropic_pricing"},
+      {"kind": "price_point", "model_id": "claude-opus-4.8", "billing_dimension": "cache_hit", "price_usd_per_1m_tokens": "2", "unit": "1m_tokens", "source_parser": "anthropic_pricing"},
+      {"kind": "price_point", "model_id": "claude-opus-4.8", "billing_dimension": "cache_write", "price_usd_per_1m_tokens": "12", "unit": "1m_tokens", "source_parser": "anthropic_pricing"},
+      {"kind": "price_point", "model_id": "claude-opus-4.8", "billing_dimension": "input_tokens", "price_usd_per_1m_tokens": "10", "unit": "1m_tokens", "source_parser": "anthropic_pricing"},
+      {"kind": "price_point", "model_id": "claude-opus-4.8", "billing_dimension": "output_tokens", "price_usd_per_1m_tokens": "50", "unit": "1m_tokens", "source_parser": "anthropic_pricing"},
       {"kind": "pricing_signal", "signal": "batch", "source_parser": "anthropic_pricing"},
       {"kind": "pricing_signal", "signal": "cache_hit", "source_parser": "anthropic_pricing"},
       {"kind": "pricing_signal", "signal": "cache_write", "source_parser": "anthropic_pricing"},
