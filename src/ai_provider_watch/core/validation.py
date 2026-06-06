@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
+from ai_provider_watch.core.feeds import build_artifacts
 from ai_provider_watch.core.io import candidate_paths, event_paths, read_json
 from ai_provider_watch.core.issues import ValidationIssue
 from ai_provider_watch.core.temporal import is_rfc3339_date_time
@@ -28,6 +30,7 @@ SCHEMA_FILES = {
     "webhook_payload": "webhook-payload.schema.json",
     "slack_payload": "slack-payload.schema.json",
     "ecosystem_mapping": "ecosystem-mapping.schema.json",
+    "feed_freshness": "feed-freshness.schema.json",
     "release_manifest": "release-manifest.schema.json",
     "release_dry_run": "release-dry-run.schema.json",
 }
@@ -320,4 +323,19 @@ def validate(root: Path) -> list[ValidationIssue]:
     manifest_path = root / "data" / "releases" / "dev" / "manifest.json"
     if manifest_path.exists():
         issues.extend(_issues(manifest_path, read_json(manifest_path), schemas["release_manifest"], "release manifest"))
+    freshness_path = root / "data" / "feeds" / "freshness.json"
+    if not freshness_path.exists():
+        issues.append(ValidationIssue(str(freshness_path), "missing feed freshness metadata"))
+    else:
+        freshness = read_json(freshness_path)
+        issues.extend(_issues(freshness_path, freshness, schemas["feed_freshness"], "feed freshness"))
+        expected_freshness_text = build_artifacts(root)[Path("data/feeds/freshness.json")]
+        expected_freshness = json.loads(expected_freshness_text)
+        if freshness != expected_freshness:
+            issues.append(
+                ValidationIssue(
+                    str(freshness_path),
+                    "feed freshness metadata is stale; run apw index",
+                )
+            )
     return issues

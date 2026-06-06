@@ -13,6 +13,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert Path("data/feeds/events.json") in artifacts
     assert Path("data/feeds/events.ndjson") in artifacts
     assert Path("data/feeds/latest.json") in artifacts
+    assert Path("data/feeds/freshness.json") in artifacts
     assert Path("data/releases/dev/manifest.json") in artifacts
     events = json.loads(artifacts[Path("data/feeds/events.json")])
     event_ids = {event["id"] for event in events}
@@ -33,6 +34,19 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     manifest = json.loads(artifacts[Path("data/releases/dev/manifest.json")])
     assert manifest["release_id"] == "dev"
     assert manifest["schema_versions"]["event"] == "apw.provider_event.v0"
+    assert manifest["schema_versions"]["feed_freshness"] == "apw.feed_freshness.v0"
+    assert "data/feeds/freshness.json" in manifest["checksums"]
+    freshness = json.loads(artifacts[Path("data/feeds/freshness.json")])
+    assert freshness["schema_version"] == "apw.feed_freshness.v0"
+    assert freshness["release_id"] == "dev"
+    assert freshness["data_tag"] is None
+    assert freshness["event_count"] == len(events)
+    assert freshness["latest_event_date"] == "2026-06-04"
+    assert freshness["source_state"]["path"] == "data/source-state/fingerprints.json"
+    assert freshness["source_state"]["source_count"] == 10
+    assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
+    assert any(artifact["path"] == "data/feeds/events.json" for artifact in freshness["feed_artifacts"])
+    assert "no raw provider content" in freshness["freshness_policy"]
 
 
 def test_rss_pub_date_accepts_lowercase_rfc3339() -> None:

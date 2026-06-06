@@ -54,3 +54,28 @@ def test_validate_reports_malformed_source_domain_item_without_crashing(tmp_path
     issues = [issue.render() for issue in validate(tmp_path)]
 
     assert any("allowed_domains" in issue for issue in issues)
+
+
+def test_validate_reports_missing_feed_freshness(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    (tmp_path / "data" / "feeds" / "freshness.json").unlink()
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("missing feed freshness metadata" in issue for issue in issues)
+
+
+def test_validate_reports_stale_feed_freshness(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    freshness_path = tmp_path / "data" / "feeds" / "freshness.json"
+    freshness = read_json(freshness_path)
+    freshness["event_count"] = 0
+    freshness_path.write_text(json.dumps(freshness), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("feed freshness metadata is stale" in issue for issue in issues)
