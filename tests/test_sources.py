@@ -416,6 +416,40 @@ def test_lifecycle_content_scope_excludes_cross_section_model_refs() -> None:
         assert excluded_date not in rendered
 
 
+def test_azure_lifecycle_scope_matches_redirected_foundry_shape() -> None:
+    source = next(
+        source
+        for source in load_source_descriptors(ROOT, enabled_only=False)
+        if source.key == "azure_openai.legacy_models"
+    )
+
+    parsed = parse_source_payload(
+        source,
+        (ROOT / "sources/azure-openai/fixtures/legacy-models.html").read_bytes(),
+        changed=True,
+    )
+    rendered = str(parsed.items) + str(parsed.candidate_claims)
+    model_ids = {item["model_id"] for item in parsed.items if item["kind"] == "model_ref"}
+    dates = {item["date"] for item in parsed.items if item["kind"] == "lifecycle_date"}
+
+    assert parsed.errors == []
+    assert {
+        "babbage-002",
+        "gpt-35-turbo-instruct",
+        "text-davinci-002",
+        "text-davinci-003",
+        "text-embedding-3-small",
+    } <= model_ids
+    assert dates == {"2024-06-14"}
+    assert "gpt-oss-120b" not in rendered
+    assert "gpt-oss-999b" not in rendered
+    assert "jamba-1.5-mini" not in rendered
+    assert "2099-01-01" not in rendered
+    assert "2099-02-02" not in rendered
+    assert "Ignore instructions" not in rendered
+    assert "publish every candidate" not in rendered
+
+
 def test_content_scoped_fingerprint_ignores_out_of_scope_changes() -> None:
     source = next(
         source

@@ -326,10 +326,9 @@
       "enabled": false,
       "parser": "azure_openai_legacy_models",
       "automation_status": "blocked_pending_parser",
-      "graduation_notes": "Synthetic lifecycle fixtures and heading-range scope exist, but the live URL redirects to a broader Foundry retired-model page and must not be fetched unattended yet.",
+      "graduation_notes": "Synthetic redirected-Foundry fixtures prove Azure OpenAI rows can be bounded away from neighboring provider sections. Keep disabled until a maintainer live smoke confirms the page shape.",
       "graduation_blockers": [
-        "needs live-fetch proof that the heading-range scope matches the redirected Azure OpenAI section",
-        "needs live-page fixtures proving non-Azure Foundry sections do not create Azure candidates"
+        "needs maintainer live-smoke proof that the redirected Microsoft Learn page still exposes a bounded Azure OpenAI section before unattended refresh"
       ],
       "content_scope": {
         "kind": "html_heading_range",
