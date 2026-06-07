@@ -54,10 +54,9 @@
       "enabled": false,
       "parser": "openai_deprecations",
       "automation_status": "blocked_pending_parser",
-      "graduation_notes": "Synthetic lifecycle fixtures and heading-range scope exist, but live deprecation tables still need broader model-shape coverage before unattended refresh.",
+      "graduation_notes": "Synthetic lifecycle fixtures and heading-range scope cover current OpenAI model IDs, search-preview IDs, display names, and dates; keep disabled until a live maintainer smoke proves the heading-range scope still matches provider docs.",
       "graduation_blockers": [
-        "needs display-style model-name coverage such as GPT-4.5 Preview and GPT-4.1 mini",
-        "needs current preview/search model-id coverage from live deprecation tables"
+        "needs live source-review smoke proving heading-range scope and current deprecation tables remain bounded before unattended refresh"
       ],
       "content_scope": {
         "kind": "html_heading_range",

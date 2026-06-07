@@ -31,6 +31,21 @@
       },
       {
         "kind": "model_ref",
+        "model_id": "gpt-4.1-mini",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-4.1-mini-search-preview",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-4.5-preview",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "model_ref",
         "model_id": "gpt-4o-mini",
         "source_parser": "openai_deprecations"
       },
@@ -56,7 +71,17 @@
       },
       {
         "kind": "lifecycle_date",
+        "date": "2026-07-14",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "lifecycle_date",
         "date": "2026-08-10",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "lifecycle_date",
+        "date": "2026-11-01",
         "source_parser": "openai_deprecations"
       }
     ],

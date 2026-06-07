@@ -48,7 +48,7 @@ OPENAI_MODEL_PATTERN = re.compile(
     r"|\bsora(?:-[0-9][a-z0-9.-]*)?\b(?![.-])"
     r"|"
     r"\bdall-e-[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*\b"
-    r"|\bgpt-(?:(?:35|[0-9][a-z]?(?:\.[0-9])?)(?:-(?:[0-9]{4}(?:-[0-9]{2}-[0-9]{2})?|[0-9]{2,4}|16k|32k|audio|chat|codex|cyber|deep|diarize|global|instruct|latest|max|mini|nano|preview|pro|realtime|regional|research|transcribe|tts|turbo|us|vision))*|audio(?:-mini)?(?:-[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*)?(?![.-])|chat-latest(?![.-])|image-[0-9][a-z0-9.-]*|oss-[0-9]+b(?![.-])|realtime(?:-mini)?(?:-(?:[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*|transcribe|translate|whisper))?(?![.-]))\b(?![.-]|\s+(?:chat|codex|cyber|max|mini|nano|pro)\b)"
+    r"|\bgpt-(?:(?:35|[0-9][a-z]?(?:\.[0-9])?)(?:-(?:[0-9]{4}(?:-[0-9]{2}-[0-9]{2})?|[0-9]{2,4}|16k|32k|audio|chat|codex|cyber|deep|diarize|global|instruct|latest|max|mini|nano|preview|pro|realtime|regional|research|search|transcribe|tts|turbo|us|vision))*|audio(?:-mini)?(?:-[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*)?(?![.-])|chat-latest(?![.-])|image-[0-9][a-z0-9.-]*|oss-[0-9]+b(?![.-])|realtime(?:-mini)?(?:-(?:[0-9][a-z0-9]*(?:[.-][a-z0-9]+)*|transcribe|translate|whisper))?(?![.-]))\b(?![.-]|\s+(?:chat|codex|cyber|max|mini|nano|preview|pro)\b)"
     r"|\bo[0-9](?:-[a-z0-9]+)*\b"
     r"|\btext-embedding-(?:[0-9][a-z0-9]*(?:-[a-z0-9]+)*|ada-[0-9]+)\b"
     r"|\btts(?:-hd)?(?:-[0-9][a-z0-9.-]*)?\b(?![.-])"
@@ -70,7 +70,8 @@ GEMINI_ID_PATTERN = re.compile(
 )
 GPT_OSS_PATTERN = re.compile(r"\bgpt-oss-[0-9]+b\b(?![.-])", re.IGNORECASE)
 GPT_DISPLAY_PATTERN = re.compile(
-    r"\bGPT-[0-9][A-Za-z]?(?:\.[0-9])?(?:\s+(?:chat|codex|cyber|max|mini|nano|pro)){1,3}\b",
+    r"\bGPT-[0-9][A-Za-z]?(?:\.[0-9])?(?:\s+(?:chat|codex|cyber|max|mini|nano|preview|pro)){1,3}\b"
+    r"(?!\s+(?:agent|assistant|command|commands|developer|ignore|instruction|instructions|merge|prompt|publish|secret|system|user)\b)",
     re.IGNORECASE,
 )
 CLAUDE_DISPLAY_PATTERN = re.compile(
@@ -87,6 +88,10 @@ LIFECYCLE_PARSER_PATTERNS = {
     "azure_openai_legacy_models": [OPENAI_MODEL_PATTERN, OPENAI_LEGACY_MODEL_PATTERN],
     "google_vertex_model_versions": [GEMINI_ID_PATTERN],
     "openai_deprecations": [OPENAI_MODEL_PATTERN, OPENAI_LEGACY_MODEL_PATTERN],
+}
+
+LIFECYCLE_DISPLAY_MODEL_PATTERNS = {
+    "openai_deprecations": [GPT_DISPLAY_PATTERN],
 }
 
 MODEL_PARSER_CLAIMS = {
@@ -552,6 +557,13 @@ def _model_ids_from_patterns(text: str, patterns: list[re.Pattern[str]]) -> list
     return sorted(model_ids)
 
 
+def _lifecycle_model_patterns(parser_name: str) -> list[re.Pattern[str]]:
+    return (
+        LIFECYCLE_PARSER_PATTERNS[parser_name]
+        + LIFECYCLE_DISPLAY_MODEL_PATTERNS.get(parser_name, [])
+    )
+
+
 def _model_ref_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
     pattern = MODEL_PARSER_PATTERNS[parser_name]
     text = _model_candidate_text(raw, include_model_hrefs=parser_name == "google_ai_models")
@@ -666,7 +678,7 @@ def _has_lifecycle_date_header(cell: str) -> bool:
 def _lifecycle_table_text_and_dates(raw: bytes, parser_name: str) -> tuple[str, list[str]]:
     selected_cells: list[str] = []
     dates: set[str] = set()
-    model_patterns = LIFECYCLE_PARSER_PATTERNS[parser_name]
+    model_patterns = _lifecycle_model_patterns(parser_name)
     for table in _table_payload(raw):
         headers: list[str] = []
         for row in table:
@@ -697,7 +709,7 @@ def _lifecycle_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
             "model_id": model_id,
             "source_parser": parser_name,
         }
-        for model_id in _model_ids_from_patterns(text, LIFECYCLE_PARSER_PATTERNS[parser_name])
+        for model_id in _model_ids_from_patterns(text, _lifecycle_model_patterns(parser_name))
     ]
     date_items = [
         {
