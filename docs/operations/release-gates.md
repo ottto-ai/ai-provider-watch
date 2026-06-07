@@ -114,6 +114,10 @@ The current publisher contract lives in
 environment and `main`, runs release dry-run checks, and does not request write,
 secret, OIDC, tag, or release-upload authority.
 
+Use [v0.2-release-checklist.md](v0.2-release-checklist.md) as the consolidated
+release-manager closeout packet before declaring v0.2 operations ready or
+cutting a v0.2 package/data release.
+
 ## Maintainer Release Approval
 
 A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
