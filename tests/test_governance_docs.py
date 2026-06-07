@@ -127,3 +127,39 @@ def test_python_package_release_docs_have_non_alpha_criteria() -> None:
         "PyPI Trusted Publishing",
     ]:
         assert phrase in docs
+
+
+def test_v02_release_checklist_covers_north_star_gates() -> None:
+    docs = (ROOT / "docs/operations/v0.2-release-checklist.md").read_text(
+        encoding="utf-8"
+    )
+
+    for phrase in [
+        "uv run apw source test",
+        "uv run apw validate",
+        "uv run apw index --check",
+        "uv run apw freshness --summary",
+        "uv run apw release dry-run",
+        "installed package-data mode",
+        "PyPI Trusted Publisher",
+        "Dependency Review",
+        "Scorecard",
+        "CodeQL",
+        "gh attestation verify",
+        "manual signed tag",
+        "release-token",
+        "MCP",
+        "Vertex Gemini Flash",
+        "Codex",
+        "Slack-style",
+        "LiteLLM",
+        "models.dev",
+        "Langfuse",
+        "Helicone",
+        "OpenLIT",
+        "Rollback",
+        "private Ottto surface",
+        "zero required approving reviews",
+        "single-maintainer self-review deadlock",
+    ]:
+        assert phrase in docs

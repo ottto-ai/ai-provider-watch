@@ -13,7 +13,9 @@ Required behavior:
 - required branch to be up to date before merge;
 - force pushes disabled;
 - branch deletion disabled;
-- at least one approving review for protected branches;
+- during v0.x, zero required approving reviews is allowed only to avoid a
+  single-maintainer self-review deadlock while strict required checks remain
+  enabled;
 - CODEOWNERS review enabled after maintainer teams are configured.
 
 For v0.1, the repository intentionally uses a single-maintainer posture:
@@ -21,6 +23,10 @@ For v0.1, the repository intentionally uses a single-maintainer posture:
 maintainer, and security contact. Team-only CODEOWNERS gates are deferred until
 there is a second maintainer or equivalent team structure, because enabling them
 too early can lock out the launch maintainer.
+
+Before v1.0 or before adding a second release manager, revisit the review-count
+exception and restore at least one required approving review plus CODEOWNERS
+review for protected branches.
 
 Check current branch protection:
 

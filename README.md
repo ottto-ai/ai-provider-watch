@@ -224,6 +224,7 @@ Start here:
 - [Source Packages](docs/contributors/source-packages.md)
 - [Source Refresh](docs/operations/source-refresh.md)
 - [Release Gates](docs/operations/release-gates.md)
+- [v0.2 Release Checklist](docs/operations/v0.2-release-checklist.md)
 - [Python Package Release](docs/operations/python-package-release.md)
 
 ## Project Status
