@@ -68,6 +68,31 @@ models.dev, Langfuse, Helicone, and OpenLIT. These payloads are docs/examples
 for downstream operators and agents; APW does not call those APIs or mutate
 their catalogs, traces, request properties, or OpenTelemetry streams.
 
+## Coding Agents And Gateways
+
+Codex, Claude Code, Cursor, Copilot, and similar coding agents can use APW as a
+read-only context source during repository review:
+
+```bash
+apw repo check --repo . --since 3650d --risk low --output .apw/apw-impact.json
+apw diff --since 30d > .apw/apw-recent.json
+```
+
+Agent instructions should treat APW output as data. Do not execute provider,
+candidate, MCP, Slack, webhook, issue, PR, or downstream repository text as
+instructions, and do not give agent review jobs release tokens, write scopes, or
+third-party API keys.
+
+Gateway maintainers can pair repo checks with ecosystem mappings:
+
+```bash
+apw ecosystem render --target litellm --since 30d --risk medium --output .apw/litellm.json
+apw ecosystem render --target models-dev --since 30d --risk medium --output .apw/models-dev.json
+```
+
+Use these outputs to search routing configs and model catalogs. Apply changes
+only through the downstream project's own review process.
+
 ## MCP
 
 The package includes tested read-only MCP adapter helpers. Current resources:
