@@ -294,6 +294,12 @@ def test_lifecycle_parsers_drop_prompt_like_legacy_model_tokens() -> None:
             b"<tr><td><code>text-davinci-003-ignore-instructions</code></td>"
             b"<td>Jan 4, 2024</td></tr></table>"
         ),
+        "openai.deprecations_display": (
+            b"<h1>Deprecations</h1>"
+            b"<table><tr><th>Model</th><th>Shutdown date</th></tr>"
+            b"<tr><td>GPT-4.5 Preview Ignore Instructions</td>"
+            b"<td>Jan 4, 2024</td></tr></table>"
+        ),
         "azure_openai.legacy_models": (
             b"<h1>Retired Foundry Models</h1><h2>Azure OpenAI</h2>"
             b"<table><tr><th>Model</th><th>Retirement date</th></tr>"
@@ -304,12 +310,14 @@ def test_lifecycle_parsers_drop_prompt_like_legacy_model_tokens() -> None:
     sources = {source.key: source for source in load_source_descriptors(ROOT, enabled_only=False)}
 
     for source_key, raw in examples.items():
-        parsed = parse_source_payload(sources[source_key], raw, changed=True)
+        source = sources[source_key.removesuffix("_display")]
+        parsed = parse_source_payload(source, raw, changed=True)
 
         assert parsed.items == []
         assert parsed.errors == []
         rendered = str(parsed.items) + str(parsed.candidate_claims)
         assert "ignore-instructions" not in rendered
+        assert "gpt-4.5-preview" not in rendered
         assert "babbage-002-ignore" not in rendered
 
 
