@@ -1,6 +1,9 @@
 # Source Packages
 
 Each provider source package is a small, reviewable contract.
+For the broader contributor path around sources, fixtures, candidates,
+corrections, reviewed events, and source-owner outcomes, see
+[Contributor Review Workflow](review-workflow.md).
 
 Example:
 
