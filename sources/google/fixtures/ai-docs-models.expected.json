@@ -18,13 +18,25 @@
         "kind": "model_ref",
         "model_id": "gemini-2.5-pro",
         "source_parser": "google_ai_models"
+      },
+      {
+        "kind": "default_model_signal",
+        "default_scope": "realtime",
+        "model_id": "gemini-2.0-flash",
+        "source_parser": "google_ai_models"
+      },
+      {
+        "kind": "default_model_signal",
+        "default_scope": "text_generation",
+        "model_id": "gemini-2.5-pro",
+        "source_parser": "google_ai_models"
       }
     ],
     "raw_excerpt_hashes": [],
     "candidate_claims": [
       {
         "candidate_kind": "model_launch",
-        "claim_text": "Google Gemini/Vertex model documentation source changed and needs maintainer review for possible model availability or deprecation changes."
+        "claim_text": "Google Gemini/Vertex model documentation source changed and needs maintainer review for possible model availability, deprecation, default-model, or workflow behavior changes."
       }
     ],
     "errors": [],
