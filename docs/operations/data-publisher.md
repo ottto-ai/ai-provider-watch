@@ -1,9 +1,9 @@
 # Guarded Data Publisher
 
 The guarded data publisher is a protected-environment workflow for future
-`data-YYYY.MM.DD` publication. It is intentionally no-op only in v0.1: it runs
-release gates from a trusted `main` commit and records that no data tag or
-GitHub data release was created.
+`data-YYYY.MM.DD` publication. In v0.x it is evidence-only: it runs release
+gates from a trusted `main` commit, can render a reviewed publication packet,
+and records that no data tag or GitHub data release was created.
 
 ## Approved v0.1 Publishing Mechanism
 
@@ -21,9 +21,9 @@ or OIDC-backed jobs. GitHub artifact attestations are provenance evidence for
 the dry-run artifact bundle; they are not a replacement for the release
 manager's signed Git tag.
 
-The protected `data-publisher.yml` workflow remains no-op in v0.1. It may be
-used as an approval/evidence gate, but not as the actor that creates data tags
-or GitHub releases.
+The protected `data-publisher.yml` workflow remains non-publishing in v0.x. It
+may be used as an approval/evidence gate and packet generator, but not as the
+actor that creates data tags or GitHub releases.
 
 ## Threat Model
 
@@ -34,8 +34,8 @@ GitHub release upload authority.
 
 The publisher is separate from those lanes. It can only be started manually from
 `main`, requires the protected `data-release` environment, and currently keeps
-`contents: read` with no secrets and no OIDC token. The no-op workflow is a
-staging contract for the eventual publisher, not publication approval.
+`contents: read` with no secrets and no OIDC token. The no-op and packet modes
+are staging contracts for the eventual publisher, not publication approval.
 
 ## Protected Environment
 
@@ -44,7 +44,7 @@ release gate:
 
 1. Require reviewer approval from `@RonShub` during the v0.1 single-maintainer
    period.
-2. Do not add environment secrets while the workflow is no-op only.
+2. Do not add environment secrets while the workflow is evidence-only.
 3. Keep the workflow restricted to `main`.
 4. Record the workflow run URL, source commit, release date, and dry-run report
    in release evidence.
@@ -68,7 +68,7 @@ gh workflow run data-publisher.yml \
 The workflow checks:
 
 - source ref is `refs/heads/main`;
-- `publish_mode` is exactly `no-op`;
+- `publish_mode` is exactly `no-op` or `packet`;
 - `uv lock --check`;
 - `uv run ruff check .`;
 - `uv run pytest`;
@@ -79,6 +79,41 @@ The workflow checks:
 
 It does not create tags, upload releases, read secrets, request OIDC, or process
 provider/source/candidate text beyond the reviewed repository checkout.
+
+## Packet Mode
+
+Use packet mode when the release manager wants the protected workflow to render
+and upload a `publication-packet.json` artifact after the same no-op dry-run
+checks pass:
+
+```bash
+gh workflow run data-publisher.yml \
+  --repo ottto-ai/ai-provider-watch \
+  --ref main \
+  -f release_date="$(date -u +%F)" \
+  -f publish_mode=packet \
+  -f source_owner_approval_ref="<issue-or-pr-comment-url>" \
+  -f release_manager_approval_ref="<issue-or-pr-comment-url>" \
+  -f branch_protection_ref="<branch-protection-evidence-ref>" \
+  -f ci_ref="<successful-CI-run-url>" \
+  -f codeql_workflow_ref="<successful-CodeQL-run-url>" \
+  -f code_scanning_ref="<code-scanning-analysis-url-or-id>" \
+  -f dependency_review_ref="<successful-Dependency-Review-run-url>" \
+  -f attestation_ref="<gh-attestation-verify-ref>" \
+  -f allow_no_reviewed_events=true \
+  -f skip_reason="No source-owner-reviewed ProviderEvent changes landed for this release date."
+```
+
+For a publish packet, pass `reviewed_event_ids` instead of
+`allow_no_reviewed_events` and `skip_reason`. The input accepts newline- or
+comma-separated ProviderEvent IDs, and the CLI verifies that each ID exists in
+`data/events`.
+
+Packet mode uploads the dry-run report and `publication-packet.json` as the
+`apw-data-publication-packet` artifact. It still keeps `contents: read`, does
+not request OIDC, does not use secrets, does not create a tag, and does not
+create or upload a GitHub Release. If `checksum_review_ref` is omitted, the
+workflow records the dry-run report SHA-256 from the protected run.
 
 ## Publication Packet Contract
 

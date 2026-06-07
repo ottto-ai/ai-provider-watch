@@ -127,8 +127,9 @@ consumes reviewed artifacts from a trusted release commit.
 
 The current publisher contract lives in
 [data-publisher.md](data-publisher.md). It requires the `data-release`
-environment and `main`, runs release dry-run checks, and does not request write,
-secret, OIDC, tag, or release-upload authority.
+environment and `main`, runs release dry-run checks, can upload a
+`publication-packet.json` evidence artifact in packet mode, and does not
+request write, secret, OIDC, tag, or release-upload authority.
 
 Use [v0.2-release-checklist.md](v0.2-release-checklist.md) as the consolidated
 release-manager closeout packet before declaring v0.2 operations ready or

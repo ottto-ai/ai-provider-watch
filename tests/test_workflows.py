@@ -153,7 +153,7 @@ def test_untrusted_content_workflows_have_no_release_authority() -> None:
         _assert_no_release_authority(_workflow(name))
 
 
-def test_data_publisher_workflow_is_protected_noop_only() -> None:
+def test_data_publisher_workflow_is_protected_noop_or_packet_only() -> None:
     workflow = _workflow("data-publisher.yml")
 
     assert "workflow_dispatch:" in workflow
@@ -162,7 +162,7 @@ def test_data_publisher_workflow_is_protected_noop_only() -> None:
     assert "pull_request_target:" not in workflow
     assert "publish_mode:" in workflow
     assert "default: no-op" in workflow
-    assert "options:\n          - no-op" in workflow
+    assert "options:\n          - no-op\n          - packet" in workflow
     assert "permissions:\n  contents: read" in workflow
     assert "contents: write" not in workflow
     assert "id-token: write" not in workflow
@@ -177,7 +177,14 @@ def test_data_publisher_workflow_is_protected_noop_only() -> None:
     assert "uv run apw validate" in workflow
     assert "uv run apw index --check" in workflow
     assert "uv run apw release dry-run" in workflow
+    assert "uv run apw \"${args[@]}\"" in workflow
+    assert "publication-packet.json" in workflow
+    assert "actions/upload-artifact@v7" in workflow
+    assert "apw-data-publication-packet" in workflow
+    assert "if: inputs.publish_mode == 'packet'" in workflow
+    assert "ALLOW_NO_REVIEWED_EVENTS" in workflow
     assert "--require-clean" in workflow
     assert "gh release" not in workflow
     assert "git tag" not in workflow
     assert "no data tag or GitHub data release was created" in workflow
+    assert "review evidence only" in workflow
