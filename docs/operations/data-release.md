@@ -30,6 +30,52 @@ Use `apw freshness --summary` before publishing to record package version,
 release ID, latest event date, latest source-state retrieval timestamp, and the
 checksum manifest path in release evidence.
 
+Generate a schema-backed publication packet before creating any real data tag:
+
+```bash
+uv run apw release packet \
+  --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json \
+  --release-manager @RonShub \
+  --source-owner @RonShub \
+  --source-owner-approval-ref "<PR-or-issue-source-owner-approval-url>" \
+  --release-manager-approval-ref "<release-manager-approval-url>" \
+  --branch-protection-ref "<branch-protection-api-output-or-runbook-ref>" \
+  --ci-ref "<successful-CI-run-url>" \
+  --codeql-workflow-ref "<successful-CodeQL-run-url>" \
+  --code-scanning-ref "<code-scanning-analysis-id-or-url>" \
+  --dependency-review-ref "<successful-Dependency-Review-run-url>" \
+  --attestation-ref "<gh-attestation-verify-output-ref>" \
+  --checksum-review-ref "<checksum-review-ref>" \
+  --reviewed-event "<event-id>" \
+  --output .apw/release-dry-run/data-YYYY.MM.DD/publication-packet.json
+```
+
+The packet is not a publisher. It records the exact reviewed inputs required
+for a tag: reviewed event IDs or an explicit skip reason, source-owner approval,
+release-manager approval, CI, CodeQL, code-scanning, Dependency Review, branch
+protection, checksum review, attestation verification, and the manual signed-tag
+commands. If no source-owner-reviewed events landed for the date, render a skip
+packet instead:
+
+```bash
+uv run apw release packet \
+  --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json \
+  --release-manager @RonShub \
+  --source-owner @RonShub \
+  --source-owner-approval-ref "<source-owner-skip-approval-url>" \
+  --release-manager-approval-ref "<release-manager-skip-approval-url>" \
+  --branch-protection-ref "<branch-protection-api-output-or-runbook-ref>" \
+  --ci-ref "<successful-CI-run-url>" \
+  --codeql-workflow-ref "<successful-CodeQL-run-url>" \
+  --code-scanning-ref "<code-scanning-analysis-id-or-url>" \
+  --dependency-review-ref "<successful-Dependency-Review-run-url>" \
+  --attestation-ref "<gh-attestation-verify-output-ref>" \
+  --checksum-review-ref "<checksum-review-ref>" \
+  --allow-no-reviewed-events \
+  --skip-reason "No source-owner-reviewed ProviderEvent changes landed for this release date." \
+  --output .apw/release-dry-run/data-YYYY.MM.DD/publication-packet.json
+```
+
 The GitHub data-release workflow runs daily and on manual dispatch. Scheduled
 runs are dry-run evidence only: they do not tag, upload a release, update source
 state, or process provider page content. The job keeps `contents: read`, uses

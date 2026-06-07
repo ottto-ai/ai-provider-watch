@@ -49,6 +49,8 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         "git tag -v",
         "Do not store signing keys in Actions",
         "artifact attestations",
+        "apw release packet",
+        "schemas/release-publication-packet.schema.json",
     ]:
         assert phrase in combined
 
@@ -158,6 +160,8 @@ def test_v02_release_checklist_covers_north_star_gates() -> None:
         "Helicone",
         "OpenLIT",
         "Rollback",
+        "apw release packet",
+        "--allow-no-reviewed-events",
         "private Ottto surface",
         "zero required approving reviews",
         "single-maintainer self-review deadlock",

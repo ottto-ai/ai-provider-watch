@@ -33,7 +33,11 @@ from ai_provider_watch.pipeline.llm_review import (
     evaluate_review_result,
 )
 from ai_provider_watch.pipeline.notifications import build_slack_payload, build_webhook_payload
-from ai_provider_watch.pipeline.release import parse_release_date, run_release_dry_run
+from ai_provider_watch.pipeline.release import (
+    build_release_publication_packet,
+    parse_release_date,
+    run_release_dry_run,
+)
 from ai_provider_watch.pipeline.repo_impact import repo_impact_report
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
@@ -495,6 +499,36 @@ def cmd_release_dry_run(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_release_packet(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    if not _require_checkout_root(args, root, "release packet"):
+        return 1
+    try:
+        packet = build_release_publication_packet(
+            root,
+            dry_run_report_path=_path_from_root(root, args.dry_run_report),
+            release_manager=args.release_manager,
+            source_owner=args.source_owner,
+            source_owner_approval_ref=args.source_owner_approval_ref,
+            release_manager_approval_ref=args.release_manager_approval_ref,
+            branch_protection_ref=args.branch_protection_ref,
+            ci_ref=args.ci_ref,
+            codeql_workflow_ref=args.codeql_workflow_ref,
+            code_scanning_ref=args.code_scanning_ref,
+            dependency_review_ref=args.dependency_review_ref,
+            attestation_ref=args.attestation_ref,
+            checksum_review_ref=args.checksum_review_ref,
+            reviewed_event_ids=args.reviewed_event,
+            allow_no_reviewed_events=args.allow_no_reviewed_events,
+            no_reviewed_events_reason=args.skip_reason,
+        )
+    except ValueError as exc:
+        print(f"release packet failed: {exc}", file=sys.stderr)
+        return 1
+    _write_or_print(root, packet, args.output)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="apw")
     parser.add_argument("--root", help="APW repository root")
@@ -680,6 +714,31 @@ def build_parser() -> argparse.ArgumentParser:
         help="fail when tracked files are modified",
     )
     release_dry_run_parser.set_defaults(func=cmd_release_dry_run)
+    release_packet_parser = release_subparsers.add_parser(
+        "packet",
+        help="render a reviewed data-release publication packet without publishing",
+    )
+    release_packet_parser.add_argument("--dry-run-report", required=True)
+    release_packet_parser.add_argument("--release-manager", required=True)
+    release_packet_parser.add_argument("--source-owner", required=True)
+    release_packet_parser.add_argument("--source-owner-approval-ref", required=True)
+    release_packet_parser.add_argument("--release-manager-approval-ref", required=True)
+    release_packet_parser.add_argument("--branch-protection-ref", required=True)
+    release_packet_parser.add_argument("--ci-ref", required=True)
+    release_packet_parser.add_argument("--codeql-workflow-ref", required=True)
+    release_packet_parser.add_argument("--code-scanning-ref", required=True)
+    release_packet_parser.add_argument("--dependency-review-ref", required=True)
+    release_packet_parser.add_argument("--attestation-ref", required=True)
+    release_packet_parser.add_argument("--checksum-review-ref", required=True)
+    release_packet_parser.add_argument("--reviewed-event", action="append", default=[])
+    release_packet_parser.add_argument(
+        "--allow-no-reviewed-events",
+        action="store_true",
+        help="allow a skip packet for a release date with no reviewed event changes",
+    )
+    release_packet_parser.add_argument("--skip-reason")
+    release_packet_parser.add_argument("--output", help="write JSON payload to this path instead of stdout")
+    release_packet_parser.set_defaults(func=cmd_release_packet)
     return parser
 
 

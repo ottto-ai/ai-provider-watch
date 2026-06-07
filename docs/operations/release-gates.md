@@ -44,6 +44,7 @@ uv run apw index --check
 uv run apw freshness --summary
 actionlint .github/workflows/*.yml
 uv run apw release dry-run --output .apw/release-dry-run --require-clean
+uv run apw release packet --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json ...
 ```
 
 The dry-run report checks schema validation, source fixtures, generated feed
@@ -80,6 +81,21 @@ gh run list --repo "$REPO" --workflow "Dependency Review" \
   --json status,conclusion,url,headSha
 
 gh attestation verify .apw/apw-release-dry-run.tgz --repo "$REPO"
+
+uv run apw release packet \
+  --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json \
+  --reviewed-event "<event-id>" \
+  --release-manager @RonShub \
+  --source-owner @RonShub \
+  --source-owner-approval-ref "<approval-url>" \
+  --release-manager-approval-ref "<approval-url>" \
+  --branch-protection-ref "<branch-protection-ref>" \
+  --ci-ref "<ci-run-url>" \
+  --codeql-workflow-ref "<codeql-run-url>" \
+  --code-scanning-ref "<analysis-ref>" \
+  --dependency-review-ref "<dependency-review-run-url>" \
+  --attestation-ref "<attestation-verify-ref>" \
+  --checksum-review-ref "<checksum-review-ref>"
 ```
 
 Release is blocked if branch protection is absent, CI is not green, CodeQL
@@ -129,6 +145,7 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
 - artifact checksums and manifest contents;
 - `apw freshness --summary` output for feed/package/source-state provenance;
 - `gh attestation verify` output for the dry-run bundle;
+- `apw release packet` output for reviewed event IDs or explicit skip reason;
 - release notes and manual Ron-signed `data-YYYY.MM.DD` tag plan.
 - protected `data-release` environment approval for any publisher run.
 

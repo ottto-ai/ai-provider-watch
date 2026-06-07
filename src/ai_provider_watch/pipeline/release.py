@@ -14,12 +14,13 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 from ai_provider_watch import __version__
 from ai_provider_watch.core.feeds import artifact_diffs, build_artifacts, write_artifacts
-from ai_provider_watch.core.io import write_json_text
+from ai_provider_watch.core.io import event_paths, write_json_text
 from ai_provider_watch.core.validation import load_schemas, validate
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.sources.registry import validate_source_packages
 
 RELEASE_DRY_RUN_SCHEMA_VERSION = "apw.release_dry_run.v0"
+RELEASE_PUBLICATION_PACKET_SCHEMA_VERSION = "apw.release_publication_packet.v0"
 RELEASE_ID_PATTERN = re.compile(r"^data-\d{4}\.\d{2}\.\d{2}$")
 
 
@@ -63,6 +64,14 @@ def _check(name: str, passed: bool, details: str) -> ReleaseCheck:
 
 def _sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _git_output(root: Path, *args: str) -> str | None:
@@ -500,6 +509,147 @@ def _schema_check(root: Path, report: dict[str, Any]) -> ReleaseCheck:
         location = ".".join(str(part) for part in error.path)
         rendered.append(f"{location}: {error.message}" if location else error.message)
     return _check("dry_run_report_schema", False, "; ".join(rendered))
+
+
+def _validate_schema_payload(
+    root: Path,
+    schema_name: str,
+    payload: dict[str, Any],
+) -> list[str]:
+    schema = load_schemas(root)[schema_name]
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    rendered: list[str] = []
+    for error in sorted(validator.iter_errors(payload), key=lambda item: list(item.path)):
+        location = ".".join(str(part) for part in error.path)
+        rendered.append(f"{location}: {error.message}" if location else error.message)
+    return rendered
+
+
+def _relative_or_absolute(root: Path, path: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return str(resolved.relative_to(root.resolve()))
+    except ValueError:
+        return str(resolved)
+
+
+def build_release_publication_packet(
+    root: Path,
+    *,
+    dry_run_report_path: Path,
+    release_manager: str,
+    source_owner: str,
+    source_owner_approval_ref: str,
+    release_manager_approval_ref: str,
+    branch_protection_ref: str,
+    ci_ref: str,
+    codeql_workflow_ref: str,
+    code_scanning_ref: str,
+    dependency_review_ref: str,
+    attestation_ref: str,
+    checksum_review_ref: str,
+    reviewed_event_ids: list[str],
+    allow_no_reviewed_events: bool = False,
+    no_reviewed_events_reason: str | None = None,
+) -> dict[str, Any]:
+    if not dry_run_report_path.exists():
+        raise ValueError(f"dry-run report not found: {dry_run_report_path}")
+    report = read_json_from_text(dry_run_report_path.read_text(encoding="utf-8"))
+    report_errors = _validate_schema_payload(root, "release_dry_run", report)
+    if report_errors:
+        raise ValueError(f"invalid release dry-run report: {'; '.join(report_errors)}")
+    failed_checks = [
+        str(check.get("name"))
+        for check in report.get("checks", [])
+        if check.get("status") != "pass"
+    ]
+    if failed_checks:
+        raise ValueError(f"release dry-run report has failed checks: {', '.join(failed_checks)}")
+
+    event_ids = {read_json_from_text(path.read_text(encoding="utf-8"))["id"] for path in event_paths(root)}
+    missing_events = sorted(set(reviewed_event_ids) - event_ids)
+    if missing_events:
+        raise ValueError(f"reviewed event id(s) not found in data/events: {', '.join(missing_events)}")
+    if not reviewed_event_ids and not allow_no_reviewed_events:
+        raise ValueError("at least one --reviewed-event is required unless --allow-no-reviewed-events is set")
+    if not reviewed_event_ids and not no_reviewed_events_reason:
+        raise ValueError("--skip-reason is required when no reviewed events are included")
+    if reviewed_event_ids and no_reviewed_events_reason:
+        raise ValueError("--skip-reason is only valid with --allow-no-reviewed-events and no reviewed events")
+
+    release_id = str(report["release_id"])
+    release_date = str(report["release_date"])
+    source_commit = str(report["source_commit"])
+    created_at = datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    reviewed_events = sorted(set(reviewed_event_ids))
+    publication_decision = "publish" if reviewed_events else "skip"
+    tag_name = release_id
+    packet = {
+        "schema_version": RELEASE_PUBLICATION_PACKET_SCHEMA_VERSION,
+        "release_id": release_id,
+        "release_date": release_date,
+        "source_commit": source_commit,
+        "created_at": created_at,
+        "publication_decision": publication_decision,
+        "dry_run": {
+            "report_path": _relative_or_absolute(root, dry_run_report_path),
+            "report_sha256": _sha256_file(dry_run_report_path),
+            "check_count": len(report["checks"]),
+            "artifact_count": len(report["release_artifacts"]),
+        },
+        "reviewed_inputs": {
+            "reviewed_event_ids": reviewed_events,
+            "source_owner": source_owner,
+            "source_owner_approval_ref": source_owner_approval_ref,
+            "no_reviewed_events_reason": no_reviewed_events_reason,
+        },
+        "required_external_evidence": {
+            "branch_protection_ref": branch_protection_ref,
+            "ci_ref": ci_ref,
+            "codeql_workflow_ref": codeql_workflow_ref,
+            "code_scanning_ref": code_scanning_ref,
+            "dependency_review_ref": dependency_review_ref,
+            "attestation_ref": attestation_ref,
+            "checksum_review_ref": checksum_review_ref,
+            "release_manager_approval_ref": release_manager_approval_ref,
+        },
+        "signing": {
+            "mechanism": "manual_release_manager_signed_git_tag",
+            "tag_name": tag_name,
+            "required_commands": [
+                f"git tag -s {tag_name}",
+                f"git tag -v {tag_name}",
+                f"git push origin {tag_name}",
+            ],
+            "key_boundary": f"{release_manager} signs locally; signing keys are not stored in GitHub Actions, repository secrets, environment secrets, or OIDC jobs.",
+        },
+        "token_boundary": {
+            "publisher_workflow_mode": "protected_main_noop_only",
+            "no_release_tokens_in_untrusted_lanes": True,
+            "forbidden_untrusted_lanes": [
+                "source-refresh",
+                "candidate-generation",
+                "llm-review",
+                "codex-review",
+                "issue-or-pr-comment-processing",
+                "mcp",
+                "provider-page-fetch",
+                "social-or-community-source-processing",
+            ],
+        },
+        "rollback": {
+            "policy": "If a data release is materially wrong, publish a corrected or superseding data release and record the source-owner and release-manager decision.",
+            "forbidden_actions": [
+                "delete-and-recreate-data-tag",
+                "rewrite-release-evidence",
+                "publish-from-unreviewed-candidates",
+            ],
+        },
+    }
+    packet_errors = _validate_schema_payload(root, "release_publication_packet", packet)
+    if packet_errors:
+        raise ValueError(f"invalid release publication packet: {'; '.join(packet_errors)}")
+    return packet
 
 
 def _release_manifest_schema_check(root: Path, manifest: dict[str, Any]) -> ReleaseCheck:
