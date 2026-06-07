@@ -88,7 +88,9 @@ text. Provider model-doc parsers extract only allowlisted model identifier
 shapes, lifecycle-doc parsers emit bounded model identifiers and dates, and
 pricing parsers emit bounded pricing/model signals such as input/output, cached
 input, cache write/hit, batch, priority, regional, and provisioned-throughput
-markers. The parser fixture command is:
+markers. Pricing parsers may also emit `price_point` items with only model ID,
+billing dimension, numeric USD price per 1M tokens, normalized unit, and parser
+name. The parser fixture command is:
 
 ```bash
 uv run apw source test

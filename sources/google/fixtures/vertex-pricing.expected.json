@@ -7,6 +7,8 @@
       {"kind": "model_ref", "model_id": "claude-3.5-haiku", "source_parser": "google_vertex_pricing"},
       {"kind": "model_ref", "model_id": "gemini-2.5-pro", "source_parser": "google_vertex_pricing"},
       {"kind": "model_ref", "model_id": "gpt-oss-120b", "source_parser": "google_vertex_pricing"},
+      {"kind": "price_point", "model_id": "gemini-2.5-pro", "billing_dimension": "input_tokens", "price_usd_per_1m_tokens": "1", "unit": "1m_tokens", "source_parser": "google_vertex_pricing"},
+      {"kind": "price_point", "model_id": "gemini-2.5-pro", "billing_dimension": "output_tokens", "price_usd_per_1m_tokens": "2", "unit": "1m_tokens", "source_parser": "google_vertex_pricing"},
       {"kind": "pricing_signal", "signal": "batch", "source_parser": "google_vertex_pricing"},
       {"kind": "pricing_signal", "signal": "cache_hit", "source_parser": "google_vertex_pricing"},
       {"kind": "pricing_signal", "signal": "cache_write", "source_parser": "google_vertex_pricing"},
