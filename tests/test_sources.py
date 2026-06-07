@@ -306,6 +306,12 @@ def test_lifecycle_parsers_drop_prompt_like_legacy_model_tokens() -> None:
             b"<tr><td><code>babbage-002-ignore</code></td>"
             b"<td>June 14, 2024</td></tr></table><h2>AI21 Labs</h2>"
         ),
+        "google.vertex_model_versions": (
+            b"<h1>Model versions and lifecycle</h1>"
+            b"<table><tr><th>Model</th><th>Retirement date</th></tr>"
+            b"<tr><td><code>gemini-live-2.5-flash-native-audio-ignore-instructions</code></td>"
+            b"<td>July 9, 2024</td></tr></table><h2>What's next</h2>"
+        ),
     }
     sources = {source.key: source for source in load_source_descriptors(ROOT, enabled_only=False)}
 
@@ -319,6 +325,36 @@ def test_lifecycle_parsers_drop_prompt_like_legacy_model_tokens() -> None:
         assert "ignore-instructions" not in rendered
         assert "gpt-4.5-preview" not in rendered
         assert "babbage-002-ignore" not in rendered
+        assert "gemini-live-2.5-flash-native-audio" not in rendered
+
+
+def test_google_lifecycle_parser_covers_live_embedding_and_legacy_model_shapes() -> None:
+    source = next(
+        source
+        for source in load_source_descriptors(ROOT, enabled_only=False)
+        if source.key == "google.vertex_model_versions"
+    )
+
+    parsed = parse_source_payload(
+        source,
+        (ROOT / "sources/google/fixtures/vertex-model-versions.html").read_bytes(),
+        changed=True,
+    )
+
+    model_ids = {item["model_id"] for item in parsed.items if item["kind"] == "model_ref"}
+    dates = {item["date"] for item in parsed.items if item["kind"] == "lifecycle_date"}
+
+    assert {
+        "chat-bison",
+        "code-gecko",
+        "gemini-embedding-001",
+        "gemini-live-2.5-flash-native-audio",
+        "multimodalembedding@001",
+        "text-embedding-005",
+        "text-multilingual-embedding-002",
+        "textembedding-gecko@001",
+    } <= model_ids
+    assert {"2024-07-09", "2025-04-09", "2026-10-01"} <= dates
 
 
 def test_pricing_parsers_drop_unbounded_price_points() -> None:
