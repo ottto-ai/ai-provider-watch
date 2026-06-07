@@ -5,6 +5,9 @@ This playbook turns review-only `FindingCandidate` files into canonical
 maintainers at provider changes, but only reviewed event files under
 `data/events/` are public APW facts.
 
+For public contributor paths before promotion, start with
+[Contributor Review Workflow](../contributors/review-workflow.md).
+
 For the v0.1 launch window, `@RonShub` is the sole source owner, release
 manager, schema maintainer, and security contact. Revisit this before v1.0 or
 before granting another person event-promotion authority.

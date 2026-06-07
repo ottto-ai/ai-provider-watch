@@ -6,6 +6,9 @@ fixture coverage, parser drift, and review notes for promoted events. Source
 owners do not gain publishing authority by being listed here; event publication
 still requires a maintainer-reviewed PR and release gates.
 
+Public contributor flow is documented in
+[docs/contributors/review-workflow.md](docs/contributors/review-workflow.md).
+
 For v0.1, `@RonShub` is the sole source owner for every source key listed below.
 The role keys remain stable so future teams can take over without changing
 source descriptors or event metadata.
