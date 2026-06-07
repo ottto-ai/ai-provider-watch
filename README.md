@@ -220,6 +220,7 @@ Start here:
 - [Architecture](docs/architecture.md)
 - [Event Schema](docs/schema/event.md)
 - [Feed Freshness Schema](docs/schema/feed-freshness.md)
+- [Contributor Review Workflow](docs/contributors/review-workflow.md)
 - [Source Packages](docs/contributors/source-packages.md)
 - [Source Refresh](docs/operations/source-refresh.md)
 - [Release Gates](docs/operations/release-gates.md)
@@ -252,6 +253,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Useful contributor docs:
 
+- [Contributor Review Workflow](docs/contributors/review-workflow.md)
 - [Event Promotion](docs/operations/event-promotion.md)
 - [Source Packages](docs/contributors/source-packages.md)
 - [Repository Settings](docs/operations/repository-settings.md)
