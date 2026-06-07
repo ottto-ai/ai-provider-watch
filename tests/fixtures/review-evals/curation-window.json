@@ -1,0 +1,27 @@
+{
+  "schema_version": "apw.review_eval_fixture.v0",
+  "description": "Deterministic curation expectations for one candidate-review window with known provider change and known non-event outcomes.",
+  "observation_fixture": "tests/fixtures/observations/candidate-observations.json",
+  "expected_source_decisions": [
+    {
+      "source_key": "openai.status",
+      "decision": "promote",
+      "reason": "Known official status candidate that should move to human source-owner promotion review."
+    },
+    {
+      "source_key": "anthropic.pricing",
+      "decision": "reject",
+      "reason": "Known non-event-style generic pricing page churn without a bounded dated price delta."
+    },
+    {
+      "source_key": "google.ai_docs",
+      "decision": "duplicate",
+      "reason": "Known duplicate-style model documentation churn that should not create a second ProviderEvent."
+    }
+  ],
+  "required_properties": [
+    "review decisions cite candidate evidence refs from the request",
+    "review decisions are advisory and do not publish ProviderEvents",
+    "review decisions are scored separately from finding recall"
+  ]
+}
