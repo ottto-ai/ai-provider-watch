@@ -107,7 +107,7 @@ MODEL_PARSER_CLAIMS = {
     "google_ai_models": (
         "model_launch",
         "Google Gemini/Vertex model documentation source changed and needs maintainer review "
-        "for possible model availability or deprecation changes.",
+        "for possible model availability, deprecation, default-model, or workflow behavior changes.",
     ),
 }
 
@@ -176,6 +176,15 @@ DISPLAY_MODEL_PATTERNS = {
     "openai_pricing": [
         GPT_DISPLAY_PATTERN,
     ],
+}
+
+DEFAULT_SCOPE_KEYWORDS = {
+    "realtime": ("realtime", "real time", "streaming"),
+    "audio": ("audio", "speech", "voice"),
+    "coding": ("code", "coding", "codex"),
+    "embeddings": ("embedding", "embeddings"),
+    "image_generation": ("image", "vision"),
+    "text_generation": ("chat", "conversation", "generation", "generative", "text"),
 }
 
 PRICING_SIGNAL_KEYWORDS = {
@@ -631,6 +640,10 @@ def _model_ref_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
     ]
 
 
+def _model_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
+    return _model_ref_items(raw, parser_name) + _default_model_items(raw, parser_name)
+
+
 def _model_ref_items_from_text(text: str, parser_name: str) -> list[dict[str, str]]:
     return [
         {
@@ -644,6 +657,47 @@ def _model_ref_items_from_text(text: str, parser_name: str) -> list[dict[str, st
 
 def _model_ref_items_from_visible_text(raw: bytes, parser_name: str) -> list[dict[str, str]]:
     return _model_ref_items_from_text(_visible_html_text(raw), parser_name)
+
+
+def _default_scope(text: str) -> str:
+    lower_text = text.lower()
+    for scope, keywords in DEFAULT_SCOPE_KEYWORDS.items():
+        if any(keyword in lower_text for keyword in keywords):
+            return scope
+    return "global"
+
+
+def _default_model_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
+    items: dict[tuple[str, str], dict[str, str]] = {}
+    model_patterns = (
+        [MODEL_PARSER_PATTERNS[parser_name]]
+        if parser_name in MODEL_PARSER_PATTERNS
+        else PRICING_MODEL_PATTERNS.get(parser_name, []) + DISPLAY_MODEL_PATTERNS.get(parser_name, [])
+    )
+    for table in _table_payload(raw):
+        headers: list[str] = []
+        for row in table:
+            if not row:
+                continue
+            if not headers:
+                headers = row
+                continue
+            row_text = _normalize_text(" ".join(row))
+            header_text = _normalize_text(" ".join(headers))
+            if "default" not in f"{header_text} {row_text}".lower():
+                continue
+            model_ids = _model_ids_from_patterns(row_text, model_patterns)
+            if not model_ids:
+                continue
+            scope = _default_scope(row_text)
+            for model_id in model_ids:
+                items[(scope, model_id)] = {
+                    "kind": "default_model_signal",
+                    "default_scope": scope,
+                    "model_id": model_id,
+                    "source_parser": parser_name,
+                }
+    return [items[key] for key in sorted(items)]
 
 
 def _pricing_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
@@ -884,7 +938,7 @@ def parse_source_payload(
         items, atom_errors = _atom_items(raw)
         errors.extend(atom_errors)
     elif source.parser in MODEL_PARSER_PATTERNS:
-        items = _model_ref_items(raw, source.parser)
+        items = _model_items(raw, source.parser)
     elif source.parser in LIFECYCLE_PARSER_PATTERNS:
         items = _lifecycle_items(raw, source.parser)
     elif source.parser in PRICING_PARSER_NAMES:
