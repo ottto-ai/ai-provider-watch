@@ -2,9 +2,9 @@
 
 Data releases use CalVer tags such as `data-2026.06.01`.
 
-Each release should include generated feeds, provider/kind/severity indexes,
-manifest with artifact hashes, source commit, schema version, and a short
-release summary.
+Each release should include generated feeds, `data/feeds/freshness.json`,
+provider/kind/severity indexes, manifest with artifact hashes, source commit,
+schema version, and a short release summary.
 
 Before a release:
 
@@ -22,8 +22,13 @@ The dry run writes an ignored evidence bundle under
 `.apw/release-dry-run/data-YYYY.MM.DD/`. The GitHub workflow also packages that
 bundle as `.apw/apw-release-dry-run.tgz` and creates an artifact attestation for
 it. The bundle includes release-shaped feed artifacts,
+`data/feeds/freshness.json`,
 `data/releases/data-YYYY.MM.DD/manifest.json`, checksums, and a schema-backed
 `dry-run-report.json`.
+
+Use `apw freshness --summary` before publishing to record package version,
+release ID, latest event date, latest source-state retrieval timestamp, and the
+checksum manifest path in release evidence.
 
 The GitHub data-release workflow runs daily and on manual dispatch. Scheduled
 runs are dry-run evidence only: they do not tag, upload a release, update source

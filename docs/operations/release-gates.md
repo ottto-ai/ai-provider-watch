@@ -41,6 +41,7 @@ uv run pytest
 uv run apw source test
 uv run apw validate
 uv run apw index --check
+uv run apw freshness --summary
 actionlint .github/workflows/*.yml
 uv run apw release dry-run --output .apw/release-dry-run --require-clean
 ```
@@ -122,6 +123,7 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
 - branch protection or ruleset state;
 - Dependency Review result;
 - artifact checksums and manifest contents;
+- `apw freshness --summary` output for feed/package/source-state provenance;
 - `gh attestation verify` output for the dry-run bundle;
 - release notes and manual Ron-signed `data-YYYY.MM.DD` tag plan.
 - protected `data-release` environment approval for any publisher run.

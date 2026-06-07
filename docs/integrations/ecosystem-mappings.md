@@ -112,6 +112,14 @@ Primary reference links used for this contract:
 
 Examples live under `examples/ecosystem/` and are checked by tests.
 
-CLI smoke fixtures live under `tests/fixtures/smoke/`. The LiteLLM smoke fixture
-is regenerated through `apw ecosystem render` and checked by
-`tests/test_downstream_smoke_fixtures.py`.
+CLI smoke fixtures live under `tests/fixtures/smoke/` and are regenerated
+through `apw ecosystem render` with deterministic `--created-at` values:
+
+- `ecosystem-litellm-openai.json`
+- `ecosystem-models-dev-openai.json`
+- `ecosystem-langfuse-openai.json`
+- `ecosystem-helicone-openai.json`
+- `ecosystem-openlit-openai.json`
+
+`tests/test_downstream_smoke_fixtures.py` checks every fixture against the CLI
+renderer and `schemas/ecosystem-mapping.schema.json`.

@@ -73,6 +73,12 @@ def _event_time(events: list[dict[str, Any]]) -> str:
     return max(event.get("observed_at", "") for event in events).replace("+00:00", "Z")
 
 
+def _latest_event_date(events: list[dict[str, Any]]) -> str | None:
+    if not events:
+        return None
+    return max(event.get("event_date", "") for event in events) or None
+
+
 def _checksum(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
@@ -89,6 +95,79 @@ def _media_type(path: str) -> str:
     return "application/octet-stream"
 
 
+def _artifact_summary(path: Path, text: str) -> dict[str, Any]:
+    return {
+        "path": str(path),
+        "media_type": _media_type(str(path)),
+        "sha256": _checksum(text),
+        "bytes": len(text.encode("utf-8")),
+    }
+
+
+def _source_state_summary(root: Path) -> dict[str, Any]:
+    relative_path = Path("data/source-state/fingerprints.json")
+    path = root / relative_path
+    if not path.exists():
+        return {
+            "path": str(relative_path),
+            "present": False,
+            "sha256": None,
+            "bytes": 0,
+            "source_count": 0,
+            "latest_retrieved_at": None,
+        }
+
+    text = path.read_text(encoding="utf-8")
+    payload = read_json(path)
+    sources = payload.get("sources", {}) if isinstance(payload, dict) else {}
+    retrieved_at_values = [
+        source.get("retrieved_at")
+        for source in sources.values()
+        if isinstance(source, dict) and isinstance(source.get("retrieved_at"), str)
+    ]
+    return {
+        "path": str(relative_path),
+        "present": True,
+        "sha256": _checksum(text),
+        "bytes": len(text.encode("utf-8")),
+        "source_count": len(sources) if isinstance(sources, dict) else 0,
+        "latest_retrieved_at": max(retrieved_at_values) if retrieved_at_values else None,
+    }
+
+
+def _build_freshness(
+    root: Path,
+    events: list[dict[str, Any]],
+    artifacts: dict[Path, str],
+    *,
+    release_id: str,
+    created_at: str,
+) -> dict[str, Any]:
+    summarized_artifacts = [
+        _artifact_summary(path, text)
+        for path, text in sorted(artifacts.items())
+        if str(path).startswith(("data/feeds/", "data/indexes/"))
+    ]
+    return {
+        "schema_version": "apw.feed_freshness.v0",
+        "generated_at": created_at,
+        "generated_by": f"ai-provider-watch {__version__}",
+        "package_version": __version__,
+        "release_id": release_id,
+        "data_tag": release_id if release_id.startswith("data-") else None,
+        "event_count": len(events),
+        "latest_event_date": _latest_event_date(events),
+        "latest_observed_at": _event_time(events),
+        "source_state": _source_state_summary(root),
+        "release_artifacts": {
+            "manifest_path": f"data/releases/{release_id}/manifest.json",
+            "checksums_path": f"data/releases/{release_id}/checksums.txt",
+        },
+        "feed_artifacts": summarized_artifacts,
+        "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
+    }
+
+
 def build_artifacts(
     root: Path,
     release_id: str = "dev",
@@ -98,6 +177,7 @@ def build_artifacts(
     notes: str | None = None,
 ) -> dict[Path, str]:
     events = load_events(root)
+    resolved_created_at = created_at or _event_time(events)
     artifacts: dict[Path, str] = {
         Path("data/feeds/events.json"): write_json_text(events),
         Path("data/feeds/events.ndjson"): write_ndjson_text(events),
@@ -114,17 +194,31 @@ def build_artifacts(
     for severity in sorted({event["severity"] for event in events}, key=lambda item: SEVERITY_RANK[item]):
         artifacts[Path(f"data/indexes/severity/{severity}.json")] = write_json_text([event for event in events if event["severity"] == severity])
 
+    freshness = _build_freshness(
+        root,
+        events,
+        artifacts,
+        release_id=release_id,
+        created_at=resolved_created_at,
+    )
+    artifacts[Path("data/feeds/freshness.json")] = write_json_text(freshness)
+
     checksums = {str(path): _checksum(text) for path, text in sorted(artifacts.items())}
     artifacts[Path(f"data/releases/{release_id}/checksums.txt")] = "".join(f"{checksum}  {path}\n" for path, checksum in sorted(checksums.items()))
     manifest_artifacts = [
-        {"path": str(path), "media_type": _media_type(str(path)), "sha256": _checksum(text), "bytes": len(text.encode("utf-8"))}
+        _artifact_summary(path, text)
         for path, text in sorted(artifacts.items())
     ]
     manifest = {
         "schema_version": "apw.release_manifest.v0",
         "release_id": release_id,
-        "created_at": created_at or _event_time(events),
-        "schema_versions": {"event": "apw.provider_event.v0", "event_detail": "apw.event_detail.v0", "release_manifest": "apw.release_manifest.v0"},
+        "created_at": resolved_created_at,
+        "schema_versions": {
+            "event": "apw.provider_event.v0",
+            "event_detail": "apw.event_detail.v0",
+            "feed_freshness": "apw.feed_freshness.v0",
+            "release_manifest": "apw.release_manifest.v0",
+        },
         "artifacts": manifest_artifacts,
         "checksums": {artifact["path"]: artifact["sha256"] for artifact in manifest_artifacts},
         "source_commit": source_commit,

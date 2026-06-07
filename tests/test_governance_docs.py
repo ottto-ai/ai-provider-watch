@@ -29,6 +29,7 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         ROOT / "docs/operations/data-release.md",
         ROOT / "docs/operations/data-publisher.md",
         ROOT / "docs/operations/event-promotion.md",
+        ROOT / "docs/contributors/review-workflow.md",
     ]
     combined = "\n".join(path.read_text(encoding="utf-8") for path in paths)
 
@@ -72,6 +73,40 @@ def test_event_promotion_playbook_keeps_human_review_gates() -> None:
         ".apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json",
     ]:
         assert phrase in playbook
+
+
+def test_contributor_review_workflow_keeps_public_review_bounded() -> None:
+    docs = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in [
+            ROOT / "CONTRIBUTING.md",
+            ROOT / "SOURCE_OWNERS.md",
+            ROOT / "docs/contributors/review-workflow.md",
+        ]
+    )
+    normalized_docs = " ".join(docs.split())
+
+    for phrase in [
+        "New source",
+        "Parser fixture",
+        "Candidate",
+        "Event correction",
+        "Reviewed event",
+        "Accepted For Promotion",
+        "Rejected",
+        "Duplicate",
+        "Split",
+        "Superseded",
+        "`@RonShub` remains the sole release manager, source owner, schema maintainer, and security contact",
+        "Source-owner approval does not grant release authority",
+        "Candidates stay review-only until promoted",
+        "Keep local or ignored",
+        "raw fetched provider HTML",
+        "private Ottto surfaces",
+        "release tokens",
+        "Publication authority remains with release manager approval and release gates",
+    ]:
+        assert phrase in normalized_docs
 
 
 def test_python_package_release_docs_have_non_alpha_criteria() -> None:

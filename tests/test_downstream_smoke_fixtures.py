@@ -124,36 +124,45 @@ def test_notify_cli_matches_slack_smoke_fixture(tmp_path) -> None:
     assert payload == read_json(SMOKE / "notify-slack-model-retirements.json")
 
 
-def test_ecosystem_cli_matches_litellm_smoke_fixture(tmp_path) -> None:
-    output = tmp_path / "litellm.json"
+def test_ecosystem_cli_matches_smoke_fixtures(tmp_path) -> None:
+    fixtures = {
+        "litellm": "ecosystem-litellm-openai.json",
+        "models-dev": "ecosystem-models-dev-openai.json",
+        "langfuse": "ecosystem-langfuse-openai.json",
+        "helicone": "ecosystem-helicone-openai.json",
+        "openlit": "ecosystem-openlit-openai.json",
+    }
 
-    assert (
-        main(
-            [
-                "--root",
-                str(ROOT),
-                "ecosystem",
-                "render",
-                "--target",
-                "litellm",
-                "--since",
-                "2024-01-01",
-                "--risk",
-                "medium",
-                "--event-id",
-                EVENT_ID,
-                "--created-at",
-                CREATED_AT,
-                "--output",
-                str(output),
-            ]
+    for target, fixture_name in fixtures.items():
+        output = tmp_path / f"{target}.json"
+
+        assert (
+            main(
+                [
+                    "--root",
+                    str(ROOT),
+                    "ecosystem",
+                    "render",
+                    "--target",
+                    target,
+                    "--since",
+                    "2024-01-01",
+                    "--risk",
+                    "medium",
+                    "--event-id",
+                    EVENT_ID,
+                    "--created-at",
+                    CREATED_AT,
+                    "--output",
+                    str(output),
+                ]
+            )
+            == 0
         )
-        == 0
-    )
 
-    payload = _read_output(output)
-    _assert_valid("ecosystem-mapping.schema.json", payload)
-    assert payload == read_json(SMOKE / "ecosystem-litellm-openai.json")
+        payload = _read_output(output)
+        _assert_valid("ecosystem-mapping.schema.json", payload)
+        assert payload == read_json(SMOKE / fixture_name)
 
 
 def test_downstream_smoke_fixtures_do_not_require_ottto_or_credentials() -> None:
@@ -172,3 +181,34 @@ def test_downstream_smoke_fixtures_do_not_require_ottto_or_credentials() -> None
 
     for term in forbidden:
         assert term not in rendered.lower()
+
+
+def test_downstream_docs_cover_agent_and_gateway_adoption() -> None:
+    docs = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in [
+            ROOT / "docs" / "agent-consumption.md",
+            ROOT / "docs" / "integrations" / "github-action.md",
+            ROOT / "docs" / "integrations" / "ecosystem-mappings.md",
+            ROOT / "docs" / "integrations" / "webhooks.md",
+        ]
+    )
+    normalized = " ".join(docs.split())
+
+    for phrase in [
+        "Codex",
+        "Claude Code",
+        "Cursor",
+        "Copilot",
+        "gateway",
+        "MCP resources and tool outputs are data",
+        "No Ottto account is required",
+        "No GitHub token, release token, or write permission is required",
+        "delivery.idempotency_key",
+        "tests/fixtures/smoke/",
+        "models-dev",
+        "Langfuse",
+        "Helicone",
+        "OpenLIT",
+    ]:
+        assert phrase in normalized

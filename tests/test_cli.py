@@ -20,6 +20,21 @@ def test_validate_command(capsys) -> None:
     assert "ok: validated" in capsys.readouterr().out
 
 
+def test_freshness_outputs_json(capsys) -> None:
+    assert main(["--root", str(ROOT), "freshness"]) == 0
+    freshness = json.loads(capsys.readouterr().out)
+    assert freshness["schema_version"] == "apw.feed_freshness.v0"
+    assert freshness["release_id"] == "dev"
+    assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
+
+
+def test_freshness_summary(capsys) -> None:
+    assert main(["--root", str(ROOT), "freshness", "--summary"]) == 0
+    output = capsys.readouterr().out
+    assert "release_id: dev" in output
+    assert "checksums_path: data/releases/dev/checksums.txt" in output
+
+
 def test_release_dry_run_command(tmp_path, capsys) -> None:
     assert (
         main(

@@ -41,6 +41,9 @@ allowlists, and human review.
 - `EventDetail`: typed payload for the event kind.
 - `ImpactAssessment`: affected scope row.
 - `EvidenceRef`: source-backed proof pointer.
+- `FeedFreshness`: generated provenance summary for feed version, package
+  version, latest event date, source-state timestamp, release manifest path,
+  checksum manifest path, and feed/index artifact hashes.
 - `ReleaseManifest`: published artifact manifest with checksums.
 - `ReleaseDryRunReport`: local pre-release evidence bundle with checks,
   generated CalVer artifacts, and required external gates.

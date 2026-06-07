@@ -71,6 +71,7 @@ Validate the bundled schemas, registries, events, feeds, and indexes:
 ```bash
 apw validate
 apw index --check
+apw freshness --summary
 ```
 
 ## Feed Artifacts
@@ -80,6 +81,7 @@ live in `data/feeds/` and `data/indexes/`:
 
 - `data/feeds/events.json`
 - `data/feeds/events.ndjson`
+- `data/feeds/freshness.json`
 - `data/feeds/latest.json`
 - `data/feeds/rss.xml`
 - `data/indexes/provider/*.json`
@@ -91,7 +93,13 @@ For direct consumption, pin a release tag or read from the repository:
 ```text
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/latest.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/events.ndjson
+https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/freshness.json
 ```
+
+Use `apw freshness` to verify the feed version, package version, event count,
+latest reviewed event date, latest source-state retrieval timestamp, release
+manifest path, and checksum manifest path from either a checkout or the bundled
+package data.
 
 The normalized factual event data and generated feeds are CC0-1.0. Code,
 schemas, docs, tests, and tooling are Apache-2.0.
@@ -105,7 +113,8 @@ schemas, docs, tests, and tooling are Apache-2.0.
   dry runs, source checks, candidate generation, repo impact checks,
   notifications, and ecosystem mappings.
 - JSON Schemas for events, sources, candidates, observations, releases,
-  webhooks, Slack-style payloads, ecosystem mappings, and LLM review packets.
+  feed freshness, webhooks, Slack-style payloads, ecosystem mappings, and LLM
+  review packets.
 - Official-source descriptors for OpenAI, Anthropic, Google Gemini / Vertex AI,
   AWS Bedrock, and Azure OpenAI.
 - Review-only source candidates that help maintainers notice provider changes
@@ -210,6 +219,8 @@ Start here:
 
 - [Architecture](docs/architecture.md)
 - [Event Schema](docs/schema/event.md)
+- [Feed Freshness Schema](docs/schema/feed-freshness.md)
+- [Contributor Review Workflow](docs/contributors/review-workflow.md)
 - [Source Packages](docs/contributors/source-packages.md)
 - [Source Refresh](docs/operations/source-refresh.md)
 - [Release Gates](docs/operations/release-gates.md)
@@ -242,6 +253,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Useful contributor docs:
 
+- [Contributor Review Workflow](docs/contributors/review-workflow.md)
 - [Event Promotion](docs/operations/event-promotion.md)
 - [Source Packages](docs/contributors/source-packages.md)
 - [Repository Settings](docs/operations/repository-settings.md)
