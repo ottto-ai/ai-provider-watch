@@ -16,7 +16,7 @@
       "bytes": 3972,
       "media_type": "application/json",
       "path": "data/feeds/freshness.json",
-      "sha256": "3f5ae815309a35d2f85b5a8b2d5d0bef74a8bbf63e869fba4cce66a6d6f6e017"
+      "sha256": "a9c4b3a14e72c8c1999cb4327c7fe078d7e1a29003d627d6f4f7495577a03e90"
     },
     {
       "bytes": 4392,
@@ -100,13 +100,13 @@
       "bytes": 1574,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "9db352c28ca8b821260c93bccbd4d4c18d901650aa88896191a3c0dc5a37e01c"
+      "sha256": "d417d6bb40e2df8699c3b1461401c37cea77dd146c6fd2a3477dd184077a4c79"
     }
   ],
   "checksums": {
     "data/feeds/events.json": "9eceb477460674a762333c6e35841a453da78539c23c279253837764c654e527",
     "data/feeds/events.ndjson": "8a36d6a2a7bc874d24ae484a84d0fd8de912269f8d513f8e8caf7e7ed53e4088",
-    "data/feeds/freshness.json": "3f5ae815309a35d2f85b5a8b2d5d0bef74a8bbf63e869fba4cce66a6d6f6e017",
+    "data/feeds/freshness.json": "a9c4b3a14e72c8c1999cb4327c7fe078d7e1a29003d627d6f4f7495577a03e90",
     "data/feeds/latest.json": "4858c6b48c617667093a1fa7ef3c35c99c587a8123b130533cf64d535060cb67",
     "data/feeds/rss.xml": "8e99e035441b812f778f61b79b60c29da36e49c455239763283f850a449bee4b",
     "data/indexes/kind/caching_change.json": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76",
@@ -120,7 +120,7 @@
     "data/indexes/provider/openai.json": "dd140cf082dca708a6cc8afbbcc50acd6955cdfd2be09b761ea51f20a0d8c61f",
     "data/indexes/severity/low.json": "e9d67c61c6fed39d907ffb979be77b3f7902d36ab56b2aede6943c19643a56f3",
     "data/indexes/severity/medium.json": "2ce07fe68f63f6d57ae845596a47794676b21130c4da1e94207790e88d7fb879",
-    "data/releases/dev/checksums.txt": "9db352c28ca8b821260c93bccbd4d4c18d901650aa88896191a3c0dc5a37e01c"
+    "data/releases/dev/checksums.txt": "d417d6bb40e2df8699c3b1461401c37cea77dd146c6fd2a3477dd184077a4c79"
   },
   "created_at": "2026-06-04T21:20:13Z",
   "generated_by": "ai-provider-watch 0.1.0",
