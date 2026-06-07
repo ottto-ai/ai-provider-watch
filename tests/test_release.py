@@ -134,7 +134,7 @@ def test_release_publication_packet_requires_reviewed_inputs(tmp_path) -> None:
     assert packet["required_external_evidence"]["dependency_review_ref"]
     assert packet["signing"]["mechanism"] == "manual_release_manager_signed_git_tag"
     assert packet["signing"]["tag_name"] == "data-2026.06.01"
-    assert packet["token_boundary"]["publisher_workflow_mode"] == "protected_main_noop_only"
+    assert packet["token_boundary"]["publisher_workflow_mode"] == "protected_main_noop_or_packet_only"
     assert packet["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
 
 

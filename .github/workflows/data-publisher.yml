@@ -9,12 +9,83 @@ on:
         type: string
         default: ""
       publish_mode:
-        description: "Only no-op is enabled until release-manager approval."
+        description: "no-op runs gates only; packet also renders review evidence without publishing."
         required: true
         type: choice
         default: no-op
         options:
           - no-op
+          - packet
+      release_manager:
+        description: "Release manager recorded in packet mode."
+        required: false
+        type: string
+        default: "@RonShub"
+      source_owner:
+        description: "Source owner recorded in packet mode."
+        required: false
+        type: string
+        default: "@RonShub"
+      source_owner_approval_ref:
+        description: "Issue/PR/comment URL approving reviewed inputs or skip."
+        required: false
+        type: string
+        default: ""
+      release_manager_approval_ref:
+        description: "Issue/PR/comment URL approving this packet."
+        required: false
+        type: string
+        default: ""
+      branch_protection_ref:
+        description: "Branch-protection evidence ref."
+        required: false
+        type: string
+        default: ""
+      ci_ref:
+        description: "Successful CI run URL for the release commit."
+        required: false
+        type: string
+        default: ""
+      codeql_workflow_ref:
+        description: "Successful CodeQL workflow run URL for the release commit."
+        required: false
+        type: string
+        default: ""
+      code_scanning_ref:
+        description: "Code-scanning analysis URL or ID for the release commit."
+        required: false
+        type: string
+        default: ""
+      dependency_review_ref:
+        description: "Successful Dependency Review run URL."
+        required: false
+        type: string
+        default: ""
+      attestation_ref:
+        description: "Artifact-attestation verification evidence ref."
+        required: false
+        type: string
+        default: ""
+      checksum_review_ref:
+        description: "Checksum-review evidence ref. Empty uses the dry-run report SHA."
+        required: false
+        type: string
+        default: ""
+      reviewed_event_ids:
+        description: "Optional newline/comma-separated reviewed ProviderEvent IDs."
+        required: false
+        type: string
+        default: ""
+      allow_no_reviewed_events:
+        description: "Allow a skip packet when no reviewed events landed."
+        required: false
+        type: boolean
+        default: false
+      skip_reason:
+        description: "Required for packet mode when no reviewed events are supplied."
+        required: false
+        type: string
+        default: ""
 
 permissions:
   contents: read
@@ -30,12 +101,15 @@ jobs:
     environment:
       name: data-release
     steps:
-      - name: Guard trusted ref and no-op mode
+      - name: Guard trusted ref and publish mode
         env:
           PUBLISH_MODE: ${{ inputs.publish_mode }}
         run: |
           test "$GITHUB_REF" = "refs/heads/main"
-          test "$PUBLISH_MODE" = "no-op"
+          case "$PUBLISH_MODE" in
+            no-op|packet) ;;
+            *) echo "publish_mode must be no-op or packet" >&2; exit 1 ;;
+          esac
       - uses: actions/checkout@v6
       - uses: astral-sh/setup-uv@v7
       - uses: actions/setup-python@v6
@@ -61,15 +135,112 @@ jobs:
             *) echo "release_date must be YYYY-MM-DD" >&2; exit 1 ;;
           esac
           echo "APW_RELEASE_DATE=$release_date" >> "$GITHUB_ENV"
+          echo "APW_RELEASE_ID=data-${release_date//-/.}" >> "$GITHUB_ENV"
           uv run apw release dry-run \
             --release-date "$release_date" \
             --output .apw/data-publisher-noop \
             --require-clean
-      - name: Write no-op summary
+      - name: Render publication packet
+        if: inputs.publish_mode == 'packet'
+        env:
+          RELEASE_MANAGER: ${{ inputs.release_manager }}
+          SOURCE_OWNER: ${{ inputs.source_owner }}
+          SOURCE_OWNER_APPROVAL_REF: ${{ inputs.source_owner_approval_ref }}
+          RELEASE_MANAGER_APPROVAL_REF: ${{ inputs.release_manager_approval_ref }}
+          BRANCH_PROTECTION_REF: ${{ inputs.branch_protection_ref }}
+          CI_REF: ${{ inputs.ci_ref }}
+          CODEQL_WORKFLOW_REF: ${{ inputs.codeql_workflow_ref }}
+          CODE_SCANNING_REF: ${{ inputs.code_scanning_ref }}
+          DEPENDENCY_REVIEW_REF: ${{ inputs.dependency_review_ref }}
+          ATTESTATION_REF: ${{ inputs.attestation_ref }}
+          CHECKSUM_REVIEW_REF: ${{ inputs.checksum_review_ref }}
+          REVIEWED_EVENT_IDS: ${{ inputs.reviewed_event_ids }}
+          ALLOW_NO_REVIEWED_EVENTS: ${{ inputs.allow_no_reviewed_events }}
+          SKIP_REASON: ${{ inputs.skip_reason }}
+        run: |
+          report=".apw/data-publisher-noop/$APW_RELEASE_ID/dry-run-report.json"
+          packet=".apw/data-publisher-noop/$APW_RELEASE_ID/publication-packet.json"
+          test -f "$report"
+
+          for var in \
+            RELEASE_MANAGER \
+            SOURCE_OWNER \
+            SOURCE_OWNER_APPROVAL_REF \
+            RELEASE_MANAGER_APPROVAL_REF \
+            BRANCH_PROTECTION_REF \
+            CI_REF \
+            CODEQL_WORKFLOW_REF \
+            CODE_SCANNING_REF \
+            DEPENDENCY_REVIEW_REF \
+            ATTESTATION_REF
+          do
+            value="${!var}"
+            if [ -z "$value" ]; then
+              echo "$var is required in packet mode" >&2
+              exit 1
+            fi
+          done
+
+          checksum_ref="$CHECKSUM_REVIEW_REF"
+          if [ -z "$checksum_ref" ]; then
+            report_sha="$(sha256sum "$report" | awk '{print $1}')"
+            checksum_ref="Data Publisher run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID dry-run report SHA-256: $report_sha"
+          fi
+
+          args=(
+            release
+            packet
+            --dry-run-report "$report"
+            --release-manager "$RELEASE_MANAGER"
+            --source-owner "$SOURCE_OWNER"
+            --source-owner-approval-ref "$SOURCE_OWNER_APPROVAL_REF"
+            --release-manager-approval-ref "$RELEASE_MANAGER_APPROVAL_REF"
+            --branch-protection-ref "$BRANCH_PROTECTION_REF"
+            --ci-ref "$CI_REF"
+            --codeql-workflow-ref "$CODEQL_WORKFLOW_REF"
+            --code-scanning-ref "$CODE_SCANNING_REF"
+            --dependency-review-ref "$DEPENDENCY_REVIEW_REF"
+            --attestation-ref "$ATTESTATION_REF"
+            --checksum-review-ref "$checksum_ref"
+            --output "$packet"
+          )
+
+          normalized_events="$(printf '%s\n' "$REVIEWED_EVENT_IDS" | tr ',' '\n')"
+          while IFS= read -r event_id; do
+            event_id="$(printf '%s' "$event_id" | xargs)"
+            if [ -n "$event_id" ]; then
+              args+=(--reviewed-event "$event_id")
+            fi
+          done <<< "$normalized_events"
+
+          if [ "$ALLOW_NO_REVIEWED_EVENTS" = "true" ]; then
+            args+=(--allow-no-reviewed-events)
+          fi
+          if [ -n "$SKIP_REASON" ]; then
+            args+=(--skip-reason "$SKIP_REASON")
+          fi
+
+          uv run apw "${args[@]}"
+          echo "APW_PUBLICATION_PACKET=$packet" >> "$GITHUB_ENV"
+      - name: Upload publication packet evidence
+        if: inputs.publish_mode == 'packet'
+        uses: actions/upload-artifact@v7
+        with:
+          name: apw-data-publication-packet
+          path: |
+            .apw/data-publisher-noop/${{ env.APW_RELEASE_ID }}/dry-run-report.json
+            .apw/data-publisher-noop/${{ env.APW_RELEASE_ID }}/publication-packet.json
+          if-no-files-found: error
+      - name: Write publisher summary
         run: |
           {
-            echo "## Data publisher no-op"
+            echo "## Data publisher"
             echo "- Source ref: $GITHUB_SHA"
             echo "- Release date: $APW_RELEASE_DATE"
+            echo "- Mode: ${{ inputs.publish_mode }}"
             echo "- Result: no data tag or GitHub data release was created."
+            if [ "${{ inputs.publish_mode }}" = "packet" ]; then
+              echo "- Packet: $APW_PUBLICATION_PACKET"
+              echo "- Result: publication packet was rendered and uploaded as review evidence only."
+            fi
           } >> "$GITHUB_STEP_SUMMARY"

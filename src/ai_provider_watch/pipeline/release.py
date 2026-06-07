@@ -220,6 +220,7 @@ def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
             "workflow_dispatch:",
             "publish_mode:",
             "no-op",
+            "packet",
             "permissions:\n  contents: read",
             "group: data-release-publisher-${{ github.ref }}",
             "if: github.ref == 'refs/heads/main'",
@@ -231,6 +232,10 @@ def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
             "uv run apw validate",
             "uv run apw index --check",
             "uv run apw release dry-run",
+            'uv run apw "${args[@]}"',
+            "publication-packet.json",
+            "actions/upload-artifact@v7",
+            "apw-data-publication-packet",
             "--require-clean",
             "no data tag or GitHub data release was created",
         ],
@@ -251,7 +256,7 @@ def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
     )
     passed = bool(workflow) and not missing and not forbidden
     if passed:
-        details = "data publisher is protected, main-only, no-op-only, and has no release publishing authority"
+        details = "data publisher is protected, main-only, no-op-or-packet-only, and has no release publishing authority"
     else:
         details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
     return _check("data_publisher_noop_workflow", passed, details)
@@ -624,7 +629,7 @@ def build_release_publication_packet(
             "key_boundary": f"{release_manager} signs locally; signing keys are not stored in GitHub Actions, repository secrets, environment secrets, or OIDC jobs.",
         },
         "token_boundary": {
-            "publisher_workflow_mode": "protected_main_noop_only",
+            "publisher_workflow_mode": "protected_main_noop_or_packet_only",
             "no_release_tokens_in_untrusted_lanes": True,
             "forbidden_untrusted_lanes": [
                 "source-refresh",

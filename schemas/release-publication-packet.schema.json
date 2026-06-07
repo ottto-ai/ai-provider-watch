@@ -104,7 +104,7 @@
         "forbidden_untrusted_lanes"
       ],
       "properties": {
-        "publisher_workflow_mode": { "const": "protected_main_noop_only" },
+        "publisher_workflow_mode": { "const": "protected_main_noop_or_packet_only" },
         "no_release_tokens_in_untrusted_lanes": { "const": true },
         "forbidden_untrusted_lanes": {
           "type": "array",
