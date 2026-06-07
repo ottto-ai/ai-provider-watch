@@ -206,6 +206,43 @@ PRICE_DIMENSION_KEYWORDS = {
     "output_tokens": ("output",),
 }
 
+LIMIT_DIMENSION_PATTERNS = {
+    "requests_per_minute": (
+        re.compile(r"\b(?:requests?|reqs?)\s*(?:per|/)\s*minute\b", re.IGNORECASE),
+        re.compile(r"\brpm\b", re.IGNORECASE),
+    ),
+    "tokens_per_minute": (
+        re.compile(r"\b(?:tokens?|tok)\s*(?:per|/)\s*minute\b", re.IGNORECASE),
+        re.compile(r"\btpm\b", re.IGNORECASE),
+    ),
+    "requests_per_day": (
+        re.compile(r"\b(?:requests?|reqs?)\s*(?:per|/)\s*day\b", re.IGNORECASE),
+        re.compile(r"\brpd\b", re.IGNORECASE),
+    ),
+    "tokens_per_day": (
+        re.compile(r"\b(?:tokens?|tok)\s*(?:per|/)\s*day\b", re.IGNORECASE),
+        re.compile(r"\btpd\b", re.IGNORECASE),
+    ),
+    "tokens_per_request": (
+        re.compile(r"\b(?:tokens?|tok)\s*(?:per|/)\s*request\b", re.IGNORECASE),
+    ),
+}
+
+LIMIT_VALUE_PATTERN = re.compile(r"\b([0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,9})\b")
+LIMIT_CONTEXT_TOKENS = (
+    "limit",
+    "quota",
+    "rate",
+    "request",
+    "requests",
+    "rpm",
+    "rpd",
+    "token",
+    "tokens",
+    "tpm",
+    "tpd",
+)
+
 MONTHS = {
     "jan": "01",
     "january": "01",
@@ -446,11 +483,17 @@ def _candidate_claim(source: SourceDescriptor) -> dict[str, str]:
         candidate_kind, claim_text = LIFECYCLE_PARSER_CLAIMS[source.parser]
         return {"candidate_kind": candidate_kind, "claim_text": claim_text}
     if source.parser in PRICING_PARSER_NAMES:
+        review_scope = "pricing, token-accounting, cache, batch, or regional availability changes"
+        if "quota_change" in source.impact_hints or "rate_limit_change" in source.impact_hints:
+            review_scope = (
+                "pricing, token-accounting, cache, batch, quota/rate-limit, "
+                "or regional availability changes"
+            )
         return {
             "candidate_kind": "pricing_change",
             "claim_text": (
                 f"{_provider_label(source)} pricing source changed and needs maintainer review "
-                "for possible pricing, token-accounting, cache, batch, or regional availability changes."
+                f"for possible {review_scope}."
             ),
         }
     if source.parser == "aws_bedrock_model_cards":
@@ -617,7 +660,8 @@ def _pricing_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
         for signal, keywords in sorted(PRICING_SIGNAL_KEYWORDS.items())
         if any(keyword in lower_text for keyword in keywords)
     ]
-    return model_items + price_items + signal_items
+    limit_items = _limit_signal_items(raw, parser_name)
+    return model_items + price_items + signal_items + limit_items
 
 
 def _price_dimension(text: str) -> str | None:
@@ -659,6 +703,72 @@ def _price_point_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
                             "unit": "1m_tokens",
                             "source_parser": parser_name,
                         }
+    return [items[key] for key in sorted(items)]
+
+
+def _limit_dimension(text: str) -> str | None:
+    for dimension, patterns in LIMIT_DIMENSION_PATTERNS.items():
+        if any(pattern.search(text) for pattern in patterns):
+            return dimension
+    return None
+
+
+def _limit_value(text: str) -> str | None:
+    for match in LIMIT_VALUE_PATTERN.finditer(text):
+        value = match.group(1).replace(",", "")
+        if value != "0":
+            return value
+    return None
+
+
+def _limit_value_from_row(headers: list[str], row: list[str], dimension: str, row_text: str) -> str | None:
+    preferred_header_tokens = ("limit", "quota", "rate", "value", "rpm", "rpd", "tpm", "tpd")
+    for index, cell in enumerate(row):
+        header = headers[index] if index < len(headers) else ""
+        header_cell = f"{header} {cell}".lower()
+        if not any(token in header_cell for token in preferred_header_tokens):
+            continue
+        if _limit_dimension(cell) == dimension:
+            continue
+        value = _limit_value(cell)
+        if value is not None:
+            return value
+    return _limit_value(row_text)
+
+
+def _limit_signal_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
+    items: dict[tuple[str, str, str], dict[str, str]] = {}
+    for table in _table_payload(raw):
+        headers: list[str] = []
+        for row in table:
+            if not row:
+                continue
+            if not headers:
+                headers = row
+                continue
+            row_text = _normalize_text(" ".join(row))
+            lower_row = row_text.lower()
+            if not any(token in lower_row for token in LIMIT_CONTEXT_TOKENS):
+                continue
+            dimension = _limit_dimension(row_text)
+            if dimension is None:
+                continue
+            value = _limit_value_from_row(headers, row, dimension, row_text)
+            if value is None:
+                continue
+            model_ids = _model_ids_from_text(row_text, parser_name) or [""]
+            for model_id in model_ids:
+                key = (dimension, value, model_id)
+                item = {
+                    "kind": "limit_signal",
+                    "limit_dimension": dimension,
+                    "limit_value": value,
+                    "unit": dimension,
+                    "source_parser": parser_name,
+                }
+                if model_id:
+                    item["model_id"] = model_id
+                items[key] = item
     return [items[key] for key in sorted(items)]
 
 
