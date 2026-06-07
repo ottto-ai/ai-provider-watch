@@ -182,6 +182,21 @@ PRICING_SIGNAL_KEYWORDS = {
     "token_unit": ("1m tokens", "million tokens", "mtok", "per 1m"),
 }
 
+PRICE_POINT_PATTERN = re.compile(
+    r"\$\s*([0-9]{1,5}(?:\.[0-9]{1,6})?)\s*/\s*"
+    r"(?:1\s*m(?:illion)?\s*tokens?|1m\s*tokens?|million\s+tokens|m\s?tok|mtok)\b",
+    re.IGNORECASE,
+)
+
+PRICE_DIMENSION_KEYWORDS = {
+    "cached_input": ("cached input", "cached tokens"),
+    "cache_write": ("cache write", "cache creation"),
+    "cache_hit": ("cache hit", "cache read"),
+    "priority_processing": ("priority",),
+    "input_tokens": ("input",),
+    "output_tokens": ("output",),
+}
+
 MONTHS = {
     "jan": "01",
     "january": "01",
@@ -576,6 +591,7 @@ def _pricing_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
     text = _structured_html_text(raw)
     lower_text = text.lower()
     model_items = _model_ref_items_from_text(text, parser_name)
+    price_items = _price_point_items(raw, parser_name)
     signal_items = [
         {
             "kind": "pricing_signal",
@@ -585,7 +601,49 @@ def _pricing_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
         for signal, keywords in sorted(PRICING_SIGNAL_KEYWORDS.items())
         if any(keyword in lower_text for keyword in keywords)
     ]
-    return model_items + signal_items
+    return model_items + price_items + signal_items
+
+
+def _price_dimension(text: str) -> str | None:
+    lower_text = text.lower()
+    for dimension, keywords in PRICE_DIMENSION_KEYWORDS.items():
+        if any(keyword in lower_text for keyword in keywords):
+            return dimension
+    return None
+
+
+def _price_point_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
+    items: dict[tuple[str, str, str], dict[str, str]] = {}
+    for table in _table_payload(raw):
+        headers: list[str] = []
+        for row in table:
+            if not row:
+                continue
+            if not headers:
+                headers = row
+                continue
+            row_text = _normalize_text(" ".join(row))
+            model_ids = _model_ids_from_text(row_text, parser_name)
+            if not model_ids:
+                continue
+            for index, cell in enumerate(row):
+                header = headers[index] if index < len(headers) else ""
+                dimension = _price_dimension(f"{header} {cell}")
+                if dimension is None:
+                    continue
+                for match in PRICE_POINT_PATTERN.finditer(cell):
+                    amount = match.group(1)
+                    for model_id in model_ids:
+                        key = (model_id, dimension, amount)
+                        items[key] = {
+                            "kind": "price_point",
+                            "model_id": model_id,
+                            "billing_dimension": dimension,
+                            "price_usd_per_1m_tokens": amount,
+                            "unit": "1m_tokens",
+                            "source_parser": parser_name,
+                        }
+    return [items[key] for key in sorted(items)]
 
 
 def _lifecycle_dates_from_text(text: str) -> list[str]:

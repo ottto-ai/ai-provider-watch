@@ -77,12 +77,14 @@ claim when an official source fingerprint changes; for Atom and
 Statuspage-style status sources it stores hashes/timestamps rather than copied
 incident text; for model docs it stores bounded model identifiers; for lifecycle
 docs it stores bounded model identifiers and dates; and for pricing pages it
-stores bounded pricing/model signals rather than copied pricing-table prose.
-When a source descriptor declares `content_scope`, its parser fixture should
-prove that out-of-scope HTML sections are ignored.
-Provider-specific parsers should add richer factual
-extraction only when fixtures prove the output is deterministic, bounded,
-source-linked, and free of raw provider prose.
+stores bounded pricing/model signals and optional `price_point` rows rather than
+copied pricing-table prose. A `price_point` may include only the bounded model
+ID, billing dimension, numeric USD price per 1M tokens, normalized unit, and
+parser name. When a source descriptor declares `content_scope`, its parser
+fixture should prove that out-of-scope HTML sections are ignored.
+Provider-specific parsers should add richer factual extraction only when
+fixtures prove the output is deterministic, bounded, source-linked, and free of
+raw provider prose.
 
 Run the contract fixture:
 
@@ -120,10 +122,10 @@ Provider-specific parser fixtures should cover:
 `apw source test` runs those fixtures and compares the full sanitized parser
 payload exactly. Fixture inputs must be synthetic or minimal excerpts created
 for APW tests; do not commit real provider pages. Expected payloads may include
-bounded factual identifiers such as model IDs, pricing signal enums, hashes,
-RFC3339 timestamps, and templated candidate claims. They must not include copied
-provider headings, descriptions, incident titles, pricing-table prose, PR
-comments, issue bodies, or prompt-like text.
+bounded factual identifiers such as model IDs, pricing signal enums,
+`price_point` numeric facts, hashes, RFC3339 timestamps, and templated candidate
+claims. They must not include copied provider headings, descriptions, incident
+titles, pricing-table prose, PR comments, issue bodies, or prompt-like text.
 
 ## Candidate Review Automation
 
