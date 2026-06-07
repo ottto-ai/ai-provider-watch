@@ -106,6 +106,28 @@ def cmd_index(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_freshness(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    path = root / "data" / "feeds" / "freshness.json"
+    if not path.exists():
+        print("freshness metadata not found; run apw index from a checkout", file=sys.stderr)
+        return 1
+    freshness = read_json(path)
+    if args.summary:
+        print(f"release_id: {freshness['release_id']}")
+        print(f"data_tag: {freshness['data_tag'] or 'none'}")
+        print(f"package_version: {freshness['package_version']}")
+        print(f"generated_at: {freshness['generated_at']}")
+        print(f"event_count: {freshness['event_count']}")
+        print(f"latest_event_date: {freshness['latest_event_date'] or 'none'}")
+        print(f"latest_observed_at: {freshness['latest_observed_at']}")
+        print(f"source_state_latest_retrieved_at: {freshness['source_state']['latest_retrieved_at'] or 'none'}")
+        print(f"checksums_path: {freshness['release_artifacts']['checksums_path']}")
+    else:
+        _print_json(freshness)
+    return 0
+
+
 def cmd_latest(args: argparse.Namespace) -> int:
     _print_json(filter_events(load_events(_root(args.root)), provider=args.provider, min_severity=args.risk)[: args.limit])
     return 0
@@ -482,6 +504,9 @@ def build_parser() -> argparse.ArgumentParser:
     index_parser = subparsers.add_parser("index", help="generate feeds, indexes, and manifests")
     index_parser.add_argument("--check", action="store_true")
     index_parser.set_defaults(func=cmd_index)
+    freshness_parser = subparsers.add_parser("freshness", help="print feed freshness and provenance metadata")
+    freshness_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    freshness_parser.set_defaults(func=cmd_freshness)
     latest_parser = subparsers.add_parser("latest", help="print latest events as JSON")
     latest_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK))
     latest_parser.add_argument("--provider")
