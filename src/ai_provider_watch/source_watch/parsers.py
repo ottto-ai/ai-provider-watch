@@ -65,7 +65,11 @@ OPENAI_LEGACY_MODEL_PATTERN = re.compile(
     re.IGNORECASE,
 )
 GEMINI_ID_PATTERN = re.compile(
-    r"\bgemini-[0-9](?:\.[0-9])?(?:-(?:[0-9]{2,8}|audio|embedding|embeddings|exp|flash|generation|image|images|latest|learnlm|lite|live|nano|native|preview|pro|realtime|stable|thinking|tts|ultra))*\b(?![.-])",
+    r"\bgemini-(?:(?:live-)?[0-9](?:\.[0-9])?|embedding)(?:-(?:[0-9]{2,8}|audio|embedding|embeddings|exp|flash|generation|image|images|latest|learnlm|lite|live|nano|native|preview|pro|realtime|stable|thinking|tts|ultra|vision))*\b(?![.-])",
+    re.IGNORECASE,
+)
+GOOGLE_LEGACY_MODEL_PATTERN = re.compile(
+    r"\b(?:chat-bison|code-gecko|imagetext|multimodalembedding@[0-9]{3}|text-bison|text-embedding-[0-9]{3}|text-multilingual-embedding-[0-9]{3}|textembedding-gecko(?:-multilingual)?@[0-9]{3})\b(?![.-])",
     re.IGNORECASE,
 )
 GPT_OSS_PATTERN = re.compile(r"\bgpt-oss-[0-9]+b\b(?![.-])", re.IGNORECASE)
@@ -86,7 +90,7 @@ MODEL_PARSER_PATTERNS = {
 
 LIFECYCLE_PARSER_PATTERNS = {
     "azure_openai_legacy_models": [OPENAI_MODEL_PATTERN, OPENAI_LEGACY_MODEL_PATTERN],
-    "google_vertex_model_versions": [GEMINI_ID_PATTERN],
+    "google_vertex_model_versions": [GEMINI_ID_PATTERN, GOOGLE_LEGACY_MODEL_PATTERN],
     "openai_deprecations": [OPENAI_MODEL_PATTERN, OPENAI_LEGACY_MODEL_PATTERN],
 }
 
@@ -534,7 +538,7 @@ def _table_payload(raw: bytes) -> list[list[list[str]]]:
 
 
 def _model_display_id(value: str) -> str:
-    model_id = re.sub(r"[^a-z0-9.]+", "-", value.lower()).strip("-")
+    model_id = re.sub(r"[^a-z0-9.@]+", "-", value.lower()).strip("-")
     if model_id.startswith("nova-"):
         return f"amazon-{model_id}"
     return model_id

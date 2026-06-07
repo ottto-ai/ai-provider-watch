@@ -190,10 +190,9 @@
       "enabled": false,
       "parser": "google_vertex_model_versions",
       "automation_status": "blocked_pending_parser",
-      "graduation_notes": "Synthetic lifecycle fixtures and heading-range scope exist, but live model-version tables still need broader Gemini-family model-shape coverage.",
+      "graduation_notes": "Synthetic lifecycle fixtures cover Gemini stable, Live/native-audio, embedding, multimodal, and legacy Google model IDs; live scope smoke still required.",
       "graduation_blockers": [
-        "needs Gemini Live/native-audio model-id coverage",
-        "needs Gemini embedding and non-numeric Gemini-family lifecycle row coverage"
+        "needs live source-review smoke proving heading-range scope and current model-version tables remain bounded before unattended refresh"
       ],
       "content_scope": {
         "kind": "html_heading_range",

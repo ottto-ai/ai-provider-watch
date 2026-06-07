@@ -6,6 +6,16 @@
     "items": [
       {
         "kind": "model_ref",
+        "model_id": "chat-bison",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "code-gecko",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
         "model_id": "gemini-2.0-flash-001",
         "source_parser": "google_vertex_model_versions"
       },
@@ -21,12 +31,72 @@
       },
       {
         "kind": "model_ref",
+        "model_id": "gemini-2.5-flash-image",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
         "model_id": "gemini-2.5-flash-lite",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gemini-embedding-001",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gemini-live-2.5-flash-native-audio",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "multimodalembedding@001",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "text-bison",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "text-embedding-004",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "text-embedding-005",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "text-multilingual-embedding-002",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "textembedding-gecko@001",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_date",
+        "date": "2024-07-09",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_date",
+        "date": "2025-04-09",
         "source_parser": "google_vertex_model_versions"
       },
       {
         "kind": "lifecycle_date",
         "date": "2026-06-01",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_date",
+        "date": "2026-10-01",
         "source_parser": "google_vertex_model_versions"
       }
     ],
