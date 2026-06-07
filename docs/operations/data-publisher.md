@@ -80,6 +80,26 @@ The workflow checks:
 It does not create tags, upload releases, read secrets, request OIDC, or process
 provider/source/candidate text beyond the reviewed repository checkout.
 
+## Publication Packet Contract
+
+Before any real `data-YYYY.MM.DD` tag, render
+`apw release packet` from the successful dry-run report. The packet conforms to
+`schemas/release-publication-packet.schema.json` and records:
+
+- reviewed `data/events/*.json` IDs, or an explicit no-reviewed-events skip
+  reason;
+- source-owner approval and release-manager approval refs;
+- branch protection, CI, CodeQL workflow, code-scanning, Dependency Review,
+  checksum review, and attestation refs;
+- manual release-manager signed-tag commands;
+- proof that source refresh, candidate generation, LLM review, PR-comment
+  processing, MCP, provider-page fetch, and social/community lanes remain
+  forbidden release-token lanes.
+
+The packet supports daily skip behavior without creating empty tags blindly. A
+skip packet says why no public data tag should be created for that date. A
+publish packet lists the reviewed event IDs that justify the tag.
+
 ## Future Automated Publishing Gate
 
 Do not add automated `data-YYYY.MM.DD` publishing until a release manager

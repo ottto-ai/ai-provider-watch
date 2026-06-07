@@ -6,9 +6,12 @@ from datetime import date
 from pathlib import Path
 
 import pytest
+from jsonschema import Draft202012Validator, FormatChecker
 
+from ai_provider_watch.core.validation import load_schemas
 from ai_provider_watch.pipeline.release import (
     _is_working_tree_clean,
+    build_release_publication_packet,
     calver_release_id,
     parse_release_id_date,
     run_release_dry_run,
@@ -16,6 +19,31 @@ from ai_provider_watch.pipeline.release import (
 
 ROOT = Path(__file__).resolve().parents[1]
 DUMMY_SHA = "0123456789abcdef0123456789abcdef01234567"
+REVIEWED_EVENT_ID = "2026-06-04-openai-codex-compaction-latency"
+
+
+def _assert_publication_packet_schema(packet: dict) -> None:
+    schema = load_schemas(ROOT)["release_publication_packet"]
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    errors = sorted(validator.iter_errors(packet), key=lambda item: list(item.path))
+    assert errors == []
+
+
+def _packet_kwargs(report_path: Path) -> dict:
+    return {
+        "dry_run_report_path": report_path,
+        "release_manager": "@RonShub",
+        "source_owner": "@RonShub",
+        "source_owner_approval_ref": "https://github.com/ottto-ai/ai-provider-watch/pull/1#source-owner",
+        "release_manager_approval_ref": "https://github.com/ottto-ai/ai-provider-watch/pull/1#release-manager",
+        "branch_protection_ref": "gh api repos/ottto-ai/ai-provider-watch/branches/main/protection",
+        "ci_ref": "https://github.com/ottto-ai/ai-provider-watch/actions/runs/ci",
+        "codeql_workflow_ref": "https://github.com/ottto-ai/ai-provider-watch/actions/runs/codeql",
+        "code_scanning_ref": "code-scanning-analysis:123",
+        "dependency_review_ref": "https://github.com/ottto-ai/ai-provider-watch/actions/runs/dependency-review",
+        "attestation_ref": "gh attestation verify .apw/apw-release-dry-run.tgz --repo ottto-ai/ai-provider-watch",
+        "checksum_review_ref": "data/releases/data-2026.06.01/checksums.txt",
+    }
 
 
 def test_calver_release_id() -> None:
@@ -81,6 +109,89 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert manifest["release_id"] == "data-2026.06.01"
     assert manifest["source_commit"] == DUMMY_SHA
     assert "data/feeds/events.json" in manifest["checksums"]
+
+
+def test_release_publication_packet_requires_reviewed_inputs(tmp_path) -> None:
+    dry_run = run_release_dry_run(
+        ROOT,
+        release_date=date(2026, 6, 1),
+        output_dir=tmp_path,
+        source_commit=DUMMY_SHA,
+    )
+
+    packet = build_release_publication_packet(
+        ROOT,
+        **_packet_kwargs(dry_run.report_path),
+        reviewed_event_ids=[REVIEWED_EVENT_ID],
+    )
+
+    _assert_publication_packet_schema(packet)
+    assert packet["publication_decision"] == "publish"
+    assert packet["release_id"] == "data-2026.06.01"
+    assert packet["source_commit"] == DUMMY_SHA
+    assert packet["reviewed_inputs"]["reviewed_event_ids"] == [REVIEWED_EVENT_ID]
+    assert packet["reviewed_inputs"]["source_owner"] == "@RonShub"
+    assert packet["required_external_evidence"]["dependency_review_ref"]
+    assert packet["signing"]["mechanism"] == "manual_release_manager_signed_git_tag"
+    assert packet["signing"]["tag_name"] == "data-2026.06.01"
+    assert packet["token_boundary"]["publisher_workflow_mode"] == "protected_main_noop_only"
+    assert packet["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
+
+
+def test_release_publication_packet_supports_no_event_skip_packet(tmp_path) -> None:
+    dry_run = run_release_dry_run(
+        ROOT,
+        release_date=date(2026, 6, 1),
+        output_dir=tmp_path,
+        source_commit=DUMMY_SHA,
+    )
+
+    packet = build_release_publication_packet(
+        ROOT,
+        **_packet_kwargs(dry_run.report_path),
+        reviewed_event_ids=[],
+        allow_no_reviewed_events=True,
+        no_reviewed_events_reason="No source-owner-reviewed ProviderEvent changes landed for this release date.",
+    )
+
+    _assert_publication_packet_schema(packet)
+    assert packet["publication_decision"] == "skip"
+    assert packet["reviewed_inputs"]["reviewed_event_ids"] == []
+    assert "No source-owner-reviewed" in packet["reviewed_inputs"]["no_reviewed_events_reason"]
+
+
+def test_release_publication_packet_rejects_missing_reviewed_event_or_failed_dry_run(tmp_path) -> None:
+    dry_run = run_release_dry_run(
+        ROOT,
+        release_date=date(2026, 6, 1),
+        output_dir=tmp_path,
+        source_commit=DUMMY_SHA,
+    )
+
+    with pytest.raises(ValueError, match="at least one --reviewed-event"):
+        build_release_publication_packet(
+            ROOT,
+            **_packet_kwargs(dry_run.report_path),
+            reviewed_event_ids=[],
+        )
+
+    with pytest.raises(ValueError, match="reviewed event id"):
+        build_release_publication_packet(
+            ROOT,
+            **_packet_kwargs(dry_run.report_path),
+            reviewed_event_ids=["missing-event"],
+        )
+
+    failed_report = json.loads(dry_run.report_path.read_text(encoding="utf-8"))
+    failed_report["checks"][0]["status"] = "fail"
+    failed_path = tmp_path / "failed-report.json"
+    failed_path.write_text(json.dumps(failed_report), encoding="utf-8")
+    with pytest.raises(ValueError, match="failed checks"):
+        build_release_publication_packet(
+            ROOT,
+            **_packet_kwargs(failed_path),
+            reviewed_event_ids=[REVIEWED_EVENT_ID],
+        )
 
 
 def test_release_dry_run_rejects_non_calver_release_id(tmp_path) -> None:

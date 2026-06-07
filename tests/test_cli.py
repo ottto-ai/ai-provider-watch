@@ -56,3 +56,67 @@ def test_release_dry_run_command(tmp_path, capsys) -> None:
     output = json.loads(capsys.readouterr().out)
     assert output["release_id"] == "data-2026.06.01"
     assert output["artifact_count"] > 0
+
+
+def test_release_packet_command(tmp_path, capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "dry-run",
+                "--release-date",
+                "2026-06-01",
+                "--source-commit",
+                "0123456789abcdef0123456789abcdef01234567",
+                "--output",
+                str(tmp_path / "dry-run"),
+            ]
+        )
+        == 0
+    )
+    capsys.readouterr()
+
+    report_path = tmp_path / "dry-run" / "data-2026.06.01" / "dry-run-report.json"
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "packet",
+                "--dry-run-report",
+                str(report_path),
+                "--release-manager",
+                "@RonShub",
+                "--source-owner",
+                "@RonShub",
+                "--source-owner-approval-ref",
+                "https://github.com/ottto-ai/ai-provider-watch/pull/1#source-owner",
+                "--release-manager-approval-ref",
+                "https://github.com/ottto-ai/ai-provider-watch/pull/1#release-manager",
+                "--branch-protection-ref",
+                "gh api repos/ottto-ai/ai-provider-watch/branches/main/protection",
+                "--ci-ref",
+                "https://github.com/ottto-ai/ai-provider-watch/actions/runs/ci",
+                "--codeql-workflow-ref",
+                "https://github.com/ottto-ai/ai-provider-watch/actions/runs/codeql",
+                "--code-scanning-ref",
+                "code-scanning-analysis:123",
+                "--dependency-review-ref",
+                "https://github.com/ottto-ai/ai-provider-watch/actions/runs/dependency-review",
+                "--attestation-ref",
+                "gh attestation verify .apw/apw-release-dry-run.tgz --repo ottto-ai/ai-provider-watch",
+                "--checksum-review-ref",
+                "data/releases/data-2026.06.01/checksums.txt",
+                "--reviewed-event",
+                "2026-06-04-openai-codex-compaction-latency",
+            ]
+        )
+        == 0
+    )
+    packet = json.loads(capsys.readouterr().out)
+    assert packet["schema_version"] == "apw.release_publication_packet.v0"
+    assert packet["publication_decision"] == "publish"
+    assert packet["signing"]["tag_name"] == "data-2026.06.01"
