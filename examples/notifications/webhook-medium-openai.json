@@ -1,7 +1,7 @@
 {
   "delivery": {
     "content_type": "application/json",
-    "idempotency_key": "apw-webhook-v0-48726b7a3e970410c38a60b6",
+    "idempotency_key": "apw-webhook-v0-48be2a1497fb88df5f43476a",
     "method": "POST",
     "mode": "operator_owned",
     "retry_policy": {
@@ -18,7 +18,7 @@
       ]
     }
   },
-  "event_count": 2,
+  "event_count": 4,
   "events": [
     {
       "confidence": "confirmed",
@@ -60,6 +60,125 @@
       "source_authority": "official_status",
       "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
       "title": "OpenAI Image API Requests Returned 401 Errors"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-02T00:00:00Z",
+      "event_date": "2026-06-02",
+      "event_kind": "workflow_behavior_change",
+      "evidence_refs": [
+        {
+          "authority": "official_blog",
+          "content_sha256": "a21a6169f7bdbd25936eb3e0cef5d8cb505e7c9008475af45b9e9298eff5a487",
+          "retrieved_at": "2026-06-08T08:40:40Z",
+          "source_key": "openai.news",
+          "url": "https://openai.com/index/codex-for-every-role-tool-workflow/"
+        }
+      ],
+      "id": "2026-06-02-openai-codex-role-plugins-sites",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "behavior",
+          "recommended_action": "Review Codex governance, connected-app permissions, and workspace-sharing policies before enabling role plugins or shared Sites for non-engineering teams.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "high"
+        },
+        {
+          "confidence": "high",
+          "direction": "added",
+          "impact_kind": "availability",
+          "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with business data.",
+          "scope_ref": "plan:chatgpt-business",
+          "scope_type": "subscription_plan",
+          "severity": "medium"
+        },
+        {
+          "confidence": "high",
+          "direction": "added",
+          "impact_kind": "availability",
+          "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with enterprise data.",
+          "scope_ref": "plan:chatgpt-enterprise",
+          "scope_type": "subscription_plan",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-08T08:40:40Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "source_authority": "official_blog",
+      "summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.",
+      "title": "OpenAI Added Codex Role Plugins, Sites, And Annotations"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-01T00:00:00Z",
+      "event_date": "2026-06-01",
+      "event_kind": "billing_channel_change",
+      "evidence_refs": [
+        {
+          "authority": "official_blog",
+          "content_sha256": "d47637ab003f5f18e59c5a59d6adf6f4d60edf48b4abd4b4db52f6fc794e8984",
+          "retrieved_at": "2026-06-08T08:40:40Z",
+          "source_key": "openai.news",
+          "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+        }
+      ],
+      "id": "2026-06-01-openai-codex-aws-bedrock-ga",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "availability",
+          "recommended_action": "Evaluate whether AWS-native procurement, IAM, network controls, and Bedrock governance change the preferred route for OpenAI model or Codex adoption.",
+          "scope_ref": "surface:aws-bedrock/api",
+          "scope_type": "provider_surface",
+          "severity": "high"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "availability",
+          "recommended_action": "Compare Codex feature availability and data-governance controls across ChatGPT sign-in, OpenAI API key, and Amazon Bedrock API key configurations.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "high"
+        },
+        {
+          "confidence": "high",
+          "direction": "added",
+          "impact_kind": "compliance",
+          "recommended_action": "For regulated workloads, verify region availability, feature parity, and account approvals before migrating provider access paths.",
+          "scope_ref": "region:aws-govcloud",
+          "scope_type": "cloud_region",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-08T08:40:40Z",
+      "provider_refs": [
+        "provider:openai",
+        "provider:aws-bedrock"
+      ],
+      "severity": "high",
+      "source_authority": "official_blog",
+      "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
+      "title": "OpenAI Frontier Models And Codex Became Available On AWS"
     },
     {
       "confidence": "confirmed",

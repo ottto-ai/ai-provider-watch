@@ -1,0 +1,76 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-01-openai-codex-aws-bedrock-ga",
+  "title": "OpenAI Frontier Models And Codex Became Available On AWS",
+  "event_kind": "billing_channel_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai", "provider:aws-bedrock"],
+  "event_date": "2026-06-01",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T08:40:40Z",
+  "announced_at": "2026-06-01T00:00:00Z",
+  "effective_at": "2026-06-01T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/",
+      "retrieved_at": "2026-06-08T08:40:40Z",
+      "authority": "official_blog",
+      "content_sha256": "d47637ab003f5f18e59c5a59d6adf6f4d60edf48b4abd4b4db52f6fc794e8984",
+      "snapshot_ref": "reviewed-source:2026-06-08",
+      "selector": "OpenAI on AWS general availability announcement",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "product_engineers", "security_engineers", "finops"],
+      "recommended_action": "Evaluate whether AWS-native procurement, IAM, network controls, and Bedrock governance change the preferred route for OpenAI model or Codex adoption."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "security_engineers"],
+      "recommended_action": "Compare Codex feature availability and data-governance controls across ChatGPT sign-in, OpenAI API key, and Amazon Bedrock API key configurations."
+    },
+    {
+      "scope_type": "cloud_region",
+      "scope_ref": "region:aws-govcloud",
+      "impact_kind": "compliance",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "high",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": ["security_engineers", "platform_engineers", "product_engineers"],
+      "recommended_action": "For regulated workloads, verify region availability, feature parity, and account approvals before migrating provider access paths."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "OpenAI announced that OpenAI frontier models and Codex are generally available on AWS, including Amazon Bedrock and AWS governance channels."
+  },
+  "tags": ["source:official_blog", "provider:openai", "provider:aws-bedrock", "impact:billing_channel_change", "app:codex"],
+  "limitations": ["APW records availability and channel facts only; it does not assert feature parity, account eligibility, or exact AWS regional coverage beyond the official announcement."]
+}

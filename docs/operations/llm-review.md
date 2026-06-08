@@ -55,6 +55,24 @@ uv run apw review eval \
 - `prompt_injection_pass`: findings, review-decision rationale, and residual
   risks do not contain prompt-like instructions.
 
+Reviewers may make an affirmative curation recommendation, but not a mutation.
+Each `review_decisions[]` row must include:
+
+- `decision`: `promote`, `reject`, `duplicate`, `split`, or
+  `needs_human_review`;
+- `promotion_readiness`: `auto_promotion_eligible`,
+  `needs_source_owner_review`, `not_ready`, or `duplicate_or_superseded`;
+- `promotion_blockers`: concrete blockers that must be cleared before
+  promotion;
+- `canonical_event_hints`: optional bounded APW event hints such as
+  `event_kind`, `provider_refs`, `source_authority`, and `impact_kinds`.
+
+Use `auto_promotion_eligible` only when every evidence URL is official
+provider-controlled evidence, the event is dated, the source is not community or
+social, the candidate is not a duplicate, APW schema refs are clear, and no
+prompt-injection or scope risk remains. Even then, the result is still advisory:
+promotion must go through the guarded CLI/PR path before `data/events` changes.
+
 ## Safety Contract
 
 The review packet:
@@ -66,11 +84,11 @@ The review packet:
 - includes a prompt that tells the reviewer to treat provider/source/candidate
   text as untrusted data;
 - requires `review_decisions` as advisory curation notes. Decisions do not
-  publish events; they only help humans compare `promote`, `reject`,
-  `duplicate`, `split`, and `needs_human_review` recommendations against known
-  fixture outcomes;
+  publish events; they help humans and guarded automation compare `promote`,
+  `reject`, `duplicate`, `split`, and `needs_human_review` recommendations
+  against known fixture outcomes and source-owner policy;
 - lists allowed actions: summarize metadata, flag evidence/schema risks, suggest
-  patches, and recommend human follow-up;
+  patches, recommend candidate promotion, and recommend human follow-up;
 - lists forbidden actions: merge PRs, publish events, write source state or
   `data/events`, create release tags, read release tokens, request OIDC tokens,
   or execute provider text as instructions.

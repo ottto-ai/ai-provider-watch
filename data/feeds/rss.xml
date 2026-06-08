@@ -33,11 +33,32 @@
       <pubDate>Thu, 04 Jun 2026 21:19:51 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-02-openai-codex-role-plugins-sites</guid>
+      <title>OpenAI Added Codex Role Plugins, Sites, And Annotations</title>
+      <description>OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Mon, 08 Jun 2026 08:40:40 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-01-openai-codex-aws-bedrock-ga</guid>
+      <title>OpenAI Frontier Models And Codex Became Available On AWS</title>
+      <description>OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.</description>
+      <category>billing_channel_change</category>
+      <pubDate>Mon, 08 Jun 2026 08:40:40 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-01-google-vertex-gemini-2-0-flash-retirement</guid>
       <title>Google Vertex AI Retires Gemini 2.0 Flash Stable Models</title>
       <description>Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.</description>
       <category>model_retirement</category>
       <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-28-anthropic-opus-48-dynamic-workflows</guid>
+      <title>Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls</title>
+      <description>Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Mon, 08 Jun 2026 08:40:40 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2025-02-24-anthropic-claude-3-7-sonnet-launch</guid>

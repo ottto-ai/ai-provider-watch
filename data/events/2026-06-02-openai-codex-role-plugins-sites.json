@@ -1,0 +1,76 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-02-openai-codex-role-plugins-sites",
+  "title": "OpenAI Added Codex Role Plugins, Sites, And Annotations",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai"],
+  "event_date": "2026-06-02",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T08:40:40Z",
+  "announced_at": "2026-06-02T00:00:00Z",
+  "effective_at": "2026-06-02T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/codex-for-every-role-tool-workflow/",
+      "retrieved_at": "2026-06-08T08:40:40Z",
+      "authority": "official_blog",
+      "content_sha256": "a21a6169f7bdbd25936eb3e0cef5d8cb505e7c9008475af45b9e9298eff5a487",
+      "snapshot_ref": "reviewed-source:2026-06-08",
+      "selector": "Codex role plugins, Sites, and annotations announcement",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "product_engineers"],
+      "recommended_action": "Review Codex governance, connected-app permissions, and workspace-sharing policies before enabling role plugins or shared Sites for non-engineering teams."
+    },
+    {
+      "scope_type": "subscription_plan",
+      "scope_ref": "plan:chatgpt-business",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "high",
+      "subscription_impact": "direct",
+      "api_usage_impact": "none",
+      "who_should_care": ["platform_engineers", "security_engineers", "product_engineers"],
+      "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with business data."
+    },
+    {
+      "scope_type": "subscription_plan",
+      "scope_ref": "plan:chatgpt-enterprise",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "high",
+      "subscription_impact": "direct",
+      "api_usage_impact": "none",
+      "who_should_care": ["platform_engineers", "security_engineers", "product_engineers"],
+      "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with enterprise data."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations for workspace sharing and broader knowledge-work automation."
+  },
+  "tags": ["source:official_blog", "provider:openai", "impact:workflow_behavior_change", "app:codex"],
+  "limitations": ["APW records provider-announced availability and behavior changes only; exact workspace rollout and tenant eligibility may vary."]
+}

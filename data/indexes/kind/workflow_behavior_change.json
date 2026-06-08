@@ -1,0 +1,202 @@
+[
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations for workspace sharing and broader knowledge-work automation.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "a21a6169f7bdbd25936eb3e0cef5d8cb505e7c9008475af45b9e9298eff5a487",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T08:40:40Z",
+        "selector": "Codex role plugins, Sites, and annotations announcement",
+        "snapshot_ref": "reviewed-source:2026-06-08",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/codex-for-every-role-tool-workflow/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-codex-role-plugins-sites",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Codex governance, connected-app permissions, and workspace-sharing policies before enabling role plugins or shared Sites for non-engineering teams.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with business data.",
+        "scope_ref": "plan:chatgpt-business",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with enterprise data.",
+        "scope_ref": "plan:chatgpt-enterprise",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records provider-announced availability and behavior changes only; exact workspace rollout and tenant eligibility may vary."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T08:40:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Codex Role Plugins, Sites, And Annotations"
+  },
+  {
+    "announced_at": "2026-05-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Anthropic announced Claude Opus 4.8 along with Claude Code dynamic workflows, effort controls, higher long-running-agent capacity, and cheaper fast mode.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-28T00:00:00Z",
+    "event_date": "2026-05-28",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "14ec9371d86c11aab7ab7001f5454447013348f57363159c96c4feb60cf8660b",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T08:40:40Z",
+        "selector": "Claude Opus 4.8 announcement",
+        "snapshot_ref": "reviewed-source:2026-06-08",
+        "source_key": "anthropic.news",
+        "url": "https://www.anthropic.com/news/claude-opus-4-8"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Claude Code workflows that assume single-agent or short-running execution, and add usage controls before enabling larger dynamic workflow runs.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "unknown",
+        "confidence": "high",
+        "direction": "increase",
+        "impact_kind": "quota",
+        "recommended_action": "Check account and plan limits before treating larger Claude Code runs as free additional capacity.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "high",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official Anthropic announcement",
+          "confidence": "high",
+          "direction": "decrease",
+          "magnitude": "fast mode for Opus 4.8 is advertised as three times cheaper than previous models"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Separate fast-mode usage from higher-effort usage when forecasting Claude Code spend and token-limit pressure.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official announcement facts only; exact account-level rate limits and plan entitlements may vary."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T08:40:40Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.",
+    "tags": [
+      "source:official_blog",
+      "provider:anthropic",
+      "impact:workflow_behavior_change",
+      "app:claude-code"
+    ],
+    "title": "Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls"
+  }
+]
