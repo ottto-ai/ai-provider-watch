@@ -1,0 +1,76 @@
+[
+  {
+    "announced_at": "2026-05-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-06-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "Gemini API image preview model consumers should migrate to supported image model IDs and refresh allowlists, tests, and fallback routing.",
+      "model_refs": [
+        "model:gemini-3.1-flash-image-preview",
+        "model:gemini-3-pro-image-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-image",
+        "model:gemini-3-pro-image"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-28T00:00:00Z",
+    "event_date": "2026-05-28",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:d4be0e8a5abed300",
+        "snapshot_ref": "entry:d4be0e8a5abed300",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-28-google-gemini-image-preview-deprecations",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Replace deprecated Gemini image preview model IDs before the June 25, 2026 shutdown date.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the model IDs and shutdown deadline from the changelog; replacement model suitability is workload-specific."
+    ],
+    "migration_deadline": "2026-06-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_deprecation"
+    ],
+    "title": "Google Gemini API Deprecated Gemini Image Preview Models"
+  }
+]

@@ -5,6 +5,20 @@
     <link>https://github.com/ottto-ai/ai-provider-watch</link>
     <description>Reviewed AI-provider change events.</description>
     <item>
+      <guid isPermaLink="false">2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells</guid>
+      <title>AWS Bedrock AgentCore Runtime Added Interactive Shells</title>
+      <description>AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.</description>
+      <category>api_contract_change</category>
+      <pubDate>Mon, 08 Jun 2026 11:03:55 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-04-aws-bedrock-compatible-api-console</guid>
+      <title>AWS Bedrock Console Added OpenAI And Anthropic-Compatible API Workflow</title>
+      <description>AWS announced a redesigned Bedrock console workflow for the bedrock-mantle endpoint, surfacing OpenAI Responses, OpenAI Chat Completions, and Anthropic Messages compatible API usage through Bedrock projects.</description>
+      <category>api_contract_change</category>
+      <pubDate>Mon, 08 Jun 2026 11:03:55 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-04-openai-image-api-401-errors</guid>
       <title>OpenAI Image API Requests Returned 401 Errors</title>
       <description>OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.</description>
@@ -17,6 +31,20 @@
       <description>OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.</description>
       <category>status_incident</category>
       <pubDate>Thu, 04 Jun 2026 21:20:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-03-aws-step-functions-agentcore-reasoning</guid>
+      <title>AWS Step Functions Added AgentCore-Powered Agentic Reasoning Step</title>
+      <description>AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Mon, 08 Jun 2026 11:03:55 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-03-aws-bedrock-gpt-54-govcloud</guid>
+      <title>AWS Bedrock Added OpenAI GPT-5.4 In AWS GovCloud US-West</title>
+      <description>AWS announced OpenAI GPT-5.4 availability on Amazon Bedrock in AWS GovCloud US-West, expanding regulated-region deployment options for OpenAI model workloads through Bedrock.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:03:55 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2026-06-03-anthropic-opus-4-7-elevated-errors</guid>
@@ -40,6 +68,13 @@
       <pubDate>Mon, 08 Jun 2026 08:40:40 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-01-google-gemini-api-20-flash-shutdown</guid>
+      <title>Google Gemini API Shut Down Gemini 2.0 Flash Models</title>
+      <description>Google Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.</description>
+      <category>model_retirement</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:15 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-01-openai-codex-aws-bedrock-ga</guid>
       <title>OpenAI Frontier Models And Codex Became Available On AWS</title>
       <description>OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.</description>
@@ -54,11 +89,88 @@
       <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-05-28-google-gemini-image-preview-deprecations</guid>
+      <title>Google Gemini API Deprecated Gemini Image Preview Models</title>
+      <description>Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.</description>
+      <category>model_deprecation</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:15 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-05-28-anthropic-opus-48-dynamic-workflows</guid>
       <title>Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls</title>
       <description>Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.</description>
       <category>workflow_behavior_change</category>
       <pubDate>Mon, 08 Jun 2026 08:40:40 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-25-google-gemini-31-flash-lite-preview-shutdown</guid>
+      <title>Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview</title>
+      <description>Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.</description>
+      <category>model_retirement</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:15 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-19-google-gemini-35-flash-managed-agents</guid>
+      <title>Google Gemini API Released Gemini 3.5 Flash And Managed Agents Preview</title>
+      <description>Google Gemini API changelog listed Gemini 3.5 Flash as generally available and introduced Managed Agents in public preview, adding a Google-hosted agent runtime option for Gemini API developers.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:15 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation</guid>
+      <title>Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview</title>
+      <description>Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:15 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-06-google-gemini-interactions-api-breaking-change</guid>
+      <title>Google Gemini API Announced Interactions API Schema Cutover</title>
+      <description>Google Gemini API changelog announced a breaking Interactions API request/response schema cutover, with a new default schema on May 26, 2026 and legacy schema removal on June 8, 2026.</description>
+      <category>api_contract_change</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:15 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-01-azure-openai-realtime-20-translate-whisper-docs</guid>
+      <title>Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage</title>
+      <description>Azure OpenAI what&#x27;s-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-02-01-azure-openai-gpt-realtime-audio-15</guid>
+      <title>Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5</title>
+      <description>Azure OpenAI what&#x27;s-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2025-12-15-azure-openai-gpt-image-audio-model-updates</guid>
+      <title>Azure OpenAI Added GPT-Image-1.5 And December Audio Model Updates</title>
+      <description>Azure OpenAI what&#x27;s-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2025-10-01-azure-openai-audio-image-model-updates</guid>
+      <title>Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini</title>
+      <description>Azure OpenAI what&#x27;s-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2025-09-01-azure-openai-gpt5-codex-sora-video</guid>
+      <title>Azure OpenAI Added GPT-5-Codex And Sora Video-To-Video Support</title>
+      <description>Azure OpenAI what&#x27;s-new notes for September 2025 list GPT-5-Codex availability and Sora video-to-video support, affecting coding-agent model access and video generation workflows on Azure.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2025-08-01-azure-openai-gpt5-realtime-audio-model-router</guid>
+      <title>Azure OpenAI Added GPT-5 Models, Realtime Audio GA, And Model Router GPT-5 Support</title>
+      <description>Azure OpenAI what&#x27;s-new notes for August 2025 list GPT-5 family availability, GPT RealTime and Audio general availability, provisioned spillover GA, and model-router support for GPT-5 series models.</description>
+      <category>model_launch</category>
+      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2025-02-24-anthropic-claude-3-7-sonnet-launch</guid>

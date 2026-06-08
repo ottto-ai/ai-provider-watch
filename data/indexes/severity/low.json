@@ -71,6 +71,77 @@
     "title": "OpenAI Codex Compaction Had Increased Latency"
   },
   {
+    "announced_at": "2026-05-01T00:00:00Z",
+    "confidence": "high",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "The source entry is documentation/concept coverage, so APW marks confidence high rather than confirmed and recommends access verification.",
+      "model_refs": [
+        "model:openai/gpt-realtime-2.0",
+        "model:openai/gpt-realtime-translate",
+        "model:openai/gpt-realtime-whisper"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-01T00:00:00Z",
+    "event_date": "2026-05-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:9a05bfbf0a0c4081",
+        "snapshot_ref": "entry:9a05bfbf0a0c4081",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-01-azure-openai-realtime-20-translate-whisper-docs",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Treat this as a documentation-level availability signal and verify model access, regions, and pricing before routing production audio workflows.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This is a documentation-level signal from the Azure OpenAI what's-new page, not a fully verified production availability matrix."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "low",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage"
+  },
+  {
     "announced_at": "2025-02-24T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

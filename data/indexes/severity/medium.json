@@ -72,6 +72,92 @@
     "title": "OpenAI Image API Requests Returned 401 Errors"
   },
   {
+    "announced_at": "2026-06-03T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Step Functions added an AgentCore-powered reasoning step integration that can run managed AgentCore harnesses inside workflows with model, prompt, tool, session, and audit-history behavior changes.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-03T00:00:00Z",
+    "event_date": "2026-06-03",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:f3e0e0a4a7214d13",
+        "snapshot_ref": "entry:f3e0e0a4a7214d13",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-step-functions-agentcore/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-03-aws-step-functions-agentcore-reasoning",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Step Functions workflow definitions, approval controls, and agent audit logging before moving AgentCore reasoning steps into production workflows.",
+        "scope_ref": "endpoint:aws/step-functions/agentcore-reasoning-step",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "Step Functions workflow execution and Bedrock/AgentCore resources remain separately metered.",
+          "confidence": "high",
+          "direction": "unknown",
+          "magnitude": null
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Model total workflow cost using Step Functions execution volume plus Bedrock model inference and AgentCore resource usage.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the provider-impact surface and metering implications; exact pricing depends on Step Functions, Bedrock, AgentCore, model, and region choices."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:workflow_behavior_change",
+      "impact:cost"
+    ],
+    "title": "AWS Step Functions Added AgentCore-Powered Agentic Reasoning Step"
+  },
+  {
     "announced_at": "2026-06-03T07:10:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",
@@ -317,6 +403,445 @@
       "impact:model_retirement"
     ],
     "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models"
+  },
+  {
+    "announced_at": "2026-05-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-06-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "Gemini API image preview model consumers should migrate to supported image model IDs and refresh allowlists, tests, and fallback routing.",
+      "model_refs": [
+        "model:gemini-3.1-flash-image-preview",
+        "model:gemini-3-pro-image-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-image",
+        "model:gemini-3-pro-image"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-28T00:00:00Z",
+    "event_date": "2026-05-28",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:d4be0e8a5abed300",
+        "snapshot_ref": "entry:d4be0e8a5abed300",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-28-google-gemini-image-preview-deprecations",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Replace deprecated Gemini image preview model IDs before the June 25, 2026 shutdown date.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the model IDs and shutdown deadline from the changelog; replacement model suitability is workload-specific."
+    ],
+    "migration_deadline": "2026-06-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_deprecation"
+    ],
+    "title": "Google Gemini API Deprecated Gemini Image Preview Models"
+  },
+  {
+    "announced_at": "2026-05-25T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-05-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "This event records the actual shutdown entry; the May 7 APW event records the earlier GA launch and deprecation announcement.",
+      "model_refs": [
+        "model:gemini-3.1-flash-lite-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-25T00:00:00Z",
+    "event_date": "2026-05-25",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:8de1d295a752c674",
+        "snapshot_ref": "entry:8de1d295a752c674",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-25-google-gemini-31-flash-lite-preview-shutdown",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Remove Gemini 3.1 Flash-Lite preview from routing, tests, and fallback chains and use the GA model where appropriate.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert that every Gemini API region or account had identical preview access before shutdown."
+    ],
+    "migration_deadline": "2026-05-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_retirement"
+    ],
+    "title": "Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview"
+  },
+  {
+    "announced_at": "2026-05-07T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-05-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "The GA model launch and preview deprecation are captured together because they are announced in the same changelog entry.",
+      "model_refs": [
+        "model:gemini-3.1-flash-lite",
+        "model:gemini-3.1-flash-lite-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-07T00:00:00Z",
+    "event_date": "2026-05-07",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:c49577c9ea994109",
+        "snapshot_ref": "entry:c49577c9ea994109",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Gemini 3.1 Flash-Lite GA for cost-sensitive Gemini API workloads and move off the preview model before shutdown.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "finops"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert workload-level cost savings; verify pricing and quality before migration."
+    ],
+    "migration_deadline": "2026-05-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_launch",
+      "impact:model_deprecation"
+    ],
+    "title": "Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview"
+  },
+  {
+    "announced_at": "2026-02-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This monthly source entry does not enumerate region availability or pricing.",
+      "model_refs": [
+        "model:openai/gpt-realtime-1.5",
+        "model:openai/gpt-audio-1.5"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-realtime",
+        "model:openai/gpt-audio"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-02-01T00:00:00Z",
+    "event_date": "2026-02-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:b4a4be274eb40fa9",
+        "snapshot_ref": "entry:b4a4be274eb40fa9",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-02-01-azure-openai-gpt-realtime-audio-15",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Azure OpenAI GPT-Realtime-1.5 and GPT-Audio-1.5 for voice-first applications, tool calling, and multilingual audio requirements.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source groups these updates under February 2026, so APW uses an approximate month-start event date."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5"
+  },
+  {
+    "announced_at": "2025-12-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "Some models may require limited-access approval; APW does not assert access eligibility.",
+      "model_refs": [
+        "model:openai/gpt-image-1.5",
+        "model:openai/gpt-4o-mini-transcribe-2025-12-15",
+        "model:openai/gpt-realtime-mini-2025-12-15",
+        "model:openai/gpt-4o-mini-tts-2025-12-15"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-image-1",
+        "model:openai/gpt-4o-transcribe-mini"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-12-15T00:00:00Z",
+    "event_date": "2025-12-15",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:6784ee397c68e714",
+        "snapshot_ref": "entry:6784ee397c68e714",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-12-15-azure-openai-gpt-image-audio-model-updates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Refresh Azure OpenAI image and audio model allowlists, tests, and access requests for the December model updates.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the listed Azure OpenAI model-update facts; exact regions and access gates should be checked in Azure before deployment."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT-Image-1.5 And December Audio Model Updates"
+  },
+  {
+    "announced_at": "2025-10-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "Realtime SIP support is tracked in this model-availability event as an adjacent API workflow change.",
+      "model_refs": [
+        "model:openai/gpt-4o-transcribe-diarize",
+        "model:openai/gpt-image-1-mini"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-10-01T00:00:00Z",
+    "event_date": "2025-10-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:d7e34b7a124014a9",
+        "snapshot_ref": "entry:d7e34b7a124014a9",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-10-01-azure-openai-audio-image-model-updates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Review Azure OpenAI audio, realtime, and image-generation model options for routing, access, cost, and feature-fit changes.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "finops"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source groups these updates under October 2025, so APW uses an approximate month-start event date."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini"
   },
   {
     "announced_at": "2024-12-04T18:00:00Z",

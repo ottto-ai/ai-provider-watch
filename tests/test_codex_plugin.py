@@ -77,4 +77,4 @@ def test_mcp_stdio_server_lists_tools_and_reads_latest_resource() -> None:
     tool_names = {tool["name"] for tool in responses[1]["result"]["tools"]}
     assert "apw_latest" in tool_names
     latest_text = responses[2]["result"]["contents"][0]["text"]
-    assert "2024-01-04-openai-gpt3-completions-retirement" in latest_text
+    assert "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells" in latest_text

@@ -1,0 +1,70 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-03-aws-step-functions-agentcore-reasoning",
+  "title": "AWS Step Functions Added AgentCore-Powered Agentic Reasoning Step",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:aws-bedrock"],
+  "event_date": "2026-06-03",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T11:03:55Z",
+  "announced_at": "2026-06-03T00:00:00Z",
+  "effective_at": "2026-06-03T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-step-functions-agentcore/",
+      "retrieved_at": "2026-06-08T11:03:55Z",
+      "authority": "official_blog",
+      "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+      "snapshot_ref": "entry:f3e0e0a4a7214d13",
+      "selector": "announcement:f3e0e0a4a7214d13",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "api_endpoint",
+      "scope_ref": "endpoint:aws/step-functions/agentcore-reasoning-step",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "reliability_engineers", "security_engineers"],
+      "recommended_action": "Review Step Functions workflow definitions, approval controls, and agent audit logging before moving AgentCore reasoning steps into production workflows."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "cost",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "estimated_cost_effect": {
+        "direction": "unknown",
+        "magnitude": null,
+        "basis": "Step Functions workflow execution and Bedrock/AgentCore resources remain separately metered.",
+        "confidence": "high"
+      },
+      "who_should_care": ["finops", "platform_engineers"],
+      "recommended_action": "Model total workflow cost using Step Functions execution volume plus Bedrock model inference and AgentCore resource usage."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "AWS Step Functions added an AgentCore-powered reasoning step integration that can run managed AgentCore harnesses inside workflows with model, prompt, tool, session, and audit-history behavior changes."
+  },
+  "tags": ["source:official_blog", "provider:aws-bedrock", "impact:workflow_behavior_change", "impact:cost"],
+  "limitations": ["APW records the provider-impact surface and metering implications; exact pricing depends on Step Functions, Bedrock, AgentCore, model, and region choices."]
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-03-aws-bedrock-gpt-54-govcloud",
+  "title": "AWS Bedrock Added OpenAI GPT-5.4 In AWS GovCloud US-West",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:aws-bedrock"],
+  "event_date": "2026-06-03",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T11:03:55Z",
+  "announced_at": "2026-06-03T00:00:00Z",
+  "effective_at": "2026-06-03T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced OpenAI GPT-5.4 availability on Amazon Bedrock in AWS GovCloud US-West, expanding regulated-region deployment options for OpenAI model workloads through Bedrock.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/GPT54-available-in-aws-govcloud-us-west/",
+      "retrieved_at": "2026-06-08T11:03:55Z",
+      "authority": "official_blog",
+      "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+      "snapshot_ref": "entry:f9a04b022d9843b3",
+      "selector": "announcement:f9a04b022d9843b3",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "security_engineers", "product_engineers", "finops"],
+      "recommended_action": "Verify GovCloud account access, Bedrock model availability, pricing, and compliance controls before routing regulated OpenAI workloads through Bedrock."
+    },
+    {
+      "scope_type": "cloud_region",
+      "scope_ref": "region:aws-govcloud-us-west",
+      "impact_kind": "compliance",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "api_usage_impact": "direct",
+      "who_should_care": ["security_engineers", "platform_engineers"],
+      "recommended_action": "Update region allowlists and procurement notes if GovCloud OpenAI model access changes deployment options."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:openai/gpt-5.4"],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "This event records Bedrock regional availability, not OpenAI first-party API availability or feature parity."
+  },
+  "tags": ["source:official_blog", "provider:aws-bedrock", "impact:model_launch", "region:aws_govcloud"],
+  "limitations": ["APW does not assert account eligibility, exact pricing, or feature parity beyond the official availability announcement."]
+}
