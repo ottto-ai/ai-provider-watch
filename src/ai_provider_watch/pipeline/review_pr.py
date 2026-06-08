@@ -176,6 +176,39 @@ def _promotion_rows(promotion_report: dict[str, Any]) -> list[str]:
     return rows
 
 
+def _quality_rows(quality_report: dict[str, Any]) -> list[str]:
+    rows: list[str] = []
+    candidates = quality_report.get("candidates", [])
+    if not isinstance(candidates, list):
+        return rows
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            continue
+        blockers = candidate.get("quality_blockers", [])
+        rows.append(
+            "| "
+            + " | ".join(
+                [
+                    _safe_scalar(candidate.get("candidate_id"), CANDIDATE_ID_PATTERN, "<invalid-id>"),
+                    _safe_scalar(
+                        candidate.get("quality_tier"),
+                        re.compile(r"^[a-z_]{3,40}$"),
+                        "<invalid-tier>",
+                    ),
+                    _safe_scalar(
+                        candidate.get("recommended_action"),
+                        re.compile(r"^[a-z_]{3,40}$"),
+                        "<invalid-action>",
+                    ),
+                    str(candidate.get("score") if isinstance(candidate.get("score"), int) else 0),
+                    str(len(blockers) if isinstance(blockers, list) else 0),
+                ]
+            )
+            + " |"
+        )
+    return rows
+
+
 def build_review_pr_body(
     observation_bundle: Any,
     candidate_files: list[CandidateFile],
@@ -183,6 +216,7 @@ def build_review_pr_body(
     root: Path,
     validation_output: str = "",
     promotion_report: dict[str, Any] | None = None,
+    quality_report: dict[str, Any] | None = None,
 ) -> str:
     observations = _observations(observation_bundle)
     changed_source_keys = _changed_source_keys(observation_bundle, observations)
@@ -290,6 +324,35 @@ def build_review_pr_body(
             lines.append("No promotion-readiness rows were available.")
     else:
         lines.append("Promotion-readiness report was not supplied.")
+
+    lines.extend(["", "## Candidate Quality", ""])
+    if quality_report:
+        summary = quality_report.get("summary", {})
+        quality_tier_counts = summary.get("quality_tier_counts", {}) if isinstance(summary, dict) else {}
+        recommended_action_counts = summary.get("recommended_action_counts", {}) if isinstance(summary, dict) else {}
+        lines.extend(
+            [
+                "This ranks review-only candidates by developer relevance, evidence specificity, and source-owner decision quality. It is advisory and cannot publish events.",
+                "",
+                f"- Quality tiers: {_render_mapping(quality_tier_counts)}",
+                f"- Recommended actions: {_render_mapping(recommended_action_counts)}",
+                "",
+            ]
+        )
+        rows = _quality_rows(quality_report)
+        if rows:
+            lines.extend(
+                [
+                    "| Candidate | Quality tier | Recommended action | Score | Blockers |",
+                    "| --- | --- | --- | ---: | ---: |",
+                    *rows,
+                    "",
+                ]
+            )
+        else:
+            lines.append("No candidate-quality rows were available.")
+    else:
+        lines.append("Candidate-quality report was not supplied.")
 
     lines.extend(
         [

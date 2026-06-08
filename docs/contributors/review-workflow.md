@@ -43,6 +43,26 @@ Escalate schema changes to schema maintainers, workflow/token-boundary changes
 to security maintainers, and data tag or package release questions to release
 managers. Source-owner approval does not grant release authority.
 
+## Candidate Quality Reports
+
+Candidate-review PRs include advisory quality tiers when available:
+
+- `high_value`: official, dated, developer-relevant, and specific enough for a
+  reviewer to recommend source-owner promotion;
+- `reviewable`: likely useful but still needs source-owner judgment on event
+  shape, duplicate checks, or impact mapping;
+- `low_signal`: broad source churn or generic parser output that should usually
+  be rejected;
+- `duplicate`: already covered by another candidate or reviewed event;
+- `blocked`: evidence, schema, source, or safety blockers are unresolved.
+
+These reports give review agents more context to recommend `promote`, `reject`,
+`duplicate`, `split`, or `needs_human_review`. They do not let agents publish
+events, merge pull requests, create data tags, request OIDC, or read release
+tokens.
+When quality reports include `duplicate_event_ids`, reviewers should cite the
+existing event and avoid creating another ProviderEvent for the same evidence.
+
 ## Evidence Boundaries
 
 Commit:

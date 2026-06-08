@@ -67,6 +67,7 @@ def test_review_request_defaults_to_codex_and_omits_claim_text(tmp_path) -> None
     assert {"promote", "reject", "duplicate"} <= set(request["output_contract"]["allowed_review_decisions"])
     assert "auto_promotion_eligible" in request["output_contract"]["allowed_promotion_readiness"]
     assert "provider-controlled official evidence" in request["output_contract"]["promotion_readiness_policy"]["auto_promotion_eligible"]
+    assert request["output_contract"]["candidate_quality_policy"]["high_value"].startswith("Reviewer may recommend promote")
 
     rendered = json.dumps(request)
     assert "OpenAI status feed changed" not in rendered
@@ -192,6 +193,19 @@ def test_review_request_cli_writes_output(tmp_path) -> None:
     }
     assert "reasons" in request["candidates"][0]["promotion_readiness"]
     assert "evidence_refs" in request["candidates"][0]["promotion_readiness"]
+    assert request["candidates"][0]["candidate_quality"]["quality_tier"] in {
+        "high_value",
+        "reviewable",
+        "low_signal",
+        "duplicate",
+        "blocked",
+    }
+    assert request["candidates"][0]["candidate_quality"]["recommended_action"] in {
+        "promote",
+        "reject",
+        "duplicate",
+        "needs_human_review",
+    }
 
 
 def _review_result(request: dict, candidate_ids: list[str]) -> dict:
@@ -278,8 +292,17 @@ def _decision_result(request: dict, expected_decisions: dict[str, str]) -> dict:
         decision["canonical_event_hints"] = {
             "event_kind": "status_incident",
             "provider_refs": ["provider:openai"],
-            "source_authority": "official_status",
+            "source_authorities": ["official_status"],
+            "source_types": ["status_page"],
             "impact_kinds": ["availability"],
+            "evidence_refs": [
+                {
+                    "source_key": "openai.status",
+                    "url": "https://status.openai.com/feed.atom",
+                    "authority": "official_status",
+                    "retrieved_at": "2026-05-31T20:00:00Z",
+                }
+            ],
         } if decision["decision"] == "promote" else None
         if decision["decision"] == "duplicate":
             duplicate_target = next(

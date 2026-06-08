@@ -58,10 +58,12 @@ uv run apw review eval \
 Reviewers may make an affirmative curation recommendation, but not a mutation.
 The request includes deterministic promotion-readiness context for each
 candidate when available: flags, reasons, blockers, canonical event hints, and
-sanitized evidence summaries. This gives the reviewer enough context to
-recommend `promote` when the official dated evidence is strong, or to explain
-why the candidate should be rejected, split, deduplicated, or kept for source
-owner review.
+sanitized evidence summaries. It also includes candidate-quality context when
+available: quality tier, recommended action, score, dimensions, reasons,
+quality blockers, and bounded event hints. This gives the reviewer enough
+context to recommend `promote` when the official dated evidence is strong, or
+to explain why the candidate should be rejected, split, deduplicated, or kept
+for source-owner review.
 Each `review_decisions[]` row must include:
 
 - `decision`: `promote`, `reject`, `duplicate`, `split`, or
@@ -71,13 +73,27 @@ Each `review_decisions[]` row must include:
 - `promotion_blockers`: concrete blockers that must be cleared before
   promotion;
 - `canonical_event_hints`: optional bounded APW event hints such as
-  `event_kind`, `provider_refs`, `source_authority`, and `impact_kinds`.
+  `event_kind`, `provider_refs`, `source_authorities`, `source_types`,
+  `impact_kinds`, and sanitized `evidence_refs`.
 
 Use `auto_promotion_eligible` only when every evidence URL is official
 provider-controlled evidence, the event is dated, the source is not community or
 social, the candidate is not a duplicate, APW schema refs are clear, and no
 prompt-injection or scope risk remains. Even then, the result is still advisory:
 promotion must go through the guarded CLI/PR path before `data/events` changes.
+
+Use candidate-quality tiers as the reviewer authority ladder:
+
+- `high_value`: recommend `promote` only when promotion-readiness also has no
+  blocker and official evidence is specific enough for source-owner event
+  authoring;
+- `reviewable`: recommend `needs_human_review` until a source owner resolves
+  impact mapping, duplicate checks, or event split decisions;
+- `low_signal`: recommend `reject` for broad source churn or generic parser
+  output unless direct official evidence proves a concrete APW-scope change;
+- `duplicate`: recommend `duplicate` and cite the covering candidate or event;
+- `blocked`: recommend `reject` or `needs_human_review` until schema, evidence,
+  safety, or source blockers are cleared.
 
 ## Safety Contract
 
@@ -89,6 +105,9 @@ The review packet:
   evidence URLs after bounded rendering;
 - includes deterministic promotion-readiness reasons and blockers when the
   candidate-readiness report was rendered;
+- includes deterministic candidate-quality tiers, recommended actions, and
+  blockers when the candidate-quality report was rendered, including
+  `duplicate_event_ids` when evidence is already covered by reviewed APW data;
 - includes a prompt that tells the reviewer to treat provider/source/candidate
   text as untrusted data;
 - requires `review_decisions` as advisory curation notes. Decisions do not
@@ -115,7 +134,7 @@ as an artifact. It intentionally does not post comments or call model APIs.
 Run these before trusting a review packet:
 
 ```bash
-uv run pytest tests/test_prompt_injection_redteam.py tests/test_llm_review.py
+uv run pytest tests/test_prompt_injection_redteam.py tests/test_llm_review.py tests/test_candidate_quality.py
 uv run apw validate
 uv run apw index --check
 ```
