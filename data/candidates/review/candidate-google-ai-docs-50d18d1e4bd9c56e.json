@@ -1,20 +1,20 @@
 {
   "candidate_kind": "model_launch",
-  "claim_text": "Google Gemini/Vertex model documentation source changed and needs maintainer review for possible model availability or deprecation changes.",
-  "created_at": "2026-06-07T09:36:10Z",
-  "dedupe_key": "google.ai_docs:model_launch:f17a6eb4e0e80f812616a3d4",
+  "claim_text": "Google Gemini/Vertex model documentation source changed and needs maintainer review for possible model availability, deprecation, default-model, or workflow behavior changes.",
+  "created_at": "2026-06-08T11:04:20Z",
+  "dedupe_key": "google.ai_docs:model_launch:b7032bd640f5795216d2bf07",
   "evidence_refs": [
     {
       "authority": "official_docs",
-      "content_sha256": "c98053cb569215b76fc181eafdfb2c3743bae3610cab5349154e00e1b6c89846",
-      "fingerprint": "d780fe5020afea9411a4c9d7b2dcdb54eb29c67817df530f37f87517b6a1f033",
-      "retrieved_at": "2026-06-07T09:36:08Z",
+      "content_sha256": "56bc0295669322af50dba0f871366b4f76c805f956e56bb1b0f301c2f180ff21",
+      "fingerprint": "74fba7b714cd9b8da8ad5dda362a744e0740de4093de3e39f9fab588c9acc453",
+      "retrieved_at": "2026-06-08T11:04:13Z",
       "snapshot_ref": null,
       "source_key": "google.ai_docs",
       "url": "https://ai.google.dev/gemini-api/docs/models"
     }
   ],
-  "id": "candidate-google-ai-docs-d405357da7c0b5cf",
+  "id": "candidate-google-ai-docs-50d18d1e4bd9c56e",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."

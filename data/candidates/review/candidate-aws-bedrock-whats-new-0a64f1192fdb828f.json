@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-06-03 for amazon-bedrock, aws-bedrock, codex, gpt-5.4.",
+  "created_at": "2026-06-08T11:04:20Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:418f42d5c94794822e561240",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+      "fingerprint": "910e66559403cdc15ff8a661d1758b3ec5e4e87f5e89f5f0692eac025326b02d",
+      "retrieved_at": "2026-06-08T11:03:55Z",
+      "selector": "announcement:f9a04b022d9843b3",
+      "snapshot_ref": "entry:f9a04b022d9843b3",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/GPT54-available-in-aws-govcloud-us-west/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-0a64f1192fdb828f",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
