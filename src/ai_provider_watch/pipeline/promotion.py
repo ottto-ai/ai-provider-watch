@@ -49,6 +49,19 @@ DATED_SOURCE_TYPES = {
     "status_page",
 }
 
+GENERIC_CLAIM_MARKERS = (
+    "changed and needs maintainer review",
+    "documentation changed",
+    "docs changed",
+    "feed changed",
+    "needs maintainer review",
+    "page changed",
+    "possible incident",
+    "possible status",
+    "source changed",
+    "supported model list",
+)
+
 READINESS_TO_RECOMMENDATION = {
     "auto_promotion_eligible": "promote",
     "needs_source_owner_review": "needs_human_review",
@@ -161,6 +174,13 @@ def _impact_kinds(candidate_kind: str) -> list[str]:
     return KIND_TO_IMPACT_KINDS.get(candidate_kind, ["unknown"])
 
 
+def _specific_fact_signal(claim_text: Any) -> bool:
+    if not isinstance(claim_text, str) or contains_prompt_injection_marker(claim_text):
+        return False
+    normalized = re.sub(r"\s+", " ", claim_text.lower())
+    return not any(marker in normalized for marker in GENERIC_CLAIM_MARKERS)
+
+
 def _readiness(
     *,
     critical_blockers: list[str],
@@ -193,6 +213,7 @@ def _report_candidate(
     evidence_refs = _candidate_evidence_refs(candidate)
     claim_text = candidate.get("claim_text")
     prompt_safe = isinstance(claim_text, str) and not contains_prompt_injection_marker(claim_text)
+    specific_fact_signal = _specific_fact_signal(claim_text)
     claim_text_hash = _sha256_text(claim_text) if isinstance(claim_text, str) else "<invalid-sha256>"
 
     critical_blockers: list[str] = []
@@ -218,6 +239,8 @@ def _report_candidate(
         duplicate_blockers.append("Candidate dedupe key appears more than once in this review window.")
     if not prompt_safe:
         critical_blockers.append("Candidate claim text is missing or contains prompt-like text.")
+    if not specific_fact_signal:
+        review_blockers.append("Candidate claim is generic change-detection output; source owner must verify a concrete fact before promotion.")
 
     parser = candidate.get("parser")
     if not isinstance(parser, dict) or parser.get("contract_version") != PARSER_CONTRACT_VERSION:
@@ -288,6 +311,7 @@ def _report_candidate(
         "allowed_evidence": allowed_evidence,
         "high_signal_kind": high_signal_kind,
         "dated_source_signal": dated_source_signal,
+        "specific_fact_signal": specific_fact_signal,
         "schema_safe": schema_safe,
         "prompt_safe": prompt_safe,
         "no_duplicate_in_window": no_duplicates,
@@ -307,6 +331,8 @@ def _report_candidate(
         reasons.append("Candidate kind maps to APW high-signal impact categories.")
     if dated_source_signal:
         reasons.append("At least one source type carries an independent dated change signal.")
+    if specific_fact_signal:
+        reasons.append("Candidate claim has a concrete-fact signal rather than generic change-detection wording.")
     if no_duplicates:
         reasons.append("No duplicate candidate id or dedupe key was found in this review window.")
 
