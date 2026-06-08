@@ -125,10 +125,10 @@
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
   "generated_at": "2026-06-08T11:04:15Z",
-  "generated_by": "ai-provider-watch 0.1.0",
+  "generated_by": "ai-provider-watch 0.1.1",
   "latest_event_date": "2026-06-05",
   "latest_observed_at": "2026-06-08T11:04:15Z",
-  "package_version": "0.1.0",
+  "package_version": "0.1.1",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
     "manifest_path": "data/releases/dev/manifest.json"

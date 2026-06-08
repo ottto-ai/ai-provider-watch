@@ -51,6 +51,31 @@ Pre-1.0 caveats:
 - a breaking CLI/schema/feed change requires a new minor line such as `0.2.0`
   unless it fixes a security issue or invalid published data.
 
+## Bundled Data Snapshot Policy
+
+GitHub CalVer data releases, such as `data-2026.06.08`, are the canonical
+immutable feed snapshots. PyPI package releases are installable CLI snapshots
+that bundle reviewed public data for no-checkout and offline use.
+
+Do not publish a Python package for every daily data tag. Publish a `0.1.x`
+patch package when one of these is true:
+
+- bundled data freshness materially improves install-only users;
+- README examples or docs depend on the newer bundled event IDs;
+- package, CLI, MCP, schema, or bundled-data loading behavior changed;
+- the previous package contains invalid public data or a packaging bug.
+
+If reviewed events land after a same-day data tag has already been signed, do
+not move or recreate that data tag. Ship the next immutable data release under
+the next approved data-release identity, and publish a package patch only when
+the bundled-data snapshot itself is worth updating.
+
+Decision for `0.1.1`: publish the package patch. PR #89 promoted the June 8
+official-source review window into sixteen additional reviewed ProviderEvents
+and raised the bundled feed from twelve to twenty-eight events. Install-only
+users of `0.1.0` otherwise miss the higher-value AWS Bedrock, Google Gemini API,
+and Azure OpenAI changes until they fetch repository data directly.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.

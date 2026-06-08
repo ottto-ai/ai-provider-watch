@@ -113,4 +113,6 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/schemas/release-publication-packet.schema.json" in names
     assert "ai_provider_watch/_data/registries/providers.json" in names
     assert "ai_provider_watch/_data/sources/registry.json" in names
+    assert "ai_provider_watch/_data/sources/aws-bedrock/fixtures/whats-new-feed.xml" in names
+    assert "ai_provider_watch/_data/sources/openai/fixtures/news-feed.xml" in names
     assert any(item["id"] == "2026-06-01-google-vertex-gemini-2-0-flash-retirement" for item in latest)
