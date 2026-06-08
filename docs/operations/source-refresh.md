@@ -66,7 +66,8 @@ The daily workflow now builds a draft candidate-review PR after source refresh:
 2. clean and regenerate review-only candidates in `data/candidates/review`;
 3. run `apw validate` and `apw index --check`;
 4. render a PR body with observation counts, changed source keys, candidate
-   file paths, validation output, and a maintainer checklist;
+   file paths, advisory promotion-readiness context, validation output, and a
+   maintainer checklist;
 5. commit only `data/source-state/fingerprints.json` plus sanitized candidate
    JSON.
 
@@ -80,6 +81,22 @@ Candidate JSON can include bounded factual `claim_text`, but those files are not
 published events and require maintainer review before promotion to `data/events`.
 Because `data/candidates/review` is generated workflow output, each run replaces
 its JSON files instead of preserving stale candidates.
+
+The promotion-readiness section is deterministic source-owner context. It may
+mark a candidate `auto_promotion_eligible` only when the candidate is official,
+provider-controlled, dated by the source type, high-signal, schema-safe,
+prompt-safe, and non-duplicate in the review window. This is not publication
+authority: source-refresh and candidate-review workflows still cannot publish
+events, merge PRs, create tags, request OIDC, or read release tokens.
+
+Maintainers can render the same machine-readable report locally:
+
+```bash
+uv run apw candidate readiness \
+  --candidates data/candidates/review \
+  --created-at 2026-05-31T20:15:00Z \
+  --output .apw/promotion-readiness.json
+```
 
 Parser output is intentionally narrow at this stage. Changed official sources
 produce generic maintainer-review claims. Atom and Statuspage-style status

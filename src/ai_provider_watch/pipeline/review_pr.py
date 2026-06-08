@@ -143,12 +143,46 @@ def _candidate_rows(candidate_files: list[CandidateFile], root: Path) -> list[st
     return rows
 
 
+def _promotion_rows(promotion_report: dict[str, Any]) -> list[str]:
+    rows: list[str] = []
+    candidates = promotion_report.get("candidates", [])
+    if not isinstance(candidates, list):
+        return rows
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            continue
+        blockers = candidate.get("promotion_blockers", [])
+        rows.append(
+            "| "
+            + " | ".join(
+                [
+                    _safe_scalar(candidate.get("candidate_id"), CANDIDATE_ID_PATTERN, "<invalid-id>"),
+                    _safe_scalar(
+                        candidate.get("readiness"),
+                        re.compile(r"^[a-z_]{3,40}$"),
+                        "<invalid-readiness>",
+                    ),
+                    _safe_scalar(
+                        candidate.get("recommendation"),
+                        re.compile(r"^[a-z_]{3,40}$"),
+                        "<invalid-recommendation>",
+                    ),
+                    str(candidate.get("score") if isinstance(candidate.get("score"), int) else 0),
+                    str(len(blockers) if isinstance(blockers, list) else 0),
+                ]
+            )
+            + " |"
+        )
+    return rows
+
+
 def build_review_pr_body(
     observation_bundle: Any,
     candidate_files: list[CandidateFile],
     *,
     root: Path,
     validation_output: str = "",
+    promotion_report: dict[str, Any] | None = None,
 ) -> str:
     observations = _observations(observation_bundle)
     changed_source_keys = _changed_source_keys(observation_bundle, observations)
@@ -228,6 +262,35 @@ def build_review_pr_body(
     else:
         lines.append("No candidate files were generated in this run.")
 
+    lines.extend(["", "## Promotion Readiness", ""])
+    if promotion_report:
+        summary = promotion_report.get("summary", {})
+        readiness_counts = summary.get("readiness_counts", {}) if isinstance(summary, dict) else {}
+        recommendation_counts = summary.get("recommendation_counts", {}) if isinstance(summary, dict) else {}
+        lines.extend(
+            [
+                "This is advisory source-owner context. It does not publish events, merge PRs, create tags, request OIDC, or read release tokens.",
+                "",
+                f"- Readiness: {_render_mapping(readiness_counts)}",
+                f"- Recommendations: {_render_mapping(recommendation_counts)}",
+                "",
+            ]
+        )
+        rows = _promotion_rows(promotion_report)
+        if rows:
+            lines.extend(
+                [
+                    "| Candidate | Readiness | Recommendation | Score | Blockers |",
+                    "| --- | --- | --- | ---: | ---: |",
+                    *rows,
+                    "",
+                ]
+            )
+        else:
+            lines.append("No promotion-readiness rows were available.")
+    else:
+        lines.append("Promotion-readiness report was not supplied.")
+
     lines.extend(
         [
             "",
@@ -253,3 +316,14 @@ def _render_counter(counter: Counter[str]) -> str:
     if not counter:
         return "none"
     return ", ".join(f"{key}={counter[key]}" for key in sorted(counter))
+
+
+def _render_mapping(value: Any) -> str:
+    if not isinstance(value, dict) or not value:
+        return "none"
+    rendered: list[str] = []
+    for key in sorted(value):
+        count = value[key]
+        if isinstance(key, str) and isinstance(count, int):
+            rendered.append(f"{key}={count}")
+    return ", ".join(rendered) if rendered else "none"

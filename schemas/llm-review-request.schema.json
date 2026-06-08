@@ -195,6 +195,35 @@
               "fingerprint": { "type": "string", "pattern": "^(<invalid-sha256>|[a-f0-9]{64})$" }
             }
           }
+        },
+        "promotion_readiness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["readiness", "recommendation", "score", "flags", "promotion_blockers", "canonical_event_hints"],
+          "properties": {
+            "readiness": {
+              "enum": [
+                "not_ready",
+                "needs_source_owner_review",
+                "auto_promotion_eligible",
+                "duplicate_or_superseded"
+              ]
+            },
+            "recommendation": { "enum": ["promote", "reject", "duplicate", "needs_human_review"] },
+            "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "flags": {
+              "type": "object",
+              "additionalProperties": { "type": "boolean" }
+            },
+            "promotion_blockers": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 300 }
+            },
+            "canonical_event_hints": {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            }
+          }
         }
       }
     }
