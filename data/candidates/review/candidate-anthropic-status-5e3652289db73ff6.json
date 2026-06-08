@@ -1,20 +1,20 @@
 {
   "candidate_kind": "status_incident",
   "claim_text": "Anthropic status source changed and needs maintainer review for possible incident or recovery changes.",
-  "created_at": "2026-06-07T09:36:10Z",
+  "created_at": "2026-06-08T10:01:37Z",
   "dedupe_key": "anthropic.status:status_incident:112cd5504684fc54409d4691",
   "evidence_refs": [
     {
       "authority": "official_status",
-      "content_sha256": "0848c05321cee34d499268dba948f6dd20981dac2268b7f8b7d0757713a79556",
-      "fingerprint": "0bfa18c3038bafafb8ca29c0a8983e157c3dfb1483f46ce1d7f4215187a1b645",
-      "retrieved_at": "2026-06-07T09:35:52Z",
+      "content_sha256": "9f5ea47a761f60199ddda8901a347920bf26910995281030baa99377b8d84516",
+      "fingerprint": "01ad54c9dd067b9a87fd1a5cd171db3a3cc34354b0b61f00c8a5b6864110eae5",
+      "retrieved_at": "2026-06-08T10:01:20Z",
       "snapshot_ref": null,
       "source_key": "anthropic.status",
       "url": "https://status.claude.com/"
     }
   ],
-  "id": "candidate-anthropic-status-b7d2d756b8f489e3",
+  "id": "candidate-anthropic-status-5e3652289db73ff6",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."

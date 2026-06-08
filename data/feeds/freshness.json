@@ -125,10 +125,10 @@
   "schema_version": "apw.feed_freshness.v0",
   "source_state": {
     "bytes": 3737,
-    "latest_retrieved_at": "2026-06-07T09:36:10Z",
+    "latest_retrieved_at": "2026-06-08T10:01:37Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "sha256": "b55e1ad088377e829a9a78898d64295086002ab389b626973636bb24d48a9632",
+    "sha256": "3d14c7576650c1e057204d24a51d39b334198294d8fa7e1dad8c54c03b4d9bba",
     "source_count": 10
   }
 }

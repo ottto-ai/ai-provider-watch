@@ -1,20 +1,20 @@
 {
   "candidate_kind": "pricing_change",
   "claim_text": "Azure OpenAI pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes.",
-  "created_at": "2026-06-07T09:36:10Z",
+  "created_at": "2026-06-08T10:01:37Z",
   "dedupe_key": "azure_openai.pricing:pricing_change:65b3bdd09019adce1ca01822",
   "evidence_refs": [
     {
       "authority": "official_pricing",
-      "content_sha256": "0faf144b2ec0d74bb8219c90985d0a9d49e3db3870bff0e017c486c9422e0ac3",
-      "fingerprint": "f51c368a68acb2b3f6e1c72bc221f8cb23331270af231d6d114b182a1b9c310a",
-      "retrieved_at": "2026-06-07T09:35:53Z",
+      "content_sha256": "81d6d7a5abba4b5d401b00ec5fc914fcc5a5c7265c5ed9f3b903c3d6f08c8a24",
+      "fingerprint": "00af6bf9a2b1700a5042e58ecac22daa781f47533e0b889fee3e435ee4a6546d",
+      "retrieved_at": "2026-06-08T10:01:21Z",
       "snapshot_ref": null,
       "source_key": "azure_openai.pricing",
       "url": "https://azure.microsoft.com/en-us/pricing/details/azure-openai/"
     }
   ],
-  "id": "candidate-azure-openai-pricing-c3f1c8e0ed93fe77",
+  "id": "candidate-azure-openai-pricing-5a633b13f6284dcc",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."
