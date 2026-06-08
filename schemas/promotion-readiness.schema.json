@@ -125,6 +125,7 @@
             "allowed_evidence",
             "high_signal_kind",
             "dated_source_signal",
+            "specific_fact_signal",
             "schema_safe",
             "prompt_safe",
             "no_duplicate_in_window"
@@ -135,6 +136,7 @@
             "allowed_evidence": { "type": "boolean" },
             "high_signal_kind": { "type": "boolean" },
             "dated_source_signal": { "type": "boolean" },
+            "specific_fact_signal": { "type": "boolean" },
             "schema_safe": { "type": "boolean" },
             "prompt_safe": { "type": "boolean" },
             "no_duplicate_in_window": { "type": "boolean" }

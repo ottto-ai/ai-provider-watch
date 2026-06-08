@@ -42,6 +42,13 @@ def _report(candidate_dir: Path, *, root: Path | None = None) -> dict:
     )
 
 
+def _make_openai_status_claim_concrete(candidate_dir: Path) -> None:
+    path = next(candidate_dir.glob("candidate-openai-status-*.json"))
+    candidate = read_json(path)
+    candidate["claim_text"] = "OpenAI status recorded a dated API availability incident on 2026-05-31."
+    path.write_text(json.dumps(candidate), encoding="utf-8")
+
+
 def _by_source(report: dict) -> dict[str, dict]:
     return {
         candidate["source_keys"][0]: candidate
@@ -51,7 +58,9 @@ def _by_source(report: dict) -> dict[str, dict]:
 
 
 def test_promotion_readiness_report_scores_official_candidates(tmp_path) -> None:
-    report = _report(_candidate_dir(tmp_path), root=tmp_path)
+    candidate_dir = _candidate_dir(tmp_path)
+    _make_openai_status_claim_concrete(candidate_dir)
+    report = _report(candidate_dir, root=tmp_path)
 
     schema = load_schemas(ROOT)["promotion_readiness"]
     assert not list(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(report))
@@ -79,6 +88,16 @@ def test_promotion_readiness_report_scores_official_candidates(tmp_path) -> None
     rendered = json.dumps(report)
     assert "OpenAI status feed changed" not in rendered
     assert "Anthropic pricing page changed" not in rendered
+
+
+def test_generic_change_detection_claims_need_source_owner_review(tmp_path) -> None:
+    report = _report(_candidate_dir(tmp_path), root=tmp_path)
+    candidates = _by_source(report)
+
+    assert report["summary"]["readiness_counts"] == {"needs_source_owner_review": 3}
+    assert candidates["openai.status"]["readiness"] == "needs_source_owner_review"
+    assert candidates["openai.status"]["flags"]["specific_fact_signal"] is False
+    assert any("generic change-detection output" in blocker for blocker in candidates["openai.status"]["promotion_blockers"])
 
 
 def test_promotion_readiness_rejects_community_or_prompt_like_candidates(tmp_path) -> None:
@@ -145,7 +164,7 @@ def test_candidate_readiness_cli_writes_schema_valid_output(tmp_path) -> None:
 
     report = read_json(output_path)
     assert report["candidate_count"] == 3
-    assert report["summary"]["promotion_ready_candidate_ids"]
+    assert report["summary"]["promotion_ready_candidate_ids"] == []
 
 
 def test_candidate_review_pr_body_includes_promotion_context(tmp_path, capsys) -> None:
@@ -173,8 +192,7 @@ def test_candidate_review_pr_body_includes_promotion_context(tmp_path, capsys) -
     body = capsys.readouterr().out
 
     assert "## Promotion Readiness" in body
-    assert "auto_promotion_eligible=1" in body
-    assert "needs_source_owner_review=2" in body
+    assert "needs_source_owner_review=3" in body
     assert "does not publish events, merge PRs, create tags, request OIDC, or read release tokens" in body
     assert "OpenAI status feed changed" not in body
 
@@ -190,4 +208,4 @@ def test_build_review_pr_body_accepts_explicit_promotion_report(tmp_path) -> Non
     )
 
     assert "Promotion Readiness" in body
-    assert "promote=1" in body
+    assert "needs_human_review=3" in body

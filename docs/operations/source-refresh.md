@@ -86,9 +86,11 @@ its JSON files instead of preserving stale candidates.
 The promotion-readiness section is deterministic source-owner context. It may
 mark a candidate `auto_promotion_eligible` only when the candidate is official,
 provider-controlled, dated by the source type, high-signal, schema-safe,
-prompt-safe, and non-duplicate in the review window. This is not publication
-authority: source-refresh and candidate-review workflows still cannot publish
-events, merge PRs, create tags, request OIDC, or read release tokens.
+prompt-safe, non-generic, and non-duplicate in the review window. Generic
+"source changed" candidates remain source-owner review work. This is not
+publication authority: source-refresh and candidate-review workflows still
+cannot publish events, merge PRs, create tags, request OIDC, or read release
+tokens.
 
 Maintainers can render the same machine-readable report locally:
 
