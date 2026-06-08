@@ -21,8 +21,19 @@ def _assert_no_release_authority(workflow: str) -> None:
 def test_source_refresh_workflow_detects_untracked_candidate_files() -> None:
     workflow = _workflow("source-refresh.yml")
 
-    assert "git status --porcelain -- data/source-state/fingerprints.json data/candidates" in workflow
+    assert (
+        "git status --porcelain -- data/source-state/fingerprints.json data/candidates data/feeds data/indexes data/releases/dev"
+        in workflow
+    )
     assert "git diff --quiet -- data/source-state/fingerprints.json data/candidates" not in workflow
+
+
+def test_source_refresh_workflow_regenerates_metadata_after_source_state_change() -> None:
+    workflow = _workflow("source-refresh.yml")
+
+    assert "uv run apw index: pass" in workflow
+    assert "git add data/source-state/fingerprints.json data/candidates data/feeds data/indexes data/releases/dev" in workflow
+    assert workflow.index("- run: uv run apw index") < workflow.index("- run: uv run apw validate")
 
 
 def test_source_refresh_workflow_cleans_generated_review_candidates() -> None:

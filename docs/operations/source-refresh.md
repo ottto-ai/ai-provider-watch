@@ -64,12 +64,13 @@ The daily workflow now builds a draft candidate-review PR after source refresh:
 1. fetch enabled official sources, parse sanitized observation metadata, and
    update fingerprint state;
 2. clean and regenerate review-only candidates in `data/candidates/review`;
-3. run `apw validate` and `apw index --check`;
+3. run `apw validate`, regenerate generated metadata with `apw index`, then
+   rerun `apw validate` and `apw index --check`;
 4. render a PR body with observation counts, changed source keys, candidate
    file paths, advisory promotion-readiness context, validation output, and a
    maintainer checklist;
-5. commit only `data/source-state/fingerprints.json` plus sanitized candidate
-   JSON.
+5. commit only `data/source-state/fingerprints.json`, sanitized candidate JSON,
+   and generated feed/index/release metadata such as freshness/checksum files.
 
 The repository-level GitHub Actions workflow permission must allow Actions to
 create pull requests. The workflow still uses only the default `GITHUB_TOKEN`,
