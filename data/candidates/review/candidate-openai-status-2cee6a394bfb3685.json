@@ -1,20 +1,20 @@
 {
   "candidate_kind": "status_incident",
   "claim_text": "OpenAI status source changed and needs maintainer review for a possible status incident or recovery.",
-  "created_at": "2026-06-07T09:36:10Z",
+  "created_at": "2026-06-08T10:09:02Z",
   "dedupe_key": "openai.status:status_incident:a9266ebdbb2c3b25ad60aa4a",
   "evidence_refs": [
     {
       "authority": "official_status",
-      "content_sha256": "f824b0b5b97e548c9f7a37486f7b8ed5f205d6e59528d415e8a5bd5d9997fad9",
-      "fingerprint": "f84fc27a7f3a91e5fad3f66546194278dcbb70ae45424b4e667d1137ce8786c9",
-      "retrieved_at": "2026-06-07T09:36:10Z",
+      "content_sha256": "09ead30d9415d05eaab090497ec8d18c8e1e032c57e5c6afde88c8dc4f6515ad",
+      "fingerprint": "55980c1b85388ed37036380d95ddc7a002b8eb33626222637a965a5e29dc4ef6",
+      "retrieved_at": "2026-06-08T10:09:02Z",
       "snapshot_ref": null,
       "source_key": "openai.status",
       "url": "https://status.openai.com/feed.atom"
     }
   ],
-  "id": "candidate-openai-status-e0820073f1be9fa3",
+  "id": "candidate-openai-status-2cee6a394bfb3685",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."

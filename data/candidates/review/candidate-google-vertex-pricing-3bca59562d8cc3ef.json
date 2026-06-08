@@ -1,20 +1,20 @@
 {
   "candidate_kind": "pricing_change",
-  "claim_text": "Google Gemini/Vertex pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes.",
-  "created_at": "2026-06-07T09:36:10Z",
-  "dedupe_key": "google.vertex_pricing:pricing_change:6a82f2635e4510e47909a098",
+  "claim_text": "Google Gemini/Vertex pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, quota/rate-limit, or regional availability changes.",
+  "created_at": "2026-06-08T10:09:02Z",
+  "dedupe_key": "google.vertex_pricing:pricing_change:529d13c27d9dafe437d20f0b",
   "evidence_refs": [
     {
       "authority": "official_pricing",
-      "content_sha256": "63fb6be6ec8fa14a4f70b5495edeba32c1fc106b05897301ed43a2c68a3c1ab3",
-      "fingerprint": "a1b82dd5a448d32c63af9ee3b234a3364a84d73dd972d25cc48fdb73d9f220c3",
-      "retrieved_at": "2026-06-07T09:36:09Z",
+      "content_sha256": "4a7780c805cfd76d9c491e2c63717d18fa9a6d04913cf8bc18097d2e5245b706",
+      "fingerprint": "761c081d689a6c2b39dcf2da98a881196f61a4b797f3eaa2c25b28e85915196a",
+      "retrieved_at": "2026-06-08T10:09:00Z",
       "snapshot_ref": null,
       "source_key": "google.vertex_pricing",
       "url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing"
     }
   ],
-  "id": "candidate-google-vertex-pricing-326e9327eb1d1842",
+  "id": "candidate-google-vertex-pricing-3bca59562d8cc3ef",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."
