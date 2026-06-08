@@ -124,11 +124,11 @@
   "release_id": "dev",
   "schema_version": "apw.feed_freshness.v0",
   "source_state": {
-    "bytes": 3737,
-    "latest_retrieved_at": "2026-06-07T09:36:10Z",
+    "bytes": 5523,
+    "latest_retrieved_at": "2026-06-08T11:21:16Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "sha256": "b55e1ad088377e829a9a78898d64295086002ab389b626973636bb24d48a9632",
-    "source_count": 10
+    "sha256": "bef997aa58f426f077d63a9e9423ad6279b46947587919a57f6b8c3369dd26e3",
+    "source_count": 15
   }
 }
