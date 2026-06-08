@@ -115,6 +115,7 @@
             "article_or_selector_evidence",
             "parser_specific",
             "non_generic_claim",
+            "direct_apw_scope_signal",
             "no_promotion_blockers",
             "not_already_reviewed"
           ],
@@ -130,6 +131,7 @@
             "article_or_selector_evidence": { "type": "boolean" },
             "parser_specific": { "type": "boolean" },
             "non_generic_claim": { "type": "boolean" },
+            "direct_apw_scope_signal": { "type": "boolean" },
             "no_promotion_blockers": { "type": "boolean" },
             "not_already_reviewed": { "type": "boolean" }
           }

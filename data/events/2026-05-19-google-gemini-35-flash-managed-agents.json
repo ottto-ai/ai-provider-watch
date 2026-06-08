@@ -1,0 +1,68 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-19-google-gemini-35-flash-managed-agents",
+  "title": "Google Gemini API Released Gemini 3.5 Flash And Managed Agents Preview",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:google"],
+  "event_date": "2026-05-19",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T11:04:15Z",
+  "announced_at": "2026-05-19T00:00:00Z",
+  "effective_at": "2026-05-19T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Google Gemini API changelog listed Gemini 3.5 Flash as generally available and introduced Managed Agents in public preview, adding a Google-hosted agent runtime option for Gemini API developers.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "google.gemini_changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "retrieved_at": "2026-06-08T11:04:15Z",
+      "authority": "official_docs",
+      "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+      "snapshot_ref": "entry:4d011d4fbc001f83",
+      "selector": "announcement:4d011d4fbc001f83",
+      "license_note": "Official changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:google/gemini-api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "product_engineers", "coding_agent_users"],
+      "recommended_action": "Evaluate Gemini 3.5 Flash for Gemini API workloads and update model allowlists or benchmarks where the new GA model is relevant."
+    },
+    {
+      "scope_type": "api_endpoint",
+      "scope_ref": "endpoint:google/gemini-api/managed-agents",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "security_engineers", "coding_agent_users"],
+      "recommended_action": "Review Managed Agents isolation, tool execution, and audit requirements before adopting Google-hosted agent runtimes."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:gemini-3.5-flash"],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "Managed Agents are tracked as a related workflow surface; this event does not assert default-model behavior or feature parity."
+  },
+  "tags": ["source:official_docs", "provider:google", "impact:model_launch", "surface:managed_agents"],
+  "limitations": ["APW records the changelog-level launch facts only; teams should verify regional access, quotas, pricing, and preview terms before production use."]
+}

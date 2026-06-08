@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2025-10-01-azure-openai-audio-image-model-updates",
+  "title": "Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:azure-openai"],
+  "event_date": "2025-10-01",
+  "date_confidence": "approximate",
+  "observed_at": "2026-06-08T11:04:13Z",
+  "announced_at": "2025-10-01T00:00:00Z",
+  "effective_at": "2025-10-01T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Azure OpenAI what's-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "azure_openai.whats_new",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "retrieved_at": "2026-06-08T11:04:13Z",
+      "authority": "official_docs",
+      "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+      "snapshot_ref": "entry:d7e34b7a124014a9",
+      "selector": "announcement:d7e34b7a124014a9",
+      "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:azure-openai/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": ["product_engineers", "platform_engineers", "finops"],
+      "recommended_action": "Review Azure OpenAI audio, realtime, and image-generation model options for routing, access, cost, and feature-fit changes."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:openai/gpt-4o-transcribe-diarize", "model:openai/gpt-image-1-mini"],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "Realtime SIP support is tracked in this model-availability event as an adjacent API workflow change."
+  },
+  "tags": ["source:official_docs", "provider:azure-openai", "impact:model_launch"],
+  "limitations": ["The source groups these updates under October 2025, so APW uses an approximate month-start event date."]
+}

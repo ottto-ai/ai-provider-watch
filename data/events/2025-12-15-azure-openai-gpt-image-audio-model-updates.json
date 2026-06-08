@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2025-12-15-azure-openai-gpt-image-audio-model-updates",
+  "title": "Azure OpenAI Added GPT-Image-1.5 And December Audio Model Updates",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:azure-openai"],
+  "event_date": "2025-12-15",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T11:04:13Z",
+  "announced_at": "2025-12-15T00:00:00Z",
+  "effective_at": "2025-12-15T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Azure OpenAI what's-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "azure_openai.whats_new",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "retrieved_at": "2026-06-08T11:04:13Z",
+      "authority": "official_docs",
+      "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+      "snapshot_ref": "entry:6784ee397c68e714",
+      "selector": "announcement:6784ee397c68e714",
+      "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:azure-openai/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": ["product_engineers", "platform_engineers"],
+      "recommended_action": "Refresh Azure OpenAI image and audio model allowlists, tests, and access requests for the December model updates."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:openai/gpt-image-1.5", "model:openai/gpt-4o-mini-transcribe-2025-12-15", "model:openai/gpt-realtime-mini-2025-12-15", "model:openai/gpt-4o-mini-tts-2025-12-15"],
+    "lifecycle_action": "launch",
+    "replacement_refs": ["model:openai/gpt-image-1", "model:openai/gpt-4o-transcribe-mini"],
+    "deadline": null,
+    "migration_notes": "Some models may require limited-access approval; APW does not assert access eligibility."
+  },
+  "tags": ["source:official_docs", "provider:azure-openai", "impact:model_launch"],
+  "limitations": ["APW records the listed Azure OpenAI model-update facts; exact regions and access gates should be checked in Azure before deployment."]
+}

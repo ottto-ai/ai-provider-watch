@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-01-azure-openai-realtime-20-translate-whisper-docs",
+  "title": "Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:azure-openai"],
+  "event_date": "2026-05-01",
+  "date_confidence": "approximate",
+  "observed_at": "2026-06-08T11:04:13Z",
+  "announced_at": "2026-05-01T00:00:00Z",
+  "effective_at": "2026-05-01T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Azure OpenAI what's-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.",
+  "severity": "low",
+  "confidence": "high",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "azure_openai.whats_new",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "retrieved_at": "2026-06-08T11:04:13Z",
+      "authority": "official_docs",
+      "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+      "snapshot_ref": "entry:9a05bfbf0a0c4081",
+      "selector": "announcement:9a05bfbf0a0c4081",
+      "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:azure-openai/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "low",
+      "confidence": "high",
+      "subscription_impact": "possible",
+      "api_usage_impact": "possible",
+      "who_should_care": ["product_engineers", "platform_engineers"],
+      "recommended_action": "Treat this as a documentation-level availability signal and verify model access, regions, and pricing before routing production audio workflows."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:openai/gpt-realtime-2.0", "model:openai/gpt-realtime-translate", "model:openai/gpt-realtime-whisper"],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "The source entry is documentation/concept coverage, so APW marks confidence high rather than confirmed and recommends access verification."
+  },
+  "tags": ["source:official_docs", "provider:azure-openai", "impact:model_launch"],
+  "limitations": ["This is a documentation-level signal from the Azure OpenAI what's-new page, not a fully verified production availability matrix."]
+}

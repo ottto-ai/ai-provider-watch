@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-25-google-gemini-31-flash-lite-preview-shutdown",
+  "title": "Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview",
+  "event_kind": "model_retirement",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:google"],
+  "event_date": "2026-05-25",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T11:04:15Z",
+  "announced_at": "2026-05-25T00:00:00Z",
+  "effective_at": "2026-05-25T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2026-05-25T00:00:00Z",
+  "summary": "Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "google.gemini_changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "retrieved_at": "2026-06-08T11:04:15Z",
+      "authority": "official_docs",
+      "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+      "snapshot_ref": "entry:8de1d295a752c674",
+      "selector": "announcement:8de1d295a752c674",
+      "license_note": "Official changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:google/gemini-api",
+      "impact_kind": "availability",
+      "direction": "removed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "product_engineers", "sdk_maintainers"],
+      "recommended_action": "Remove Gemini 3.1 Flash-Lite preview from routing, tests, and fallback chains and use the GA model where appropriate."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:gemini-3.1-flash-lite-preview"],
+    "lifecycle_action": "retirement",
+    "replacement_refs": ["model:gemini-3.1-flash-lite"],
+    "deadline": "2026-05-25T00:00:00Z",
+    "migration_notes": "This event records the actual shutdown entry; the May 7 APW event records the earlier GA launch and deprecation announcement."
+  },
+  "tags": ["source:official_docs", "provider:google", "impact:model_retirement"],
+  "limitations": ["APW does not assert that every Gemini API region or account had identical preview access before shutdown."]
+}

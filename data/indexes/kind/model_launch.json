@@ -1,5 +1,690 @@
 [
   {
+    "announced_at": "2026-06-03T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records Bedrock regional availability, not OpenAI first-party API availability or feature parity.",
+      "model_refs": [
+        "model:openai/gpt-5.4"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-03T00:00:00Z",
+    "event_date": "2026-06-03",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:f9a04b022d9843b3",
+        "snapshot_ref": "entry:f9a04b022d9843b3",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/GPT54-available-in-aws-govcloud-us-west/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-03-aws-bedrock-gpt-54-govcloud",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify GovCloud account access, Bedrock model availability, pricing, and compliance controls before routing regulated OpenAI workloads through Bedrock.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "compliance",
+        "recommended_action": "Update region allowlists and procurement notes if GovCloud OpenAI model access changes deployment options.",
+        "scope_ref": "region:aws-govcloud-us-west",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert account eligibility, exact pricing, or feature parity beyond the official availability announcement."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced OpenAI GPT-5.4 availability on Amazon Bedrock in AWS GovCloud US-West, expanding regulated-region deployment options for OpenAI model workloads through Bedrock.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "region:aws_govcloud"
+    ],
+    "title": "AWS Bedrock Added OpenAI GPT-5.4 In AWS GovCloud US-West"
+  },
+  {
+    "announced_at": "2026-05-19T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "Managed Agents are tracked as a related workflow surface; this event does not assert default-model behavior or feature parity.",
+      "model_refs": [
+        "model:gemini-3.5-flash"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-19T00:00:00Z",
+    "event_date": "2026-05-19",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:4d011d4fbc001f83",
+        "snapshot_ref": "entry:4d011d4fbc001f83",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-19-google-gemini-35-flash-managed-agents",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Gemini 3.5 Flash for Gemini API workloads and update model allowlists or benchmarks where the new GA model is relevant.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Managed Agents isolation, tool execution, and audit requirements before adopting Google-hosted agent runtimes.",
+        "scope_ref": "endpoint:google/gemini-api/managed-agents",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the changelog-level launch facts only; teams should verify regional access, quotas, pricing, and preview terms before production use."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog listed Gemini 3.5 Flash as generally available and introduced Managed Agents in public preview, adding a Google-hosted agent runtime option for Gemini API developers.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_launch",
+      "surface:managed_agents"
+    ],
+    "title": "Google Gemini API Released Gemini 3.5 Flash And Managed Agents Preview"
+  },
+  {
+    "announced_at": "2026-05-07T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-05-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "The GA model launch and preview deprecation are captured together because they are announced in the same changelog entry.",
+      "model_refs": [
+        "model:gemini-3.1-flash-lite",
+        "model:gemini-3.1-flash-lite-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-07T00:00:00Z",
+    "event_date": "2026-05-07",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:c49577c9ea994109",
+        "snapshot_ref": "entry:c49577c9ea994109",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Gemini 3.1 Flash-Lite GA for cost-sensitive Gemini API workloads and move off the preview model before shutdown.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "finops"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert workload-level cost savings; verify pricing and quality before migration."
+    ],
+    "migration_deadline": "2026-05-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_launch",
+      "impact:model_deprecation"
+    ],
+    "title": "Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview"
+  },
+  {
+    "announced_at": "2026-05-01T00:00:00Z",
+    "confidence": "high",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "The source entry is documentation/concept coverage, so APW marks confidence high rather than confirmed and recommends access verification.",
+      "model_refs": [
+        "model:openai/gpt-realtime-2.0",
+        "model:openai/gpt-realtime-translate",
+        "model:openai/gpt-realtime-whisper"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-01T00:00:00Z",
+    "event_date": "2026-05-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:9a05bfbf0a0c4081",
+        "snapshot_ref": "entry:9a05bfbf0a0c4081",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-01-azure-openai-realtime-20-translate-whisper-docs",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Treat this as a documentation-level availability signal and verify model access, regions, and pricing before routing production audio workflows.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This is a documentation-level signal from the Azure OpenAI what's-new page, not a fully verified production availability matrix."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "low",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage"
+  },
+  {
+    "announced_at": "2026-02-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This monthly source entry does not enumerate region availability or pricing.",
+      "model_refs": [
+        "model:openai/gpt-realtime-1.5",
+        "model:openai/gpt-audio-1.5"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-realtime",
+        "model:openai/gpt-audio"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-02-01T00:00:00Z",
+    "event_date": "2026-02-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:b4a4be274eb40fa9",
+        "snapshot_ref": "entry:b4a4be274eb40fa9",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-02-01-azure-openai-gpt-realtime-audio-15",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Azure OpenAI GPT-Realtime-1.5 and GPT-Audio-1.5 for voice-first applications, tool calling, and multilingual audio requirements.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source groups these updates under February 2026, so APW uses an approximate month-start event date."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5"
+  },
+  {
+    "announced_at": "2025-12-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "Some models may require limited-access approval; APW does not assert access eligibility.",
+      "model_refs": [
+        "model:openai/gpt-image-1.5",
+        "model:openai/gpt-4o-mini-transcribe-2025-12-15",
+        "model:openai/gpt-realtime-mini-2025-12-15",
+        "model:openai/gpt-4o-mini-tts-2025-12-15"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-image-1",
+        "model:openai/gpt-4o-transcribe-mini"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-12-15T00:00:00Z",
+    "event_date": "2025-12-15",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:6784ee397c68e714",
+        "snapshot_ref": "entry:6784ee397c68e714",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-12-15-azure-openai-gpt-image-audio-model-updates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Refresh Azure OpenAI image and audio model allowlists, tests, and access requests for the December model updates.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the listed Azure OpenAI model-update facts; exact regions and access gates should be checked in Azure before deployment."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT-Image-1.5 And December Audio Model Updates"
+  },
+  {
+    "announced_at": "2025-10-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "Realtime SIP support is tracked in this model-availability event as an adjacent API workflow change.",
+      "model_refs": [
+        "model:openai/gpt-4o-transcribe-diarize",
+        "model:openai/gpt-image-1-mini"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-10-01T00:00:00Z",
+    "event_date": "2025-10-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:d7e34b7a124014a9",
+        "snapshot_ref": "entry:d7e34b7a124014a9",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-10-01-azure-openai-audio-image-model-updates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Review Azure OpenAI audio, realtime, and image-generation model options for routing, access, cost, and feature-fit changes.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "finops"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source groups these updates under October 2025, so APW uses an approximate month-start event date."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini"
+  },
+  {
+    "announced_at": "2025-09-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "The source notes model access requirements for GPT-5-Codex; APW does not assert account eligibility.",
+      "model_refs": [
+        "model:openai/gpt-5-codex",
+        "model:openai/sora"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-09-01T00:00:00Z",
+    "event_date": "2025-09-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:5b6f69faf99eb4a7",
+        "snapshot_ref": "entry:5b6f69faf99eb4a7",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-09-01-azure-openai-gpt5-codex-sora-video",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Check Azure access requirements and routing rules before moving Codex or Sora workloads to these Azure OpenAI model surfaces.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source groups these updates under September 2025, so APW uses an approximate month-start event date."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for September 2025 list GPT-5-Codex availability and Sora video-to-video support, affecting coding-agent model access and video generation workflows on Azure.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch",
+      "app:codex"
+    ],
+    "title": "Azure OpenAI Added GPT-5-Codex And Sora Video-To-Video Support"
+  },
+  {
+    "announced_at": "2025-08-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This monthly Azure OpenAI entry groups several availability and routing changes; verify exact deployment region and access requirements before use.",
+      "model_refs": [
+        "model:openai/gpt-5",
+        "model:openai/gpt-5-mini",
+        "model:openai/gpt-5-nano",
+        "model:openai/gpt-5-chat",
+        "model:openai/gpt-realtime",
+        "model:openai/gpt-audio"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-08-01T00:00:00Z",
+    "event_date": "2025-08-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:3b89a90f40acbd9f",
+        "snapshot_ref": "entry:3b89a90f40acbd9f",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-08-01-azure-openai-gpt5-realtime-audio-model-router",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Review Azure OpenAI model allowlists, PTU plans, and model-router deployments for GPT-5 and realtime/audio model availability.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "finops",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source groups these updates under August 2025, so APW uses an approximate month-start event date."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for August 2025 list GPT-5 family availability, GPT RealTime and Audio general availability, provisioned spillover GA, and model-router support for GPT-5 series models.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT-5 Models, Realtime Audio GA, And Model Router GPT-5 Support"
+  },
+  {
     "announced_at": "2025-02-24T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

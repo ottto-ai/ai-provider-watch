@@ -4,6 +4,7 @@ import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from ai_provider_watch.core.io import event_paths, read_json
 from ai_provider_watch.core.temporal import require_rfc3339_date_time
@@ -39,6 +40,34 @@ ARTICLE_PATH_MARKERS = (
     "/releases/",
     "/what-s-new",
     "/whats-new",
+)
+
+MULTI_ENTRY_SOURCE_KEYS = {
+    "azure_openai.whats_new",
+    "google.gemini_changelog",
+}
+
+OPENAI_NEWS_DIRECT_CHANGE_URL_TERMS = (
+    "api",
+    "aws",
+    "chatgpt",
+    "codex",
+    "deprecat",
+    "gpt",
+    "model",
+    "o3",
+    "o4",
+    "pricing",
+    "realtime",
+    "responses",
+    "retire",
+    "sora",
+    "status",
+)
+
+AWS_BEDROCK_ADJACENT_SLUG_MARKERS = (
+    "aws-config-new-resource-types",
+    "multi-turn-reinforcement-learning-on-sagemaker-ai",
 )
 
 MODEL_OR_SURFACE_PATTERN = re.compile(
@@ -122,6 +151,7 @@ def _quality_dimensions(
         "parser_specific": isinstance(parser_name, str)
         and parser_name not in {"manual_review", "change_detector", "generic_change_detector"},
         "non_generic_claim": not_generic,
+        "direct_apw_scope_signal": _direct_apw_scope_signal(candidate, evidence_urls),
         "no_promotion_blockers": not readiness.get("promotion_blockers"),
         "not_already_reviewed": not duplicate_event_ids,
     }
@@ -140,6 +170,7 @@ def _weighted_score(dimensions: dict[str, bool]) -> int:
         "article_or_selector_evidence": 8,
         "parser_specific": 6,
         "non_generic_claim": 4,
+        "direct_apw_scope_signal": 8,
         "no_promotion_blockers": 2,
         "not_already_reviewed": 3,
     }
@@ -152,7 +183,11 @@ def _tier(score: int, readiness: str, dimensions: dict[str, bool]) -> str:
         return "duplicate"
     if readiness == "not_ready":
         return "blocked"
-    if not dimensions.get("specific_fact_signal") or not dimensions.get("non_generic_claim"):
+    if (
+        not dimensions.get("specific_fact_signal")
+        or not dimensions.get("non_generic_claim")
+        or not dimensions.get("direct_apw_scope_signal", True)
+    ):
         return "low_signal"
     if score >= 85 and dimensions.get("specific_fact_signal") and dimensions.get("article_or_selector_evidence"):
         return "high_value"
@@ -185,6 +220,8 @@ def _reasons(dimensions: dict[str, bool], tier: str) -> list[str]:
         reasons.append("Evidence points to a specific article, changelog section, snapshot, or selector.")
     if not dimensions["not_already_reviewed"]:
         reasons.append("Candidate evidence is already covered by a reviewed event.")
+    if not dimensions.get("direct_apw_scope_signal", True):
+        reasons.append("Candidate looks adjacent to APW scope rather than a direct provider-impact change.")
     if tier == "low_signal":
         reasons.append("Candidate is too broad or generic for direct source-owner promotion.")
     return reasons
@@ -204,6 +241,8 @@ def _blockers(dimensions: dict[str, bool], readiness: dict[str, Any]) -> list[st
         blockers.append("Quality gate requires a concrete fact rather than generic change detection.")
     if not dimensions["article_or_selector_evidence"]:
         blockers.append("Quality gate prefers article, changelog, selector, or snapshot-scoped evidence.")
+    if not dimensions.get("direct_apw_scope_signal", True):
+        blockers.append("Quality gate requires a direct APW impact signal, not only a customer story or adjacent-service mention.")
     if not dimensions["not_already_reviewed"]:
         blockers.append("Candidate evidence URL already appears in reviewed event data.")
     return sorted(set(blockers))
@@ -215,7 +254,53 @@ def _normal_url(url: Any) -> str | None:
     return url.rstrip("/")
 
 
-def _reviewed_events_by_evidence_url(root: Path | None) -> dict[str, list[str]]:
+def _is_multi_entry_evidence(evidence: dict[str, Any]) -> bool:
+    source_key = evidence.get("source_key")
+    if source_key in MULTI_ENTRY_SOURCE_KEYS:
+        return True
+    url = _normal_url(evidence.get("url"))
+    if url is None:
+        return False
+    path = urlparse(url).path.lower()
+    return any(marker in path for marker in ("/changelog", "/whats-new"))
+
+
+def _evidence_identity(evidence: dict[str, Any]) -> str | None:
+    url = _normal_url(evidence.get("url"))
+    if url is None:
+        return None
+    if not _is_multi_entry_evidence(evidence):
+        return url
+    selector = evidence.get("selector")
+    snapshot_ref = evidence.get("snapshot_ref")
+    if isinstance(selector, str) and not contains_prompt_injection_marker(selector):
+        return f"{url}#selector={selector}"
+    if isinstance(snapshot_ref, str) and not contains_prompt_injection_marker(snapshot_ref):
+        return f"{url}#snapshot={snapshot_ref}"
+    return url
+
+
+def _direct_apw_scope_signal(candidate: dict[str, Any], evidence_urls: list[str]) -> bool:
+    source_keys = candidate.get("source_keys", [])
+    source_key_values = {item for item in source_keys if isinstance(item, str)} if isinstance(source_keys, list) else set()
+    candidate_kind = candidate.get("candidate_kind")
+    normalized_urls = [url.lower() for url in evidence_urls]
+
+    if "openai.news" in source_key_values and candidate_kind == "workflow_behavior_change":
+        return any(
+            term in url
+            for url in normalized_urls
+            for term in OPENAI_NEWS_DIRECT_CHANGE_URL_TERMS
+        )
+
+    if "aws_bedrock.whats_new" in source_key_values:
+        if any(marker in url for url in normalized_urls for marker in AWS_BEDROCK_ADJACENT_SLUG_MARKERS):
+            return False
+
+    return True
+
+
+def _reviewed_events_by_evidence(root: Path | None) -> dict[str, list[str]]:
     if root is None:
         return {}
     reviewed: dict[str, list[str]] = {}
@@ -226,14 +311,14 @@ def _reviewed_events_by_evidence_url(root: Path | None) -> dict[str, list[str]]:
         for evidence in event.get("evidence_refs", []):
             if not isinstance(evidence, dict):
                 continue
-            url = _normal_url(evidence.get("url"))
-            if url is None:
+            identity = _evidence_identity(evidence)
+            if identity is None:
                 continue
-            reviewed.setdefault(url, []).append(event["id"])
-    return {url: sorted(set(event_ids)) for url, event_ids in reviewed.items()}
+            reviewed.setdefault(identity, []).append(event["id"])
+    return {identity: sorted(set(event_ids)) for identity, event_ids in reviewed.items()}
 
 
-def _duplicate_event_ids(candidate: dict[str, Any], reviewed_by_url: dict[str, list[str]]) -> list[str]:
+def _duplicate_event_ids(candidate: dict[str, Any], reviewed_by_evidence: dict[str, list[str]]) -> list[str]:
     event_ids: set[str] = set()
     evidence_refs = candidate.get("evidence_refs", [])
     if not isinstance(evidence_refs, list):
@@ -241,10 +326,10 @@ def _duplicate_event_ids(candidate: dict[str, Any], reviewed_by_url: dict[str, l
     for evidence in evidence_refs:
         if not isinstance(evidence, dict):
             continue
-        url = _normal_url(evidence.get("url"))
-        if url is None:
+        identity = _evidence_identity(evidence)
+        if identity is None:
             continue
-        event_ids.update(reviewed_by_url.get(url, []))
+        event_ids.update(reviewed_by_evidence.get(identity, []))
     return sorted(event_ids)
 
 
@@ -263,7 +348,7 @@ def _quality_row(
     root: Path | None,
     sources_by_key: dict[str, SourceDescriptor],
     readiness_by_id: dict[str, dict[str, Any]],
-    reviewed_by_url: dict[str, list[str]],
+    reviewed_by_evidence: dict[str, list[str]],
 ) -> dict[str, Any]:
     candidate = candidate_file.payload
     candidate_id = candidate.get("id") if isinstance(candidate.get("id"), str) else "<invalid-id>"
@@ -274,7 +359,7 @@ def _quality_row(
     ] if isinstance(candidate.get("source_keys"), list) else []
     readiness = readiness_by_id.get(candidate_id, {})
     sources = _source_descriptors(source_keys, sources_by_key)
-    duplicate_event_ids = _duplicate_event_ids(candidate, reviewed_by_url)
+    duplicate_event_ids = _duplicate_event_ids(candidate, reviewed_by_evidence)
     dimensions = _quality_dimensions(candidate, readiness, sources, duplicate_event_ids)
     score = _weighted_score(dimensions)
     readiness_value = readiness.get("readiness") if isinstance(readiness.get("readiness"), str) else "not_ready"
@@ -344,14 +429,14 @@ def build_candidate_quality_report(
         if isinstance(candidate, dict) and isinstance(candidate.get("candidate_id"), str)
     }
     sources_by_key = {source.key: source for source in sources}
-    reviewed_by_url = _reviewed_events_by_evidence_url(root)
+    reviewed_by_evidence = _reviewed_events_by_evidence(root)
     rows = [
         _quality_row(
             candidate_file,
             root=root,
             sources_by_key=sources_by_key,
             readiness_by_id=readiness_by_id,
-            reviewed_by_url=reviewed_by_url,
+            reviewed_by_evidence=reviewed_by_evidence,
         )
         for candidate_file in candidate_files
     ]

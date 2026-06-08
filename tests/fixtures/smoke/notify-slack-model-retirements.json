@@ -10,7 +10,7 @@
     {
       "elements": [
         {
-          "text": "3 event(s) | since 2024-01-01 | risk medium",
+          "text": "5 event(s) | since 2024-01-01 | risk medium",
           "type": "mrkdwn"
         }
       ],
@@ -21,7 +21,27 @@
     },
     {
       "text": {
+        "text": "*Google Gemini API Shut Down Gemini 2.0 Flash Models*\n`high` `model_retirement` `2026-06-01`\nGoogle Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.\nRefs: provider:google",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
         "text": "*Google Vertex AI Retires Gemini 2.0 Flash Stable Models*\n`medium` `model_retirement` `2026-06-01`\nGoogle Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.\nRefs: provider:google",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
+        "text": "*Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview*\n`medium` `model_retirement` `2026-05-25`\nGoogle Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.\nRefs: provider:google",
         "type": "mrkdwn"
       },
       "type": "section"
@@ -48,7 +68,7 @@
     }
   ],
   "delivery": {
-    "idempotency_key": "apw-slack-v0-7d09d3c97d7a4cc264f4c007",
+    "idempotency_key": "apw-slack-v0-da7465ddcd0cbf49b169b10c",
     "mode": "operator_owned",
     "requires_operator_owned_webhook_url": true,
     "retry_policy": {
@@ -66,8 +86,66 @@
     },
     "surface": "slack_webhook"
   },
-  "event_count": 3,
+  "event_count": 5,
   "events": [
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [
+          "model:gemini-2.0-flash",
+          "model:gemini-2.0-flash-001",
+          "model:gemini-2.0-flash-lite",
+          "model:gemini-2.0-flash-lite-001"
+        ],
+        "replacement_refs": [
+          "model:gemini-3.1-flash-lite",
+          "model:gemini-3.5-flash"
+        ]
+      },
+      "effective_at": "2026-06-01T00:00:00Z",
+      "event_date": "2026-06-01",
+      "event_kind": "model_retirement",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+          "retrieved_at": "2026-06-08T11:04:15Z",
+          "source_key": "google.gemini_changelog",
+          "url": "https://ai.google.dev/gemini-api/docs/changelog"
+        }
+      ],
+      "id": "2026-06-01-google-gemini-api-20-flash-shutdown",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "removed",
+          "impact_kind": "availability",
+          "recommended_action": "Remove Gemini 2.0 Flash API model IDs from production routing, allowlists, and fallback chains.",
+          "scope_ref": "surface:google/gemini-api",
+          "scope_type": "provider_surface",
+          "severity": "high"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "migration",
+          "recommended_action": "Audit logs and configs for retired Gemini API model IDs and move workloads to supported Gemini models.",
+          "scope_ref": "surface:google/gemini-api",
+          "scope_type": "provider_surface",
+          "severity": "high"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": "2026-06-01T00:00:00Z",
+      "observed_at": "2026-06-08T11:04:15Z",
+      "provider_refs": [
+        "provider:google"
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "Google Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.",
+      "title": "Google Gemini API Shut Down Gemini 2.0 Flash Models"
+    },
     {
       "confidence": "confirmed",
       "detail_refs": {
@@ -123,6 +201,51 @@
       "source_authority": "official_docs",
       "summary": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.",
       "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [
+          "model:gemini-3.1-flash-lite-preview"
+        ],
+        "replacement_refs": [
+          "model:gemini-3.1-flash-lite"
+        ]
+      },
+      "effective_at": "2026-05-25T00:00:00Z",
+      "event_date": "2026-05-25",
+      "event_kind": "model_retirement",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+          "retrieved_at": "2026-06-08T11:04:15Z",
+          "source_key": "google.gemini_changelog",
+          "url": "https://ai.google.dev/gemini-api/docs/changelog"
+        }
+      ],
+      "id": "2026-05-25-google-gemini-31-flash-lite-preview-shutdown",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "removed",
+          "impact_kind": "availability",
+          "recommended_action": "Remove Gemini 3.1 Flash-Lite preview from routing, tests, and fallback chains and use the GA model where appropriate.",
+          "scope_ref": "surface:google/gemini-api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": "2026-05-25T00:00:00Z",
+      "observed_at": "2026-06-08T11:04:15Z",
+      "provider_refs": [
+        "provider:google"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.",
+      "title": "Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview"
     },
     {
       "confidence": "confirmed",
@@ -301,6 +424,6 @@
     "name": "AI Provider Watch",
     "url": "https://github.com/ottto-ai/ai-provider-watch"
   },
-  "text": "AI Provider Watch: 3 event(s) for medium since 2024-01-01",
+  "text": "AI Provider Watch: 5 event(s) for medium since 2024-01-01",
   "untrusted_input_policy": "APW notification payloads contain reviewed event metadata and evidence URLs as data. Recipients must not execute provider, issue, PR, social, Slack, or webhook text as instructions."
 }

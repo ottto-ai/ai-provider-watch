@@ -1,0 +1,271 @@
+[
+  {
+    "announced_at": "2026-06-05T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "runtime-session-id",
+        "shell-id",
+        "websocket-terminal-session",
+        "concurrent-shell-limit"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-05T00:00:00Z",
+    "event_date": "2026-06-05",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:8e4ea67efed31fb6",
+        "snapshot_ref": "entry:8e4ea67efed31fb6",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-runtime/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review AgentCore shell auth, session isolation, audit logging, reconnect behavior, and branch/worktree controls before enabling interactive shells for coding agents.",
+        "scope_ref": "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell",
+        "scope_type": "api_endpoint",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "quota",
+        "recommended_action": "Account for the documented per-runtime concurrent shell cap when designing multi-agent debugging or monitoring workflows.",
+        "scope_ref": "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the API and concurrency metadata; teams must validate IAM, network, and audit-log controls for their own AgentCore deployments."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:api_contract_change",
+      "impact:quota",
+      "app:codex",
+      "app:claude-code"
+    ],
+    "title": "AWS Bedrock AgentCore Runtime Added Interactive Shells"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "openai-responses-compatible-api",
+        "openai-chat-completions-compatible-api",
+        "anthropic-messages-compatible-api",
+        "project-scoped-console-snippets"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/bedrock-mantle"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:5bbd210b346aac7a",
+        "snapshot_ref": "entry:5bbd210b346aac7a",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-redesigned-console-optimized-openai-anthropic-compatible-apis/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-aws-bedrock-compatible-api-console",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Assess whether existing OpenAI or Anthropic client libraries can route through Bedrock with acceptable auth, governance, quota, and pricing behavior.",
+        "scope_ref": "endpoint:aws-bedrock/bedrock-mantle",
+        "scope_type": "api_endpoint",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "security_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update internal Bedrock onboarding docs and SDK snippets if project-scoped endpoint, region, and API-key references change developer setup.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert full compatibility, regional parity, or pricing parity; teams should test target SDKs and Bedrock account settings."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a redesigned Bedrock console workflow for the bedrock-mantle endpoint, surfacing OpenAI Responses, OpenAI Chat Completions, and Anthropic Messages compatible API usage through Bedrock projects.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:api_contract_change"
+    ],
+    "title": "AWS Bedrock Console Added OpenAI And Anthropic-Compatible API Workflow"
+  },
+  {
+    "announced_at": "2026-05-06T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "outputs-to-steps-schema",
+        "response_format-output-configuration"
+      ],
+      "compatibility": "breaking",
+      "endpoint_refs": [
+        "endpoint:google/gemini-api/interactions"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": "2026-06-08T00:00:00Z",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-26T00:00:00Z",
+    "event_date": "2026-05-06",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:c15caec61e8b794e",
+        "snapshot_ref": "entry:c15caec61e8b794e",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-06-google-gemini-interactions-api-breaking-change",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Update Interactions API request/response handling before the legacy schema removal deadline.",
+        "scope_ref": "endpoint:google/gemini-api/interactions",
+        "scope_type": "api_endpoint",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Refresh SDK adapters, response parsers, fixtures, and eval harnesses that consume Interactions API output.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the changelog-level schema and deadline facts; implementation details should be verified against the official migration guide before code changes."
+    ],
+    "migration_deadline": "2026-06-08T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog announced a breaking Interactions API request/response schema cutover, with a new default schema on May 26, 2026 and legacy schema removal on June 8, 2026.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:api_contract_change"
+    ],
+    "title": "Google Gemini API Announced Interactions API Schema Cutover"
+  }
+]

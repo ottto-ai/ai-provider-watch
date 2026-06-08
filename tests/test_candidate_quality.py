@@ -151,6 +151,149 @@ def test_candidate_quality_marks_reviewed_event_evidence_as_duplicate(tmp_path) 
     assert row["dimensions"]["not_already_reviewed"] is False
 
 
+def _dated_candidate(
+    *,
+    candidate_id: str,
+    source_key: str,
+    provider_ref: str,
+    claim_text: str,
+    candidate_kind: str,
+    evidence_url: str,
+    selector: str,
+    parser_name: str,
+) -> dict:
+    return {
+        "schema_version": "apw.finding_candidate.v0",
+        "id": candidate_id,
+        "source_keys": [source_key],
+        "provider_refs": [provider_ref],
+        "claim_text": claim_text,
+        "candidate_kind": candidate_kind,
+        "evidence_refs": [
+            {
+                "source_key": source_key,
+                "url": evidence_url,
+                "retrieved_at": "2026-06-08T12:00:00Z",
+                "authority": "official_blog" if source_key != "google.gemini_changelog" else "official_docs",
+                "content_sha256": "d" * 64,
+                "fingerprint": "e" * 64,
+                "snapshot_ref": selector.replace("announcement:", "entry:"),
+                "selector": selector,
+            }
+        ],
+        "created_at": CREATED_AT,
+        "review_status": "needs_review",
+        "parser": {"name": parser_name, "contract_version": "apw.candidate_parser.v0"},
+        "dedupe_key": f"{source_key}:{candidate_kind}:{candidate_id[-16:]}",
+        "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text.",
+    }
+
+
+def test_candidate_quality_rejects_official_news_customer_stories(tmp_path) -> None:
+    candidate = _dated_candidate(
+        candidate_id="candidate-openai-news-aaaaaaaaaaaaaaaa",
+        source_key="openai.news",
+        provider_ref="provider:openai",
+        claim_text="OpenAI official dated source reports a workflow behavior change on 2026-06-04 for codex.",
+        candidate_kind="workflow_behavior_change",
+        evidence_url="https://openai.com/index/braintrust",
+        selector="announcement:aaaaaaaaaaaaaaaa",
+        parser_name="openai_news_feed",
+    )
+    report = build_candidate_quality_report(
+        [CandidateFile(path=tmp_path / "candidate.json", payload=candidate)],
+        load_source_descriptors(ROOT, enabled_only=False),
+        root=tmp_path,
+        created_at=CREATED_AT,
+    )
+
+    row = report["candidates"][0]
+    assert row["quality_tier"] == "low_signal"
+    assert row["recommended_action"] == "reject"
+    assert row["dimensions"]["direct_apw_scope_signal"] is False
+    assert "direct APW impact signal" in " ".join(row["quality_blockers"])
+
+
+def test_candidate_quality_rejects_aws_adjacent_service_false_positive(tmp_path) -> None:
+    candidate = _dated_candidate(
+        candidate_id="candidate-aws-bedrock-whats-new-bbbbbbbbbbbbbbbb",
+        source_key="aws_bedrock.whats_new",
+        provider_ref="provider:aws-bedrock",
+        claim_text="AWS Bedrock official dated source reports a model availability change on 2026-06-03 for amazon-bedrock and bedrock-agentcore.",
+        candidate_kind="model_launch",
+        evidence_url="https://aws.amazon.com/about-aws/whats-new/2026/05/aws-config-new-resource-types",
+        selector="announcement:bbbbbbbbbbbbbbbb",
+        parser_name="aws_bedrock_whats_new_feed",
+    )
+    report = build_candidate_quality_report(
+        [CandidateFile(path=tmp_path / "candidate.json", payload=candidate)],
+        load_source_descriptors(ROOT, enabled_only=False),
+        root=tmp_path,
+        created_at=CREATED_AT,
+    )
+
+    row = report["candidates"][0]
+    assert row["quality_tier"] == "low_signal"
+    assert row["recommended_action"] == "reject"
+    assert row["dimensions"]["direct_apw_scope_signal"] is False
+
+
+def test_candidate_quality_uses_selector_for_shared_changelog_duplicates(tmp_path) -> None:
+    events_dir = tmp_path / "data" / "events"
+    events_dir.mkdir(parents=True)
+    (events_dir / "existing.json").write_text(
+        json.dumps(
+            {
+                "id": "2026-06-01-google-existing-changelog-event",
+                "evidence_refs": [
+                    {
+                        "source_key": "google.gemini_changelog",
+                        "url": "https://ai.google.dev/gemini-api/docs/changelog",
+                        "selector": "announcement:existing",
+                        "snapshot_ref": "entry:existing",
+                    }
+                ],
+            }
+        )
+    )
+    new_selector = _dated_candidate(
+        candidate_id="candidate-google-gemini-changelog-cccccccccccccccc",
+        source_key="google.gemini_changelog",
+        provider_ref="provider:google",
+        claim_text="Google Gemini/Vertex official dated source reports a model retirement on 2026-06-01 for gemini-2.0-flash.",
+        candidate_kind="model_retirement",
+        evidence_url="https://ai.google.dev/gemini-api/docs/changelog",
+        selector="announcement:new",
+        parser_name="google_gemini_changelog",
+    )
+    same_selector = _dated_candidate(
+        candidate_id="candidate-google-gemini-changelog-dddddddddddddddd",
+        source_key="google.gemini_changelog",
+        provider_ref="provider:google",
+        claim_text="Google Gemini/Vertex official dated source reports a model retirement on 2026-06-01 for gemini-2.0-flash.",
+        candidate_kind="model_retirement",
+        evidence_url="https://ai.google.dev/gemini-api/docs/changelog",
+        selector="announcement:existing",
+        parser_name="google_gemini_changelog",
+    )
+    report = build_candidate_quality_report(
+        [
+            CandidateFile(path=tmp_path / "new.json", payload=new_selector),
+            CandidateFile(path=tmp_path / "same.json", payload=same_selector),
+        ],
+        load_source_descriptors(ROOT, enabled_only=False),
+        root=tmp_path,
+        created_at=CREATED_AT,
+    )
+
+    rows = {row["candidate_id"]: row for row in report["candidates"]}
+    assert rows["candidate-google-gemini-changelog-cccccccccccccccc"]["duplicate_event_ids"] == []
+    assert rows["candidate-google-gemini-changelog-dddddddddddddddd"]["quality_tier"] == "duplicate"
+    assert rows["candidate-google-gemini-changelog-dddddddddddddddd"]["duplicate_event_ids"] == [
+        "2026-06-01-google-existing-changelog-event"
+    ]
+
+
 def test_review_pr_body_includes_quality_section(tmp_path) -> None:
     candidate_dir = _candidate_dir(tmp_path)
     candidate_files = read_candidate_files(candidate_dir)

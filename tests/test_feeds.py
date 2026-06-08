@@ -25,7 +25,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
         "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
     } <= event_ids
     latest = json.loads(artifacts[Path("data/feeds/latest.json")])
-    assert "2025-02-24-anthropic-claude-3-7-sonnet-launch" in {
+    assert "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells" in {
         event["id"] for event in latest
     }
     rss = artifacts[Path("data/feeds/rss.xml")]
@@ -41,7 +41,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["release_id"] == "dev"
     assert freshness["data_tag"] is None
     assert freshness["event_count"] == len(events)
-    assert freshness["latest_event_date"] == "2026-06-04"
+    assert freshness["latest_event_date"] == "2026-06-05"
     assert freshness["source_state"]["path"] == "data/source-state/fingerprints.json"
     assert freshness["source_state"]["source_count"] == 10
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
