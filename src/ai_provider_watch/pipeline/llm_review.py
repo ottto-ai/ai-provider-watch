@@ -226,8 +226,10 @@ def _promotion_context(candidate_id: str, promotion_report: dict[str, Any] | Non
             "recommendation": candidate.get("recommendation"),
             "score": candidate.get("score"),
             "flags": candidate.get("flags"),
+            "reasons": candidate.get("reasons"),
             "promotion_blockers": candidate.get("promotion_blockers"),
             "canonical_event_hints": candidate.get("canonical_event_hints"),
+            "evidence_refs": candidate.get("evidence_refs"),
         }
     return None
 

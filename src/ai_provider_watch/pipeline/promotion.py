@@ -49,6 +49,14 @@ DATED_SOURCE_TYPES = {
     "status_page",
 }
 
+DATED_PARSER_NAMES = {
+    "anthropic_news_index",
+    "aws_bedrock_whats_new_feed",
+    "azure_openai_whats_new",
+    "google_gemini_changelog",
+    "openai_news_feed",
+}
+
 GENERIC_CLAIM_MARKERS = (
     "changed and needs maintainer review",
     "documentation changed",
@@ -60,6 +68,35 @@ GENERIC_CLAIM_MARKERS = (
     "possible status",
     "source changed",
     "supported model list",
+)
+
+CONCRETE_DATE_PATTERN = re.compile(
+    r"\b[0-9]{4}-[0-9]{2}(?:-[0-9]{2})?\b"
+    r"|\b(?:jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\s+[0-9]{1,2},\s+[0-9]{4}\b",
+    re.IGNORECASE,
+)
+
+CONCRETE_ACTION_MARKERS = (
+    "announced",
+    "available",
+    "availability",
+    "billing",
+    "cache",
+    "caching",
+    "cost",
+    "deprecation",
+    "incident",
+    "launch",
+    "released",
+    "reports",
+    "retirement",
+    "status",
+    "token",
+)
+
+SUBJECT_SIGNAL_PATTERN = re.compile(
+    r"\b(?:api|aws-bedrock|azure-openai|claude-code|codex|computer-use|gemini|gpt|model|openai|realtime|responses-api|sdk|vertex-ai)\b",
+    re.IGNORECASE,
 )
 
 READINESS_TO_RECOMMENDATION = {
@@ -178,7 +215,21 @@ def _specific_fact_signal(claim_text: Any) -> bool:
     if not isinstance(claim_text, str) or contains_prompt_injection_marker(claim_text):
         return False
     normalized = re.sub(r"\s+", " ", claim_text.lower())
-    return not any(marker in normalized for marker in GENERIC_CLAIM_MARKERS)
+    if any(marker in normalized for marker in GENERIC_CLAIM_MARKERS):
+        return False
+    return (
+        bool(CONCRETE_DATE_PATTERN.search(claim_text))
+        and bool(SUBJECT_SIGNAL_PATTERN.search(claim_text))
+        and any(marker in normalized for marker in CONCRETE_ACTION_MARKERS)
+    )
+
+
+def _concrete_date_signal(claim_text: Any) -> bool:
+    return isinstance(claim_text, str) and bool(CONCRETE_DATE_PATTERN.search(claim_text))
+
+
+def _specific_subject_signal(claim_text: Any) -> bool:
+    return isinstance(claim_text, str) and bool(SUBJECT_SIGNAL_PATTERN.search(claim_text))
 
 
 def _readiness(
@@ -213,6 +264,8 @@ def _report_candidate(
     evidence_refs = _candidate_evidence_refs(candidate)
     claim_text = candidate.get("claim_text")
     prompt_safe = isinstance(claim_text, str) and not contains_prompt_injection_marker(claim_text)
+    concrete_date_signal = _concrete_date_signal(claim_text)
+    specific_subject_signal = _specific_subject_signal(claim_text)
     specific_fact_signal = _specific_fact_signal(claim_text)
     claim_text_hash = _sha256_text(claim_text) if isinstance(claim_text, str) else "<invalid-sha256>"
 
@@ -297,7 +350,10 @@ def _report_candidate(
         source.enabled and source.automation_status == "enabled_deterministic" and source.parser != "manual_review"
         for source in sources
     )
-    dated_source_signal = bool(sources) and any(source.source_type in DATED_SOURCE_TYPES for source in sources)
+    dated_source_signal = bool(sources) and any(
+        source.source_type in DATED_SOURCE_TYPES or source.parser in DATED_PARSER_NAMES
+        for source in sources
+    )
     if not dated_source_signal:
         review_blockers.append("Source type does not provide an independent dated change signal.")
     allowed_evidence = bool(evidence_summaries) and not any("Evidence URL" in blocker for blocker in critical_blockers)
@@ -311,6 +367,8 @@ def _report_candidate(
         "allowed_evidence": allowed_evidence,
         "high_signal_kind": high_signal_kind,
         "dated_source_signal": dated_source_signal,
+        "concrete_date_signal": concrete_date_signal,
+        "specific_subject_signal": specific_subject_signal,
         "specific_fact_signal": specific_fact_signal,
         "schema_safe": schema_safe,
         "prompt_safe": prompt_safe,
@@ -331,6 +389,10 @@ def _report_candidate(
         reasons.append("Candidate kind maps to APW high-signal impact categories.")
     if dated_source_signal:
         reasons.append("At least one source type carries an independent dated change signal.")
+    if concrete_date_signal:
+        reasons.append("Candidate claim includes a bounded date signal.")
+    if specific_subject_signal:
+        reasons.append("Candidate claim includes a bounded provider surface, API, or model subject signal.")
     if specific_fact_signal:
         reasons.append("Candidate claim has a concrete-fact signal rather than generic change-detection wording.")
     if no_duplicates:
@@ -412,6 +474,7 @@ def build_promotion_readiness_report(
             "provider_controlled_authorities": sorted(PROVIDER_CONTROLLED_AUTHORITIES),
             "high_signal_kinds": sorted(HIGH_SIGNAL_KINDS),
             "dated_source_types": sorted(DATED_SOURCE_TYPES),
+            "dated_parser_names": sorted(DATED_PARSER_NAMES),
             "forbidden_authority": [
                 "merge_pull_request",
                 "publish_provider_event",

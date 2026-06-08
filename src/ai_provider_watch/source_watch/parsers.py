@@ -3,16 +3,19 @@ from __future__ import annotations
 import hashlib
 import re
 from dataclasses import dataclass
+from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from typing import Any
+from urllib.parse import urljoin
 
 from defusedxml import ElementTree as DET
 
 from ai_provider_watch.core.temporal import is_rfc3339_date_time
 from ai_provider_watch.source_watch.scopes import scoped_source_content
-from ai_provider_watch.sources.registry import SourceDescriptor
+from ai_provider_watch.sources.registry import SourceDescriptor, is_url_allowed_for_source
 
 MAX_ATOM_TIMESTAMP_LENGTH = 40
+MAX_ANNOUNCEMENT_CLAIMS = 6
 MAX_MODEL_ID_LENGTH = 96
 MAX_MODEL_ID_SEGMENT_LENGTH = 32
 MAX_STATUS_REF_LENGTH = 160
@@ -27,15 +30,22 @@ PROVIDER_LABELS = {
 
 KIND_LABELS = {
     "api_contract_change": "API contract change",
+    "billing_channel_change": "billing channel change",
     "caching_change": "caching or token-accounting change",
+    "default_model_change": "default-model change",
     "model_deprecation": "model deprecation",
     "model_launch": "model availability change",
     "model_retirement": "model retirement",
     "pricing_change": "pricing change",
     "quota_change": "quota or rate-limit change",
+    "rate_limit_change": "rate-limit change",
     "regional_availability_change": "regional availability change",
+    "sdk_behavior_change": "SDK behavior change",
     "status_incident": "status incident or recovery",
+    "status_recovery": "status incident or recovery",
+    "subscription_change": "subscription change",
     "token_accounting_change": "token-accounting change",
+    "workflow_behavior_change": "workflow behavior change",
 }
 
 OPENAI_MODEL_PATTERN = re.compile(
@@ -136,6 +146,83 @@ PRICING_PARSER_NAMES = {
     "google_vertex_pricing",
     "openai_pricing",
 }
+
+DATED_ANNOUNCEMENT_PARSER_NAMES = {
+    "anthropic_news_index",
+    "aws_bedrock_whats_new_feed",
+    "azure_openai_whats_new",
+    "google_gemini_changelog",
+    "openai_news_feed",
+}
+
+ANNOUNCEMENT_MODEL_PATTERNS = [
+    OPENAI_MODEL_PATTERN,
+    OPENAI_LEGACY_MODEL_PATTERN,
+    GEMINI_ID_PATTERN,
+    GOOGLE_LEGACY_MODEL_PATTERN,
+    GPT_OSS_PATTERN,
+    GPT_DISPLAY_PATTERN,
+    CLAUDE_DISPLAY_PATTERN,
+    re.compile(
+        r"\b(?:Amazon\s+)?Nova\s+(?:[0-9]\s+)?(?:Premier|Pro|Lite|Micro|Canvas|Reel)\b",
+        re.IGNORECASE,
+    ),
+]
+
+ANNOUNCEMENT_SUBJECT_KEYWORDS = {
+    "api": "api",
+    "agentcore": "bedrock-agentcore",
+    "amazon bedrock": "amazon-bedrock",
+    "audio": "audio",
+    "aws bedrock": "aws-bedrock",
+    "azure openai": "azure-openai",
+    "batch": "batch-api",
+    "bedrock": "aws-bedrock",
+    "cache": "prompt-caching",
+    "caching": "prompt-caching",
+    "claude code": "claude-code",
+    "codex": "codex",
+    "computer use": "computer-use",
+    "gemini api": "gemini-api",
+    "mcp": "mcp",
+    "model router": "model-router",
+    "prompt caching": "prompt-caching",
+    "realtime": "realtime-api",
+    "responses api": "responses-api",
+    "sdk": "sdk",
+    "token": "tokens",
+    "vertex ai": "vertex-ai",
+}
+
+ANNOUNCEMENT_RELEVANCE_KEYWORDS = tuple(sorted(ANNOUNCEMENT_SUBJECT_KEYWORDS))
+
+ANNOUNCEMENT_KIND_KEYWORDS = (
+    ("pricing_change", ("billing", "cost", "price", "pricing")),
+    ("token_accounting_change", ("cache", "caching", "cached", "token accounting", "tokens")),
+    ("quota_change", ("quota",)),
+    ("rate_limit_change", ("rate limit", "rate-limit", "rpm", "tpm")),
+    ("model_retirement", ("retire", "retired", "retirement", "shut down", "shutdown", "sunset")),
+    ("model_deprecation", ("deprecat", "legacy model")),
+    ("default_model_change", ("default model", "model router", "routing")),
+    (
+        "model_launch",
+        (
+            "available",
+            "general availability",
+            "generally available",
+            "introducing",
+            "launch",
+            "launched",
+            "model availability",
+            "released",
+            "preview",
+        ),
+    ),
+    ("regional_availability_change", ("region", "regional", "data zone")),
+    ("api_contract_change", ("endpoint", "header", "request parameter", "responses api")),
+    ("sdk_behavior_change", ("sdk", "library")),
+    ("workflow_behavior_change", ("agentcore", "claude code", "codex", "coding agent", "managed agents", "mcp", "workflow")),
+)
 
 PRICING_MODEL_PATTERNS = {
     "azure_openai_pricing": [OPENAI_MODEL_PATTERN],
@@ -283,6 +370,12 @@ MONTH_DATE_PATTERN = re.compile(
     r"\b("
     + "|".join(MONTHS)
     + r")\s+([0-9]{1,2}),\s+([0-9]{4})\b",
+    re.IGNORECASE,
+)
+MONTH_YEAR_PATTERN = re.compile(
+    r"\b("
+    + "|".join(MONTHS)
+    + r")\s+([0-9]{4})\b",
     re.IGNORECASE,
 )
 LIFECYCLE_DATE_HEADER_TOKENS = ("deprecat", "discontinu", "retir", "shutdown", "sunset")
@@ -447,6 +540,47 @@ class _TableHTMLParser(HTMLParser):
             self._current_cell.append(data)
 
 
+class _AnchorTextParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self._ignored_depth = 0
+        self._anchor_depth = 0
+        self._current_href: str | None = None
+        self._current_text: list[str] = []
+        self.links: list[tuple[str, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        normalized_tag = tag.lower()
+        if normalized_tag in {"script", "style", "noscript"}:
+            self._ignored_depth += 1
+            return
+        if self._ignored_depth or normalized_tag != "a":
+            return
+        attrs_by_name = {name.lower(): value for name, value in attrs if value is not None}
+        href = attrs_by_name.get("href")
+        if href:
+            self._anchor_depth += 1
+            self._current_href = href
+            self._current_text = []
+
+    def handle_endtag(self, tag: str) -> None:
+        normalized_tag = tag.lower()
+        if normalized_tag in {"script", "style", "noscript"} and self._ignored_depth:
+            self._ignored_depth -= 1
+            return
+        if normalized_tag == "a" and self._anchor_depth:
+            text = _normalize_text(" ".join(self._current_text))
+            if self._current_href and text:
+                self.links.append((self._current_href, text))
+            self._anchor_depth -= 1
+            self._current_href = None
+            self._current_text = []
+
+    def handle_data(self, data: str) -> None:
+        if not self._ignored_depth and self._anchor_depth:
+            self._current_text.append(data)
+
+
 def _sha256_text(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
@@ -587,6 +721,316 @@ def _table_payload(raw: bytes) -> list[list[list[str]]]:
     parser = _TableHTMLParser()
     parser.feed(raw.decode("utf-8", errors="ignore"))
     return parser.tables
+
+
+def _anchor_links(raw: bytes, source: SourceDescriptor) -> list[tuple[str, str]]:
+    parser = _AnchorTextParser()
+    parser.feed(raw.decode("utf-8", errors="ignore"))
+    links: list[tuple[str, str]] = []
+    for href, text in parser.links:
+        url = urljoin(source.url, href)
+        if is_url_allowed_for_source(url, source):
+            links.append((url, text))
+    return links
+
+
+def _date_from_datetime_text(value: str) -> str | None:
+    normalized = _normalize_text(value)
+    if not normalized:
+        return None
+    if ISO_DATE_PATTERN.fullmatch(normalized):
+        return normalized
+    try:
+        parsed = parsedate_to_datetime(normalized)
+    except (TypeError, ValueError, IndexError, OverflowError):
+        return None
+    return parsed.date().isoformat()
+
+
+def _date_from_text(value: str, *, allow_month_year: bool) -> str | None:
+    normalized = _normalize_text(value)
+    iso_match = ISO_DATE_PATTERN.search(normalized)
+    if iso_match:
+        return iso_match.group(0)
+    month_match = MONTH_DATE_PATTERN.search(normalized)
+    if month_match:
+        month = MONTHS[month_match.group(1).lower()]
+        day = int(month_match.group(2))
+        return f"{month_match.group(3)}-{month}-{day:02d}"
+    if allow_month_year:
+        month_year = MONTH_YEAR_PATTERN.search(normalized)
+        if month_year:
+            return f"{month_year.group(2)}-{MONTHS[month_year.group(1).lower()]}"
+    return None
+
+
+def _announcement_subjects(text: str) -> list[str]:
+    lower_text = text.lower()
+    subjects = {
+        model_id
+        for pattern in ANNOUNCEMENT_MODEL_PATTERNS
+        for match in pattern.finditer(text)
+        if _is_bounded_model_id(model_id := _model_display_id(match.group(0)))
+    }
+    for keyword, subject in ANNOUNCEMENT_SUBJECT_KEYWORDS.items():
+        if keyword in lower_text:
+            subjects.add(subject)
+    return sorted(subjects)[:8]
+
+
+def _announcement_kind(text: str, source: SourceDescriptor) -> str | None:
+    lower_text = text.lower()
+    for candidate_kind, keywords in ANNOUNCEMENT_KIND_KEYWORDS:
+        if any(keyword in lower_text for keyword in keywords):
+            return candidate_kind
+    for hint in source.impact_hints:
+        if hint in KIND_LABELS:
+            return hint
+    return None
+
+
+def _announcement_relevant(text: str, subjects: list[str]) -> bool:
+    lower_text = text.lower()
+    return bool(subjects) or any(keyword in lower_text for keyword in ANNOUNCEMENT_RELEVANCE_KEYWORDS)
+
+
+def _announcement_claim_text(
+    source: SourceDescriptor,
+    *,
+    date_value: str,
+    candidate_kind: str,
+    subjects: list[str],
+) -> str:
+    kind_label = KIND_LABELS.get(candidate_kind, "provider change")
+    article = "an" if kind_label[:1].lower() in {"a", "e", "i", "o", "u"} else "a"
+    subject_text = ", ".join(subjects[:6]) if subjects else "provider API or model surface"
+    return (
+        f"{_provider_label(source)} official dated source reports {article} {kind_label} "
+        f"on {date_value} for {subject_text}."
+    )
+
+
+def _announcement_item(
+    source: SourceDescriptor,
+    *,
+    text: str,
+    date_value: str,
+    candidate_kind: str,
+    evidence_url: str | None,
+) -> dict[str, Any]:
+    item: dict[str, Any] = {
+        "kind": "dated_announcement_ref",
+        "published_date": date_value,
+        "title_sha256": _sha256_text(text),
+        "source_parser": source.parser,
+        "candidate_kind": candidate_kind,
+    }
+    subjects = _announcement_subjects(text)
+    if subjects:
+        item["subjects"] = subjects
+    if evidence_url:
+        item["link_sha256"] = _sha256_text(evidence_url)
+    return item
+
+
+def _announcement_claim(
+    source: SourceDescriptor,
+    *,
+    text: str,
+    date_value: str,
+    candidate_kind: str,
+    evidence_url: str | None,
+) -> dict[str, str]:
+    subjects = _announcement_subjects(text)
+    claim: dict[str, str] = {
+        "candidate_kind": candidate_kind,
+        "claim_text": _announcement_claim_text(
+            source,
+            date_value=date_value,
+            candidate_kind=candidate_kind,
+            subjects=subjects,
+        ),
+        "selector": f"announcement:{_sha256_text(text)[:16]}",
+        "snapshot_ref": f"entry:{_sha256_text(text)[:16]}",
+    }
+    if evidence_url:
+        claim["evidence_url"] = evidence_url
+    return claim
+
+
+def _dedupe_announcement_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    seen: set[tuple[str, str, str]] = set()
+    deduped: list[dict[str, Any]] = []
+    for record in records:
+        subjects = ",".join(_announcement_subjects(str(record.get("text") or "")))
+        key = (
+            str(record.get("date_value") or ""),
+            str(record.get("candidate_kind") or ""),
+            subjects or _sha256_text(str(record.get("text") or "")),
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(record)
+    return deduped
+
+
+def _rss_or_atom_announcement_records(
+    source: SourceDescriptor,
+    raw: bytes,
+    *,
+    required_keywords: tuple[str, ...] = (),
+) -> tuple[list[dict[str, Any]], list[str]]:
+    try:
+        root = DET.fromstring(raw)
+    except (
+        DET.ParseError,
+        DET.DTDForbidden,
+        DET.EntitiesForbidden,
+        DET.ExternalReferenceForbidden,
+    ) as exc:
+        return [], [f"announcement feed parser failed: {exc.__class__.__name__}"]
+
+    records: list[dict[str, Any]] = []
+    entries = list(root.findall(".//item")) + list(root.findall("{http://www.w3.org/2005/Atom}entry"))
+    for entry in entries:
+        title = _normalize_text(entry.findtext("title") or entry.findtext("{http://www.w3.org/2005/Atom}title") or "")
+        description = _normalize_text(entry.findtext("description") or entry.findtext("summary") or "")
+        link = _normalize_text(entry.findtext("link") or "")
+        if not link:
+            link_node = entry.find("{http://www.w3.org/2005/Atom}link")
+            if link_node is not None:
+                link = _normalize_text(link_node.attrib.get("href", ""))
+        evidence_url = urljoin(source.url, link) if link else None
+        if evidence_url and not is_url_allowed_for_source(evidence_url, source):
+            evidence_url = None
+        published = (
+            entry.findtext("pubDate")
+            or entry.findtext("published")
+            or entry.findtext("updated")
+            or entry.findtext("{http://www.w3.org/2005/Atom}published")
+            or entry.findtext("{http://www.w3.org/2005/Atom}updated")
+            or ""
+        )
+        date_value = _date_from_datetime_text(published) or _date_from_text(title, allow_month_year=False)
+        text = _normalize_text(f"{title} {description}")
+        lower_text = text.lower()
+        if required_keywords and not any(keyword in lower_text for keyword in required_keywords):
+            continue
+        subjects = _announcement_subjects(text)
+        if not date_value or not _announcement_relevant(text, subjects):
+            continue
+        candidate_kind = _announcement_kind(text, source)
+        if candidate_kind is None:
+            continue
+        records.append(
+            {
+                "text": text,
+                "date_value": date_value,
+                "candidate_kind": candidate_kind,
+                "evidence_url": evidence_url,
+            }
+        )
+    return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS], []
+
+
+def _anthropic_news_records(source: SourceDescriptor, raw: bytes) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for evidence_url, text in _anchor_links(raw, source):
+        date_value = _date_from_text(text, allow_month_year=False)
+        subjects = _announcement_subjects(text)
+        if not date_value or not _announcement_relevant(text, subjects):
+            continue
+        candidate_kind = _announcement_kind(text, source)
+        if candidate_kind is None:
+            continue
+        records.append(
+            {
+                "text": text,
+                "date_value": date_value,
+                "candidate_kind": candidate_kind,
+                "evidence_url": evidence_url,
+            }
+        )
+    return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS]
+
+
+def _dated_text_records(
+    source: SourceDescriptor,
+    raw: bytes,
+    *,
+    allow_month_year: bool,
+) -> list[dict[str, Any]]:
+    text = _visible_html_text(raw)
+    matches = list(MONTH_DATE_PATTERN.finditer(text))
+    if allow_month_year:
+        matches += [match for match in MONTH_YEAR_PATTERN.finditer(text) if match not in matches]
+    matches = sorted(matches, key=lambda item: item.start())
+    records: list[dict[str, Any]] = []
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else min(len(text), match.end() + 900)
+        segment = _normalize_text(text[match.start() : end])
+        date_value = _date_from_text(segment, allow_month_year=allow_month_year)
+        subjects = _announcement_subjects(segment)
+        if not date_value or not _announcement_relevant(segment, subjects):
+            continue
+        candidate_kind = _announcement_kind(segment, source)
+        if candidate_kind is None:
+            continue
+        records.append(
+            {
+                "text": segment,
+                "date_value": date_value,
+                "candidate_kind": candidate_kind,
+                "evidence_url": source.url,
+            }
+        )
+    return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS]
+
+
+def _dated_announcement_payload(
+    source: SourceDescriptor,
+    raw: bytes,
+) -> tuple[list[dict[str, Any]], list[dict[str, str]], list[str]]:
+    errors: list[str] = []
+    if source.parser == "openai_news_feed":
+        records, errors = _rss_or_atom_announcement_records(source, raw)
+    elif source.parser == "aws_bedrock_whats_new_feed":
+        records, errors = _rss_or_atom_announcement_records(
+            source,
+            raw,
+            required_keywords=("bedrock",),
+        )
+    elif source.parser == "anthropic_news_index":
+        records = _anthropic_news_records(source, raw)
+    elif source.parser == "google_gemini_changelog":
+        records = _dated_text_records(source, raw, allow_month_year=False)
+    elif source.parser == "azure_openai_whats_new":
+        records = _dated_text_records(source, raw, allow_month_year=True)
+    else:
+        records = []
+
+    items = [
+        _announcement_item(
+            source,
+            text=record["text"],
+            date_value=record["date_value"],
+            candidate_kind=record["candidate_kind"],
+            evidence_url=record.get("evidence_url"),
+        )
+        for record in records
+    ]
+    claims = [
+        _announcement_claim(
+            source,
+            text=record["text"],
+            date_value=record["date_value"],
+            candidate_kind=record["candidate_kind"],
+            evidence_url=record.get("evidence_url"),
+        )
+        for record in records
+    ]
+    return items, claims, errors
 
 
 def _model_display_id(value: str) -> str:
@@ -930,6 +1374,7 @@ def parse_source_payload(
     changed: bool,
 ) -> ParsedSourcePayload:
     items: list[dict[str, Any]] = []
+    candidate_claims: list[dict[str, str]] = []
     errors: list[str] = []
     scoped = scoped_source_content(source, raw)
     raw = scoped.raw
@@ -937,6 +1382,11 @@ def parse_source_payload(
     if source.parser == "atom_status":
         items, atom_errors = _atom_items(raw)
         errors.extend(atom_errors)
+    elif source.parser in DATED_ANNOUNCEMENT_PARSER_NAMES:
+        items, announcement_claims, announcement_errors = _dated_announcement_payload(source, raw)
+        errors.extend(announcement_errors)
+        if changed:
+            candidate_claims = announcement_claims
     elif source.parser in MODEL_PARSER_PATTERNS:
         items = _model_items(raw, source.parser)
     elif source.parser in LIFECYCLE_PARSER_PATTERNS:
@@ -951,7 +1401,7 @@ def parse_source_payload(
     return ParsedSourcePayload(
         items=items,
         raw_excerpt_hashes=[],
-        candidate_claims=[_candidate_claim(source)] if changed else [],
+        candidate_claims=candidate_claims or ([_candidate_claim(source)] if changed else []),
         errors=errors,
         snapshot_ref=None,
     )

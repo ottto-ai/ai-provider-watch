@@ -1,0 +1,34 @@
+{
+  "changed": true,
+  "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-06-03 for amazon-bedrock, amazon-nova-premier, aws-bedrock.",
+        "evidence_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-nova-premier",
+        "selector": "announcement:4f1b7a200815c7fd",
+        "snapshot_ref": "entry:4f1b7a200815c7fd"
+      }
+    ],
+    "errors": [],
+    "items": [
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "91c0acf8b2cbc7485b4d70fbad6fb2e6035771cf83d26ca5868814f2fbf6f1f7",
+        "published_date": "2026-06-03",
+        "source_parser": "aws_bedrock_whats_new_feed",
+        "subjects": [
+          "amazon-bedrock",
+          "amazon-nova-premier",
+          "aws-bedrock"
+        ],
+        "title_sha256": "4f1b7a200815c7fd3ebdcd7eda3a1bd63c2b0d8ecaba583704120f04b3a6a099"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "snapshot_ref": null
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "aws_bedrock.whats_new"
+}
