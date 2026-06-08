@@ -67,8 +67,8 @@ The daily workflow now builds a draft candidate-review PR after source refresh:
 3. run `apw validate`, regenerate generated metadata with `apw index`, then
    rerun `apw validate` and `apw index --check`;
 4. render a PR body with observation counts, changed source keys, candidate
-   file paths, advisory promotion-readiness context, validation output, and a
-   maintainer checklist;
+   file paths, advisory promotion-readiness context, candidate-quality tiers,
+   validation output, and a maintainer checklist;
 5. commit only `data/source-state/fingerprints.json`, sanitized candidate JSON,
    and generated feed/index/release metadata such as freshness/checksum files.
 
@@ -100,6 +100,27 @@ uv run apw candidate readiness \
   --created-at 2026-05-31T20:15:00Z \
   --output .apw/promotion-readiness.json
 ```
+
+Maintainers can also render the candidate-quality report:
+
+```bash
+uv run apw candidate quality \
+  --candidates data/candidates/review \
+  --created-at 2026-05-31T20:15:00Z \
+  --output .apw/candidate-quality.json
+```
+
+Candidate quality is the source-owner decision lens for issue triage. It scores
+only review candidates, not published facts. `high_value` means the candidate is
+official, dated, developer-relevant, specific, and evidence-scoped enough for a
+review agent to recommend `promote`. `low_signal` means broad source churn,
+generic parser output, or weak evidence specificity should normally be rejected
+unless a maintainer independently confirms a concrete APW-scope fact. Quality
+recommendations are advisory and have the same forbidden authority as
+promotion-readiness reports: no event publication, merge, tag, OIDC, or release
+token access. When `duplicate_event_ids` is present, source owners should cite
+the existing reviewed event and avoid publishing a second ProviderEvent for the
+same evidence.
 
 Parser output is intentionally narrow. Dated official announcement parsers may
 emit multiple candidate claims for provider-controlled news, changelog, release
@@ -164,6 +185,7 @@ The packet is review-only. It omits candidate claim text, records claim hashes,
 declares forbidden actions, and gives the reviewer no merge, event-publish,
 source-write, release-token, OIDC, or tag authority. It does include
 deterministic promotion-readiness flags, reasons, blockers, canonical event
-hints, and sanitized evidence summaries so a reviewer can make an affirmative
-`promote`, `reject`, `duplicate`, `split`, or `needs_human_review`
-recommendation for source-owner review.
+hints, sanitized evidence summaries, candidate-quality tiers, recommended
+actions, and quality blockers so a reviewer can make an affirmative `promote`,
+`reject`, `duplicate`, `split`, or `needs_human_review` recommendation for
+source-owner review.

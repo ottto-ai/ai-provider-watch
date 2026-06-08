@@ -90,6 +90,7 @@
         "allowed_review_decisions",
         "allowed_promotion_readiness",
         "promotion_readiness_policy",
+        "candidate_quality_policy",
         "required_fields"
       ],
       "properties": {
@@ -135,6 +136,18 @@
             "needs_source_owner_review": { "type": "string", "minLength": 20, "maxLength": 500 },
             "not_ready": { "type": "string", "minLength": 20, "maxLength": 500 },
             "duplicate_or_superseded": { "type": "string", "minLength": 20, "maxLength": 500 }
+          }
+        },
+        "candidate_quality_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["high_value", "reviewable", "low_signal", "duplicate", "blocked"],
+          "properties": {
+            "high_value": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "reviewable": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "low_signal": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "duplicate": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "blocked": { "type": "string", "minLength": 20, "maxLength": 500 }
           }
         }
       }
@@ -249,6 +262,49 @@
                   "retrieved_at": { "type": "string", "minLength": 3, "maxLength": 40 }
                 }
               }
+            }
+          }
+        },
+        "candidate_quality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "quality_tier",
+            "recommended_action",
+            "score",
+            "dimensions",
+            "reasons",
+            "quality_blockers",
+            "duplicate_event_ids",
+            "canonical_event_hints"
+          ],
+          "properties": {
+            "quality_tier": {
+              "enum": ["high_value", "reviewable", "low_signal", "duplicate", "blocked"]
+            },
+            "recommended_action": {
+              "enum": ["promote", "reject", "duplicate", "needs_human_review"]
+            },
+            "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "dimensions": {
+              "type": "object",
+              "additionalProperties": { "type": "boolean" }
+            },
+            "reasons": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 240 }
+            },
+            "quality_blockers": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 300 }
+            },
+            "duplicate_event_ids": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 160 }
+            },
+            "canonical_event_hints": {
+              "type": ["object", "null"],
+              "additionalProperties": true
             }
           }
         }

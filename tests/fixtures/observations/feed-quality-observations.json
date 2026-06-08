@@ -1,0 +1,77 @@
+{
+  "changed_source_keys": [
+    "anthropic.pricing",
+    "google.ai_docs",
+    "openai.news"
+  ],
+  "created_at": "2026-06-08T12:00:00Z",
+  "observations": [
+    {
+      "candidate_claims": [
+        {
+          "candidate_kind": "workflow_behavior_change",
+          "claim_text": "2026-06-04 OpenAI announced Codex availability through AWS Bedrock for developer workflows.",
+          "evidence_url": "https://openai.com/news/codex-aws-bedrock/",
+          "snapshot_ref": "openai-news:2026-06-04:codex-aws-bedrock",
+          "selector": "article:2026-06-04"
+        }
+      ],
+      "changed": true,
+      "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "content_type": "application/rss+xml",
+      "errors": [],
+      "final_url": "https://openai.com/news/rss.xml",
+      "fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+      "http_status": 200,
+      "items": [],
+      "raw_excerpt_hashes": [],
+      "retrieved_at": "2026-06-08T12:00:00Z",
+      "schema_version": "apw.observation.v0",
+      "snapshot_ref": "openai-news:rss:2026-06-08",
+      "source_key": "openai.news"
+    },
+    {
+      "candidate_claims": [
+        {
+          "candidate_kind": "pricing_change",
+          "claim_text": "Anthropic pricing page changed and needs maintainer review."
+        }
+      ],
+      "changed": true,
+      "content_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "content_type": "text/html; charset=utf-8",
+      "errors": [],
+      "final_url": "https://docs.anthropic.com/en/docs/about-claude/pricing",
+      "fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+      "http_status": 200,
+      "items": [],
+      "raw_excerpt_hashes": [],
+      "retrieved_at": "2026-06-08T12:00:00Z",
+      "schema_version": "apw.observation.v0",
+      "snapshot_ref": null,
+      "source_key": "anthropic.pricing"
+    },
+    {
+      "candidate_claims": [
+        {
+          "candidate_kind": "model_launch",
+          "claim_text": "Google Gemini model documentation changed the supported model list."
+        }
+      ],
+      "changed": true,
+      "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "content_type": "text/html; charset=utf-8",
+      "errors": [],
+      "final_url": "https://ai.google.dev/gemini-api/docs/models",
+      "fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+      "http_status": 200,
+      "items": [],
+      "raw_excerpt_hashes": [],
+      "retrieved_at": "2026-06-08T12:00:00Z",
+      "schema_version": "apw.observation.v0",
+      "snapshot_ref": null,
+      "source_key": "google.ai_docs"
+    }
+  ],
+  "schema_version": "apw.source_observations.v0"
+}

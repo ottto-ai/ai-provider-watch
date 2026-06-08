@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/candidate-quality.schema.json",
+  "title": "CandidateQualityReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "created_at", "candidate_count", "policy", "summary", "candidates"],
+  "properties": {
+    "schema_version": { "const": "apw.candidate_quality_report.v0" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "candidate_count": { "type": "integer", "minimum": 0 },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority", "purpose", "forbidden_authority"],
+      "properties": {
+        "authority": { "const": "advisory_only" },
+        "purpose": { "type": "string", "minLength": 20, "maxLength": 240 },
+        "forbidden_authority": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3, "maxLength": 80 }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quality_tier_counts",
+        "recommended_action_counts",
+        "high_value_candidate_ids",
+        "reviewable_candidate_ids"
+      ],
+      "properties": {
+        "quality_tier_counts": { "$ref": "#/$defs/counts" },
+        "recommended_action_counts": { "$ref": "#/$defs/counts" },
+        "high_value_candidate_ids": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/candidate_id" }
+        },
+        "reviewable_candidate_ids": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/candidate_id" }
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate_quality_row" }
+    }
+  },
+  "$defs": {
+    "candidate_id": {
+      "type": "string",
+      "pattern": "^candidate-[a-z0-9][a-z0-9-]*-[a-f0-9]{16}$|^<invalid-id>$"
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "candidate_quality_row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "path",
+        "candidate_kind",
+        "source_keys",
+        "provider_refs",
+        "quality_tier",
+        "recommended_action",
+        "score",
+        "dimensions",
+        "reasons",
+        "quality_blockers",
+        "promotion_readiness",
+        "duplicate_event_ids",
+        "canonical_event_hints"
+      ],
+      "properties": {
+        "candidate_id": { "$ref": "#/$defs/candidate_id" },
+        "path": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "candidate_kind": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "source_keys": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]*[a-z0-9]$|^[a-z0-9]$" }
+        },
+        "provider_refs": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^provider:[a-z0-9][a-z0-9_-]*$" }
+        },
+        "quality_tier": {
+          "enum": ["high_value", "reviewable", "low_signal", "duplicate", "blocked"]
+        },
+        "recommended_action": {
+          "enum": ["promote", "reject", "duplicate", "needs_human_review"]
+        },
+        "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "dimensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "provider_controlled_official",
+            "enabled_deterministic_source",
+            "high_signal_kind",
+            "developer_impact_hint",
+            "dated_change_signal",
+            "specific_subject_signal",
+            "specific_action_signal",
+            "specific_fact_signal",
+            "article_or_selector_evidence",
+            "parser_specific",
+            "non_generic_claim",
+            "no_promotion_blockers",
+            "not_already_reviewed"
+          ],
+          "properties": {
+            "provider_controlled_official": { "type": "boolean" },
+            "enabled_deterministic_source": { "type": "boolean" },
+            "high_signal_kind": { "type": "boolean" },
+            "developer_impact_hint": { "type": "boolean" },
+            "dated_change_signal": { "type": "boolean" },
+            "specific_subject_signal": { "type": "boolean" },
+            "specific_action_signal": { "type": "boolean" },
+            "specific_fact_signal": { "type": "boolean" },
+            "article_or_selector_evidence": { "type": "boolean" },
+            "parser_specific": { "type": "boolean" },
+            "non_generic_claim": { "type": "boolean" },
+            "no_promotion_blockers": { "type": "boolean" },
+            "not_already_reviewed": { "type": "boolean" }
+          }
+        },
+        "reasons": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 240 }
+        },
+        "quality_blockers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 300 }
+        },
+        "promotion_readiness": {
+          "enum": [
+            "not_ready",
+            "needs_source_owner_review",
+            "auto_promotion_eligible",
+            "duplicate_or_superseded"
+          ]
+        },
+        "duplicate_event_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 160 }
+        },
+        "canonical_event_hints": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["event_kind", "provider_refs", "source_authorities", "source_types", "impact_kinds", "evidence_refs"],
+          "properties": {
+            "event_kind": { "type": "string", "minLength": 3, "maxLength": 80 },
+            "provider_refs": {
+              "type": "array",
+              "items": { "type": "string", "pattern": "^provider:[a-z0-9][a-z0-9_-]*$" }
+            },
+            "source_authorities": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 80 }
+            },
+            "source_types": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 80 }
+            },
+            "impact_kinds": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "cost",
+                  "quota",
+                  "rate_limit",
+                  "availability",
+                  "migration",
+                  "behavior",
+                  "quality",
+                  "security",
+                  "compliance",
+                  "unknown"
+                ]
+              }
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["source_key", "url", "authority", "retrieved_at"],
+                "properties": {
+                  "source_key": { "type": "string", "minLength": 1, "maxLength": 120 },
+                  "url": { "type": "string", "minLength": 1, "maxLength": 500 },
+                  "authority": { "type": "string", "minLength": 3, "maxLength": 80 },
+                  "retrieved_at": { "type": "string", "minLength": 3, "maxLength": 80 }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

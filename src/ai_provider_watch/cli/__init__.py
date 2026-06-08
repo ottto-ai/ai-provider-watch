@@ -34,6 +34,7 @@ from ai_provider_watch.pipeline.llm_review import (
 )
 from ai_provider_watch.pipeline.notifications import build_slack_payload, build_webhook_payload
 from ai_provider_watch.pipeline.promotion import build_promotion_readiness_report
+from ai_provider_watch.pipeline.quality import build_candidate_quality_report
 from ai_provider_watch.pipeline.release import (
     build_release_publication_packet,
     parse_release_date,
@@ -287,6 +288,13 @@ def cmd_candidate_review_pr_body(args: argparse.Namespace) -> int:
             root=root,
             created_at=created_at,
         )
+        quality_report = build_candidate_quality_report(
+            candidate_files,
+            load_source_descriptors(root, enabled_only=False),
+            root=root,
+            created_at=created_at,
+            promotion_report=promotion_report,
+        )
     except ValueError as exc:
         print(f"candidate review-pr-body failed: {exc}", file=sys.stderr)
         return 1
@@ -296,6 +304,7 @@ def cmd_candidate_review_pr_body(args: argparse.Namespace) -> int:
         root=root,
         validation_output=validation_output,
         promotion_report=promotion_report,
+        quality_report=quality_report,
     )
     sys.stdout.write(body)
     return 0
@@ -330,17 +339,58 @@ def cmd_candidate_readiness(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_candidate_quality(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    candidate_dir = _path_from_root(root, args.candidates)
+    created_at = _created_at(args.created_at)
+    candidate_files = read_candidate_files(candidate_dir)
+    sources = load_source_descriptors(root, enabled_only=False)
+    try:
+        promotion_report = build_promotion_readiness_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+        )
+        report = build_candidate_quality_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+            promotion_report=promotion_report,
+        )
+    except ValueError as exc:
+        print(f"candidate quality failed: {exc}", file=sys.stderr)
+        return 1
+    output = write_json_text(report)
+    if args.output:
+        output_path = _output_path(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(output, encoding="utf-8")
+    else:
+        sys.stdout.write(output)
+    return 0
+
+
 def cmd_review_request(args: argparse.Namespace) -> int:
     root = _root(args.root)
     candidate_dir = _path_from_root(root, args.candidates)
     created_at = _created_at(args.created_at)
     candidate_files = read_candidate_files(candidate_dir)
     try:
+        sources = load_source_descriptors(root, enabled_only=False)
         promotion_report = build_promotion_readiness_report(
             candidate_files,
-            load_source_descriptors(root, enabled_only=False),
+            sources,
             root=root,
             created_at=created_at,
+        )
+        quality_report = build_candidate_quality_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+            promotion_report=promotion_report,
         )
         request = build_review_request(
             candidate_files,
@@ -349,6 +399,7 @@ def cmd_review_request(args: argparse.Namespace) -> int:
             reviewer=args.reviewer,
             model=args.model,
             promotion_report=promotion_report,
+            quality_report=quality_report,
         )
     except ValueError as exc:
         print(f"review request failed: {exc}", file=sys.stderr)
@@ -655,6 +706,17 @@ def build_parser() -> argparse.ArgumentParser:
     )
     candidate_readiness_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     candidate_readiness_parser.set_defaults(func=cmd_candidate_readiness)
+    candidate_quality_parser = candidate_subparsers.add_parser(
+        "quality",
+        help="render advisory interestingness and source-owner decision quality for review candidates",
+    )
+    candidate_quality_parser.add_argument("--candidates", default="data/candidates/review")
+    candidate_quality_parser.add_argument(
+        "--created-at",
+        help="RFC3339 timestamp for deterministic quality reports; defaults to now in UTC",
+    )
+    candidate_quality_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
+    candidate_quality_parser.set_defaults(func=cmd_candidate_quality)
 
     review_parser = subparsers.add_parser("review", help="LLM and agent review helper commands")
     review_subparsers = review_parser.add_subparsers(dest="review_command", required=True)
