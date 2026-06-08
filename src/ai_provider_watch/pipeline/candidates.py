@@ -50,6 +50,15 @@ class CandidateBuildResult:
     skipped_observations: list[str]
 
 
+@dataclass(frozen=True)
+class ClaimParts:
+    claim_text: str
+    candidate_kind: str | None
+    evidence_url: str | None
+    snapshot_ref: str | None
+    selector: str | None
+
+
 def read_observation_bundle(path: Path) -> dict[str, Any]:
     payload = read_json(path)
     if isinstance(payload, list):
@@ -86,26 +95,81 @@ def _candidate_kind(source: SourceDescriptor, requested_kind: str | None) -> str
     return "unknown"
 
 
-def _claim_parts(raw_claim: Any) -> tuple[str, str | None]:
+def _safe_snapshot_ref(value: Any) -> str | None:
+    if not isinstance(value, str) or not SNAPSHOT_REF_PATTERN.fullmatch(value):
+        return None
+    if contains_prompt_injection_marker(value):
+        return None
+    return value
+
+
+def _safe_selector(value: Any) -> str | None:
+    if not isinstance(value, str) or len(value) > 160:
+        return None
+    if contains_prompt_injection_marker(value):
+        return None
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:/@+-]{0,159}", value):
+        return None
+    return value
+
+
+def _claim_parts(raw_claim: Any) -> ClaimParts:
     if isinstance(raw_claim, str):
-        return raw_claim, None
+        return ClaimParts(
+            claim_text=raw_claim,
+            candidate_kind=None,
+            evidence_url=None,
+            snapshot_ref=None,
+            selector=None,
+        )
     if not isinstance(raw_claim, dict):
-        return "", None
+        return ClaimParts(
+            claim_text="",
+            candidate_kind=None,
+            evidence_url=None,
+            snapshot_ref=None,
+            selector=None,
+        )
     claim_text = raw_claim.get("claim_text")
     candidate_kind = raw_claim.get("candidate_kind")
+    evidence_url = raw_claim.get("evidence_url")
     if not isinstance(claim_text, str):
-        return "", None
+        return ClaimParts(
+            claim_text="",
+            candidate_kind=None,
+            evidence_url=None,
+            snapshot_ref=None,
+            selector=None,
+        )
     if not isinstance(candidate_kind, str):
         candidate_kind = None
-    return claim_text, candidate_kind
+    if not isinstance(evidence_url, str):
+        evidence_url = None
+    return ClaimParts(
+        claim_text=claim_text,
+        candidate_kind=candidate_kind,
+        evidence_url=evidence_url,
+        snapshot_ref=_safe_snapshot_ref(raw_claim.get("snapshot_ref")),
+        selector=_safe_selector(raw_claim.get("selector")),
+    )
 
 
-def _evidence_ref(observation: dict[str, Any], source: SourceDescriptor) -> dict[str, Any]:
+def _evidence_ref(
+    observation: dict[str, Any],
+    source: SourceDescriptor,
+    claim: ClaimParts,
+) -> dict[str, Any] | None:
     final_url = observation.get("final_url")
+    if claim.evidence_url is not None:
+        if not is_url_allowed_for_source(claim.evidence_url, source):
+            return None
+        final_url = claim.evidence_url
     snapshot_ref = observation.get("snapshot_ref")
+    if claim.snapshot_ref is not None:
+        snapshot_ref = claim.snapshot_ref
     if not isinstance(snapshot_ref, str) or not SNAPSHOT_REF_PATTERN.fullmatch(snapshot_ref):
         snapshot_ref = None
-    return {
+    evidence = {
         "source_key": observation["source_key"],
         "url": final_url,
         "retrieved_at": observation["retrieved_at"],
@@ -114,10 +178,20 @@ def _evidence_ref(observation: dict[str, Any], source: SourceDescriptor) -> dict
         "fingerprint": observation["fingerprint"],
         "snapshot_ref": snapshot_ref,
     }
+    if claim.selector is not None:
+        evidence["selector"] = claim.selector
+    return evidence
 
 
-def _candidate_id(source_key: str, fingerprint: str, claim_text: str) -> str:
-    stable = _sha256_text(f"{source_key}\n{fingerprint}\n{_normalize_text(claim_text).lower()}")
+def _candidate_id(
+    source_key: str,
+    fingerprint: str,
+    claim_text: str,
+    *,
+    stable_ref: str | None = None,
+) -> str:
+    evidence_identity = stable_ref or fingerprint
+    stable = _sha256_text(f"{source_key}\n{evidence_identity}\n{_normalize_text(claim_text).lower()}")
     return f"candidate-{_slug(source_key)}-{stable[:16]}"
 
 
@@ -182,8 +256,8 @@ def build_candidates(
             continue
 
         for raw_claim in claims:
-            claim_text, requested_kind = _claim_parts(raw_claim)
-            claim_text = _normalize_text(claim_text)
+            claim = _claim_parts(raw_claim)
+            claim_text = _normalize_text(claim.claim_text)
             if (
                 len(claim_text) < 10
                 or len(claim_text) > 2000
@@ -192,15 +266,25 @@ def build_candidates(
                 skipped.append(str(source_key))
                 continue
 
-            candidate_kind = _candidate_kind(source, requested_kind)
+            evidence_ref = _evidence_ref(observation, source, claim)
+            if evidence_ref is None:
+                skipped.append(str(source_key))
+                continue
+
+            candidate_kind = _candidate_kind(source, claim.candidate_kind)
             candidate = {
                 "schema_version": "apw.finding_candidate.v0",
-                "id": _candidate_id(source.key, observation["fingerprint"], claim_text),
+                "id": _candidate_id(
+                    source.key,
+                    observation["fingerprint"],
+                    claim_text,
+                    stable_ref=claim.snapshot_ref,
+                ),
                 "source_keys": [source.key],
                 "provider_refs": source.provider_refs,
                 "claim_text": claim_text,
                 "candidate_kind": candidate_kind,
-                "evidence_refs": [_evidence_ref(observation, source)],
+                "evidence_refs": [evidence_ref],
                 "created_at": created_at,
                 "review_status": DEFAULT_REVIEW_STATUS,
                 "parser": {

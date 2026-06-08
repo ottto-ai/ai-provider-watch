@@ -30,9 +30,9 @@ eligibility:
 - `blocked_pending_parser` sources are official evidence sources that stay
   disabled until parser fixtures cover their structured lifecycle or policy
   facts.
-- `manual_review_only` sources are official but broad, such as blog/news index
-  pages. Maintainers may cite them in reviewed events, but unattended refresh
-  must not select articles or publish events from them.
+- `manual_review_only` sources are official but broad, such as docs without a
+  dated change signal. Maintainers may cite them in reviewed events, but
+  unattended refresh must not select articles or publish events from them.
 
 `enabled: false` does not mean a source is untrusted; it means APW will not fetch
 that source unattended until the descriptor's graduation blockers are resolved.
@@ -85,10 +85,10 @@ its JSON files instead of preserving stale candidates.
 
 The promotion-readiness section is deterministic source-owner context. It may
 mark a candidate `auto_promotion_eligible` only when the candidate is official,
-provider-controlled, dated by the source type, high-signal, schema-safe,
-prompt-safe, non-generic, and non-duplicate in the review window. Generic
-"source changed" candidates remain source-owner review work. This is not
-publication authority: source-refresh and candidate-review workflows still
+provider-controlled, dated by the source type or parser, high-signal,
+schema-safe, prompt-safe, non-generic, and non-duplicate in the review window.
+Generic "source changed" candidates remain source-owner review work. This is
+not publication authority: source-refresh and candidate-review workflows still
 cannot publish events, merge PRs, create tags, request OIDC, or read release
 tokens.
 
@@ -101,16 +101,20 @@ uv run apw candidate readiness \
   --output .apw/promotion-readiness.json
 ```
 
-Parser output is intentionally narrow at this stage. Changed official sources
-produce generic maintainer-review claims. Atom and Statuspage-style status
-sources expose hashed refs and timestamps instead of copied titles or incident
-text. Provider model-doc parsers extract only allowlisted model identifier
-shapes, lifecycle-doc parsers emit bounded model identifiers and dates, and
-pricing parsers emit bounded pricing/model signals such as input/output, cached
-input, cache write/hit, batch, priority, regional, and provisioned-throughput
-markers. Pricing parsers may also emit `price_point` items with only model ID,
-billing dimension, numeric USD price per 1M tokens, normalized unit, and parser
-name. The parser fixture command is:
+Parser output is intentionally narrow. Dated official announcement parsers may
+emit multiple candidate claims for provider-controlled news, changelog, release
+note, or What's New entries, but only as bounded facts: date, candidate kind,
+provider/model/API subjects, article URL when allowed by the descriptor, title
+hash, link hash, selector, and snapshot ref. They must not store article bodies
+or copied provider titles. Atom and Statuspage-style status sources expose
+hashed refs and timestamps instead of copied titles or incident text. Provider
+model-doc parsers extract only allowlisted model identifier shapes,
+lifecycle-doc parsers emit bounded model identifiers and dates, and pricing
+parsers emit bounded pricing/model signals such as input/output, cached input,
+cache write/hit, batch, priority, regional, and provisioned-throughput markers.
+Pricing parsers may also emit `price_point` items with only model ID, billing
+dimension, numeric USD price per 1M tokens, normalized unit, and parser name.
+The parser fixture command is:
 
 ```bash
 uv run apw source test
@@ -158,4 +162,8 @@ uv run apw review request \
 
 The packet is review-only. It omits candidate claim text, records claim hashes,
 declares forbidden actions, and gives the reviewer no merge, event-publish,
-source-write, release-token, OIDC, or tag authority.
+source-write, release-token, OIDC, or tag authority. It does include
+deterministic promotion-readiness flags, reasons, blockers, canonical event
+hints, and sanitized evidence summaries so a reviewer can make an affirmative
+`promote`, `reject`, `duplicate`, `split`, or `needs_human_review`
+recommendation for source-owner review.

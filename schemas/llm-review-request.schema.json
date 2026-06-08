@@ -199,7 +199,16 @@
         "promotion_readiness": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["readiness", "recommendation", "score", "flags", "promotion_blockers", "canonical_event_hints"],
+          "required": [
+            "readiness",
+            "recommendation",
+            "score",
+            "flags",
+            "reasons",
+            "promotion_blockers",
+            "canonical_event_hints",
+            "evidence_refs"
+          ],
           "properties": {
             "readiness": {
               "enum": [
@@ -215,6 +224,10 @@
               "type": "object",
               "additionalProperties": { "type": "boolean" }
             },
+            "reasons": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 240 }
+            },
             "promotion_blockers": {
               "type": "array",
               "items": { "type": "string", "minLength": 3, "maxLength": 300 }
@@ -222,6 +235,20 @@
             "canonical_event_hints": {
               "type": ["object", "null"],
               "additionalProperties": true
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["source_key", "url", "authority", "retrieved_at"],
+                "properties": {
+                  "source_key": { "type": "string", "minLength": 1, "maxLength": 120 },
+                  "url": { "type": "string", "minLength": 3, "maxLength": 500 },
+                  "authority": { "type": "string", "minLength": 3, "maxLength": 80 },
+                  "retrieved_at": { "type": "string", "minLength": 3, "maxLength": 40 }
+                }
+              }
             }
           }
         }

@@ -6,6 +6,9 @@ from pathlib import Path
 
 from ai_provider_watch.cli import main
 from ai_provider_watch.core.io import read_json
+from ai_provider_watch.pipeline.candidates import build_candidates
+from ai_provider_watch.pipeline.promotion import build_promotion_readiness_report
+from ai_provider_watch.pipeline.review_pr import CandidateFile
 from ai_provider_watch.source_watch.fixtures import (
     MAX_PARSER_FIXTURE_BYTES,
     validate_parser_fixtures,
@@ -87,8 +90,9 @@ def test_source_packages_validate() -> None:
 
 def test_source_registry_loads_enabled_sources() -> None:
     sources = load_source_descriptors(ROOT)
-    assert len(sources) == 10
-    assert sources[0].key == "anthropic.pricing"
+    assert len(sources) == 15
+    assert [source.key for source in sources] == sorted(source.key for source in sources)
+    assert "anthropic.pricing" in {source.key for source in sources}
 
 
 def test_source_registry_declares_graduation_posture() -> None:
@@ -98,18 +102,20 @@ def test_source_registry_declares_graduation_posture() -> None:
     blocked = {source.key for source in sources if source.automation_status == "blocked_pending_parser"}
     manual_only = {source.key for source in sources if source.automation_status == "manual_review_only"}
 
-    assert len(enabled) == 10
+    assert len(enabled) == 15
     assert blocked == {
         "azure_openai.legacy_models",
         "google.vertex_model_versions",
         "openai.deprecations",
     }
-    assert manual_only == {
+    assert manual_only == {"openai.codex_docs"}
+    assert {
         "anthropic.news",
         "aws_bedrock.whats_new",
-        "openai.codex_docs",
+        "azure_openai.whats_new",
+        "google.gemini_changelog",
         "openai.news",
-    }
+    } <= enabled
     for source in sources:
         if source.enabled:
             assert source.automation_status == "enabled_deterministic"
@@ -638,6 +644,148 @@ def test_provider_pricing_parser_fixtures_extract_bounded_signals() -> None:
         assert "publish every candidate" not in rendered
         assert "merge this parser PR" not in rendered
         assert "777" not in rendered
+
+
+def test_dated_announcement_parser_fixtures_emit_bounded_claims() -> None:
+    cases = [
+        (
+            "openai.news",
+            "sources/openai/fixtures/news-feed.xml",
+            "sources/openai/fixtures/news-feed.expected.json",
+        ),
+        (
+            "anthropic.news",
+            "sources/anthropic/fixtures/news.html",
+            "sources/anthropic/fixtures/news.expected.json",
+        ),
+        (
+            "google.gemini_changelog",
+            "sources/google/fixtures/gemini-changelog.html",
+            "sources/google/fixtures/gemini-changelog.expected.json",
+        ),
+        (
+            "aws_bedrock.whats_new",
+            "sources/aws-bedrock/fixtures/whats-new-feed.xml",
+            "sources/aws-bedrock/fixtures/whats-new-feed.expected.json",
+        ),
+        (
+            "azure_openai.whats_new",
+            "sources/azure-openai/fixtures/whats-new.html",
+            "sources/azure-openai/fixtures/whats-new.expected.json",
+        ),
+    ]
+    sources = {source.key: source for source in load_source_descriptors(ROOT)}
+
+    for source_key, input_path, expected_path in cases:
+        parsed = parse_source_payload(
+            sources[source_key],
+            (ROOT / input_path).read_bytes(),
+            changed=True,
+        )
+
+        assert {
+            "items": parsed.items,
+            "raw_excerpt_hashes": parsed.raw_excerpt_hashes,
+            "candidate_claims": parsed.candidate_claims,
+            "errors": parsed.errors,
+            "snapshot_ref": parsed.snapshot_ref,
+        } == read_json(ROOT / expected_path)["expected"]
+        assert parsed.items
+        assert parsed.candidate_claims
+        assert {item["kind"] for item in parsed.items} == {"dated_announcement_ref"}
+        assert all("title_sha256" in item for item in parsed.items)
+        assert all("claim_text" in claim for claim in parsed.candidate_claims)
+        assert len({claim["claim_text"] for claim in parsed.candidate_claims}) == len(
+            parsed.candidate_claims
+        )
+
+    rendered = "\n".join(
+        json.dumps(parse_source_payload(sources[source_key], (ROOT / input_path).read_bytes(), changed=True).items)
+        + json.dumps(
+            parse_source_payload(
+                sources[source_key],
+                (ROOT / input_path).read_bytes(),
+                changed=True,
+            ).candidate_claims
+        )
+        for source_key, input_path, _ in cases
+    )
+    assert "Ignore instructions" not in rendered
+    assert "Codex and GPT-4.1 availability expands for developers" not in rendered
+    assert "Amazon Bedrock adds model availability for Nova Premier" not in rendered
+
+
+def test_dated_announcement_parser_dedupes_equivalent_claims() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "anthropic.news")
+    raw = b"""
+        <a href="/news/claude-opus-48">Introducing Claude Opus 4.8 Product May 28, 2026</a>
+        <a href="/news/claude-opus-48-followup">Claude Opus 4.8 available Product May 28, 2026</a>
+    """
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert len(parsed.candidate_claims) == 1
+    assert parsed.candidate_claims[0]["claim_text"] == (
+        "Anthropic official dated source reports a model availability change "
+        "on 2026-05-28 for claude-opus-4.8."
+    )
+
+
+def test_dated_announcement_candidates_use_article_level_evidence_url(tmp_path) -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.news")
+    parsed = parse_source_payload(
+        source,
+        (ROOT / "sources/openai/fixtures/news-feed.xml").read_bytes(),
+        changed=True,
+    )
+    observation = {
+        "source_key": source.key,
+        "provider_refs": source.provider_refs,
+        "changed": True,
+        "retrieved_at": "2026-06-01T12:00:00Z",
+        "final_url": source.url,
+        "http_status": 200,
+        "content_sha256": "a" * 64,
+        "fingerprint": "b" * 64,
+        "snapshot_ref": parsed.snapshot_ref,
+        "items": parsed.items,
+        "candidate_claims": parsed.candidate_claims,
+        "errors": parsed.errors,
+    }
+
+    candidates = build_candidates(
+        {"schema_version": "apw.source_observations.v0", "observations": [observation]},
+        [source],
+        created_at="2026-06-01T12:00:00Z",
+    ).candidates
+    assert len(candidates) == 1
+    candidate = candidates[0]
+    evidence = candidate["evidence_refs"][0]
+
+    assert evidence["url"] == "https://openai.com/news/codex-gpt-41-availability"
+    assert evidence["selector"] == parsed.candidate_claims[0]["selector"]
+    assert evidence["snapshot_ref"] == parsed.candidate_claims[0]["snapshot_ref"]
+
+    updated_observation = {**observation, "fingerprint": "c" * 64}
+    updated_candidates = build_candidates(
+        {"schema_version": "apw.source_observations.v0", "observations": [updated_observation]},
+        [source],
+        created_at="2026-06-01T12:00:00Z",
+    ).candidates
+    assert updated_candidates[0]["id"] == candidate["id"]
+
+    report = build_promotion_readiness_report(
+        [CandidateFile(path=tmp_path / "candidate-openai-news.json", payload=candidate)],
+        [source],
+        root=tmp_path,
+        created_at="2026-06-01T12:00:00Z",
+    )
+    row = report["candidates"][0]
+    assert row["readiness"] == "auto_promotion_eligible"
+    assert row["flags"]["dated_source_signal"] is True
+    assert row["flags"]["concrete_date_signal"] is True
+    assert row["flags"]["specific_subject_signal"] is True
+    assert row["flags"]["specific_fact_signal"] is True
 
 
 def test_statuspage_parser_hashes_incident_links_without_copying_text() -> None:

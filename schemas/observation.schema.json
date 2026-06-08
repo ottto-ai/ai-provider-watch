@@ -28,6 +28,17 @@
             "required": ["claim_text"],
             "properties": {
               "claim_text": { "type": "string", "minLength": 10, "maxLength": 2000 },
+              "evidence_url": { "type": "string", "format": "uri", "maxLength": 500 },
+              "snapshot_ref": {
+                "type": "string",
+                "maxLength": 240,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/@+-]{0,239}$"
+              },
+              "selector": {
+                "type": "string",
+                "maxLength": 160,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/@+-]{0,159}$"
+              },
               "candidate_kind": {
                 "enum": [
                   "api_contract_change",

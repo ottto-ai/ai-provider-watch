@@ -16,6 +16,12 @@
       "input": "fixtures/model-cards.html",
       "expected": "fixtures/model-cards.expected.json",
       "changed": true
+    },
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "input": "fixtures/whats-new-feed.xml",
+      "expected": "fixtures/whats-new-feed.expected.json",
+      "changed": true
     }
   ]
 }

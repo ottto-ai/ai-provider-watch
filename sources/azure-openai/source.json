@@ -1,7 +1,7 @@
 {
   "schema_version": "apw.source_package.v0",
   "provider_ref": "provider:azure-openai",
-  "source_keys": ["azure_openai.pricing", "azure_openai.docs", "azure_openai.legacy_models"],
+  "source_keys": ["azure_openai.pricing", "azure_openai.docs", "azure_openai.whats_new", "azure_openai.legacy_models"],
   "status": "parser_fixtures",
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [
@@ -15,6 +15,12 @@
       "source_key": "azure_openai.docs",
       "input": "fixtures/docs-models.html",
       "expected": "fixtures/docs-models.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "azure_openai.whats_new",
+      "input": "fixtures/whats-new.html",
+      "expected": "fixtures/whats-new.expected.json",
       "changed": true
     },
     {

@@ -56,6 +56,12 @@ uv run apw review eval \
   risks do not contain prompt-like instructions.
 
 Reviewers may make an affirmative curation recommendation, but not a mutation.
+The request includes deterministic promotion-readiness context for each
+candidate when available: flags, reasons, blockers, canonical event hints, and
+sanitized evidence summaries. This gives the reviewer enough context to
+recommend `promote` when the official dated evidence is strong, or to explain
+why the candidate should be rejected, split, deduplicated, or kept for source
+owner review.
 Each `review_decisions[]` row must include:
 
 - `decision`: `promote`, `reject`, `duplicate`, `split`, or
@@ -81,6 +87,8 @@ The review packet:
   prompt-like marker flag;
 - includes candidate file paths, IDs, kinds, source keys, provider refs, and
   evidence URLs after bounded rendering;
+- includes deterministic promotion-readiness reasons and blockers when the
+  candidate-readiness report was rendered;
 - includes a prompt that tells the reviewer to treat provider/source/candidate
   text as untrusted data;
 - requires `review_decisions` as advisory curation notes. Decisions do not

@@ -17,6 +17,7 @@
         "provider_controlled_authorities",
         "high_signal_kinds",
         "dated_source_types",
+        "dated_parser_names",
         "forbidden_authority"
       ],
       "properties": {
@@ -35,6 +36,10 @@
           "type": "array",
           "minItems": 1,
           "items": { "type": "string", "minLength": 3, "maxLength": 80 }
+        },
+        "dated_parser_names": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 120 }
         },
         "forbidden_authority": {
           "type": "array",
@@ -125,6 +130,8 @@
             "allowed_evidence",
             "high_signal_kind",
             "dated_source_signal",
+            "concrete_date_signal",
+            "specific_subject_signal",
             "specific_fact_signal",
             "schema_safe",
             "prompt_safe",
@@ -136,6 +143,8 @@
             "allowed_evidence": { "type": "boolean" },
             "high_signal_kind": { "type": "boolean" },
             "dated_source_signal": { "type": "boolean" },
+            "concrete_date_signal": { "type": "boolean" },
+            "specific_subject_signal": { "type": "boolean" },
             "specific_fact_signal": { "type": "boolean" },
             "schema_safe": { "type": "boolean" },
             "prompt_safe": { "type": "boolean" },

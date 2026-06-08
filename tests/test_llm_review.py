@@ -190,6 +190,8 @@ def test_review_request_cli_writes_output(tmp_path) -> None:
         "not_ready",
         "duplicate_or_superseded",
     }
+    assert "reasons" in request["candidates"][0]["promotion_readiness"]
+    assert "evidence_refs" in request["candidates"][0]["promotion_readiness"]
 
 
 def _review_result(request: dict, candidate_ids: list[str]) -> dict:

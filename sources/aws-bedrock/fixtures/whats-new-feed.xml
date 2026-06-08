@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>AWS What's New</title>
+    <item>
+      <title>Amazon Bedrock adds model availability for Nova Premier</title>
+      <link>https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-nova-premier</link>
+      <pubDate>Wed, 03 Jun 2026 10:00:00 GMT</pubDate>
+      <description>Amazon Bedrock customers can access new model availability in supported regions.</description>
+    </item>
+    <item>
+      <title>Amazon S3 console update</title>
+      <link>https://aws.amazon.com/about-aws/whats-new/2026/06/s3-console-update</link>
+      <pubDate>Thu, 04 Jun 2026 10:00:00 GMT</pubDate>
+      <description>Storage console update.</description>
+    </item>
+  </channel>
+</rss>

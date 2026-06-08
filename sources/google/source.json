@@ -1,7 +1,7 @@
 {
   "schema_version": "apw.source_package.v0",
   "provider_ref": "provider:google",
-  "source_keys": ["google.vertex_pricing", "google.ai_docs", "google.vertex_model_versions"],
+  "source_keys": ["google.vertex_pricing", "google.ai_docs", "google.gemini_changelog", "google.vertex_model_versions"],
   "status": "parser_fixtures",
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [
@@ -15,6 +15,12 @@
       "source_key": "google.ai_docs",
       "input": "fixtures/ai-docs-models.html",
       "expected": "fixtures/ai-docs-models.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "google.gemini_changelog",
+      "input": "fixtures/gemini-changelog.html",
+      "expected": "fixtures/gemini-changelog.expected.json",
       "changed": true
     },
     {

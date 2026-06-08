@@ -16,6 +16,12 @@
       "input": "fixtures/status.html",
       "expected": "fixtures/status.expected.json",
       "changed": true
+    },
+    {
+      "source_key": "anthropic.news",
+      "input": "fixtures/news.html",
+      "expected": "fixtures/news.expected.json",
+      "changed": true
     }
   ]
 }

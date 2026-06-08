@@ -1,0 +1,74 @@
+{
+  "changed": true,
+  "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "Google Gemini/Vertex official dated source reports a model availability change on 2025-10-20 for api, audio, gemini-2.5-flash-native-audio-preview-09-2025, gemini-api.",
+        "evidence_url": "https://ai.google.dev/gemini-api/docs/changelog",
+        "selector": "announcement:294fd0ed58ec326b",
+        "snapshot_ref": "entry:294fd0ed58ec326b"
+      },
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "Google Gemini/Vertex official dated source reports a model availability change on 2025-10-17 for api, gemini-api.",
+        "evidence_url": "https://ai.google.dev/gemini-api/docs/changelog",
+        "selector": "announcement:a2ffb538fbe01c55",
+        "snapshot_ref": "entry:a2ffb538fbe01c55"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official dated source reports a model retirement on 2025-09-29 for api, gemini-1.5-pro, gemini-api.",
+        "evidence_url": "https://ai.google.dev/gemini-api/docs/changelog",
+        "selector": "announcement:a30026b1cddea648",
+        "snapshot_ref": "entry:a30026b1cddea648"
+      }
+    ],
+    "errors": [],
+    "items": [
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "a24fd97eb3d007306bed8b5d4222123d0ab9028b77f12aee3ff4bc955ed3911e",
+        "published_date": "2025-10-20",
+        "source_parser": "google_gemini_changelog",
+        "subjects": [
+          "api",
+          "audio",
+          "gemini-2.5-flash-native-audio-preview-09-2025",
+          "gemini-api"
+        ],
+        "title_sha256": "294fd0ed58ec326beea569abd29f06b9df3e50e77a7794e8407eb4e9624f293b"
+      },
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "a24fd97eb3d007306bed8b5d4222123d0ab9028b77f12aee3ff4bc955ed3911e",
+        "published_date": "2025-10-17",
+        "source_parser": "google_gemini_changelog",
+        "subjects": [
+          "api",
+          "gemini-api"
+        ],
+        "title_sha256": "a2ffb538fbe01c55ceac4e661ed517dcac525d0012289c8b3c31a563d8987cbf"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "a24fd97eb3d007306bed8b5d4222123d0ab9028b77f12aee3ff4bc955ed3911e",
+        "published_date": "2025-09-29",
+        "source_parser": "google_gemini_changelog",
+        "subjects": [
+          "api",
+          "gemini-1.5-pro",
+          "gemini-api"
+        ],
+        "title_sha256": "a30026b1cddea648a382baa921dcf9b8ab6aab331160a48bfa4b00ce40e12bc5"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "snapshot_ref": null
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "google.gemini_changelog"
+}

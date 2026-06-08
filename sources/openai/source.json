@@ -24,6 +24,12 @@
       "changed": true
     },
     {
+      "source_key": "openai.news",
+      "input": "fixtures/news-feed.xml",
+      "expected": "fixtures/news-feed.expected.json",
+      "changed": true
+    },
+    {
       "source_key": "openai.deprecations",
       "input": "fixtures/deprecations.html",
       "expected": "fixtures/deprecations.expected.json",

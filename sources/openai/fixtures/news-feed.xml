@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>OpenAI News</title>
+    <item>
+      <title>Codex and GPT-4.1 availability expands for developers</title>
+      <link>https://openai.com/news/codex-gpt-41-availability</link>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <description>API developers can use Codex with new model availability on partner platforms.</description>
+    </item>
+    <item>
+      <title>Company office update</title>
+      <link>https://openai.com/news/company-office-update</link>
+      <pubDate>Tue, 02 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Non-product corporate news.</description>
+    </item>
+  </channel>
+</rss>
