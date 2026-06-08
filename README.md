@@ -43,8 +43,9 @@ python -m pip install ai-provider-watch
 apw validate
 ```
 
-The published package includes the reviewed public data feed, so read-only
-commands work outside a checkout.
+The published package includes a reviewed public data snapshot, so read-only
+commands work outside a checkout. For the freshest feed, use the GitHub data
+artifacts or raw `main` URLs below.
 
 ## Quickstart
 
@@ -95,6 +96,12 @@ https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/lat
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/events.ndjson
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/freshness.json
 ```
+
+GitHub CalVer data releases are the canonical immutable feed snapshots. PyPI
+package releases are installable CLI snapshots that bundle reviewed data for
+offline and no-checkout use; APW does not publish a new package for every data
+tag. Patch packages are published when bundled data freshness materially helps
+install-only users or when CLI/package behavior changes.
 
 Use `apw freshness` to verify the feed version, package version, event count,
 latest reviewed event date, latest source-state retrieval timestamp, release
@@ -229,8 +236,9 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.0` is the first stable public package. The first public data releases
-are signed CalVer tags such as `data-2026.06.05`.
+APW `v0.1.1` is the current stable public package. It updates the bundled
+reviewed feed snapshot after the June 8 source-owner promotion batch. The first
+public data releases are signed CalVer tags such as `data-2026.06.05`.
 
 The current release includes:
 

@@ -406,7 +406,7 @@ def _handle_jsonrpc(payload: dict[str, Any]) -> dict[str, Any] | None:
                 {
                     "protocolVersion": "2024-11-05",
                     "capabilities": {"resources": {}, "tools": {}},
-                    "serverInfo": {"name": "ai-provider-watch", "version": "0.1.0"},
+                    "serverInfo": {"name": "ai-provider-watch", "version": "0.1.1"},
                 },
             )
         if method == "resources/list":
