@@ -104,7 +104,12 @@ def test_source_registry_declares_graduation_posture() -> None:
         "google.vertex_model_versions",
         "openai.deprecations",
     }
-    assert manual_only == {"anthropic.news", "aws_bedrock.whats_new"}
+    assert manual_only == {
+        "anthropic.news",
+        "aws_bedrock.whats_new",
+        "openai.codex_docs",
+        "openai.news",
+    }
     for source in sources:
         if source.enabled:
             assert source.automation_status == "enabled_deterministic"

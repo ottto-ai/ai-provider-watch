@@ -1,1 +1,1 @@
-{"source_keys": ["openai.pricing", "openai.status", "openai.deprecations"]}
+{"source_keys": ["openai.pricing", "openai.status", "openai.deprecations", "openai.news", "openai.codex_docs"]}

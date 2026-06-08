@@ -72,6 +72,54 @@
       "fixtures": []
     },
     {
+      "key": "openai.news",
+      "provider_refs": ["provider:openai"],
+      "source_type": "blog",
+      "authority": "official_blog",
+      "url": "https://openai.com/index/",
+      "allowed_domains": ["openai.com"],
+      "cadence": "manual review",
+      "enabled": false,
+      "parser": "manual_review",
+      "automation_status": "manual_review_only",
+      "graduation_notes": "Official OpenAI news pages are reviewed evidence for dated announcements; article discovery stays manual until parser scope avoids copied prose.",
+      "graduation_blockers": [
+        "needs article-level source selection policy",
+        "needs parser fixtures that avoid marketing prose and copied announcement text"
+      ],
+      "impact_hints": ["model_launch", "billing_channel_change", "workflow_behavior_change", "subscription_change"],
+      "rate_limit": "maintainer-triggered only",
+      "robots_policy_note": "Respect provider robots and cache headers.",
+      "snapshot_policy": "hash source page during human review; do not publish raw page",
+      "license_note": "Use source URL and factual extracted fields only.",
+      "maintainers": ["apw-data-maintainers"],
+      "fixtures": []
+    },
+    {
+      "key": "openai.codex_docs",
+      "provider_refs": ["provider:openai"],
+      "source_type": "docs_page",
+      "authority": "official_docs",
+      "url": "https://developers.openai.com/codex/",
+      "allowed_domains": ["developers.openai.com"],
+      "cadence": "manual review",
+      "enabled": false,
+      "parser": "manual_review",
+      "automation_status": "manual_review_only",
+      "graduation_notes": "Official Codex docs are reviewed evidence for agent workflow behavior; docs stay manual until dated change signals are available.",
+      "graduation_blockers": [
+        "needs dated changelog or article mapping before reviewed event promotion",
+        "needs parser fixtures that extract bounded feature names without copied docs text"
+      ],
+      "impact_hints": ["workflow_behavior_change", "sdk_behavior_change", "subscription_change"],
+      "rate_limit": "maintainer-triggered only",
+      "robots_policy_note": "Respect provider robots and cache headers.",
+      "snapshot_policy": "hash source page during human review; do not publish raw page",
+      "license_note": "Use source URL and factual extracted fields only.",
+      "maintainers": ["apw-data-maintainers"],
+      "fixtures": []
+    },
+    {
       "key": "anthropic.pricing",
       "provider_refs": ["provider:anthropic"],
       "source_type": "pricing_page",

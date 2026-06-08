@@ -84,7 +84,14 @@
     "output_contract": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schema_version", "allowed_verdicts", "allowed_review_decisions", "required_fields"],
+      "required": [
+        "schema_version",
+        "allowed_verdicts",
+        "allowed_review_decisions",
+        "allowed_promotion_readiness",
+        "promotion_readiness_policy",
+        "required_fields"
+      ],
       "properties": {
         "schema_version": { "const": "apw.llm_review_result.v0" },
         "allowed_verdicts": {
@@ -101,6 +108,34 @@
           "type": "array",
           "minItems": 1,
           "items": { "enum": ["promote", "reject", "duplicate", "split", "needs_human_review"] }
+        },
+        "allowed_promotion_readiness": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "not_ready",
+              "needs_source_owner_review",
+              "auto_promotion_eligible",
+              "duplicate_or_superseded"
+            ]
+          }
+        },
+        "promotion_readiness_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "auto_promotion_eligible",
+            "needs_source_owner_review",
+            "not_ready",
+            "duplicate_or_superseded"
+          ],
+          "properties": {
+            "auto_promotion_eligible": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "needs_source_owner_review": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "not_ready": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "duplicate_or_superseded": { "type": "string", "minLength": 20, "maxLength": 500 }
+          }
         }
       }
     }

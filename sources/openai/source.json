@@ -1,7 +1,13 @@
 {
   "schema_version": "apw.source_package.v0",
   "provider_ref": "provider:openai",
-  "source_keys": ["openai.pricing", "openai.status", "openai.deprecations"],
+  "source_keys": [
+    "openai.pricing",
+    "openai.status",
+    "openai.deprecations",
+    "openai.news",
+    "openai.codex_docs"
+  ],
   "status": "parser_fixtures",
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [

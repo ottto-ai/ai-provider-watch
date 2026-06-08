@@ -1,5 +1,5 @@
 {
-  "event_count": 3,
+  "event_count": 5,
   "events": [
     {
       "confidence": "confirmed",
@@ -31,6 +31,39 @@
       "severity": "low",
       "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
       "title": "OpenAI Codex Compaction Had Increased Latency"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-02",
+      "event_kind": "workflow_behavior_change",
+      "id": "2026-06-02-openai-codex-role-plugins-sites",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.",
+      "title": "OpenAI Added Codex Role Plugins, Sites, And Annotations"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-01",
+      "event_kind": "billing_channel_change",
+      "id": "2026-06-01-openai-codex-aws-bedrock-ga",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai",
+        "provider:aws-bedrock"
+      ],
+      "severity": "high",
+      "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
+      "title": "OpenAI Frontier Models And Codex Became Available On AWS"
     },
     {
       "confidence": "confirmed",

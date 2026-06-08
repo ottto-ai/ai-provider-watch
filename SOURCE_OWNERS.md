@@ -31,6 +31,8 @@ Every source key in `sources/registry.json` must appear in this table.
 | `openai.pricing` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `openai.status` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `openai.deprecations` | OpenAI | `apw-data-maintainers` | `blocked_pending_parser` |
+| `openai.news` | OpenAI | `apw-data-maintainers` | `manual_review_only` |
+| `openai.codex_docs` | OpenAI | `apw-data-maintainers` | `manual_review_only` |
 | `anthropic.pricing` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
 | `anthropic.status` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
 | `anthropic.news` | Anthropic | `apw-data-maintainers` | `manual_review_only` |
