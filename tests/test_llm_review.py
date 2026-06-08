@@ -184,6 +184,12 @@ def test_review_request_cli_writes_output(tmp_path) -> None:
     request = read_json(output_path)
     _assert_schema_valid(request)
     assert request["reviewer"]["backend"] == "vertex-gemini-flash"
+    assert request["candidates"][0]["promotion_readiness"]["readiness"] in {
+        "auto_promotion_eligible",
+        "needs_source_owner_review",
+        "not_ready",
+        "duplicate_or_superseded",
+    }
 
 
 def _review_result(request: dict, candidate_ids: list[str]) -> dict:
