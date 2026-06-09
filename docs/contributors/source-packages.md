@@ -97,6 +97,13 @@ and emit selector-scoped review candidates for price changes or token-accounting
 signals. Ambiguous duplicate rows, such as multiple regions with the same model
 and billing dimension, fall back to generic source-owner review.
 
+Sources that emit `limit_signal` or `default_model_signal` items may persist a
+bounded `operational_rows` snapshot. That state is limited to model ID, default
+scope, limit dimension, numeric limit value, unit, signal row key, and row hash.
+It must not include quota-table prose, headings, explanatory paragraphs, raw
+HTML, screenshots, authenticated account limits, or prompt-like source text.
+Ambiguous duplicate limit/default rows fall back to generic source-owner review.
+
 When a source descriptor declares `content_scope`, its parser fixture should
 prove that out-of-scope HTML sections are ignored.
 Provider-specific parsers should add richer factual extraction only when

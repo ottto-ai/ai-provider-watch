@@ -100,6 +100,12 @@ a published event. Row-level pricing/token-accounting deltas produce
 selector-scoped review candidates; they still require source-owner review before
 promotion because pricing pages generally lack an independent dated change
 signal.
+Model and pricing parsers may also persist bounded `operational_rows` facts for
+quota/rate-limit and default-model signals. That state is limited to model IDs,
+default scopes, limit dimensions, numeric limit values, units, row keys, and row
+hashes. Operational row deltas produce selector-scoped review candidates for
+quota, rate-limit, and default-model changes, but they stay out of promotion
+readiness unless a separate dated official source supports the change.
 
 Candidate files carry:
 

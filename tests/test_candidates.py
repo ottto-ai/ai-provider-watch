@@ -257,6 +257,57 @@ def test_build_candidates_keeps_pricing_row_selector_and_stable_id() -> None:
     assert first[0]["evidence_refs"][0]["snapshot_ref"] == "row:1234abcd5678ef90"
 
 
+def test_build_candidates_keeps_operational_row_selector_and_stable_id() -> None:
+    observations = {
+        "schema_version": "apw.source_observations.v0",
+        "observations": [
+            {
+                "schema_version": "apw.observation.v0",
+                "source_key": "google.vertex_pricing",
+                "retrieved_at": "2026-06-09T22:30:00Z",
+                "final_url": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
+                "http_status": 200,
+                "content_type": "text/html",
+                "content_sha256": "a" * 64,
+                "fingerprint": "b" * 64,
+                "changed": True,
+                "items": [],
+                "raw_excerpt_hashes": [],
+                "candidate_claims": [
+                    {
+                        "candidate_kind": "rate_limit_change",
+                        "claim_text": (
+                            "Google Gemini/Vertex official source changed gemini-2.5-pro "
+                            "requests per minute limit from 1500 to 2000."
+                        ),
+                        "selector": "limit:1234abcd5678ef90",
+                        "snapshot_ref": "limit-row:1234abcd5678ef90",
+                    }
+                ],
+                "errors": [],
+                "snapshot_ref": None,
+            }
+        ],
+        "changed_source_keys": ["google.vertex_pricing"],
+    }
+
+    first = build_candidates(
+        observations,
+        load_source_descriptors(ROOT, enabled_only=False),
+        created_at=CREATED_AT,
+    ).candidates
+    observations["observations"][0]["fingerprint"] = "c" * 64
+    second = build_candidates(
+        observations,
+        load_source_descriptors(ROOT, enabled_only=False),
+        created_at=CREATED_AT,
+    ).candidates
+
+    assert first[0]["id"] == second[0]["id"]
+    assert first[0]["evidence_refs"][0]["selector"] == "limit:1234abcd5678ef90"
+    assert first[0]["evidence_refs"][0]["snapshot_ref"] == "limit-row:1234abcd5678ef90"
+
+
 def test_build_candidates_skips_off_domain_observation_url() -> None:
     observations = read_json(OBSERVATIONS)
     observations["observations"] = [observations["observations"][0]]

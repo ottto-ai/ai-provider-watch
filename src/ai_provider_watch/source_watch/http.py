@@ -12,6 +12,7 @@ from typing import Any
 from ai_provider_watch.core.io import read_json, write_json_text
 from ai_provider_watch.source_watch.parsers import (
     ParsedSourcePayload,
+    operational_state_from_items,
     parse_source_payload,
     pricing_state_from_items,
 )
@@ -78,6 +79,9 @@ def build_fingerprint_state(observations: list[SourceObservation]) -> dict[str, 
             "http_status": observation.http_status,
             "retrieved_at": observation.retrieved_at,
         }
+        operational_state = operational_state_from_items(observation.parsed.items)
+        if operational_state is not None:
+            source_state["operational_rows"] = operational_state
         pricing_state = pricing_state_from_items(observation.parsed.items)
         if pricing_state is not None:
             source_state["pricing_rows"] = pricing_state

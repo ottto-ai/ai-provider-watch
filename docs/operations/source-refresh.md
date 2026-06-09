@@ -158,6 +158,13 @@ than broad source churn, but they still remain review-only: pricing pages do not
 provide an independent dated change signal, so promotion-readiness keeps them in
 source-owner review until a maintainer verifies the official evidence and writes
 a reviewed ProviderEvent.
+Quota/rate-limit and default-model parsers follow the same pattern with bounded
+`operational_rows` state. A changed source can produce selector-scoped review
+candidates for added, removed, or changed numeric limits and default-model rows
+when previous bounded state exists. These candidates remain review-only unless a
+dated official announcement or changelog entry independently supports the same
+fact. Do not promote account-specific quota, authenticated-console limits, or
+generic docs churn without source-owner review.
 The parser fixture command is:
 
 ```bash
