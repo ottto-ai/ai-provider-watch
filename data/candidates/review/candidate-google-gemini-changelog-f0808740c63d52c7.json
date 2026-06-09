@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_retirement",
+  "claim_text": "Google Gemini/Vertex official dated source reports a model retirement on 2026-05-25 for gemini-3.1-flash-lite, gemini-3.1-flash-lite-preview.",
+  "created_at": "2026-06-09T10:03:09Z",
+  "dedupe_key": "google.gemini_changelog:model_retirement:79b8100405ba4d7f6a594d22",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "21d584d9c08e7f7b5bd1b98173add11bbfddaca821bc3cdf3318355ba8422902",
+      "fingerprint": "edafa882bb4b68b6eec770c6cc32f3e967bb538928f96cee88d1820ae78389fa",
+      "retrieved_at": "2026-06-09T10:03:06Z",
+      "selector": "announcement:8de1d295a752c674",
+      "snapshot_ref": "entry:8de1d295a752c674",
+      "source_key": "google.gemini_changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog"
+    }
+  ],
+  "id": "candidate-google-gemini-changelog-f0808740c63d52c7",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "google_gemini_changelog"
+  },
+  "provider_refs": [
+    "provider:google"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "google.gemini_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

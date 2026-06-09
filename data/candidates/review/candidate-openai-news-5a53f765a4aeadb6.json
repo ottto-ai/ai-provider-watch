@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-05-29 for codex, gpt-5.5.",
+  "created_at": "2026-06-09T10:03:09Z",
+  "dedupe_key": "openai.news:workflow_behavior_change:12eda172f3f4448660012b04",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "729f254a39d8052cd58168d68deb8a7ca79a97984dc17fd6f7e4c3d7f8c3408e",
+      "fingerprint": "84b1f50e29ade0e5ac67397b9f998af5ead90fc26926979d58e347121db3ab66",
+      "retrieved_at": "2026-06-09T10:03:08Z",
+      "selector": "announcement:b60aecd8bcb8385a",
+      "snapshot_ref": "entry:b60aecd8bcb8385a",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/braintrust"
+    }
+  ],
+  "id": "candidate-openai-news-5a53f765a4aeadb6",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
