@@ -27,8 +27,24 @@ it. The bundle includes release-shaped feed artifacts,
 `data/feeds/freshness.json`,
 `data/feeds/coverage.json`,
 `data/feeds/feed.json`,
-`data/releases/data-YYYY.MM.DD/manifest.json`, checksums, and a schema-backed
-`dry-run-report.json`.
+`data/releases/data-YYYY.MM.DD/manifest.json`,
+`data/releases/data-YYYY.MM.DD/evidence-index.json`, checksums, and a
+schema-backed `dry-run-report.json`.
+
+The evidence index is the stable machine-readable release contract for humans,
+agents, package consumers, and downstream automation:
+
+```bash
+uv run apw release evidence-index \
+  --release-id data-YYYY.MM.DD \
+  --source-commit "$(git rev-parse HEAD)" \
+  --output .apw/release-dry-run/data-YYYY.MM.DD/evidence-index.json
+```
+
+It lists release artifacts, local validation commands, external GitHub/PyPI
+evidence, OpenSSF Scorecard, artifact attestation verification, workflow
+authority, token boundaries, and the policy that raw provider content is not
+part of release artifacts.
 
 Use `apw freshness --summary` before publishing to record package version,
 release ID, latest event date, latest source-state retrieval timestamp, and the
@@ -53,6 +69,7 @@ uv run apw release packet \
   --codeql-workflow-ref "<successful-CodeQL-run-url>" \
   --code-scanning-ref "<code-scanning-analysis-id-or-url>" \
   --dependency-review-ref "<successful-Dependency-Review-run-url>" \
+  --scorecard-ref "<successful-Scorecard-run-url>" \
   --attestation-ref "<gh-attestation-verify-output-ref>" \
   --checksum-review-ref "<checksum-review-ref>" \
   --reviewed-event "<event-id>" \
@@ -78,6 +95,7 @@ uv run apw release packet \
   --codeql-workflow-ref "<successful-CodeQL-run-url>" \
   --code-scanning-ref "<code-scanning-analysis-id-or-url>" \
   --dependency-review-ref "<successful-Dependency-Review-run-url>" \
+  --scorecard-ref "<successful-Scorecard-run-url>" \
   --attestation-ref "<gh-attestation-verify-output-ref>" \
   --checksum-review-ref "<checksum-review-ref>" \
   --allow-no-reviewed-events \
@@ -112,9 +130,9 @@ The dry run does not publish a tag, upload a release, or require a release
 token. A public data tag still requires maintainer review, green GitHub CI,
 CodeQL workflow completion, a matching GitHub code-scanning analysis for the
 release commit, `uv lock --check`, Dependency Review, branch protection,
-repository security settings, artifact checksum review, attestation
-verification, release manager approval, and a signed tag plan. Release
-automation stays dry-run only until the [release gates](release-gates.md),
+OpenSSF Scorecard, repository security settings, artifact checksum review,
+attestation verification, release manager approval, and a signed tag plan.
+Release automation stays dry-run only until the [release gates](release-gates.md),
 [repository settings](repository-settings.md), and
 [guarded data publisher](data-publisher.md) controls are recorded.
 

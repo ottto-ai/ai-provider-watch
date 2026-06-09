@@ -12,6 +12,7 @@ from ai_provider_watch.core.feeds import (
     SEVERITY_RANK,
     artifact_diffs,
     build_artifacts,
+    build_release_evidence_index,
     filter_events,
     load_events,
     write_artifacts,
@@ -739,6 +740,7 @@ def cmd_release_packet(args: argparse.Namespace) -> int:
             codeql_workflow_ref=args.codeql_workflow_ref,
             code_scanning_ref=args.code_scanning_ref,
             dependency_review_ref=args.dependency_review_ref,
+            scorecard_ref=args.scorecard_ref,
             attestation_ref=args.attestation_ref,
             checksum_review_ref=args.checksum_review_ref,
             reviewed_event_ids=args.reviewed_event,
@@ -767,6 +769,22 @@ def cmd_release_verify(args: argparse.Namespace) -> int:
     )
     _write_or_print(root, result.report, args.output)
     return 0 if not result.failed_checks else 1
+
+
+def cmd_release_evidence_index(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        index = build_release_evidence_index(
+            root,
+            release_id=args.release_id,
+            source_commit=args.source_commit,
+            created_at=args.created_at,
+        )
+    except ValueError as exc:
+        print(f"release evidence-index failed: {exc}", file=sys.stderr)
+        return 1
+    _write_or_print(root, index, args.output)
+    return 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -1045,6 +1063,7 @@ def build_parser() -> argparse.ArgumentParser:
     release_packet_parser.add_argument("--codeql-workflow-ref", required=True)
     release_packet_parser.add_argument("--code-scanning-ref", required=True)
     release_packet_parser.add_argument("--dependency-review-ref", required=True)
+    release_packet_parser.add_argument("--scorecard-ref", required=True)
     release_packet_parser.add_argument("--attestation-ref", required=True)
     release_packet_parser.add_argument("--checksum-review-ref", required=True)
     release_packet_parser.add_argument("--reviewed-event", action="append", default=[])
@@ -1075,6 +1094,19 @@ def build_parser() -> argparse.ArgumentParser:
     )
     release_verify_parser.add_argument("--output", help="write JSON verification report to this path instead of stdout")
     release_verify_parser.set_defaults(func=cmd_release_verify)
+    release_evidence_parser = release_subparsers.add_parser(
+        "evidence-index",
+        help="render the machine-readable release evidence contract",
+    )
+    release_evidence_parser.add_argument(
+        "--release-id",
+        default="dev",
+        help="release id to describe; use dev or data-YYYY.MM.DD",
+    )
+    release_evidence_parser.add_argument("--source-commit", help="40-character source commit SHA")
+    release_evidence_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic output")
+    release_evidence_parser.add_argument("--output", help="write JSON evidence index to this path instead of stdout")
+    release_evidence_parser.set_defaults(func=cmd_release_evidence_index)
     return parser
 
 

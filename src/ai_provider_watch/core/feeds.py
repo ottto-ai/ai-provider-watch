@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 from datetime import UTC, datetime
 from email.utils import format_datetime
 from html import escape
@@ -15,6 +16,9 @@ SEVERITY_RANK = {"info": 0, "low": 1, "medium": 2, "high": 3, "critical": 4}
 JSON_FEED_VERSION = "https://jsonfeed.org/version/1.1"
 APW_HOME_URL = "https://github.com/ottto-ai/ai-provider-watch"
 APW_RAW_MAIN_URL = "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main"
+RELEASE_EVIDENCE_INDEX_SCHEMA_VERSION = "apw.release_evidence_index.v0"
+RELEASE_ID_RE = re.compile(r"^(dev|data-[0-9]{4}\.[0-9]{2}\.[0-9]{2})$")
+SOURCE_COMMIT_RE = re.compile(r"^[a-f0-9]{40}$")
 
 
 def load_events(root: Path) -> list[dict[str, Any]]:
@@ -275,6 +279,248 @@ def _build_freshness(
     }
 
 
+def build_release_evidence_index(
+    root: Path,
+    release_id: str = "dev",
+    *,
+    source_commit: str | None = None,
+    created_at: str | None = None,
+) -> dict[str, Any]:
+    if not RELEASE_ID_RE.fullmatch(release_id):
+        raise ValueError(f"release_id must be dev or data-YYYY.MM.DD: {release_id}")
+    if source_commit is not None and not SOURCE_COMMIT_RE.fullmatch(source_commit):
+        raise ValueError(f"source_commit must be a 40-character lowercase hexadecimal SHA: {source_commit}")
+    resolved_created_at = created_at or _event_time(load_events(root))
+    release_label = release_id if release_id.startswith("data-") else "data-YYYY.MM.DD"
+    source_ref = source_commit or "<source-commit>"
+    dry_run_report = f".apw/release-dry-run/{release_label}/dry-run-report.json"
+    evidence_bundle = ".apw/apw-release-dry-run.tgz"
+    return {
+        "schema_version": RELEASE_EVIDENCE_INDEX_SCHEMA_VERSION,
+        "release_id": release_id,
+        "created_at": resolved_created_at,
+        "source_commit": source_commit,
+        "generated_by": f"ai-provider-watch {__version__}",
+        "repository": {
+            "owner": "ottto-ai",
+            "name": "ai-provider-watch",
+            "url": APW_HOME_URL,
+            "default_branch": "main",
+        },
+        "package": {
+            "name": "ai-provider-watch",
+            "cli": "apw",
+            "pypi_url": "https://pypi.org/project/ai-provider-watch/",
+            "version": __version__,
+        },
+        "release_artifacts": [
+            {
+                "path": "data/feeds/events.json",
+                "purpose": "canonical reviewed ProviderEvent array",
+                "required_for_release": True,
+            },
+            {
+                "path": "data/feeds/feed.json",
+                "purpose": "JSON Feed 1.1 reviewed-event feed",
+                "required_for_release": True,
+            },
+            {
+                "path": "data/feeds/freshness.json",
+                "purpose": "feed freshness, package, source-state, and checksum metadata",
+                "required_for_release": True,
+            },
+            {
+                "path": "data/feeds/coverage.json",
+                "purpose": "source coverage and candidate backlog visibility",
+                "required_for_release": True,
+            },
+            {
+                "path": f"data/releases/{release_id}/manifest.json",
+                "purpose": "release artifact manifest with SHA-256 hashes and byte counts",
+                "required_for_release": True,
+            },
+            {
+                "path": f"data/releases/{release_id}/checksums.txt",
+                "purpose": "line-oriented release artifact checksum list",
+                "required_for_release": True,
+            },
+            {
+                "path": f"data/releases/{release_id}/evidence-index.json",
+                "purpose": "machine-readable release evidence contract",
+                "required_for_release": True,
+            },
+        ],
+        "local_verification": [
+            {
+                "name": "lockfile",
+                "command": "uv lock --check",
+                "required": True,
+            },
+            {
+                "name": "tests",
+                "command": "uv run pytest",
+                "required": True,
+            },
+            {
+                "name": "source packages",
+                "command": "uv run apw source test",
+                "required": True,
+            },
+            {
+                "name": "source coverage",
+                "command": "uv run apw source coverage --summary",
+                "required": True,
+            },
+            {
+                "name": "schema and data validation",
+                "command": "uv run apw validate",
+                "required": True,
+            },
+            {
+                "name": "generated artifact check",
+                "command": "uv run apw index --check",
+                "required": True,
+            },
+            {
+                "name": "release dry run",
+                "command": "uv run apw release dry-run --output .apw/release-dry-run --require-clean",
+                "required": True,
+            },
+            {
+                "name": "release artifact verification",
+                "command": (
+                    f"uv run apw release verify --dry-run-report {dry_run_report} "
+                    f"--release-id {release_label} --source-commit {source_ref}"
+                ),
+                "required": True,
+            },
+            {
+                "name": "package build",
+                "command": "uv build --out-dir dist",
+                "required": True,
+            },
+            {
+                "name": "package metadata",
+                "command": "uvx --from twine twine check dist/*",
+                "required": True,
+            },
+        ],
+        "external_evidence": [
+            {
+                "name": "branch protection",
+                "status": "required",
+                "command": "gh api repos/ottto-ai/ai-provider-watch/branches/main/protection",
+                "reference_url": "https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches",
+                "blocked_if_missing": True,
+            },
+            {
+                "name": "CI test workflow",
+                "status": "required",
+                "command": (
+                    "gh run list --repo ottto-ai/ai-provider-watch --workflow CI "
+                    f"--branch main --commit {source_ref} --json status,conclusion,url,headSha"
+                ),
+                "reference_url": "https://docs.github.com/actions",
+                "blocked_if_missing": True,
+            },
+            {
+                "name": "CodeQL workflow and analysis",
+                "status": "required",
+                "command": (
+                    "gh api 'repos/ottto-ai/ai-provider-watch/code-scanning/analyses"
+                    "?ref=refs/heads/main&per_page=20'"
+                ),
+                "reference_url": "https://docs.github.com/code-security/code-scanning",
+                "blocked_if_missing": True,
+            },
+            {
+                "name": "Dependency Review",
+                "status": "required",
+                "command": "gh workflow run dependency-review.yml --repo ottto-ai/ai-provider-watch --ref main -f base_ref=<previous-release-tag-or-sha> -f head_ref=<source-commit>",
+                "reference_url": "https://github.com/actions/dependency-review-action",
+                "blocked_if_missing": True,
+            },
+            {
+                "name": "OpenSSF Scorecard",
+                "status": "required",
+                "command": "gh run list --repo ottto-ai/ai-provider-watch --workflow Scorecard --branch main --json status,conclusion,url,headSha",
+                "reference_url": "https://github.com/ossf/scorecard-action",
+                "blocked_if_missing": True,
+            },
+            {
+                "name": "artifact attestation",
+                "status": "required",
+                "command": f"gh attestation verify {evidence_bundle} --repo ottto-ai/ai-provider-watch",
+                "reference_url": "https://docs.github.com/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds",
+                "blocked_if_missing": True,
+            },
+            {
+                "name": "PyPI Trusted Publishing",
+                "status": "required",
+                "command": "gh workflow view publish-python.yml --repo ottto-ai/ai-provider-watch",
+                "reference_url": "https://docs.pypi.org/trusted-publishers/",
+                "blocked_if_missing": True,
+            },
+            {
+                "name": "release manager signed data tag",
+                "status": "required",
+                "command": f"git tag -v {release_label}",
+                "reference_url": "docs/operations/release-gates.md#v01-signed-tag-policy",
+                "blocked_if_missing": True,
+            },
+        ],
+        "github_workflows": [
+            {
+                "path": ".github/workflows/release-data.yml",
+                "authority": "dry_run_attestation_only",
+                "required_permissions": ["contents: read", "id-token: write", "attestations: write"],
+                "forbidden_capabilities": ["contents: write", "git tag", "gh release", "repository secrets"],
+            },
+            {
+                "path": ".github/workflows/source-refresh.yml",
+                "authority": "candidate_review_pr_only",
+                "required_permissions": ["contents: write", "pull-requests: write"],
+                "forbidden_capabilities": ["id-token: write", "attestations: write", "git tag", "gh release", "repository secrets"],
+            },
+            {
+                "path": ".github/workflows/publish-python.yml",
+                "authority": "trusted_pypi_publisher",
+                "required_permissions": ["contents: read", "id-token: write"],
+                "forbidden_capabilities": ["provider-source fetch", "candidate generation", "raw provider content"],
+            },
+            {
+                "path": ".github/workflows/scorecard.yml",
+                "authority": "security_posture_scan",
+                "required_permissions": ["contents: read", "security-events: write", "id-token: write"],
+                "forbidden_capabilities": ["contents: write", "git tag", "gh release", "repository secrets"],
+            },
+        ],
+        "token_boundary": {
+            "no_release_tokens_in_untrusted_lanes": True,
+            "untrusted_lanes": [
+                "source-refresh",
+                "candidate-generation",
+                "llm-review",
+                "issue-or-pr-comment-processing",
+                "mcp",
+                "provider-page-fetch",
+                "social-or-community-source-processing",
+            ],
+            "release_authority_lanes": [
+                "manual_release_manager_signed_git_tag",
+                "protected_data_publisher_after_future_approval",
+                "trusted_pypi_publisher",
+            ],
+        },
+        "policies": {
+            "raw_provider_content": "not included in release artifacts or evidence index",
+            "mcp": "read-only until publication gates have stronger tests",
+            "community_sources": "review candidates only; no unattended publishing",
+            "signed_data_tags": "manual release-manager signed tags for v0.1",
+        },
+    }
+
+
 def build_artifacts(
     root: Path,
     release_id: str = "dev",
@@ -313,6 +559,13 @@ def build_artifacts(
         created_at=resolved_created_at,
     )
     artifacts[Path("data/feeds/freshness.json")] = write_json_text(freshness)
+    evidence_index = build_release_evidence_index(
+        root,
+        release_id,
+        source_commit=source_commit,
+        created_at=resolved_created_at,
+    )
+    artifacts[Path(f"data/releases/{release_id}/evidence-index.json")] = write_json_text(evidence_index)
 
     checksums = {str(path): _checksum(text) for path, text in sorted(artifacts.items())}
     artifacts[Path(f"data/releases/{release_id}/checksums.txt")] = "".join(f"{checksum}  {path}\n" for path, checksum in sorted(checksums.items()))
@@ -330,6 +583,7 @@ def build_artifacts(
             "feed_freshness": "apw.feed_freshness.v0",
             "json_feed": JSON_FEED_VERSION,
             "source_coverage": "apw.source_coverage.v0",
+            "release_evidence_index": RELEASE_EVIDENCE_INDEX_SCHEMA_VERSION,
             "release_manifest": "apw.release_manifest.v0",
         },
         "artifacts": manifest_artifacts,

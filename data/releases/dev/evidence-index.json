@@ -1,0 +1,249 @@
+{
+  "created_at": "2026-06-08T11:04:15Z",
+  "external_evidence": [
+    {
+      "blocked_if_missing": true,
+      "command": "gh api repos/ottto-ai/ai-provider-watch/branches/main/protection",
+      "name": "branch protection",
+      "reference_url": "https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches",
+      "status": "required"
+    },
+    {
+      "blocked_if_missing": true,
+      "command": "gh run list --repo ottto-ai/ai-provider-watch --workflow CI --branch main --commit <source-commit> --json status,conclusion,url,headSha",
+      "name": "CI test workflow",
+      "reference_url": "https://docs.github.com/actions",
+      "status": "required"
+    },
+    {
+      "blocked_if_missing": true,
+      "command": "gh api 'repos/ottto-ai/ai-provider-watch/code-scanning/analyses?ref=refs/heads/main&per_page=20'",
+      "name": "CodeQL workflow and analysis",
+      "reference_url": "https://docs.github.com/code-security/code-scanning",
+      "status": "required"
+    },
+    {
+      "blocked_if_missing": true,
+      "command": "gh workflow run dependency-review.yml --repo ottto-ai/ai-provider-watch --ref main -f base_ref=<previous-release-tag-or-sha> -f head_ref=<source-commit>",
+      "name": "Dependency Review",
+      "reference_url": "https://github.com/actions/dependency-review-action",
+      "status": "required"
+    },
+    {
+      "blocked_if_missing": true,
+      "command": "gh run list --repo ottto-ai/ai-provider-watch --workflow Scorecard --branch main --json status,conclusion,url,headSha",
+      "name": "OpenSSF Scorecard",
+      "reference_url": "https://github.com/ossf/scorecard-action",
+      "status": "required"
+    },
+    {
+      "blocked_if_missing": true,
+      "command": "gh attestation verify .apw/apw-release-dry-run.tgz --repo ottto-ai/ai-provider-watch",
+      "name": "artifact attestation",
+      "reference_url": "https://docs.github.com/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds",
+      "status": "required"
+    },
+    {
+      "blocked_if_missing": true,
+      "command": "gh workflow view publish-python.yml --repo ottto-ai/ai-provider-watch",
+      "name": "PyPI Trusted Publishing",
+      "reference_url": "https://docs.pypi.org/trusted-publishers/",
+      "status": "required"
+    },
+    {
+      "blocked_if_missing": true,
+      "command": "git tag -v data-YYYY.MM.DD",
+      "name": "release manager signed data tag",
+      "reference_url": "docs/operations/release-gates.md#v01-signed-tag-policy",
+      "status": "required"
+    }
+  ],
+  "generated_by": "ai-provider-watch 0.1.1",
+  "github_workflows": [
+    {
+      "authority": "dry_run_attestation_only",
+      "forbidden_capabilities": [
+        "contents: write",
+        "git tag",
+        "gh release",
+        "repository secrets"
+      ],
+      "path": ".github/workflows/release-data.yml",
+      "required_permissions": [
+        "contents: read",
+        "id-token: write",
+        "attestations: write"
+      ]
+    },
+    {
+      "authority": "candidate_review_pr_only",
+      "forbidden_capabilities": [
+        "id-token: write",
+        "attestations: write",
+        "git tag",
+        "gh release",
+        "repository secrets"
+      ],
+      "path": ".github/workflows/source-refresh.yml",
+      "required_permissions": [
+        "contents: write",
+        "pull-requests: write"
+      ]
+    },
+    {
+      "authority": "trusted_pypi_publisher",
+      "forbidden_capabilities": [
+        "provider-source fetch",
+        "candidate generation",
+        "raw provider content"
+      ],
+      "path": ".github/workflows/publish-python.yml",
+      "required_permissions": [
+        "contents: read",
+        "id-token: write"
+      ]
+    },
+    {
+      "authority": "security_posture_scan",
+      "forbidden_capabilities": [
+        "contents: write",
+        "git tag",
+        "gh release",
+        "repository secrets"
+      ],
+      "path": ".github/workflows/scorecard.yml",
+      "required_permissions": [
+        "contents: read",
+        "security-events: write",
+        "id-token: write"
+      ]
+    }
+  ],
+  "local_verification": [
+    {
+      "command": "uv lock --check",
+      "name": "lockfile",
+      "required": true
+    },
+    {
+      "command": "uv run pytest",
+      "name": "tests",
+      "required": true
+    },
+    {
+      "command": "uv run apw source test",
+      "name": "source packages",
+      "required": true
+    },
+    {
+      "command": "uv run apw source coverage --summary",
+      "name": "source coverage",
+      "required": true
+    },
+    {
+      "command": "uv run apw validate",
+      "name": "schema and data validation",
+      "required": true
+    },
+    {
+      "command": "uv run apw index --check",
+      "name": "generated artifact check",
+      "required": true
+    },
+    {
+      "command": "uv run apw release dry-run --output .apw/release-dry-run --require-clean",
+      "name": "release dry run",
+      "required": true
+    },
+    {
+      "command": "uv run apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json --release-id data-YYYY.MM.DD --source-commit <source-commit>",
+      "name": "release artifact verification",
+      "required": true
+    },
+    {
+      "command": "uv build --out-dir dist",
+      "name": "package build",
+      "required": true
+    },
+    {
+      "command": "uvx --from twine twine check dist/*",
+      "name": "package metadata",
+      "required": true
+    }
+  ],
+  "package": {
+    "cli": "apw",
+    "name": "ai-provider-watch",
+    "pypi_url": "https://pypi.org/project/ai-provider-watch/",
+    "version": "0.1.1"
+  },
+  "policies": {
+    "community_sources": "review candidates only; no unattended publishing",
+    "mcp": "read-only until publication gates have stronger tests",
+    "raw_provider_content": "not included in release artifacts or evidence index",
+    "signed_data_tags": "manual release-manager signed tags for v0.1"
+  },
+  "release_artifacts": [
+    {
+      "path": "data/feeds/events.json",
+      "purpose": "canonical reviewed ProviderEvent array",
+      "required_for_release": true
+    },
+    {
+      "path": "data/feeds/feed.json",
+      "purpose": "JSON Feed 1.1 reviewed-event feed",
+      "required_for_release": true
+    },
+    {
+      "path": "data/feeds/freshness.json",
+      "purpose": "feed freshness, package, source-state, and checksum metadata",
+      "required_for_release": true
+    },
+    {
+      "path": "data/feeds/coverage.json",
+      "purpose": "source coverage and candidate backlog visibility",
+      "required_for_release": true
+    },
+    {
+      "path": "data/releases/dev/manifest.json",
+      "purpose": "release artifact manifest with SHA-256 hashes and byte counts",
+      "required_for_release": true
+    },
+    {
+      "path": "data/releases/dev/checksums.txt",
+      "purpose": "line-oriented release artifact checksum list",
+      "required_for_release": true
+    },
+    {
+      "path": "data/releases/dev/evidence-index.json",
+      "purpose": "machine-readable release evidence contract",
+      "required_for_release": true
+    }
+  ],
+  "release_id": "dev",
+  "repository": {
+    "default_branch": "main",
+    "name": "ai-provider-watch",
+    "owner": "ottto-ai",
+    "url": "https://github.com/ottto-ai/ai-provider-watch"
+  },
+  "schema_version": "apw.release_evidence_index.v0",
+  "source_commit": null,
+  "token_boundary": {
+    "no_release_tokens_in_untrusted_lanes": true,
+    "release_authority_lanes": [
+      "manual_release_manager_signed_git_tag",
+      "protected_data_publisher_after_future_approval",
+      "trusted_pypi_publisher"
+    ],
+    "untrusted_lanes": [
+      "source-refresh",
+      "candidate-generation",
+      "llm-review",
+      "issue-or-pr-comment-processing",
+      "mcp",
+      "provider-page-fetch",
+      "social-or-community-source-processing"
+    ]
+  }
+}

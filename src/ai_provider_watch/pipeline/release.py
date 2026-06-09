@@ -249,6 +249,9 @@ def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
             "release-verification.json",
             "actions/upload-artifact@v7",
             "apw-data-publication-packet",
+            "scorecard_ref:",
+            "SCORECARD_REF",
+            "--scorecard-ref",
             "--require-clean",
             "no data tag or GitHub data release was created",
         ],
@@ -299,6 +302,40 @@ def _source_refresh_token_boundary_check(root: Path) -> ReleaseCheck:
     return _check("source_refresh_token_boundary", passed, details)
 
 
+def _scorecard_workflow_check(root: Path) -> ReleaseCheck:
+    workflow = _workflow_text(root, "scorecard.yml")
+    missing = _workflow_missing(
+        workflow,
+        [
+            "ossf/scorecard-action@v2.4.3",
+            "results_file: scorecard-results.sarif",
+            "results_format: sarif",
+            "publish_results: false",
+            "github/codeql-action/upload-sarif@v4",
+            "contents: read",
+            "security-events: write",
+            "id-token: write",
+        ],
+    )
+    forbidden = _workflow_forbidden(
+        workflow,
+        [
+            "contents: write",
+            "pull-requests: write",
+            "secrets.",
+            "gh release",
+            "git tag",
+            "pull_request_target:",
+        ],
+    )
+    passed = bool(workflow) and not missing and not forbidden
+    if passed:
+        details = "OpenSSF Scorecard uploads SARIF with no publishing authority"
+    else:
+        details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
+    return _check("scorecard_workflow", passed, details)
+
+
 def _external_release_gates() -> list[dict[str, str]]:
     return [
         {
@@ -330,6 +367,11 @@ def _external_release_gates() -> list[dict[str, str]]:
             "name": "Dependency Review",
             "status": "required",
             "details": "Dependency Review must pass in a manual base/head run before release after repository dependency graph support is enabled.",
+        },
+        {
+            "name": "OpenSSF Scorecard",
+            "status": "required",
+            "details": "OpenSSF Scorecard must run for the release source commit and upload a SARIF posture report without release authority.",
         },
         {
             "name": "Repository security settings",
@@ -869,6 +911,7 @@ def build_release_publication_packet(
     codeql_workflow_ref: str,
     code_scanning_ref: str,
     dependency_review_ref: str,
+    scorecard_ref: str,
     attestation_ref: str,
     checksum_review_ref: str,
     reviewed_event_ids: list[str],
@@ -932,6 +975,7 @@ def build_release_publication_packet(
             "codeql_workflow_ref": codeql_workflow_ref,
             "code_scanning_ref": code_scanning_ref,
             "dependency_review_ref": dependency_review_ref,
+            "scorecard_ref": scorecard_ref,
             "attestation_ref": attestation_ref,
             "checksum_review_ref": checksum_review_ref,
             "release_manager_approval_ref": release_manager_approval_ref,
@@ -986,6 +1030,22 @@ def _release_manifest_schema_check(root: Path, manifest: dict[str, Any]) -> Rele
         location = ".".join(str(part) for part in error.path)
         rendered.append(f"{location}: {error.message}" if location else error.message)
     return _check("release_manifest_schema", False, "; ".join(rendered))
+
+
+def _release_evidence_index_schema_check(
+    root: Path,
+    artifacts: dict[Path, str],
+    release_id: str,
+) -> ReleaseCheck:
+    path = Path(f"data/releases/{release_id}/evidence-index.json")
+    text = artifacts.get(path)
+    if text is None:
+        return _check("release_evidence_index_schema", False, f"{path}: missing from generated artifacts")
+    evidence_index = read_json_from_text(text)
+    errors = _validate_schema_payload(root, "release_evidence_index", evidence_index)
+    if errors:
+        return _check("release_evidence_index_schema", False, "; ".join(errors))
+    return _check("release_evidence_index_schema", True, "release evidence index matches schema")
 
 
 def run_release_dry_run(
@@ -1067,6 +1127,7 @@ def run_release_dry_run(
     manifest_path = Path(f"data/releases/{resolved_release_id}/manifest.json")
     manifest = read_json_from_text(release_artifacts[manifest_path])
     checks.append(_release_manifest_schema_check(root, manifest))
+    checks.append(_release_evidence_index_schema_check(root, release_artifacts, resolved_release_id))
     checks.append(_checksum_check(release_artifacts, manifest))
     checks.append(_license_check(root))
     checks.append(
@@ -1081,6 +1142,7 @@ def run_release_dry_run(
     checks.append(_release_workflow_guardrails_check(root))
     checks.append(_data_publisher_noop_workflow_check(root))
     checks.append(_source_refresh_token_boundary_check(root))
+    checks.append(_scorecard_workflow_check(root))
     checks.append(_source_ownership_check(root))
     checks.append(_maintainer_release_docs_check(root))
 

@@ -42,6 +42,7 @@ def _packet_kwargs(report_path: Path) -> dict:
         "codeql_workflow_ref": "https://github.com/ottto-ai/ai-provider-watch/actions/runs/codeql",
         "code_scanning_ref": "code-scanning-analysis:123",
         "dependency_review_ref": "https://github.com/ottto-ai/ai-provider-watch/actions/runs/dependency-review",
+        "scorecard_ref": "https://github.com/ottto-ai/ai-provider-watch/actions/runs/scorecard",
         "attestation_ref": "gh attestation verify .apw/apw-release-dry-run.tgz --repo ottto-ai/ai-provider-watch",
         "checksum_review_ref": "data/releases/data-2026.06.01/checksums.txt",
     }
@@ -82,8 +83,10 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
         "release_workflow_guardrails",
         "data_publisher_noop_workflow",
         "source_refresh_token_boundary",
+        "scorecard_workflow",
         "source_ownership",
         "maintainer_release_docs",
+        "release_evidence_index_schema",
         "dry_run_report_schema",
     }
     assert {check["name"] for check in report["external_required_checks"]} == {
@@ -95,6 +98,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
         "CodeQL code-scanning analysis",
         "Dependency Review",
         "Maintainer release approval",
+        "OpenSSF Scorecard",
         "Protected data publisher",
         "Repository security settings",
         "Release token separation",
@@ -114,6 +118,22 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert "data/feeds/coverage.json" in manifest["checksums"]
     assert "data/feeds/feed.json" in manifest["checksums"]
     assert "data/feeds/events.json" in manifest["checksums"]
+    assert "data/releases/data-2026.06.01/evidence-index.json" in manifest["checksums"]
+    evidence_index_path = (
+        result.output_dir
+        / "artifacts"
+        / "data"
+        / "releases"
+        / "data-2026.06.01"
+        / "evidence-index.json"
+    )
+    evidence_index = json.loads(evidence_index_path.read_text(encoding="utf-8"))
+    schema = load_schemas(ROOT)["release_evidence_index"]
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    assert list(validator.iter_errors(evidence_index)) == []
+    assert evidence_index["schema_version"] == "apw.release_evidence_index.v0"
+    assert any(item["name"] == "OpenSSF Scorecard" for item in evidence_index["external_evidence"])
+    assert evidence_index["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
 
 
 def test_release_publication_packet_requires_reviewed_inputs(tmp_path) -> None:
@@ -137,6 +157,7 @@ def test_release_publication_packet_requires_reviewed_inputs(tmp_path) -> None:
     assert packet["reviewed_inputs"]["reviewed_event_ids"] == [REVIEWED_EVENT_ID]
     assert packet["reviewed_inputs"]["source_owner"] == "@RonShub"
     assert packet["required_external_evidence"]["dependency_review_ref"]
+    assert packet["required_external_evidence"]["scorecard_ref"]
     assert packet["signing"]["mechanism"] == "manual_release_manager_signed_git_tag"
     assert packet["signing"]["tag_name"] == "data-2026.06.01"
     assert packet["token_boundary"]["publisher_workflow_mode"] == "protected_main_noop_or_packet_only"
