@@ -73,6 +73,7 @@ The workflow checks:
 - `uv run ruff check .`;
 - `uv run pytest`;
 - `uv run apw source test`;
+- `uv run apw source coverage --summary`;
 - `uv run apw validate`;
 - `uv run apw index --check`;
 - `uv run apw release dry-run --require-clean`.

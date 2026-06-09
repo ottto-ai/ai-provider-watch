@@ -44,6 +44,9 @@ allowlists, and human review.
 - `FeedFreshness`: generated provenance summary for feed version, package
   version, latest event date, source-state timestamp, release manifest path,
   checksum manifest path, and feed/index artifact hashes.
+- `SourceCoverageReport`: generated feed-health summary for enabled source
+  coverage, source-state freshness, blocked parser sources, manual-review-only
+  sources, reviewed event counts, and review-candidate backlog.
 - `ReleaseManifest`: published artifact manifest with checksums.
 - `ReleaseDryRunReport`: local pre-release evidence bundle with checks,
   generated CalVer artifacts, and required external gates.

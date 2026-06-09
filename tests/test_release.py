@@ -63,12 +63,14 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert result.report["release_id"] == "data-2026.06.01"
     assert result.report["source_commit"] == DUMMY_SHA
     assert "uv lock --check" in result.report["validation_commands"]
+    assert "uv run apw source coverage --summary" in result.report["validation_commands"]
     assert "actionlint .github/workflows/*.yml" in result.report["validation_commands"]
     assert result.report_path.exists()
     report = json.loads(result.report_path.read_text(encoding="utf-8"))
     assert {check["name"] for check in report["checks"]} >= {
         "release_id_calver",
         "schema_and_repo_validation",
+        "source_coverage_report",
         "generated_dev_artifacts_current",
         "release_manifest_schema",
         "release_checksums",
@@ -108,6 +110,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest["release_id"] == "data-2026.06.01"
     assert manifest["source_commit"] == DUMMY_SHA
+    assert "data/feeds/coverage.json" in manifest["checksums"]
     assert "data/feeds/events.json" in manifest["checksums"]
 
 

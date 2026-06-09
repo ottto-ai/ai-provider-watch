@@ -1,6 +1,12 @@
 {
   "artifacts": [
     {
+      "bytes": 17109,
+      "media_type": "application/json",
+      "path": "data/feeds/coverage.json",
+      "sha256": "01a0c4023ce367d38cd8a0ffafa1faf6a162ec862bfdd756fd7ae71595cffd03"
+    },
+    {
       "bytes": 92194,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
@@ -13,10 +19,10 @@
       "sha256": "3c7999e12c6412a67d61d82938e7fabe64c103365cd9887b62d9d75db7f63e0f"
     },
     {
-      "bytes": 5064,
+      "bytes": 5264,
       "media_type": "application/json",
       "path": "data/feeds/freshness.json",
-      "sha256": "cb0d12eddab3a0acc62dd0b6ad70b356215ab2e9bb5296bbc760fce2664ab013"
+      "sha256": "56a0781138c4b7dd91815dd01791a17a5da68d80f545deff19a4389b128e689a"
     },
     {
       "bytes": 10421,
@@ -127,16 +133,17 @@
       "sha256": "2cf6a93707850faf4816ad27ca34436c17e3d3ae81c9714a788b084a2b928090"
     },
     {
-      "bytes": 2114,
+      "bytes": 2205,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "cfb6ebe15011fb39e317ac0fb7d2b1a9f0d31827a960f820e35242425e8b6e73"
+      "sha256": "936f9ad8d6ed4c5f05aff70c191d481defa0c50ce2f9336d10685f2fb9e03d42"
     }
   ],
   "checksums": {
+    "data/feeds/coverage.json": "01a0c4023ce367d38cd8a0ffafa1faf6a162ec862bfdd756fd7ae71595cffd03",
     "data/feeds/events.json": "cc6b68486d1de0cb55b52003075e6a291199427997bf8c64c000843ec6491403",
     "data/feeds/events.ndjson": "3c7999e12c6412a67d61d82938e7fabe64c103365cd9887b62d9d75db7f63e0f",
-    "data/feeds/freshness.json": "cb0d12eddab3a0acc62dd0b6ad70b356215ab2e9bb5296bbc760fce2664ab013",
+    "data/feeds/freshness.json": "56a0781138c4b7dd91815dd01791a17a5da68d80f545deff19a4389b128e689a",
     "data/feeds/latest.json": "cd9805ed11956e7a3fbb5eed0567fb44821a2d2c8ad39b60b43539bff13ac75d",
     "data/feeds/rss.xml": "8f3ef6bd754c75b4744c22ad04a88dc9579849021821fb00dbda177407c75a71",
     "data/indexes/kind/api_contract_change.json": "27ac7355b352611a20373480da604e19166b805a601444ced54d06cf6e98e5b9",
@@ -155,7 +162,7 @@
     "data/indexes/severity/high.json": "f1293caca386f1cbfa0179379aa55b5cf1200e8db2f80704fc6bb2f5d2feeda4",
     "data/indexes/severity/low.json": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b",
     "data/indexes/severity/medium.json": "2cf6a93707850faf4816ad27ca34436c17e3d3ae81c9714a788b084a2b928090",
-    "data/releases/dev/checksums.txt": "cfb6ebe15011fb39e317ac0fb7d2b1a9f0d31827a960f820e35242425e8b6e73"
+    "data/releases/dev/checksums.txt": "936f9ad8d6ed4c5f05aff70c191d481defa0c50ce2f9336d10685f2fb9e03d42"
   },
   "created_at": "2026-06-08T11:04:15Z",
   "generated_by": "ai-provider-watch 0.1.1",
@@ -166,7 +173,8 @@
     "event": "apw.provider_event.v0",
     "event_detail": "apw.event_detail.v0",
     "feed_freshness": "apw.feed_freshness.v0",
-    "release_manifest": "apw.release_manifest.v0"
+    "release_manifest": "apw.release_manifest.v0",
+    "source_coverage": "apw.source_coverage.v0"
   },
   "source_commit": null
 }

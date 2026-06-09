@@ -28,6 +28,7 @@ jobs:
       - run: uv run ruff check .
       - run: uv run pytest
       - run: uv run apw source test
+      - run: uv run apw source coverage --summary
       - run: uv run apw validate
       - run: uv run apw index --check
       - run: uv build --out-dir .apw/dist
@@ -41,6 +42,7 @@ jobs:
             cd "$smoke_dir"
             apw validate
             apw index --check
+            apw source coverage --summary
             apw latest --limit 1 >/tmp/apw-installed-latest.json
           )
           apw --root "$PWD" validate

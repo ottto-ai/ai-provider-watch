@@ -24,6 +24,7 @@ from ai_provider_watch.pipeline.candidates import (
     read_observation_bundle,
     write_candidate_files,
 )
+from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 from ai_provider_watch.pipeline.ecosystem import ECOSYSTEM_TARGETS, build_ecosystem_mapping
 from ai_provider_watch.pipeline.llm_review import (
     DEFAULT_REVIEWER,
@@ -207,6 +208,28 @@ def cmd_source_fetch(args: argparse.Namespace) -> int:
             "state_path": str(state_path.relative_to(root)),
         }
     )
+    return 0
+
+
+def cmd_source_coverage(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    report = build_source_coverage_report(root, created_at=args.created_at)
+    if args.summary:
+        summary = report["summary"]
+        print(f"provider_count: {summary['provider_count']}")
+        print(f"source_count: {summary['source_count']}")
+        print(f"enabled_deterministic_source_count: {summary['enabled_deterministic_source_count']}")
+        print(f"fetched_enabled_source_count: {summary['fetched_enabled_source_count']}")
+        print(f"missing_enabled_source_count: {summary['missing_enabled_source_count']}")
+        print(f"blocked_pending_parser_source_count: {summary['blocked_pending_parser_source_count']}")
+        print(f"manual_review_only_source_count: {summary['manual_review_only_source_count']}")
+        print(f"reviewed_event_count: {summary['reviewed_event_count']}")
+        print(f"latest_event_date: {summary['latest_event_date'] or 'none'}")
+        print(f"candidate_backlog_count: {summary['candidate_backlog_count']}")
+        print(f"warning_count: {summary['warning_count']}")
+        print(f"source_state_latest_retrieved_at: {report['source_state']['latest_retrieved_at'] or 'none'}")
+    else:
+        _write_or_print(root, report, args.output)
     return 0
 
 
@@ -674,6 +697,14 @@ def build_parser() -> argparse.ArgumentParser:
     source_fetch_parser.add_argument("--timeout", type=float, default=20.0)
     source_fetch_parser.add_argument("--limit-bytes", type=int, default=1_000_000)
     source_fetch_parser.set_defaults(func=cmd_source_fetch)
+    source_coverage_parser = source_subparsers.add_parser(
+        "coverage",
+        help="print source coverage, freshness, and review backlog metadata",
+    )
+    source_coverage_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic reports")
+    source_coverage_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    source_coverage_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
+    source_coverage_parser.set_defaults(func=cmd_source_coverage)
 
     candidate_parser = subparsers.add_parser("candidate", help="candidate extraction commands")
     candidate_subparsers = candidate_parser.add_subparsers(dest="candidate_command", required=True)

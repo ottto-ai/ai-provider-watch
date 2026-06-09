@@ -39,6 +39,7 @@ uv lock --check
 uv run ruff check .
 uv run pytest
 uv run apw source test
+uv run apw source coverage --summary
 uv run apw validate
 uv run apw index --check
 uv run apw freshness --summary
@@ -47,11 +48,11 @@ uv run apw release dry-run --output .apw/release-dry-run --require-clean
 uv run apw release packet --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json ...
 ```
 
-The dry-run report checks schema validation, source fixtures, generated feed
-freshness, CalVer manifest schema, checksums, license layout, dependency lock
-presence, CodeQL workflow posture, Dependency Review posture, release workflow
-attestation guardrails, the source-refresh token boundary, source ownership,
-and maintainer release docs.
+The dry-run report checks schema validation, source fixtures, source coverage,
+generated feed freshness, CalVer manifest schema, checksums, license layout,
+dependency lock presence, CodeQL workflow posture, Dependency Review posture,
+release workflow attestation guardrails, the source-refresh token boundary,
+source ownership, and maintainer release docs.
 
 ## Required External Gates
 
@@ -145,6 +146,8 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
 - Dependency Review result;
 - artifact checksums and manifest contents;
 - `apw freshness --summary` output for feed/package/source-state provenance;
+- `apw source coverage --summary` output for enabled source-state coverage,
+  blocked parser sources, and review backlog;
 - `gh attestation verify` output for the dry-run bundle;
 - `apw release packet` output for reviewed event IDs or explicit skip reason;
 - release notes and manual Ron-signed `data-YYYY.MM.DD` tag plan.

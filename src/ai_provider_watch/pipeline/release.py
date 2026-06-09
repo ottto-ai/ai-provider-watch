@@ -16,6 +16,7 @@ from ai_provider_watch import __version__
 from ai_provider_watch.core.feeds import artifact_diffs, build_artifacts, write_artifacts
 from ai_provider_watch.core.io import event_paths, write_json_text
 from ai_provider_watch.core.validation import load_schemas, validate
+from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.sources.registry import validate_source_packages
 
@@ -183,6 +184,7 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
             "uv lock --check",
             "uv run pytest",
             "uv run apw source test",
+            "uv run apw source coverage --summary",
             "uv run apw validate",
             "uv run apw index --check",
             "uv build --out-dir .apw/dist",
@@ -229,6 +231,7 @@ def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
             "uv run ruff check .",
             "uv run pytest",
             "uv run apw source test",
+            "uv run apw source coverage --summary",
             "uv run apw validate",
             "uv run apw index --check",
             "uv run apw release dry-run",
@@ -530,6 +533,30 @@ def _validate_schema_payload(
     return rendered
 
 
+def _source_coverage_check(root: Path, *, created_at: str) -> ReleaseCheck:
+    coverage = build_source_coverage_report(root, created_at=created_at)
+    errors = _validate_schema_payload(root, "source_coverage", coverage)
+    if errors:
+        return _check("source_coverage_report", False, "; ".join(errors))
+    summary = coverage["summary"]
+    warning_samples = [
+        f"{warning.get('source_key') or warning['code']}: {warning['detail']}"
+        for warning in coverage.get("warnings", [])[:5]
+    ]
+    warning_detail = "; ".join(warning_samples) if warning_samples else "none"
+    return _check(
+        "source_coverage_report",
+        True,
+        "coverage report valid; "
+        f"enabled={summary['enabled_deterministic_source_count']}, "
+        f"fetched={summary['fetched_enabled_source_count']}, "
+        f"missing={summary['missing_enabled_source_count']}, "
+        f"blocked={summary['blocked_pending_parser_source_count']}, "
+        f"candidate_backlog={summary['candidate_backlog_count']}, "
+        f"warnings={summary['warning_count']} ({warning_detail})",
+    )
+
+
 def _relative_or_absolute(root: Path, path: Path) -> str:
     resolved = path.resolve()
     try:
@@ -737,6 +764,7 @@ def run_release_dry_run(
             else f"out of date: {', '.join(dev_diffs)}",
         )
     )
+    checks.append(_source_coverage_check(root, created_at=created_at))
 
     release_artifacts = build_artifacts(
         root,
@@ -777,6 +805,7 @@ def run_release_dry_run(
             "uv run ruff check .",
             "uv run pytest",
             "uv run apw source test",
+            "uv run apw source coverage --summary",
             "uv run apw validate",
             "uv run apw index --check",
             "actionlint .github/workflows/*.yml",

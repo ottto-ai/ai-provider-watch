@@ -30,12 +30,13 @@ For `0.1.x` package releases, APW maintainers should preserve these contracts:
 
 - package name: `ai-provider-watch`;
 - CLI command: `apw`;
-- core read commands: `validate`, `index --check`, `freshness`, `latest`,
-  `diff`, `explain`;
+- core read commands: `validate`, `index --check`, `freshness`,
+  `source coverage`, `latest`, `diff`, `explain`;
 - event schema version: `apw.provider_event.v0`;
 - feed artifact names: `data/feeds/events.json`,
-  `data/feeds/events.ndjson`, `data/feeds/freshness.json`,
-  `data/feeds/latest.json`, and `data/feeds/rss.xml`;
+  `data/feeds/events.ndjson`, `data/feeds/coverage.json`,
+  `data/feeds/freshness.json`, `data/feeds/latest.json`, and
+  `data/feeds/rss.xml`;
 - source/candidate workflows stay review-only and do not publish events without
   maintainer review;
 - MCP stays read-only by default.
@@ -172,6 +173,7 @@ python -m pip show ai-provider-watch
 apw --root "$APW_CHECKOUT" validate
 apw --root "$APW_CHECKOUT" index --check
 apw --root "$APW_CHECKOUT" freshness --summary
+apw --root "$APW_CHECKOUT" source coverage --summary
 apw --root "$APW_CHECKOUT" latest --limit 3
 apw --root "$APW_CHECKOUT" diff --since 30d
 apw --root "$APW_CHECKOUT" explain 2026-06-01-google-vertex-gemini-2-0-flash-retirement
@@ -186,6 +188,7 @@ cd /tmp/apw-installed-data-smoke
 apw validate
 apw index --check
 apw freshness --summary
+apw source coverage --summary
 apw latest --limit 3
 apw diff --since 30d
 apw explain 2026-06-01-google-vertex-gemini-2-0-flash-retirement
