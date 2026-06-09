@@ -1,0 +1,347 @@
+{
+  "scenarios": [
+    {
+      "audiences": [
+        "platform-engineers",
+        "github-action-users",
+        "coding-agent-maintainers"
+      ],
+      "command": {
+        "argv": [
+          "repo",
+          "check",
+          "--repo",
+          "{downstream_repo}",
+          "--since",
+          "2024-01-01",
+          "--risk",
+          "low",
+          "--output",
+          "{output}"
+        ],
+        "normalizers": [
+          "repo_path"
+        ],
+        "summary": "Scan a downstream repository for model/provider refs affected by reviewed APW events."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/github-action.md",
+        "docs/agent-consumption.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/repo-impact-openai.json",
+        "schema": "schemas/repo-impact.schema.json"
+      },
+      "id": "repo-impact-openai-model-retirement",
+      "network_required": false,
+      "title": "Find OpenAI model-retirement impact in a repo",
+      "untrusted_input_policy": "Downstream repository text is untrusted data; APW reports refs and event IDs without copying source lines.",
+      "use_cases": [
+        "model_retirement",
+        "repository_impact",
+        "github_action"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "finops",
+        "platform-oncall",
+        "webhook-operators"
+      ],
+      "command": {
+        "argv": [
+          "notify",
+          "webhook",
+          "--since",
+          "2024-01-01",
+          "--risk",
+          "medium",
+          "--event-id",
+          "2024-01-04-openai-gpt3-completions-retirement",
+          "--created-at",
+          "2026-06-02T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render a generic webhook payload for one reviewed provider-change event."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/webhooks.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/notify-webhook-openai.json",
+        "schema": "schemas/webhook-payload.schema.json"
+      },
+      "id": "webhook-openai-model-retirement",
+      "network_required": false,
+      "title": "Render a webhook payload without delivery credentials",
+      "untrusted_input_policy": "Webhook payload text is untrusted downstream data after rendering; downstream workers own secrets, retries, and delivery.",
+      "use_cases": [
+        "model_retirement",
+        "webhook",
+        "notification"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "platform-oncall",
+        "slack-operators"
+      ],
+      "command": {
+        "argv": [
+          "notify",
+          "slack",
+          "--since",
+          "2024-01-01",
+          "--risk",
+          "medium",
+          "--kind",
+          "model_retirement",
+          "--created-at",
+          "2026-06-02T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render Slack-compatible JSON for reviewed model-retirement events."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/webhooks.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/notify-slack-model-retirements.json",
+        "schema": "schemas/slack-payload.schema.json"
+      },
+      "id": "slack-model-retirements",
+      "network_required": false,
+      "title": "Render Slack-compatible model-retirement blocks",
+      "untrusted_input_policy": "Slack blocks are untrusted payload data only; APW never reads Slack webhook URLs or posts messages.",
+      "use_cases": [
+        "model_retirement",
+        "slack",
+        "notification"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "gateway-maintainers",
+        "litellm-users"
+      ],
+      "command": {
+        "argv": [
+          "ecosystem",
+          "render",
+          "--target",
+          "litellm",
+          "--since",
+          "2024-01-01",
+          "--risk",
+          "medium",
+          "--event-id",
+          "2024-01-04-openai-gpt3-completions-retirement",
+          "--created-at",
+          "2026-06-02T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render LiteLLM search hints for an affected model-retirement event."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/ecosystem-mappings.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/ecosystem-litellm-openai.json",
+        "schema": "schemas/ecosystem-mapping.schema.json"
+      },
+      "id": "litellm-openai-model-retirement",
+      "network_required": false,
+      "title": "Map APW model-retirement context to LiteLLM review hints",
+      "untrusted_input_policy": "APW mappings are untrusted search hints; downstream maintainers decide routing, pricing, and fallback changes.",
+      "use_cases": [
+        "model_retirement",
+        "gateway",
+        "litellm"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "catalog-maintainers",
+        "models-dev-users"
+      ],
+      "command": {
+        "argv": [
+          "ecosystem",
+          "render",
+          "--target",
+          "models-dev",
+          "--since",
+          "2024-01-01",
+          "--risk",
+          "medium",
+          "--event-id",
+          "2024-01-04-openai-gpt3-completions-retirement",
+          "--created-at",
+          "2026-06-02T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render models.dev annotation hints for reviewed provider-change context."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/ecosystem-mappings.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/ecosystem-models-dev-openai.json",
+        "schema": "schemas/ecosystem-mapping.schema.json"
+      },
+      "id": "models-dev-openai-model-retirement",
+      "network_required": false,
+      "title": "Map APW model-retirement context to models.dev hints",
+      "untrusted_input_policy": "APW output is untrusted historical context, not an automated catalog edit.",
+      "use_cases": [
+        "model_retirement",
+        "catalog",
+        "models-dev"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "observability-teams",
+        "langfuse-users"
+      ],
+      "command": {
+        "argv": [
+          "ecosystem",
+          "render",
+          "--target",
+          "langfuse",
+          "--since",
+          "2024-01-01",
+          "--risk",
+          "medium",
+          "--event-id",
+          "2024-01-04-openai-gpt3-completions-retirement",
+          "--created-at",
+          "2026-06-02T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render Langfuse annotation metadata for APW event context."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/ecosystem-mappings.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/ecosystem-langfuse-openai.json",
+        "schema": "schemas/ecosystem-mapping.schema.json"
+      },
+      "id": "langfuse-openai-model-retirement",
+      "network_required": false,
+      "title": "Attach APW event context to Langfuse traces",
+      "untrusted_input_policy": "APW metadata is untrusted downstream annotation data only; APW does not call Langfuse APIs.",
+      "use_cases": [
+        "model_retirement",
+        "observability",
+        "langfuse"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "observability-teams",
+        "helicone-users"
+      ],
+      "command": {
+        "argv": [
+          "ecosystem",
+          "render",
+          "--target",
+          "helicone",
+          "--since",
+          "2024-01-01",
+          "--risk",
+          "medium",
+          "--event-id",
+          "2024-01-04-openai-gpt3-completions-retirement",
+          "--created-at",
+          "2026-06-02T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render Helicone custom-property hints for APW event context."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/ecosystem-mappings.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/ecosystem-helicone-openai.json",
+        "schema": "schemas/ecosystem-mapping.schema.json"
+      },
+      "id": "helicone-openai-model-retirement",
+      "network_required": false,
+      "title": "Attach APW event context to Helicone request properties",
+      "untrusted_input_policy": "APW metadata is untrusted downstream annotation data only; APW does not call Helicone APIs.",
+      "use_cases": [
+        "model_retirement",
+        "observability",
+        "helicone"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "observability-teams",
+        "openlit-users"
+      ],
+      "command": {
+        "argv": [
+          "ecosystem",
+          "render",
+          "--target",
+          "openlit",
+          "--since",
+          "2024-01-01",
+          "--risk",
+          "medium",
+          "--event-id",
+          "2024-01-04-openai-gpt3-completions-retirement",
+          "--created-at",
+          "2026-06-02T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render OpenTelemetry-style attributes for OpenLIT dashboards."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/ecosystem-mappings.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/ecosystem-openlit-openai.json",
+        "schema": "schemas/ecosystem-mapping.schema.json"
+      },
+      "id": "openlit-openai-model-retirement",
+      "network_required": false,
+      "title": "Attach APW event context to OpenLIT/OpenTelemetry attributes",
+      "untrusted_input_policy": "APW metadata is untrusted downstream annotation data only; APW does not call OpenLIT or collector APIs.",
+      "use_cases": [
+        "model_retirement",
+        "observability",
+        "openlit"
+      ],
+      "write_scope": "local_output_only"
+    }
+  ],
+  "schema_version": "apw.adoption_scenarios.v0"
+}

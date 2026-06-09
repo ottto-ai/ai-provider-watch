@@ -42,6 +42,7 @@ SCHEMA_FILES = {
     "release_dry_run": "release-dry-run.schema.json",
     "release_publication_packet": "release-publication-packet.schema.json",
     "release_verification": "release-verification.schema.json",
+    "adoption_scenarios": "adoption-scenarios.schema.json",
 }
 
 DETAIL_BY_EVENT_KIND = {
@@ -328,6 +329,25 @@ def validate(root: Path) -> list[ValidationIssue]:
                             f"candidate provider ref {provider_ref} is not declared by candidate evidence sources",
                         )
                     )
+
+    if (root / "examples").exists():
+        adoption_scenarios_path = root / "examples" / "adoption" / "scenarios.json"
+        if not adoption_scenarios_path.exists():
+            issues.append(
+                ValidationIssue(
+                    str(adoption_scenarios_path),
+                    "missing adoption scenarios manifest",
+                )
+            )
+        else:
+            issues.extend(
+                _issues(
+                    adoption_scenarios_path,
+                    read_json(adoption_scenarios_path),
+                    schemas["adoption_scenarios"],
+                    "adoption scenarios",
+                )
+            )
 
     manifest_path = root / "data" / "releases" / "dev" / "manifest.json"
     if manifest_path.exists():
