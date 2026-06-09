@@ -247,23 +247,21 @@
       "authority": "official_docs",
       "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",
       "allowed_domains": ["cloud.google.com", "docs.cloud.google.com"],
-      "cadence": "manual review",
-      "enabled": false,
+      "cadence": "daily",
+      "enabled": true,
       "parser": "google_vertex_model_versions",
-      "automation_status": "blocked_pending_parser",
-      "graduation_notes": "Synthetic lifecycle fixtures cover Gemini stable, Live/native-audio, embedding, multimodal, and legacy Google model IDs; live scope smoke still required.",
-      "graduation_blockers": [
-        "needs live source-review smoke proving heading-range scope and current model-version tables remain bounded before unattended refresh"
-      ],
+      "automation_status": "enabled_deterministic",
+      "graduation_notes": "2026-06-09 live smoke followed the official docs.cloud.google.com redirect, returned HTTP 200, emitted 65 bounded items and 8 row-scoped lifecycle candidates, and produced no parser errors.",
+      "graduation_blockers": [],
       "content_scope": {
         "kind": "html_heading_range",
         "start_heading": "Model versions and lifecycle",
         "end_headings": ["What's next", "Other model families"]
       },
       "impact_hints": ["model_launch", "model_deprecation", "model_retirement"],
-      "rate_limit": "maintainer-triggered only",
+      "rate_limit": "polite daily fetch",
       "robots_policy_note": "Respect provider robots and cache headers.",
-      "snapshot_policy": "hash source page during human review; do not publish raw page",
+      "snapshot_policy": "hash scoped lifecycle table rows; emit bounded model/date rows only",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": ["apw-data-maintainers"],
       "fixtures": []
@@ -407,23 +405,21 @@
       "authority": "official_docs",
       "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models",
       "allowed_domains": ["learn.microsoft.com"],
-      "cadence": "manual review",
-      "enabled": false,
+      "cadence": "daily",
+      "enabled": true,
       "parser": "azure_openai_legacy_models",
-      "automation_status": "blocked_pending_parser",
-      "graduation_notes": "Synthetic redirected-Foundry fixtures prove Azure OpenAI rows can be bounded away from neighboring provider sections. Keep disabled until a maintainer live smoke confirms the page shape.",
-      "graduation_blockers": [
-        "needs maintainer live-smoke proof that the redirected Microsoft Learn page still exposes a bounded Azure OpenAI section before unattended refresh"
-      ],
+      "automation_status": "enabled_deterministic",
+      "graduation_notes": "2026-06-09 live smoke followed the official retired-models redirect, returned HTTP 200, emitted 120 bounded items and 8 row-scoped lifecycle candidates, and produced no parser errors.",
+      "graduation_blockers": [],
       "content_scope": {
         "kind": "html_heading_range",
         "start_heading": "Azure OpenAI",
         "end_headings": ["AI21 Labs", "Models from other providers"]
       },
       "impact_hints": ["model_deprecation", "model_retirement"],
-      "rate_limit": "maintainer-triggered only",
+      "rate_limit": "polite daily fetch",
       "robots_policy_note": "Respect provider robots and cache headers.",
-      "snapshot_policy": "hash source page during human review; do not publish raw page",
+      "snapshot_policy": "hash scoped lifecycle table rows; emit bounded model/date rows only",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": ["apw-data-maintainers"],
       "fixtures": []

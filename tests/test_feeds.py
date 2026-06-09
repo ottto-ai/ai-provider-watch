@@ -63,7 +63,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     coverage = json.loads(artifacts[Path("data/feeds/coverage.json")])
     assert coverage["schema_version"] == "apw.source_coverage.v0"
     assert coverage["summary"]["source_count"] == 19
-    assert coverage["summary"]["missing_enabled_source_count"] == 6
+    assert coverage["summary"]["missing_enabled_source_count"] == 8
     freshness = json.loads(artifacts[Path("data/feeds/freshness.json")])
     assert freshness["schema_version"] == "apw.feed_freshness.v0"
     assert freshness["release_id"] == "dev"

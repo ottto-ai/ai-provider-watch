@@ -3,10 +3,10 @@
   "event_count": 28,
   "feed_artifacts": [
     {
-      "bytes": 16985,
+      "bytes": 16739,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "8e9ac9d0cf50c6ecd1eb0465662fc28128b1b0b8ede3b28a46a6961f741e0733"
+      "sha256": "67b4c30ad152a2272cf7ec67d48e241f91344c72bb4e25b56e2c4536b5852dc8"
     },
     {
       "bytes": 92194,

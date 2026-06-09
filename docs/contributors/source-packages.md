@@ -64,6 +64,11 @@ provider candidates for the scoped source. A scoped source still stays
 `blocked_pending_parser` until fixtures and live fetch evidence prove the
 heading range is stable enough for unattended refresh.
 
+Use `apw source fetch --include-disabled --source <source-key>` for maintainer
+live smokes of blocked descriptors. The flag requires an explicit source and is
+rejected with `--write-state`, so smoke evidence stays under `.apw/` until a
+separate PR enables deterministic refresh.
+
 ## Candidate Fixtures
 
 Candidate parsers emit review-only `FindingCandidate` JSON from observation

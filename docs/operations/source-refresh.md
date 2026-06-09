@@ -42,6 +42,19 @@ response hash remains available as `content_sha256`. If the heading range is not
 found, APW reports a parser error instead of parsing the broad page as
 provider-specific evidence.
 
+Maintainers can live-smoke blocked or manual-review descriptors explicitly:
+
+```bash
+uv run apw source fetch \
+  --include-disabled \
+  --source google.vertex_model_versions \
+  --observations .apw/source-smoke.json
+```
+
+`--include-disabled` requires at least one `--source` and cannot be combined
+with `--write-state`. It is for bounded graduation evidence only; scheduled
+source refresh still fetches enabled deterministic sources.
+
 ## Review Candidate Contract
 
 APW-2.02 adds deterministic candidate generation from observation bundles:

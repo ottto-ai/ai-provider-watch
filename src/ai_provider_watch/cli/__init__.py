@@ -182,10 +182,19 @@ def cmd_source_fetch(args: argparse.Namespace) -> int:
     root = _root(args.root)
     if not _require_checkout_root(args, root, "source fetch"):
         return 1
+    if args.include_disabled and args.write_state:
+        print(
+            "source fetch failed: --include-disabled is maintainer-smoke only and cannot be combined with --write-state",
+            file=sys.stderr,
+        )
+        return 1
+    if args.include_disabled and not args.source:
+        print("source fetch failed: --include-disabled requires at least one --source", file=sys.stderr)
+        return 1
     state_path = root / args.state
     observations_path = _output_path(root, args.observations) if args.observations else None
     previous_state = read_fingerprint_state(state_path)
-    sources = load_source_descriptors(root, enabled_only=True)
+    sources = load_source_descriptors(root, enabled_only=not args.include_disabled)
     if args.source:
         wanted = set(args.source)
         sources = [source for source in sources if source.key in wanted]
@@ -802,6 +811,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     source_fetch_parser.add_argument("--write-state", action="store_true")
     source_fetch_parser.add_argument("--source", action="append", help="limit to a source key")
+    source_fetch_parser.add_argument(
+        "--include-disabled",
+        action="store_true",
+        help="maintainer smoke: allow --source to fetch disabled descriptors without writing source state",
+    )
     source_fetch_parser.add_argument("--timeout", type=float, default=20.0)
     source_fetch_parser.add_argument("--limit-bytes", type=int, default=1_000_000)
     source_fetch_parser.set_defaults(func=cmd_source_fetch)
