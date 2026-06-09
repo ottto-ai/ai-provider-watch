@@ -3,7 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from jsonschema import Draft202012Validator, FormatChecker
+
 from ai_provider_watch.core.feeds import _rss_pub_date, build_artifacts
+from ai_provider_watch.core.validation import load_schemas
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -12,6 +15,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     artifacts = build_artifacts(ROOT)
     assert Path("data/feeds/events.json") in artifacts
     assert Path("data/feeds/events.ndjson") in artifacts
+    assert Path("data/feeds/feed.json") in artifacts
     assert Path("data/feeds/latest.json") in artifacts
     assert Path("data/feeds/coverage.json") in artifacts
     assert Path("data/feeds/freshness.json") in artifacts
@@ -32,12 +36,29 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     rss = artifacts[Path("data/feeds/rss.xml")]
     assert '<guid isPermaLink="false">2026-06-01-google-vertex-gemini-2-0-flash-retirement</guid>' in rss
     assert "<pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>" in rss
+    json_feed = json.loads(artifacts[Path("data/feeds/feed.json")])
+    assert not list(
+        Draft202012Validator(
+            load_schemas(ROOT)["json_feed"],
+            format_checker=FormatChecker(),
+        ).iter_errors(json_feed)
+    )
+    assert json_feed["version"] == "https://jsonfeed.org/version/1.1"
+    assert json_feed["feed_url"].endswith("/data/feeds/feed.json")
+    assert "no raw provider content" in json_feed["user_comment"]
+    assert json_feed["items"][0]["id"] == "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells"
+    assert json_feed["items"][0]["url"].endswith(
+        "/data/events/2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells.json"
+    )
+    assert json_feed["items"][0]["_apw"]["evidence_refs"][0]["content_sha256"]
     manifest = json.loads(artifacts[Path("data/releases/dev/manifest.json")])
     assert manifest["release_id"] == "dev"
     assert manifest["schema_versions"]["event"] == "apw.provider_event.v0"
     assert manifest["schema_versions"]["feed_freshness"] == "apw.feed_freshness.v0"
+    assert manifest["schema_versions"]["json_feed"] == "https://jsonfeed.org/version/1.1"
     assert manifest["schema_versions"]["source_coverage"] == "apw.source_coverage.v0"
     assert "data/feeds/coverage.json" in manifest["checksums"]
+    assert "data/feeds/feed.json" in manifest["checksums"]
     assert "data/feeds/freshness.json" in manifest["checksums"]
     coverage = json.loads(artifacts[Path("data/feeds/coverage.json")])
     assert coverage["schema_version"] == "apw.source_coverage.v0"
@@ -54,6 +75,11 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
     assert any(artifact["path"] == "data/feeds/coverage.json" for artifact in freshness["feed_artifacts"])
     assert any(artifact["path"] == "data/feeds/events.json" for artifact in freshness["feed_artifacts"])
+    assert any(
+        artifact["path"] == "data/feeds/feed.json"
+        and artifact["media_type"] == "application/feed+json"
+        for artifact in freshness["feed_artifacts"]
+    )
     assert "no raw provider content" in freshness["freshness_policy"]
 
 

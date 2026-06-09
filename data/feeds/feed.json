@@ -1,0 +1,1732 @@
+{
+  "_apw": {
+    "generated_by": "ai-provider-watch 0.1.1",
+    "policy": "contains reviewed APW event summaries and APW metadata only; no raw provider content.",
+    "schema_version": "apw.provider_event.v0",
+    "source": "reviewed ProviderEvent records"
+  },
+  "authors": [
+    {
+      "name": "AI Provider Watch maintainers",
+      "url": "https://github.com/ottto-ai/ai-provider-watch"
+    }
+  ],
+  "description": "Reviewed AI-provider change events for developer cost, quotas, model availability, defaults, deprecations, incidents, and migration risk.",
+  "feed_url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/feed.json",
+  "home_page_url": "https://github.com/ottto-ai/ai-provider-watch",
+  "items": [
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-05T00:00:00Z",
+        "event_date": "2026-06-05",
+        "event_id": "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells",
+        "event_kind": "api_contract_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+            "selector": "announcement:8e4ea67efed31fb6",
+            "snapshot_ref": "entry:8e4ea67efed31fb6",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-runtime/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell",
+            "scope_type": "api_endpoint",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "quota",
+            "scope_ref": "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell",
+            "scope_type": "api_endpoint",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the API and concurrency metadata; teams must validate IAM, network, and audit-log controls for their own AgentCore deployments."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.\n\nKind: api_contract_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:aws-bedrock",
+      "date_modified": "2026-06-08T11:03:55Z",
+      "date_published": "2026-06-08T11:03:55Z",
+      "external_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-runtime/",
+      "id": "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells",
+      "summary": "AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.",
+      "tags": [
+        "api_contract_change",
+        "app:claude-code",
+        "app:codex",
+        "impact:api_contract_change",
+        "impact:quota",
+        "provider:aws-bedrock",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "AWS Bedrock AgentCore Runtime Added Interactive Shells",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-04T00:00:00Z",
+        "event_date": "2026-06-04",
+        "event_id": "2026-06-04-aws-bedrock-compatible-api-console",
+        "event_kind": "api_contract_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+            "selector": "announcement:5bbd210b346aac7a",
+            "snapshot_ref": "entry:5bbd210b346aac7a",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-redesigned-console-optimized-openai-anthropic-compatible-apis/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "migration",
+            "scope_ref": "endpoint:aws-bedrock/bedrock-mantle",
+            "scope_type": "api_endpoint",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW does not assert full compatibility, regional parity, or pricing parity; teams should test target SDKs and Bedrock account settings."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "AWS announced a redesigned Bedrock console workflow for the bedrock-mantle endpoint, surfacing OpenAI Responses, OpenAI Chat Completions, and Anthropic Messages compatible API usage through Bedrock projects.\n\nKind: api_contract_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:aws-bedrock",
+      "date_modified": "2026-06-08T11:03:55Z",
+      "date_published": "2026-06-08T11:03:55Z",
+      "external_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-redesigned-console-optimized-openai-anthropic-compatible-apis/",
+      "id": "2026-06-04-aws-bedrock-compatible-api-console",
+      "summary": "AWS announced a redesigned Bedrock console workflow for the bedrock-mantle endpoint, surfacing OpenAI Responses, OpenAI Chat Completions, and Anthropic Messages compatible API usage through Bedrock projects.",
+      "tags": [
+        "api_contract_change",
+        "impact:api_contract_change",
+        "provider:aws-bedrock",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "AWS Bedrock Console Added OpenAI And Anthropic-Compatible API Workflow",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-04-aws-bedrock-compatible-api-console.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-04T19:12:00Z",
+        "event_date": "2026-06-04",
+        "event_id": "2026-06-04-openai-image-api-401-errors",
+        "event_kind": "status_incident",
+        "evidence_refs": [
+          {
+            "authority": "official_status",
+            "content_sha256": "8d3311ad6083dc333213540f1f5ae8148e97ead3c1ecc97cdc8853df296c3785",
+            "selector": "Image API 401 status incident",
+            "snapshot_ref": "reviewed-source:2026-06-04",
+            "source_key": "openai.status",
+            "url": "https://status.openai.com/incidents/01KTA0V0N4KT7VV50DTJZ85XTA"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_status"
+      },
+      "content_text": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.\n\nKind: status_incident\nSeverity: medium\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-04T21:20:13Z",
+      "date_published": "2026-06-04T21:20:13Z",
+      "external_url": "https://status.openai.com/incidents/01KTA0V0N4KT7VV50DTJZ85XTA",
+      "id": "2026-06-04-openai-image-api-401-errors",
+      "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
+      "tags": [
+        "impact:status_incident",
+        "provider:openai",
+        "severity:medium",
+        "source:official_status",
+        "status_incident",
+        "surface:api"
+      ],
+      "title": "OpenAI Image API Requests Returned 401 Errors",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-04-openai-image-api-401-errors.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-04T02:57:00Z",
+        "event_date": "2026-06-04",
+        "event_id": "2026-06-04-openai-codex-compaction-latency",
+        "event_kind": "status_incident",
+        "evidence_refs": [
+          {
+            "authority": "official_status",
+            "content_sha256": "e82345414b31d185a7474ae032a3f29772f37945be4864cabc8f75439df65d30",
+            "selector": "Codex compaction latency status incident",
+            "snapshot_ref": "reviewed-source:2026-06-04",
+            "source_key": "openai.status",
+            "url": "https://status.openai.com/incidents/01KT890WC7YQYMX39GY5VG9QAB"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "low"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "low",
+        "source_authority": "official_status"
+      },
+      "content_text": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.\n\nKind: status_incident\nSeverity: low\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-04T21:20:13Z",
+      "date_published": "2026-06-04T21:20:13Z",
+      "external_url": "https://status.openai.com/incidents/01KT890WC7YQYMX39GY5VG9QAB",
+      "id": "2026-06-04-openai-codex-compaction-latency",
+      "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
+      "tags": [
+        "app:codex",
+        "impact:status_incident",
+        "provider:openai",
+        "severity:low",
+        "source:official_status",
+        "status_incident"
+      ],
+      "title": "OpenAI Codex Compaction Had Increased Latency",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-04-openai-codex-compaction-latency.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-03T00:00:00Z",
+        "event_date": "2026-06-03",
+        "event_id": "2026-06-03-aws-step-functions-agentcore-reasoning",
+        "event_kind": "workflow_behavior_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+            "selector": "announcement:f3e0e0a4a7214d13",
+            "snapshot_ref": "entry:f3e0e0a4a7214d13",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-step-functions-agentcore/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "endpoint:aws/step-functions/agentcore-reasoning-step",
+            "scope_type": "api_endpoint",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "cost",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the provider-impact surface and metering implications; exact pricing depends on Step Functions, Bedrock, AgentCore, model, and region choices."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_blog"
+      },
+      "content_text": "AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.\n\nKind: workflow_behavior_change\nSeverity: medium\nConfidence: confirmed\nProviders: provider:aws-bedrock",
+      "date_modified": "2026-06-08T11:03:55Z",
+      "date_published": "2026-06-08T11:03:55Z",
+      "external_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-step-functions-agentcore/",
+      "id": "2026-06-03-aws-step-functions-agentcore-reasoning",
+      "summary": "AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.",
+      "tags": [
+        "impact:cost",
+        "impact:workflow_behavior_change",
+        "provider:aws-bedrock",
+        "severity:medium",
+        "source:official_blog",
+        "workflow_behavior_change"
+      ],
+      "title": "AWS Step Functions Added AgentCore-Powered Agentic Reasoning Step",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-03-aws-step-functions-agentcore-reasoning.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-03T00:00:00Z",
+        "event_date": "2026-06-03",
+        "event_id": "2026-06-03-aws-bedrock-gpt-54-govcloud",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+            "selector": "announcement:f9a04b022d9843b3",
+            "snapshot_ref": "entry:f9a04b022d9843b3",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/GPT54-available-in-aws-govcloud-us-west/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "compliance",
+            "scope_ref": "region:aws-govcloud-us-west",
+            "scope_type": "cloud_region",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW does not assert account eligibility, exact pricing, or feature parity beyond the official availability announcement."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "AWS announced OpenAI GPT-5.4 availability on Amazon Bedrock in AWS GovCloud US-West, expanding regulated-region deployment options for OpenAI model workloads through Bedrock.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:aws-bedrock",
+      "date_modified": "2026-06-08T11:03:55Z",
+      "date_published": "2026-06-08T11:03:55Z",
+      "external_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/GPT54-available-in-aws-govcloud-us-west/",
+      "id": "2026-06-03-aws-bedrock-gpt-54-govcloud",
+      "summary": "AWS announced OpenAI GPT-5.4 availability on Amazon Bedrock in AWS GovCloud US-West, expanding regulated-region deployment options for OpenAI model workloads through Bedrock.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:aws-bedrock",
+        "region:aws_govcloud",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "AWS Bedrock Added OpenAI GPT-5.4 In AWS GovCloud US-West",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-03-aws-bedrock-gpt-54-govcloud.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-03T07:10:00Z",
+        "event_date": "2026-06-03",
+        "event_id": "2026-06-03-anthropic-opus-4-7-elevated-errors",
+        "event_kind": "status_incident",
+        "evidence_refs": [
+          {
+            "authority": "official_status",
+            "content_sha256": "7888f7c1e6dc1c20dc326007e23592015cec9bae48852c3e5c18b80bcb8d13ef",
+            "selector": "Opus 4.7 elevated errors status incident",
+            "snapshot_ref": "reviewed-source:2026-06-04",
+            "source_key": "anthropic.status",
+            "url": "https://status.claude.com/incidents/thp2kyjx60qn"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "app:claude-code",
+            "scope_type": "agent_app",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The status page names the model display surface but APW does not yet maintain a registered model ref for Opus 4.7."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_status"
+      },
+      "content_text": "Anthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.\n\nKind: status_incident\nSeverity: medium\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-04T21:19:51Z",
+      "date_published": "2026-06-04T21:19:51Z",
+      "external_url": "https://status.claude.com/incidents/thp2kyjx60qn",
+      "id": "2026-06-03-anthropic-opus-4-7-elevated-errors",
+      "summary": "Anthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.",
+      "tags": [
+        "app:claude-code",
+        "impact:status_incident",
+        "provider:anthropic",
+        "severity:medium",
+        "source:official_status",
+        "status_incident"
+      ],
+      "title": "Anthropic Reported Elevated Errors on Opus 4.7",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-03-anthropic-opus-4-7-elevated-errors.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-03T04:17:00Z",
+        "event_date": "2026-06-03",
+        "event_id": "2026-06-03-anthropic-claude-code-services-degraded",
+        "event_kind": "status_incident",
+        "evidence_refs": [
+          {
+            "authority": "official_status",
+            "content_sha256": "5b26c800e3527ea68794cec38c244cc48578f0ab264f6fd59764f697cf036fab",
+            "selector": "Claude Code degraded services status incident",
+            "snapshot_ref": "reviewed-source:2026-06-04",
+            "source_key": "anthropic.status",
+            "url": "https://status.claude.com/incidents/0w1blp7cngrr"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "app:claude-code",
+            "scope_type": "agent_app",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The incident affected Claude Code service behavior; it is not evidence of a model, token-accounting, pricing, or quota change."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_status"
+      },
+      "content_text": "Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.\n\nKind: status_incident\nSeverity: medium\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-04T21:19:51Z",
+      "date_published": "2026-06-04T21:19:51Z",
+      "external_url": "https://status.claude.com/incidents/0w1blp7cngrr",
+      "id": "2026-06-03-anthropic-claude-code-services-degraded",
+      "summary": "Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.",
+      "tags": [
+        "app:claude-code",
+        "impact:status_incident",
+        "provider:anthropic",
+        "severity:medium",
+        "source:official_status",
+        "status_incident"
+      ],
+      "title": "Anthropic Reported Degraded Claude Code Services",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-03-anthropic-claude-code-services-degraded.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-02T00:00:00Z",
+        "event_date": "2026-06-02",
+        "event_id": "2026-06-02-openai-codex-role-plugins-sites",
+        "event_kind": "workflow_behavior_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "a21a6169f7bdbd25936eb3e0cef5d8cb505e7c9008475af45b9e9298eff5a487",
+            "selector": "Codex role plugins, Sites, and annotations announcement",
+            "snapshot_ref": "reviewed-source:2026-06-08",
+            "source_key": "openai.news",
+            "url": "https://openai.com/index/codex-for-every-role-tool-workflow/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "high",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "plan:chatgpt-business",
+            "scope_type": "subscription_plan",
+            "severity": "medium"
+          },
+          {
+            "confidence": "high",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "plan:chatgpt-enterprise",
+            "scope_type": "subscription_plan",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records provider-announced availability and behavior changes only; exact workspace rollout and tenant eligibility may vary."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.\n\nKind: workflow_behavior_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-08T08:40:40Z",
+      "date_published": "2026-06-08T08:40:40Z",
+      "external_url": "https://openai.com/index/codex-for-every-role-tool-workflow/",
+      "id": "2026-06-02-openai-codex-role-plugins-sites",
+      "summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.",
+      "tags": [
+        "app:codex",
+        "impact:workflow_behavior_change",
+        "provider:openai",
+        "severity:high",
+        "source:official_blog",
+        "workflow_behavior_change"
+      ],
+      "title": "OpenAI Added Codex Role Plugins, Sites, And Annotations",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-02-openai-codex-role-plugins-sites.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-01T00:00:00Z",
+        "event_date": "2026-06-01",
+        "event_id": "2026-06-01-google-gemini-api-20-flash-shutdown",
+        "event_kind": "model_retirement",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+            "selector": "announcement:48826c5dd5b7d2c2",
+            "snapshot_ref": "entry:48826c5dd5b7d2c2",
+            "source_key": "google.gemini_changelog",
+            "url": "https://ai.google.dev/gemini-api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "removed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:google/gemini-api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "surface:google/gemini-api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The same family of model IDs may appear on multiple Google surfaces; APW keeps Gemini API and Vertex AI source evidence separate."
+        ],
+        "migration_deadline": "2026-06-01T00:00:00Z",
+        "provider_refs": [
+          "provider:google"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Google Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.\n\nKind: model_retirement\nSeverity: high\nConfidence: confirmed\nProviders: provider:google",
+      "date_modified": "2026-06-08T11:04:15Z",
+      "date_published": "2026-06-08T11:04:15Z",
+      "external_url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "id": "2026-06-01-google-gemini-api-20-flash-shutdown",
+      "summary": "Google Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.",
+      "tags": [
+        "impact:model_retirement",
+        "model_retirement",
+        "provider:google",
+        "severity:high",
+        "source:official_docs"
+      ],
+      "title": "Google Gemini API Shut Down Gemini 2.0 Flash Models",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-01-google-gemini-api-20-flash-shutdown.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-01T00:00:00Z",
+        "event_date": "2026-06-01",
+        "event_id": "2026-06-01-openai-codex-aws-bedrock-ga",
+        "event_kind": "billing_channel_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "d47637ab003f5f18e59c5a59d6adf6f4d60edf48b4abd4b4db52f6fc794e8984",
+            "selector": "OpenAI on AWS general availability announcement",
+            "snapshot_ref": "reviewed-source:2026-06-08",
+            "source_key": "openai.news",
+            "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "high",
+            "direction": "added",
+            "impact_kind": "compliance",
+            "scope_ref": "region:aws-govcloud",
+            "scope_type": "cloud_region",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records availability and channel facts only; it does not assert feature parity, account eligibility, or exact AWS regional coverage beyond the official announcement."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai",
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.\n\nKind: billing_channel_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai, provider:aws-bedrock",
+      "date_modified": "2026-06-08T08:40:40Z",
+      "date_published": "2026-06-08T08:40:40Z",
+      "external_url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/",
+      "id": "2026-06-01-openai-codex-aws-bedrock-ga",
+      "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
+      "tags": [
+        "app:codex",
+        "billing_channel_change",
+        "impact:billing_channel_change",
+        "provider:aws-bedrock",
+        "provider:openai",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "OpenAI Frontier Models And Codex Became Available On AWS",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-01-openai-codex-aws-bedrock-ga.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-01T00:00:00Z",
+        "event_date": "2026-06-01",
+        "event_id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
+        "event_kind": "model_retirement",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "7d8656abd449c02462613fd1739193095e0f46ab01c3d0193935f4fd785f1bf5",
+            "selector": "Gemini latest stable models table",
+            "snapshot_ref": "reviewed-source:2026-06-01",
+            "source_key": "google.vertex_model_versions",
+            "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "removed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:google/vertex-ai",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "surface:google/vertex-ai",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW reviewed this source on the retirement date; earlier provider announcement timing was not captured in this seed event."
+        ],
+        "migration_deadline": "2026-06-01T00:00:00Z",
+        "provider_refs": [
+          "provider:google"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.\n\nKind: model_retirement\nSeverity: medium\nConfidence: confirmed\nProviders: provider:google",
+      "date_modified": "2026-06-01T10:36:49Z",
+      "date_published": "2026-06-01T10:36:49Z",
+      "external_url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",
+      "id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
+      "summary": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.",
+      "tags": [
+        "impact:model_retirement",
+        "model_retirement",
+        "provider:google",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-01-google-vertex-gemini-2-0-flash-retirement.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-28T00:00:00Z",
+        "event_date": "2026-05-28",
+        "event_id": "2026-05-28-google-gemini-image-preview-deprecations",
+        "event_kind": "model_deprecation",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+            "selector": "announcement:d4be0e8a5abed300",
+            "snapshot_ref": "entry:d4be0e8a5abed300",
+            "source_key": "google.gemini_changelog",
+            "url": "https://ai.google.dev/gemini-api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "surface:google/gemini-api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the model IDs and shutdown deadline from the changelog; replacement model suitability is workload-specific."
+        ],
+        "migration_deadline": "2026-06-25T00:00:00Z",
+        "provider_refs": [
+          "provider:google"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.\n\nKind: model_deprecation\nSeverity: medium\nConfidence: confirmed\nProviders: provider:google",
+      "date_modified": "2026-06-08T11:04:15Z",
+      "date_published": "2026-06-08T11:04:15Z",
+      "external_url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "id": "2026-05-28-google-gemini-image-preview-deprecations",
+      "summary": "Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.",
+      "tags": [
+        "impact:model_deprecation",
+        "model_deprecation",
+        "provider:google",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "Google Gemini API Deprecated Gemini Image Preview Models",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-28-google-gemini-image-preview-deprecations.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-28T00:00:00Z",
+        "event_date": "2026-05-28",
+        "event_id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
+        "event_kind": "workflow_behavior_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "14ec9371d86c11aab7ab7001f5454447013348f57363159c96c4feb60cf8660b",
+            "selector": "Claude Opus 4.8 announcement",
+            "snapshot_ref": "reviewed-source:2026-06-08",
+            "source_key": "anthropic.news",
+            "url": "https://www.anthropic.com/news/claude-opus-4-8"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "app:claude-code",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "high",
+            "direction": "increase",
+            "impact_kind": "quota",
+            "scope_ref": "app:claude-code",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "high",
+            "direction": "decrease",
+            "impact_kind": "cost",
+            "scope_ref": "app:claude-code",
+            "scope_type": "agent_app",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records official announcement facts only; exact account-level rate limits and plan entitlements may vary."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.\n\nKind: workflow_behavior_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-08T08:40:40Z",
+      "date_published": "2026-06-08T08:40:40Z",
+      "external_url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
+      "summary": "Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.",
+      "tags": [
+        "app:claude-code",
+        "impact:workflow_behavior_change",
+        "provider:anthropic",
+        "severity:high",
+        "source:official_blog",
+        "workflow_behavior_change"
+      ],
+      "title": "Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-28-anthropic-opus-48-dynamic-workflows.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-25T00:00:00Z",
+        "event_date": "2026-05-25",
+        "event_id": "2026-05-25-google-gemini-31-flash-lite-preview-shutdown",
+        "event_kind": "model_retirement",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+            "selector": "announcement:8de1d295a752c674",
+            "snapshot_ref": "entry:8de1d295a752c674",
+            "source_key": "google.gemini_changelog",
+            "url": "https://ai.google.dev/gemini-api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "removed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:google/gemini-api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW does not assert that every Gemini API region or account had identical preview access before shutdown."
+        ],
+        "migration_deadline": "2026-05-25T00:00:00Z",
+        "provider_refs": [
+          "provider:google"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.\n\nKind: model_retirement\nSeverity: medium\nConfidence: confirmed\nProviders: provider:google",
+      "date_modified": "2026-06-08T11:04:15Z",
+      "date_published": "2026-06-08T11:04:15Z",
+      "external_url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "id": "2026-05-25-google-gemini-31-flash-lite-preview-shutdown",
+      "summary": "Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.",
+      "tags": [
+        "impact:model_retirement",
+        "model_retirement",
+        "provider:google",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-25-google-gemini-31-flash-lite-preview-shutdown.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-19T00:00:00Z",
+        "event_date": "2026-05-19",
+        "event_id": "2026-05-19-google-gemini-35-flash-managed-agents",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+            "selector": "announcement:4d011d4fbc001f83",
+            "snapshot_ref": "entry:4d011d4fbc001f83",
+            "source_key": "google.gemini_changelog",
+            "url": "https://ai.google.dev/gemini-api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:google/gemini-api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "endpoint:google/gemini-api/managed-agents",
+            "scope_type": "api_endpoint",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the changelog-level launch facts only; teams should verify regional access, quotas, pricing, and preview terms before production use."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:google"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Google Gemini API changelog listed Gemini 3.5 Flash as generally available and introduced Managed Agents in public preview, adding a Google-hosted agent runtime option for Gemini API developers.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:google",
+      "date_modified": "2026-06-08T11:04:15Z",
+      "date_published": "2026-06-08T11:04:15Z",
+      "external_url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "id": "2026-05-19-google-gemini-35-flash-managed-agents",
+      "summary": "Google Gemini API changelog listed Gemini 3.5 Flash as generally available and introduced Managed Agents in public preview, adding a Google-hosted agent runtime option for Gemini API developers.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:google",
+        "severity:high",
+        "source:official_docs",
+        "surface:managed_agents"
+      ],
+      "title": "Google Gemini API Released Gemini 3.5 Flash And Managed Agents Preview",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-19-google-gemini-35-flash-managed-agents.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-07T00:00:00Z",
+        "event_date": "2026-05-07",
+        "event_id": "2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+            "selector": "announcement:c49577c9ea994109",
+            "snapshot_ref": "entry:c49577c9ea994109",
+            "source_key": "google.gemini_changelog",
+            "url": "https://ai.google.dev/gemini-api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:google/gemini-api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW does not assert workload-level cost savings; verify pricing and quality before migration."
+        ],
+        "migration_deadline": "2026-05-25T00:00:00Z",
+        "provider_refs": [
+          "provider:google"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.\n\nKind: model_launch\nSeverity: medium\nConfidence: confirmed\nProviders: provider:google",
+      "date_modified": "2026-06-08T11:04:15Z",
+      "date_published": "2026-06-08T11:04:15Z",
+      "external_url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "id": "2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation",
+      "summary": "Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.",
+      "tags": [
+        "impact:model_deprecation",
+        "impact:model_launch",
+        "model_launch",
+        "provider:google",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-26T00:00:00Z",
+        "event_date": "2026-05-06",
+        "event_id": "2026-05-06-google-gemini-interactions-api-breaking-change",
+        "event_kind": "api_contract_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+            "selector": "announcement:c15caec61e8b794e",
+            "snapshot_ref": "entry:c15caec61e8b794e",
+            "source_key": "google.gemini_changelog",
+            "url": "https://ai.google.dev/gemini-api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "endpoint:google/gemini-api/interactions",
+            "scope_type": "api_endpoint",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:google/gemini-api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the changelog-level schema and deadline facts; implementation details should be verified against the official migration guide before code changes."
+        ],
+        "migration_deadline": "2026-06-08T00:00:00Z",
+        "provider_refs": [
+          "provider:google"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Google Gemini API changelog announced a breaking Interactions API request/response schema cutover, with a new default schema on May 26, 2026 and legacy schema removal on June 8, 2026.\n\nKind: api_contract_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:google",
+      "date_modified": "2026-06-08T11:04:15Z",
+      "date_published": "2026-06-08T11:04:15Z",
+      "external_url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "id": "2026-05-06-google-gemini-interactions-api-breaking-change",
+      "summary": "Google Gemini API changelog announced a breaking Interactions API request/response schema cutover, with a new default schema on May 26, 2026 and legacy schema removal on June 8, 2026.",
+      "tags": [
+        "api_contract_change",
+        "impact:api_contract_change",
+        "provider:google",
+        "severity:high",
+        "source:official_docs"
+      ],
+      "title": "Google Gemini API Announced Interactions API Schema Cutover",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-06-google-gemini-interactions-api-breaking-change.json"
+    },
+    {
+      "_apw": {
+        "confidence": "high",
+        "effective_at": "2026-05-01T00:00:00Z",
+        "event_date": "2026-05-01",
+        "event_id": "2026-05-01-azure-openai-realtime-20-translate-whisper-docs",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+            "selector": "announcement:9a05bfbf0a0c4081",
+            "snapshot_ref": "entry:9a05bfbf0a0c4081",
+            "source_key": "azure_openai.whats_new",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "high",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:azure-openai/api",
+            "scope_type": "provider_surface",
+            "severity": "low"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "This is a documentation-level signal from the Azure OpenAI what's-new page, not a fully verified production availability matrix."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:azure-openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "low",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Azure OpenAI what's-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.\n\nKind: model_launch\nSeverity: low\nConfidence: high\nProviders: provider:azure-openai",
+      "date_modified": "2026-06-08T11:04:13Z",
+      "date_published": "2026-06-08T11:04:13Z",
+      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "id": "2026-05-01-azure-openai-realtime-20-translate-whisper-docs",
+      "summary": "Azure OpenAI what's-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:azure-openai",
+        "severity:low",
+        "source:official_docs"
+      ],
+      "title": "Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-01-azure-openai-realtime-20-translate-whisper-docs.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-02-01T00:00:00Z",
+        "event_date": "2026-02-01",
+        "event_id": "2026-02-01-azure-openai-gpt-realtime-audio-15",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+            "selector": "announcement:b4a4be274eb40fa9",
+            "snapshot_ref": "entry:b4a4be274eb40fa9",
+            "source_key": "azure_openai.whats_new",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:azure-openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The source groups these updates under February 2026, so APW uses an approximate month-start event date."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:azure-openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Azure OpenAI what's-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.\n\nKind: model_launch\nSeverity: medium\nConfidence: confirmed\nProviders: provider:azure-openai",
+      "date_modified": "2026-06-08T11:04:13Z",
+      "date_published": "2026-06-08T11:04:13Z",
+      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "id": "2026-02-01-azure-openai-gpt-realtime-audio-15",
+      "summary": "Azure OpenAI what's-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:azure-openai",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-02-01-azure-openai-gpt-realtime-audio-15.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2025-12-15T00:00:00Z",
+        "event_date": "2025-12-15",
+        "event_id": "2025-12-15-azure-openai-gpt-image-audio-model-updates",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+            "selector": "announcement:6784ee397c68e714",
+            "snapshot_ref": "entry:6784ee397c68e714",
+            "source_key": "azure_openai.whats_new",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:azure-openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the listed Azure OpenAI model-update facts; exact regions and access gates should be checked in Azure before deployment."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:azure-openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Azure OpenAI what's-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.\n\nKind: model_launch\nSeverity: medium\nConfidence: confirmed\nProviders: provider:azure-openai",
+      "date_modified": "2026-06-08T11:04:13Z",
+      "date_published": "2026-06-08T11:04:13Z",
+      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "id": "2025-12-15-azure-openai-gpt-image-audio-model-updates",
+      "summary": "Azure OpenAI what's-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:azure-openai",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "Azure OpenAI Added GPT-Image-1.5 And December Audio Model Updates",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-12-15-azure-openai-gpt-image-audio-model-updates.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2025-10-01T00:00:00Z",
+        "event_date": "2025-10-01",
+        "event_id": "2025-10-01-azure-openai-audio-image-model-updates",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+            "selector": "announcement:d7e34b7a124014a9",
+            "snapshot_ref": "entry:d7e34b7a124014a9",
+            "source_key": "azure_openai.whats_new",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:azure-openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The source groups these updates under October 2025, so APW uses an approximate month-start event date."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:azure-openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Azure OpenAI what's-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.\n\nKind: model_launch\nSeverity: medium\nConfidence: confirmed\nProviders: provider:azure-openai",
+      "date_modified": "2026-06-08T11:04:13Z",
+      "date_published": "2026-06-08T11:04:13Z",
+      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "id": "2025-10-01-azure-openai-audio-image-model-updates",
+      "summary": "Azure OpenAI what's-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:azure-openai",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-10-01-azure-openai-audio-image-model-updates.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2025-09-01T00:00:00Z",
+        "event_date": "2025-09-01",
+        "event_id": "2025-09-01-azure-openai-gpt5-codex-sora-video",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+            "selector": "announcement:5b6f69faf99eb4a7",
+            "snapshot_ref": "entry:5b6f69faf99eb4a7",
+            "source_key": "azure_openai.whats_new",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:azure-openai/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The source groups these updates under September 2025, so APW uses an approximate month-start event date."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:azure-openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Azure OpenAI what's-new notes for September 2025 list GPT-5-Codex availability and Sora video-to-video support, affecting coding-agent model access and video generation workflows on Azure.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:azure-openai",
+      "date_modified": "2026-06-08T11:04:13Z",
+      "date_published": "2026-06-08T11:04:13Z",
+      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "id": "2025-09-01-azure-openai-gpt5-codex-sora-video",
+      "summary": "Azure OpenAI what's-new notes for September 2025 list GPT-5-Codex availability and Sora video-to-video support, affecting coding-agent model access and video generation workflows on Azure.",
+      "tags": [
+        "app:codex",
+        "impact:model_launch",
+        "model_launch",
+        "provider:azure-openai",
+        "severity:high",
+        "source:official_docs"
+      ],
+      "title": "Azure OpenAI Added GPT-5-Codex And Sora Video-To-Video Support",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-09-01-azure-openai-gpt5-codex-sora-video.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2025-08-01T00:00:00Z",
+        "event_date": "2025-08-01",
+        "event_id": "2025-08-01-azure-openai-gpt5-realtime-audio-model-router",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+            "selector": "announcement:3b89a90f40acbd9f",
+            "snapshot_ref": "entry:3b89a90f40acbd9f",
+            "source_key": "azure_openai.whats_new",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:azure-openai/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The source groups these updates under August 2025, so APW uses an approximate month-start event date."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:azure-openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Azure OpenAI what's-new notes for August 2025 list GPT-5 family availability, GPT RealTime and Audio general availability, provisioned spillover GA, and model-router support for GPT-5 series models.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:azure-openai",
+      "date_modified": "2026-06-08T11:04:13Z",
+      "date_published": "2026-06-08T11:04:13Z",
+      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "id": "2025-08-01-azure-openai-gpt5-realtime-audio-model-router",
+      "summary": "Azure OpenAI what's-new notes for August 2025 list GPT-5 family availability, GPT RealTime and Audio general availability, provisioned spillover GA, and model-router support for GPT-5 series models.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:azure-openai",
+        "severity:high",
+        "source:official_docs"
+      ],
+      "title": "Azure OpenAI Added GPT-5 Models, Realtime Audio GA, And Model Router GPT-5 Support",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-08-01-azure-openai-gpt5-realtime-audio-model-router.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2025-02-24T00:00:00Z",
+        "event_date": "2025-02-24",
+        "event_id": "2025-02-24-anthropic-claude-3-7-sonnet-launch",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "849c1d78c6bec91d04418e2eade133b65c984f44c675d7d26cbd6c49e3d4ef13",
+            "selector": "Claude 3.7 Sonnet announcement",
+            "snapshot_ref": "reviewed-source:2026-06-01",
+            "source_key": "anthropic.news",
+            "url": "https://www.anthropic.com/news/claude-3-7-sonnet"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "low"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "low"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "Historical seed event; verify current model availability before changing production routing."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "low",
+        "source_authority": "official_blog"
+      },
+      "content_text": "Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.\n\nKind: model_launch\nSeverity: low\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-01T10:36:49Z",
+      "date_published": "2026-06-01T10:36:49Z",
+      "external_url": "https://www.anthropic.com/news/claude-3-7-sonnet",
+      "id": "2025-02-24-anthropic-claude-3-7-sonnet-launch",
+      "summary": "Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:anthropic",
+        "severity:low",
+        "source:official_blog"
+      ],
+      "title": "Anthropic Launches Claude 3.7 Sonnet",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-02-24-anthropic-claude-3-7-sonnet-launch.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2024-12-04T18:00:00Z",
+        "event_date": "2024-12-04",
+        "event_id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+        "event_kind": "caching_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "5b95e2edae20030b8aeca8d3b4c465ec2cd196d8e476d3fea73bd2ee742b1d27",
+            "selector": "Amazon Bedrock prompt caching announcement",
+            "snapshot_ref": "reviewed-source:2026-06-01",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "decrease",
+            "impact_kind": "cost",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "low"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "Preview availability was limited at launch; eligibility can vary by model, region, and account."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_blog"
+      },
+      "content_text": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.\n\nKind: caching_change\nSeverity: medium\nConfidence: confirmed\nProviders: provider:aws-bedrock",
+      "date_modified": "2026-06-01T10:36:49Z",
+      "date_published": "2026-06-01T10:36:49Z",
+      "external_url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/",
+      "id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+      "summary": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.",
+      "tags": [
+        "caching_change",
+        "impact:caching_change",
+        "provider:aws-bedrock",
+        "severity:medium",
+        "source:official_blog"
+      ],
+      "title": "Amazon Bedrock Adds Prompt Caching Preview",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2024-12-04-aws-bedrock-prompt-caching-preview.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2024-06-14T00:00:00Z",
+        "event_date": "2024-06-14",
+        "event_id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
+        "event_kind": "model_retirement",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "a41c040bf14faf7e945d2bbcecac16c49a6cced3205a4fa1de9601012474595a",
+            "selector": "Azure OpenAI retired model table",
+            "snapshot_ref": "reviewed-source:2026-06-01",
+            "source_key": "azure_openai.legacy_models",
+            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "removed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:azure-openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "surface:azure-openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "Historical seed event; APW did not observe the original 2023 deprecation in real time."
+        ],
+        "migration_deadline": "2024-06-14T00:00:00Z",
+        "provider_refs": [
+          "provider:azure-openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.\n\nKind: model_retirement\nSeverity: medium\nConfidence: confirmed\nProviders: provider:azure-openai",
+      "date_modified": "2026-06-01T10:36:49Z",
+      "date_published": "2026-06-01T10:36:49Z",
+      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models",
+      "id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
+      "summary": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.",
+      "tags": [
+        "impact:model_retirement",
+        "model_retirement",
+        "provider:azure-openai",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "Azure OpenAI Retires Legacy GPT-3 Model IDs",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2024-06-14-azure-openai-legacy-gpt3-retirement.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2024-01-04T00:00:00Z",
+        "event_date": "2024-01-04",
+        "event_id": "2024-01-04-openai-gpt3-completions-retirement",
+        "event_kind": "model_retirement",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "7d7b0591c6e35e02c7b08e92436f79d78c62f644cef43e01bf4c888ca7e5686b",
+            "selector": "2023-07-06 GPT and embeddings deprecation table",
+            "snapshot_ref": "reviewed-source:2026-06-01",
+            "source_key": "openai.deprecations",
+            "url": "https://platform.openai.com/docs/deprecations"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "removed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "Historical seed event; APW did not observe the original 2023 announcement in real time."
+        ],
+        "migration_deadline": "2024-01-04T00:00:00Z",
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.\n\nKind: model_retirement\nSeverity: medium\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-01T10:36:49Z",
+      "date_published": "2026-06-01T10:36:49Z",
+      "external_url": "https://platform.openai.com/docs/deprecations",
+      "id": "2024-01-04-openai-gpt3-completions-retirement",
+      "summary": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.",
+      "tags": [
+        "impact:model_retirement",
+        "model_retirement",
+        "provider:openai",
+        "severity:medium",
+        "source:official_docs"
+      ],
+      "title": "OpenAI Retires Older GPT-3 Completions Models",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2024-01-04-openai-gpt3-completions-retirement.json"
+    }
+  ],
+  "language": "en-US",
+  "title": "AI Provider Watch Reviewed Events",
+  "user_comment": "machine-readable reviewed APW events only. Provider pages and source text remain untrusted; this feed contains no raw provider content.",
+  "version": "https://jsonfeed.org/version/1.1"
+}

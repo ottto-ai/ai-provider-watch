@@ -104,3 +104,28 @@ def test_validate_reports_stale_source_coverage(tmp_path) -> None:
     issues = [issue.render() for issue in validate(tmp_path)]
 
     assert any("source coverage metadata is stale" in issue for issue in issues)
+
+
+def test_validate_reports_missing_json_feed(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    (tmp_path / "data" / "feeds" / "feed.json").unlink()
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("missing JSON Feed metadata" in issue for issue in issues)
+
+
+def test_validate_reports_stale_json_feed(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    feed_path = tmp_path / "data" / "feeds" / "feed.json"
+    feed = read_json(feed_path)
+    feed["items"] = []
+    feed_path.write_text(json.dumps(feed), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("JSON Feed metadata is stale" in issue for issue in issues)

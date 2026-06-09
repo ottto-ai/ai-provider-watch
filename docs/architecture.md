@@ -44,6 +44,8 @@ allowlists, and human review.
 - `FeedFreshness`: generated provenance summary for feed version, package
   version, latest event date, source-state timestamp, release manifest path,
   checksum manifest path, and feed/index artifact hashes.
+- `JsonFeed`: JSON Feed 1.1 view over reviewed ProviderEvents for downstream
+  feed readers, static sites, and agent dashboards.
 - `SourceCoverageReport`: generated feed-health summary for enabled source
   coverage, source-state freshness, blocked parser sources, manual-review-only
   sources, reviewed event counts, and review-candidate backlog.

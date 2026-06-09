@@ -111,6 +111,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert manifest["release_id"] == "data-2026.06.01"
     assert manifest["source_commit"] == DUMMY_SHA
     assert "data/feeds/coverage.json" in manifest["checksums"]
+    assert "data/feeds/feed.json" in manifest["checksums"]
     assert "data/feeds/events.json" in manifest["checksums"]
 
 

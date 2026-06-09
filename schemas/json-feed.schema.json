@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/json-feed.schema.json",
+  "title": "APW JSON Feed 1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "title",
+    "home_page_url",
+    "feed_url",
+    "description",
+    "user_comment",
+    "authors",
+    "language",
+    "_apw",
+    "items"
+  ],
+  "properties": {
+    "version": { "const": "https://jsonfeed.org/version/1.1" },
+    "title": { "const": "AI Provider Watch Reviewed Events" },
+    "home_page_url": { "const": "https://github.com/ottto-ai/ai-provider-watch" },
+    "feed_url": { "const": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/feed.json" },
+    "description": { "type": "string", "minLength": 20 },
+    "user_comment": {
+      "type": "string",
+      "pattern": "no raw provider content"
+    },
+    "authors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "url"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "language": { "const": "en-US" },
+    "_apw": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "generated_by", "source", "policy"],
+      "properties": {
+        "schema_version": { "const": "apw.provider_event.v0" },
+        "generated_by": { "type": "string", "minLength": 1 },
+        "source": { "const": "reviewed ProviderEvent records" },
+        "policy": {
+          "type": "string",
+          "pattern": "no raw provider content"
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "maxItems": 50,
+      "items": { "$ref": "#/$defs/item" }
+    }
+  },
+  "$defs": {
+    "provider_ref": {
+      "type": "string",
+      "pattern": "^provider:[a-z0-9][a-z0-9_-]*$"
+    },
+    "source_key": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_.-]*[a-z0-9]$|^[a-z0-9]$"
+    },
+    "severity": { "enum": ["info", "low", "medium", "high", "critical"] },
+    "confidence": { "enum": ["low", "medium", "high", "confirmed"] },
+    "source_authority": {
+      "enum": [
+        "official_pricing",
+        "official_docs",
+        "official_status",
+        "official_repo",
+        "official_blog",
+        "official_staff_social",
+        "community_hint",
+        "third_party_catalog",
+        "manual"
+      ]
+    },
+    "evidence_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_key",
+        "url",
+        "authority",
+        "content_sha256",
+        "snapshot_ref",
+        "selector"
+      ],
+      "properties": {
+        "source_key": { "$ref": "#/$defs/source_key" },
+        "url": { "type": "string", "format": "uri" },
+        "authority": { "$ref": "#/$defs/source_authority" },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "snapshot_ref": { "type": ["string", "null"] },
+        "selector": { "type": ["string", "null"] }
+      }
+    },
+    "impact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_type",
+        "scope_ref",
+        "impact_kind",
+        "direction",
+        "severity",
+        "confidence"
+      ],
+      "properties": {
+        "scope_type": { "type": "string", "minLength": 1 },
+        "scope_ref": { "type": "string", "minLength": 1 },
+        "impact_kind": { "type": "string", "minLength": 1 },
+        "direction": { "type": "string", "minLength": 1 },
+        "severity": { "$ref": "#/$defs/severity" },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "url",
+        "external_url",
+        "title",
+        "content_text",
+        "summary",
+        "date_published",
+        "date_modified",
+        "tags",
+        "_apw"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-z0-9][a-z0-9-]*$"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://raw\\.githubusercontent\\.com/ottto-ai/ai-provider-watch/main/data/events/[^/]+\\.json$"
+        },
+        "external_url": { "type": "string", "format": "uri" },
+        "title": { "type": "string", "minLength": 8, "maxLength": 140 },
+        "content_text": { "type": "string", "minLength": 20 },
+        "summary": { "type": "string", "minLength": 20, "maxLength": 420 },
+        "date_published": { "type": "string", "format": "date-time" },
+        "date_modified": { "type": "string", "format": "date-time" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "_apw": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema_version",
+            "event_id",
+            "event_kind",
+            "lifecycle_status",
+            "provider_refs",
+            "event_date",
+            "effective_at",
+            "migration_deadline",
+            "severity",
+            "confidence",
+            "source_authority",
+            "evidence_refs",
+            "impacts",
+            "limitations"
+          ],
+          "properties": {
+            "schema_version": { "const": "apw.provider_event.v0" },
+            "event_id": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-z0-9][a-z0-9-]*$"
+            },
+            "event_kind": { "type": "string", "minLength": 1 },
+            "lifecycle_status": { "const": "reviewed" },
+            "provider_refs": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/provider_ref" }
+            },
+            "event_date": { "type": "string", "format": "date" },
+            "effective_at": { "type": ["string", "null"], "format": "date-time" },
+            "migration_deadline": { "type": ["string", "null"], "format": "date-time" },
+            "severity": { "$ref": "#/$defs/severity" },
+            "confidence": { "$ref": "#/$defs/confidence" },
+            "source_authority": { "$ref": "#/$defs/source_authority" },
+            "evidence_refs": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/evidence_ref" }
+            },
+            "impacts": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/impact" }
+            },
+            "limitations": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

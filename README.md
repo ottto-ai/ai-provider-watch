@@ -84,6 +84,7 @@ live in `data/feeds/` and `data/indexes/`:
 - `data/feeds/events.json`
 - `data/feeds/events.ndjson`
 - `data/feeds/coverage.json`
+- `data/feeds/feed.json`
 - `data/feeds/freshness.json`
 - `data/feeds/latest.json`
 - `data/feeds/rss.xml`
@@ -97,6 +98,7 @@ For direct consumption, pin a release tag or read from the repository:
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/latest.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/events.ndjson
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/coverage.json
+https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/feed.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/freshness.json
 ```
 
@@ -121,14 +123,16 @@ schemas, docs, tests, and tooling are Apache-2.0.
 ## What You Get
 
 - A reviewed machine-readable event feed, not a static model catalog.
+- JSON, NDJSON, RSS, JSON Feed 1.1, latest-event, freshness, and coverage
+  artifacts for different consumption styles.
 - A typed `ProviderEvent` envelope with precise event details and repeatable
   impact rows.
 - A CLI for validation, indexing, latest events, diffs, explanations, release
   dry runs, source checks, candidate generation, repo impact checks,
   notifications, and ecosystem mappings.
 - JSON Schemas for events, sources, candidates, observations, releases,
-  feed freshness, source coverage, webhooks, Slack-style payloads, ecosystem
-  mappings, and LLM review packets.
+  JSON Feed, feed freshness, source coverage, webhooks, Slack-style payloads,
+  ecosystem mappings, and LLM review packets.
 - Official-source descriptors for OpenAI, Anthropic, Google Gemini / Vertex AI,
   AWS Bedrock, and Azure OpenAI.
 - Review-only source candidates that help maintainers notice provider changes

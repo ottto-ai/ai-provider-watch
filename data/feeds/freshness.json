@@ -21,6 +21,12 @@
       "sha256": "3c7999e12c6412a67d61d82938e7fabe64c103365cd9887b62d9d75db7f63e0f"
     },
     {
+      "bytes": 79750,
+      "media_type": "application/feed+json",
+      "path": "data/feeds/feed.json",
+      "sha256": "6f480d02c8b00ec5dd6b67e289d571fb31238fa215dec6c8b183c28d40086a5c"
+    },
+    {
       "bytes": 10421,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",

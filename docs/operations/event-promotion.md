@@ -192,7 +192,7 @@ Use this when one source update includes multiple independent provider changes.
 - Review candidates: `data/candidates/review/*.json`
 - Reviewed events: `data/events/*.json`
 - Generated feeds: `data/feeds/events.json`, `data/feeds/events.ndjson`,
-  `data/feeds/latest.json`, `data/feeds/rss.xml`
+  `data/feeds/feed.json`, `data/feeds/latest.json`, `data/feeds/rss.xml`
 - Generated indexes: `data/indexes/provider/*`, `data/indexes/kind/*`,
   `data/indexes/severity/*`
 - Development release manifest: `data/releases/dev/manifest.json`
