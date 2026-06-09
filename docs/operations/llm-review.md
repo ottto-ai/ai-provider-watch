@@ -64,6 +64,12 @@ quality blockers, and bounded event hints. This gives the reviewer enough
 context to recommend `promote` when the official dated evidence is strong, or
 to explain why the candidate should be rejected, split, deduplicated, or kept
 for source-owner review.
+
+For human source-owner event drafting, use `apw candidate packet` instead. That
+packet can include bounded generated candidate claim text labeled
+`untrusted_data`, plus draft-only ProviderEvent stubs. Do not feed that human
+packet to a model as instructions; use `apw review request` for model review.
+
 Each `review_decisions[]` row must include:
 
 - `decision`: `promote`, `reject`, `duplicate`, `split`, or

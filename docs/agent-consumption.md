@@ -17,6 +17,7 @@ uv run apw latest
 uv run apw candidate generate --observations .apw/source-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
 uv run apw candidate readiness --candidates .apw/candidates --created-at 2026-05-31T20:15:00Z --output .apw/promotion-readiness.json
 uv run apw candidate quality --candidates .apw/candidates --created-at 2026-05-31T20:15:00Z --output .apw/candidate-quality.json
+uv run apw candidate packet --candidates .apw/candidates --created-at 2026-05-31T20:15:00Z --output .apw/source-owner-packet.json
 uv run apw candidate review-pr-body --observations .apw/source-observations.json --candidates .apw/candidates
 uv run apw review request --candidates .apw/candidates --reviewer codex --created-at 2026-05-31T20:15:00Z
 uv run apw repo check --repo . --since 3650d --risk low
@@ -42,6 +43,12 @@ review agent has enough structured context to recommend source-owner promotion;
 reviewed APW data and should normally receive a `duplicate` decision. The
 reviewer still cannot write `data/events`, merge PRs, publish tags, or read
 release credentials.
+`apw candidate packet` renders source-owner event-drafting context for
+high-value official candidates. It includes readiness, quality, duplicate
+evidence, source-state coverage, bounded evidence refs, and draft-only
+ProviderEvent stubs. It is for human source owners and may include bounded
+generated candidate claim text labeled `untrusted_data`; use `apw review
+request` for model reviewers because that packet omits claim text.
 
 Prompt-injection regression fixtures live at
 `tests/fixtures/redteam/untrusted-input-cases.json`. Any agent-facing workflow
