@@ -17,13 +17,19 @@ from ai_provider_watch.core.io import read_json, repo_root, write_json_text
 from ai_provider_watch.core.untrusted import contains_prompt_injection_marker
 from ai_provider_watch.core.validation import load_schemas
 
-RESOURCE_URIS = (
+MCP_PROTOCOL_VERSION = "2025-11-25"
+MCP_CAPABILITIES: dict[str, dict[str, bool]] = {"resources": {}, "tools": {}}
+JSON_SCHEMA_2020_12 = "https://json-schema.org/draft/2020-12/schema"
+STATIC_RESOURCE_URIS = (
     "apw://events/latest",
+    "apw://sources/registry",
+)
+RESOURCE_TEMPLATE_URIS = (
     "apw://events/{event_id}",
     "apw://providers/{provider}/events",
     "apw://indexes/kind/{kind}",
-    "apw://sources/registry",
 )
+RESOURCE_URIS = (*STATIC_RESOURCE_URIS, *RESOURCE_TEMPLATE_URIS)
 TOOL_NAMES = (
     "apw_latest",
     "apw_diff",
@@ -71,6 +77,22 @@ class McpContent:
     text: str
 
 
+class McpError(ValueError):
+    code = -32603
+
+    def __init__(self, message: str, *, data: dict[str, Any] | None = None) -> None:
+        super().__init__(message)
+        self.data = data
+
+
+class McpInvalidParams(McpError):
+    code = -32602
+
+
+class McpResourceNotFound(McpError):
+    code = -32002
+
+
 def _root(root: Path | None = None) -> Path:
     return repo_root(root)
 
@@ -79,16 +101,65 @@ def _json_content(uri: str, payload: Any) -> McpContent:
     return McpContent(uri=uri, mime_type="application/json", text=write_json_text(payload))
 
 
-def resources() -> list[dict[str, str]]:
+def resources() -> list[dict[str, Any]]:
     return [
         {
-            "uri": uri,
-            "name": uri.removeprefix("apw://"),
+            "uri": "apw://events/latest",
+            "name": "events/latest",
+            "title": "Latest Reviewed APW Events",
             "mimeType": "application/json",
-            "description": "Read-only AI Provider Watch resource.",
-        }
-        for uri in RESOURCE_URIS
+            "description": "Latest reviewed AI Provider Watch events.",
+        },
+        {
+            "uri": "apw://sources/registry",
+            "name": "sources/registry",
+            "title": "APW Source Registry",
+            "mimeType": "application/json",
+            "description": "Read-only APW official-source registry.",
+        },
     ]
+
+
+def resource_templates() -> list[dict[str, str]]:
+    return [
+        {
+            "uriTemplate": "apw://events/{event_id}",
+            "name": "events/by-id",
+            "title": "APW Event By ID",
+            "mimeType": "application/json",
+            "description": "Read one reviewed APW ProviderEvent by event id.",
+        },
+        {
+            "uriTemplate": "apw://providers/{provider}/events",
+            "name": "providers/events",
+            "title": "APW Events By Provider",
+            "mimeType": "application/json",
+            "description": "Read reviewed APW events for one provider id.",
+        },
+        {
+            "uriTemplate": "apw://indexes/kind/{kind}",
+            "name": "indexes/kind",
+            "title": "APW Events By Kind",
+            "mimeType": "application/json",
+            "description": "Read reviewed APW events for one event kind.",
+        },
+    ]
+
+
+def _input_schema(
+    properties: dict[str, Any],
+    *,
+    required: list[str] | None = None,
+) -> dict[str, Any]:
+    schema: dict[str, Any] = {
+        "$schema": JSON_SCHEMA_2020_12,
+        "type": "object",
+        "additionalProperties": False,
+        "properties": properties,
+    }
+    if required:
+        schema["required"] = required
+    return schema
 
 
 def tools() -> list[dict[str, Any]]:
@@ -96,70 +167,51 @@ def tools() -> list[dict[str, Any]]:
         {
             "name": "apw_latest",
             "description": "Return latest reviewed APW events.",
-            "inputSchema": {
-                "type": "object",
-                "additionalProperties": False,
-                "properties": {
+            "inputSchema": _input_schema(
+                {
                     "provider": {"type": "string"},
                     "risk": {"enum": sorted(SEVERITY_RANK)},
                     "limit": {"type": "integer", "minimum": 1, "maximum": 100},
-                },
-            },
+                }
+            ),
         },
         {
             "name": "apw_diff",
             "description": "Return reviewed APW events since a date or day window.",
-            "inputSchema": {
-                "type": "object",
-                "additionalProperties": False,
-                "properties": {
+            "inputSchema": _input_schema(
+                {
                     "since": {"type": "string"},
                     "provider": {"type": "string"},
-                },
-            },
+                }
+            ),
         },
         {
             "name": "apw_explain",
             "description": "Return one reviewed APW event by id.",
-            "inputSchema": {
-                "type": "object",
-                "additionalProperties": False,
-                "required": ["event_id"],
-                "properties": {"event_id": {"type": "string"}},
-            },
+            "inputSchema": _input_schema({"event_id": {"type": "string"}}, required=["event_id"]),
         },
         {
             "name": "apw_check_repo_models",
             "description": "Scan a local downstream repo for provider/model/app refs without copying source text.",
-            "inputSchema": {
-                "type": "object",
-                "additionalProperties": False,
-                "required": ["repo_path"],
-                "properties": {"repo_path": {"type": "string"}},
-            },
+            "inputSchema": _input_schema({"repo_path": {"type": "string"}}, required=["repo_path"]),
         },
         {
             "name": "apw_validate_event",
             "description": "Validate a supplied ProviderEvent JSON object against APW schemas.",
-            "inputSchema": {
-                "type": "object",
-                "additionalProperties": False,
-                "required": ["event"],
-                "properties": {"event": {"type": "object"}},
-            },
+            "inputSchema": _input_schema({"event": {"type": "object"}}, required=["event"]),
         },
     ]
 
 
 def _safe_id(value: str, label: str) -> str:
     if contains_prompt_injection_marker(value) or not SAFE_ID_PATTERN.fullmatch(value):
-        raise ValueError(f"invalid {label}")
+        raise McpInvalidParams(f"invalid {label}")
     return value
 
 
 def _safe_kind(value: str) -> str:
     if contains_prompt_injection_marker(value) or not SAFE_KIND_PATTERN.fullmatch(value):
-        raise ValueError("invalid kind")
+        raise McpInvalidParams("invalid kind")
     return value
 
 
@@ -173,7 +225,7 @@ def read_resource(uri: str, root: Path | None = None) -> McpContent:
         event_id = _safe_id(uri.removeprefix("apw://events/"), "event id")
         event = explain(event_id, apw_root)
         if event is None:
-            raise ValueError(f"event not found: {event_id}")
+            raise McpResourceNotFound(f"event not found: {event_id}", data={"uri": uri})
         return _json_content(uri, event)
     if uri.startswith("apw://providers/") and uri.endswith("/events"):
         provider = _safe_id(uri.removeprefix("apw://providers/").removesuffix("/events"), "provider")
@@ -181,7 +233,7 @@ def read_resource(uri: str, root: Path | None = None) -> McpContent:
     if uri.startswith("apw://indexes/kind/"):
         kind = _safe_kind(uri.removeprefix("apw://indexes/kind/"))
         return _json_content(uri, [event for event in load_events(apw_root) if event.get("event_kind") == kind])
-    raise ValueError(f"unsupported APW MCP resource: {uri}")
+    raise McpResourceNotFound(f"unsupported APW MCP resource: {uri}", data={"uri": uri})
 
 
 def latest(
@@ -301,7 +353,7 @@ def _line_hash(value: str) -> str:
 def check_repo_models(repo_path: Path, root: Path | None = None) -> dict[str, Any]:
     target = repo_path.resolve()
     if not target.exists() or not target.is_dir():
-        raise ValueError(f"repo_path must be an existing directory: {repo_path}")
+        raise McpInvalidParams(f"repo_path must be an existing directory: {repo_path}")
     terms = _registry_terms(_root(root))
     matches: list[dict[str, Any]] = []
     for path in _iter_scan_files(target):
@@ -335,7 +387,7 @@ def check_repo_models(repo_path: Path, root: Path | None = None) -> dict[str, An
 def call_tool(name: str, arguments: dict[str, Any] | None = None, root: Path | None = None) -> Any:
     args = arguments or {}
     if name not in TOOL_NAMES:
-        raise ValueError(f"unsupported APW MCP tool: {name}")
+        raise McpInvalidParams(f"unsupported APW MCP tool: {name}")
     if name == "apw_latest":
         return latest(
             root,
@@ -352,17 +404,17 @@ def call_tool(name: str, arguments: dict[str, Any] | None = None, root: Path | N
     if name == "apw_explain":
         event_id = args.get("event_id")
         if not isinstance(event_id, str):
-            raise ValueError("apw_explain requires event_id")
+            raise McpInvalidParams("apw_explain requires event_id")
         return explain(event_id, root)
     if name == "apw_check_repo_models":
         repo_path = args.get("repo_path")
         if not isinstance(repo_path, str):
-            raise ValueError("apw_check_repo_models requires repo_path")
+            raise McpInvalidParams("apw_check_repo_models requires repo_path")
         return check_repo_models(Path(repo_path), root)
     if name == "apw_validate_event":
         event = args.get("event")
         if not isinstance(event, dict):
-            raise ValueError("apw_validate_event requires event object")
+            raise McpInvalidParams("apw_validate_event requires event object")
         return validate_event(event, root)
     raise AssertionError(name)
 
@@ -382,13 +434,21 @@ def _jsonrpc_result(message_id: Any, result: Any) -> dict[str, Any]:
     return {"jsonrpc": "2.0", "id": message_id, "result": result}
 
 
-def _jsonrpc_error(message_id: Any, code: int, message: str) -> dict[str, Any]:
-    return {"jsonrpc": "2.0", "id": message_id, "error": {"code": code, "message": message}}
+def _jsonrpc_error(
+    message_id: Any,
+    code: int,
+    message: str,
+    data: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    error: dict[str, Any] = {"code": code, "message": message}
+    if data is not None:
+        error["data"] = data
+    return {"jsonrpc": "2.0", "id": message_id, "error": error}
 
 
 def _server_root() -> Path:
     configured = os.environ.get("APW_REPO_ROOT")
-    return repo_root(Path(configured) if configured else Path.cwd())
+    return repo_root(Path(configured)) if configured else repo_root()
 
 
 def _handle_jsonrpc(payload: dict[str, Any]) -> dict[str, Any] | None:
@@ -404,13 +464,15 @@ def _handle_jsonrpc(payload: dict[str, Any]) -> dict[str, Any] | None:
             return _jsonrpc_result(
                 message_id,
                 {
-                    "protocolVersion": "2024-11-05",
-                    "capabilities": {"resources": {}, "tools": {}},
+                    "protocolVersion": MCP_PROTOCOL_VERSION,
+                    "capabilities": MCP_CAPABILITIES,
                     "serverInfo": {"name": "ai-provider-watch", "version": "0.1.1"},
                 },
             )
         if method == "resources/list":
             return _jsonrpc_result(message_id, {"resources": resources()})
+        if method == "resources/templates/list":
+            return _jsonrpc_result(message_id, {"resourceTemplates": resource_templates()})
         if method == "resources/read":
             uri = params.get("uri") if isinstance(params, dict) else None
             if not isinstance(uri, str):
@@ -440,8 +502,12 @@ def _handle_jsonrpc(payload: dict[str, Any]) -> dict[str, Any] | None:
                 message_id,
                 {"content": [{"type": "text", "text": write_json_text(result)}], "isError": False},
             )
+    except McpError as exc:
+        return _jsonrpc_error(message_id, exc.code, str(exc), exc.data)
+    except ValueError as exc:
+        return _jsonrpc_error(message_id, -32602, str(exc))
     except Exception as exc:
-        return _jsonrpc_error(message_id, -32000, str(exc))
+        return _jsonrpc_error(message_id, -32603, str(exc))
     return _jsonrpc_error(message_id, -32601, f"unsupported method: {method}")
 
 
