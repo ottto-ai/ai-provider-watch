@@ -76,7 +76,9 @@ The workflow checks:
 - `uv run apw source coverage --summary`;
 - `uv run apw validate`;
 - `uv run apw index --check`;
-- `uv run apw release dry-run --require-clean`.
+- `uv run apw release dry-run --require-clean`;
+- `uv run apw release verify` against the generated dry-run report, release
+  ID, source commit, artifact manifest, and checksums.
 
 It does not create tags, upload releases, read secrets, request OIDC, or process
 provider/source/candidate text beyond the reviewed repository checkout.
@@ -110,11 +112,13 @@ For a publish packet, pass `reviewed_event_ids` instead of
 comma-separated ProviderEvent IDs, and the CLI verifies that each ID exists in
 `data/events`.
 
-Packet mode uploads the dry-run report and `publication-packet.json` as the
-`apw-data-publication-packet` artifact. It still keeps `contents: read`, does
-not request OIDC, does not use secrets, does not create a tag, and does not
-create or upload a GitHub Release. If `checksum_review_ref` is omitted, the
-workflow records the dry-run report SHA-256 from the protected run.
+Packet mode verifies the packet against the dry-run report before uploading
+review evidence. It uploads the dry-run report, `publication-packet.json`, and
+`release-verification.json` as the `apw-data-publication-packet` artifact. It
+still keeps `contents: read`, does not request OIDC, does not use secrets, does
+not create a tag, and does not create or upload a GitHub Release. If
+`checksum_review_ref` is omitted, the workflow records the dry-run report
+SHA-256 from the protected run.
 
 ## Publication Packet Contract
 

@@ -85,6 +85,23 @@ uv run apw release packet \
   --output .apw/release-dry-run/data-YYYY.MM.DD/publication-packet.json
 ```
 
+Verify the local dry-run artifact set and optional publication packet before
+signing:
+
+```bash
+uv run apw release verify \
+  --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json \
+  --publication-packet .apw/release-dry-run/data-YYYY.MM.DD/publication-packet.json \
+  --release-id data-YYYY.MM.DD \
+  --source-commit "<40-char-source-commit>"
+```
+
+For a publish packet, add `--require-publish-packet`. The verifier is local and
+read-only: it checks schemas, dry-run checks, artifact SHA-256/byte counts,
+manifest/checksum consistency, packet linkage, reviewed event IDs, signing tag,
+and source commit. It does not create tags, upload releases, call provider
+sources, or verify external GitHub/PyPI/attestation state over the network.
+
 The GitHub data-release workflow runs daily and on manual dispatch. Scheduled
 runs are dry-run evidence only: they do not tag, upload a release, update source
 state, or process provider page content. The job keeps `contents: read`, uses

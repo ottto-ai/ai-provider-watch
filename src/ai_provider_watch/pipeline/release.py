@@ -22,6 +22,7 @@ from ai_provider_watch.sources.registry import validate_source_packages
 
 RELEASE_DRY_RUN_SCHEMA_VERSION = "apw.release_dry_run.v0"
 RELEASE_PUBLICATION_PACKET_SCHEMA_VERSION = "apw.release_publication_packet.v0"
+RELEASE_VERIFICATION_SCHEMA_VERSION = "apw.release_verification.v0"
 RELEASE_ID_PATTERN = re.compile(r"^data-\d{4}\.\d{2}\.\d{2}$")
 
 
@@ -38,6 +39,12 @@ class ReleaseDryRunResult:
     failed_checks: list[ReleaseCheck]
     output_dir: Path
     report_path: Path
+
+
+@dataclass(frozen=True)
+class ReleaseVerificationResult:
+    report: dict[str, Any]
+    failed_checks: list[ReleaseCheck]
 
 
 def calver_release_id(release_date: date) -> str:
@@ -190,6 +197,7 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
             "uv build --out-dir .apw/dist",
             "apw latest --limit 1 >/tmp/apw-installed-latest.json",
             "--require-clean",
+            "apw --root \"$PWD\" release verify",
             "apw-release-dry-run.tgz",
             "actions/attest@v4",
             "subject-path: .apw/apw-release-dry-run.tgz",
@@ -235,8 +243,10 @@ def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
             "uv run apw validate",
             "uv run apw index --check",
             "uv run apw release dry-run",
+            "uv run apw release verify",
             'uv run apw "${args[@]}"',
             "publication-packet.json",
+            "release-verification.json",
             "actions/upload-artifact@v7",
             "apw-data-publication-packet",
             "--require-clean",
@@ -565,6 +575,287 @@ def _relative_or_absolute(root: Path, path: Path) -> str:
         return str(resolved)
 
 
+def _read_json_file(path: Path, label: str) -> Any:
+    try:
+        return read_json_from_text(path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        raise ValueError(f"{label} not readable: {path}: {exc}") from exc
+
+
+def _path_from_report_root(root: Path, value: str) -> Path:
+    path = Path(value)
+    return path if path.is_absolute() else root / path
+
+
+def _artifact_root_from_report(root: Path, report_path: Path, report: dict[str, Any], override: Path | None) -> Path:
+    if override is not None:
+        return override
+    sibling = report_path.parent / "artifacts"
+    if sibling.exists():
+        return sibling
+    output_dir = report.get("output_dir")
+    if isinstance(output_dir, str) and output_dir:
+        return _path_from_report_root(root, output_dir) / "artifacts"
+    return sibling
+
+
+def _verify_release_artifact_files(
+    artifacts_root: Path,
+    report: dict[str, Any],
+) -> tuple[ReleaseCheck, list[dict[str, Any]], dict[Path, str]]:
+    failures: list[str] = []
+    verified_artifacts: list[dict[str, Any]] = []
+    artifact_text: dict[Path, str] = {}
+    for artifact in report.get("release_artifacts", []):
+        if not isinstance(artifact, dict):
+            failures.append("release_artifacts contains a non-object item")
+            continue
+        artifact_path = Path(str(artifact.get("path") or ""))
+        if artifact_path.is_absolute() or ".." in artifact_path.parts:
+            failures.append(f"{artifact_path}: artifact path must be relative and confined")
+            continue
+        path = artifacts_root / artifact_path
+        if not path.exists():
+            failures.append(f"{artifact_path}: missing")
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError as exc:
+            failures.append(f"{artifact_path}: unreadable: {exc}")
+            continue
+        digest = _sha256_text(text)
+        size = len(text.encode("utf-8"))
+        artifact_text[artifact_path] = text
+        if digest != artifact.get("sha256"):
+            failures.append(f"{artifact_path}: sha256 mismatch")
+        if size != artifact.get("bytes"):
+            failures.append(f"{artifact_path}: byte count mismatch")
+        verified_artifacts.append(
+            {
+                "path": str(artifact_path),
+                "sha256": digest,
+                "bytes": size,
+            }
+        )
+    details = (
+        f"{len(verified_artifacts)} release artifact file(s) match report hashes and byte counts"
+        if not failures
+        else "; ".join(failures)
+    )
+    return _check("release_artifact_files", not failures, details), verified_artifacts, artifact_text
+
+
+def _verify_manifest_and_checksums(
+    root: Path,
+    artifacts_root: Path,
+    report: dict[str, Any],
+    artifact_text: dict[Path, str],
+) -> ReleaseCheck:
+    release_id = str(report.get("release_id") or "")
+    manifest_path = Path(f"data/releases/{release_id}/manifest.json")
+    manifest_file = artifacts_root / manifest_path
+    if not manifest_file.exists():
+        return _check("release_manifest_and_checksums", False, f"{manifest_path}: missing")
+    try:
+        manifest_text = manifest_file.read_text(encoding="utf-8")
+        manifest = read_json_from_text(manifest_text)
+    except (OSError, ValueError) as exc:
+        return _check("release_manifest_and_checksums", False, f"{manifest_path}: invalid: {exc}")
+    artifact_text = dict(artifact_text)
+    artifact_text[manifest_path] = manifest_text
+    errors = _validate_schema_payload(root, "release_manifest", manifest)
+    if errors:
+        return _check("release_manifest_and_checksums", False, "; ".join(errors))
+    mismatches: list[str] = []
+    if manifest.get("release_id") != report.get("release_id"):
+        mismatches.append("manifest release_id does not match report")
+    if manifest.get("source_commit") != report.get("source_commit"):
+        mismatches.append("manifest source_commit does not match report")
+    checksum_check = _checksum_check(artifact_text, manifest)
+    if checksum_check.status != "pass":
+        mismatches.append(checksum_check.details)
+    return _check(
+        "release_manifest_and_checksums",
+        not mismatches,
+        "manifest schema, source commit, hashes, byte counts, and checksums.txt are consistent"
+        if not mismatches
+        else "; ".join(mismatches),
+    )
+
+
+def _verify_publication_packet(
+    root: Path,
+    *,
+    packet_path: Path | None,
+    dry_run_report_path: Path,
+    report: dict[str, Any],
+    require_publish_packet: bool,
+) -> ReleaseCheck:
+    if packet_path is None:
+        return _check(
+            "publication_packet",
+            not require_publish_packet,
+            "publication packet not provided"
+            if not require_publish_packet
+            else "publication packet is required",
+        )
+    if not packet_path.exists():
+        return _check("publication_packet", False, f"publication packet not found: {packet_path}")
+    try:
+        packet = _read_json_file(packet_path, "publication packet")
+    except ValueError as exc:
+        return _check("publication_packet", False, str(exc))
+    errors = _validate_schema_payload(root, "release_publication_packet", packet)
+    failures: list[str] = [*errors]
+    if packet.get("release_id") != report.get("release_id"):
+        failures.append("packet release_id does not match dry-run report")
+    if packet.get("source_commit") != report.get("source_commit"):
+        failures.append("packet source_commit does not match dry-run report")
+    dry_run = packet.get("dry_run", {}) if isinstance(packet.get("dry_run"), dict) else {}
+    if dry_run.get("report_sha256") != _sha256_file(dry_run_report_path):
+        failures.append("packet dry_run.report_sha256 does not match dry-run report file")
+    if dry_run.get("check_count") != len(report.get("checks", [])):
+        failures.append("packet dry_run.check_count does not match report")
+    if dry_run.get("artifact_count") != len(report.get("release_artifacts", [])):
+        failures.append("packet dry_run.artifact_count does not match report")
+    signing = packet.get("signing", {}) if isinstance(packet.get("signing"), dict) else {}
+    if signing.get("tag_name") != report.get("release_id"):
+        failures.append("packet signing.tag_name does not match release_id")
+    reviewed = packet.get("reviewed_inputs", {}) if isinstance(packet.get("reviewed_inputs"), dict) else {}
+    reviewed_event_ids = reviewed.get("reviewed_event_ids", [])
+    if not isinstance(reviewed_event_ids, list):
+        failures.append("packet reviewed_event_ids must be a list")
+        reviewed_event_ids = []
+    event_ids = {read_json_from_text(path.read_text(encoding="utf-8"))["id"] for path in event_paths(root)}
+    missing_events = sorted(
+        event_id for event_id in reviewed_event_ids if isinstance(event_id, str) and event_id not in event_ids
+    )
+    if missing_events:
+        failures.append(f"packet reviewed event id(s) not found: {', '.join(missing_events)}")
+    if packet.get("publication_decision") == "publish" and not reviewed_event_ids:
+        failures.append("publish packet must include at least one reviewed event id")
+    if packet.get("publication_decision") == "skip" and reviewed_event_ids:
+        failures.append("skip packet must not include reviewed event ids")
+    if require_publish_packet and packet.get("publication_decision") != "publish":
+        failures.append("publication packet must be a publish packet")
+    return _check(
+        "publication_packet",
+        not failures,
+        "publication packet schema, dry-run hash, counts, reviewed events, signing tag, and source commit are consistent"
+        if not failures
+        else "; ".join(failures),
+    )
+
+
+def verify_release_artifacts(
+    root: Path,
+    *,
+    dry_run_report_path: Path,
+    publication_packet_path: Path | None = None,
+    artifacts_root: Path | None = None,
+    expected_release_id: str | None = None,
+    expected_source_commit: str | None = None,
+    require_publish_packet: bool = False,
+) -> ReleaseVerificationResult:
+    created_at = datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    checks: list[ReleaseCheck] = []
+    verified_artifacts: list[dict[str, Any]] = []
+    report: dict[str, Any] | None = None
+    resolved_artifacts_root = artifacts_root
+    try:
+        report = _read_json_file(dry_run_report_path, "dry-run report")
+    except ValueError as exc:
+        checks.append(_check("dry_run_report", False, str(exc)))
+    if report is not None:
+        schema_errors = _validate_schema_payload(root, "release_dry_run", report)
+        checks.append(
+            _check(
+                "dry_run_report_schema",
+                not schema_errors,
+                "dry-run report matches schema" if not schema_errors else "; ".join(schema_errors),
+            )
+        )
+        failed_report_checks = [
+            str(check.get("name"))
+            for check in report.get("checks", [])
+            if isinstance(check, dict) and check.get("status") != "pass"
+        ]
+        checks.append(
+            _check(
+                "dry_run_report_checks",
+                not failed_report_checks,
+                f"{len(report.get('checks', []))} dry-run check(s) passed"
+                if not failed_report_checks
+                else f"failed dry-run checks: {', '.join(failed_report_checks)}",
+            )
+        )
+        if expected_release_id is not None:
+            checks.append(
+                _check(
+                    "expected_release_id",
+                    report.get("release_id") == expected_release_id,
+                    f"expected {expected_release_id}; found {report.get('release_id')}",
+                )
+            )
+        if expected_source_commit is not None:
+            checks.append(
+                _check(
+                    "expected_source_commit",
+                    report.get("source_commit") == expected_source_commit,
+                    f"expected {expected_source_commit}; found {report.get('source_commit')}",
+                )
+            )
+        resolved_artifacts_root = _artifact_root_from_report(root, dry_run_report_path, report, artifacts_root)
+        artifact_check, verified_artifacts, artifact_text = _verify_release_artifact_files(
+            resolved_artifacts_root,
+            report,
+        )
+        checks.append(artifact_check)
+        checks.append(
+            _verify_manifest_and_checksums(
+                root,
+                resolved_artifacts_root,
+                report,
+                artifact_text,
+            )
+        )
+        checks.append(
+            _verify_publication_packet(
+                root,
+                packet_path=publication_packet_path,
+                dry_run_report_path=dry_run_report_path,
+                report=report,
+                require_publish_packet=require_publish_packet,
+            )
+        )
+    verification = {
+        "schema_version": RELEASE_VERIFICATION_SCHEMA_VERSION,
+        "created_at": created_at,
+        "verified": all(check.status == "pass" for check in checks),
+        "release_id": report.get("release_id") if report else None,
+        "source_commit": report.get("source_commit") if report else None,
+        "dry_run_report_path": _relative_or_absolute(root, dry_run_report_path),
+        "publication_packet_path": _relative_or_absolute(root, publication_packet_path)
+        if publication_packet_path is not None
+        else None,
+        "artifacts_root": _relative_or_absolute(root, resolved_artifacts_root)
+        if resolved_artifacts_root is not None
+        else None,
+        "checks": [check.__dict__ for check in checks],
+        "verified_artifacts": verified_artifacts,
+    }
+    result_errors = _validate_schema_payload(root, "release_verification", verification)
+    if result_errors:
+        checks.append(_check("release_verification_schema", False, "; ".join(result_errors)))
+        verification["verified"] = False
+        verification["checks"] = [check.__dict__ for check in checks]
+    failed_checks = [check for check in checks if check.status != "pass"]
+    return ReleaseVerificationResult(
+        report=verification,
+        failed_checks=failed_checks,
+    )
+
+
 def build_release_publication_packet(
     root: Path,
     *,
@@ -810,6 +1101,7 @@ def run_release_dry_run(
             "uv run apw index --check",
             "actionlint .github/workflows/*.yml",
             f"uv run apw release dry-run --release-date {release_date.isoformat()} --output {output_dir}",
+            f"uv run apw release verify --dry-run-report {output_dir / resolved_release_id / 'dry-run-report.json'} --release-id {resolved_release_id} --source-commit {source_commit or '<source-commit>'}",
         ],
         "checks": [check.__dict__ for check in checks],
         "release_artifacts": manifest["artifacts"],

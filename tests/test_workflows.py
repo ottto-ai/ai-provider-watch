@@ -66,6 +66,7 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
     assert "apw source coverage --summary" in workflow
     assert "apw latest --limit 1 >/tmp/apw-installed-latest.json" in workflow
     assert "apw --root \"$PWD\" release dry-run" in workflow
+    assert "apw --root \"$PWD\" release verify" in workflow
     assert "--require-clean" in workflow
     assert "apw-release-dry-run.tgz" in workflow
     assert "actions/attest@v4" in workflow
@@ -190,8 +191,10 @@ def test_data_publisher_workflow_is_protected_noop_or_packet_only() -> None:
     assert "uv run apw validate" in workflow
     assert "uv run apw index --check" in workflow
     assert "uv run apw release dry-run" in workflow
+    assert "uv run apw release verify" in workflow
     assert "uv run apw \"${args[@]}\"" in workflow
     assert "publication-packet.json" in workflow
+    assert "release-verification.json" in workflow
     assert "actions/upload-artifact@v7" in workflow
     assert "apw-data-publication-packet" in workflow
     assert "if: inputs.publish_mode == 'packet'" in workflow
