@@ -19,8 +19,10 @@ MAX_ANNOUNCEMENT_CLAIMS = 6
 MAX_LIFECYCLE_CLAIMS = 8
 MAX_MODEL_ID_LENGTH = 96
 MAX_MODEL_ID_SEGMENT_LENGTH = 32
+MAX_OPERATIONAL_DELTA_CLAIMS = 8
 MAX_PRICING_DELTA_CLAIMS = 8
 MAX_STATUS_REF_LENGTH = 160
+OPERATIONAL_ROW_STATE_SCHEMA_VERSION = "apw.operational_rows.v0"
 PRICING_ROW_STATE_SCHEMA_VERSION = "apw.pricing_rows.v0"
 
 PROVIDER_LABELS = {
@@ -374,6 +376,24 @@ LIMIT_CONTEXT_TOKENS = (
     "tpm",
     "tpd",
 )
+
+LIMIT_DIMENSION_LABELS = {
+    "requests_per_day": "requests per day",
+    "requests_per_minute": "requests per minute",
+    "tokens_per_day": "tokens per day",
+    "tokens_per_minute": "tokens per minute",
+    "tokens_per_request": "tokens per request",
+}
+
+DEFAULT_SCOPE_LABELS = {
+    "audio": "audio",
+    "coding": "coding",
+    "embeddings": "embeddings",
+    "global": "global",
+    "image_generation": "image generation",
+    "realtime": "realtime",
+    "text_generation": "text generation",
+}
 
 MONTHS = {
     "jan": "01",
@@ -1419,6 +1439,268 @@ def _pricing_delta_claims(
     return claims[:MAX_PRICING_DELTA_CLAIMS]
 
 
+def _limit_row_key(model_id: str, limit_dimension: str) -> str:
+    subject = model_id if model_id else "global"
+    return f"limit:{subject}:{limit_dimension}"
+
+
+def _limit_state_row(item: dict[str, Any]) -> dict[str, str] | None:
+    if item.get("kind") != "limit_signal":
+        return None
+    limit_dimension = item.get("limit_dimension")
+    limit_value = item.get("limit_value")
+    unit = item.get("unit")
+    model_id = item.get("model_id", "")
+    if (
+        not isinstance(limit_dimension, str)
+        or limit_dimension not in LIMIT_DIMENSION_PATTERNS
+        or not isinstance(limit_value, str)
+        or not LIMIT_VALUE_PATTERN.fullmatch(limit_value)
+        or unit != limit_dimension
+        or not isinstance(model_id, str)
+        or (model_id and not _is_bounded_model_id(model_id))
+    ):
+        return None
+    row_key = _limit_row_key(model_id, limit_dimension)
+    row_sha256 = _sha256_text(f"{row_key}:{limit_value}")
+    row = {
+        "row_key": row_key,
+        "row_sha256": row_sha256,
+        "limit_dimension": limit_dimension,
+        "limit_value": limit_value,
+        "unit": unit,
+    }
+    if model_id:
+        row["model_id"] = model_id
+    return row
+
+
+def _default_model_row_key(default_scope: str) -> str:
+    return f"default_model:{default_scope}"
+
+
+def _default_model_state_row(item: dict[str, Any]) -> dict[str, str] | None:
+    if item.get("kind") != "default_model_signal":
+        return None
+    default_scope = item.get("default_scope")
+    model_id = item.get("model_id")
+    if (
+        not isinstance(default_scope, str)
+        or default_scope not in DEFAULT_SCOPE_LABELS
+        or not isinstance(model_id, str)
+        or not _is_bounded_model_id(model_id)
+    ):
+        return None
+    row_key = _default_model_row_key(default_scope)
+    row_sha256 = _sha256_text(f"{row_key}:{model_id}")
+    return {
+        "row_key": row_key,
+        "row_sha256": row_sha256,
+        "default_scope": default_scope,
+        "model_id": model_id,
+    }
+
+
+def operational_state_from_items(items: list[dict[str, Any]]) -> dict[str, Any] | None:
+    limit_groups: dict[str, list[dict[str, str]]] = {}
+    default_groups: dict[str, list[dict[str, str]]] = {}
+    for item in items:
+        limit_row = _limit_state_row(item)
+        if limit_row is not None:
+            limit_groups.setdefault(limit_row["row_key"], []).append(limit_row)
+            continue
+        default_row = _default_model_state_row(item)
+        if default_row is not None:
+            default_groups.setdefault(default_row["row_key"], []).append(default_row)
+
+    limit_rows: list[dict[str, str]] = []
+    ambiguous_limit_keys: list[str] = []
+    for row_key, rows in sorted(limit_groups.items()):
+        values = {row["limit_value"] for row in rows}
+        if len(values) > 1:
+            ambiguous_limit_keys.append(row_key)
+            continue
+        limit_rows.append(sorted(rows, key=lambda row: row["row_sha256"])[0])
+
+    default_rows: list[dict[str, str]] = []
+    ambiguous_default_model_keys: list[str] = []
+    for row_key, rows in sorted(default_groups.items()):
+        model_ids = {row["model_id"] for row in rows}
+        if len(model_ids) > 1:
+            ambiguous_default_model_keys.append(row_key)
+            continue
+        default_rows.append(sorted(rows, key=lambda row: row["row_sha256"])[0])
+
+    if (
+        not limit_rows
+        and not default_rows
+        and not ambiguous_limit_keys
+        and not ambiguous_default_model_keys
+    ):
+        return None
+    return {
+        "schema_version": OPERATIONAL_ROW_STATE_SCHEMA_VERSION,
+        "limit_signals": limit_rows,
+        "default_models": default_rows,
+        "ambiguous_limit_keys": ambiguous_limit_keys,
+        "ambiguous_default_model_keys": ambiguous_default_model_keys,
+    }
+
+
+def _operational_state_from_source_state(
+    previous_state: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(previous_state, dict):
+        return None
+    operational_state = previous_state.get("operational_rows")
+    if not isinstance(operational_state, dict):
+        return None
+    if operational_state.get("schema_version") != OPERATIONAL_ROW_STATE_SCHEMA_VERSION:
+        return None
+    return operational_state
+
+
+def _ambiguous_operational_keys(operational_state: dict[str, Any] | None, field: str) -> set[str]:
+    if not isinstance(operational_state, dict):
+        return set()
+    keys = operational_state.get(field)
+    if not isinstance(keys, list):
+        return set()
+    return {key for key in keys if isinstance(key, str)}
+
+
+def _limit_candidate_kind(limit_dimension: str) -> str:
+    if limit_dimension in {"requests_per_minute", "tokens_per_minute"}:
+        return "rate_limit_change"
+    return "quota_change"
+
+
+def _limit_delta_claim(
+    source: SourceDescriptor,
+    action: str,
+    row: dict[str, str],
+    *,
+    previous_row: dict[str, str] | None = None,
+) -> dict[str, str]:
+    provider = _provider_label(source)
+    subject = row.get("model_id") or "global usage"
+    dimension = LIMIT_DIMENSION_LABELS.get(row["limit_dimension"], row["limit_dimension"])
+    value = row["limit_value"]
+    if action == "changed" and previous_row is not None:
+        previous_value = previous_row["limit_value"]
+        claim_text = (
+            f"{provider} official source changed {subject} {dimension} limit "
+            f"from {previous_value} to {value}."
+        )
+    elif action == "removed":
+        claim_text = (
+            f"{provider} official source removed {subject} {dimension} limit "
+            f"previously listed as {value}."
+        )
+    else:
+        claim_text = f"{provider} official source added {subject} {dimension} limit {value}."
+    row_hash = _short_row_hash(row)
+    return {
+        "candidate_kind": _limit_candidate_kind(row["limit_dimension"]),
+        "claim_text": claim_text,
+        "selector": f"limit:{row_hash}",
+        "snapshot_ref": f"limit-row:{row_hash}",
+    }
+
+
+def _default_model_delta_claim(
+    source: SourceDescriptor,
+    action: str,
+    row: dict[str, str],
+    *,
+    previous_row: dict[str, str] | None = None,
+) -> dict[str, str]:
+    provider = _provider_label(source)
+    scope = DEFAULT_SCOPE_LABELS.get(row["default_scope"], row["default_scope"])
+    model_id = row["model_id"]
+    if action == "changed" and previous_row is not None:
+        previous_model_id = previous_row["model_id"]
+        claim_text = (
+            f"{provider} official source changed {scope} default model "
+            f"from {previous_model_id} to {model_id}."
+        )
+    elif action == "removed":
+        claim_text = (
+            f"{provider} official source removed {scope} default model "
+            f"previously listed as {model_id}."
+        )
+    else:
+        claim_text = f"{provider} official source added {scope} default model {model_id}."
+    row_hash = _short_row_hash(row)
+    return {
+        "candidate_kind": "default_model_change",
+        "claim_text": claim_text,
+        "selector": f"default-model:{row_hash}",
+        "snapshot_ref": f"default-model-row:{row_hash}",
+    }
+
+
+def _operational_delta_claims(
+    source: SourceDescriptor,
+    current_state: dict[str, Any] | None,
+    previous_source_state: dict[str, Any] | None,
+) -> list[dict[str, str]]:
+    previous_state = _operational_state_from_source_state(previous_source_state)
+    if current_state is None or previous_state is None:
+        return []
+
+    claims: list[dict[str, str]] = []
+    current_limits = _state_rows_by_key(current_state, "limit_signals")
+    previous_limits = _state_rows_by_key(previous_state, "limit_signals")
+    ambiguous_limit_keys = _ambiguous_operational_keys(
+        current_state,
+        "ambiguous_limit_keys",
+    ) | _ambiguous_operational_keys(previous_state, "ambiguous_limit_keys")
+    for row_key in sorted((set(current_limits) | set(previous_limits)) - ambiguous_limit_keys):
+        current_row = current_limits.get(row_key)
+        previous_row = previous_limits.get(row_key)
+        if current_row is not None and previous_row is not None:
+            if current_row.get("limit_value") != previous_row.get("limit_value"):
+                claims.append(
+                    _limit_delta_claim(
+                        source,
+                        "changed",
+                        current_row,
+                        previous_row=previous_row,
+                    )
+                )
+        elif current_row is not None:
+            claims.append(_limit_delta_claim(source, "added", current_row))
+        elif previous_row is not None:
+            claims.append(_limit_delta_claim(source, "removed", previous_row))
+
+    current_defaults = _state_rows_by_key(current_state, "default_models")
+    previous_defaults = _state_rows_by_key(previous_state, "default_models")
+    ambiguous_default_keys = _ambiguous_operational_keys(
+        current_state,
+        "ambiguous_default_model_keys",
+    ) | _ambiguous_operational_keys(previous_state, "ambiguous_default_model_keys")
+    for row_key in sorted((set(current_defaults) | set(previous_defaults)) - ambiguous_default_keys):
+        current_row = current_defaults.get(row_key)
+        previous_row = previous_defaults.get(row_key)
+        if current_row is not None and previous_row is not None:
+            if current_row.get("model_id") != previous_row.get("model_id"):
+                claims.append(
+                    _default_model_delta_claim(
+                        source,
+                        "changed",
+                        current_row,
+                        previous_row=previous_row,
+                    )
+                )
+        elif current_row is not None:
+            claims.append(_default_model_delta_claim(source, "added", current_row))
+        elif previous_row is not None:
+            claims.append(_default_model_delta_claim(source, "removed", previous_row))
+
+    return claims[:MAX_OPERATIONAL_DELTA_CLAIMS]
+
+
 def _price_dimension(text: str) -> str | None:
     lower_text = text.lower()
     for dimension, keywords in PRICE_DIMENSION_KEYWORDS.items():
@@ -1468,6 +1750,14 @@ def _limit_dimension(text: str) -> str | None:
     return None
 
 
+def _limit_dimensions(text: str) -> list[str]:
+    return [
+        dimension
+        for dimension, patterns in LIMIT_DIMENSION_PATTERNS.items()
+        if any(pattern.search(text) for pattern in patterns)
+    ]
+
+
 def _limit_value(text: str) -> str | None:
     for match in LIMIT_VALUE_PATTERN.finditer(text):
         value = match.group(1).replace(",", "")
@@ -1481,11 +1771,14 @@ def _limit_value_from_row(headers: list[str], row: list[str], dimension: str, ro
     for index, cell in enumerate(row):
         header = headers[index] if index < len(headers) else ""
         header_cell = f"{header} {cell}".lower()
+        cell_dimension = _limit_dimension(header_cell)
+        value = _limit_value(cell)
+        if cell_dimension == dimension and value is not None:
+            return value
+        if cell_dimension is not None and cell_dimension != dimension:
+            continue
         if not any(token in header_cell for token in preferred_header_tokens):
             continue
-        if _limit_dimension(cell) == dimension:
-            continue
-        value = _limit_value(cell)
         if value is not None:
             return value
     return _limit_value(row_text)
@@ -1505,25 +1798,26 @@ def _limit_signal_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
             lower_row = row_text.lower()
             if not any(token in lower_row for token in LIMIT_CONTEXT_TOKENS):
                 continue
-            dimension = _limit_dimension(row_text)
-            if dimension is None:
-                continue
-            value = _limit_value_from_row(headers, row, dimension, row_text)
-            if value is None:
+            dimensions = _limit_dimensions(row_text)
+            if not dimensions:
                 continue
             model_ids = _model_ids_from_text(row_text, parser_name) or [""]
-            for model_id in model_ids:
-                key = (dimension, value, model_id)
-                item = {
-                    "kind": "limit_signal",
-                    "limit_dimension": dimension,
-                    "limit_value": value,
-                    "unit": dimension,
-                    "source_parser": parser_name,
-                }
-                if model_id:
-                    item["model_id"] = model_id
-                items[key] = item
+            for dimension in dimensions:
+                value = _limit_value_from_row(headers, row, dimension, row_text)
+                if value is None:
+                    continue
+                for model_id in model_ids:
+                    key = (dimension, value, model_id)
+                    item = {
+                        "kind": "limit_signal",
+                        "limit_dimension": dimension,
+                        "limit_value": value,
+                        "unit": dimension,
+                        "source_parser": parser_name,
+                    }
+                    if model_id:
+                        item["model_id"] = model_id
+                    items[key] = item
     return [items[key] for key in sorted(items)]
 
 
@@ -1738,6 +2032,7 @@ def parse_source_payload(
     items: list[dict[str, Any]] = []
     candidate_claims: list[dict[str, str]] = []
     errors: list[str] = []
+    operational_state: dict[str, Any] | None = None
     pricing_state: dict[str, Any] | None = None
     scoped = scoped_source_content(source, raw)
     raw = scoped.raw
@@ -1752,13 +2047,25 @@ def parse_source_payload(
             candidate_claims = announcement_claims
     elif source.parser in MODEL_PARSER_PATTERNS:
         items = _model_items(raw, source.parser)
+        operational_state = operational_state_from_items(items)
+        if changed:
+            candidate_claims = _operational_delta_claims(
+                source,
+                operational_state,
+                previous_state,
+            )
     elif source.parser in LIFECYCLE_PARSER_PATTERNS:
         items = _lifecycle_items(raw, source.parser)
     elif source.parser in PRICING_PARSER_NAMES:
         items = _pricing_items(raw, source.parser)
         pricing_state = pricing_state_from_items(items)
+        operational_state = operational_state_from_items(items)
         if changed:
-            candidate_claims = _pricing_delta_claims(source, pricing_state, previous_state)
+            candidate_claims = _pricing_delta_claims(
+                source,
+                pricing_state,
+                previous_state,
+            ) + _operational_delta_claims(source, operational_state, previous_state)
     elif source.parser == "aws_bedrock_model_cards":
         items = _model_ref_items_from_visible_text(raw, source.parser)
     elif source.parser == "statuspage_html":

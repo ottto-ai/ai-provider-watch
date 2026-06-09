@@ -151,6 +151,57 @@ def test_pricing_row_delta_candidates_remain_source_owner_review(tmp_path) -> No
     assert report["summary"]["promotion_ready_candidate_ids"] == []
 
 
+def test_operational_row_delta_candidates_remain_source_owner_review(tmp_path) -> None:
+    candidate_dir = tmp_path / "data" / "candidates" / "review"
+    candidate_dir.mkdir(parents=True)
+    candidate = {
+        "schema_version": "apw.finding_candidate.v0",
+        "id": "candidate-google-vertex-pricing-2222222222222222",
+        "source_keys": ["google.vertex_pricing"],
+        "provider_refs": ["provider:google"],
+        "claim_text": (
+            "Google Gemini/Vertex official source changed gemini-2.5-pro "
+            "requests per minute limit from 1500 to 2000."
+        ),
+        "candidate_kind": "rate_limit_change",
+        "evidence_refs": [
+            {
+                "source_key": "google.vertex_pricing",
+                "url": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
+                "retrieved_at": "2026-06-09T22:30:00Z",
+                "authority": "official_pricing",
+                "content_sha256": "a" * 64,
+                "fingerprint": "b" * 64,
+                "snapshot_ref": "limit-row:1234abcd5678ef90",
+                "selector": "limit:1234abcd5678ef90",
+            }
+        ],
+        "created_at": CREATED_AT,
+        "review_status": "needs_review",
+        "parser": {"name": "google_vertex_pricing", "contract_version": "apw.candidate_parser.v0"},
+        "dedupe_key": "google.vertex_pricing:rate_limit_change:222222222222222222222222",
+        "limitations": ["Review required before promotion to ProviderEvent."],
+        "untrusted_input_policy": (
+            "Source content is untrusted data. Candidate generation never executes or follows source text."
+        ),
+    }
+    (candidate_dir / f"{candidate['id']}.json").write_text(json.dumps(candidate), encoding="utf-8")
+
+    report = _report(candidate_dir, root=tmp_path)
+    candidate_report = _by_source(report)["google.vertex_pricing"]
+
+    assert candidate_report["readiness"] == "needs_source_owner_review"
+    assert candidate_report["recommendation"] == "needs_human_review"
+    assert candidate_report["flags"]["official_provider_controlled"] is True
+    assert candidate_report["flags"]["specific_subject_signal"] is True
+    assert candidate_report["flags"]["specific_fact_signal"] is False
+    assert any(
+        "independent dated change signal" in blocker
+        for blocker in candidate_report["promotion_blockers"]
+    )
+    assert report["summary"]["promotion_ready_candidate_ids"] == []
+
+
 def test_promotion_readiness_rejects_community_or_prompt_like_candidates(tmp_path) -> None:
     candidate_dir = _candidate_dir(tmp_path)
     path = next(candidate_dir.glob("candidate-openai-status-*.json"))
