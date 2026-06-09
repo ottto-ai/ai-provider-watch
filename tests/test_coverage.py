@@ -22,12 +22,12 @@ def test_source_coverage_report_matches_schema_and_current_gaps() -> None:
     assert report["summary"] == {
         "provider_count": 5,
         "source_count": 19,
-        "enabled_deterministic_source_count": 15,
+        "enabled_deterministic_source_count": 16,
         "fetched_enabled_source_count": 10,
-        "missing_enabled_source_count": 5,
-        "fetched_enabled_source_ratio": 0.6667,
+        "missing_enabled_source_count": 6,
+        "fetched_enabled_source_ratio": 0.625,
         "manual_review_only_source_count": 1,
-        "blocked_pending_parser_source_count": 3,
+        "blocked_pending_parser_source_count": 2,
         "reviewed_event_count": 28,
         "latest_event_date": "2026-06-05",
         "candidate_backlog_count": 9,
@@ -42,15 +42,15 @@ def test_source_coverage_reports_provider_gaps_and_blocked_sources() -> None:
     report = build_source_coverage_report(ROOT, created_at=CREATED_AT)
     providers = {item["provider_ref"]: item for item in report["providers"]}
 
-    assert providers["provider:openai"]["missing_enabled_source_keys"] == ["openai.news"]
-    assert providers["provider:openai"]["blocked_pending_parser_source_count"] == 1
+    assert providers["provider:openai"]["missing_enabled_source_keys"] == ["openai.deprecations", "openai.news"]
+    assert providers["provider:openai"]["blocked_pending_parser_source_count"] == 0
     assert providers["provider:google"]["missing_enabled_source_keys"] == ["google.gemini_changelog"]
     assert providers["provider:azure-openai"]["missing_enabled_source_keys"] == ["azure_openai.whats_new"]
     assert providers["provider:aws-bedrock"]["missing_enabled_source_keys"] == ["aws_bedrock.whats_new"]
     assert providers["provider:anthropic"]["missing_enabled_source_keys"] == ["anthropic.news"]
 
     sources = {item["key"]: item for item in report["sources"]}
-    assert sources["openai.deprecations"]["coverage_status"] == "blocked_pending_parser"
+    assert sources["openai.deprecations"]["coverage_status"] == "enabled_missing_source_state"
     assert sources["openai.deprecations"]["parser_fixture_count"] == 1
     assert sources["openai.codex_docs"]["coverage_status"] == "manual_review_only"
     assert sources["openai.codex_docs"]["parser_fixture_count"] == 0
@@ -61,8 +61,8 @@ def test_source_coverage_warnings_are_structured_visibility_signals() -> None:
     report = build_source_coverage_report(ROOT, created_at=STALE_CREATED_AT)
     warning_codes = [warning["code"] for warning in report["warnings"]]
 
-    assert warning_codes.count("enabled_source_missing_source_state") == 5
-    assert warning_codes.count("blocked_official_source") == 3
+    assert warning_codes.count("enabled_source_missing_source_state") == 6
+    assert warning_codes.count("blocked_official_source") == 2
     assert warning_codes.count("candidate_backlog_present") == 1
     assert "source_state_stale" in warning_codes
     assert {
@@ -74,5 +74,6 @@ def test_source_coverage_warnings_are_structured_visibility_signals() -> None:
         "aws_bedrock.whats_new",
         "azure_openai.whats_new",
         "google.gemini_changelog",
+        "openai.deprecations",
         "openai.news",
     }

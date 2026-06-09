@@ -129,10 +129,12 @@ provider/model/API subjects, article URL when allowed by the descriptor, title
 hash, link hash, selector, and snapshot ref. They must not store article bodies
 or copied provider titles. Atom and Statuspage-style status sources expose
 hashed refs and timestamps instead of copied titles or incident text. Provider
-model-doc parsers extract only allowlisted model identifier shapes,
-lifecycle-doc parsers emit bounded model identifiers and dates, and pricing
-parsers emit bounded pricing/model signals such as input/output, cached input,
-cache write/hit, batch, priority, regional, and provisioned-throughput markers.
+model-doc parsers extract only allowlisted model identifier shapes.
+Lifecycle-doc parsers emit bounded model identifiers, lifecycle dates, row
+hashes, and row-scoped candidate claims only when a structured row ties a model
+to a lifecycle date; generic lifecycle page churn produces no review candidate.
+Pricing parsers emit bounded pricing/model signals such as input/output, cached
+input, cache write/hit, batch, priority, regional, and provisioned-throughput markers.
 Pricing parsers may also emit `price_point` items with only model ID, billing
 dimension, numeric USD price per 1M tokens, normalized unit, and parser name.
 The parser fixture command is:

@@ -1,9 +1,10 @@
 # OpenAI Sources
 
-OpenAI pricing and status sources. The status Atom parser has synthetic fixture
-coverage that hashes entry title/id values and keeps source prose out of parser
-payloads. The pricing parser emits bounded pricing/model signals from synthetic
-fixture-proven patterns. The deprecations lifecycle parser is disabled for
-unattended refresh until a maintainer live-smoke proves the scoped source range,
-but its fixtures cover bounded OpenAI model IDs, display model names,
-search-preview IDs, and lifecycle dates without copying provider prose.
+OpenAI pricing, status, news, and deprecation sources. The status Atom parser
+hashes entry title/id values and keeps source prose out of parser payloads. The
+pricing parser emits bounded pricing/model signals from fixture-proven patterns.
+The deprecations lifecycle parser is enabled for deterministic refresh after
+synthetic fixtures and a 2026-06-09 live smoke proved the scoped `Deprecations`
+heading range still bounds the provider page. It emits bounded model IDs,
+lifecycle dates, row hashes, and row-scoped candidate claims without copying
+provider prose or publishing events.

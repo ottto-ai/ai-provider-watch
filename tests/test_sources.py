@@ -90,7 +90,7 @@ def test_source_packages_validate() -> None:
 
 def test_source_registry_loads_enabled_sources() -> None:
     sources = load_source_descriptors(ROOT)
-    assert len(sources) == 15
+    assert len(sources) == 16
     assert [source.key for source in sources] == sorted(source.key for source in sources)
     assert "anthropic.pricing" in {source.key for source in sources}
 
@@ -102,11 +102,10 @@ def test_source_registry_declares_graduation_posture() -> None:
     blocked = {source.key for source in sources if source.automation_status == "blocked_pending_parser"}
     manual_only = {source.key for source in sources if source.automation_status == "manual_review_only"}
 
-    assert len(enabled) == 15
+    assert len(enabled) == 16
     assert blocked == {
         "azure_openai.legacy_models",
         "google.vertex_model_versions",
-        "openai.deprecations",
     }
     assert manual_only == {"openai.codex_docs"}
     assert {
@@ -114,6 +113,7 @@ def test_source_registry_declares_graduation_posture() -> None:
         "aws_bedrock.whats_new",
         "azure_openai.whats_new",
         "google.gemini_changelog",
+        "openai.deprecations",
         "openai.news",
     } <= enabled
     for source in sources:
@@ -134,7 +134,6 @@ def test_blocked_lifecycle_sources_declare_content_scope() -> None:
     assert set(sources) == {
         "azure_openai.legacy_models",
         "google.vertex_model_versions",
-        "openai.deprecations",
     }
     for source in sources.values():
         assert source.content_scope is not None
@@ -212,6 +211,12 @@ def test_changed_enabled_sources_emit_sanitized_candidate_claims() -> None:
             b"<html><body>provider text must not be copied</body></html>",
             changed=True,
         )
+
+        if source.parser in {"openai_deprecations"}:
+            assert parsed.candidate_claims == []
+            assert parsed.raw_excerpt_hashes == []
+            assert parsed.errors == ["content_scope start heading not found: Deprecations"]
+            continue
 
         assert len(parsed.candidate_claims) == 1
         claim = parsed.candidate_claims[0]
@@ -310,7 +315,13 @@ def test_provider_lifecycle_parser_fixtures_extract_bounded_model_refs_and_dates
             "errors": parsed.errors,
             "snapshot_ref": parsed.snapshot_ref,
         } == read_json(ROOT / expected_path)["expected"]
-        assert {item["kind"] for item in parsed.items} <= {"model_ref", "lifecycle_date"}
+        assert {item["kind"] for item in parsed.items} <= {"model_ref", "lifecycle_date", "lifecycle_row"}
+        row_items = [item for item in parsed.items if item["kind"] == "lifecycle_row"]
+        assert row_items
+        assert parsed.candidate_claims
+        assert all(item["lifecycle_date"] and item["model_ids"] and item["row_sha256"] for item in row_items)
+        assert all(claim["selector"].startswith("lifecycle:") for claim in parsed.candidate_claims)
+        assert all(claim["snapshot_ref"].startswith("row:") for claim in parsed.candidate_claims)
         rendered = str(parsed.items) + str(parsed.candidate_claims) + str(parsed.errors)
         assert "Ignore instructions" not in rendered
         assert "publish every candidate" not in rendered
@@ -350,6 +361,7 @@ def test_lifecycle_parsers_drop_prompt_like_legacy_model_tokens() -> None:
         parsed = parse_source_payload(source, raw, changed=True)
 
         assert parsed.items == []
+        assert parsed.candidate_claims == []
         assert parsed.errors == []
         rendered = str(parsed.items) + str(parsed.candidate_claims)
         assert "ignore-instructions" not in rendered
