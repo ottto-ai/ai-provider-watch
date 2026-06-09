@@ -25,6 +25,7 @@ SCHEMA_FILES = {
     "observation": "observation.schema.json",
     "candidate": "candidate.schema.json",
     "candidate_quality": "candidate-quality.schema.json",
+    "source_owner_packet": "source-owner-packet.schema.json",
     "llm_review_request": "llm-review-request.schema.json",
     "llm_review_result": "llm-review-result.schema.json",
     "promotion_readiness": "promotion-readiness.schema.json",

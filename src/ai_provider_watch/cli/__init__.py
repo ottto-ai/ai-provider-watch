@@ -44,6 +44,7 @@ from ai_provider_watch.pipeline.release import (
 )
 from ai_provider_watch.pipeline.repo_impact import repo_impact_report
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
+from ai_provider_watch.pipeline.source_owner_packet import build_source_owner_packet
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.source_watch.http import (
     fetch_source,
@@ -387,6 +388,48 @@ def cmd_candidate_quality(args: argparse.Namespace) -> int:
         print(f"candidate quality failed: {exc}", file=sys.stderr)
         return 1
     output = write_json_text(report)
+    if args.output:
+        output_path = _output_path(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(output, encoding="utf-8")
+    else:
+        sys.stdout.write(output)
+    return 0
+
+
+def cmd_candidate_packet(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    candidate_dir = _path_from_root(root, args.candidates)
+    created_at = _created_at(args.created_at)
+    candidate_files = read_candidate_files(candidate_dir)
+    sources = load_source_descriptors(root, enabled_only=False)
+    try:
+        promotion_report = build_promotion_readiness_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+        )
+        quality_report = build_candidate_quality_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+            promotion_report=promotion_report,
+        )
+        packet = build_source_owner_packet(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+            promotion_report=promotion_report,
+            quality_report=quality_report,
+            recommended_actions=set(args.recommended_action or ["promote"]),
+        )
+    except ValueError as exc:
+        print(f"candidate packet failed: {exc}", file=sys.stderr)
+        return 1
+    output = write_json_text(packet)
     if args.output:
         output_path = _output_path(root, args.output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -766,6 +809,23 @@ def build_parser() -> argparse.ArgumentParser:
     )
     candidate_quality_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     candidate_quality_parser.set_defaults(func=cmd_candidate_quality)
+    candidate_packet_parser = candidate_subparsers.add_parser(
+        "packet",
+        help="render a source-owner event-drafting packet for high-value review candidates",
+    )
+    candidate_packet_parser.add_argument("--candidates", default="data/candidates/review")
+    candidate_packet_parser.add_argument(
+        "--created-at",
+        help="RFC3339 timestamp for deterministic source-owner packets; defaults to now in UTC",
+    )
+    candidate_packet_parser.add_argument(
+        "--recommended-action",
+        action="append",
+        choices=["promote", "needs_human_review", "duplicate", "reject"],
+        help="candidate-quality recommended action to include; repeat to include more actions",
+    )
+    candidate_packet_parser.add_argument("--output", help="write JSON packet to this path instead of stdout")
+    candidate_packet_parser.set_defaults(func=cmd_candidate_packet)
 
     review_parser = subparsers.add_parser("review", help="LLM and agent review helper commands")
     review_subparsers = review_parser.add_subparsers(dest="review_command", required=True)

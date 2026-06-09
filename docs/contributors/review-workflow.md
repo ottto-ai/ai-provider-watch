@@ -63,6 +63,29 @@ tokens.
 When quality reports include `duplicate_event_ids`, reviewers should cite the
 existing event and avoid creating another ProviderEvent for the same evidence.
 
+## Source-Owner Packets
+
+For high-value official candidates, maintainers can render a source-owner
+packet:
+
+```bash
+uv run apw candidate packet \
+  --candidates data/candidates/review \
+  --created-at 2026-06-09T00:00:00Z \
+  --output .apw/source-owner-packet.json
+```
+
+The packet bundles candidate quality, promotion readiness, duplicate evidence,
+source-state coverage, bounded evidence refs, and draft-only ProviderEvent
+envelope/detail/impact stubs. It helps a source owner author a reviewed event,
+but it does not write `data/events`, publish feeds, merge PRs, create tags,
+request OIDC, or read release tokens.
+
+Unlike the LLM review request, the source-owner packet may include bounded
+generated candidate claim text. It is labeled `untrusted_data` and must be
+verified against official evidence before use. Do not paste source-owner packet
+text into event files.
+
 ## Evidence Boundaries
 
 Commit:

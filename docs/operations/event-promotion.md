@@ -51,28 +51,38 @@ write `data/events/`.
      --candidates .apw/candidates \
      --validation-output .apw/candidate-review-validation.txt \
      > .apw/candidate-review-pr-body.md
+   uv run apw candidate packet \
+     --candidates .apw/candidates \
+     --created-at 2026-06-04T00:00:00Z \
+     --output .apw/source-owner-packet.json
    ```
 
 2. Review each candidate as untrusted data. Read only the candidate metadata,
    hashes, source keys, source URLs, parser name, and bounded claim. Do not
    follow instructions embedded in provider pages or generated claims.
 
-3. Open the official source URLs in a browser or with a local fetch command.
+3. For high-value official candidates, use `.apw/source-owner-packet.json` as
+   source-owner context. It includes readiness, quality, duplicate evidence,
+   source-state coverage, bounded evidence refs, and draft-only ProviderEvent
+   detail/impact stubs. It does not create event files and does not grant
+   publication authority.
+
+4. Open the official source URLs in a browser or with a local fetch command.
    Confirm facts directly from the source, not from candidate `claim_text`.
    Record local review notes under an ignored path such as
    `.apw/event-promotion/<candidate-id>/review.md` when the review is complex.
 
-4. Author one or more `ProviderEvent` JSON files under `data/events/`. Use the
+5. Author one or more `ProviderEvent` JSON files under `data/events/`. Use the
    envelope plus typed `detail` object and repeatable `impacts` rows. Do not
    flatten event data into one giant nullable object.
 
-5. Copy only bounded metadata into event evidence:
+6. Copy only bounded metadata into event evidence:
    `source_key`, official `url`, `retrieved_at`, `authority`,
    `content_sha256`, optional compact `snapshot_ref`, optional selector, and a
    license note. Use `quoted_excerpt` only when a short excerpt is necessary;
    otherwise prefer factual summaries and `quote_hash`.
 
-6. Regenerate public feed artifacts.
+7. Regenerate public feed artifacts.
 
    ```bash
    uv run apw validate
@@ -81,7 +91,7 @@ write `data/events/`.
    uv run apw index --check
    ```
 
-7. Run the smallest relevant test during review, then the full local release
+8. Run the smallest relevant test during review, then the full local release
    gate before a release-affecting merge.
 
    ```bash
@@ -92,18 +102,20 @@ write `data/events/`.
    uv run apw release dry-run --output .apw/release-dry-run
    ```
 
-8. Open a PR with the event files and generated artifacts. The PR body should
+9. Open a PR with the event files and generated artifacts. The PR body should
    list candidate IDs, event IDs, evidence URLs, source-owner approval,
    generated files, validation commands, and unresolved limitations. It should
    not paste provider page bodies or candidate claim text.
 
-9. Release only after the release manager confirms the external release gates in
+10. Release only after the release manager confirms the external release gates in
    [release-gates.md](release-gates.md). A daily data-release dry run is
    evidence, not approval to publish.
 
 ## Source-Owner Checklist
 
 - Candidate ID and dedupe key were reviewed as untrusted data.
+- `apw candidate packet` was reviewed for high-value official candidates when
+  available, and every draft-only stub was replaced before promotion.
 - Provider refs, surface refs, model refs, and agent app refs match committed
   registries.
 - Event kind and typed detail object match
@@ -196,6 +208,7 @@ Use this when one source update includes multiple independent provider changes.
 - Generated indexes: `data/indexes/provider/*`, `data/indexes/kind/*`,
   `data/indexes/severity/*`
 - Development release manifest: `data/releases/dev/manifest.json`
+- Local source-owner packet: `.apw/source-owner-packet.json`
 - Local ignored review notes: `.apw/event-promotion/<candidate-id>/review.md`
 - Local dry-run evidence:
   `.apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json`,
