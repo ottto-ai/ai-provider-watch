@@ -1,8 +1,45 @@
 {
-  "schema_version": "apw.parser_fixture.expected.v0",
-  "source_key": "openai.deprecations",
   "changed": true,
   "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "OpenAI official lifecycle table lists model retirement on 2026-11-01 for gpt-4.1-mini-search-preview with replacement gpt-4.1-mini.",
+        "selector": "lifecycle:8d3c04dd430eba3b",
+        "snapshot_ref": "row:8d3c04dd430eba3b"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "OpenAI official lifecycle table lists model retirement on 2026-08-10 for gpt-5.2-chat-latest with replacement gpt-5.2.",
+        "selector": "lifecycle:cefa7aeee7f254cf",
+        "snapshot_ref": "row:cefa7aeee7f254cf"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "OpenAI official lifecycle table lists model retirement on 2026-07-14 for gpt-4.5-preview with replacement gpt-4.1-mini.",
+        "selector": "lifecycle:e6613941aab031ea",
+        "snapshot_ref": "row:e6613941aab031ea"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "OpenAI official lifecycle table lists model retirement on 2024-01-04 for text-davinci-003 with replacement gpt-3.5-turbo-instruct.",
+        "selector": "lifecycle:ebe64d0efb047cb9",
+        "snapshot_ref": "row:ebe64d0efb047cb9"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "OpenAI official lifecycle table lists model retirement on 2024-01-04 for code-davinci-002 with replacement gpt-4o-mini.",
+        "selector": "lifecycle:6e02acf3fd8f9866",
+        "snapshot_ref": "row:6e02acf3fd8f9866"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "OpenAI official lifecycle table lists model retirement on 2024-01-04 for babbage-002 with replacement chatgpt-4o-latest, codex-mini-latest.",
+        "selector": "lifecycle:7b90fccc542e7a75",
+        "snapshot_ref": "row:7b90fccc542e7a75"
+      }
+    ],
+    "errors": [],
     "items": [
       {
         "kind": "model_ref",
@@ -65,34 +102,102 @@
         "source_parser": "openai_deprecations"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2024-01-04",
+        "kind": "lifecycle_date",
         "source_parser": "openai_deprecations"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2026-07-14",
+        "kind": "lifecycle_date",
         "source_parser": "openai_deprecations"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2026-08-10",
+        "kind": "lifecycle_date",
         "source_parser": "openai_deprecations"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2026-11-01",
+        "kind": "lifecycle_date",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2026-11-01",
+        "model_ids": [
+          "gpt-4.1-mini-search-preview"
+        ],
+        "replacement_model_ids": [
+          "gpt-4.1-mini"
+        ],
+        "row_sha256": "8d3c04dd430eba3b",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2026-08-10",
+        "model_ids": [
+          "gpt-5.2-chat-latest"
+        ],
+        "replacement_model_ids": [
+          "gpt-5.2"
+        ],
+        "row_sha256": "cefa7aeee7f254cf",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2026-07-14",
+        "model_ids": [
+          "gpt-4.5-preview"
+        ],
+        "replacement_model_ids": [
+          "gpt-4.1-mini"
+        ],
+        "row_sha256": "e6613941aab031ea",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2024-01-04",
+        "model_ids": [
+          "text-davinci-003"
+        ],
+        "replacement_model_ids": [
+          "gpt-3.5-turbo-instruct"
+        ],
+        "row_sha256": "ebe64d0efb047cb9",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2024-01-04",
+        "model_ids": [
+          "code-davinci-002"
+        ],
+        "replacement_model_ids": [
+          "gpt-4o-mini"
+        ],
+        "row_sha256": "6e02acf3fd8f9866",
+        "source_parser": "openai_deprecations"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2024-01-04",
+        "model_ids": [
+          "babbage-002"
+        ],
+        "replacement_model_ids": [
+          "chatgpt-4o-latest",
+          "codex-mini-latest"
+        ],
+        "row_sha256": "7b90fccc542e7a75",
         "source_parser": "openai_deprecations"
       }
     ],
     "raw_excerpt_hashes": [],
-    "candidate_claims": [
-      {
-        "candidate_kind": "model_retirement",
-        "claim_text": "OpenAI deprecation documentation source changed and needs maintainer review for possible model deprecation, retirement, or API contract changes."
-      }
-    ],
-    "errors": [],
     "snapshot_ref": null
-  }
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "openai.deprecations"
 }

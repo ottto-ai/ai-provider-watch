@@ -1,8 +1,57 @@
 {
-  "schema_version": "apw.parser_fixture.expected.v0",
-  "source_key": "google.vertex_model_versions",
   "changed": true,
   "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2026-10-01 for gemini-live-2.5-flash-native-audio with replacement gemini-2.5-flash.",
+        "selector": "lifecycle:0969f25f3a5f00a8",
+        "snapshot_ref": "row:0969f25f3a5f00a8"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2026-10-01 for gemini-2.5-flash-image with replacement gemini-2.5-flash.",
+        "selector": "lifecycle:5370f8c83283fb49",
+        "snapshot_ref": "row:5370f8c83283fb49"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2026-06-01 for gemini-2.0-flash-lite-001 with replacement gemini-2.5-flash-lite.",
+        "selector": "lifecycle:9d8f65bcbdbe1dc3",
+        "snapshot_ref": "row:9d8f65bcbdbe1dc3"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2026-06-01 for gemini-2.0-flash-001 with replacement gemini-2.5-flash.",
+        "selector": "lifecycle:cb08cedfb79d980a",
+        "snapshot_ref": "row:cb08cedfb79d980a"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2025-04-09 for textembedding-gecko@001 with replacement text-embedding-004.",
+        "selector": "lifecycle:424de056ce97b71d",
+        "snapshot_ref": "row:424de056ce97b71d"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2025-04-09 for text-multilingual-embedding-002 with replacement gemini-embedding-001.",
+        "selector": "lifecycle:d0560d7dfa9c81dd",
+        "snapshot_ref": "row:d0560d7dfa9c81dd"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2025-04-09 for multimodalembedding@001 with replacement gemini-embedding-001.",
+        "selector": "lifecycle:dbc1571d4ec5b9db",
+        "snapshot_ref": "row:dbc1571d4ec5b9db"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2024-07-09 for chat-bison, code-gecko, text-bison with replacement gemini-2.5-flash.",
+        "selector": "lifecycle:09165e93afe78c77",
+        "snapshot_ref": "row:09165e93afe78c77"
+      }
+    ],
+    "errors": [],
     "items": [
       {
         "kind": "model_ref",
@@ -80,34 +129,127 @@
         "source_parser": "google_vertex_model_versions"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2024-07-09",
+        "kind": "lifecycle_date",
         "source_parser": "google_vertex_model_versions"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2025-04-09",
+        "kind": "lifecycle_date",
         "source_parser": "google_vertex_model_versions"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2026-06-01",
+        "kind": "lifecycle_date",
         "source_parser": "google_vertex_model_versions"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2026-10-01",
+        "kind": "lifecycle_date",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2026-10-01",
+        "model_ids": [
+          "gemini-live-2.5-flash-native-audio"
+        ],
+        "replacement_model_ids": [
+          "gemini-2.5-flash"
+        ],
+        "row_sha256": "0969f25f3a5f00a8",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2026-10-01",
+        "model_ids": [
+          "gemini-2.5-flash-image"
+        ],
+        "replacement_model_ids": [
+          "gemini-2.5-flash"
+        ],
+        "row_sha256": "5370f8c83283fb49",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2026-06-01",
+        "model_ids": [
+          "gemini-2.0-flash-lite-001"
+        ],
+        "replacement_model_ids": [
+          "gemini-2.5-flash-lite"
+        ],
+        "row_sha256": "9d8f65bcbdbe1dc3",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2026-06-01",
+        "model_ids": [
+          "gemini-2.0-flash-001"
+        ],
+        "replacement_model_ids": [
+          "gemini-2.5-flash"
+        ],
+        "row_sha256": "cb08cedfb79d980a",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2025-04-09",
+        "model_ids": [
+          "textembedding-gecko@001"
+        ],
+        "replacement_model_ids": [
+          "text-embedding-004"
+        ],
+        "row_sha256": "424de056ce97b71d",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2025-04-09",
+        "model_ids": [
+          "text-multilingual-embedding-002"
+        ],
+        "replacement_model_ids": [
+          "gemini-embedding-001"
+        ],
+        "row_sha256": "d0560d7dfa9c81dd",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2025-04-09",
+        "model_ids": [
+          "multimodalembedding@001"
+        ],
+        "replacement_model_ids": [
+          "gemini-embedding-001"
+        ],
+        "row_sha256": "dbc1571d4ec5b9db",
+        "source_parser": "google_vertex_model_versions"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2024-07-09",
+        "model_ids": [
+          "chat-bison",
+          "code-gecko",
+          "text-bison"
+        ],
+        "replacement_model_ids": [
+          "gemini-2.5-flash"
+        ],
+        "row_sha256": "09165e93afe78c77",
         "source_parser": "google_vertex_model_versions"
       }
     ],
     "raw_excerpt_hashes": [],
-    "candidate_claims": [
-      {
-        "candidate_kind": "model_retirement",
-        "claim_text": "Google Vertex AI model-version documentation source changed and needs maintainer review for possible model lifecycle or retirement changes."
-      }
-    ],
-    "errors": [],
     "snapshot_ref": null
-  }
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "google.vertex_model_versions"
 }

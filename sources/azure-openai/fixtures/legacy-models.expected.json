@@ -1,8 +1,27 @@
 {
-  "schema_version": "apw.parser_fixture.expected.v0",
-  "source_key": "azure_openai.legacy_models",
   "changed": true,
   "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Azure OpenAI official lifecycle table lists model retirement on 2024-06-14 for text-davinci-003 with replacement text-embedding-3-small.",
+        "selector": "lifecycle:15c5aaaf199ff20a",
+        "snapshot_ref": "row:15c5aaaf199ff20a"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Azure OpenAI official lifecycle table lists model retirement on 2024-06-14 for text-davinci-002 with replacement gpt-35-turbo-instruct.",
+        "selector": "lifecycle:e455ed23332bfe01",
+        "snapshot_ref": "row:e455ed23332bfe01"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Azure OpenAI official lifecycle table lists model retirement on 2024-06-14 for babbage-002 with replacement gpt-35-turbo-instruct.",
+        "selector": "lifecycle:08da81d14b2d207f",
+        "snapshot_ref": "row:08da81d14b2d207f"
+      }
+    ],
+    "errors": [],
     "items": [
       {
         "kind": "model_ref",
@@ -30,19 +49,50 @@
         "source_parser": "azure_openai_legacy_models"
       },
       {
-        "kind": "lifecycle_date",
         "date": "2024-06-14",
+        "kind": "lifecycle_date",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2024-06-14",
+        "model_ids": [
+          "text-davinci-003"
+        ],
+        "replacement_model_ids": [
+          "text-embedding-3-small"
+        ],
+        "row_sha256": "15c5aaaf199ff20a",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2024-06-14",
+        "model_ids": [
+          "text-davinci-002"
+        ],
+        "replacement_model_ids": [
+          "gpt-35-turbo-instruct"
+        ],
+        "row_sha256": "e455ed23332bfe01",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_date": "2024-06-14",
+        "model_ids": [
+          "babbage-002"
+        ],
+        "replacement_model_ids": [
+          "gpt-35-turbo-instruct"
+        ],
+        "row_sha256": "08da81d14b2d207f",
         "source_parser": "azure_openai_legacy_models"
       }
     ],
     "raw_excerpt_hashes": [],
-    "candidate_claims": [
-      {
-        "candidate_kind": "model_retirement",
-        "claim_text": "Azure OpenAI legacy model documentation source changed and needs maintainer review for possible model deprecation or retirement changes."
-      }
-    ],
-    "errors": [],
     "snapshot_ref": null
-  }
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "azure_openai.legacy_models"
 }

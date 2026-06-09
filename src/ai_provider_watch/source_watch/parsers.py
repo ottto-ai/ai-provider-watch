@@ -16,6 +16,7 @@ from ai_provider_watch.sources.registry import SourceDescriptor, is_url_allowed_
 
 MAX_ATOM_TIMESTAMP_LENGTH = 40
 MAX_ANNOUNCEMENT_CLAIMS = 6
+MAX_LIFECYCLE_CLAIMS = 8
 MAX_MODEL_ID_LENGTH = 96
 MAX_MODEL_ID_SEGMENT_LENGTH = 32
 MAX_STATUS_REF_LENGTH = 160
@@ -1287,6 +1288,21 @@ def _has_lifecycle_date_header(cell: str) -> bool:
     )
 
 
+def _has_lifecycle_model_header(cell: str) -> bool:
+    lower_cell = cell.lower()
+    return "model" in lower_cell and "replacement" not in lower_cell
+
+
+def _has_lifecycle_replacement_header(cell: str) -> bool:
+    lower_cell = cell.lower()
+    return (
+        "alternative" in lower_cell
+        or "replacement" in lower_cell
+        or "substitute" in lower_cell
+        or "suggested" in lower_cell
+    )
+
+
 def _lifecycle_table_text_and_dates(raw: bytes, parser_name: str) -> tuple[str, list[str]]:
     selected_cells: list[str] = []
     dates: set[str] = set()
@@ -1311,7 +1327,55 @@ def _lifecycle_table_text_and_dates(raw: bytes, parser_name: str) -> tuple[str, 
     return _normalize_text(" ".join(selected_cells)), sorted(dates)
 
 
-def _lifecycle_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
+def _lifecycle_row_records(raw: bytes, parser_name: str) -> list[dict[str, Any]]:
+    records: dict[tuple[str, tuple[str, ...], tuple[str, ...]], dict[str, Any]] = {}
+    model_patterns = _lifecycle_model_patterns(parser_name)
+    for table in _table_payload(raw):
+        headers: list[str] = []
+        for row in table:
+            if any(_has_lifecycle_date_header(cell) for cell in row):
+                headers = row
+                continue
+            if not headers:
+                continue
+
+            row_model_ids: set[str] = set()
+            replacement_model_ids: set[str] = set()
+            lifecycle_dates: set[str] = set()
+            for index, cell in enumerate(row):
+                header = headers[index] if index < len(headers) else ""
+                if _has_lifecycle_date_header(header):
+                    lifecycle_dates.update(_lifecycle_dates_from_text(cell))
+                elif _has_lifecycle_replacement_header(header):
+                    replacement_model_ids.update(_model_ids_from_patterns(cell, model_patterns))
+                elif _has_lifecycle_model_header(header):
+                    row_model_ids.update(_model_ids_from_patterns(cell, model_patterns))
+
+            if not row_model_ids:
+                row_model_ids.update(_model_ids_from_patterns(_normalize_text(" ".join(row)), model_patterns))
+            replacement_model_ids.difference_update(row_model_ids)
+            if not row_model_ids or not lifecycle_dates:
+                continue
+
+            row_hash = _sha256_text(_normalize_text(" ".join(row)))[:16]
+            for lifecycle_date in lifecycle_dates:
+                key = (
+                    lifecycle_date,
+                    tuple(sorted(row_model_ids)),
+                    tuple(sorted(replacement_model_ids)),
+                )
+                records[key] = {
+                    "kind": "lifecycle_row",
+                    "lifecycle_date": lifecycle_date,
+                    "model_ids": sorted(row_model_ids),
+                    "replacement_model_ids": sorted(replacement_model_ids),
+                    "row_sha256": row_hash,
+                    "source_parser": parser_name,
+                }
+    return [records[key] for key in sorted(records, reverse=True)]
+
+
+def _lifecycle_items(raw: bytes, parser_name: str) -> list[dict[str, Any]]:
     text, dates = _lifecycle_table_text_and_dates(raw, parser_name)
     if not text:
         text = _structured_html_text(raw)
@@ -1331,7 +1395,48 @@ def _lifecycle_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
         }
         for date_value in dates
     ]
-    return model_items + date_items
+    return model_items + date_items + _lifecycle_row_records(raw, parser_name)
+
+
+def _format_model_list(model_ids: list[str]) -> str:
+    if not model_ids:
+        return "unknown model"
+    visible = model_ids[:4]
+    rendered = ", ".join(visible)
+    extra = len(model_ids) - len(visible)
+    if extra > 0:
+        rendered = f"{rendered}, and {extra} more"
+    return rendered
+
+
+def _lifecycle_claims(source: SourceDescriptor, raw: bytes) -> list[dict[str, str]]:
+    candidate_kind, _ = LIFECYCLE_PARSER_CLAIMS[source.parser]
+    claims: list[dict[str, str]] = []
+    for record in _lifecycle_row_records(raw, source.parser)[:MAX_LIFECYCLE_CLAIMS]:
+        model_text = _format_model_list(record["model_ids"])
+        replacement_text = _format_model_list(record["replacement_model_ids"])
+        replacement_clause = (
+            f" with replacement {replacement_text}" if record["replacement_model_ids"] else ""
+        )
+        row_hash = str(record["row_sha256"])
+        claims.append(
+            {
+                "candidate_kind": candidate_kind,
+                "claim_text": (
+                    f"{_provider_label(source)} official lifecycle table lists model retirement "
+                    f"on {record['lifecycle_date']} for {model_text}{replacement_clause}."
+                ),
+                "selector": f"lifecycle:{row_hash}",
+                "snapshot_ref": f"row:{row_hash}",
+            }
+        )
+    return claims
+
+
+def _candidate_claims(source: SourceDescriptor, raw: bytes) -> list[dict[str, str]]:
+    if source.parser in LIFECYCLE_PARSER_CLAIMS:
+        return _lifecycle_claims(source, raw)
+    return [_candidate_claim(source)]
 
 
 def _statuspage_items(raw: bytes) -> list[dict[str, str]]:
@@ -1401,7 +1506,7 @@ def parse_source_payload(
     return ParsedSourcePayload(
         items=items,
         raw_excerpt_hashes=[],
-        candidate_claims=candidate_claims or ([_candidate_claim(source)] if changed else []),
+        candidate_claims=candidate_claims or (_candidate_claims(source, raw) if changed else []),
         errors=errors,
         snapshot_ref=None,
     )

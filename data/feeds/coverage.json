@@ -11,13 +11,14 @@
   "package_version": "0.1.1",
   "providers": [
     {
-      "blocked_pending_parser_source_count": 1,
+      "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 2,
-      "enabled_deterministic_source_count": 3,
+      "enabled_deterministic_source_count": 4,
       "fetched_enabled_source_count": 2,
       "latest_event_date": "2026-06-04",
       "manual_review_only_source_count": 1,
       "missing_enabled_source_keys": [
+        "openai.deprecations",
         "openai.news"
       ],
       "provider_ref": "provider:openai",
@@ -398,13 +399,11 @@
     },
     {
       "authority": "official_docs",
-      "automation_status": "blocked_pending_parser",
+      "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "blocked_pending_parser",
-      "enabled": false,
-      "graduation_blockers": [
-        "needs live source-review smoke proving heading-range scope and current deprecation tables remain bounded before unattended refresh"
-      ],
+      "coverage_status": "enabled_missing_source_state",
+      "enabled": true,
+      "graduation_blockers": [],
       "key": "openai.deprecations",
       "parser": "openai_deprecations",
       "parser_fixture_count": 1,
@@ -480,14 +479,14 @@
     }
   ],
   "summary": {
-    "blocked_pending_parser_source_count": 3,
+    "blocked_pending_parser_source_count": 2,
     "candidate_backlog_count": 9,
-    "enabled_deterministic_source_count": 15,
+    "enabled_deterministic_source_count": 16,
     "fetched_enabled_source_count": 10,
-    "fetched_enabled_source_ratio": 0.6667,
+    "fetched_enabled_source_ratio": 0.625,
     "latest_event_date": "2026-06-05",
     "manual_review_only_source_count": 1,
-    "missing_enabled_source_count": 5,
+    "missing_enabled_source_count": 6,
     "provider_count": 5,
     "reviewed_event_count": 28,
     "source_count": 19,
@@ -537,10 +536,10 @@
       "source_key": "google.vertex_model_versions"
     },
     {
-      "code": "blocked_official_source",
-      "detail": "official source is registered but blocked until parser fixtures prove concrete deltas",
+      "code": "enabled_source_missing_source_state",
+      "detail": "enabled deterministic source has no source-state fingerprint",
       "provider_ref": "provider:openai",
-      "severity": "info",
+      "severity": "warning",
       "source_key": "openai.deprecations"
     },
     {

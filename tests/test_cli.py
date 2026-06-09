@@ -52,15 +52,15 @@ def test_source_coverage_outputs_json(capsys) -> None:
     coverage = json.loads(capsys.readouterr().out)
     assert coverage["schema_version"] == "apw.source_coverage.v0"
     assert coverage["summary"]["source_count"] == 19
-    assert coverage["summary"]["missing_enabled_source_count"] == 5
+    assert coverage["summary"]["missing_enabled_source_count"] == 6
     assert coverage["candidate_backlog"]["by_status"] == {"needs_review": 9}
 
 
 def test_source_coverage_summary(capsys) -> None:
     assert main(["--root", str(ROOT), "source", "coverage", "--summary"]) == 0
     output = capsys.readouterr().out
-    assert "enabled_deterministic_source_count: 15" in output
-    assert "missing_enabled_source_count: 5" in output
+    assert "enabled_deterministic_source_count: 16" in output
+    assert "missing_enabled_source_count: 6" in output
     assert "candidate_backlog_count: 9" in output
 
 
