@@ -32,6 +32,7 @@ SCHEMA_FILES = {
     "webhook_payload": "webhook-payload.schema.json",
     "slack_payload": "slack-payload.schema.json",
     "ecosystem_mapping": "ecosystem-mapping.schema.json",
+    "json_feed": "json-feed.schema.json",
     "feed_freshness": "feed-freshness.schema.json",
     "source_coverage": "source-coverage.schema.json",
     "release_manifest": "release-manifest.schema.json",
@@ -355,6 +356,21 @@ def validate(root: Path) -> list[ValidationIssue]:
                 ValidationIssue(
                     str(coverage_path),
                     "source coverage metadata is stale; run apw index",
+                )
+            )
+    json_feed_path = root / "data" / "feeds" / "feed.json"
+    if not json_feed_path.exists():
+        issues.append(ValidationIssue(str(json_feed_path), "missing JSON Feed metadata"))
+    else:
+        json_feed = read_json(json_feed_path)
+        issues.extend(_issues(json_feed_path, json_feed, schemas["json_feed"], "JSON Feed"))
+        expected_json_feed_text = build_artifacts(root)[Path("data/feeds/feed.json")]
+        expected_json_feed = json.loads(expected_json_feed_text)
+        if json_feed != expected_json_feed:
+            issues.append(
+                ValidationIssue(
+                    str(json_feed_path),
+                    "JSON Feed metadata is stale; run apw index",
                 )
             )
     return issues

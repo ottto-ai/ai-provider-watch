@@ -21,7 +21,8 @@ Consumers use freshness metadata to answer:
 - what the latest reviewed event date and observed timestamp are;
 - when official-source fingerprint state was last retrieved;
 - where to find the release manifest and checksum manifest;
-- which feed and index artifacts can be hash-checked, including source coverage.
+- which feed and index artifacts can be hash-checked, including JSON Feed and
+  source coverage.
 
 ## Contract
 

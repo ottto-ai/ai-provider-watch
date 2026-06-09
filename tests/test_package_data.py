@@ -106,15 +106,22 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
         latest = json.loads(
             archive.read("ai_provider_watch/_data/data/feeds/latest.json").decode("utf-8")
         )
+        json_feed = json.loads(
+            archive.read("ai_provider_watch/_data/data/feeds/feed.json").decode("utf-8")
+        )
 
     assert "ai_provider_watch/_data/schemas/event.schema.json" in names
+    assert "ai_provider_watch/_data/schemas/json-feed.schema.json" in names
     assert "ai_provider_watch/_data/schemas/source-coverage.schema.json" in names
     assert "ai_provider_watch/_data/schemas/candidate-quality.schema.json" in names
     assert "ai_provider_watch/_data/schemas/repo-impact.schema.json" in names
     assert "ai_provider_watch/_data/schemas/release-publication-packet.schema.json" in names
     assert "ai_provider_watch/_data/registries/providers.json" in names
     assert "ai_provider_watch/_data/data/feeds/coverage.json" in names
+    assert "ai_provider_watch/_data/data/feeds/feed.json" in names
     assert "ai_provider_watch/_data/sources/registry.json" in names
     assert "ai_provider_watch/_data/sources/aws-bedrock/fixtures/whats-new-feed.xml" in names
     assert "ai_provider_watch/_data/sources/openai/fixtures/news-feed.xml" in names
     assert any(item["id"] == "2026-06-01-google-vertex-gemini-2-0-flash-retirement" for item in latest)
+    assert json_feed["version"] == "https://jsonfeed.org/version/1.1"
+    assert json_feed["items"][0]["_apw"]["schema_version"] == "apw.provider_event.v0"

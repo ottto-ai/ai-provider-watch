@@ -2,9 +2,10 @@
 
 Data releases use CalVer tags such as `data-2026.06.01`.
 
-Each release should include generated feeds, `data/feeds/freshness.json`,
-`data/feeds/coverage.json`, provider/kind/severity indexes, manifest with
-artifact hashes, source commit, schema version, and a short release summary.
+Each release should include generated feeds, `data/feeds/feed.json`,
+`data/feeds/freshness.json`, `data/feeds/coverage.json`,
+provider/kind/severity indexes, manifest with artifact hashes, source commit,
+schema version, and a short release summary.
 
 Before a release:
 
@@ -25,6 +26,7 @@ bundle as `.apw/apw-release-dry-run.tgz` and creates an artifact attestation for
 it. The bundle includes release-shaped feed artifacts,
 `data/feeds/freshness.json`,
 `data/feeds/coverage.json`,
+`data/feeds/feed.json`,
 `data/releases/data-YYYY.MM.DD/manifest.json`, checksums, and a schema-backed
 `dry-run-report.json`.
 

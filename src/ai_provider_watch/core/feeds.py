@@ -12,6 +12,9 @@ from ai_provider_watch.core.io import event_paths, read_json, write_json_text, w
 from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 
 SEVERITY_RANK = {"info": 0, "low": 1, "medium": 2, "high": 3, "critical": 4}
+JSON_FEED_VERSION = "https://jsonfeed.org/version/1.1"
+APW_HOME_URL = "https://github.com/ottto-ai/ai-provider-watch"
+APW_RAW_MAIN_URL = "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main"
 
 
 def load_events(root: Path) -> list[dict[str, Any]]:
@@ -56,6 +59,107 @@ def _rss(events: list[dict[str, Any]]) -> str:
     )
 
 
+def _json_feed_event_url(event: dict[str, Any]) -> str:
+    return f"{APW_RAW_MAIN_URL}/data/events/{event['id']}.json"
+
+
+def _json_feed_content(event: dict[str, Any]) -> str:
+    providers = ", ".join(event.get("provider_refs", []))
+    return (
+        f"{event['summary']}\n\n"
+        f"Kind: {event['event_kind']}\n"
+        f"Severity: {event['severity']}\n"
+        f"Confidence: {event['confidence']}\n"
+        f"Providers: {providers}"
+    )
+
+
+def _json_feed_apw_extension(event: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": event["schema_version"],
+        "event_id": event["id"],
+        "event_kind": event["event_kind"],
+        "lifecycle_status": event["lifecycle_status"],
+        "provider_refs": event["provider_refs"],
+        "event_date": event["event_date"],
+        "effective_at": event.get("effective_at"),
+        "migration_deadline": event.get("migration_deadline"),
+        "severity": event["severity"],
+        "confidence": event["confidence"],
+        "source_authority": event["source_authority"],
+        "evidence_refs": [
+            {
+                "source_key": evidence["source_key"],
+                "url": evidence["url"],
+                "authority": evidence["authority"],
+                "content_sha256": evidence["content_sha256"],
+                "snapshot_ref": evidence.get("snapshot_ref"),
+                "selector": evidence.get("selector"),
+            }
+            for evidence in event.get("evidence_refs", [])
+        ],
+        "impacts": [
+            {
+                "scope_type": impact.get("scope_type"),
+                "scope_ref": impact.get("scope_ref"),
+                "impact_kind": impact.get("impact_kind"),
+                "direction": impact.get("direction"),
+                "severity": impact.get("severity"),
+                "confidence": impact.get("confidence"),
+            }
+            for impact in event.get("impacts", [])
+            if isinstance(impact, dict)
+        ],
+        "limitations": event.get("limitations", []),
+    }
+
+
+def _json_feed(events: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "version": JSON_FEED_VERSION,
+        "title": "AI Provider Watch Reviewed Events",
+        "home_page_url": APW_HOME_URL,
+        "feed_url": f"{APW_RAW_MAIN_URL}/data/feeds/feed.json",
+        "description": "Reviewed AI-provider change events for developer cost, quotas, model availability, defaults, deprecations, incidents, and migration risk.",
+        "user_comment": "machine-readable reviewed APW events only. Provider pages and source text remain untrusted; this feed contains no raw provider content.",
+        "authors": [
+            {
+                "name": "AI Provider Watch maintainers",
+                "url": APW_HOME_URL,
+            }
+        ],
+        "language": "en-US",
+        "_apw": {
+            "schema_version": "apw.provider_event.v0",
+            "generated_by": f"ai-provider-watch {__version__}",
+            "source": "reviewed ProviderEvent records",
+            "policy": "contains reviewed APW event summaries and APW metadata only; no raw provider content.",
+        },
+        "items": [
+            {
+                "id": event["id"],
+                "url": _json_feed_event_url(event),
+                "external_url": event["evidence_refs"][0]["url"] if event.get("evidence_refs") else None,
+                "title": event["title"],
+                "content_text": _json_feed_content(event),
+                "summary": event["summary"],
+                "date_published": event["observed_at"],
+                "date_modified": event["observed_at"],
+                "tags": sorted(
+                    {
+                        event["event_kind"],
+                        f"severity:{event['severity']}",
+                        *event.get("provider_refs", []),
+                        *event.get("tags", []),
+                    }
+                ),
+                "_apw": _json_feed_apw_extension(event),
+            }
+            for event in events[:50]
+        ],
+    }
+
+
 def _rss_pub_date(value: str) -> str:
     normalized = value.strip()
     if len(normalized) > 10 and normalized[10] == "t":
@@ -85,6 +189,8 @@ def _checksum(text: str) -> str:
 
 
 def _media_type(path: str) -> str:
+    if path.endswith("feed.json"):
+        return "application/feed+json"
     if path.endswith(".json"):
         return "application/json"
     if path.endswith(".ndjson"):
@@ -182,6 +288,7 @@ def build_artifacts(
     artifacts: dict[Path, str] = {
         Path("data/feeds/events.json"): write_json_text(events),
         Path("data/feeds/events.ndjson"): write_ndjson_text(events),
+        Path("data/feeds/feed.json"): write_json_text(_json_feed(events)),
         Path("data/feeds/latest.json"): write_json_text([_compact_event(event) for event in events[:20]]),
         Path("data/feeds/rss.xml"): _rss(events),
     }
@@ -221,6 +328,7 @@ def build_artifacts(
             "event": "apw.provider_event.v0",
             "event_detail": "apw.event_detail.v0",
             "feed_freshness": "apw.feed_freshness.v0",
+            "json_feed": JSON_FEED_VERSION,
             "source_coverage": "apw.source_coverage.v0",
             "release_manifest": "apw.release_manifest.v0",
         },
