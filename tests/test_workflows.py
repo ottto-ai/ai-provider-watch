@@ -197,6 +197,9 @@ def test_data_publisher_workflow_is_protected_noop_or_packet_only() -> None:
     assert "release-verification.json" in workflow
     assert "actions/upload-artifact@v7" in workflow
     assert "apw-data-publication-packet" in workflow
+    assert "scorecard_ref:" in workflow
+    assert "SCORECARD_REF" in workflow
+    assert "--scorecard-ref" in workflow
     assert "if: inputs.publish_mode == 'packet'" in workflow
     assert "ALLOW_NO_REVIEWED_EVENTS" in workflow
     assert "--require-clean" in workflow

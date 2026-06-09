@@ -38,6 +38,7 @@ SCHEMA_FILES = {
     "feed_freshness": "feed-freshness.schema.json",
     "source_coverage": "source-coverage.schema.json",
     "release_manifest": "release-manifest.schema.json",
+    "release_evidence_index": "release-evidence-index.schema.json",
     "release_dry_run": "release-dry-run.schema.json",
     "release_publication_packet": "release-publication-packet.schema.json",
     "release_verification": "release-verification.schema.json",

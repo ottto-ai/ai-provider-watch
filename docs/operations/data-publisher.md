@@ -102,6 +102,7 @@ gh workflow run data-publisher.yml \
   -f codeql_workflow_ref="<successful-CodeQL-run-url>" \
   -f code_scanning_ref="<code-scanning-analysis-url-or-id>" \
   -f dependency_review_ref="<successful-Dependency-Review-run-url>" \
+  -f scorecard_ref="<successful-Scorecard-run-url>" \
   -f attestation_ref="<gh-attestation-verify-ref>" \
   -f allow_no_reviewed_events=true \
   -f skip_reason="No source-owner-reviewed ProviderEvent changes landed for this release date."
@@ -130,7 +131,7 @@ Before any real `data-YYYY.MM.DD` tag, render
   reason;
 - source-owner approval and release-manager approval refs;
 - branch protection, CI, CodeQL workflow, code-scanning, Dependency Review,
-  checksum review, and attestation refs;
+  OpenSSF Scorecard, checksum review, and attestation refs;
 - manual release-manager signed-tag commands;
 - proof that source refresh, candidate generation, LLM review, PR-comment
   processing, MCP, provider-page fetch, and social/community lanes remain

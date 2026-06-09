@@ -44,6 +44,7 @@ uv run apw validate
 uv run apw index --check
 uv run apw freshness --summary
 actionlint .github/workflows/*.yml
+uv run apw release evidence-index --release-id data-YYYY.MM.DD --source-commit "$(git rev-parse HEAD)" --output .apw/release-dry-run/data-YYYY.MM.DD/evidence-index.json
 uv run apw release dry-run --output .apw/release-dry-run --require-clean
 uv run apw release packet --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json ...
 uv run apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json --publication-packet .apw/release-dry-run/data-YYYY.MM.DD/publication-packet.json --release-id data-YYYY.MM.DD --source-commit "$(git rev-parse HEAD)"
@@ -53,7 +54,14 @@ The dry-run report checks schema validation, source fixtures, source coverage,
 generated feed freshness, CalVer manifest schema, checksums, license layout,
 dependency lock presence, CodeQL workflow posture, Dependency Review posture,
 release workflow attestation guardrails, the source-refresh token boundary,
-source ownership, and maintainer release docs.
+OpenSSF Scorecard workflow posture, source ownership, and maintainer release
+docs.
+
+`apw release evidence-index` renders the same release-evidence contract that is
+packaged at `data/releases/<release-id>/evidence-index.json`. It is the
+machine-readable map for downstream users and agents: release artifacts, local
+commands, external GitHub/PyPI/attestation gates, workflow authority, token
+boundaries, and raw-provider-content policy.
 
 `apw release verify` rechecks the dry-run report, local release artifacts,
 manifest/checksum integrity, optional publication packet linkage, reviewed event
@@ -88,6 +96,9 @@ gh workflow run dependency-review.yml --repo "$REPO" --ref main \
 gh run list --repo "$REPO" --workflow "Dependency Review" \
   --json status,conclusion,url,headSha
 
+gh run list --repo "$REPO" --workflow Scorecard --branch main \
+  --json status,conclusion,url,headSha
+
 gh attestation verify .apw/apw-release-dry-run.tgz --repo "$REPO"
 
 uv run apw release packet \
@@ -102,16 +113,18 @@ uv run apw release packet \
   --codeql-workflow-ref "<codeql-run-url>" \
   --code-scanning-ref "<analysis-ref>" \
   --dependency-review-ref "<dependency-review-run-url>" \
+  --scorecard-ref "<scorecard-run-url>" \
   --attestation-ref "<attestation-verify-ref>" \
   --checksum-review-ref "<checksum-review-ref>"
 ```
 
 Release is blocked if branch protection is absent, CI is not green, CodeQL
 workflow or code-scanning analysis is missing for the release commit, Dependency
-Review fails or cannot run because dependency graph support is not enabled, or
-the dry-run manifest/checksums do not match the downloaded artifact. The release
-manager must also verify the dry-run evidence bundle attestation, repository
-security settings, and signed tag plan.
+Review fails or cannot run because dependency graph support is not enabled,
+OpenSSF Scorecard has not completed for the release commit, or the dry-run
+manifest/checksums do not match the downloaded artifact. The release manager
+must also verify the dry-run evidence bundle attestation, PyPI Trusted
+Publishing posture, repository security settings, and signed tag plan.
 
 The Dependency Review path is manual until repository dependency graph support
 is enabled and maintainers decide to make it a required PR check. It uses the
@@ -151,7 +164,9 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
 - passing local and GitHub checks;
 - branch protection or ruleset state;
 - Dependency Review result;
+- OpenSSF Scorecard run URL;
 - artifact checksums and manifest contents;
+- packaged `data/releases/<release-id>/evidence-index.json`;
 - `apw freshness --summary` output for feed/package/source-state provenance;
 - `apw source coverage --summary` output for enabled source-state coverage,
   blocked parser sources, and review backlog;

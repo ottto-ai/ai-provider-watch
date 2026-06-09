@@ -65,6 +65,7 @@
         "codeql_workflow_ref",
         "code_scanning_ref",
         "dependency_review_ref",
+        "scorecard_ref",
         "attestation_ref",
         "checksum_review_ref",
         "release_manager_approval_ref"
@@ -75,6 +76,7 @@
         "codeql_workflow_ref": { "type": "string", "minLength": 1 },
         "code_scanning_ref": { "type": "string", "minLength": 1 },
         "dependency_review_ref": { "type": "string", "minLength": 1 },
+        "scorecard_ref": { "type": "string", "minLength": 1 },
         "attestation_ref": { "type": "string", "minLength": 1 },
         "checksum_review_ref": { "type": "string", "minLength": 1 },
         "release_manager_approval_ref": { "type": "string", "minLength": 1 }

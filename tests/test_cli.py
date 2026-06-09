@@ -235,6 +235,8 @@ def test_release_packet_command(tmp_path, capsys) -> None:
                 "code-scanning-analysis:123",
                 "--dependency-review-ref",
                 "https://github.com/ottto-ai/ai-provider-watch/actions/runs/dependency-review",
+                "--scorecard-ref",
+                "https://github.com/ottto-ai/ai-provider-watch/actions/runs/scorecard",
                 "--attestation-ref",
                 "gh attestation verify .apw/apw-release-dry-run.tgz --repo ottto-ai/ai-provider-watch",
                 "--checksum-review-ref",
@@ -249,6 +251,49 @@ def test_release_packet_command(tmp_path, capsys) -> None:
     assert packet["schema_version"] == "apw.release_publication_packet.v0"
     assert packet["publication_decision"] == "publish"
     assert packet["signing"]["tag_name"] == "data-2026.06.01"
+
+
+def test_release_evidence_index_command(capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "evidence-index",
+                "--release-id",
+                "data-2026.06.01",
+                "--source-commit",
+                "0123456789abcdef0123456789abcdef01234567",
+                "--created-at",
+                "2026-06-01T12:00:00Z",
+            ]
+        )
+        == 0
+    )
+    index = json.loads(capsys.readouterr().out)
+    assert index["schema_version"] == "apw.release_evidence_index.v0"
+    assert index["release_id"] == "data-2026.06.01"
+    assert index["source_commit"] == "0123456789abcdef0123456789abcdef01234567"
+    assert any(item["name"] == "OpenSSF Scorecard" for item in index["external_evidence"])
+    assert index["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
+
+
+def test_release_evidence_index_command_rejects_invalid_release_id(capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "evidence-index",
+                "--release-id",
+                "../bad",
+            ]
+        )
+        == 1
+    )
+    assert "release_id must be dev or data-YYYY.MM.DD" in capsys.readouterr().err
 
 
 def test_release_verify_command(tmp_path, capsys) -> None:

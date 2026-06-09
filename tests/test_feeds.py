@@ -20,6 +20,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert Path("data/feeds/coverage.json") in artifacts
     assert Path("data/feeds/freshness.json") in artifacts
     assert Path("data/releases/dev/manifest.json") in artifacts
+    assert Path("data/releases/dev/evidence-index.json") in artifacts
     events = json.loads(artifacts[Path("data/feeds/events.json")])
     event_ids = {event["id"] for event in events}
     assert {
@@ -57,9 +58,20 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert manifest["schema_versions"]["feed_freshness"] == "apw.feed_freshness.v0"
     assert manifest["schema_versions"]["json_feed"] == "https://jsonfeed.org/version/1.1"
     assert manifest["schema_versions"]["source_coverage"] == "apw.source_coverage.v0"
+    assert manifest["schema_versions"]["release_evidence_index"] == "apw.release_evidence_index.v0"
     assert "data/feeds/coverage.json" in manifest["checksums"]
     assert "data/feeds/feed.json" in manifest["checksums"]
     assert "data/feeds/freshness.json" in manifest["checksums"]
+    assert "data/releases/dev/evidence-index.json" in manifest["checksums"]
+    evidence_index = json.loads(artifacts[Path("data/releases/dev/evidence-index.json")])
+    assert not list(
+        Draft202012Validator(
+            load_schemas(ROOT)["release_evidence_index"],
+            format_checker=FormatChecker(),
+        ).iter_errors(evidence_index)
+    )
+    assert any(item["name"] == "PyPI Trusted Publishing" for item in evidence_index["external_evidence"])
+    assert any(item["path"] == ".github/workflows/scorecard.yml" for item in evidence_index["github_workflows"])
     coverage = json.loads(artifacts[Path("data/feeds/coverage.json")])
     assert coverage["schema_version"] == "apw.source_coverage.v0"
     assert coverage["summary"]["source_count"] == 19

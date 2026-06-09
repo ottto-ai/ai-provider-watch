@@ -61,6 +61,11 @@ on:
         required: false
         type: string
         default: ""
+      scorecard_ref:
+        description: "Successful OpenSSF Scorecard run URL for the release commit."
+        required: false
+        type: string
+        default: ""
       attestation_ref:
         description: "Artifact-attestation verification evidence ref."
         required: false
@@ -163,6 +168,7 @@ jobs:
           CODEQL_WORKFLOW_REF: ${{ inputs.codeql_workflow_ref }}
           CODE_SCANNING_REF: ${{ inputs.code_scanning_ref }}
           DEPENDENCY_REVIEW_REF: ${{ inputs.dependency_review_ref }}
+          SCORECARD_REF: ${{ inputs.scorecard_ref }}
           ATTESTATION_REF: ${{ inputs.attestation_ref }}
           CHECKSUM_REVIEW_REF: ${{ inputs.checksum_review_ref }}
           REVIEWED_EVENT_IDS: ${{ inputs.reviewed_event_ids }}
@@ -183,6 +189,7 @@ jobs:
             CODEQL_WORKFLOW_REF \
             CODE_SCANNING_REF \
             DEPENDENCY_REVIEW_REF \
+            SCORECARD_REF \
             ATTESTATION_REF
           do
             value="${!var}"
@@ -211,6 +218,7 @@ jobs:
             --codeql-workflow-ref "$CODEQL_WORKFLOW_REF"
             --code-scanning-ref "$CODE_SCANNING_REF"
             --dependency-review-ref "$DEPENDENCY_REVIEW_REF"
+            --scorecard-ref "$SCORECARD_REF"
             --attestation-ref "$ATTESTATION_REF"
             --checksum-review-ref "$checksum_ref"
             --output "$packet"
