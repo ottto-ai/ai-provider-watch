@@ -63,6 +63,7 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
     assert "python -m pip install .apw/dist/*.whl" in workflow
     assert "apw validate" in workflow
     assert "apw index --check" in workflow
+    assert "apw source coverage --summary" in workflow
     assert "apw latest --limit 1 >/tmp/apw-installed-latest.json" in workflow
     assert "apw --root \"$PWD\" release dry-run" in workflow
     assert "--require-clean" in workflow
@@ -185,6 +186,7 @@ def test_data_publisher_workflow_is_protected_noop_or_packet_only() -> None:
     assert "uv run ruff check ." in workflow
     assert "uv run pytest" in workflow
     assert "uv run apw source test" in workflow
+    assert "uv run apw source coverage --summary" in workflow
     assert "uv run apw validate" in workflow
     assert "uv run apw index --check" in workflow
     assert "uv run apw release dry-run" in workflow

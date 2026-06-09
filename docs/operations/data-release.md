@@ -3,8 +3,8 @@
 Data releases use CalVer tags such as `data-2026.06.01`.
 
 Each release should include generated feeds, `data/feeds/freshness.json`,
-provider/kind/severity indexes, manifest with artifact hashes, source commit,
-schema version, and a short release summary.
+`data/feeds/coverage.json`, provider/kind/severity indexes, manifest with
+artifact hashes, source commit, schema version, and a short release summary.
 
 Before a release:
 
@@ -13,6 +13,7 @@ uv run ruff check .
 uv lock --check
 uv run pytest
 uv run apw source test
+uv run apw source coverage --summary
 uv run apw validate
 uv run apw index --check
 uv run apw release dry-run --output .apw/release-dry-run --require-clean
@@ -23,12 +24,18 @@ The dry run writes an ignored evidence bundle under
 bundle as `.apw/apw-release-dry-run.tgz` and creates an artifact attestation for
 it. The bundle includes release-shaped feed artifacts,
 `data/feeds/freshness.json`,
+`data/feeds/coverage.json`,
 `data/releases/data-YYYY.MM.DD/manifest.json`, checksums, and a schema-backed
 `dry-run-report.json`.
 
 Use `apw freshness --summary` before publishing to record package version,
 release ID, latest event date, latest source-state retrieval timestamp, and the
 checksum manifest path in release evidence.
+
+Use `apw source coverage --summary` before publishing to record enabled source
+coverage, missing source-state fingerprints, blocked parser sources, and review
+candidate backlog. Coverage warnings are visibility signals, not automatic
+publication approval.
 
 Generate a schema-backed publication packet before creating any real data tag:
 

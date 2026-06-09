@@ -13,6 +13,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert Path("data/feeds/events.json") in artifacts
     assert Path("data/feeds/events.ndjson") in artifacts
     assert Path("data/feeds/latest.json") in artifacts
+    assert Path("data/feeds/coverage.json") in artifacts
     assert Path("data/feeds/freshness.json") in artifacts
     assert Path("data/releases/dev/manifest.json") in artifacts
     events = json.loads(artifacts[Path("data/feeds/events.json")])
@@ -35,7 +36,13 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert manifest["release_id"] == "dev"
     assert manifest["schema_versions"]["event"] == "apw.provider_event.v0"
     assert manifest["schema_versions"]["feed_freshness"] == "apw.feed_freshness.v0"
+    assert manifest["schema_versions"]["source_coverage"] == "apw.source_coverage.v0"
+    assert "data/feeds/coverage.json" in manifest["checksums"]
     assert "data/feeds/freshness.json" in manifest["checksums"]
+    coverage = json.loads(artifacts[Path("data/feeds/coverage.json")])
+    assert coverage["schema_version"] == "apw.source_coverage.v0"
+    assert coverage["summary"]["source_count"] == 19
+    assert coverage["summary"]["missing_enabled_source_count"] == 5
     freshness = json.loads(artifacts[Path("data/feeds/freshness.json")])
     assert freshness["schema_version"] == "apw.feed_freshness.v0"
     assert freshness["release_id"] == "dev"
@@ -45,6 +52,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["source_state"]["path"] == "data/source-state/fingerprints.json"
     assert freshness["source_state"]["source_count"] == 10
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
+    assert any(artifact["path"] == "data/feeds/coverage.json" for artifact in freshness["feed_artifacts"])
     assert any(artifact["path"] == "data/feeds/events.json" for artifact in freshness["feed_artifacts"])
     assert "no raw provider content" in freshness["freshness_policy"]
 

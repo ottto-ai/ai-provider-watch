@@ -1,0 +1,559 @@
+{
+  "candidate_backlog": {
+    "by_status": {
+      "needs_review": 9
+    },
+    "total": 9
+  },
+  "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
+  "generated_at": "2026-06-08T11:04:15Z",
+  "generated_by": "ai-provider-watch 0.1.1",
+  "package_version": "0.1.1",
+  "providers": [
+    {
+      "blocked_pending_parser_source_count": 1,
+      "candidate_backlog_count": 2,
+      "enabled_deterministic_source_count": 3,
+      "fetched_enabled_source_count": 2,
+      "latest_event_date": "2026-06-04",
+      "manual_review_only_source_count": 1,
+      "missing_enabled_source_keys": [
+        "openai.news"
+      ],
+      "provider_ref": "provider:openai",
+      "reviewed_event_count": 5,
+      "source_count": 5
+    },
+    {
+      "blocked_pending_parser_source_count": 0,
+      "candidate_backlog_count": 2,
+      "enabled_deterministic_source_count": 3,
+      "fetched_enabled_source_count": 2,
+      "latest_event_date": "2026-06-03",
+      "manual_review_only_source_count": 0,
+      "missing_enabled_source_keys": [
+        "anthropic.news"
+      ],
+      "provider_ref": "provider:anthropic",
+      "reviewed_event_count": 4,
+      "source_count": 3
+    },
+    {
+      "blocked_pending_parser_source_count": 1,
+      "candidate_backlog_count": 2,
+      "enabled_deterministic_source_count": 3,
+      "fetched_enabled_source_count": 2,
+      "latest_event_date": "2026-06-01",
+      "manual_review_only_source_count": 0,
+      "missing_enabled_source_keys": [
+        "google.gemini_changelog"
+      ],
+      "provider_ref": "provider:google",
+      "reviewed_event_count": 7,
+      "source_count": 4
+    },
+    {
+      "blocked_pending_parser_source_count": 0,
+      "candidate_backlog_count": 1,
+      "enabled_deterministic_source_count": 3,
+      "fetched_enabled_source_count": 2,
+      "latest_event_date": "2026-06-05",
+      "manual_review_only_source_count": 0,
+      "missing_enabled_source_keys": [
+        "aws_bedrock.whats_new"
+      ],
+      "provider_ref": "provider:aws-bedrock",
+      "reviewed_event_count": 6,
+      "source_count": 3
+    },
+    {
+      "blocked_pending_parser_source_count": 1,
+      "candidate_backlog_count": 2,
+      "enabled_deterministic_source_count": 3,
+      "fetched_enabled_source_count": 2,
+      "latest_event_date": "2026-05-01",
+      "manual_review_only_source_count": 0,
+      "missing_enabled_source_keys": [
+        "azure_openai.whats_new"
+      ],
+      "provider_ref": "provider:azure-openai",
+      "reviewed_event_count": 7,
+      "source_count": 4
+    }
+  ],
+  "schema_version": "apw.source_coverage.v0",
+  "source_state": {
+    "latest_retrieved_at": "2026-06-07T09:36:10Z",
+    "path": "data/source-state/fingerprints.json",
+    "present": true,
+    "source_count": 10
+  },
+  "sources": [
+    {
+      "authority": "official_blog",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 0,
+      "coverage_status": "enabled_missing_source_state",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "anthropic.news",
+      "parser": "anthropic_news_index",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:anthropic"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "blog"
+    },
+    {
+      "authority": "official_pricing",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "anthropic.pricing",
+      "parser": "anthropic_pricing",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:anthropic"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:35:52Z"
+      },
+      "source_type": "pricing_page"
+    },
+    {
+      "authority": "official_status",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "anthropic.status",
+      "parser": "statuspage_html",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:anthropic"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:35:52Z"
+      },
+      "source_type": "status_page"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 0,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "aws_bedrock.docs",
+      "parser": "aws_bedrock_model_cards",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:aws-bedrock"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:35:53Z"
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_pricing",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "aws_bedrock.pricing",
+      "parser": "aws_bedrock_pricing",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:aws-bedrock"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:35:53Z"
+      },
+      "source_type": "pricing_page"
+    },
+    {
+      "authority": "official_blog",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 0,
+      "coverage_status": "enabled_missing_source_state",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "aws_bedrock.whats_new",
+      "parser": "aws_bedrock_whats_new_feed",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:aws-bedrock"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "rss_feed"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "azure_openai.docs",
+      "parser": "azure_openai_models",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:azure-openai"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:35:53Z"
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "blocked_pending_parser",
+      "candidate_backlog_count": 0,
+      "coverage_status": "blocked_pending_parser",
+      "enabled": false,
+      "graduation_blockers": [
+        "needs maintainer live-smoke proof that the redirected Microsoft Learn page still exposes a bounded Azure OpenAI section before unattended refresh"
+      ],
+      "key": "azure_openai.legacy_models",
+      "parser": "azure_openai_legacy_models",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:azure-openai"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_pricing",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "azure_openai.pricing",
+      "parser": "azure_openai_pricing",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:azure-openai"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:35:53Z"
+      },
+      "source_type": "pricing_page"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 0,
+      "coverage_status": "enabled_missing_source_state",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "azure_openai.whats_new",
+      "parser": "azure_openai_whats_new",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:azure-openai"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "google.ai_docs",
+      "parser": "google_ai_models",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:google"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:36:08Z"
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 0,
+      "coverage_status": "enabled_missing_source_state",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "google.gemini_changelog",
+      "parser": "google_gemini_changelog",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:google"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "blocked_pending_parser",
+      "candidate_backlog_count": 0,
+      "coverage_status": "blocked_pending_parser",
+      "enabled": false,
+      "graduation_blockers": [
+        "needs live source-review smoke proving heading-range scope and current model-version tables remain bounded before unattended refresh"
+      ],
+      "key": "google.vertex_model_versions",
+      "parser": "google_vertex_model_versions",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:google"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_pricing",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "google.vertex_pricing",
+      "parser": "google_vertex_pricing",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:google"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:36:09Z"
+      },
+      "source_type": "pricing_page"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "manual_review_only",
+      "candidate_backlog_count": 0,
+      "coverage_status": "manual_review_only",
+      "enabled": false,
+      "graduation_blockers": [
+        "needs dated changelog or article mapping before reviewed event promotion",
+        "needs parser fixtures that extract bounded feature names without copied docs text"
+      ],
+      "key": "openai.codex_docs",
+      "parser": "manual_review",
+      "parser_fixture_count": 0,
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_docs",
+      "automation_status": "blocked_pending_parser",
+      "candidate_backlog_count": 0,
+      "coverage_status": "blocked_pending_parser",
+      "enabled": false,
+      "graduation_blockers": [
+        "needs live source-review smoke proving heading-range scope and current deprecation tables remain bounded before unattended refresh"
+      ],
+      "key": "openai.deprecations",
+      "parser": "openai_deprecations",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "docs_page"
+    },
+    {
+      "authority": "official_blog",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 0,
+      "coverage_status": "enabled_missing_source_state",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "openai.news",
+      "parser": "openai_news_feed",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "source_state": {
+        "http_status": null,
+        "present": false,
+        "retrieved_at": null
+      },
+      "source_type": "rss_feed"
+    },
+    {
+      "authority": "official_pricing",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "openai.pricing",
+      "parser": "openai_pricing",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:36:10Z"
+      },
+      "source_type": "pricing_page"
+    },
+    {
+      "authority": "official_status",
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 1,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
+      "key": "openai.status",
+      "parser": "atom_status",
+      "parser_fixture_count": 1,
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "source_state": {
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-07T09:36:10Z"
+      },
+      "source_type": "atom_feed"
+    }
+  ],
+  "summary": {
+    "blocked_pending_parser_source_count": 3,
+    "candidate_backlog_count": 9,
+    "enabled_deterministic_source_count": 15,
+    "fetched_enabled_source_count": 10,
+    "fetched_enabled_source_ratio": 0.6667,
+    "latest_event_date": "2026-06-05",
+    "manual_review_only_source_count": 1,
+    "missing_enabled_source_count": 5,
+    "provider_count": 5,
+    "reviewed_event_count": 28,
+    "source_count": 19,
+    "warning_count": 9
+  },
+  "warnings": [
+    {
+      "code": "enabled_source_missing_source_state",
+      "detail": "enabled deterministic source has no source-state fingerprint",
+      "provider_ref": "provider:anthropic",
+      "severity": "warning",
+      "source_key": "anthropic.news"
+    },
+    {
+      "code": "enabled_source_missing_source_state",
+      "detail": "enabled deterministic source has no source-state fingerprint",
+      "provider_ref": "provider:aws-bedrock",
+      "severity": "warning",
+      "source_key": "aws_bedrock.whats_new"
+    },
+    {
+      "code": "blocked_official_source",
+      "detail": "official source is registered but blocked until parser fixtures prove concrete deltas",
+      "provider_ref": "provider:azure-openai",
+      "severity": "info",
+      "source_key": "azure_openai.legacy_models"
+    },
+    {
+      "code": "enabled_source_missing_source_state",
+      "detail": "enabled deterministic source has no source-state fingerprint",
+      "provider_ref": "provider:azure-openai",
+      "severity": "warning",
+      "source_key": "azure_openai.whats_new"
+    },
+    {
+      "code": "enabled_source_missing_source_state",
+      "detail": "enabled deterministic source has no source-state fingerprint",
+      "provider_ref": "provider:google",
+      "severity": "warning",
+      "source_key": "google.gemini_changelog"
+    },
+    {
+      "code": "blocked_official_source",
+      "detail": "official source is registered but blocked until parser fixtures prove concrete deltas",
+      "provider_ref": "provider:google",
+      "severity": "info",
+      "source_key": "google.vertex_model_versions"
+    },
+    {
+      "code": "blocked_official_source",
+      "detail": "official source is registered but blocked until parser fixtures prove concrete deltas",
+      "provider_ref": "provider:openai",
+      "severity": "info",
+      "source_key": "openai.deprecations"
+    },
+    {
+      "code": "enabled_source_missing_source_state",
+      "detail": "enabled deterministic source has no source-state fingerprint",
+      "provider_ref": "provider:openai",
+      "severity": "warning",
+      "source_key": "openai.news"
+    },
+    {
+      "code": "candidate_backlog_present",
+      "detail": "9 review candidate(s) are present outside reviewed events",
+      "severity": "info"
+    }
+  ]
+}

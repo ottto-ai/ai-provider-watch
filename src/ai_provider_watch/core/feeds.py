@@ -9,6 +9,7 @@ from typing import Any
 
 from ai_provider_watch import __version__
 from ai_provider_watch.core.io import event_paths, read_json, write_json_text, write_ndjson_text
+from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 
 SEVERITY_RANK = {"info": 0, "low": 1, "medium": 2, "high": 3, "critical": 4}
 
@@ -194,6 +195,9 @@ def build_artifacts(
     for severity in sorted({event["severity"] for event in events}, key=lambda item: SEVERITY_RANK[item]):
         artifacts[Path(f"data/indexes/severity/{severity}.json")] = write_json_text([event for event in events if event["severity"] == severity])
 
+    coverage = build_source_coverage_report(root, created_at=resolved_created_at)
+    artifacts[Path("data/feeds/coverage.json")] = write_json_text(coverage)
+
     freshness = _build_freshness(
         root,
         events,
@@ -217,6 +221,7 @@ def build_artifacts(
             "event": "apw.provider_event.v0",
             "event_detail": "apw.event_detail.v0",
             "feed_freshness": "apw.feed_freshness.v0",
+            "source_coverage": "apw.source_coverage.v0",
             "release_manifest": "apw.release_manifest.v0",
         },
         "artifacts": manifest_artifacts,

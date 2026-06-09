@@ -79,3 +79,28 @@ def test_validate_reports_stale_feed_freshness(tmp_path) -> None:
     issues = [issue.render() for issue in validate(tmp_path)]
 
     assert any("feed freshness metadata is stale" in issue for issue in issues)
+
+
+def test_validate_reports_missing_source_coverage(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    (tmp_path / "data" / "feeds" / "coverage.json").unlink()
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("missing source coverage metadata" in issue for issue in issues)
+
+
+def test_validate_reports_stale_source_coverage(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    coverage_path = tmp_path / "data" / "feeds" / "coverage.json"
+    coverage = read_json(coverage_path)
+    coverage["summary"]["source_count"] = 0
+    coverage_path.write_text(json.dumps(coverage), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("source coverage metadata is stale" in issue for issue in issues)

@@ -120,6 +120,7 @@ jobs:
       - run: uv run ruff check .
       - run: uv run pytest
       - run: uv run apw source test
+      - run: uv run apw source coverage --summary
       - run: uv run apw validate
       - run: uv run apw index --check
       - name: Run publisher no-op dry run

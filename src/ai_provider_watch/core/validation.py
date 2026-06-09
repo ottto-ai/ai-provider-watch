@@ -33,6 +33,7 @@ SCHEMA_FILES = {
     "slack_payload": "slack-payload.schema.json",
     "ecosystem_mapping": "ecosystem-mapping.schema.json",
     "feed_freshness": "feed-freshness.schema.json",
+    "source_coverage": "source-coverage.schema.json",
     "release_manifest": "release-manifest.schema.json",
     "release_dry_run": "release-dry-run.schema.json",
     "release_publication_packet": "release-publication-packet.schema.json",
@@ -339,6 +340,21 @@ def validate(root: Path) -> list[ValidationIssue]:
                 ValidationIssue(
                     str(freshness_path),
                     "feed freshness metadata is stale; run apw index",
+                )
+            )
+    coverage_path = root / "data" / "feeds" / "coverage.json"
+    if not coverage_path.exists():
+        issues.append(ValidationIssue(str(coverage_path), "missing source coverage metadata"))
+    else:
+        coverage = read_json(coverage_path)
+        issues.extend(_issues(coverage_path, coverage, schemas["source_coverage"], "source coverage"))
+        expected_coverage_text = build_artifacts(root)[Path("data/feeds/coverage.json")]
+        expected_coverage = json.loads(expected_coverage_text)
+        if coverage != expected_coverage:
+            issues.append(
+                ValidationIssue(
+                    str(coverage_path),
+                    "source coverage metadata is stale; run apw index",
                 )
             )
     return issues

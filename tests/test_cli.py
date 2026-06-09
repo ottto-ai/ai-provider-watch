@@ -35,6 +35,35 @@ def test_freshness_summary(capsys) -> None:
     assert "checksums_path: data/releases/dev/checksums.txt" in output
 
 
+def test_source_coverage_outputs_json(capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "source",
+                "coverage",
+                "--created-at",
+                "2026-06-08T12:00:00Z",
+            ]
+        )
+        == 0
+    )
+    coverage = json.loads(capsys.readouterr().out)
+    assert coverage["schema_version"] == "apw.source_coverage.v0"
+    assert coverage["summary"]["source_count"] == 19
+    assert coverage["summary"]["missing_enabled_source_count"] == 5
+    assert coverage["candidate_backlog"]["by_status"] == {"needs_review": 9}
+
+
+def test_source_coverage_summary(capsys) -> None:
+    assert main(["--root", str(ROOT), "source", "coverage", "--summary"]) == 0
+    output = capsys.readouterr().out
+    assert "enabled_deterministic_source_count: 15" in output
+    assert "missing_enabled_source_count: 5" in output
+    assert "candidate_backlog_count: 9" in output
+
+
 def test_release_dry_run_command(tmp_path, capsys) -> None:
     assert (
         main(
