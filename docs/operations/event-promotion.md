@@ -91,7 +91,25 @@ write `data/events/`.
    uv run apw index --check
    ```
 
-8. Run the smallest relevant test during review, then the full local release
+8. Render a candidate-to-event verification packet for the authored draft
+   event files:
+
+   ```bash
+   uv run apw candidate event-packet \
+     --candidates .apw/candidates \
+     --candidate-id candidate-... \
+     --event-draft data/events/YYYY-MM-DD-provider-short-slug.json \
+     --source-owner @RonShub \
+     --source-owner-approval-ref <PR-or-review-ref> \
+     --created-at 2026-06-04T00:00:00Z \
+     --output .apw/candidate-to-event-packet.json
+   ```
+
+   Repeat `--event-draft` when one candidate is split into multiple reviewed
+   events. The command exits nonzero when schema, evidence, source-owner,
+   duplicate, prompt-like, or readiness/quality blockers remain.
+
+9. Run the smallest relevant test during review, then the full local release
    gate before a release-affecting merge.
 
    ```bash
@@ -102,12 +120,13 @@ write `data/events/`.
    uv run apw release dry-run --output .apw/release-dry-run
    ```
 
-9. Open a PR with the event files and generated artifacts. The PR body should
+10. Open a PR with the event files and generated artifacts. The PR body should
    list candidate IDs, event IDs, evidence URLs, source-owner approval,
-   generated files, validation commands, and unresolved limitations. It should
-   not paste provider page bodies or candidate claim text.
+   candidate-to-event packet path, generated files, validation commands, and
+   unresolved limitations. It should not paste provider page bodies or
+   candidate claim text.
 
-10. Release only after the release manager confirms the external release gates in
+11. Release only after the release manager confirms the external release gates in
    [release-gates.md](release-gates.md). A daily data-release dry run is
    evidence, not approval to publish.
 
@@ -116,6 +135,8 @@ write `data/events/`.
 - Candidate ID and dedupe key were reviewed as untrusted data.
 - `apw candidate packet` was reviewed for high-value official candidates when
   available, and every draft-only stub was replaced before promotion.
+- `apw candidate event-packet` verified authored event drafts against the
+  candidate and has no unresolved blockers.
 - Provider refs, surface refs, model refs, and agent app refs match committed
   registries.
 - Event kind and typed detail object match
@@ -209,6 +230,7 @@ Use this when one source update includes multiple independent provider changes.
   `data/indexes/severity/*`
 - Development release manifest: `data/releases/dev/manifest.json`
 - Local source-owner packet: `.apw/source-owner-packet.json`
+- Local candidate-to-event packet: `.apw/candidate-to-event-packet.json`
 - Local ignored review notes: `.apw/event-promotion/<candidate-id>/review.md`
 - Local dry-run evidence:
   `.apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json`,

@@ -114,6 +114,7 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/schemas/json-feed.schema.json" in names
     assert "ai_provider_watch/_data/schemas/source-coverage.schema.json" in names
     assert "ai_provider_watch/_data/schemas/candidate-quality.schema.json" in names
+    assert "ai_provider_watch/_data/schemas/candidate-to-event-packet.schema.json" in names
     assert "ai_provider_watch/_data/schemas/source-owner-packet.schema.json" in names
     assert "ai_provider_watch/_data/schemas/repo-impact.schema.json" in names
     assert "ai_provider_watch/_data/schemas/release-publication-packet.schema.json" in names

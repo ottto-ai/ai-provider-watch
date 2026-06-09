@@ -86,6 +86,25 @@ generated candidate claim text. It is labeled `untrusted_data` and must be
 verified against official evidence before use. Do not paste source-owner packet
 text into event files.
 
+After a source owner authors one or more event drafts, render a
+candidate-to-event verification packet:
+
+```bash
+uv run apw candidate event-packet \
+  --candidates data/candidates/review \
+  --candidate-id candidate-... \
+  --event-draft data/events/YYYY-MM-DD-provider-short-slug.json \
+  --source-owner @RonShub \
+  --source-owner-approval-ref <PR-or-review-ref> \
+  --created-at 2026-06-09T00:00:00Z \
+  --output .apw/candidate-to-event-packet.json
+```
+
+This second packet verifies event/detail/impact schemas, event hashes,
+official evidence domains and authorities, source-owner approval metadata, and
+promote/split resolution. It fails on blocker states but still has no
+publication authority.
+
 ## Evidence Boundaries
 
 Commit:

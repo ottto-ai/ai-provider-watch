@@ -18,6 +18,7 @@ uv run apw candidate generate --observations .apw/source-observations.json --out
 uv run apw candidate readiness --candidates .apw/candidates --created-at 2026-05-31T20:15:00Z --output .apw/promotion-readiness.json
 uv run apw candidate quality --candidates .apw/candidates --created-at 2026-05-31T20:15:00Z --output .apw/candidate-quality.json
 uv run apw candidate packet --candidates .apw/candidates --created-at 2026-05-31T20:15:00Z --output .apw/source-owner-packet.json
+uv run apw candidate event-packet --candidates .apw/candidates --candidate-id candidate-... --event-draft data/events/YYYY-MM-DD-provider-short-slug.json --source-owner @RonShub --source-owner-approval-ref <PR-or-review-ref> --created-at 2026-05-31T20:15:00Z --output .apw/candidate-to-event-packet.json
 uv run apw candidate review-pr-body --observations .apw/source-observations.json --candidates .apw/candidates
 uv run apw review request --candidates .apw/candidates --reviewer codex --created-at 2026-05-31T20:15:00Z
 uv run apw repo check --repo . --since 3650d --risk low
@@ -49,6 +50,12 @@ evidence, source-state coverage, bounded evidence refs, and draft-only
 ProviderEvent stubs. It is for human source owners and may include bounded
 generated candidate claim text labeled `untrusted_data`; use `apw review
 request` for model reviewers because that packet omits claim text.
+`apw candidate event-packet` is the follow-up after a source owner authors one
+or more ProviderEvent drafts. It verifies candidate readiness/quality,
+event/detail/impact schemas, event hashes, official evidence domains and
+authorities, source-owner approval refs, and promote/split resolution. It
+writes only the packet output and has no event-write, merge, tag, OIDC, or
+release-token authority.
 
 Prompt-injection regression fixtures live at
 `tests/fixtures/redteam/untrusted-input-cases.json`. Any agent-facing workflow

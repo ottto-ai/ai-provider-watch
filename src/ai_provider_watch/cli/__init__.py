@@ -18,6 +18,7 @@ from ai_provider_watch.core.feeds import (
 )
 from ai_provider_watch.core.io import package_data_root, read_json, repo_root, write_json_text
 from ai_provider_watch.core.validation import validate
+from ai_provider_watch.pipeline.candidate_event_packet import build_candidate_to_event_packet
 from ai_provider_watch.pipeline.candidates import (
     build_candidates,
     ensure_unique_candidate_ids,
@@ -439,6 +440,52 @@ def cmd_candidate_packet(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_candidate_event_packet(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    candidate_dir = _path_from_root(root, args.candidates)
+    created_at = _created_at(args.created_at)
+    candidate_files = read_candidate_files(candidate_dir)
+    sources = load_source_descriptors(root, enabled_only=False)
+    event_draft_paths = [_path_from_root(root, item) for item in args.event_draft]
+    try:
+        promotion_report = build_promotion_readiness_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+        )
+        quality_report = build_candidate_quality_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+            promotion_report=promotion_report,
+        )
+        packet = build_candidate_to_event_packet(
+            candidate_files,
+            event_draft_paths,
+            sources,
+            root=root,
+            created_at=created_at,
+            candidate_id=args.candidate_id,
+            source_owner=args.source_owner,
+            source_owner_approval_ref=args.source_owner_approval_ref,
+            promotion_report=promotion_report,
+            quality_report=quality_report,
+        )
+    except (OSError, ValueError) as exc:
+        print(f"candidate event-packet failed: {exc}", file=sys.stderr)
+        return 1
+    _write_or_print(root, packet, args.output)
+    if not packet["verified"] and not args.allow_blockers:
+        print(
+            "candidate event-packet failed: packet has blockers; rerun with --allow-blockers to accept advisory output",
+            file=sys.stderr,
+        )
+        return 1
+    return 0
+
+
 def cmd_review_request(args: argparse.Namespace) -> int:
     root = _root(args.root)
     candidate_dir = _path_from_root(root, args.candidates)
@@ -826,6 +873,31 @@ def build_parser() -> argparse.ArgumentParser:
     )
     candidate_packet_parser.add_argument("--output", help="write JSON packet to this path instead of stdout")
     candidate_packet_parser.set_defaults(func=cmd_candidate_packet)
+    candidate_event_packet_parser = candidate_subparsers.add_parser(
+        "event-packet",
+        help="verify source-owner-authored ProviderEvent drafts against one review candidate",
+    )
+    candidate_event_packet_parser.add_argument("--candidates", default="data/candidates/review")
+    candidate_event_packet_parser.add_argument("--candidate-id", required=True)
+    candidate_event_packet_parser.add_argument(
+        "--event-draft",
+        action="append",
+        required=True,
+        help="ProviderEvent draft JSON path; repeat for split candidates",
+    )
+    candidate_event_packet_parser.add_argument("--source-owner", required=True)
+    candidate_event_packet_parser.add_argument("--source-owner-approval-ref", required=True)
+    candidate_event_packet_parser.add_argument(
+        "--created-at",
+        help="RFC3339 timestamp for deterministic candidate-to-event packets; defaults to now in UTC",
+    )
+    candidate_event_packet_parser.add_argument(
+        "--allow-blockers",
+        action="store_true",
+        help="write an advisory packet even when verification blockers remain",
+    )
+    candidate_event_packet_parser.add_argument("--output", help="write JSON packet to this path instead of stdout")
+    candidate_event_packet_parser.set_defaults(func=cmd_candidate_event_packet)
 
     review_parser = subparsers.add_parser("review", help="LLM and agent review helper commands")
     review_subparsers = review_parser.add_subparsers(dest="review_command", required=True)
