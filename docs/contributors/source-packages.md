@@ -85,8 +85,20 @@ docs it stores bounded model identifiers and dates; and for pricing pages it
 stores bounded pricing/model signals and optional `price_point` rows rather than
 copied pricing-table prose. A `price_point` may include only the bounded model
 ID, billing dimension, numeric USD price per 1M tokens, normalized unit, and
-parser name. When a source descriptor declares `content_scope`, its parser
-fixture should prove that out-of-scope HTML sections are ignored.
+parser name.
+
+Pricing sources also persist a bounded `pricing_rows` snapshot in
+`data/source-state/fingerprints.json` when the parser emits unambiguous
+`price_point` rows or pricing signals. That state is intentionally compact:
+model ID, billing dimension, numeric price, unit, signal enum, row key, and row
+hash. It must not include provider table prose, headings, raw HTML, screenshots,
+or prompt-like source text. On a later refresh, APW can compare those row facts
+and emit selector-scoped review candidates for price changes or token-accounting
+signals. Ambiguous duplicate rows, such as multiple regions with the same model
+and billing dimension, fall back to generic source-owner review.
+
+When a source descriptor declares `content_scope`, its parser fixture should
+prove that out-of-scope HTML sections are ignored.
 Provider-specific parsers should add richer factual extraction only when
 fixtures prove the output is deterministic, bounded, source-linked, and free of
 raw provider prose.

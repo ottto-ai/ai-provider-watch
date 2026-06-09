@@ -19,7 +19,9 @@ MAX_ANNOUNCEMENT_CLAIMS = 6
 MAX_LIFECYCLE_CLAIMS = 8
 MAX_MODEL_ID_LENGTH = 96
 MAX_MODEL_ID_SEGMENT_LENGTH = 32
+MAX_PRICING_DELTA_CLAIMS = 8
 MAX_STATUS_REF_LENGTH = 160
+PRICING_ROW_STATE_SCHEMA_VERSION = "apw.pricing_rows.v0"
 
 PROVIDER_LABELS = {
     "provider:anthropic": "Anthropic",
@@ -288,11 +290,44 @@ PRICING_SIGNAL_KEYWORDS = {
     "token_unit": ("1m tokens", "million tokens", "mtok", "per 1m"),
 }
 
+TOKEN_ACCOUNTING_SIGNALS = {
+    "batch",
+    "cache_hit",
+    "cache_write",
+    "cached_input",
+    "input_tokens",
+    "output_tokens",
+    "token_unit",
+}
+
+PRICE_DIMENSION_LABELS = {
+    "cached_input": "cached input",
+    "cache_hit": "cache hit",
+    "cache_write": "cache write",
+    "input_tokens": "input tokens",
+    "output_tokens": "output tokens",
+    "priority_processing": "priority processing",
+}
+
+PRICING_SIGNAL_LABELS = {
+    "batch": "batch",
+    "cache_hit": "cache hit",
+    "cache_write": "cache write",
+    "cached_input": "cached input",
+    "input_tokens": "input tokens",
+    "output_tokens": "output tokens",
+    "priority_processing": "priority processing",
+    "provisioned_throughput": "provisioned throughput",
+    "regional_pricing": "regional pricing",
+    "token_unit": "token unit",
+}
+
 PRICE_POINT_PATTERN = re.compile(
     r"\$\s*([0-9]{1,5}(?:\.[0-9]{1,6})?)\s*/\s*"
     r"(?:1\s*m(?:illion)?\s*tokens?|1m\s*tokens?|million\s+tokens|m\s?tok|mtok)\b",
     re.IGNORECASE,
 )
+PRICE_AMOUNT_PATTERN = re.compile(r"^[0-9]{1,5}(?:\.[0-9]{1,6})?$")
 
 PRICE_DIMENSION_KEYWORDS = {
     "cached_input": ("cached input", "cached tokens"),
@@ -1163,6 +1198,227 @@ def _pricing_items(raw: bytes, parser_name: str) -> list[dict[str, str]]:
     return model_items + price_items + signal_items + limit_items
 
 
+def _price_row_key(model_id: str, billing_dimension: str, unit: str) -> str:
+    return f"price:{model_id}:{billing_dimension}:{unit}"
+
+
+def _price_point_state_row(item: dict[str, Any]) -> dict[str, str] | None:
+    if item.get("kind") != "price_point":
+        return None
+    model_id = item.get("model_id")
+    billing_dimension = item.get("billing_dimension")
+    amount = item.get("price_usd_per_1m_tokens")
+    unit = item.get("unit")
+    if (
+        not isinstance(model_id, str)
+        or not _is_bounded_model_id(model_id)
+        or not isinstance(billing_dimension, str)
+        or billing_dimension not in PRICE_DIMENSION_KEYWORDS
+        or not isinstance(amount, str)
+        or not PRICE_AMOUNT_PATTERN.fullmatch(amount)
+        or unit != "1m_tokens"
+    ):
+        return None
+    row_key = _price_row_key(model_id, billing_dimension, unit)
+    row_sha256 = _sha256_text(f"{row_key}:{amount}")
+    return {
+        "row_key": row_key,
+        "row_sha256": row_sha256,
+        "model_id": model_id,
+        "billing_dimension": billing_dimension,
+        "price_usd_per_1m_tokens": amount,
+        "unit": unit,
+    }
+
+
+def _pricing_signal_state_row(item: dict[str, Any]) -> dict[str, str] | None:
+    if item.get("kind") != "pricing_signal":
+        return None
+    signal = item.get("signal")
+    if not isinstance(signal, str) or signal not in PRICING_SIGNAL_KEYWORDS:
+        return None
+    row_key = f"signal:{signal}"
+    return {
+        "row_key": row_key,
+        "row_sha256": _sha256_text(row_key),
+        "signal": signal,
+    }
+
+
+def pricing_state_from_items(items: list[dict[str, Any]]) -> dict[str, Any] | None:
+    price_groups: dict[str, list[dict[str, str]]] = {}
+    signal_rows: dict[str, dict[str, str]] = {}
+    for item in items:
+        price_row = _price_point_state_row(item)
+        if price_row is not None:
+            price_groups.setdefault(price_row["row_key"], []).append(price_row)
+            continue
+        signal_row = _pricing_signal_state_row(item)
+        if signal_row is not None:
+            signal_rows[signal_row["row_key"]] = signal_row
+
+    price_rows: list[dict[str, str]] = []
+    ambiguous_price_point_keys: list[str] = []
+    for row_key, rows in sorted(price_groups.items()):
+        amounts = {row["price_usd_per_1m_tokens"] for row in rows}
+        if len(amounts) > 1:
+            ambiguous_price_point_keys.append(row_key)
+            continue
+        price_rows.append(sorted(rows, key=lambda row: row["row_sha256"])[0])
+
+    if not price_rows and not signal_rows and not ambiguous_price_point_keys:
+        return None
+    return {
+        "schema_version": PRICING_ROW_STATE_SCHEMA_VERSION,
+        "price_points": price_rows,
+        "pricing_signals": [signal_rows[key] for key in sorted(signal_rows)],
+        "ambiguous_price_point_keys": ambiguous_price_point_keys,
+    }
+
+
+def _pricing_state_from_source_state(previous_state: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not isinstance(previous_state, dict):
+        return None
+    pricing_state = previous_state.get("pricing_rows")
+    if not isinstance(pricing_state, dict):
+        return None
+    if pricing_state.get("schema_version") != PRICING_ROW_STATE_SCHEMA_VERSION:
+        return None
+    return pricing_state
+
+
+def _state_rows_by_key(
+    pricing_state: dict[str, Any] | None,
+    field: str,
+) -> dict[str, dict[str, str]]:
+    if not isinstance(pricing_state, dict):
+        return {}
+    rows = pricing_state.get(field)
+    if not isinstance(rows, list):
+        return {}
+    keyed: dict[str, dict[str, str]] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        row_key = row.get("row_key")
+        if isinstance(row_key, str):
+            keyed[row_key] = {key: value for key, value in row.items() if isinstance(value, str)}
+    return keyed
+
+
+def _ambiguous_price_keys(pricing_state: dict[str, Any] | None) -> set[str]:
+    if not isinstance(pricing_state, dict):
+        return set()
+    keys = pricing_state.get("ambiguous_price_point_keys")
+    if not isinstance(keys, list):
+        return set()
+    return {key for key in keys if isinstance(key, str)}
+
+
+def _short_row_hash(row: dict[str, str]) -> str:
+    row_sha256 = row.get("row_sha256", "")
+    if re.fullmatch(r"[a-f0-9]{64}", row_sha256):
+        return row_sha256[:16]
+    serialized = "|".join(f"{key}={row[key]}" for key in sorted(row))
+    return _sha256_text(serialized)[:16]
+
+
+def _price_delta_claim(
+    source: SourceDescriptor,
+    action: str,
+    row: dict[str, str],
+    *,
+    previous_row: dict[str, str] | None = None,
+) -> dict[str, str]:
+    provider = _provider_label(source)
+    model_id = row["model_id"]
+    dimension = PRICE_DIMENSION_LABELS.get(row["billing_dimension"], row["billing_dimension"])
+    amount = row["price_usd_per_1m_tokens"]
+    if action == "changed" and previous_row is not None:
+        previous_amount = previous_row["price_usd_per_1m_tokens"]
+        claim_text = (
+            f"{provider} official pricing table changed {model_id} {dimension} price "
+            f"from ${previous_amount} / 1M tokens to ${amount} / 1M tokens."
+        )
+    elif action == "removed":
+        claim_text = (
+            f"{provider} official pricing table removed {model_id} {dimension} price "
+            f"previously listed at ${amount} / 1M tokens."
+        )
+    else:
+        claim_text = (
+            f"{provider} official pricing table added {model_id} {dimension} price "
+            f"at ${amount} / 1M tokens."
+        )
+    row_hash = _short_row_hash(row)
+    return {
+        "candidate_kind": "pricing_change",
+        "claim_text": claim_text,
+        "selector": f"pricing:{row_hash}",
+        "snapshot_ref": f"row:{row_hash}",
+    }
+
+
+def _signal_delta_claim(source: SourceDescriptor, action: str, row: dict[str, str]) -> dict[str, str]:
+    provider = _provider_label(source)
+    signal = row["signal"]
+    label = PRICING_SIGNAL_LABELS.get(signal, signal.replace("_", " "))
+    candidate_kind = "token_accounting_change" if signal in TOKEN_ACCOUNTING_SIGNALS else "pricing_change"
+    claim_text = f"{provider} official pricing table {action} {label} pricing signal."
+    row_hash = _short_row_hash(row)
+    return {
+        "candidate_kind": candidate_kind,
+        "claim_text": claim_text,
+        "selector": f"pricing-signal:{row_hash}",
+        "snapshot_ref": f"signal:{row_hash}",
+    }
+
+
+def _pricing_delta_claims(
+    source: SourceDescriptor,
+    current_state: dict[str, Any] | None,
+    previous_source_state: dict[str, Any] | None,
+) -> list[dict[str, str]]:
+    previous_state = _pricing_state_from_source_state(previous_source_state)
+    if current_state is None or previous_state is None:
+        return []
+
+    current_prices = _state_rows_by_key(current_state, "price_points")
+    previous_prices = _state_rows_by_key(previous_state, "price_points")
+    ambiguous_keys = _ambiguous_price_keys(current_state) | _ambiguous_price_keys(previous_state)
+    claims: list[dict[str, str]] = []
+    for row_key in sorted((set(current_prices) | set(previous_prices)) - ambiguous_keys):
+        current_row = current_prices.get(row_key)
+        previous_row = previous_prices.get(row_key)
+        if current_row is not None and previous_row is not None:
+            if (
+                current_row.get("price_usd_per_1m_tokens")
+                != previous_row.get("price_usd_per_1m_tokens")
+            ):
+                claims.append(
+                    _price_delta_claim(
+                        source,
+                        "changed",
+                        current_row,
+                        previous_row=previous_row,
+                    )
+                )
+        elif current_row is not None:
+            claims.append(_price_delta_claim(source, "added", current_row))
+        elif previous_row is not None:
+            claims.append(_price_delta_claim(source, "removed", previous_row))
+
+    current_signals = _state_rows_by_key(current_state, "pricing_signals")
+    previous_signals = _state_rows_by_key(previous_state, "pricing_signals")
+    for row_key in sorted(set(current_signals) | set(previous_signals)):
+        if row_key in current_signals and row_key not in previous_signals:
+            claims.append(_signal_delta_claim(source, "added", current_signals[row_key]))
+        elif row_key in previous_signals and row_key not in current_signals:
+            claims.append(_signal_delta_claim(source, "removed", previous_signals[row_key]))
+
+    return claims[:MAX_PRICING_DELTA_CLAIMS]
+
+
 def _price_dimension(text: str) -> str | None:
     lower_text = text.lower()
     for dimension, keywords in PRICE_DIMENSION_KEYWORDS.items():
@@ -1477,10 +1733,12 @@ def parse_source_payload(
     raw: bytes,
     *,
     changed: bool,
+    previous_state: dict[str, Any] | None = None,
 ) -> ParsedSourcePayload:
     items: list[dict[str, Any]] = []
     candidate_claims: list[dict[str, str]] = []
     errors: list[str] = []
+    pricing_state: dict[str, Any] | None = None
     scoped = scoped_source_content(source, raw)
     raw = scoped.raw
     errors.extend(scoped.errors)
@@ -1498,6 +1756,9 @@ def parse_source_payload(
         items = _lifecycle_items(raw, source.parser)
     elif source.parser in PRICING_PARSER_NAMES:
         items = _pricing_items(raw, source.parser)
+        pricing_state = pricing_state_from_items(items)
+        if changed:
+            candidate_claims = _pricing_delta_claims(source, pricing_state, previous_state)
     elif source.parser == "aws_bedrock_model_cards":
         items = _model_ref_items_from_visible_text(raw, source.parser)
     elif source.parser == "statuspage_html":
