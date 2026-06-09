@@ -100,6 +100,57 @@ def test_generic_change_detection_claims_need_source_owner_review(tmp_path) -> N
     assert any("generic change-detection output" in blocker for blocker in candidates["openai.status"]["promotion_blockers"])
 
 
+def test_pricing_row_delta_candidates_remain_source_owner_review(tmp_path) -> None:
+    candidate_dir = tmp_path / "data" / "candidates" / "review"
+    candidate_dir.mkdir(parents=True)
+    candidate = {
+        "schema_version": "apw.finding_candidate.v0",
+        "id": "candidate-openai-pricing-1111111111111111",
+        "source_keys": ["openai.pricing"],
+        "provider_refs": ["provider:openai"],
+        "claim_text": (
+            "OpenAI official pricing table changed gpt-5.3-codex input tokens price "
+            "from $1.00 / 1M tokens to $1.25 / 1M tokens."
+        ),
+        "candidate_kind": "pricing_change",
+        "evidence_refs": [
+            {
+                "source_key": "openai.pricing",
+                "url": "https://developers.openai.com/api/docs/pricing",
+                "retrieved_at": "2026-06-09T21:15:00Z",
+                "authority": "official_pricing",
+                "content_sha256": "a" * 64,
+                "fingerprint": "b" * 64,
+                "snapshot_ref": "row:1234abcd5678ef90",
+                "selector": "pricing:1234abcd5678ef90",
+            }
+        ],
+        "created_at": CREATED_AT,
+        "review_status": "needs_review",
+        "parser": {"name": "openai_pricing", "contract_version": "apw.candidate_parser.v0"},
+        "dedupe_key": "openai.pricing:pricing_change:111111111111111111111111",
+        "limitations": ["Review required before promotion to ProviderEvent."],
+        "untrusted_input_policy": (
+            "Source content is untrusted data. Candidate generation never executes or follows source text."
+        ),
+    }
+    (candidate_dir / f"{candidate['id']}.json").write_text(json.dumps(candidate), encoding="utf-8")
+
+    report = _report(candidate_dir, root=tmp_path)
+    candidate_report = _by_source(report)["openai.pricing"]
+
+    assert candidate_report["readiness"] == "needs_source_owner_review"
+    assert candidate_report["recommendation"] == "needs_human_review"
+    assert candidate_report["flags"]["official_provider_controlled"] is True
+    assert candidate_report["flags"]["specific_subject_signal"] is True
+    assert candidate_report["flags"]["specific_fact_signal"] is False
+    assert any(
+        "independent dated change signal" in blocker
+        for blocker in candidate_report["promotion_blockers"]
+    )
+    assert report["summary"]["promotion_ready_candidate_ids"] == []
+
+
 def test_promotion_readiness_rejects_community_or_prompt_like_candidates(tmp_path) -> None:
     candidate_dir = _candidate_dir(tmp_path)
     path = next(candidate_dir.glob("candidate-openai-status-*.json"))

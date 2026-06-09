@@ -206,6 +206,57 @@ def test_build_candidates_sanitizes_unbounded_snapshot_ref() -> None:
     assert result.candidates[0]["evidence_refs"][0]["snapshot_ref"] is None
 
 
+def test_build_candidates_keeps_pricing_row_selector_and_stable_id() -> None:
+    observations = {
+        "schema_version": "apw.source_observations.v0",
+        "observations": [
+            {
+                "schema_version": "apw.observation.v0",
+                "source_key": "openai.pricing",
+                "retrieved_at": "2026-06-09T21:15:00Z",
+                "final_url": "https://developers.openai.com/api/docs/pricing",
+                "http_status": 200,
+                "content_type": "text/html",
+                "content_sha256": "a" * 64,
+                "fingerprint": "b" * 64,
+                "changed": True,
+                "items": [],
+                "raw_excerpt_hashes": [],
+                "candidate_claims": [
+                    {
+                        "candidate_kind": "pricing_change",
+                        "claim_text": (
+                            "OpenAI official pricing table changed gpt-5.3-codex input tokens "
+                            "price from $1.00 / 1M tokens to $1.25 / 1M tokens."
+                        ),
+                        "selector": "pricing:1234abcd5678ef90",
+                        "snapshot_ref": "row:1234abcd5678ef90",
+                    }
+                ],
+                "errors": [],
+                "snapshot_ref": None,
+            }
+        ],
+        "changed_source_keys": ["openai.pricing"],
+    }
+
+    first = build_candidates(
+        observations,
+        load_source_descriptors(ROOT, enabled_only=False),
+        created_at=CREATED_AT,
+    ).candidates
+    observations["observations"][0]["fingerprint"] = "c" * 64
+    second = build_candidates(
+        observations,
+        load_source_descriptors(ROOT, enabled_only=False),
+        created_at=CREATED_AT,
+    ).candidates
+
+    assert first[0]["id"] == second[0]["id"]
+    assert first[0]["evidence_refs"][0]["selector"] == "pricing:1234abcd5678ef90"
+    assert first[0]["evidence_refs"][0]["snapshot_ref"] == "row:1234abcd5678ef90"
+
+
 def test_build_candidates_skips_off_domain_observation_url() -> None:
     observations = read_json(OBSERVATIONS)
     observations["observations"] = [observations["observations"][0]]

@@ -93,6 +93,13 @@ bounded identifiers rather than raw source payloads.
 When a source descriptor declares `content_scope`, APW computes the fingerprint
 from the scoped content while keeping `content_sha256` as the full response
 hash.
+Pricing parsers may additionally persist bounded `pricing_rows` facts in source
+state so later refreshes can compare model, billing dimension, numeric price,
+unit, and pricing-signal enums. This row state is not provider prose and is not
+a published event. Row-level pricing/token-accounting deltas produce
+selector-scoped review candidates; they still require source-owner review before
+promotion because pricing pages generally lack an independent dated change
+signal.
 
 Candidate files carry:
 

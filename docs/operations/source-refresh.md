@@ -150,6 +150,14 @@ Pricing parsers emit bounded pricing/model signals such as input/output, cached
 input, cache write/hit, batch, priority, regional, and provisioned-throughput markers.
 Pricing parsers may also emit `price_point` items with only model ID, billing
 dimension, numeric USD price per 1M tokens, normalized unit, and parser name.
+When a pricing parser has an existing bounded row snapshot in
+`data/source-state/fingerprints.json`, a changed pricing page can produce
+selector-scoped review candidates for added, removed, or changed price rows and
+added or removed token-accounting signals. These candidates are more specific
+than broad source churn, but they still remain review-only: pricing pages do not
+provide an independent dated change signal, so promotion-readiness keeps them in
+source-owner review until a maintainer verifies the official evidence and writes
+a reviewed ProviderEvent.
 The parser fixture command is:
 
 ```bash

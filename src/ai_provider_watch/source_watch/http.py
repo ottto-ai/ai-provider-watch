@@ -10,7 +10,11 @@ from pathlib import Path
 from typing import Any
 
 from ai_provider_watch.core.io import read_json, write_json_text
-from ai_provider_watch.source_watch.parsers import ParsedSourcePayload, parse_source_payload
+from ai_provider_watch.source_watch.parsers import (
+    ParsedSourcePayload,
+    parse_source_payload,
+    pricing_state_from_items,
+)
 from ai_provider_watch.source_watch.scopes import scoped_source_content
 from ai_provider_watch.sources.registry import SourceDescriptor
 
@@ -65,18 +69,22 @@ def read_fingerprint_state(path: Path) -> dict[str, Any]:
 
 
 def build_fingerprint_state(observations: list[SourceObservation]) -> dict[str, Any]:
+    sources: dict[str, dict[str, Any]] = {}
+    for observation in sorted(observations, key=lambda item: item.source_key):
+        source_state = {
+            "fingerprint": observation.fingerprint,
+            "content_sha256": observation.content_sha256,
+            "final_url": observation.final_url,
+            "http_status": observation.http_status,
+            "retrieved_at": observation.retrieved_at,
+        }
+        pricing_state = pricing_state_from_items(observation.parsed.items)
+        if pricing_state is not None:
+            source_state["pricing_rows"] = pricing_state
+        sources[observation.source_key] = source_state
     return {
         "schema_version": "apw.source_fingerprints.v0",
-        "sources": {
-            observation.source_key: {
-                "fingerprint": observation.fingerprint,
-                "content_sha256": observation.content_sha256,
-                "final_url": observation.final_url,
-                "http_status": observation.http_status,
-                "retrieved_at": observation.retrieved_at,
-            }
-            for observation in sorted(observations, key=lambda item: item.source_key)
-        },
+        "sources": sources,
     }
 
 
@@ -104,9 +112,12 @@ def fetch_source(
 
     content_sha = _sha256(raw)
     fingerprint = _sha256(normalize_bytes(fingerprint_bytes(source, raw)))
-    previous = previous_state.get("sources", {}).get(source.key, {}).get("fingerprint")
+    previous_source_state = previous_state.get("sources", {}).get(source.key, {})
+    if not isinstance(previous_source_state, dict):
+        previous_source_state = {}
+    previous = previous_source_state.get("fingerprint")
     changed = previous != fingerprint
-    parsed = parse_source_payload(source, raw, changed=changed)
+    parsed = parse_source_payload(source, raw, changed=changed, previous_state=previous_source_state)
     return SourceObservation(
         source_key=source.key,
         retrieved_at=retrieved_at,
