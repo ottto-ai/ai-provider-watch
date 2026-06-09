@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 import ai_provider_watch.cli as cli
+import ai_provider_watch.mcp.server as mcp_server
 from ai_provider_watch.core import io
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +32,19 @@ def test_repo_root_falls_back_to_bundled_package_data(monkeypatch, tmp_path) -> 
     monkeypatch.setattr(io, "package_data_root", lambda: bundled)
 
     assert io.repo_root() == bundled
+
+
+def test_mcp_server_root_falls_back_to_bundled_package_data(monkeypatch, tmp_path) -> None:
+    bundled = tmp_path / "_data"
+    _make_package_data_root(bundled)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+
+    monkeypatch.chdir(outside)
+    monkeypatch.delenv("APW_REPO_ROOT", raising=False)
+    monkeypatch.setattr(io, "package_data_root", lambda: bundled)
+
+    assert mcp_server._server_root() == bundled
 
 
 def test_explicit_package_data_root_is_supported(tmp_path) -> None:
@@ -117,6 +131,8 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/schemas/candidate-to-event-packet.schema.json" in names
     assert "ai_provider_watch/_data/schemas/source-owner-packet.schema.json" in names
     assert "ai_provider_watch/_data/schemas/repo-impact.schema.json" in names
+    assert "ai_provider_watch/_data/schemas/adoption-scenarios.schema.json" in names
+    assert "ai_provider_watch/_data/schemas/release-evidence-index.schema.json" in names
     assert "ai_provider_watch/_data/schemas/release-publication-packet.schema.json" in names
     assert "ai_provider_watch/_data/schemas/release-verification.schema.json" in names
     assert "ai_provider_watch/_data/registries/providers.json" in names

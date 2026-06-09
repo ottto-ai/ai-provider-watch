@@ -7,12 +7,18 @@ import pytest
 
 from ai_provider_watch.core.io import read_json
 from ai_provider_watch.mcp.server import (
+    JSON_SCHEMA_2020_12,
+    MCP_CAPABILITIES,
+    MCP_PROTOCOL_VERSION,
     RESOURCE_URIS,
+    STATIC_RESOURCE_URIS,
     TOOL_NAMES,
+    _handle_jsonrpc,
     assert_read_only_contract,
     call_tool,
     check_repo_models,
     read_resource,
+    resource_templates,
     resources,
     tools,
     validate_event,
@@ -26,10 +32,79 @@ def test_mcp_descriptor_surface_is_read_only() -> None:
     assert_read_only_contract()
     assert "apw://events/latest" in RESOURCE_URIS
     assert "apw_latest" in TOOL_NAMES
-    rendered = json.dumps({"resources": resources(), "tools": tools()})
+    rendered = json.dumps(
+        {"resources": resources(), "resource_templates": resource_templates(), "tools": tools()}
+    )
 
     for forbidden in ["publish", "merge", "release", "token", "oidc", "tag", "mutate", "delete"]:
         assert forbidden not in rendered.lower()
+
+
+def test_mcp_initialize_contract_is_stable_and_read_only() -> None:
+    response = _handle_jsonrpc(
+        {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}}
+    )
+
+    assert response is not None
+    assert response["result"]["protocolVersion"] == MCP_PROTOCOL_VERSION == "2025-11-25"
+    assert response["result"]["capabilities"] == MCP_CAPABILITIES == {"resources": {}, "tools": {}}
+    assert response["result"]["serverInfo"]["name"] == "ai-provider-watch"
+
+
+def test_mcp_static_resources_and_templates_are_separate() -> None:
+    listed_resources = resources()
+    listed_templates = resource_templates()
+
+    assert {item["uri"] for item in listed_resources} == set(STATIC_RESOURCE_URIS)
+    assert all("{" not in item["uri"] for item in listed_resources)
+    assert {item["uriTemplate"] for item in listed_templates} == {
+        "apw://events/{event_id}",
+        "apw://providers/{provider}/events",
+        "apw://indexes/kind/{kind}",
+    }
+    assert all(item["mimeType"] == "application/json" for item in listed_resources)
+    assert all(item["mimeType"] == "application/json" for item in listed_templates)
+
+
+def test_mcp_tool_schemas_use_json_schema_2020_12() -> None:
+    for descriptor in tools():
+        schema = descriptor["inputSchema"]
+        assert schema["$schema"] == JSON_SCHEMA_2020_12
+        assert schema["type"] == "object"
+        assert schema["additionalProperties"] is False
+
+
+def test_mcp_jsonrpc_resource_template_and_error_shapes() -> None:
+    templates_response = _handle_jsonrpc(
+        {"jsonrpc": "2.0", "id": 1, "method": "resources/templates/list"}
+    )
+    missing_resource = _handle_jsonrpc(
+        {
+            "jsonrpc": "2.0",
+            "id": 2,
+            "method": "resources/read",
+            "params": {"uri": "apw://events/not-a-real-event"},
+        }
+    )
+    bad_tool = _handle_jsonrpc(
+        {
+            "jsonrpc": "2.0",
+            "id": 3,
+            "method": "tools/call",
+            "params": {"name": "apw_publish_event", "arguments": {}},
+        }
+    )
+    unknown_method = _handle_jsonrpc({"jsonrpc": "2.0", "id": 4, "method": "events/write"})
+
+    assert templates_response is not None
+    assert "resourceTemplates" in templates_response["result"]
+    assert missing_resource is not None
+    assert missing_resource["error"]["code"] == -32002
+    assert missing_resource["error"]["data"] == {"uri": "apw://events/not-a-real-event"}
+    assert bad_tool is not None
+    assert bad_tool["error"]["code"] == -32602
+    assert unknown_method is not None
+    assert unknown_method["error"]["code"] == -32601
 
 
 def test_mcp_reads_latest_event_and_indexes() -> None:

@@ -6,13 +6,19 @@ from importlib import import_module
 from typing import Any
 
 __all__ = [
+    "JSON_SCHEMA_2020_12",
+    "MCP_CAPABILITIES",
+    "MCP_PROTOCOL_VERSION",
     "RESOURCE_URIS",
+    "STATIC_RESOURCE_URIS",
+    "RESOURCE_TEMPLATE_URIS",
     "TOOL_NAMES",
     "McpContent",
     "assert_read_only_contract",
     "call_tool",
     "check_repo_models",
     "read_resource",
+    "resource_templates",
     "resources",
     "tools",
     "validate_event",

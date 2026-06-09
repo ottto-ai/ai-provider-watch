@@ -54,9 +54,10 @@ def test_mcp_stdio_server_lists_tools_and_reads_latest_resource() -> None:
     request_lines = [
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
         {"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}},
+        {"jsonrpc": "2.0", "id": 3, "method": "resources/templates/list", "params": {}},
         {
             "jsonrpc": "2.0",
-            "id": 3,
+            "id": 4,
             "method": "resources/read",
             "params": {"uri": "apw://events/latest"},
         },
@@ -74,7 +75,10 @@ def test_mcp_stdio_server_lists_tools_and_reads_latest_resource() -> None:
     assert result.returncode == 0
     responses = [json.loads(line) for line in result.stdout.splitlines()]
     assert responses[0]["result"]["serverInfo"]["name"] == "ai-provider-watch"
+    assert responses[0]["result"]["protocolVersion"] == "2025-11-25"
     tool_names = {tool["name"] for tool in responses[1]["result"]["tools"]}
     assert "apw_latest" in tool_names
-    latest_text = responses[2]["result"]["contents"][0]["text"]
+    template_uris = {item["uriTemplate"] for item in responses[2]["result"]["resourceTemplates"]}
+    assert "apw://events/{event_id}" in template_uris
+    latest_text = responses[3]["result"]["contents"][0]["text"]
     assert "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells" in latest_text
