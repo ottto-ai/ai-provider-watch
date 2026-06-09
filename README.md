@@ -138,7 +138,8 @@ schemas, docs, tests, and tooling are Apache-2.0.
   notifications, and ecosystem mappings.
 - JSON Schemas for events, sources, candidates, observations, releases,
   JSON Feed, feed freshness, source coverage, release verification, webhooks,
-  Slack-style payloads, ecosystem mappings, and LLM review packets.
+  Slack-style payloads, ecosystem mappings, adoption scenarios, and LLM review
+  packets.
 - Official-source descriptors for OpenAI, Anthropic, Google Gemini / Vertex AI,
   AWS Bedrock, and Azure OpenAI.
 - Review-only source candidates that help maintainers notice provider changes
@@ -229,6 +230,7 @@ See:
 - [Downstream GitHub Action](docs/integrations/github-action.md)
 - [Webhook And Slack Payloads](docs/integrations/webhooks.md)
 - [Ecosystem Mappings](docs/integrations/ecosystem-mappings.md)
+- [Adoption Scenarios](docs/integrations/adoption-scenarios.md)
 - [Read-Only MCP Contract](docs/operations/mcp.md)
 - [Codex Plugin](docs/operations/codex-plugin.md)
 

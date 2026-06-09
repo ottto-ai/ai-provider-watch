@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/adoption-scenarios.schema.json",
+  "title": "AdoptionScenarios",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "scenarios"],
+  "properties": {
+    "schema_version": { "const": "apw.adoption_scenarios.v0" },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "audiences",
+          "use_cases",
+          "docs",
+          "command",
+          "expected",
+          "credentials_required",
+          "network_required",
+          "write_scope",
+          "untrusted_input_policy"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "title": { "type": "string", "minLength": 1 },
+          "audiences": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "use_cases": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "docs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "command": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary", "argv"],
+            "properties": {
+              "summary": { "type": "string", "minLength": 1 },
+              "argv": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "normalizers": {
+                "type": "array",
+                "items": { "enum": ["repo_path"] }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["fixture", "schema"],
+            "properties": {
+              "fixture": { "type": "string", "minLength": 1 },
+              "schema": { "type": "string", "minLength": 1 }
+            }
+          },
+          "credentials_required": { "type": "boolean" },
+          "network_required": { "type": "boolean" },
+          "write_scope": { "enum": ["stdout_only", "local_output_only"] },
+          "untrusted_input_policy": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}
