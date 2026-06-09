@@ -1,10 +1,10 @@
 {
   "artifacts": [
     {
-      "bytes": 16985,
+      "bytes": 16739,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "8e9ac9d0cf50c6ecd1eb0465662fc28128b1b0b8ede3b28a46a6961f741e0733"
+      "sha256": "67b4c30ad152a2272cf7ec67d48e241f91344c72bb4e25b56e2c4536b5852dc8"
     },
     {
       "bytes": 92194,
@@ -28,7 +28,7 @@
       "bytes": 5465,
       "media_type": "application/json",
       "path": "data/feeds/freshness.json",
-      "sha256": "c9d7f11059f3f88cee667bd496a2f38f78f51d85da0c1656f3a5b34944a0b975"
+      "sha256": "09c368d1d6cc046158a83b45f46d51fd7956baea8f95582b7f331fdb4a9b26e3"
     },
     {
       "bytes": 10421,
@@ -142,15 +142,15 @@
       "bytes": 2292,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "6e3448d492bbcaf1a879571229b17af52bb41aa8ef83b35b8b1e1dd2fcb65478"
+      "sha256": "d838f946cec23f1a2b01a7d1e0336076a10dab031f9fdbc7f0b160e87b68b225"
     }
   ],
   "checksums": {
-    "data/feeds/coverage.json": "8e9ac9d0cf50c6ecd1eb0465662fc28128b1b0b8ede3b28a46a6961f741e0733",
+    "data/feeds/coverage.json": "67b4c30ad152a2272cf7ec67d48e241f91344c72bb4e25b56e2c4536b5852dc8",
     "data/feeds/events.json": "cc6b68486d1de0cb55b52003075e6a291199427997bf8c64c000843ec6491403",
     "data/feeds/events.ndjson": "3c7999e12c6412a67d61d82938e7fabe64c103365cd9887b62d9d75db7f63e0f",
     "data/feeds/feed.json": "6f480d02c8b00ec5dd6b67e289d571fb31238fa215dec6c8b183c28d40086a5c",
-    "data/feeds/freshness.json": "c9d7f11059f3f88cee667bd496a2f38f78f51d85da0c1656f3a5b34944a0b975",
+    "data/feeds/freshness.json": "09c368d1d6cc046158a83b45f46d51fd7956baea8f95582b7f331fdb4a9b26e3",
     "data/feeds/latest.json": "cd9805ed11956e7a3fbb5eed0567fb44821a2d2c8ad39b60b43539bff13ac75d",
     "data/feeds/rss.xml": "8f3ef6bd754c75b4744c22ad04a88dc9579849021821fb00dbda177407c75a71",
     "data/indexes/kind/api_contract_change.json": "27ac7355b352611a20373480da604e19166b805a601444ced54d06cf6e98e5b9",
@@ -169,7 +169,7 @@
     "data/indexes/severity/high.json": "f1293caca386f1cbfa0179379aa55b5cf1200e8db2f80704fc6bb2f5d2feeda4",
     "data/indexes/severity/low.json": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b",
     "data/indexes/severity/medium.json": "2cf6a93707850faf4816ad27ca34436c17e3d3ae81c9714a788b084a2b928090",
-    "data/releases/dev/checksums.txt": "6e3448d492bbcaf1a879571229b17af52bb41aa8ef83b35b8b1e1dd2fcb65478"
+    "data/releases/dev/checksums.txt": "d838f946cec23f1a2b01a7d1e0336076a10dab031f9fdbc7f0b160e87b68b225"
   },
   "created_at": "2026-06-08T11:04:15Z",
   "generated_by": "ai-provider-watch 0.1.1",

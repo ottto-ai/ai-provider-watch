@@ -40,14 +40,15 @@
       "source_count": 3
     },
     {
-      "blocked_pending_parser_source_count": 1,
+      "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 2,
-      "enabled_deterministic_source_count": 3,
+      "enabled_deterministic_source_count": 4,
       "fetched_enabled_source_count": 2,
       "latest_event_date": "2026-06-01",
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [
-        "google.gemini_changelog"
+        "google.gemini_changelog",
+        "google.vertex_model_versions"
       ],
       "provider_ref": "provider:google",
       "reviewed_event_count": 7,
@@ -68,13 +69,14 @@
       "source_count": 3
     },
     {
-      "blocked_pending_parser_source_count": 1,
+      "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 2,
-      "enabled_deterministic_source_count": 3,
+      "enabled_deterministic_source_count": 4,
       "fetched_enabled_source_count": 2,
       "latest_event_date": "2026-05-01",
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [
+        "azure_openai.legacy_models",
         "azure_openai.whats_new"
       ],
       "provider_ref": "provider:azure-openai",
@@ -232,13 +234,11 @@
     },
     {
       "authority": "official_docs",
-      "automation_status": "blocked_pending_parser",
+      "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "blocked_pending_parser",
-      "enabled": false,
-      "graduation_blockers": [
-        "needs maintainer live-smoke proof that the redirected Microsoft Learn page still exposes a bounded Azure OpenAI section before unattended refresh"
-      ],
+      "coverage_status": "enabled_missing_source_state",
+      "enabled": true,
+      "graduation_blockers": [],
       "key": "azure_openai.legacy_models",
       "parser": "azure_openai_legacy_models",
       "parser_fixture_count": 1,
@@ -334,13 +334,11 @@
     },
     {
       "authority": "official_docs",
-      "automation_status": "blocked_pending_parser",
+      "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "blocked_pending_parser",
-      "enabled": false,
-      "graduation_blockers": [
-        "needs live source-review smoke proving heading-range scope and current model-version tables remain bounded before unattended refresh"
-      ],
+      "coverage_status": "enabled_missing_source_state",
+      "enabled": true,
+      "graduation_blockers": [],
       "key": "google.vertex_model_versions",
       "parser": "google_vertex_model_versions",
       "parser_fixture_count": 1,
@@ -479,14 +477,14 @@
     }
   ],
   "summary": {
-    "blocked_pending_parser_source_count": 2,
+    "blocked_pending_parser_source_count": 0,
     "candidate_backlog_count": 9,
-    "enabled_deterministic_source_count": 16,
+    "enabled_deterministic_source_count": 18,
     "fetched_enabled_source_count": 10,
-    "fetched_enabled_source_ratio": 0.625,
+    "fetched_enabled_source_ratio": 0.5556,
     "latest_event_date": "2026-06-05",
     "manual_review_only_source_count": 1,
-    "missing_enabled_source_count": 6,
+    "missing_enabled_source_count": 8,
     "provider_count": 5,
     "reviewed_event_count": 28,
     "source_count": 19,
@@ -508,10 +506,10 @@
       "source_key": "aws_bedrock.whats_new"
     },
     {
-      "code": "blocked_official_source",
-      "detail": "official source is registered but blocked until parser fixtures prove concrete deltas",
+      "code": "enabled_source_missing_source_state",
+      "detail": "enabled deterministic source has no source-state fingerprint",
       "provider_ref": "provider:azure-openai",
-      "severity": "info",
+      "severity": "warning",
       "source_key": "azure_openai.legacy_models"
     },
     {
@@ -529,10 +527,10 @@
       "source_key": "google.gemini_changelog"
     },
     {
-      "code": "blocked_official_source",
-      "detail": "official source is registered but blocked until parser fixtures prove concrete deltas",
+      "code": "enabled_source_missing_source_state",
+      "detail": "enabled deterministic source has no source-state fingerprint",
       "provider_ref": "provider:google",
-      "severity": "info",
+      "severity": "warning",
       "source_key": "google.vertex_model_versions"
     },
     {

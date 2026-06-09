@@ -90,7 +90,7 @@ def test_source_packages_validate() -> None:
 
 def test_source_registry_loads_enabled_sources() -> None:
     sources = load_source_descriptors(ROOT)
-    assert len(sources) == 16
+    assert len(sources) == 18
     assert [source.key for source in sources] == sorted(source.key for source in sources)
     assert "anthropic.pricing" in {source.key for source in sources}
 
@@ -102,17 +102,16 @@ def test_source_registry_declares_graduation_posture() -> None:
     blocked = {source.key for source in sources if source.automation_status == "blocked_pending_parser"}
     manual_only = {source.key for source in sources if source.automation_status == "manual_review_only"}
 
-    assert len(enabled) == 16
-    assert blocked == {
-        "azure_openai.legacy_models",
-        "google.vertex_model_versions",
-    }
+    assert len(enabled) == 18
+    assert blocked == set()
     assert manual_only == {"openai.codex_docs"}
     assert {
         "anthropic.news",
         "aws_bedrock.whats_new",
+        "azure_openai.legacy_models",
         "azure_openai.whats_new",
         "google.gemini_changelog",
+        "google.vertex_model_versions",
         "openai.deprecations",
         "openai.news",
     } <= enabled
@@ -124,11 +123,11 @@ def test_source_registry_declares_graduation_posture() -> None:
             assert source.graduation_blockers
 
 
-def test_blocked_lifecycle_sources_declare_content_scope() -> None:
+def test_lifecycle_sources_are_enabled_and_scoped() -> None:
     sources = {
         source.key: source
         for source in load_source_descriptors(ROOT, enabled_only=False)
-        if source.automation_status == "blocked_pending_parser"
+        if source.key in {"azure_openai.legacy_models", "google.vertex_model_versions"}
     }
 
     assert set(sources) == {
@@ -136,6 +135,9 @@ def test_blocked_lifecycle_sources_declare_content_scope() -> None:
         "google.vertex_model_versions",
     }
     for source in sources.values():
+        assert source.enabled is True
+        assert source.automation_status == "enabled_deterministic"
+        assert source.graduation_blockers == []
         assert source.content_scope is not None
         assert source.content_scope["kind"] == "html_heading_range"
         assert source.content_scope["start_heading"]
@@ -212,10 +214,14 @@ def test_changed_enabled_sources_emit_sanitized_candidate_claims() -> None:
             changed=True,
         )
 
-        if source.parser in {"openai_deprecations"}:
+        if source.parser in {
+            "azure_openai_legacy_models",
+            "google_vertex_model_versions",
+            "openai_deprecations",
+        }:
             assert parsed.candidate_claims == []
             assert parsed.raw_excerpt_hashes == []
-            assert parsed.errors == ["content_scope start heading not found: Deprecations"]
+            assert parsed.errors and parsed.errors[0].startswith("content_scope start heading not found:")
             continue
 
         assert len(parsed.candidate_claims) == 1

@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 
 from ai_provider_watch.cli import main
+from ai_provider_watch.source_watch.http import SourceObservation
+from ai_provider_watch.source_watch.parsers import ParsedSourcePayload
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -52,16 +54,114 @@ def test_source_coverage_outputs_json(capsys) -> None:
     coverage = json.loads(capsys.readouterr().out)
     assert coverage["schema_version"] == "apw.source_coverage.v0"
     assert coverage["summary"]["source_count"] == 19
-    assert coverage["summary"]["missing_enabled_source_count"] == 6
+    assert coverage["summary"]["missing_enabled_source_count"] == 8
     assert coverage["candidate_backlog"]["by_status"] == {"needs_review": 9}
 
 
 def test_source_coverage_summary(capsys) -> None:
     assert main(["--root", str(ROOT), "source", "coverage", "--summary"]) == 0
     output = capsys.readouterr().out
-    assert "enabled_deterministic_source_count: 16" in output
-    assert "missing_enabled_source_count: 6" in output
+    assert "enabled_deterministic_source_count: 18" in output
+    assert "missing_enabled_source_count: 8" in output
     assert "candidate_backlog_count: 9" in output
+
+
+def test_source_fetch_excludes_disabled_source_by_default(tmp_path, capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "source",
+                "fetch",
+                "--source",
+                "openai.codex_docs",
+                "--observations",
+                str(tmp_path / "observations.json"),
+            ]
+        )
+        == 0
+    )
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["source_count"] == 0
+    observations = json.loads((tmp_path / "observations.json").read_text(encoding="utf-8"))
+    assert observations["observations"] == []
+
+
+def test_source_fetch_include_disabled_is_smoke_only(tmp_path, monkeypatch, capsys) -> None:
+    def fake_fetch(source, previous_state, *, timeout, limit_bytes):
+        return SourceObservation(
+            source_key=source.key,
+            retrieved_at="2026-06-09T20:45:00Z",
+            final_url=source.url,
+            http_status=200,
+            content_type="text/html",
+            content_sha256="a" * 64,
+            fingerprint="b" * 64,
+            changed=True,
+            parsed=ParsedSourcePayload(
+                items=[],
+                raw_excerpt_hashes=[],
+                candidate_claims=[],
+                errors=[],
+                snapshot_ref=None,
+            ),
+        )
+
+    monkeypatch.setattr("ai_provider_watch.cli.fetch_source", fake_fetch)
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "source",
+                "fetch",
+                "--include-disabled",
+                "--source",
+                "openai.codex_docs",
+                "--observations",
+                str(tmp_path / "observations.json"),
+            ]
+        )
+        == 0
+    )
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["source_count"] == 1
+    observations = json.loads((tmp_path / "observations.json").read_text(encoding="utf-8"))
+    assert observations["observations"][0]["source_key"] == "openai.codex_docs"
+
+
+def test_source_fetch_include_disabled_rejects_write_state(tmp_path, capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "source",
+                "fetch",
+                "--include-disabled",
+                "--write-state",
+                "--source",
+                "openai.codex_docs",
+                "--observations",
+                str(tmp_path / "observations.json"),
+            ]
+        )
+        == 1
+    )
+
+    captured = capsys.readouterr()
+    assert "--include-disabled is maintainer-smoke only" in captured.err
+
+
+def test_source_fetch_include_disabled_requires_source(capsys) -> None:
+    assert main(["--root", str(ROOT), "source", "fetch", "--include-disabled"]) == 1
+
+    captured = capsys.readouterr()
+    assert "--include-disabled requires at least one --source" in captured.err
 
 
 def test_release_dry_run_command(tmp_path, capsys) -> None:
