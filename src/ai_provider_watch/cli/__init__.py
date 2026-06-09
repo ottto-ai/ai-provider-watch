@@ -40,6 +40,7 @@ from ai_provider_watch.pipeline.release import (
     build_release_publication_packet,
     parse_release_date,
     run_release_dry_run,
+    verify_release_artifacts,
 )
 from ai_provider_watch.pipeline.repo_impact import repo_impact_report
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
@@ -652,6 +653,23 @@ def cmd_release_packet(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_release_verify(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    result = verify_release_artifacts(
+        root,
+        dry_run_report_path=_path_from_root(root, args.dry_run_report),
+        publication_packet_path=_path_from_root(root, args.publication_packet)
+        if args.publication_packet
+        else None,
+        artifacts_root=_path_from_root(root, args.artifacts_root) if args.artifacts_root else None,
+        expected_release_id=args.release_id,
+        expected_source_commit=args.source_commit,
+        require_publish_packet=args.require_publish_packet,
+    )
+    _write_or_print(root, result.report, args.output)
+    return 0 if not result.failed_checks else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="apw")
     parser.add_argument("--root", help="APW repository root")
@@ -892,6 +910,25 @@ def build_parser() -> argparse.ArgumentParser:
     release_packet_parser.add_argument("--skip-reason")
     release_packet_parser.add_argument("--output", help="write JSON payload to this path instead of stdout")
     release_packet_parser.set_defaults(func=cmd_release_packet)
+    release_verify_parser = release_subparsers.add_parser(
+        "verify",
+        help="verify a release dry-run artifact set and optional publication packet without publishing",
+    )
+    release_verify_parser.add_argument("--dry-run-report", required=True)
+    release_verify_parser.add_argument("--publication-packet")
+    release_verify_parser.add_argument(
+        "--artifacts-root",
+        help="release artifacts root; defaults to the dry-run report sibling artifacts directory",
+    )
+    release_verify_parser.add_argument("--release-id", help="expected data-YYYY.MM.DD release id")
+    release_verify_parser.add_argument("--source-commit", help="expected 40-character source commit SHA")
+    release_verify_parser.add_argument(
+        "--require-publish-packet",
+        action="store_true",
+        help="fail unless --publication-packet is a publish packet with reviewed events",
+    )
+    release_verify_parser.add_argument("--output", help="write JSON verification report to this path instead of stdout")
+    release_verify_parser.set_defaults(func=cmd_release_verify)
     return parser
 
 

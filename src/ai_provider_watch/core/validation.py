@@ -38,6 +38,7 @@ SCHEMA_FILES = {
     "release_manifest": "release-manifest.schema.json",
     "release_dry_run": "release-dry-run.schema.json",
     "release_publication_packet": "release-publication-packet.schema.json",
+    "release_verification": "release-verification.schema.json",
 }
 
 DETAIL_BY_EVENT_KIND = {

@@ -46,6 +46,7 @@ uv run apw freshness --summary
 actionlint .github/workflows/*.yml
 uv run apw release dry-run --output .apw/release-dry-run --require-clean
 uv run apw release packet --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json ...
+uv run apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json --publication-packet .apw/release-dry-run/data-YYYY.MM.DD/publication-packet.json --release-id data-YYYY.MM.DD --source-commit "$(git rev-parse HEAD)"
 ```
 
 The dry-run report checks schema validation, source fixtures, source coverage,
@@ -53,6 +54,12 @@ generated feed freshness, CalVer manifest schema, checksums, license layout,
 dependency lock presence, CodeQL workflow posture, Dependency Review posture,
 release workflow attestation guardrails, the source-refresh token boundary,
 source ownership, and maintainer release docs.
+
+`apw release verify` rechecks the dry-run report, local release artifacts,
+manifest/checksum integrity, optional publication packet linkage, reviewed event
+IDs, signing tag, release ID, and source commit before a release manager signs.
+It is local and read-only; external GitHub, PyPI, and attestation verification
+commands remain separate required gates.
 
 ## Required External Gates
 

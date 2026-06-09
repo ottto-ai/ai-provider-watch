@@ -141,6 +141,16 @@ jobs:
             --release-date "$release_date" \
             --output .apw/data-publisher-noop \
             --require-clean
+      - name: Verify publisher dry-run evidence
+        run: |
+          report=".apw/data-publisher-noop/$APW_RELEASE_ID/dry-run-report.json"
+          verification=".apw/data-publisher-noop/$APW_RELEASE_ID/release-verification.json"
+          uv run apw release verify \
+            --dry-run-report "$report" \
+            --release-id "$APW_RELEASE_ID" \
+            --source-commit "$GITHUB_SHA" \
+            --output "$verification"
+          echo "APW_RELEASE_VERIFICATION=$verification" >> "$GITHUB_ENV"
       - name: Render publication packet
         if: inputs.publish_mode == 'packet'
         env:
@@ -223,6 +233,27 @@ jobs:
 
           uv run apw "${args[@]}"
           echo "APW_PUBLICATION_PACKET=$packet" >> "$GITHUB_ENV"
+      - name: Verify publication packet evidence
+        if: inputs.publish_mode == 'packet'
+        env:
+          ALLOW_NO_REVIEWED_EVENTS: ${{ inputs.allow_no_reviewed_events }}
+        run: |
+          report=".apw/data-publisher-noop/$APW_RELEASE_ID/dry-run-report.json"
+          packet=".apw/data-publisher-noop/$APW_RELEASE_ID/publication-packet.json"
+          verification=".apw/data-publisher-noop/$APW_RELEASE_ID/release-verification.json"
+          args=(
+            release
+            verify
+            --dry-run-report "$report"
+            --publication-packet "$packet"
+            --release-id "$APW_RELEASE_ID"
+            --source-commit "$GITHUB_SHA"
+            --output "$verification"
+          )
+          if [ "$ALLOW_NO_REVIEWED_EVENTS" != "true" ]; then
+            args+=(--require-publish-packet)
+          fi
+          uv run apw "${args[@]}"
       - name: Upload publication packet evidence
         if: inputs.publish_mode == 'packet'
         uses: actions/upload-artifact@v7
@@ -231,6 +262,7 @@ jobs:
           path: |
             .apw/data-publisher-noop/${{ env.APW_RELEASE_ID }}/dry-run-report.json
             .apw/data-publisher-noop/${{ env.APW_RELEASE_ID }}/publication-packet.json
+            .apw/data-publisher-noop/${{ env.APW_RELEASE_ID }}/release-verification.json
           if-no-files-found: error
       - name: Write publisher summary
         run: |
@@ -240,6 +272,7 @@ jobs:
             echo "- Release date: $APW_RELEASE_DATE"
             echo "- Mode: ${{ inputs.publish_mode }}"
             echo "- Result: no data tag or GitHub data release was created."
+            echo "- Verification: $APW_RELEASE_VERIFICATION"
             if [ "${{ inputs.publish_mode }}" = "packet" ]; then
               echo "- Packet: $APW_PUBLICATION_PACKET"
               echo "- Result: publication packet was rendered and uploaded as review evidence only."

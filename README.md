@@ -76,6 +76,12 @@ apw freshness --summary
 apw source coverage --summary
 ```
 
+Verify a local release dry-run evidence bundle without publishing:
+
+```bash
+apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json
+```
+
 ## Feed Artifacts
 
 The canonical reviewed events live in `data/events/`. Generated feed artifacts
@@ -128,11 +134,11 @@ schemas, docs, tests, and tooling are Apache-2.0.
 - A typed `ProviderEvent` envelope with precise event details and repeatable
   impact rows.
 - A CLI for validation, indexing, latest events, diffs, explanations, release
-  dry runs, source checks, candidate generation, repo impact checks,
+  dry runs, release verification, source checks, candidate generation, repo impact checks,
   notifications, and ecosystem mappings.
 - JSON Schemas for events, sources, candidates, observations, releases,
-  JSON Feed, feed freshness, source coverage, webhooks, Slack-style payloads,
-  ecosystem mappings, and LLM review packets.
+  JSON Feed, feed freshness, source coverage, release verification, webhooks,
+  Slack-style payloads, ecosystem mappings, and LLM review packets.
 - Official-source descriptors for OpenAI, Anthropic, Google Gemini / Vertex AI,
   AWS Bedrock, and Azure OpenAI.
 - Review-only source candidates that help maintainers notice provider changes

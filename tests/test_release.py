@@ -15,6 +15,7 @@ from ai_provider_watch.pipeline.release import (
     calver_release_id,
     parse_release_id_date,
     run_release_dry_run,
+    verify_release_artifacts,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -140,6 +141,77 @@ def test_release_publication_packet_requires_reviewed_inputs(tmp_path) -> None:
     assert packet["signing"]["tag_name"] == "data-2026.06.01"
     assert packet["token_boundary"]["publisher_workflow_mode"] == "protected_main_noop_or_packet_only"
     assert packet["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
+
+
+def test_release_verify_checks_dry_run_artifacts(tmp_path) -> None:
+    dry_run = run_release_dry_run(
+        ROOT,
+        release_date=date(2026, 6, 1),
+        output_dir=tmp_path,
+        source_commit=DUMMY_SHA,
+    )
+
+    result = verify_release_artifacts(
+        ROOT,
+        dry_run_report_path=dry_run.report_path,
+        expected_release_id="data-2026.06.01",
+        expected_source_commit=DUMMY_SHA,
+    )
+
+    assert result.failed_checks == []
+    assert result.report["verified"] is True
+    assert result.report["release_id"] == "data-2026.06.01"
+    assert {check["name"] for check in result.report["checks"]} >= {
+        "dry_run_report_schema",
+        "dry_run_report_checks",
+        "release_artifact_files",
+        "release_manifest_and_checksums",
+        "publication_packet",
+    }
+    assert any(artifact["path"] == "data/feeds/feed.json" for artifact in result.report["verified_artifacts"])
+
+
+def test_release_verify_checks_publication_packet(tmp_path) -> None:
+    dry_run = run_release_dry_run(
+        ROOT,
+        release_date=date(2026, 6, 1),
+        output_dir=tmp_path,
+        source_commit=DUMMY_SHA,
+    )
+    packet = build_release_publication_packet(
+        ROOT,
+        **_packet_kwargs(dry_run.report_path),
+        reviewed_event_ids=[REVIEWED_EVENT_ID],
+    )
+    packet_path = tmp_path / "publication-packet.json"
+    packet_path.write_text(json.dumps(packet), encoding="utf-8")
+
+    result = verify_release_artifacts(
+        ROOT,
+        dry_run_report_path=dry_run.report_path,
+        publication_packet_path=packet_path,
+        require_publish_packet=True,
+    )
+
+    assert result.failed_checks == []
+    assert result.report["publication_packet_path"].endswith("publication-packet.json")
+    assert result.report["verified"] is True
+
+
+def test_release_verify_detects_tampered_artifact(tmp_path) -> None:
+    dry_run = run_release_dry_run(
+        ROOT,
+        release_date=date(2026, 6, 1),
+        output_dir=tmp_path,
+        source_commit=DUMMY_SHA,
+    )
+    events_path = dry_run.output_dir / "artifacts" / "data" / "feeds" / "events.json"
+    events_path.write_text("[]\n", encoding="utf-8")
+
+    result = verify_release_artifacts(ROOT, dry_run_report_path=dry_run.report_path)
+
+    assert result.report["verified"] is False
+    assert any(check.name == "release_artifact_files" for check in result.failed_checks)
 
 
 def test_release_publication_packet_supports_no_event_skip_packet(tmp_path) -> None:

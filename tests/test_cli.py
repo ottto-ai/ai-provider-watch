@@ -149,3 +149,47 @@ def test_release_packet_command(tmp_path, capsys) -> None:
     assert packet["schema_version"] == "apw.release_publication_packet.v0"
     assert packet["publication_decision"] == "publish"
     assert packet["signing"]["tag_name"] == "data-2026.06.01"
+
+
+def test_release_verify_command(tmp_path, capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "dry-run",
+                "--release-date",
+                "2026-06-01",
+                "--source-commit",
+                "0123456789abcdef0123456789abcdef01234567",
+                "--output",
+                str(tmp_path / "dry-run"),
+            ]
+        )
+        == 0
+    )
+    capsys.readouterr()
+
+    report_path = tmp_path / "dry-run" / "data-2026.06.01" / "dry-run-report.json"
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "verify",
+                "--dry-run-report",
+                str(report_path),
+                "--release-id",
+                "data-2026.06.01",
+                "--source-commit",
+                "0123456789abcdef0123456789abcdef01234567",
+            ]
+        )
+        == 0
+    )
+    verification = json.loads(capsys.readouterr().out)
+    assert verification["schema_version"] == "apw.release_verification.v0"
+    assert verification["verified"] is True
+    assert any(artifact["path"] == "data/feeds/feed.json" for artifact in verification["verified_artifacts"])

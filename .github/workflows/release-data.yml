@@ -50,6 +50,11 @@ jobs:
             --release-date "$(date -u +%F)" \
             --output .apw/release-dry-run \
             --require-clean
+          release_id="data-$(date -u +%Y.%m.%d)"
+          apw --root "$PWD" release verify \
+            --dry-run-report ".apw/release-dry-run/${release_id}/dry-run-report.json" \
+            --release-id "$release_id" \
+            --source-commit "$(git rev-parse HEAD)"
       - name: Package dry-run evidence bundle
         run: |
           tar \
