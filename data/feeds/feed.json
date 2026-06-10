@@ -85,6 +85,136 @@
         "confidence": "confirmed",
         "effective_at": "2026-06-09T00:00:00Z",
         "event_date": "2026-06-09",
+        "event_id": "2026-06-09-anthropic-fable-5-token-accounting-retention",
+        "event_kind": "token_accounting_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+            "selector": "heading:june-9-2026",
+            "snapshot_ref": "section:june-9-2026",
+            "source_key": "anthropic.release_notes",
+            "url": "https://platform.claude.com/docs/en/release-notes/overview#june-9-2026"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "cost",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "compliance",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records provider-stated accounting semantics, not measured invoice deltas.",
+          "No raw release-note body is copied into the event."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Anthropic's June 9 Claude Platform release notes say Claude Fable 5 uses the Opus 4.7 tokenizer family, adds refusal and fallback handling semantics, and requires 30-day data retention on the Claude API.\n\nKind: token_accounting_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-10T19:08:00Z",
+      "date_published": "2026-06-10T19:08:00Z",
+      "external_url": "https://platform.claude.com/docs/en/release-notes/overview#june-9-2026",
+      "id": "2026-06-09-anthropic-fable-5-token-accounting-retention",
+      "summary": "Anthropic's June 9 Claude Platform release notes say Claude Fable 5 uses the Opus 4.7 tokenizer family, adds refusal and fallback handling semantics, and requires 30-day data retention on the Claude API.",
+      "tags": [
+        "impact:token_accounting_change",
+        "provider:anthropic",
+        "severity:high",
+        "source:official_docs",
+        "surface:anthropic_api",
+        "token_accounting_change"
+      ],
+      "title": "Anthropic Listed Fable 5 Tokenizer, Fallback Billing, And Retention Constraints",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-09-anthropic-fable-5-token-accounting-retention.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-09T00:00:00Z",
+        "event_date": "2026-06-09",
+        "event_id": "2026-06-09-anthropic-claude-fable-5-api-launch",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+            "selector": "heading:june-9-2026",
+            "snapshot_ref": "section:june-9-2026",
+            "source_key": "anthropic.release_notes",
+            "url": "https://platform.claude.com/docs/en/release-notes/overview#june-9-2026"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "quota",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The reviewed source page is client-rendered; APW stores only the URL, selector, snapshot hash, and factual normalized metadata.",
+          "Model access, price, and rate limits may vary by account or platform contract."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Anthropic's Claude Platform release notes list Claude Fable 5 on the Claude API with the claude-fable-5 model id, a default 1M token context window, 128k maximum output tokens, and always-on adaptive thinking.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-10T19:08:00Z",
+      "date_published": "2026-06-10T19:08:00Z",
+      "external_url": "https://platform.claude.com/docs/en/release-notes/overview#june-9-2026",
+      "id": "2026-06-09-anthropic-claude-fable-5-api-launch",
+      "summary": "Anthropic's Claude Platform release notes list Claude Fable 5 on the Claude API with the claude-fable-5 model id, a default 1M token context window, 128k maximum output tokens, and always-on adaptive thinking.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:anthropic",
+        "severity:high",
+        "source:official_docs",
+        "surface:anthropic_api"
+      ],
+      "title": "Anthropic Launched Claude Fable 5 On The Claude API",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-09-anthropic-claude-fable-5-api-launch.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-09T00:00:00Z",
+        "event_date": "2026-06-09",
         "event_id": "2026-06-09-aws-bedrock-claude-fable-5-availability",
         "event_kind": "model_launch",
         "evidence_refs": [
@@ -144,6 +274,63 @@
       ],
       "title": "AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-09-aws-bedrock-claude-fable-5-availability.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": null,
+        "event_date": "2026-06-05",
+        "event_id": "2026-06-05-anthropic-opus-41-api-retirement",
+        "event_kind": "model_retirement",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+            "selector": "heading:june-5-2026",
+            "snapshot_ref": "section:june-5-2026",
+            "source_key": "anthropic.release_notes",
+            "url": "https://platform.claude.com/docs/en/release-notes/overview#june-5-2026"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "removed",
+            "impact_kind": "migration",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "This event records the Claude API retirement signal only; cloud-provider hosted availability can have separate lifecycle notices.",
+          "No provider release-note body is copied into APW."
+        ],
+        "migration_deadline": "2026-08-05T00:00:00Z",
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Anthropic's Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.\n\nKind: model_retirement\nSeverity: high\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-10T19:08:00Z",
+      "date_published": "2026-06-10T19:08:00Z",
+      "external_url": "https://platform.claude.com/docs/en/release-notes/overview#june-5-2026",
+      "id": "2026-06-05-anthropic-opus-41-api-retirement",
+      "summary": "Anthropic's Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.",
+      "tags": [
+        "impact:model_retirement",
+        "model_retirement",
+        "provider:anthropic",
+        "severity:high",
+        "source:official_docs",
+        "surface:anthropic_api"
+      ],
+      "title": "Anthropic Scheduled Claude Opus 4.1 API Retirement For August 2026",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-05-anthropic-opus-41-api-retirement.json"
     },
     {
       "_apw": {
@@ -633,6 +820,71 @@
       ],
       "title": "Anthropic Reported Degraded Claude Code Services",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-03-anthropic-claude-code-services-degraded.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-02T00:00:00Z",
+        "event_date": "2026-06-02",
+        "event_id": "2026-06-02-anthropic-tool-max-tokens-refusal-billing",
+        "event_kind": "token_accounting_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+            "selector": "heading:june-2-2026",
+            "snapshot_ref": "section:june-2-2026",
+            "source_key": "anthropic.release_notes",
+            "url": "https://platform.claude.com/docs/en/release-notes/overview#june-2-2026"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "decrease",
+            "impact_kind": "cost",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "low"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records provider-stated billing behavior and does not reconcile invoices.",
+          "No raw release-note text is committed."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Anthropic's June 2 Claude Platform release notes list a tool-level max_tokens cap for output control and state that no-output refusal responses on the Claude API are no longer billed.\n\nKind: token_accounting_change\nSeverity: medium\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-10T19:08:00Z",
+      "date_published": "2026-06-10T19:08:00Z",
+      "external_url": "https://platform.claude.com/docs/en/release-notes/overview#june-2-2026",
+      "id": "2026-06-02-anthropic-tool-max-tokens-refusal-billing",
+      "summary": "Anthropic's June 2 Claude Platform release notes list a tool-level max_tokens cap for output control and state that no-output refusal responses on the Claude API are no longer billed.",
+      "tags": [
+        "impact:token_accounting_change",
+        "provider:anthropic",
+        "severity:medium",
+        "source:official_docs",
+        "surface:anthropic_api",
+        "token_accounting_change"
+      ],
+      "title": "Anthropic Added Tool max_tokens And No-Output Refusal Billing Relief",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-02-anthropic-tool-max-tokens-refusal-billing.json"
     },
     {
       "_apw": {

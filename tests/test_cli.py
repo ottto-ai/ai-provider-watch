@@ -53,7 +53,7 @@ def test_source_coverage_outputs_json(capsys) -> None:
     )
     coverage = json.loads(capsys.readouterr().out)
     assert coverage["schema_version"] == "apw.source_coverage.v0"
-    assert coverage["summary"]["source_count"] == 19
+    assert coverage["summary"]["source_count"] == 20
     assert coverage["summary"]["missing_enabled_source_count"] == 0
     assert coverage["candidate_backlog"]["by_status"] == {}
 

@@ -110,7 +110,7 @@ def test_source_registry_declares_graduation_posture() -> None:
 
     assert len(enabled) == 18
     assert blocked == set()
-    assert manual_only == {"openai.codex_docs"}
+    assert manual_only == {"anthropic.release_notes", "openai.codex_docs"}
     assert {
         "anthropic.news",
         "aws_bedrock.whats_new",

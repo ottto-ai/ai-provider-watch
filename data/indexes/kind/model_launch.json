@@ -7,6 +7,95 @@
       "deadline": null,
       "kind": "model_lifecycle",
       "lifecycle_action": "launch",
+      "migration_notes": "This event records Claude API availability and listed model limits. APW does not assert account eligibility, effective per-account quotas, pricing, or quality fit without separate review.",
+      "model_refs": [
+        "model:anthropic/claude-fable-5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+        "license_note": "Official release notes reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T19:08:00Z",
+        "selector": "heading:june-9-2026",
+        "snapshot_ref": "section:june-9-2026",
+        "source_key": "anthropic.release_notes",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview#june-9-2026"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-anthropic-claude-fable-5-api-launch",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate model access, latency, pricing, context-window behavior, and routing fallbacks before adding claude-fable-5 to production allowlists.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "quota",
+        "recommended_action": "Update max-context and max-output assumptions in gateways, SDK validators, and agent harnesses before exposing the new model to users.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "coding_agent_users",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The reviewed source page is client-rendered; APW stores only the URL, selector, snapshot hash, and factual normalized metadata.",
+      "Model access, price, and rate limits may vary by account or platform contract."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-10T19:08:00Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Anthropic's Claude Platform release notes list Claude Fable 5 on the Claude API with the claude-fable-5 model id, a default 1M token context window, 128k maximum output tokens, and always-on adaptive thinking.",
+    "tags": [
+      "source:official_docs",
+      "provider:anthropic",
+      "impact:model_launch",
+      "surface:anthropic_api"
+    ],
+    "title": "Anthropic Launched Claude Fable 5 On The Claude API"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
       "migration_notes": "This event records AWS-hosted availability. APW does not assert first-party Anthropic API availability, region coverage, exact pricing, or account eligibility.",
       "model_refs": [
         "model:anthropic/claude-fable-5"

@@ -31,7 +31,7 @@
     "retracted_or_superseded_event_count": 0,
     "target": "Document correction or retraction disposition in the next reviewed PR and release notes."
   },
-  "generated_at": "2026-06-10T16:51:44Z",
+  "generated_at": "2026-06-10T19:08:00Z",
   "generated_by": "ai-provider-watch 0.1.9",
   "overall_status": "pass",
   "package_version": "0.1.9",
@@ -60,7 +60,7 @@
       "unit": "days"
     },
     {
-      "actual": 0.0,
+      "actual": 1.46,
       "details": "Hours since the latest deterministic source-state retrieval.",
       "id": "source_state_freshness",
       "label": "Source-state freshness",
@@ -111,9 +111,9 @@
     "latest_reviewed_event_age_days": 0,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 33,
-    "source_count": 19,
-    "source_state_age_hours": 0.0,
+    "reviewed_event_count": 37,
+    "source_count": 20,
+    "source_state_age_hours": 1.46,
     "source_state_latest_retrieved_at": "2026-06-10T17:40:28Z",
     "warning_count": 0
   }

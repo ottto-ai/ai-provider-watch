@@ -21,6 +21,16 @@
     },
     {
       "text": {
+        "text": "*Anthropic Scheduled Claude Opus 4.1 API Retirement For August 2026*\n`high` `model_retirement` `2026-06-05`\nAnthropic's Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.\nRefs: provider:anthropic",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
         "text": "*Google Gemini API Shut Down Gemini 2.0 Flash Models*\n`high` `model_retirement` `2026-06-01`\nGoogle Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.\nRefs: provider:google",
         "type": "mrkdwn"
       },
@@ -55,20 +65,10 @@
         "type": "mrkdwn"
       },
       "type": "section"
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "text": {
-        "text": "*Azure OpenAI Retired 2025 Legacy And Preview Model IDs*\n`medium` `model_retirement` `2025-01-27`\nMicrosoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.\nRefs: provider:azure-openai",
-        "type": "mrkdwn"
-      },
-      "type": "section"
     }
   ],
   "delivery": {
-    "idempotency_key": "apw-slack-v0-ea49d3de52a86d1ae1ba6f26",
+    "idempotency_key": "apw-slack-v0-4b52f3a850d77ab6122c27de",
     "mode": "operator_owned",
     "requires_operator_owned_webhook_url": true,
     "retry_policy": {
@@ -88,6 +88,51 @@
   },
   "event_count": 5,
   "events": [
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [
+          "model:anthropic/claude-opus-4-1-20250805"
+        ],
+        "replacement_refs": [
+          "model:anthropic/claude-opus-4-8"
+        ]
+      },
+      "effective_at": null,
+      "event_date": "2026-06-05",
+      "event_kind": "model_retirement",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+          "retrieved_at": "2026-06-10T19:08:00Z",
+          "source_key": "anthropic.release_notes",
+          "url": "https://platform.claude.com/docs/en/release-notes/overview#june-5-2026"
+        }
+      ],
+      "id": "2026-06-05-anthropic-opus-41-api-retirement",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "removed",
+          "impact_kind": "migration",
+          "recommended_action": "Remove claude-opus-4-1-20250805 from production routing, eval baselines, fallback chains, and customer-visible model selectors before August 5, 2026.",
+          "scope_ref": "surface:anthropic/api",
+          "scope_type": "provider_surface",
+          "severity": "high"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": "2026-08-05T00:00:00Z",
+      "observed_at": "2026-06-10T19:08:00Z",
+      "provider_refs": [
+        "provider:anthropic"
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "Anthropic's Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.",
+      "title": "Anthropic Scheduled Claude Opus 4.1 API Retirement For August 2026"
+    },
     {
       "confidence": "confirmed",
       "detail_refs": {
@@ -323,74 +368,6 @@
       "source_authority": "official_docs",
       "summary": "OpenAI's deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.",
       "title": "OpenAI Scheduled Legacy GPT And Codex Snapshot Retirements For July And October 2026"
-    },
-    {
-      "confidence": "confirmed",
-      "detail_refs": {
-        "model_refs": [
-          "model:davinci-002",
-          "model:dall-e-2",
-          "model:gpt-4o-realtime-preview",
-          "model:gpt-35-turbo",
-          "model:gpt-35-turbo-16k",
-          "model:gpt-4",
-          "model:gpt-4-32k",
-          "model:gpt-4.5-preview",
-          "model:o1-preview"
-        ],
-        "replacement_refs": [
-          "model:gpt-image-1",
-          "model:gpt-4o-mini-realtime-preview",
-          "model:gpt-4o-mini",
-          "model:gpt-4.1-mini",
-          "model:gpt-4o",
-          "model:gpt-4.1",
-          "model:o1"
-        ]
-      },
-      "effective_at": "2025-01-27T00:00:00Z",
-      "event_date": "2025-01-27",
-      "event_kind": "model_retirement",
-      "evidence_refs": [
-        {
-          "authority": "official_docs",
-          "content_sha256": "bd001e951c273b452251bb4aac796a37f99602a82f888cf35ddb706de6ae5659",
-          "retrieved_at": "2026-06-10T16:51:44Z",
-          "source_key": "azure_openai.legacy_models",
-          "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models"
-        }
-      ],
-      "id": "2025-01-27-azure-openai-2025-legacy-preview-retirements",
-      "impacts": [
-        {
-          "confidence": "confirmed",
-          "direction": "removed",
-          "impact_kind": "availability",
-          "recommended_action": "Audit Azure OpenAI deployments, gateway allowlists, and agent model routes for retired 2025 model IDs before replaying old examples or restoring old fallbacks.",
-          "scope_ref": "surface:azure-openai/api",
-          "scope_type": "provider_surface",
-          "severity": "medium"
-        },
-        {
-          "confidence": "confirmed",
-          "direction": "changed",
-          "impact_kind": "migration",
-          "recommended_action": "Refresh Azure OpenAI migration notes, test fixtures, and model-selection defaults to use the listed replacement families where applicable.",
-          "scope_ref": "surface:azure-openai/api",
-          "scope_type": "provider_surface",
-          "severity": "medium"
-        }
-      ],
-      "lifecycle_status": "reviewed",
-      "migration_deadline": "2025-01-27T00:00:00Z",
-      "observed_at": "2026-06-10T16:51:44Z",
-      "provider_refs": [
-        "provider:azure-openai"
-      ],
-      "severity": "medium",
-      "source_authority": "official_docs",
-      "summary": "Microsoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.",
-      "title": "Azure OpenAI Retired 2025 Legacy And Preview Model IDs"
     }
   ],
   "filters": {

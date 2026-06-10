@@ -21,14 +21,14 @@ def test_source_coverage_report_matches_schema_and_current_gaps() -> None:
     assert report["generated_at"] == CREATED_AT
     assert report["summary"] == {
         "provider_count": 5,
-        "source_count": 19,
+        "source_count": 20,
         "enabled_deterministic_source_count": 18,
         "fetched_enabled_source_count": 18,
         "missing_enabled_source_count": 0,
         "fetched_enabled_source_ratio": 1.0,
-        "manual_review_only_source_count": 1,
+        "manual_review_only_source_count": 2,
         "blocked_pending_parser_source_count": 0,
-        "reviewed_event_count": 33,
+        "reviewed_event_count": 37,
         "latest_event_date": "2026-06-10",
         "candidate_backlog_count": 0,
         "warning_count": 0,
@@ -54,6 +54,8 @@ def test_source_coverage_reports_provider_gaps_and_blocked_sources() -> None:
     assert sources["openai.deprecations"]["parser_fixture_count"] == 1
     assert sources["openai.codex_docs"]["coverage_status"] == "manual_review_only"
     assert sources["openai.codex_docs"]["parser_fixture_count"] == 0
+    assert sources["anthropic.release_notes"]["coverage_status"] == "manual_review_only"
+    assert sources["anthropic.release_notes"]["parser_fixture_count"] == 0
     assert sources["openai.news"]["coverage_status"] == "enabled_fetched"
 
 

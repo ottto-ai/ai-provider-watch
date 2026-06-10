@@ -12,11 +12,32 @@
       <pubDate>Wed, 10 Jun 2026 10:32:49 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-09-anthropic-fable-5-token-accounting-retention</guid>
+      <title>Anthropic Listed Fable 5 Tokenizer, Fallback Billing, And Retention Constraints</title>
+      <description>Anthropic&#x27;s June 9 Claude Platform release notes say Claude Fable 5 uses the Opus 4.7 tokenizer family, adds refusal and fallback handling semantics, and requires 30-day data retention on the Claude API.</description>
+      <category>token_accounting_change</category>
+      <pubDate>Wed, 10 Jun 2026 19:08:00 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-09-anthropic-claude-fable-5-api-launch</guid>
+      <title>Anthropic Launched Claude Fable 5 On The Claude API</title>
+      <description>Anthropic&#x27;s Claude Platform release notes list Claude Fable 5 on the Claude API with the claude-fable-5 model id, a default 1M token context window, 128k maximum output tokens, and always-on adaptive thinking.</description>
+      <category>model_launch</category>
+      <pubDate>Wed, 10 Jun 2026 19:08:00 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-09-aws-bedrock-claude-fable-5-availability</guid>
       <title>AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS</title>
       <description>AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic&#x27;s long-running coding and knowledge-work model family.</description>
       <category>model_launch</category>
       <pubDate>Wed, 10 Jun 2026 10:32:32 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-05-anthropic-opus-41-api-retirement</guid>
+      <title>Anthropic Scheduled Claude Opus 4.1 API Retirement For August 2026</title>
+      <description>Anthropic&#x27;s Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.</description>
+      <category>model_retirement</category>
+      <pubDate>Wed, 10 Jun 2026 19:08:00 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells</guid>
@@ -73,6 +94,13 @@
       <description>Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.</description>
       <category>status_incident</category>
       <pubDate>Thu, 04 Jun 2026 21:19:51 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-02-anthropic-tool-max-tokens-refusal-billing</guid>
+      <title>Anthropic Added Tool max_tokens And No-Output Refusal Billing Relief</title>
+      <description>Anthropic&#x27;s June 2 Claude Platform release notes list a tool-level max_tokens cap for output control and state that no-output refusal responses on the Claude API are no longer billed.</description>
+      <category>token_accounting_change</category>
+      <pubDate>Wed, 10 Jun 2026 19:08:00 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2026-06-02-openai-gpt-image-model-deprecations</guid>
