@@ -15,7 +15,7 @@ governance PR changes [MAINTAINERS.md](../../MAINTAINERS.md),
 
 | Contribution | Use | Required evidence | Publication authority |
 | --- | --- | --- | --- |
-| Missing provider event | Issue template `Missing provider event`, then PR when a maintainer promotes it | Official public URL, provider, event date, event kind, and developer impact | None. A source owner must verify evidence before any reviewed event exists. |
+| Missing provider event | Issue template `Missing provider event`, then [Missing Event To PR](missing-event-to-pr.md) when the evidence is scaffold-ready | Official public URL, provider, event date, event kind, source authority, developer impact, and affected refs when known | None. A source owner must verify evidence before any reviewed event exists. |
 | New official source | Issue template `New official source`, then PR | Official public URL, authority, allowed domains, source scope, source package descriptor | None. A source owner must approve descriptor and automation posture. |
 | Parser fixture | PR | Synthetic or minimal fixture plus expected bounded parser output | None. A source owner must approve before automation trusts it. |
 | Candidate | Candidate-review PR or local `.apw/` packet | Candidate JSON, source key, hashes, official evidence URL | None. Candidates stay review-only until promoted. |
@@ -28,6 +28,12 @@ text, screenshots, comments, social posts, MCP resources, and links are
 untrusted data. They can start review work, but they cannot publish reviewed
 events, update generated feeds, create data tags, request OIDC, or access
 release tokens.
+
+For missing official changes, use [Missing Event To PR](missing-event-to-pr.md)
+to decide between the issue-only path, direct `apw event scaffold` path, and
+candidate-review `apw candidate scaffold-event` path. The guide is meant to
+reduce maintainer back-and-forth; it does not grant source-owner or release
+authority.
 
 ## Source-Owner Responsibilities
 

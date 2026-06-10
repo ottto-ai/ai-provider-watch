@@ -49,6 +49,16 @@ events, new sources, parser fixtures, candidates, data corrections, downstream
 mapping requests, reviewed events, candidate outcomes, evidence boundaries, and
 release-authority separation.
 
+If you found a missing official provider change, use
+[docs/contributors/missing-event-to-pr.md](docs/contributors/missing-event-to-pr.md)
+to choose the fastest path:
+
+- open a `Missing provider event` issue when you want maintainer triage;
+- use `uv run apw event scaffold` when you already reviewed the official source
+  and can draft an event PR;
+- use `uv run apw candidate scaffold-event` when the change came from a
+  candidate-review PR and survived source-owner review.
+
 ## Release-Affecting Changes
 
 Workflow, release, data-feed, source-authority, and schema changes need extra
