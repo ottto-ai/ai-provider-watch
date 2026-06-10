@@ -1,9 +1,9 @@
 {
   "candidate_backlog": {
     "by_status": {
-      "needs_review": 9
+      "needs_review": 58
     },
-    "total": 9
+    "total": 58
   },
   "contributor_quality": {
     "candidate_quality_command": "uv run apw candidate quality --candidates data/candidates/review",
@@ -35,7 +35,7 @@
   },
   "generated_at": "2026-06-08T11:04:15Z",
   "generated_by": "ai-provider-watch 0.1.4",
-  "overall_status": "fail",
+  "overall_status": "warn",
   "package_version": "0.1.4",
   "policy": {
     "private_ottto_boundary": "no private Ottto UI, Advisor, telemetry, customer data, credentials, or infrastructure required",
@@ -62,7 +62,7 @@
       "unit": "days"
     },
     {
-      "actual": 25.47,
+      "actual": 0.0,
       "details": "Hours since the latest deterministic source-state retrieval.",
       "id": "source_state_freshness",
       "label": "Source-state freshness",
@@ -71,16 +71,16 @@
       "unit": "hours"
     },
     {
-      "actual": 0.5556,
+      "actual": 1.0,
       "details": "Share of enabled deterministic sources with committed source-state fingerprints.",
       "id": "enabled_source_coverage",
       "label": "Enabled source-state coverage",
-      "status": "fail",
+      "status": "pass",
       "target": 0.8,
       "unit": "ratio"
     },
     {
-      "actual": 9,
+      "actual": 58,
       "details": "Review candidates present outside reviewed ProviderEvent data.",
       "id": "candidate_backlog",
       "label": "Review candidate backlog",
@@ -101,84 +101,28 @@
   "source_coverage": {
     "path": "data/feeds/coverage.json",
     "schema_version": "apw.source_coverage.v0",
-    "warning_count": 9,
+    "warning_count": 1,
     "warnings": [
       {
-        "code": "enabled_source_missing_source_state",
-        "detail": "enabled deterministic source has no source-state fingerprint",
-        "provider_ref": "provider:anthropic",
-        "severity": "warning",
-        "source_key": "anthropic.news"
-      },
-      {
-        "code": "enabled_source_missing_source_state",
-        "detail": "enabled deterministic source has no source-state fingerprint",
-        "provider_ref": "provider:aws-bedrock",
-        "severity": "warning",
-        "source_key": "aws_bedrock.whats_new"
-      },
-      {
-        "code": "enabled_source_missing_source_state",
-        "detail": "enabled deterministic source has no source-state fingerprint",
-        "provider_ref": "provider:azure-openai",
-        "severity": "warning",
-        "source_key": "azure_openai.legacy_models"
-      },
-      {
-        "code": "enabled_source_missing_source_state",
-        "detail": "enabled deterministic source has no source-state fingerprint",
-        "provider_ref": "provider:azure-openai",
-        "severity": "warning",
-        "source_key": "azure_openai.whats_new"
-      },
-      {
-        "code": "enabled_source_missing_source_state",
-        "detail": "enabled deterministic source has no source-state fingerprint",
-        "provider_ref": "provider:google",
-        "severity": "warning",
-        "source_key": "google.gemini_changelog"
-      },
-      {
-        "code": "enabled_source_missing_source_state",
-        "detail": "enabled deterministic source has no source-state fingerprint",
-        "provider_ref": "provider:google",
-        "severity": "warning",
-        "source_key": "google.vertex_model_versions"
-      },
-      {
-        "code": "enabled_source_missing_source_state",
-        "detail": "enabled deterministic source has no source-state fingerprint",
-        "provider_ref": "provider:openai",
-        "severity": "warning",
-        "source_key": "openai.deprecations"
-      },
-      {
-        "code": "enabled_source_missing_source_state",
-        "detail": "enabled deterministic source has no source-state fingerprint",
-        "provider_ref": "provider:openai",
-        "severity": "warning",
-        "source_key": "openai.news"
-      },
-      {
         "code": "candidate_backlog_present",
-        "detail": "9 review candidate(s) are present outside reviewed events",
+        "detail": "58 review candidate(s) are present outside reviewed events",
         "severity": "info"
       }
     ]
   },
   "summary": {
-    "candidate_backlog_count": 9,
+    "candidate_backlog_count": 58,
     "enabled_deterministic_source_count": 18,
-    "enabled_source_coverage_ratio": 0.5556,
-    "fetched_enabled_source_count": 10,
+    "enabled_source_coverage_ratio": 1.0,
+    "fetched_enabled_source_count": 18,
     "latest_event_date": "2026-06-05",
     "latest_reviewed_event_age_days": 3,
-    "missing_enabled_source_count": 8,
+    "missing_enabled_source_count": 0,
     "provider_count": 5,
     "reviewed_event_count": 28,
     "source_count": 19,
-    "source_state_age_hours": 25.47,
-    "source_state_latest_retrieved_at": "2026-06-07T09:36:10Z",
-    "warning_count": 9
+    "source_state_age_hours": 0.0,
+    "source_state_latest_retrieved_at": "2026-06-10T10:32:53Z",
+    "warning_count": 1
   }
 }

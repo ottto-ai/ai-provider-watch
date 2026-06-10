@@ -1,20 +1,20 @@
 {
   "candidate_kind": "pricing_change",
   "claim_text": "OpenAI pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes.",
-  "created_at": "2026-06-07T09:36:10Z",
+  "created_at": "2026-06-10T10:32:54Z",
   "dedupe_key": "openai.pricing:pricing_change:16dca8b9bf181ac3780d093a",
   "evidence_refs": [
     {
       "authority": "official_pricing",
-      "content_sha256": "37642b038d3b63825eebe47b979766e737980ed255debc496e3be0c6d754d47b",
-      "fingerprint": "8e820d5ad5e5fb64fefc455fb249bbcd1cd64132c3bd3f0907ad360f1ade6cd0",
-      "retrieved_at": "2026-06-07T09:36:10Z",
+      "content_sha256": "6661db5319af81160239ae369d6c33be61d484c9626663573a9a008aa52d74f6",
+      "fingerprint": "98b633dbffb89c7499030d90e78411e79185d80663f26e55b4970a47886e9cd0",
+      "retrieved_at": "2026-06-10T10:32:53Z",
       "snapshot_ref": null,
       "source_key": "openai.pricing",
       "url": "https://developers.openai.com/api/docs/pricing"
     }
   ],
-  "id": "candidate-openai-pricing-3c125062c26f7c1e",
+  "id": "candidate-openai-pricing-b9b6bdcb0add4085",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."

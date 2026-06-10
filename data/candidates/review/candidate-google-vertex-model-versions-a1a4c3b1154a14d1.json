@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_retirement",
+  "claim_text": "Google Gemini/Vertex official lifecycle table lists model retirement on 2027-04-01 for multimodalembedding@001.",
+  "created_at": "2026-06-10T10:32:54Z",
+  "dedupe_key": "google.vertex_model_versions:model_retirement:8205efbbb687eb547addab0c",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "43617b78f364cb2c02bdbd3b5d259ac1089057913e29a4d63d704c06a970fdcf",
+      "fingerprint": "3f1a6fa8e5c3da6370f43be3c95f04a22c734dd84b16f08dee665746b6dd1589",
+      "retrieved_at": "2026-06-10T10:32:49Z",
+      "selector": "lifecycle:df1858f7262a45ee",
+      "snapshot_ref": "row:df1858f7262a45ee",
+      "source_key": "google.vertex_model_versions",
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"
+    }
+  ],
+  "id": "candidate-google-vertex-model-versions-a1a4c3b1154a14d1",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "google_vertex_model_versions"
+  },
+  "provider_refs": [
+    "provider:google"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "google.vertex_model_versions"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

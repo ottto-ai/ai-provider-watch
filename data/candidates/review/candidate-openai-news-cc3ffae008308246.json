@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-06-04 for codex.",
+  "created_at": "2026-06-10T10:32:54Z",
+  "dedupe_key": "openai.news:workflow_behavior_change:dbdf92e5b25c1777fca09cb4",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "4f26e86c0f32430d289acf06ea9a951cefc8d9663903f2c7bffd4dab48143ff7",
+      "fingerprint": "603e52fcf04320710fc6bdb71b718a48faa33b5f0b6a120e660ef926c6d8e7d6",
+      "retrieved_at": "2026-06-10T10:32:52Z",
+      "selector": "announcement:9d07fd3b05703aa4",
+      "snapshot_ref": "entry:9d07fd3b05703aa4",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/endava-frontiers"
+    }
+  ],
+  "id": "candidate-openai-news-cc3ffae008308246",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

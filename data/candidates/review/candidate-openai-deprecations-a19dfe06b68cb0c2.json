@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_retirement",
+  "claim_text": "OpenAI official lifecycle table lists model retirement on 2026-10-23 for o3-mini, o3-mini-2025-01-31 with replacement gpt-5.5.",
+  "created_at": "2026-06-10T10:32:54Z",
+  "dedupe_key": "openai.deprecations:model_retirement:76310aba1e77d337e5751803",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+      "fingerprint": "620a6a618919bec81d21d179c891079d1c00786918dd1399b2f77b676b88eed2",
+      "retrieved_at": "2026-06-10T10:32:52Z",
+      "selector": "lifecycle:5b47ea1992c2d3b2",
+      "snapshot_ref": "row:5b47ea1992c2d3b2",
+      "source_key": "openai.deprecations",
+      "url": "https://developers.openai.com/api/docs/deprecations"
+    }
+  ],
+  "id": "candidate-openai-deprecations-a19dfe06b68cb0c2",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_deprecations"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.deprecations"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

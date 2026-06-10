@@ -1,20 +1,20 @@
 {
   "candidate_kind": "pricing_change",
   "claim_text": "AWS Bedrock pricing source changed and needs maintainer review for possible pricing, token-accounting, cache, batch, or regional availability changes.",
-  "created_at": "2026-06-07T09:36:10Z",
+  "created_at": "2026-06-10T10:32:54Z",
   "dedupe_key": "aws_bedrock.pricing:pricing_change:180ee1b9f3ebcedabe7a4a93",
   "evidence_refs": [
     {
       "authority": "official_pricing",
-      "content_sha256": "bcadada59491bf339077e20dfdccf42d32eebaa53336cd26e3678777f610c75b",
-      "fingerprint": "0b70b5758c1b3ef56a2d744c9ac38ba7260b4791f69f8a6469dbefe70cf24eaf",
-      "retrieved_at": "2026-06-07T09:35:53Z",
+      "content_sha256": "101580f52b7c2c5f69f4ab12d58b0c0e45d5a9d7d5f3d3e863bdd05cd07ae32d",
+      "fingerprint": "2ed71ca6209fb8864c7ca265b1096ebc34a21db6f07e2c3a088f5e42e4973614",
+      "retrieved_at": "2026-06-10T10:32:32Z",
       "snapshot_ref": null,
       "source_key": "aws_bedrock.pricing",
       "url": "https://aws.amazon.com/bedrock/pricing/"
     }
   ],
-  "id": "candidate-aws-bedrock-pricing-378b04af801c42d6",
+  "id": "candidate-aws-bedrock-pricing-e9901131785b44ce",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."

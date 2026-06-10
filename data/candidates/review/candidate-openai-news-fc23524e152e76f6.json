@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-06-01 for codex.",
+  "created_at": "2026-06-10T10:32:54Z",
+  "dedupe_key": "openai.news:model_launch:6ba4d0ea17e38838ac917730",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "4f26e86c0f32430d289acf06ea9a951cefc8d9663903f2c7bffd4dab48143ff7",
+      "fingerprint": "603e52fcf04320710fc6bdb71b718a48faa33b5f0b6a120e660ef926c6d8e7d6",
+      "retrieved_at": "2026-06-10T10:32:52Z",
+      "selector": "announcement:d33a119b145424dc",
+      "snapshot_ref": "entry:d33a119b145424dc",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws"
+    }
+  ],
+  "id": "candidate-openai-news-fc23524e152e76f6",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

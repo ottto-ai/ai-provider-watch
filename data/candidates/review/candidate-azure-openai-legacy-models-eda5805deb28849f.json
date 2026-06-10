@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_retirement",
+  "claim_text": "Azure OpenAI official lifecycle table lists model retirement on 2025-02-25 for gpt-4o-realtime-preview with replacement gpt-4o-mini-realtime-preview.",
+  "created_at": "2026-06-10T10:32:54Z",
+  "dedupe_key": "azure_openai.legacy_models:model_retirement:486529dc19a718b06f73dc0d",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "bd001e951c273b452251bb4aac796a37f99602a82f888cf35ddb706de6ae5659",
+      "fingerprint": "cc72e50ec795798c0f62ad5d7f0eeb9b796eaab923dfa2cdc4fd493431175dbf",
+      "retrieved_at": "2026-06-10T10:32:33Z",
+      "selector": "lifecycle:3891a7fa33e64a90",
+      "snapshot_ref": "row:3891a7fa33e64a90",
+      "source_key": "azure_openai.legacy_models",
+      "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models"
+    }
+  ],
+  "id": "candidate-azure-openai-legacy-models-eda5805deb28849f",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "azure_openai_legacy_models"
+  },
+  "provider_refs": [
+    "provider:azure-openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "azure_openai.legacy_models"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
