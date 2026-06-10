@@ -32,23 +32,24 @@ Every source key in `sources/registry.json` must appear in this table.
 | --- | --- | --- | --- |
 | `openai.pricing` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `openai.status` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
-| `openai.deprecations` | OpenAI | `apw-data-maintainers` | `blocked_pending_parser` |
+| `openai.deprecations` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `openai.news` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `openai.codex_docs` | OpenAI | `apw-data-maintainers` | `manual_review_only` |
 | `anthropic.pricing` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
 | `anthropic.status` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
 | `anthropic.news` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
+| `anthropic.release_notes` | Anthropic | `apw-data-maintainers` | `manual_review_only` |
 | `google.vertex_pricing` | Google Gemini / Vertex AI | `apw-data-maintainers` | `enabled_deterministic` |
 | `google.ai_docs` | Google Gemini / Vertex AI | `apw-data-maintainers` | `enabled_deterministic` |
 | `google.gemini_changelog` | Google Gemini / Vertex AI | `apw-data-maintainers` | `enabled_deterministic` |
-| `google.vertex_model_versions` | Google Gemini / Vertex AI | `apw-data-maintainers` | `blocked_pending_parser` |
+| `google.vertex_model_versions` | Google Gemini / Vertex AI | `apw-data-maintainers` | `enabled_deterministic` |
 | `aws_bedrock.pricing` | AWS Bedrock | `apw-data-maintainers` | `enabled_deterministic` |
 | `aws_bedrock.docs` | AWS Bedrock | `apw-data-maintainers` | `enabled_deterministic` |
 | `aws_bedrock.whats_new` | AWS Bedrock | `apw-data-maintainers` | `enabled_deterministic` |
 | `azure_openai.pricing` | Azure OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `azure_openai.docs` | Azure OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `azure_openai.whats_new` | Azure OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
-| `azure_openai.legacy_models` | Azure OpenAI | `apw-data-maintainers` | `blocked_pending_parser` |
+| `azure_openai.legacy_models` | Azure OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 
 ## Owner Duties
 

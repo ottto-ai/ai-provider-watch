@@ -178,6 +178,30 @@
       "fixtures": []
     },
     {
+      "key": "anthropic.release_notes",
+      "provider_refs": ["provider:anthropic"],
+      "source_type": "docs_page",
+      "authority": "official_docs",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "allowed_domains": ["platform.claude.com", "docs.anthropic.com"],
+      "cadence": "manual review",
+      "enabled": false,
+      "parser": "manual_review",
+      "automation_status": "manual_review_only",
+      "graduation_notes": "Official Claude Platform release notes are high-authority reviewed evidence for dated API, SDK, billing, model, quota, and Claude Code changes. Keep manual until a dated-section parser proves bounded excerpts without provider prose.",
+      "graduation_blockers": [
+        "needs parser fixtures that extract dated release-note sections into bounded factual rows",
+        "needs scoped section hashing so client-rendered page chrome does not create broad review churn"
+      ],
+      "impact_hints": ["model_launch", "model_deprecation", "model_retirement", "token_accounting_change", "api_contract_change", "workflow_behavior_change"],
+      "rate_limit": "maintainer-triggered only",
+      "robots_policy_note": "Respect provider robots and cache headers.",
+      "snapshot_policy": "hash reviewed dated sections; do not publish raw release-note text",
+      "license_note": "Use source URL and factual extracted fields only.",
+      "maintainers": ["apw-data-maintainers"],
+      "fixtures": []
+    },
+    {
       "key": "google.vertex_pricing",
       "provider_refs": ["provider:google"],
       "source_type": "pricing_page",

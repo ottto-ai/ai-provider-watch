@@ -1,7 +1,7 @@
 {
   "schema_version": "apw.source_package.v0",
   "provider_ref": "provider:anthropic",
-  "source_keys": ["anthropic.pricing", "anthropic.status", "anthropic.news"],
+  "source_keys": ["anthropic.pricing", "anthropic.status", "anthropic.news", "anthropic.release_notes"],
   "status": "parser_fixtures",
   "fixtures": ["fixtures/expected-sources.json"],
   "parser_fixtures": [

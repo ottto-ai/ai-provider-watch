@@ -14,6 +14,30 @@
   {
     "confidence": "confirmed",
     "event_date": "2026-06-09",
+    "event_kind": "token_accounting_change",
+    "id": "2026-06-09-anthropic-fable-5-token-accounting-retention",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic's June 9 Claude Platform release notes say Claude Fable 5 uses the Opus 4.7 tokenizer family, adds refusal and fallback handling semantics, and requires 30-day data retention on the Claude API.",
+    "title": "Anthropic Listed Fable 5 Tokenizer, Fallback Billing, And Retention Constraints"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "id": "2026-06-09-anthropic-claude-fable-5-api-launch",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic's Claude Platform release notes list Claude Fable 5 on the Claude API with the claude-fable-5 model id, a default 1M token context window, 128k maximum output tokens, and always-on adaptive thinking.",
+    "title": "Anthropic Launched Claude Fable 5 On The Claude API"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
     "event_kind": "model_launch",
     "id": "2026-06-09-aws-bedrock-claude-fable-5-availability",
     "provider_refs": [
@@ -22,6 +46,18 @@
     "severity": "high",
     "summary": "AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic's long-running coding and knowledge-work model family.",
     "title": "AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-05",
+    "event_kind": "model_retirement",
+    "id": "2026-06-05-anthropic-opus-41-api-retirement",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic's Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.",
+    "title": "Anthropic Scheduled Claude Opus 4.1 API Retirement For August 2026"
   },
   {
     "confidence": "confirmed",
@@ -122,6 +158,18 @@
   {
     "confidence": "confirmed",
     "event_date": "2026-06-02",
+    "event_kind": "token_accounting_change",
+    "id": "2026-06-02-anthropic-tool-max-tokens-refusal-billing",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "medium",
+    "summary": "Anthropic's June 2 Claude Platform release notes list a tool-level max_tokens cap for output control and state that no-output refusal responses on the Claude API are no longer billed.",
+    "title": "Anthropic Added Tool max_tokens And No-Output Refusal Billing Relief"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-02",
     "event_kind": "model_deprecation",
     "id": "2026-06-02-openai-gpt-image-model-deprecations",
     "provider_refs": [
@@ -191,53 +239,5 @@
     "severity": "medium",
     "summary": "Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.",
     "title": "Google Gemini API Deprecated Gemini Image Preview Models"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-05-28",
-    "event_kind": "workflow_behavior_change",
-    "id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
-    "provider_refs": [
-      "provider:anthropic"
-    ],
-    "severity": "high",
-    "summary": "Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.",
-    "title": "Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-05-25",
-    "event_kind": "model_retirement",
-    "id": "2026-05-25-google-gemini-31-flash-lite-preview-shutdown",
-    "provider_refs": [
-      "provider:google"
-    ],
-    "severity": "medium",
-    "summary": "Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.",
-    "title": "Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-05-19",
-    "event_kind": "model_launch",
-    "id": "2026-05-19-google-gemini-35-flash-managed-agents",
-    "provider_refs": [
-      "provider:google"
-    ],
-    "severity": "high",
-    "summary": "Google Gemini API changelog listed Gemini 3.5 Flash as generally available and introduced Managed Agents in public preview, adding a Google-hosted agent runtime option for Gemini API developers.",
-    "title": "Google Gemini API Released Gemini 3.5 Flash And Managed Agents Preview"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-05-07",
-    "event_kind": "model_launch",
-    "id": "2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation",
-    "provider_refs": [
-      "provider:google"
-    ],
-    "severity": "medium",
-    "summary": "Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.",
-    "title": "Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview"
   }
 ]

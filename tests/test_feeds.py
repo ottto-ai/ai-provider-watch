@@ -77,7 +77,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert any(item["path"] == ".github/workflows/scorecard.yml" for item in evidence_index["github_workflows"])
     coverage = json.loads(artifacts[Path("data/feeds/coverage.json")])
     assert coverage["schema_version"] == "apw.source_coverage.v0"
-    assert coverage["summary"]["source_count"] == 19
+    assert coverage["summary"]["source_count"] == 20
     assert coverage["summary"]["missing_enabled_source_count"] == 0
     operations = json.loads(artifacts[Path("data/feeds/operations.json")])
     assert not list(

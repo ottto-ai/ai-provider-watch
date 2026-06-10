@@ -1,5 +1,80 @@
 [
   {
+    "announced_at": "2026-06-05T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-08-05T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Anthropic release notes recommend moving away from the Claude Opus 4.1 API model before the scheduled retirement date. Validate quality, cost, and parameter compatibility on replacement models before changing defaults.",
+      "model_refs": [
+        "model:anthropic/claude-opus-4-1-20250805"
+      ],
+      "replacement_refs": [
+        "model:anthropic/claude-opus-4-8"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": null,
+    "event_date": "2026-06-05",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+        "license_note": "Official release notes reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T19:08:00Z",
+        "selector": "heading:june-5-2026",
+        "snapshot_ref": "section:june-5-2026",
+        "source_key": "anthropic.release_notes",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview#june-5-2026"
+      }
+    ],
+    "expires_at": "2026-08-05T00:00:00Z",
+    "id": "2026-06-05-anthropic-opus-41-api-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "migration",
+        "recommended_action": "Remove claude-opus-4-1-20250805 from production routing, eval baselines, fallback chains, and customer-visible model selectors before August 5, 2026.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event records the Claude API retirement signal only; cloud-provider hosted availability can have separate lifecycle notices.",
+      "No provider release-note body is copied into APW."
+    ],
+    "migration_deadline": "2026-08-05T00:00:00Z",
+    "observed_at": "2026-06-10T19:08:00Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Anthropic's Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.",
+    "tags": [
+      "source:official_docs",
+      "provider:anthropic",
+      "impact:model_retirement",
+      "surface:anthropic_api"
+    ],
+    "title": "Anthropic Scheduled Claude Opus 4.1 API Retirement For August 2026"
+  },
+  {
     "announced_at": "2026-02-18T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",
