@@ -1,0 +1,96 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-09-anthropic-claude-mythos-5-trusted-access",
+  "title": "Anthropic Introduced Claude Mythos 5 For Trusted Access",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "event_date": "2026-06-09",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-10T21:22:20Z",
+  "announced_at": "2026-06-09T00:00:00Z",
+  "effective_at": "2026-06-09T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Anthropic's June 9 announcement introduced Claude Mythos 5 with a 1M-token context window, 128k maximum output tokens, adaptive thinking, and approval-gated API availability for Project Glasswing participants and trusted partners.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      "retrieved_at": "2026-06-10T21:22:20Z",
+      "authority": "official_blog",
+      "content_sha256": "a1bbc1faa7a0ebb51b4195afba586dfe95445918ccfbd6f8827bab33de3b4e28",
+      "snapshot_ref": "entry:a246c9ce289c3c6b",
+      "selector": "announcement:a246c9ce289c3c6b",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:anthropic/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers",
+        "coding_agent_users",
+        "security_engineers",
+        "finops"
+      ],
+      "recommended_action": "Verify Project Glasswing or trusted-partner approval, model id availability, quota, and routing policy before adding Claude Mythos 5 to production allowlists."
+    },
+    {
+      "scope_type": "model",
+      "scope_ref": "model:anthropic/claude-mythos-5",
+      "impact_kind": "cost",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "estimated_cost_effect": {
+        "direction": "unknown",
+        "magnitude": "official announcement lists Claude Mythos 5 at USD 15 per million input tokens and USD 75 per million output tokens",
+        "basis": "official June 9 announcement pricing table",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "platform_engineers",
+        "coding_agent_users"
+      ],
+      "recommended_action": "Benchmark cost and token usage separately from Claude Fable 5 before exposing Mythos 5 to agent or long-context workloads."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:anthropic/claude-mythos-5"
+    ],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "This event records approval-gated Mythos 5 availability. APW does not assert broad public availability, account eligibility, region coverage, rate limits, or workload suitability."
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:anthropic",
+    "impact:model_launch",
+    "surface:anthropic_api"
+  ],
+  "limitations": [
+    "APW records normalized factual metadata only; no provider announcement body is copied.",
+    "Access is approval-gated and may not be available to ordinary Anthropic API accounts."
+  ]
+}

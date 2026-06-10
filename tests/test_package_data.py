@@ -172,6 +172,6 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/sources/registry.json" in names
     assert "ai_provider_watch/_data/sources/aws-bedrock/fixtures/whats-new-feed.xml" in names
     assert "ai_provider_watch/_data/sources/openai/fixtures/news-feed.xml" in names
-    assert any(item["id"] == "2026-06-01-google-vertex-gemini-2-0-flash-retirement" for item in latest)
+    assert any(item["id"] == "2026-06-09-anthropic-claude-mythos-5-trusted-access" for item in latest)
     assert json_feed["version"] == "https://jsonfeed.org/version/1.1"
     assert json_feed["items"][0]["_apw"]["schema_version"] == "apw.provider_event.v0"

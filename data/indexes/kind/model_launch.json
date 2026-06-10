@@ -7,6 +7,102 @@
       "deadline": null,
       "kind": "model_lifecycle",
       "lifecycle_action": "launch",
+      "migration_notes": "This event records approval-gated Mythos 5 availability. APW does not assert broad public availability, account eligibility, region coverage, rate limits, or workload suitability.",
+      "model_refs": [
+        "model:anthropic/claude-mythos-5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "a1bbc1faa7a0ebb51b4195afba586dfe95445918ccfbd6f8827bab33de3b4e28",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T21:22:20Z",
+        "selector": "announcement:a246c9ce289c3c6b",
+        "snapshot_ref": "entry:a246c9ce289c3c6b",
+        "source_key": "anthropic.news",
+        "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-anthropic-claude-mythos-5-trusted-access",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify Project Glasswing or trusted-partner approval, model id availability, quota, and routing policy before adding Claude Mythos 5 to production allowlists.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "security_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "estimated_cost_effect": {
+          "basis": "official June 9 announcement pricing table",
+          "confidence": "confirmed",
+          "direction": "unknown",
+          "magnitude": "official announcement lists Claude Mythos 5 at USD 15 per million input tokens and USD 75 per million output tokens"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Benchmark cost and token usage separately from Claude Fable 5 before exposing Mythos 5 to agent or long-context workloads.",
+        "scope_ref": "model:anthropic/claude-mythos-5",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records normalized factual metadata only; no provider announcement body is copied.",
+      "Access is approval-gated and may not be available to ordinary Anthropic API accounts."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-10T21:22:20Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "Anthropic's June 9 announcement introduced Claude Mythos 5 with a 1M-token context window, 128k maximum output tokens, adaptive thinking, and approval-gated API availability for Project Glasswing participants and trusted partners.",
+    "tags": [
+      "source:official_blog",
+      "provider:anthropic",
+      "impact:model_launch",
+      "surface:anthropic_api"
+    ],
+    "title": "Anthropic Introduced Claude Mythos 5 For Trusted Access"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
       "migration_notes": "This event records Claude API availability and listed model limits. APW does not assert account eligibility, effective per-account quotas, pricing, or quality fit without separate review.",
       "model_refs": [
         "model:anthropic/claude-fable-5"

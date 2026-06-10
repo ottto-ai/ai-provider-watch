@@ -14,7 +14,7 @@ def test_latest_outputs_json(capsys) -> None:
     assert main(["--root", str(ROOT), "latest"]) == 0
     events = json.loads(capsys.readouterr().out)
     event_ids = {event["id"] for event in events}
-    assert "2026-06-01-google-vertex-gemini-2-0-flash-retirement" in event_ids
+    assert "2026-06-09-anthropic-claude-mythos-5-trusted-access" in event_ids
 
 
 def test_validate_command(capsys) -> None:

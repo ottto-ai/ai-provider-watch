@@ -14,6 +14,30 @@
   {
     "confidence": "confirmed",
     "event_date": "2026-06-09",
+    "event_kind": "subscription_change",
+    "id": "2026-06-09-anthropic-fable-5-free-window-credits",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic's June 9 announcement says Claude Fable 5 is available to Pro, Max, Team, and Enterprise plan users, with Max, Team, and Enterprise access included through June 22, 2026 and usage credits required starting June 23, 2026.",
+    "title": "Anthropic Set Fable 5 Free Access Window And Usage Credit Requirement"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "id": "2026-06-09-anthropic-claude-mythos-5-trusted-access",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic's June 9 announcement introduced Claude Mythos 5 with a 1M-token context window, 128k maximum output tokens, adaptive thinking, and approval-gated API availability for Project Glasswing participants and trusted partners.",
+    "title": "Anthropic Introduced Claude Mythos 5 For Trusted Access"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
     "event_kind": "token_accounting_change",
     "id": "2026-06-09-anthropic-fable-5-token-accounting-retention",
     "provider_refs": [
@@ -215,29 +239,5 @@
     "severity": "high",
     "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
     "title": "OpenAI Frontier Models And Codex Became Available On AWS"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-01",
-    "event_kind": "model_retirement",
-    "id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
-    "provider_refs": [
-      "provider:google"
-    ],
-    "severity": "medium",
-    "summary": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.",
-    "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-05-28",
-    "event_kind": "model_deprecation",
-    "id": "2026-05-28-google-gemini-image-preview-deprecations",
-    "provider_refs": [
-      "provider:google"
-    ],
-    "severity": "medium",
-    "summary": "Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.",
-    "title": "Google Gemini API Deprecated Gemini Image Preview Models"
   }
 ]

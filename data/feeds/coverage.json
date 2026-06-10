@@ -4,7 +4,7 @@
     "total": 0
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
-  "generated_at": "2026-06-10T19:08:00Z",
+  "generated_at": "2026-06-10T21:22:20Z",
   "generated_by": "ai-provider-watch 0.1.10",
   "package_version": "0.1.10",
   "providers": [
@@ -29,7 +29,7 @@
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [],
       "provider_ref": "provider:anthropic",
-      "reviewed_event_count": 8,
+      "reviewed_event_count": 10,
       "source_count": 4
     },
     {
@@ -491,7 +491,7 @@
     "manual_review_only_source_count": 1,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 37,
+    "reviewed_event_count": 39,
     "source_count": 20,
     "warning_count": 0
   },

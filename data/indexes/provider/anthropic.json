@@ -4,6 +4,250 @@
     "confidence": "confirmed",
     "date_confidence": "exact",
     "detail": {
+      "effective_at": "2026-06-23T00:00:00Z",
+      "entitlement_changes": [
+        "Claude Fable 5 access is listed for Pro, Max, Team, and Enterprise plan users.",
+        "Max, Team, and Enterprise access is included through 2026-06-22 and requires usage credits starting 2026-06-23.",
+        "Pro users have limited daily access."
+      ],
+      "kind": "subscription_change",
+      "new_terms": "Fable 5 access varies by Anthropic subscription plan; Max, Team, and Enterprise users need usage credits after the included-access window, and Pro users receive limited daily access.",
+      "old_terms": null,
+      "plan_refs": [
+        "plan:anthropic/pro",
+        "plan:anthropic/max",
+        "plan:anthropic/team",
+        "plan:anthropic/enterprise"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-23T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "subscription_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "a1bbc1faa7a0ebb51b4195afba586dfe95445918ccfbd6f8827bab33de3b4e28",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T21:22:20Z",
+        "selector": "announcement:a246c9ce289c3c6b",
+        "snapshot_ref": "entry:a246c9ce289c3c6b",
+        "source_key": "anthropic.news",
+        "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-anthropic-fable-5-free-window-credits",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "increase",
+        "estimated_cost_effect": {
+          "basis": "official June 9 announcement subscription-access terms",
+          "confidence": "confirmed",
+          "direction": "increase",
+          "magnitude": "usage credits required after the included-access window ends on 2026-06-22"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Budget Fable 5 usage credits before June 23, 2026 and avoid assuming Max plan access remains included after the free-access window.",
+        "scope_ref": "plan:anthropic/max",
+        "scope_type": "subscription_plan",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "increase",
+        "estimated_cost_effect": {
+          "basis": "official June 9 announcement subscription-access terms",
+          "confidence": "confirmed",
+          "direction": "increase",
+          "magnitude": "usage credits required after the included-access window ends on 2026-06-22"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Update team rollout plans and budget approvals before broad Fable 5 adoption after June 22, 2026.",
+        "scope_ref": "plan:anthropic/team",
+        "scope_type": "subscription_plan",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "increase",
+        "estimated_cost_effect": {
+          "basis": "official June 9 announcement subscription-access terms",
+          "confidence": "confirmed",
+          "direction": "increase",
+          "magnitude": "usage credits required after the included-access window ends on 2026-06-22"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Confirm enterprise usage-credit terms with the account owner before making Fable 5 the default for internal or customer-facing workflows.",
+        "scope_ref": "plan:anthropic/enterprise",
+        "scope_type": "subscription_plan",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "quota",
+        "recommended_action": "Treat Pro-plan Fable 5 access as limited daily capacity and keep fallback model routes available for repeated or long-running tasks.",
+        "scope_ref": "plan:anthropic/pro",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records subscription-access facts from the official announcement, not account-specific contract terms.",
+      "This event does not assert API, cloud-provider, or regional access terms for Fable 5."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-10T21:22:20Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "Anthropic's June 9 announcement says Claude Fable 5 is available to Pro, Max, Team, and Enterprise plan users, with Max, Team, and Enterprise access included through June 22, 2026 and usage credits required starting June 23, 2026.",
+    "tags": [
+      "source:official_blog",
+      "provider:anthropic",
+      "impact:subscription_change",
+      "plan:anthropic_max",
+      "plan:anthropic_team",
+      "plan:anthropic_enterprise",
+      "plan:anthropic_pro"
+    ],
+    "title": "Anthropic Set Fable 5 Free Access Window And Usage Credit Requirement"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records approval-gated Mythos 5 availability. APW does not assert broad public availability, account eligibility, region coverage, rate limits, or workload suitability.",
+      "model_refs": [
+        "model:anthropic/claude-mythos-5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "a1bbc1faa7a0ebb51b4195afba586dfe95445918ccfbd6f8827bab33de3b4e28",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T21:22:20Z",
+        "selector": "announcement:a246c9ce289c3c6b",
+        "snapshot_ref": "entry:a246c9ce289c3c6b",
+        "source_key": "anthropic.news",
+        "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-anthropic-claude-mythos-5-trusted-access",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify Project Glasswing or trusted-partner approval, model id availability, quota, and routing policy before adding Claude Mythos 5 to production allowlists.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "security_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "estimated_cost_effect": {
+          "basis": "official June 9 announcement pricing table",
+          "confidence": "confirmed",
+          "direction": "unknown",
+          "magnitude": "official announcement lists Claude Mythos 5 at USD 15 per million input tokens and USD 75 per million output tokens"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Benchmark cost and token usage separately from Claude Fable 5 before exposing Mythos 5 to agent or long-context workloads.",
+        "scope_ref": "model:anthropic/claude-mythos-5",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records normalized factual metadata only; no provider announcement body is copied.",
+      "Access is approval-gated and may not be available to ordinary Anthropic API accounts."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-10T21:22:20Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "Anthropic's June 9 announcement introduced Claude Mythos 5 with a 1M-token context window, 128k maximum output tokens, adaptive thinking, and approval-gated API availability for Project Glasswing participants and trusted partners.",
+    "tags": [
+      "source:official_blog",
+      "provider:anthropic",
+      "impact:model_launch",
+      "surface:anthropic_api"
+    ],
+    "title": "Anthropic Introduced Claude Mythos 5 For Trusted Access"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
       "examples": [
         "Run token counting with model claude-fable-5 before changing cost budgets.",
         "Test fallback chains because a refused request can rerun on another model with different billing."

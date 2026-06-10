@@ -1,48 +1,48 @@
 {
   "data_tag": null,
-  "event_count": 37,
+  "event_count": 39,
   "feed_artifacts": [
     {
-      "bytes": 14769,
+      "bytes": 14770,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "8132fe1d24edf047c8f18477170b35f368bab986c285e0e2b73b2cd4b38b98f0"
+      "sha256": "67d27265f85fc9e927ba3b28dd3211991a0f5732e9a60a6637009d09cb1c8e6b"
     },
     {
-      "bytes": 127356,
+      "bytes": 137343,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "680e99751cf27abf29f23cab9a8d3e077c836a664411b7be8f89156ebf7a7f12"
+      "sha256": "b16c2c720eda55398320463edd6a0ae1bcedbcf78989a22a57a9a6269b4b2224"
     },
     {
-      "bytes": 106254,
+      "bytes": 114493,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "9060e087dde3126e20e7e48645c7ea996e52e0e26fc0f8a7305dbff214501393"
+      "sha256": "44bb125f409b5e910512f7fff4356e65eecc362e8de8c6eaa799237096ce30b4"
     },
     {
-      "bytes": 107166,
+      "bytes": 113897,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "a2855753c9ccfba65264b528e1e041e0a8232662e6a3667b9e2b705b8b13b0b2"
+      "sha256": "38dd680283da396c66540cac3e7de3147214f3a0864662bf4f458add6dc8f36b"
     },
     {
-      "bytes": 10612,
+      "bytes": 10718,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",
-      "sha256": "9cef9d520827ca302e61fa36da3996c739e6b1845c18e5fc475692688944145b"
+      "sha256": "6dbf5d29bade02e258577cfb2092ebb2f6ba6d00269ea662af40a9ce2cf3c4ae"
     },
     {
-      "bytes": 4434,
+      "bytes": 4436,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "5d84ab3b71b2eb1ad535d9ca12c51db8f2cf6119f505afad9c838effe4d8eb9c"
+      "sha256": "f0ebf956b1daeecaa3af237ebf77d7bb652837583a05f75dd09076f7626951f6"
     },
     {
-      "bytes": 19136,
+      "bytes": 20264,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "1c6164eab30e3d0b3567106b1d26bae555c12e07da585c3916cb583ea18735ee"
+      "sha256": "547e7b462d5d976eb9e6efc9e761f043234d564921ed6817d409e119331988a1"
     },
     {
       "bytes": 10500,
@@ -69,10 +69,10 @@
       "sha256": "d264ed07c84da6e63659a36207c4b0cd510387816dc2e36eda5b633bfe1cfd65"
     },
     {
-      "bytes": 37174,
+      "bytes": 41093,
       "media_type": "application/json",
       "path": "data/indexes/kind/model_launch.json",
-      "sha256": "b7896006d254d8a7e568989edcae218d9aa025facdfe5a97e40648c738099c89"
+      "sha256": "49b3784a0810c03b710e9826c0039b7029cf75a0f54cfc0ae16e8f34f3d88a97"
     },
     {
       "bytes": 30572,
@@ -87,6 +87,12 @@
       "sha256": "6d1ded4685dadd9bdef6e4af9f59b256f11735518f846f3bac2ff2c16b44ca1a"
     },
     {
+      "bytes": 6071,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/subscription_change.json",
+      "sha256": "d53a9fd74e7f6a74c3d697ad839ee417ef46920d458362271d8d4f9a55477913"
+    },
+    {
       "bytes": 8322,
       "media_type": "application/json",
       "path": "data/indexes/kind/token_accounting_change.json",
@@ -99,10 +105,10 @@
       "sha256": "3219a1b8446de2d40a069a202bcf8e733c85a8a0f050debbf8709ebe71572835"
     },
     {
-      "bytes": 27976,
+      "bytes": 37963,
       "media_type": "application/json",
       "path": "data/indexes/provider/anthropic.json",
-      "sha256": "15c6daf5c9ec2ef9e6e896dd08881d53feecb7d0ac982856b0a0a96f36b1cfb2"
+      "sha256": "853dba7aba3b3f9fe090d3efd966f6d46a6cac09c6124450660f4f67f5c40f6d"
     },
     {
       "bytes": 25589,
@@ -129,10 +135,10 @@
       "sha256": "441186c824a7c1e4895154b57ac90b9d259e16c67e383c921bc4eb254462c3f4"
     },
     {
-      "bytes": 57662,
+      "bytes": 67649,
       "media_type": "application/json",
       "path": "data/indexes/severity/high.json",
-      "sha256": "c91302897ea7b1253ce62eb62ede38afc514c8e2d3dee33616e60f1a571a1c96"
+      "sha256": "338cbc09fa4b6192ed6531060b53841ceda680f3119c2b7c9734705e4bdb2f07"
     },
     {
       "bytes": 8665,
@@ -148,10 +154,10 @@
     }
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
-  "generated_at": "2026-06-10T19:08:00Z",
+  "generated_at": "2026-06-10T21:22:20Z",
   "generated_by": "ai-provider-watch 0.1.10",
   "latest_event_date": "2026-06-10",
-  "latest_observed_at": "2026-06-10T19:08:00Z",
+  "latest_observed_at": "2026-06-10T21:22:20Z",
   "package_version": "0.1.10",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
