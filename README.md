@@ -352,8 +352,15 @@ tags.
 Use pull requests for code, schema, source, data, docs, and workflow changes.
 Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
+Found an official provider change that affects cost, quotas, token accounting,
+model availability, defaults, deprecations, incidents, or migration risk? Start
+with [What APW Wants](docs/contributors/what-apw-wants.md). If the evidence is
+official, dated, specific, and not already covered, open an event PR with
+`apw event scaffold`; do not wait for parser automation to be perfect.
+
 Useful contributor docs:
 
+- [What APW Wants](docs/contributors/what-apw-wants.md)
 - [Contributor Review Workflow](docs/contributors/review-workflow.md)
 - [Missing Event To PR](docs/contributors/missing-event-to-pr.md)
 - [Event Scaffold](docs/contributors/event-scaffold.md)

@@ -93,14 +93,23 @@ def test_contributor_review_workflow_keeps_public_review_bounded() -> None:
         for path in [
             ROOT / "CONTRIBUTING.md",
             ROOT / "SOURCE_OWNERS.md",
+            ROOT / "README.md",
+            ROOT / "docs/contributors/what-apw-wants.md",
             ROOT / "docs/contributors/missing-event-to-pr.md",
             ROOT / "docs/contributors/review-workflow.md",
+            ROOT / ".github/PULL_REQUEST_TEMPLATE.md",
         ]
     )
     normalized_docs = " ".join(docs.split())
 
     for phrase in [
         "Missing provider event",
+        "What APW Wants",
+        "official, dated, specific",
+        "Do not wait for a perfect parser",
+        "Source-owner approval is enough to merge a reviewed event PR when repository checks pass",
+        "Review agents may recommend `promote`, `reject`, `duplicate`, `split`, or `needs_human_review`",
+        "They must not blind-merge",
         "Missing Event To PR",
         "uv run apw event scaffold",
         "uv run apw candidate scaffold-event",

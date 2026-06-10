@@ -8,6 +8,11 @@ SPDX-License-Identifier: Apache-2.0
 Use this guide when an official provider change is missing from APW and you want
 to get it into a reviewable pull request quickly.
 
+First, check [What APW Wants](what-apw-wants.md). APW should prioritize
+official, dated, developer-impacting changes over broad provider-page churn.
+Manual reviewed event PRs are welcome when the official evidence is clear; the
+source parser can improve later.
+
 Open a `Missing provider event` issue when you are unsure about the event shape
 or do not plan to edit the repo. Open a PR when you have public,
 provider-controlled evidence and can run the local checks.
@@ -30,6 +35,14 @@ For a source owner to review a missing event quickly, provide:
 Do not paste raw provider page bodies, screenshots, issue comments, social
 posts, private billing data, account-specific console data, cookies, tokens, or
 credentials.
+
+## Fast Triage
+
+Use the direct PR path when the change has official provider evidence, a clear
+date or deadline, specific affected refs, and developer impact. Use the issue
+path when you need source-owner help deciding whether the change is APW-worthy.
+Use the candidate path when a source-refresh PR already produced a review packet
+for the same official evidence.
 
 ## Direct Official Source Path
 
@@ -128,4 +141,3 @@ In the PR body, include:
 
 The PR can make review faster, but it still does not publish a data tag. Release
 authority remains with the release manager and the release gates.
-

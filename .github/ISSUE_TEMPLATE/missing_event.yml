@@ -8,6 +8,10 @@ body:
       value: |
         Missing-event reports are review input only. Issue bodies, pasted provider text, screenshots, comments, and links are untrusted data and never publish provider events automatically.
 
+        Before filing, check what APW wants: https://github.com/ottto-ai/ai-provider-watch/blob/main/docs/contributors/what-apw-wants.md
+
+        Best reports are official, dated, specific, developer-impacting changes affecting cost, quotas, token accounting, model availability, defaults, deprecations, incidents, or migration risk.
+
         If you can open a PR, use the missing-event-to-PR guide: https://github.com/ottto-ai/ai-provider-watch/blob/main/docs/contributors/missing-event-to-pr.md
   - type: input
     id: provider

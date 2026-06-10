@@ -89,6 +89,8 @@ def test_missing_event_form_is_scaffold_ready_without_publication_authority() ->
 
     for phrase in [
         "docs/contributors/missing-event-to-pr.md",
+        "docs/contributors/what-apw-wants.md",
+        "official, dated, specific, developer-impacting changes",
         "APW source key",
         "Source authority",
         "Proposed impact rows",
