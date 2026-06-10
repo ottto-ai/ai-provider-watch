@@ -37,6 +37,7 @@ SCHEMA_FILES = {
     "json_feed": "json-feed.schema.json",
     "feed_freshness": "feed-freshness.schema.json",
     "source_coverage": "source-coverage.schema.json",
+    "operations_report": "operations-report.schema.json",
     "release_manifest": "release-manifest.schema.json",
     "release_evidence_index": "release-evidence-index.schema.json",
     "release_dry_run": "release-dry-run.schema.json",
@@ -381,6 +382,21 @@ def validate(root: Path) -> list[ValidationIssue]:
                 ValidationIssue(
                     str(coverage_path),
                     "source coverage metadata is stale; run apw index",
+                )
+            )
+    operations_path = root / "data" / "feeds" / "operations.json"
+    if not operations_path.exists():
+        issues.append(ValidationIssue(str(operations_path), "missing operations report metadata"))
+    else:
+        operations = read_json(operations_path)
+        issues.extend(_issues(operations_path, operations, schemas["operations_report"], "operations report"))
+        expected_operations_text = build_artifacts(root)[Path("data/feeds/operations.json")]
+        expected_operations = json.loads(expected_operations_text)
+        if operations != expected_operations:
+            issues.append(
+                ValidationIssue(
+                    str(operations_path),
+                    "operations report metadata is stale; run apw index",
                 )
             )
     json_feed_path = root / "data" / "feeds" / "feed.json"

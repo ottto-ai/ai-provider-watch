@@ -66,6 +66,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert result.report["source_commit"] == DUMMY_SHA
     assert "uv lock --check" in result.report["validation_commands"]
     assert "uv run apw source coverage --summary" in result.report["validation_commands"]
+    assert "uv run apw operations report --summary" in result.report["validation_commands"]
     assert "actionlint .github/workflows/*.yml" in result.report["validation_commands"]
     assert result.report_path.exists()
     report = json.loads(result.report_path.read_text(encoding="utf-8"))
@@ -73,6 +74,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
         "release_id_calver",
         "schema_and_repo_validation",
         "source_coverage_report",
+        "operations_report",
         "generated_dev_artifacts_current",
         "release_manifest_schema",
         "release_checksums",
@@ -118,6 +120,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert "data/feeds/coverage.json" in manifest["checksums"]
     assert "data/feeds/feed.json" in manifest["checksums"]
     assert "data/feeds/events.json" in manifest["checksums"]
+    assert "data/feeds/operations.json" in manifest["checksums"]
     assert "data/releases/data-2026.06.01/evidence-index.json" in manifest["checksums"]
     evidence_index_path = (
         result.output_dir
@@ -132,6 +135,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     assert list(validator.iter_errors(evidence_index)) == []
     assert evidence_index["schema_version"] == "apw.release_evidence_index.v0"
+    assert any(item["name"] == "operations report" for item in evidence_index["local_verification"])
     assert any(item["name"] == "OpenSSF Scorecard" for item in evidence_index["external_evidence"])
     assert evidence_index["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
 
@@ -190,6 +194,10 @@ def test_release_verify_checks_dry_run_artifacts(tmp_path) -> None:
         "publication_packet",
     }
     assert any(artifact["path"] == "data/feeds/feed.json" for artifact in result.report["verified_artifacts"])
+    assert any(
+        artifact["path"] == "data/feeds/operations.json"
+        for artifact in result.report["verified_artifacts"]
+    )
 
 
 def test_release_verify_checks_publication_packet(tmp_path) -> None:

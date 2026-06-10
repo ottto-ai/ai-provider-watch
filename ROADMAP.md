@@ -69,6 +69,9 @@ Planned work:
 - documented source tiers, maintainer rotation, neutrality checkpoint,
   data-repo split checkpoint, no-hidden-Ottto-dependency audit, and
   correction/retraction policy.
+- public data-quality operations report covering freshness SLOs, source-state
+  coverage, candidate backlog, public intake, correction/retraction posture,
+  and release-train mode.
 
 ## Non-Goals
 

@@ -136,9 +136,11 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/schemas/release-publication-packet.schema.json" in names
     assert "ai_provider_watch/_data/schemas/release-verification.schema.json" in names
     assert "ai_provider_watch/_data/schemas/agent-dashboard.schema.json" in names
+    assert "ai_provider_watch/_data/schemas/operations-report.schema.json" in names
     assert "ai_provider_watch/_data/registries/providers.json" in names
     assert "ai_provider_watch/_data/data/feeds/coverage.json" in names
     assert "ai_provider_watch/_data/data/feeds/feed.json" in names
+    assert "ai_provider_watch/_data/data/feeds/operations.json" in names
     assert "ai_provider_watch/_data/sources/registry.json" in names
     assert "ai_provider_watch/_data/sources/aws-bedrock/fixtures/whats-new-feed.xml" in names
     assert "ai_provider_watch/_data/sources/openai/fixtures/news-feed.xml" in names

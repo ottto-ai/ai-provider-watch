@@ -27,10 +27,11 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         ROOT / "docs/operations/repository-settings.md",
         ROOT / "docs/operations/release-gates.md",
         ROOT / "docs/operations/data-release.md",
-        ROOT / "docs/operations/data-publisher.md",
-        ROOT / "docs/operations/event-promotion.md",
-        ROOT / "docs/contributors/review-workflow.md",
-    ]
+            ROOT / "docs/operations/data-publisher.md",
+            ROOT / "docs/operations/event-promotion.md",
+            ROOT / "docs/operations/data-quality.md",
+            ROOT / "docs/contributors/review-workflow.md",
+        ]
     combined = "\n".join(path.read_text(encoding="utf-8") for path in paths)
 
     for phrase in [
@@ -51,6 +52,8 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         "artifact attestations",
         "apw release packet",
         "schemas/release-publication-packet.schema.json",
+        "data/feeds/operations.json",
+        "public data-quality operations report",
     ]:
         assert phrase in combined
 

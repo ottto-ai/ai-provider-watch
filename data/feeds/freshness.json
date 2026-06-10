@@ -33,6 +33,12 @@
       "sha256": "cd9805ed11956e7a3fbb5eed0567fb44821a2d2c8ad39b60b43539bff13ac75d"
     },
     {
+      "bytes": 6851,
+      "media_type": "application/json",
+      "path": "data/feeds/operations.json",
+      "sha256": "8c01bf8f0df4aa7dbc9e3afafec91ce6bfe5fe3be700863272a173a65260987b"
+    },
+    {
       "bytes": 14213,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
