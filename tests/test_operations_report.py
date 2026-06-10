@@ -27,7 +27,7 @@ def test_operations_report_matches_schema_and_current_public_gaps() -> None:
     assert report["summary"]["missing_enabled_source_count"] == 0
     assert report["summary"]["source_count"] == 20
     assert report["summary"]["candidate_backlog_count"] == 0
-    assert report["summary"]["source_state_latest_retrieved_at"] == "2026-06-10T17:40:28Z"
+    assert report["summary"]["source_state_latest_retrieved_at"] == "2026-06-10T20:21:35Z"
     assert report["summary"]["source_state_age_hours"] == 0.0
 
 

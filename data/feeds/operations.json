@@ -60,7 +60,7 @@
       "unit": "days"
     },
     {
-      "actual": 1.46,
+      "actual": 0.0,
       "details": "Hours since the latest deterministic source-state retrieval.",
       "id": "source_state_freshness",
       "label": "Source-state freshness",
@@ -104,17 +104,17 @@
   },
   "summary": {
     "candidate_backlog_count": 0,
-    "enabled_deterministic_source_count": 18,
+    "enabled_deterministic_source_count": 19,
     "enabled_source_coverage_ratio": 1.0,
-    "fetched_enabled_source_count": 18,
+    "fetched_enabled_source_count": 19,
     "latest_event_date": "2026-06-10",
     "latest_reviewed_event_age_days": 0,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
     "reviewed_event_count": 37,
     "source_count": 20,
-    "source_state_age_hours": 1.46,
-    "source_state_latest_retrieved_at": "2026-06-10T17:40:28Z",
+    "source_state_age_hours": 0.0,
+    "source_state_latest_retrieved_at": "2026-06-10T20:21:35Z",
     "warning_count": 0
   }
 }

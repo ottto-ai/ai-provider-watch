@@ -50,6 +50,7 @@ DATED_SOURCE_TYPES = {
 }
 
 DATED_PARSER_NAMES = {
+    "anthropic_release_notes",
     "anthropic_news_index",
     "aws_bedrock_whats_new_feed",
     "azure_openai_whats_new",
@@ -98,7 +99,7 @@ CONCRETE_ACTION_MARKERS = (
 )
 
 SUBJECT_SIGNAL_PATTERN = re.compile(
-    r"\b(?:api|aws-bedrock|azure-openai|claude-code|codex|computer-use|gemini|gpt|model|openai|realtime|responses-api|sdk|vertex-ai)\b",
+    r"\b(?:api|aws-bedrock|azure-openai|claude(?:-[a-z0-9.]+)+|codex|computer-use|gemini|gpt|model|openai|realtime|responses-api|sdk|vertex-ai)\b",
     re.IGNORECASE,
 )
 
