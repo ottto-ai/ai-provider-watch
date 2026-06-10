@@ -1,4 +1,10 @@
+include action.yml .mcp.json
 recursive-include data *.json *.md *.ndjson *.txt *.xml
+recursive-include .codex-plugin *.json
+recursive-include .github/ISSUE_TEMPLATE *.yml
+recursive-include docs *.md
+recursive-include examples *.json
 recursive-include registries *.json
 recursive-include schemas *.json
 recursive-include sources *.atom *.html *.json *.md *.xml
+recursive-include tests/fixtures/downstream-repo *.md *.py

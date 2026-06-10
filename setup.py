@@ -7,6 +7,14 @@ from setuptools import setup
 from setuptools.command.build_py import build_py as _build_py
 
 APW_PACKAGE_DATA_DIRS = ("data", "registries", "schemas", "sources")
+APW_PACKAGE_EXTRA_DATA_DIRS = (
+    (".codex-plugin", ".codex-plugin"),
+    (".github/ISSUE_TEMPLATE", ".github/ISSUE_TEMPLATE"),
+    ("docs", "docs"),
+    ("examples", "examples"),
+    ("tests/fixtures/downstream-repo", "tests/fixtures/downstream-repo"),
+)
+APW_PACKAGE_EXTRA_DATA_FILES = ("README.md", "action.yml", ".mcp.json")
 
 
 class build_py(_build_py):
@@ -25,6 +33,19 @@ class build_py(_build_py):
             self._apw_data_outputs.extend(
                 str(path) for path in target.rglob("*") if path.is_file()
             )
+        for source_name, target_name in APW_PACKAGE_EXTRA_DATA_DIRS:
+            source = project_root / source_name
+            target = package_data_root / target_name
+            shutil.copytree(source, target)
+            self._apw_data_outputs.extend(
+                str(path) for path in target.rglob("*") if path.is_file()
+            )
+        for filename in APW_PACKAGE_EXTRA_DATA_FILES:
+            source = project_root / filename
+            target = package_data_root / filename
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+            self._apw_data_outputs.append(str(target))
 
     def get_outputs(self, include_bytecode: int = 1) -> list[str]:
         return super().get_outputs(include_bytecode) + getattr(self, "_apw_data_outputs", [])

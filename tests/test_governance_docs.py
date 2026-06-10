@@ -27,11 +27,12 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         ROOT / "docs/operations/repository-settings.md",
         ROOT / "docs/operations/release-gates.md",
         ROOT / "docs/operations/data-release.md",
-            ROOT / "docs/operations/data-publisher.md",
-            ROOT / "docs/operations/event-promotion.md",
-            ROOT / "docs/operations/data-quality.md",
-            ROOT / "docs/contributors/review-workflow.md",
-        ]
+        ROOT / "docs/operations/data-publisher.md",
+        ROOT / "docs/operations/event-promotion.md",
+        ROOT / "docs/operations/data-quality.md",
+        ROOT / "docs/operations/v1-launch-gate.md",
+        ROOT / "docs/contributors/review-workflow.md",
+    ]
     combined = "\n".join(path.read_text(encoding="utf-8") for path in paths)
 
     for phrase in [
@@ -54,6 +55,8 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         "schemas/release-publication-packet.schema.json",
         "data/feeds/operations.json",
         "public data-quality operations report",
+        "apw operations launch-gate",
+        "v1 launch gate",
     ]:
         assert phrase in combined
 
@@ -160,6 +163,7 @@ def test_v1_governance_policy_covers_public_contract_and_neutrality() -> None:
         "without an Ottto account",
         "source-owner review and release-manager approval",
         "docs/operations/v1-governance.md",
+        "v1 launch gate",
         "https://semver.org/",
         "https://scorecard.dev/",
         "privately-reporting-a-security-vulnerability",
@@ -198,6 +202,7 @@ def test_v02_release_checklist_covers_north_star_gates() -> None:
         "uv run apw validate",
         "uv run apw index --check",
         "uv run apw freshness --summary",
+        "uv run apw operations launch-gate --summary",
         "uv run apw release dry-run",
         "installed package-data mode",
         "PyPI Trusted Publisher",

@@ -386,6 +386,11 @@ def build_release_evidence_index(
                 "required": True,
             },
             {
+                "name": "v1 launch gate",
+                "command": "uv run apw operations launch-gate --summary",
+                "required": True,
+            },
+            {
                 "name": "schema and data validation",
                 "command": "uv run apw validate",
                 "required": True,

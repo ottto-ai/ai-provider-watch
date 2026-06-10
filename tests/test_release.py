@@ -67,6 +67,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert "uv lock --check" in result.report["validation_commands"]
     assert "uv run apw source coverage --summary" in result.report["validation_commands"]
     assert "uv run apw operations report --summary" in result.report["validation_commands"]
+    assert "uv run apw operations launch-gate --summary" in result.report["validation_commands"]
     assert "actionlint .github/workflows/*.yml" in result.report["validation_commands"]
     assert result.report_path.exists()
     report = json.loads(result.report_path.read_text(encoding="utf-8"))
@@ -75,6 +76,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
         "schema_and_repo_validation",
         "source_coverage_report",
         "operations_report",
+        "v1_launch_gate",
         "generated_dev_artifacts_current",
         "release_manifest_schema",
         "release_checksums",
@@ -136,6 +138,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert list(validator.iter_errors(evidence_index)) == []
     assert evidence_index["schema_version"] == "apw.release_evidence_index.v0"
     assert any(item["name"] == "operations report" for item in evidence_index["local_verification"])
+    assert any(item["name"] == "v1 launch gate" for item in evidence_index["local_verification"])
     assert any(item["name"] == "OpenSSF Scorecard" for item in evidence_index["external_evidence"])
     assert evidence_index["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
 

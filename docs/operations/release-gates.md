@@ -41,6 +41,7 @@ uv run pytest
 uv run apw source test
 uv run apw source coverage --summary
 uv run apw operations report --summary
+uv run apw operations launch-gate --summary
 uv run apw validate
 uv run apw index --check
 uv run apw freshness --summary
@@ -173,6 +174,8 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
   blocked parser sources, and review backlog;
 - `apw operations report --summary` output for operating SLOs, source-state
   freshness, contributor intake, correction policy, and release-train posture;
+- `apw operations launch-gate --summary` output for v1 external-user launch
+  readiness and required fresh-environment smoke commands;
 - `gh attestation verify` output for the dry-run bundle;
 - `apw release packet` output for reviewed event IDs or explicit skip reason;
 - release notes and manual Ron-signed `data-YYYY.MM.DD` tag plan.
