@@ -40,6 +40,12 @@ from ai_provider_watch.pipeline.candidates import (
 )
 from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 from ai_provider_watch.pipeline.ecosystem import ECOSYSTEM_TARGETS, build_ecosystem_mapping
+from ai_provider_watch.pipeline.event_scaffold import (
+    DETAIL_KIND_TO_EVENT_KINDS,
+    EventScaffoldError,
+    build_event_scaffold,
+    sha256_file,
+)
 from ai_provider_watch.pipeline.launch_gate import build_v1_launch_gate
 from ai_provider_watch.pipeline.llm_review import (
     DEFAULT_REVIEWER,
@@ -179,6 +185,60 @@ def cmd_explain(args: argparse.Namespace) -> int:
     print("\nImpacts:")
     for impact in event.get("impacts", []):
         print(f"- {impact['scope_ref']} {impact['impact_kind']} {impact['direction']} ({impact['severity']}, {impact['confidence']})")
+    return 0
+
+
+def cmd_event_scaffold(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        content_sha256 = args.content_sha256 or sha256_file(Path(args.content_text_file))
+        event = build_event_scaffold(
+            event_id=args.event_id,
+            event_date=args.event_date,
+            provider=args.provider,
+            event_kind=args.kind,
+            title=args.title,
+            summary=args.summary,
+            source_url=args.source_url,
+            source_key=args.source_key,
+            source_authority=args.source_authority,
+            content_sha256=content_sha256,
+            scope_type=args.scope_type,
+            scope_ref=args.scope_ref,
+            impact_kind=args.impact_kind,
+            direction=args.direction,
+            severity=args.severity,
+            confidence=args.confidence,
+            observed_at=args.observed_at,
+            lifecycle_status=args.lifecycle_status,
+            date_confidence=args.date_confidence,
+            announced_at=args.announced_at,
+            effective_at=args.effective_at,
+            expires_at=args.expires_at,
+            migration_deadline=args.migration_deadline,
+            detail_kind=args.detail_kind,
+            model_refs=args.model_ref,
+            replacement_refs=args.replacement_ref,
+            lifecycle_action=args.lifecycle_action,
+            migration_notes=args.migration_notes,
+            new_default=args.new_default,
+            old_default=args.old_default,
+            status=args.status,
+            components=args.component,
+            subscription_impact=args.subscription_impact,
+            api_usage_impact=args.api_usage_impact,
+            who_should_care=args.who,
+            recommended_action=args.recommended_action,
+            selector=args.selector,
+            snapshot_ref=args.snapshot_ref,
+            license_note=args.license_note,
+            tags=args.tag,
+            limitations=args.limitation,
+        )
+    except (OSError, EventScaffoldError) as exc:
+        print(f"event scaffold failed: {exc}", file=sys.stderr)
+        return 1
+    _write_or_print(root, event, args.output)
     return 0
 
 
@@ -1044,6 +1104,106 @@ def build_parser() -> argparse.ArgumentParser:
     explain_parser = subparsers.add_parser("explain", help="explain one event")
     explain_parser.add_argument("event_id")
     explain_parser.set_defaults(func=cmd_explain)
+
+    event_parser = subparsers.add_parser("event", help="event authoring utilities")
+    event_subparsers = event_parser.add_subparsers(dest="event_command", required=True)
+    event_scaffold_parser = event_subparsers.add_parser(
+        "scaffold",
+        help="write a schema-shaped ProviderEvent draft from reviewed official-source facts",
+    )
+    event_kind_choices = sorted(DETAIL_KIND_TO_EVENT_KINDS["generic_change"])
+    detail_kind_choices = ["auto", *sorted(DETAIL_KIND_TO_EVENT_KINDS)]
+    event_scaffold_parser.add_argument("--event-id", help="explicit ProviderEvent id; default is date/provider/title slug")
+    event_scaffold_parser.add_argument("--event-date", required=True, help="provider announcement date, YYYY-MM-DD")
+    event_scaffold_parser.add_argument("--provider", required=True, help="provider slug or provider:<slug>")
+    event_scaffold_parser.add_argument("--kind", required=True, choices=event_kind_choices, help="ProviderEvent event_kind")
+    event_scaffold_parser.add_argument("--title", required=True)
+    event_scaffold_parser.add_argument("--summary", required=True)
+    event_scaffold_parser.add_argument("--source-url", required=True, help="official public evidence URL")
+    event_scaffold_parser.add_argument("--source-key", required=True, help="source registry key")
+    event_scaffold_parser.add_argument(
+        "--source-authority",
+        required=True,
+        choices=[
+            "official_pricing",
+            "official_docs",
+            "official_status",
+            "official_repo",
+            "official_blog",
+            "official_staff_social",
+            "community_hint",
+            "third_party_catalog",
+            "manual",
+        ],
+    )
+    content_group = event_scaffold_parser.add_mutually_exclusive_group(required=True)
+    content_group.add_argument("--content-sha256", help="bounded source snapshot SHA-256")
+    content_group.add_argument("--content-text-file", help="local source snapshot file to hash without copying into the event")
+    event_scaffold_parser.add_argument("--scope-type", default="provider_surface", choices=[
+        "provider",
+        "provider_surface",
+        "model",
+        "model_alias",
+        "agent_app",
+        "subscription_plan",
+        "api_endpoint",
+        "sdk",
+        "gateway",
+        "cloud_region",
+        "account_type",
+        "unknown",
+    ])
+    event_scaffold_parser.add_argument("--scope-ref", required=True, help="affected provider surface, model, app, endpoint, or other APW ref")
+    event_scaffold_parser.add_argument("--impact-kind", required=True, choices=[
+        "cost",
+        "quota",
+        "rate_limit",
+        "availability",
+        "migration",
+        "behavior",
+        "quality",
+        "security",
+        "compliance",
+        "unknown",
+    ])
+    event_scaffold_parser.add_argument("--direction", required=True, choices=["increase", "decrease", "added", "removed", "changed", "unknown"])
+    event_scaffold_parser.add_argument("--severity", default="medium", choices=sorted(SEVERITY_RANK))
+    event_scaffold_parser.add_argument("--confidence", default="confirmed", choices=["low", "medium", "high", "confirmed"])
+    event_scaffold_parser.add_argument("--observed-at", help="RFC3339 source review timestamp; default is now")
+    event_scaffold_parser.add_argument("--lifecycle-status", default="reviewed", choices=["candidate", "reviewed", "published", "superseded", "retracted", "rejected"])
+    event_scaffold_parser.add_argument("--date-confidence", default="exact", choices=["exact", "approximate", "unknown"])
+    event_scaffold_parser.add_argument("--announced-at")
+    event_scaffold_parser.add_argument("--effective-at")
+    event_scaffold_parser.add_argument("--expires-at")
+    event_scaffold_parser.add_argument("--migration-deadline")
+    event_scaffold_parser.add_argument("--detail-kind", default="auto", choices=detail_kind_choices)
+    event_scaffold_parser.add_argument("--model-ref", action="append", help="model slug/ref for model lifecycle details")
+    event_scaffold_parser.add_argument("--replacement-ref", action="append", help="replacement model slug/ref")
+    event_scaffold_parser.add_argument("--lifecycle-action", choices=["launch", "deprecation", "retirement", "replacement", "correction"])
+    event_scaffold_parser.add_argument("--migration-notes")
+    event_scaffold_parser.add_argument("--new-default")
+    event_scaffold_parser.add_argument("--old-default")
+    event_scaffold_parser.add_argument("--status", choices=["investigating", "identified", "monitoring", "resolved", "unknown"])
+    event_scaffold_parser.add_argument("--component", action="append")
+    event_scaffold_parser.add_argument("--subscription-impact", default="unknown", choices=["none", "possible", "direct", "unknown"])
+    event_scaffold_parser.add_argument("--api-usage-impact", default="direct", choices=["none", "possible", "direct", "unknown"])
+    event_scaffold_parser.add_argument("--who", action="append", choices=[
+        "platform_engineers",
+        "finops",
+        "coding_agent_users",
+        "sdk_maintainers",
+        "product_engineers",
+        "reliability_engineers",
+        "security_engineers",
+    ])
+    event_scaffold_parser.add_argument("--recommended-action")
+    event_scaffold_parser.add_argument("--selector")
+    event_scaffold_parser.add_argument("--snapshot-ref")
+    event_scaffold_parser.add_argument("--license-note")
+    event_scaffold_parser.add_argument("--tag", action="append")
+    event_scaffold_parser.add_argument("--limitation", action="append")
+    event_scaffold_parser.add_argument("--output", help="write event draft JSON to this path instead of stdout")
+    event_scaffold_parser.set_defaults(func=cmd_event_scaffold)
 
     remote_parser = subparsers.add_parser("remote", help="read live GitHub feed artifacts without a checkout")
     remote_subparsers = remote_parser.add_subparsers(dest="remote_command", required=True)

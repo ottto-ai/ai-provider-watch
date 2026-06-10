@@ -6,7 +6,7 @@
       "bytes": 16889,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "9c2baf1acbcf479529b7e21ece61da355e176e5bdd2554e8e2a0726a0d2a0ea3"
+      "sha256": "b61d5a674cea37bd2c683b8f2b5d998b70f5f942a52d38e9c5a0b1c9f8b45896"
     },
     {
       "bytes": 108063,
@@ -24,7 +24,7 @@
       "bytes": 92052,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "9b2b76b1726a0b67dae09e75a3b5d5fa09b6e0fc8e269158ded988a21ce39874"
+      "sha256": "5215031d17bc5386ed78d604b210fbe500abf808cd17c82b8c098e73981d3473"
     },
     {
       "bytes": 10516,
@@ -36,7 +36,7 @@
       "bytes": 7012,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "ab0b0324937695d0d75bfafdfb99810160075cfccb46f610de44ea1154b2664d"
+      "sha256": "0949829eddbd7262ff55151f0c97f510274921eaa8904e398ad2b4a7cb04878f"
     },
     {
       "bytes": 16440,
@@ -143,10 +143,10 @@
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
   "generated_at": "2026-06-10T10:32:52Z",
-  "generated_by": "ai-provider-watch 0.1.6",
+  "generated_by": "ai-provider-watch 0.1.7",
   "latest_event_date": "2026-06-10",
   "latest_observed_at": "2026-06-10T10:32:52Z",
-  "package_version": "0.1.6",
+  "package_version": "0.1.7",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
     "manifest_path": "data/releases/dev/manifest.json"

@@ -321,10 +321,10 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.6` is the current stable public package. It adds remote feed commands
-so install-only users can read the live GitHub feed or immutable data tags
-without cloning the repository. The latest reviewed data release is
-`data-2026.06.10`.
+APW `v0.1.7` is the current stable public package. It adds contributor event
+scaffolding plus remote feed commands, so users can consume the live feed and
+source owners can draft reviewed event JSON with less manual schema work. The
+latest reviewed data release is `data-2026.06.10`.
 
 The current release includes:
 
@@ -332,6 +332,7 @@ The current release includes:
   Azure OpenAI;
 - generated JSON, NDJSON, RSS, provider, kind, and severity indexes;
 - no-checkout remote feed commands for live GitHub feeds and signed data tags;
+- event scaffold authoring helpers for reviewed official-source facts;
 - source-refresh automation that opens draft candidate-review PRs without
   publishing events;
 - no-op guarded data-publisher workflow scaffolding;
@@ -350,6 +351,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 Useful contributor docs:
 
 - [Contributor Review Workflow](docs/contributors/review-workflow.md)
+- [Event Scaffold](docs/contributors/event-scaffold.md)
 - [Event Promotion](docs/operations/event-promotion.md)
 - [Candidate Action Queue](docs/schema/candidate-action-queue.md)
 - [Source Packages](docs/contributors/source-packages.md)
