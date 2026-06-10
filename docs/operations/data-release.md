@@ -169,3 +169,7 @@ the concrete resolution.
   successful PyPI Trusted Publishing run for stable remote-feed helpers,
   matching GitHub release assets, artifact hashes, and fresh-install smoke
   coverage.
+- [2026-06-10 `v0.1.10` Python package](release-evidence/2026-06-10-v0.1.10-python-package.md):
+  successful PyPI Trusted Publishing run for the high-signal Anthropic
+  release-note event snapshot, matching GitHub release assets, artifact hashes,
+  and fresh-install smoke coverage.
