@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 AI Provider Watch maintainers
+# SPDX-License-Identifier: Apache-2.0
+
 from __future__ import annotations
 
 import json
@@ -217,6 +220,7 @@ def test_downstream_docs_cover_agent_and_gateway_adoption() -> None:
         for path in [
             ROOT / "docs" / "agent-consumption.md",
             ROOT / "docs" / "integrations" / "github-action.md",
+            ROOT / "docs" / "integrations" / "live-feed-consumption.md",
             ROOT / "docs" / "integrations" / "ecosystem-mappings.md",
             ROOT / "docs" / "integrations" / "agent-dashboard.md",
             ROOT / "docs" / "integrations" / "webhooks.md",
@@ -241,5 +245,7 @@ def test_downstream_docs_cover_agent_and_gateway_adoption() -> None:
         "OpenLIT",
         "apw dashboard agent",
         "local dashboard JSON",
+        "api.load_remote_events",
+        "MCP Sidecar Pattern",
     ]:
         assert phrase in normalized

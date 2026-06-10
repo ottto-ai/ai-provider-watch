@@ -7,8 +7,8 @@
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
   "generated_at": "2026-06-10T10:32:52Z",
-  "generated_by": "ai-provider-watch 0.1.8",
-  "package_version": "0.1.8",
+  "generated_by": "ai-provider-watch 0.1.9",
+  "package_version": "0.1.9",
   "providers": [
     {
       "blocked_pending_parser_source_count": 0,

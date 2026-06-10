@@ -17,7 +17,8 @@ path = [
   "**.yaml",
   "**.toml",
   "**.txt",
-  "**.xml"
+  "**.xml",
+  "uv.lock"
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "AI Provider Watch maintainers"

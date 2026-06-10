@@ -139,6 +139,12 @@ MCP hosts must not expose APW tools that do any of the following:
 Those paths stay in the local CLI plus PR-review workflow. MCP resources and
 tool outputs are data for the caller, not instructions to execute.
 
+For the freshest GitHub `main` feed or an immutable `data-YYYY.MM.DD` tag, use
+`apw remote` as a sidecar and attach the downloaded artifact to the MCP host as
+untrusted data. The MCP server itself remains the stable read-only package or
+checkout data surface. See
+[Live Feed Consumption](../integrations/live-feed-consumption.md).
+
 ## Local Smoke
 
 ```python

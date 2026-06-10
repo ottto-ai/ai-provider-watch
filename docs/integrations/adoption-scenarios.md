@@ -81,6 +81,7 @@ The v0 scenario manifest covers:
 Related docs:
 
 - [Downstream GitHub Action](github-action.md)
+- [Live Feed Consumption](live-feed-consumption.md)
 - [Webhook And Slack Payloads](webhooks.md)
 - [Ecosystem Mappings](ecosystem-mappings.md)
 - [Agent Dashboard](agent-dashboard.md)
