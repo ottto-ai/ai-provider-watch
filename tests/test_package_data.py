@@ -142,6 +142,7 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/action.yml" in names
     assert "ai_provider_watch/_data/.mcp.json" in names
     assert "ai_provider_watch/_data/.codex-plugin/plugin.json" in names
+    assert "ai_provider_watch/_data/docs/consumer-api.md" in names
     assert "ai_provider_watch/_data/docs/operations/v1-launch-gate.md" in names
     assert "ai_provider_watch/_data/docs/agent-consumption.md" in names
     assert "ai_provider_watch/_data/examples/adoption/scenarios.json" in names

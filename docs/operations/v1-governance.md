@@ -18,7 +18,7 @@ The v1 public contract is:
   `data/releases/`;
 - JSON Schemas under `schemas/`;
 - documented CLI commands and flags;
-- documented Python package import paths for consumers;
+- documented Python package import path `ai_provider_watch.api` for consumers;
 - read-only MCP resource names, resource templates, tool names, input schemas,
   output schemas, and JSON-RPC error shapes;
 - documented GitHub Action inputs/outputs and webhook/Slack-compatible payload
@@ -37,6 +37,10 @@ These are not stable consumer contracts:
   LLM review packets, issue bodies, PR comments, MCP resource text, and social
   posts;
 - ignored `.apw/` review artifacts and local release dry-run scratch output;
+- internal Python modules such as `ai_provider_watch.core`,
+  `ai_provider_watch.pipeline`, `ai_provider_watch.source_watch`,
+  `ai_provider_watch.sources`, and `ai_provider_watch.cli` unless a later
+  release explicitly documents a public function from them;
 - private Ottto UI, Advisor, telemetry, SQLAlchemy, Alembic, AWS infra, Slack
   workflows, customer data, credential-loading code, and internal Provider
   Impact implementation details.
@@ -59,6 +63,8 @@ be intentional and visible:
 - data corrections must prefer new correction/superseding events and generated
   feed updates over rewriting published tags;
 - package releases must keep the no-checkout bundled-data smoke path passing.
+- Python consumers should use `ai_provider_watch.api`; new stable import paths
+  require documentation, package-data tests, and release notes.
 
 ## v1 Compatibility
 
@@ -192,6 +198,8 @@ Corrections and retractions keep trust higher than silent rewrites.
 APW is ready to call the public contract v1 when:
 
 - public schemas and package docs define exactly what consumers can rely on;
+- [Python consumer API docs](../consumer-api.md) define the stable read-only
+  import path and no-checkout package-data behavior;
 - source tiers are reflected in source descriptors and review docs;
 - at least one non-Ron maintainer path is documented, even if not yet granted;
 - release, correction, retraction, and security reporting flows are documented;

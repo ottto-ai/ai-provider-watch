@@ -138,6 +138,22 @@ apw ecosystem render --target models-dev --since 30d --risk medium --output .apw
 Use these outputs to search routing configs and model catalogs. Apply changes
 only through the downstream project's own review process.
 
+## Python API
+
+Python consumers can import `ai_provider_watch.api` for stable read-only access
+to reviewed events, generated feeds, schemas, and bundled package data:
+
+```python
+from ai_provider_watch import api
+
+events = api.load_events(provider="openai", min_severity="medium", limit=10)
+operations = api.load_json_feed("operations")
+```
+
+The Python API is read-only and follows the same untrusted-data policy as CLI,
+MCP, and dashboard outputs. See [Python Consumer API](consumer-api.md) for the
+contract and compatibility rules.
+
 ## MCP
 
 The package includes tested read-only MCP adapter helpers. Current resources:

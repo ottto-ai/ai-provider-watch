@@ -131,6 +131,7 @@ def test_v1_governance_policy_covers_public_contract_and_neutrality() -> None:
             ROOT / "SOURCE_OWNERS.md",
             ROOT / "ROADMAP.md",
             ROOT / "docs/schema/event.md",
+            ROOT / "docs/consumer-api.md",
             ROOT / "docs/contributors/review-workflow.md",
             ROOT / "docs/contributors/source-packages.md",
             ROOT / "docs/operations/event-promotion.md",
@@ -140,6 +141,11 @@ def test_v1_governance_policy_covers_public_contract_and_neutrality() -> None:
 
     for phrase in [
         "Public Contract",
+        "ai_provider_watch.api",
+        "Python Consumer API",
+        "load_events",
+        "load_json_feed",
+        "load_schema",
         "Non-Contract Surfaces",
         "Pre-1.0 Compatibility",
         "v1 Compatibility",
@@ -162,6 +168,7 @@ def test_v1_governance_policy_covers_public_contract_and_neutrality() -> None:
         "private Ottto UI, Advisor, telemetry, SQLAlchemy, Alembic, AWS infra, Slack",
         "without an Ottto account",
         "source-owner review and release-manager approval",
+        "TypeScript package",
         "docs/operations/v1-governance.md",
         "v1 launch gate",
         "https://semver.org/",

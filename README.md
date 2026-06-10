@@ -149,6 +149,8 @@ schemas, docs, tests, and tooling are Apache-2.0.
 - A CLI for validation, indexing, latest events, diffs, explanations, release
   dry runs, release verification, source checks, candidate generation, repo impact checks,
   notifications, ecosystem mappings, and local agent dashboards.
+- A documented Python read API at `ai_provider_watch.api` for loading reviewed
+  events, generated feeds, schemas, and bundled no-checkout package data.
 - JSON Schemas for events, sources, candidates, observations, releases,
   JSON Feed, feed freshness, source coverage, operations reporting, release
   verification, webhooks, Slack-style payloads, ecosystem mappings, adoption
@@ -243,6 +245,19 @@ Render local dashboard JSON for agent-app events:
 apw dashboard agent --since 30d --risk high --output .apw/agent-dashboard.json
 ```
 
+Read the same reviewed data from Python:
+
+```python
+from ai_provider_watch import api
+
+for event in api.load_events(min_severity="high", limit=5):
+    print(event["id"], event["title"])
+```
+
+See [Python Consumer API](docs/consumer-api.md) for the stable import path,
+no-checkout package-data behavior, compatibility rules, and non-contract
+internal modules.
+
 See:
 
 - [Agent Consumption](docs/agent-consumption.md)
@@ -277,9 +292,10 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.2` is the next stable public package target. It updates the bundled
-reviewed feed snapshot after the June 8 source-owner promotion batch. The first
-public data releases are signed CalVer tags such as `data-2026.06.05`.
+APW `v0.1.2` is the current stable public package. The next package target is
+`v0.1.3`, which adds the documented Python consumer API while preserving the
+bundled reviewed feed snapshot. The first public data releases are signed
+CalVer tags such as `data-2026.06.05`.
 
 The current release includes:
 
