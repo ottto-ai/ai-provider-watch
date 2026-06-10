@@ -1,30 +1,30 @@
 {
   "data_tag": null,
-  "event_count": 32,
+  "event_count": 33,
   "feed_artifacts": [
     {
-      "bytes": 16889,
+      "bytes": 14374,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "99a49e417231cb10166cdd2778a55142481d4c1ce00a431d7d4fb52012c6a116"
+      "sha256": "fa48016fa9df8320fd1b60038c2b30abfe60d564b124bc46463e4cc11e89a27c"
     },
     {
-      "bytes": 108063,
+      "bytes": 112329,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "dc3d16cef50900d90ec6eda86ede964ba4fb37342705fe108e969d1265a01480"
+      "sha256": "ebf1ace0ad6a8a226b71f1defa7358c3b2c50208c2054b163b067b0219677e31"
     },
     {
-      "bytes": 90048,
+      "bytes": 93619,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "0103bb19b92c20067f4b2316a47cd77350b83a7e90ad21a50561a7e4497c217a"
+      "sha256": "e6f091285d9e1a107a1d019cf80415074f9de66d127beb1267f4e7afbd891577"
     },
     {
-      "bytes": 92052,
+      "bytes": 95377,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "aad9e10fd82e6cd48fba5dd51ee9240177d88d2af3dd9ebe82c6daf06dd9c869"
+      "sha256": "d5f8670cec342ffe39333c5d682c9eff65abb3cf03d710ffd37a39b14c2ac137"
     },
     {
       "bytes": 10516,
@@ -33,16 +33,16 @@
       "sha256": "392bf55432cc7cc959574296f09a0d1596b1e0fd2021c077424b0edc799b1414"
     },
     {
-      "bytes": 7012,
+      "bytes": 4633,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "0e135c5da3bb42a85caae5b92caa3b26a968ae77f29c313a5d6400e911f82102"
+      "sha256": "6c7cf56d01c3035b287c5caa5b6b1b9d74b826971966f83bda2a249389261aeb"
     },
     {
-      "bytes": 16440,
+      "bytes": 16982,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "75ff3d54438dde7c5889dd42634ee362dc1a0309ff46d1c73cfa365cd154f061"
+      "sha256": "ecd767be0005a2d97fc3bc8cee583cb0503000873167c085f9ebf517e8b92176"
     },
     {
       "bytes": 10500,
@@ -75,10 +75,10 @@
       "sha256": "553765b965223aa6101ff0b49982d9777c25df75ed85eb32250b0f17f856e7bd"
     },
     {
-      "bytes": 23195,
+      "bytes": 27461,
       "media_type": "application/json",
       "path": "data/indexes/kind/model_retirement.json",
-      "sha256": "fc906666c1be305f1ba5557838fe99bccc30874a605f6647d3ef67c0eb89c7d1"
+      "sha256": "b6cf759dddfd226c95953fb13daf07852b49033a5f08512096dfc24dad5a5d5a"
     },
     {
       "bytes": 11180,
@@ -105,10 +105,10 @@
       "sha256": "f9c5e7fa842bfecd1797f584574ef818fda7f21406c4921ff7564600f0710b85"
     },
     {
-      "bytes": 21609,
+      "bytes": 25875,
       "media_type": "application/json",
       "path": "data/indexes/provider/azure-openai.json",
-      "sha256": "2ed79fc32709419eac8988610058d14cfc0481116b51c6646727c23594f58249"
+      "sha256": "f7efbff7c6bd0ab20176598c913265b1f391c7b74f8155ed9518fce556c4159b"
     },
     {
       "bytes": 26539,
@@ -135,17 +135,17 @@
       "sha256": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b"
     },
     {
-      "bytes": 52762,
+      "bytes": 57028,
       "media_type": "application/json",
       "path": "data/indexes/severity/medium.json",
-      "sha256": "30d8275d92d3a5113dc46299c1f76e890ec961cb8dd6eaab5b56bbcf89166564"
+      "sha256": "4ac0541442c8b9a920d1506050a663ebefc64e5014f6bc86ef96daf7549bc5b2"
     }
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
-  "generated_at": "2026-06-10T10:32:52Z",
+  "generated_at": "2026-06-10T16:51:44Z",
   "generated_by": "ai-provider-watch 0.1.9",
   "latest_event_date": "2026-06-10",
-  "latest_observed_at": "2026-06-10T10:32:52Z",
+  "latest_observed_at": "2026-06-10T16:51:44Z",
   "package_version": "0.1.9",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
@@ -154,11 +154,11 @@
   "release_id": "dev",
   "schema_version": "apw.feed_freshness.v0",
   "source_state": {
-    "bytes": 3737,
-    "latest_retrieved_at": "2026-06-07T09:36:10Z",
+    "bytes": 24793,
+    "latest_retrieved_at": "2026-06-10T17:06:15Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "sha256": "b55e1ad088377e829a9a78898d64295086002ab389b626973636bb24d48a9632",
-    "source_count": 10
+    "sha256": "ca794120a00609dec301693f419fbdf593bc2cabe3bfc22247fe7e8bc9d6ff00",
+    "source_count": 18
   }
 }

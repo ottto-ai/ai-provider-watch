@@ -20,6 +20,13 @@ The scheduled workflow runs daily and opens a draft PR only when
 Raw provider content is fetched, hashed, and discarded. Event promotion remains
 a separate maintainer-reviewed workflow.
 
+`content_sha256` is the fetched response hash for audit. `fingerprint` is the
+change-detection hash. For parser-backed sources, APW hashes the deterministic
+parsed payload (bounded rows, hashes, dates, model IDs, and parser errors) so
+page chrome, build timestamps, and other unparsed provider markup do not create
+candidate-review PR churn. If a parser finds no bounded rows, APW falls back to
+the scoped response bytes so empty or broken parser output is still visible.
+
 ## Source Graduation Posture
 
 `sources/registry.json` separates fetch eligibility from reviewed-evidence

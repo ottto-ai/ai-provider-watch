@@ -18,6 +18,7 @@ from ai_provider_watch.source_watch.http import (
     build_fingerprint_state,
     fingerprint_bytes,
     normalize_bytes,
+    parsed_fingerprint_bytes,
 )
 from ai_provider_watch.source_watch.parsers import (
     operational_state_from_items,
@@ -202,6 +203,41 @@ def test_parser_fixtures_validate() -> None:
 
 def test_normalize_bytes_stabilizes_whitespace() -> None:
     assert normalize_bytes(b"<html>\n  hello\t world </html>") == b"<html> hello world </html>"
+
+
+def test_parsed_fingerprint_ignores_unparsed_page_chrome() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "google.ai_docs")
+    raw_a = b"<html><main><code>gemini-2.5-pro</code></main><footer>rendered at 12:00</footer></html>"
+    raw_b = b"<html><main><code>gemini-2.5-pro</code></main><footer>rendered at 12:01</footer></html>"
+
+    parsed_a = parse_source_payload(source, raw_a, changed=True)
+    parsed_b = parse_source_payload(source, raw_b, changed=True)
+    fallback_a = normalize_bytes(fingerprint_bytes(source, raw_a))
+    fallback_b = normalize_bytes(fingerprint_bytes(source, raw_b))
+
+    assert parsed_a.items == parsed_b.items != []
+    assert fallback_a != fallback_b
+    assert (
+        parsed_fingerprint_bytes(source, parsed_a, fallback_bytes=fallback_a)
+        == parsed_fingerprint_bytes(source, parsed_b, fallback_bytes=fallback_b)
+    )
+
+
+def test_parsed_fingerprint_falls_back_when_parser_finds_no_rows() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "google.ai_docs")
+    raw_a = b"<html><main><p>first unrelated provider page body</p></main></html>"
+    raw_b = b"<html><main><p>second unrelated provider page body</p></main></html>"
+    parsed_a = parse_source_payload(source, raw_a, changed=True)
+    parsed_b = parse_source_payload(source, raw_b, changed=True)
+    fallback_a = normalize_bytes(fingerprint_bytes(source, raw_a))
+    fallback_b = normalize_bytes(fingerprint_bytes(source, raw_b))
+
+    assert parsed_a.items == []
+    assert parsed_b.items == []
+    assert (
+        parsed_fingerprint_bytes(source, parsed_a, fallback_bytes=fallback_a)
+        != parsed_fingerprint_bytes(source, parsed_b, fallback_bytes=fallback_b)
+    )
 
 
 def test_empty_fingerprint_state_shape() -> None:
@@ -484,16 +520,28 @@ def test_azure_lifecycle_scope_matches_redirected_foundry_shape() -> None:
     rendered = str(parsed.items) + str(parsed.candidate_claims)
     model_ids = {item["model_id"] for item in parsed.items if item["kind"] == "model_ref"}
     dates = {item["date"] for item in parsed.items if item["kind"] == "lifecycle_date"}
+    lifecycle_rows = [item for item in parsed.items if item["kind"] == "lifecycle_row"]
 
     assert parsed.errors == []
     assert {
         "babbage-002",
+        "gpt-4o-mini-realtime-preview",
+        "gpt-4o-realtime-preview",
         "gpt-35-turbo-instruct",
         "text-davinci-002",
         "text-davinci-003",
         "text-embedding-3-small",
     } <= model_ids
-    assert dates == {"2024-06-14"}
+    assert dates == {"2024-06-14", "2025-02-25", "2025-03-26"}
+    assert {
+        (item["lifecycle_action"], item["lifecycle_date"], tuple(item["model_ids"]))
+        for item in lifecycle_rows
+    } >= {
+        ("deprecation", "2025-02-25", ("gpt-4o-realtime-preview",)),
+        ("retirement", "2025-03-26", ("gpt-4o-realtime-preview",)),
+    }
+    assert any(claim["candidate_kind"] == "model_deprecation" for claim in parsed.candidate_claims)
+    assert any(claim["candidate_kind"] == "model_retirement" for claim in parsed.candidate_claims)
     assert "gpt-oss-120b" not in rendered
     assert "gpt-oss-999b" not in rendered
     assert "jamba-1.5-mini" not in rendered

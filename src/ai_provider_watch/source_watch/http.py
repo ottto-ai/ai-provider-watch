@@ -97,6 +97,28 @@ def fingerprint_bytes(source: SourceDescriptor, raw: bytes) -> bytes:
     return raw if scoped.errors else scoped.raw
 
 
+def parsed_fingerprint_bytes(
+    source: SourceDescriptor,
+    parsed: ParsedSourcePayload,
+    *,
+    fallback_bytes: bytes,
+) -> bytes:
+    """Return the deterministic change-detection payload for a parsed source."""
+    if not (parsed.items or parsed.raw_excerpt_hashes or parsed.errors or parsed.snapshot_ref):
+        return fallback_bytes
+    return write_json_text(
+        {
+            "schema_version": "apw.parsed_source_fingerprint.v0",
+            "source_key": source.key,
+            "parser": source.parser,
+            "items": parsed.items,
+            "raw_excerpt_hashes": parsed.raw_excerpt_hashes,
+            "errors": parsed.errors,
+            "snapshot_ref": parsed.snapshot_ref,
+        }
+    ).encode("utf-8")
+
+
 def fetch_source(
     source: SourceDescriptor,
     previous_state: dict[str, Any],
@@ -115,13 +137,28 @@ def fetch_source(
         http_status = int(response.status)
 
     content_sha = _sha256(raw)
-    fingerprint = _sha256(normalize_bytes(fingerprint_bytes(source, raw)))
+    scoped_fingerprint_bytes = normalize_bytes(fingerprint_bytes(source, raw))
     previous_source_state = previous_state.get("sources", {}).get(source.key, {})
     if not isinstance(previous_source_state, dict):
         previous_source_state = {}
+    parsed = parse_source_payload(source, raw, changed=True, previous_state=previous_source_state)
+    fingerprint = _sha256(
+        parsed_fingerprint_bytes(
+            source,
+            parsed,
+            fallback_bytes=scoped_fingerprint_bytes,
+        )
+    )
     previous = previous_source_state.get("fingerprint")
     changed = previous != fingerprint
-    parsed = parse_source_payload(source, raw, changed=changed, previous_state=previous_source_state)
+    if not changed and parsed.candidate_claims:
+        parsed = ParsedSourcePayload(
+            items=parsed.items,
+            raw_excerpt_hashes=parsed.raw_excerpt_hashes,
+            candidate_claims=[],
+            errors=parsed.errors,
+            snapshot_ref=parsed.snapshot_ref,
+        )
     return SourceObservation(
         source_key=source.key,
         retrieved_at=retrieved_at,

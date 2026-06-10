@@ -78,7 +78,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     coverage = json.loads(artifacts[Path("data/feeds/coverage.json")])
     assert coverage["schema_version"] == "apw.source_coverage.v0"
     assert coverage["summary"]["source_count"] == 19
-    assert coverage["summary"]["missing_enabled_source_count"] == 8
+    assert coverage["summary"]["missing_enabled_source_count"] == 0
     operations = json.loads(artifacts[Path("data/feeds/operations.json")])
     assert not list(
         Draft202012Validator(
@@ -95,7 +95,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["event_count"] == len(events)
     assert freshness["latest_event_date"] == "2026-06-10"
     assert freshness["source_state"]["path"] == "data/source-state/fingerprints.json"
-    assert freshness["source_state"]["source_count"] == 10
+    assert freshness["source_state"]["source_count"] == 18
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
     assert any(artifact["path"] == "data/feeds/coverage.json" for artifact in freshness["feed_artifacts"])
     assert any(artifact["path"] == "data/feeds/events.json" for artifact in freshness["feed_artifacts"])
