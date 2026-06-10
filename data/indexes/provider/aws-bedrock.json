@@ -1,5 +1,94 @@
 [
   {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records AWS-hosted availability. APW does not assert first-party Anthropic API availability, region coverage, exact pricing, or account eligibility.",
+      "model_refs": [
+        "model:anthropic/claude-fable-5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "6f01dc703fe5c6c430428b7d45dd52cbe741ce133c188e21570770b459931be5",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:32Z",
+        "selector": "announcement:9bb2ad4662d4565b",
+        "snapshot_ref": "entry:9bb2ad4662d4565b",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/claude-fable-5-aws/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-aws-bedrock-claude-fable-5-availability",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock model access, regional availability, quotas, and pricing before routing Claude Fable 5 workloads through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Benchmark long-running coding and knowledge-work tasks before promoting this model into default agent routes.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this page as a pricing change; source-owner review corrected the public event to model availability after checking the official announcement.",
+      "APW does not copy provider announcement prose and does not assert workload suitability without independent testing."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-10T10:32:32Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic's long-running coding and knowledge-work model family.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS"
+  },
+  {
     "announced_at": "2026-06-05T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

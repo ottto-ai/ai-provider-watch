@@ -20,9 +20,9 @@ def test_operations_report_matches_schema_and_current_public_gaps() -> None:
     assert report["generated_at"] == CREATED_AT
     assert report["overall_status"] == "fail"
     assert report["summary"]["provider_count"] == 5
-    assert report["summary"]["reviewed_event_count"] == 28
-    assert report["summary"]["latest_event_date"] == "2026-06-05"
-    assert report["summary"]["latest_reviewed_event_age_days"] == 5
+    assert report["summary"]["reviewed_event_count"] == 32
+    assert report["summary"]["latest_event_date"] == "2026-06-10"
+    assert report["summary"]["latest_reviewed_event_age_days"] == 0
     assert report["summary"]["enabled_source_coverage_ratio"] == 0.5556
     assert report["summary"]["missing_enabled_source_count"] == 8
     assert report["summary"]["candidate_backlog_count"] == 9

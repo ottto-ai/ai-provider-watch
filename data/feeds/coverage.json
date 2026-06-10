@@ -6,7 +6,7 @@
     "total": 9
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
-  "generated_at": "2026-06-08T11:04:15Z",
+  "generated_at": "2026-06-10T10:32:52Z",
   "generated_by": "ai-provider-watch 0.1.5",
   "package_version": "0.1.5",
   "providers": [
@@ -22,7 +22,7 @@
         "openai.news"
       ],
       "provider_ref": "provider:openai",
-      "reviewed_event_count": 5,
+      "reviewed_event_count": 7,
       "source_count": 5
     },
     {
@@ -44,14 +44,14 @@
       "candidate_backlog_count": 2,
       "enabled_deterministic_source_count": 4,
       "fetched_enabled_source_count": 2,
-      "latest_event_date": "2026-06-01",
+      "latest_event_date": "2026-06-10",
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [
         "google.gemini_changelog",
         "google.vertex_model_versions"
       ],
       "provider_ref": "provider:google",
-      "reviewed_event_count": 7,
+      "reviewed_event_count": 8,
       "source_count": 4
     },
     {
@@ -59,13 +59,13 @@
       "candidate_backlog_count": 1,
       "enabled_deterministic_source_count": 3,
       "fetched_enabled_source_count": 2,
-      "latest_event_date": "2026-06-05",
+      "latest_event_date": "2026-06-09",
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [
         "aws_bedrock.whats_new"
       ],
       "provider_ref": "provider:aws-bedrock",
-      "reviewed_event_count": 6,
+      "reviewed_event_count": 7,
       "source_count": 3
     },
     {
@@ -482,15 +482,20 @@
     "enabled_deterministic_source_count": 18,
     "fetched_enabled_source_count": 10,
     "fetched_enabled_source_ratio": 0.5556,
-    "latest_event_date": "2026-06-05",
+    "latest_event_date": "2026-06-10",
     "manual_review_only_source_count": 1,
     "missing_enabled_source_count": 8,
     "provider_count": 5,
-    "reviewed_event_count": 28,
+    "reviewed_event_count": 32,
     "source_count": 19,
-    "warning_count": 9
+    "warning_count": 10
   },
   "warnings": [
+    {
+      "code": "source_state_stale",
+      "detail": "latest source-state retrieval is older than 72 hours",
+      "severity": "warning"
+    },
     {
       "code": "enabled_source_missing_source_state",
       "detail": "enabled deterministic source has no source-state fingerprint",

@@ -1,0 +1,113 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-04-22-openai-legacy-gpt-snapshot-retirements",
+  "title": "OpenAI Scheduled Legacy GPT And Codex Snapshot Retirements For July And October 2026",
+  "event_kind": "model_retirement",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-04-22",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-10T10:32:52Z",
+  "announced_at": "2026-04-22T00:00:00Z",
+  "effective_at": "2026-04-22T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2026-07-23T00:00:00Z",
+  "summary": "OpenAI's deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.deprecations",
+      "url": "https://developers.openai.com/api/docs/deprecations",
+      "retrieved_at": "2026-06-10T10:32:52Z",
+      "authority": "official_docs",
+      "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+      "snapshot_ref": "section:2026-04-22-legacy-gpt-model-snapshots",
+      "selector": "heading:2026-04-22-legacy-gpt-model-snapshots",
+      "license_note": "Official deprecations table reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/api",
+      "impact_kind": "availability",
+      "direction": "removed",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers",
+        "sdk_maintainers",
+        "coding_agent_users"
+      ],
+      "recommended_action": "Search code, configuration, gateway allowlists, and agent model routes for the retiring model IDs before the earliest July 23, 2026 shutdown date."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "migration",
+      "direction": "changed",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers"
+      ],
+      "recommended_action": "Check Codex and coding-agent routing for retired Codex aliases and validate replacements before changing defaults."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:openai/computer-use-preview-2025-03-11",
+      "model:openai/computer-use-preview",
+      "model:openai/gpt-4o-mini-search-preview-2025-03-11",
+      "model:openai/gpt-4o-mini-tts-2025-03-20",
+      "model:openai/gpt-4o-search-preview-2025-03-11",
+      "model:openai/gpt-5-chat-latest",
+      "model:openai/gpt-5-codex",
+      "model:openai/gpt-5.1-chat-latest",
+      "model:openai/gpt-5.1-codex",
+      "model:openai/gpt-5.1-codex-max",
+      "model:openai/gpt-5.1-codex-mini",
+      "model:openai/gpt-5.2-codex",
+      "model:openai/o1",
+      "model:openai/o1-2024-12-17",
+      "model:openai/o1-pro",
+      "model:openai/o1-pro-2025-03-19",
+      "model:openai/o3-mini",
+      "model:openai/o3-mini-2025-01-31",
+      "model:openai/o4-mini",
+      "model:openai/o4-mini-2025-04-16"
+    ],
+    "lifecycle_action": "retirement",
+    "replacement_refs": [
+      "model:openai/gpt-5.5",
+      "model:openai/gpt-5.5-pro",
+      "model:openai/gpt-5.4-mini",
+      "model:openai/gpt-audio-1.5",
+      "model:openai/gpt-realtime-mini"
+    ],
+    "deadline": "2026-07-23T00:00:00Z",
+    "migration_notes": "The source table contains multiple shutdown dates. APW uses the earliest date as the migration_deadline and records this event as a representative high-impact subset rather than an exhaustive copy of the table."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:openai",
+    "impact:model_retirement",
+    "agent:codex"
+  ],
+  "limitations": [
+    "This event summarizes a deprecations-table section and does not reproduce the full table.",
+    "Some affected model IDs have later October 23, 2026 shutdown dates; consumers should check the official table for model-specific deadlines."
+  ]
+}

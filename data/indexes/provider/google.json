@@ -1,5 +1,105 @@
 [
   {
+    "announced_at": null,
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": "2026-10-16T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "The source uses mixed wording: some model IDs have exact dates, while Gemini 2.5 IDs are listed as not before October 16, 2026 and gemini-embedding-001 is listed as no sooner than May 20, 2028. APW records the earliest listed lifecycle boundary for alerting and keeps exact-date caveats in limitations.",
+      "model_refs": [
+        "model:google/gemini-2.5-pro",
+        "model:google/gemini-2.5-flash",
+        "model:google/gemini-2.5-flash-lite",
+        "model:google/gemini-live-2.5-flash-native-audio",
+        "model:google/gemini-2.5-flash-image",
+        "model:google/gemini-embedding-001",
+        "model:google/text-embedding-005",
+        "model:google/text-embedding-004",
+        "model:google/text-multilingual-embedding-002",
+        "model:google/multimodalembedding@001"
+      ],
+      "replacement_refs": [
+        "model:google/gemini-3.5-flash",
+        "model:google/gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": null,
+    "event_date": "2026-06-10",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "43617b78f364cb2c02bdbd3b5d259ac1089057913e29a4d63d704c06a970fdcf",
+        "license_note": "Official lifecycle table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:49Z",
+        "selector": "heading:latest-stable-models",
+        "snapshot_ref": "section:latest-stable-models",
+        "source_key": "google.vertex_model_versions",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Track the listed lifecycle dates in model allowlists and agent-routing tests, especially if production workloads still pin Gemini 2.5 or older embedding IDs.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "availability",
+        "recommended_action": "Do not treat the October 16, 2026 date as an exact shutdown; use it as the earliest listed lifecycle boundary and monitor the official page for final retirement updates.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event is a planning signal from the reviewed lifecycle table, not a claim that every listed model has the same exact shutdown date.",
+      "Google may update final retirement dates; consumers should monitor the official lifecycle page before making irreversible migrations."
+    ],
+    "migration_deadline": "2026-10-16T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:49Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Cloud's Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_deprecation",
+      "surface:vertex_ai"
+    ],
+    "title": "Google Cloud Listed Gemini And Embedding Model Lifecycle Dates"
+  },
+  {
     "announced_at": "2026-02-18T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

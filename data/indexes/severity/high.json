@@ -1,5 +1,94 @@
 [
   {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records AWS-hosted availability. APW does not assert first-party Anthropic API availability, region coverage, exact pricing, or account eligibility.",
+      "model_refs": [
+        "model:anthropic/claude-fable-5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "6f01dc703fe5c6c430428b7d45dd52cbe741ce133c188e21570770b459931be5",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:32Z",
+        "selector": "announcement:9bb2ad4662d4565b",
+        "snapshot_ref": "entry:9bb2ad4662d4565b",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/claude-fable-5-aws/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-aws-bedrock-claude-fable-5-availability",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock model access, regional availability, quotas, and pricing before routing Claude Fable 5 workloads through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Benchmark long-running coding and knowledge-work tasks before promoting this model into default agent routes.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this page as a pricing change; source-owner review corrected the public event to model availability after checking the official announcement.",
+      "APW does not copy provider announcement prose and does not assert workload suitability without independent testing."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-10T10:32:32Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic's long-running coding and knowledge-work model family.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS"
+  },
+  {
     "announced_at": "2026-06-05T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",
@@ -831,6 +920,119 @@
       "impact:api_contract_change"
     ],
     "title": "Google Gemini API Announced Interactions API Schema Cutover"
+  },
+  {
+    "announced_at": "2026-04-22T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-07-23T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "The source table contains multiple shutdown dates. APW uses the earliest date as the migration_deadline and records this event as a representative high-impact subset rather than an exhaustive copy of the table.",
+      "model_refs": [
+        "model:openai/computer-use-preview-2025-03-11",
+        "model:openai/computer-use-preview",
+        "model:openai/gpt-4o-mini-search-preview-2025-03-11",
+        "model:openai/gpt-4o-mini-tts-2025-03-20",
+        "model:openai/gpt-4o-search-preview-2025-03-11",
+        "model:openai/gpt-5-chat-latest",
+        "model:openai/gpt-5-codex",
+        "model:openai/gpt-5.1-chat-latest",
+        "model:openai/gpt-5.1-codex",
+        "model:openai/gpt-5.1-codex-max",
+        "model:openai/gpt-5.1-codex-mini",
+        "model:openai/gpt-5.2-codex",
+        "model:openai/o1",
+        "model:openai/o1-2024-12-17",
+        "model:openai/o1-pro",
+        "model:openai/o1-pro-2025-03-19",
+        "model:openai/o3-mini",
+        "model:openai/o3-mini-2025-01-31",
+        "model:openai/o4-mini",
+        "model:openai/o4-mini-2025-04-16"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-5.5",
+        "model:openai/gpt-5.5-pro",
+        "model:openai/gpt-5.4-mini",
+        "model:openai/gpt-audio-1.5",
+        "model:openai/gpt-realtime-mini"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-22T00:00:00Z",
+    "event_date": "2026-04-22",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+        "license_note": "Official deprecations table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:52Z",
+        "selector": "heading:2026-04-22-legacy-gpt-model-snapshots",
+        "snapshot_ref": "section:2026-04-22-legacy-gpt-model-snapshots",
+        "source_key": "openai.deprecations",
+        "url": "https://developers.openai.com/api/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-22-openai-legacy-gpt-snapshot-retirements",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Search code, configuration, gateway allowlists, and agent model routes for the retiring model IDs before the earliest July 23, 2026 shutdown date.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Check Codex and coding-agent routing for retired Codex aliases and validate replacements before changing defaults.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event summarizes a deprecations-table section and does not reproduce the full table.",
+      "Some affected model IDs have later October 23, 2026 shutdown dates; consumers should check the official table for model-specific deadlines."
+    ],
+    "migration_deadline": "2026-07-23T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:52Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_retirement",
+      "agent:codex"
+    ],
+    "title": "OpenAI Scheduled Legacy GPT And Codex Snapshot Retirements For July And October 2026"
   },
   {
     "announced_at": "2025-09-01T00:00:00Z",
