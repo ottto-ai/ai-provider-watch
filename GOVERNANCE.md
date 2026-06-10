@@ -10,6 +10,10 @@ approval.
 APW may credit Ottto as founder and sponsor, but provider events, schemas, and
 feeds should remain factual and reusable without an Ottto account.
 
+The v1 governance, compatibility, source-tier, neutrality, data-repo split, and
+correction/retraction policy lives in
+[docs/operations/v1-governance.md](docs/operations/v1-governance.md).
+
 ## Review Authority
 
 The source owner and release manager roles are documented in

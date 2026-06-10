@@ -8,6 +8,8 @@ still requires a maintainer-reviewed PR and release gates.
 
 Public contributor flow is documented in
 [docs/contributors/review-workflow.md](docs/contributors/review-workflow.md).
+Source tiers and the source-owner onboarding checklist are documented in
+[docs/operations/v1-governance.md](docs/operations/v1-governance.md).
 
 For v0.1, `@RonShub` is the sole source owner for every source key listed below.
 The role keys remain stable so future teams can take over without changing

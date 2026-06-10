@@ -19,6 +19,9 @@ This single-maintainer posture must be revisited before v1.0, before granting
 non-Ron publishing authority, or before enabling team-only CODEOWNERS gates that
 could lock out the current maintainer.
 
+The source-owner onboarding checklist and neutrality checkpoints are documented
+in [docs/operations/v1-governance.md](docs/operations/v1-governance.md).
+
 ## Role Keys
 
 APW uses stable role keys in source descriptors and docs. GitHub teams will be

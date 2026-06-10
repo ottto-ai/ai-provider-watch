@@ -7,6 +7,8 @@ maintainers at provider changes, but only reviewed event files under
 
 For public contributor paths before promotion, start with
 [Contributor Review Workflow](../contributors/review-workflow.md).
+For correction/retraction policy and v1 compatibility rules, see
+[v1 Governance And Neutrality](v1-governance.md).
 
 For the v0.1 launch window, `@RonShub` is the sole source owner, release
 manager, schema maintainer, and security contact. Revisit this before v1.0 or
