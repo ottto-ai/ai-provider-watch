@@ -135,6 +135,19 @@ token access. When `duplicate_event_ids` is present, source owners should cite
 the existing reviewed event and avoid publishing a second ProviderEvent for the
 same evidence.
 
+The candidate action queue is the contributor-friendly view of the same
+advisory data:
+
+```bash
+uv run apw candidate queue \
+  --candidates data/candidates/review \
+  --markdown
+```
+
+Daily candidate-review PR bodies include this queue so source owners can start
+with `promote` rows, close duplicates and rejects quickly, and keep APW data
+moving without loosening event validation.
+
 Parser output is intentionally narrow. Dated official announcement parsers may
 emit multiple candidate claims for provider-controlled news, changelog, release
 note, or What's New entries, but only as bounded facts: date, candidate kind,

@@ -217,6 +217,17 @@ Candidate files are not published events. Promotion to `data/events/` remains a
 manual source-owner review step. See
 [Event Promotion](docs/operations/event-promotion.md).
 
+Turn a candidate-review PR into an action queue:
+
+```bash
+uv run apw candidate queue \
+  --candidates data/candidates/review \
+  --markdown
+```
+
+Start with the `Promote First` group. Those candidates are the fastest path to
+new public events after official evidence review.
+
 ## Use APW In Downstream Systems
 
 Check a repository for model references and APW-relevant impact:
@@ -293,10 +304,10 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.4` is the current stable public package. It adds a schema-backed
-release automation readiness report while keeping unattended data publication
-blocked until a signing-equivalent mechanism is approved. The first public data
-releases are signed CalVer tags such as `data-2026.06.05`.
+APW `v0.1.5` is the current stable public package. It adds a candidate action
+queue so source owners can move quickly from official-source candidates to
+reviewed public events, while duplicates and rejects are easy to close. The
+first public data releases are signed CalVer tags such as `data-2026.06.05`.
 
 The current release includes:
 
@@ -322,6 +333,7 @@ Useful contributor docs:
 
 - [Contributor Review Workflow](docs/contributors/review-workflow.md)
 - [Event Promotion](docs/operations/event-promotion.md)
+- [Candidate Action Queue](docs/schema/candidate-action-queue.md)
 - [Source Packages](docs/contributors/source-packages.md)
 - [Repository Settings](docs/operations/repository-settings.md)
 - [Roadmap](ROADMAP.md)

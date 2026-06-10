@@ -73,6 +73,24 @@ tokens.
 When quality reports include `duplicate_event_ids`, reviewers should cite the
 existing event and avoid creating another ProviderEvent for the same evidence.
 
+## Candidate Action Queue
+
+Use the action queue to move quickly from a candidate-review PR to useful public
+data. It groups candidates by the next source-owner action and puts promotion
+candidates first:
+
+```bash
+uv run apw candidate queue \
+  --candidates data/candidates/review \
+  --markdown \
+  --output .apw/candidate-action-queue.md
+```
+
+The queue omits generated candidate claim text and keeps provider/source text as
+untrusted data. A `promote` row is the fastest path to a public event: verify
+the official evidence URL, author the `ProviderEvent`, regenerate feeds, and run
+`apw candidate event-packet`.
+
 ## Source-Owner Packets
 
 For high-value official candidates, maintainers can render a source-owner

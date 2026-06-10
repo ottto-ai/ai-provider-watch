@@ -21,6 +21,10 @@ from ai_provider_watch.core.io import package_data_root, read_json, repo_root, w
 from ai_provider_watch.core.validation import validate
 from ai_provider_watch.pipeline.agent_dashboard import build_agent_dashboard
 from ai_provider_watch.pipeline.candidate_event_packet import build_candidate_to_event_packet
+from ai_provider_watch.pipeline.candidate_queue import (
+    build_candidate_action_queue,
+    render_candidate_action_queue_markdown,
+)
 from ai_provider_watch.pipeline.candidates import (
     build_candidates,
     ensure_unique_candidate_ids,
@@ -444,6 +448,49 @@ def cmd_candidate_quality(args: argparse.Namespace) -> int:
         print(f"candidate quality failed: {exc}", file=sys.stderr)
         return 1
     output = write_json_text(report)
+    if args.output:
+        output_path = _output_path(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(output, encoding="utf-8")
+    else:
+        sys.stdout.write(output)
+    return 0
+
+
+def cmd_candidate_queue(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    candidate_dir = _path_from_root(root, args.candidates)
+    created_at = _created_at(args.created_at)
+    candidate_files = read_candidate_files(candidate_dir)
+    sources = load_source_descriptors(root, enabled_only=False)
+    try:
+        promotion_report = build_promotion_readiness_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+        )
+        quality_report = build_candidate_quality_report(
+            candidate_files,
+            sources,
+            root=root,
+            created_at=created_at,
+            promotion_report=promotion_report,
+        )
+        queue = build_candidate_action_queue(
+            candidate_files,
+            created_at=created_at,
+            promotion_report=promotion_report,
+            quality_report=quality_report,
+        )
+    except ValueError as exc:
+        print(f"candidate queue failed: {exc}", file=sys.stderr)
+        return 1
+    output = (
+        render_candidate_action_queue_markdown(queue, limit_per_group=args.limit_per_group)
+        if args.markdown
+        else write_json_text(queue)
+    )
     if args.output:
         output_path = _output_path(root, args.output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1004,6 +1051,24 @@ def build_parser() -> argparse.ArgumentParser:
     )
     candidate_quality_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     candidate_quality_parser.set_defaults(func=cmd_candidate_quality)
+    candidate_queue_parser = candidate_subparsers.add_parser(
+        "queue",
+        help="group review candidates into promote, duplicate, reject, and human-review queues",
+    )
+    candidate_queue_parser.add_argument("--candidates", default="data/candidates/review")
+    candidate_queue_parser.add_argument(
+        "--created-at",
+        help="RFC3339 timestamp for deterministic queue reports; defaults to now in UTC",
+    )
+    candidate_queue_parser.add_argument("--markdown", action="store_true", help="render a compact Markdown queue instead of JSON")
+    candidate_queue_parser.add_argument(
+        "--limit-per-group",
+        type=int,
+        default=12,
+        help="maximum rows per action group when rendering Markdown",
+    )
+    candidate_queue_parser.add_argument("--output", help="write queue report to this path instead of stdout")
+    candidate_queue_parser.set_defaults(func=cmd_candidate_queue)
     candidate_packet_parser = candidate_subparsers.add_parser(
         "packet",
         help="render a source-owner event-drafting packet for high-value review candidates",
