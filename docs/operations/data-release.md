@@ -162,3 +162,6 @@ the concrete resolution.
 - [2026-06-01 `data-2026.06.01` dry run](release-evidence/2026-06-01-data-2026.06.01-dry-run.md):
   first successful manual workflow dry run on public `main`, with 15 passing
   report checks and release-shaped artifact checksums. No tag was created.
+- [2026-06-10 `v0.1.8` Python package](release-evidence/2026-06-10-v0.1.8-python-package.md):
+  successful PyPI Trusted Publishing run, matching GitHub release assets,
+  artifact hashes, and fresh-install smoke coverage.

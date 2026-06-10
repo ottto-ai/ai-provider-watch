@@ -321,10 +321,11 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.7` is the current stable public package. It adds contributor event
-scaffolding plus remote feed commands, so users can consume the live feed and
-source owners can draft reviewed event JSON with less manual schema work. The
-latest reviewed data release is `data-2026.06.10`.
+APW `v0.1.8` is the current stable public package. It adds contributor and
+source-owner event scaffolding plus remote feed commands, so users can consume
+the live feed and reviewers can turn candidate findings into reviewed event
+drafts with less manual schema work. The latest reviewed data release is
+`data-2026.06.10`.
 
 The current release includes:
 
@@ -333,6 +334,7 @@ The current release includes:
 - generated JSON, NDJSON, RSS, provider, kind, and severity indexes;
 - no-checkout remote feed commands for live GitHub feeds and signed data tags;
 - event scaffold authoring helpers for reviewed official-source facts;
+- candidate-to-event scaffold helpers for source-owner reviewed findings;
 - source-refresh automation that opens draft candidate-review PRs without
   publishing events;
 - no-op guarded data-publisher workflow scaffolding;
