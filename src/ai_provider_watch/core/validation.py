@@ -24,6 +24,7 @@ SCHEMA_FILES = {
     "source": "source.schema.json",
     "observation": "observation.schema.json",
     "candidate": "candidate.schema.json",
+    "candidate_action_queue": "candidate-action-queue.schema.json",
     "candidate_quality": "candidate-quality.schema.json",
     "candidate_to_event_packet": "candidate-to-event-packet.schema.json",
     "source_owner_packet": "source-owner-packet.schema.json",

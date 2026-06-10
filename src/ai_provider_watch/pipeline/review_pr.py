@@ -8,6 +8,10 @@ from typing import Any
 
 from ai_provider_watch.core.io import read_json
 from ai_provider_watch.core.untrusted import contains_prompt_injection_marker
+from ai_provider_watch.pipeline.candidate_queue import (
+    build_candidate_action_queue,
+    render_candidate_action_queue_markdown,
+)
 from ai_provider_watch.pipeline.candidates import KNOWN_CANDIDATE_KINDS
 
 CANDIDATE_ID_PATTERN = re.compile(r"^candidate-[a-z0-9][a-z0-9-]*-[a-f0-9]{16}$")
@@ -295,6 +299,21 @@ def build_review_pr_body(
         )
     else:
         lines.append("No candidate files were generated in this run.")
+
+    if promotion_report and quality_report:
+        created_at = (
+            quality_report.get("created_at")
+            if isinstance(quality_report.get("created_at"), str)
+            else promotion_report.get("created_at")
+        )
+        if isinstance(created_at, str):
+            queue = build_candidate_action_queue(
+                candidate_files,
+                created_at=created_at,
+                promotion_report=promotion_report,
+                quality_report=quality_report,
+            )
+            lines.extend(["", *render_candidate_action_queue_markdown(queue).splitlines()])
 
     lines.extend(["", "## Promotion Readiness", ""])
     if promotion_report:
