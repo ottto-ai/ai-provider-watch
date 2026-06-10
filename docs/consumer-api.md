@@ -65,7 +65,19 @@ operations = api.load_json_feed("operations")
 
 Package snapshots are not daily data releases. For the freshest immutable data,
 pin a GitHub `data-YYYY.MM.DD` release or read a repository feed URL documented
-in the README.
+in the README. Installed CLI users can read those public artifacts without a
+checkout:
+
+```bash
+apw remote latest --ref main --risk medium
+apw remote freshness --ref data-2026.06.10 --summary
+apw remote feed events.ndjson --ref data-2026.06.10 --output apw-events.ndjson
+```
+
+The remote commands are read-only and fetch only public APW feed artifacts from
+the `ottto-ai/ai-provider-watch` GitHub repository. They do not call provider
+sites, generate candidates, promote events, write indexes, create tags, publish
+packages, call downstream services, or read credentials.
 
 ## Compatibility Rules
 

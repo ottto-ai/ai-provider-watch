@@ -18,6 +18,13 @@ from ai_provider_watch.core.feeds import (
     write_artifacts,
 )
 from ai_provider_watch.core.io import package_data_root, read_json, repo_root, write_json_text
+from ai_provider_watch.core.remote import (
+    JSON_REMOTE_ARTIFACTS,
+    REMOTE_ARTIFACTS,
+    RemoteFeedError,
+    fetch_remote_json,
+    fetch_remote_text,
+)
 from ai_provider_watch.core.validation import validate
 from ai_provider_watch.pipeline.agent_dashboard import build_agent_dashboard
 from ai_provider_watch.pipeline.candidate_event_packet import build_candidate_to_event_packet
@@ -172,6 +179,92 @@ def cmd_explain(args: argparse.Namespace) -> int:
     print("\nImpacts:")
     for impact in event.get("impacts", []):
         print(f"- {impact['scope_ref']} {impact['impact_kind']} {impact['direction']} ({impact['severity']}, {impact['confidence']})")
+    return 0
+
+
+def _expect_remote_list(value: Any, *, artifact: str) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        raise RemoteFeedError(f"remote {artifact} feed is not a JSON array")
+    return value
+
+
+def _expect_remote_dict(value: Any, *, artifact: str) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise RemoteFeedError(f"remote {artifact} feed is not a JSON object")
+    return value
+
+
+def cmd_remote_latest(args: argparse.Namespace) -> int:
+    try:
+        events = _expect_remote_list(
+            fetch_remote_json(
+                "events",
+                ref=args.ref,
+                timeout=args.timeout,
+                limit_bytes=args.limit_bytes,
+            ),
+            artifact="events",
+        )
+    except (RemoteFeedError, ValueError) as exc:
+        print(f"remote latest failed: {exc}", file=sys.stderr)
+        return 1
+    _print_json(filter_events(events, provider=args.provider, min_severity=args.risk)[: args.limit])
+    return 0
+
+
+def cmd_remote_freshness(args: argparse.Namespace) -> int:
+    try:
+        freshness = _expect_remote_dict(
+            fetch_remote_json(
+                "freshness",
+                ref=args.ref,
+                timeout=args.timeout,
+                limit_bytes=args.limit_bytes,
+            ),
+            artifact="freshness",
+        )
+    except (RemoteFeedError, ValueError) as exc:
+        print(f"remote freshness failed: {exc}", file=sys.stderr)
+        return 1
+    if args.summary:
+        print(f"release_id: {freshness['release_id']}")
+        print(f"data_tag: {freshness['data_tag'] or args.ref}")
+        print(f"package_version: {freshness['package_version']}")
+        print(f"event_count: {freshness['event_count']}")
+        print(f"latest_event_date: {freshness['latest_event_date'] or 'none'}")
+    else:
+        _print_json(freshness)
+    return 0
+
+
+def cmd_remote_feed(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        if args.name in JSON_REMOTE_ARTIFACTS:
+            output = write_json_text(
+                fetch_remote_json(
+                    args.name,
+                    ref=args.ref,
+                    timeout=args.timeout,
+                    limit_bytes=args.limit_bytes,
+                )
+            )
+        else:
+            output = fetch_remote_text(
+                args.name,
+                ref=args.ref,
+                timeout=args.timeout,
+                limit_bytes=args.limit_bytes,
+            )
+    except (RemoteFeedError, ValueError) as exc:
+        print(f"remote feed failed: {exc}", file=sys.stderr)
+        return 1
+    if args.output:
+        output_path = _output_path(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(output, encoding="utf-8")
+    else:
+        sys.stdout.write(output)
     return 0
 
 
@@ -951,6 +1044,30 @@ def build_parser() -> argparse.ArgumentParser:
     explain_parser = subparsers.add_parser("explain", help="explain one event")
     explain_parser.add_argument("event_id")
     explain_parser.set_defaults(func=cmd_explain)
+
+    remote_parser = subparsers.add_parser("remote", help="read live GitHub feed artifacts without a checkout")
+    remote_subparsers = remote_parser.add_subparsers(dest="remote_command", required=True)
+    remote_latest_parser = remote_subparsers.add_parser("latest", help="print latest events from a remote APW feed")
+    remote_latest_parser.add_argument("--ref", default="main", help="Git ref to read, such as main or data-YYYY.MM.DD")
+    remote_latest_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK))
+    remote_latest_parser.add_argument("--provider")
+    remote_latest_parser.add_argument("--limit", type=int, default=20)
+    remote_latest_parser.add_argument("--timeout", type=float, default=20.0)
+    remote_latest_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
+    remote_latest_parser.set_defaults(func=cmd_remote_latest)
+    remote_freshness_parser = remote_subparsers.add_parser("freshness", help="print remote feed freshness metadata")
+    remote_freshness_parser.add_argument("--ref", default="main", help="Git ref to read, such as main or data-YYYY.MM.DD")
+    remote_freshness_parser.add_argument("--summary", action="store_true")
+    remote_freshness_parser.add_argument("--timeout", type=float, default=20.0)
+    remote_freshness_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
+    remote_freshness_parser.set_defaults(func=cmd_remote_freshness)
+    remote_feed_parser = remote_subparsers.add_parser("feed", help="print one remote feed artifact")
+    remote_feed_parser.add_argument("name", choices=sorted(REMOTE_ARTIFACTS))
+    remote_feed_parser.add_argument("--ref", default="main", help="Git ref to read, such as main or data-YYYY.MM.DD")
+    remote_feed_parser.add_argument("--timeout", type=float, default=20.0)
+    remote_feed_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
+    remote_feed_parser.add_argument("--output", help="write remote feed artifact to this path instead of stdout")
+    remote_feed_parser.set_defaults(func=cmd_remote_feed)
 
     source_parser = subparsers.add_parser("source", help="source package and fetch commands")
     source_subparsers = source_parser.add_subparsers(dest="source_command", required=True)

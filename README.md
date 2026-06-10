@@ -45,7 +45,7 @@ apw validate
 
 The published package includes a reviewed public data snapshot, so read-only
 commands work outside a checkout. For the freshest feed, use the GitHub data
-artifacts or raw `main` URLs below.
+artifacts, signed data tags, or `apw remote` commands below.
 
 ## Quickstart
 
@@ -59,6 +59,14 @@ List events from the last 30 days:
 
 ```bash
 apw diff --since 30d
+```
+
+Read the live public feed from GitHub without cloning:
+
+```bash
+apw remote latest --ref main --limit 5
+apw remote freshness --ref data-2026.06.10 --summary
+apw remote feed events.ndjson --ref data-2026.06.10 --output apw-events.ndjson
 ```
 
 Explain one event for a human reviewer:
@@ -117,6 +125,15 @@ package releases are installable CLI snapshots that bundle reviewed data for
 offline and no-checkout use; APW does not publish a new package for every data
 tag. Patch packages are published when bundled data freshness materially helps
 install-only users or when CLI/package behavior changes.
+
+Use the remote CLI when you want the freshest public data from an installed
+package:
+
+```bash
+apw remote latest --ref main --provider openai --risk medium
+apw remote feed latest --ref data-2026.06.10
+apw remote feed rss --ref main --output apw.xml
+```
 
 Use `apw freshness` to verify the feed version, package version, event count,
 latest reviewed event date, latest source-state retrieval timestamp, release
@@ -304,16 +321,17 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.5` is the current stable public package. It adds a candidate action
-queue so source owners can move quickly from official-source candidates to
-reviewed public events, while duplicates and rejects are easy to close. The
-first public data releases are signed CalVer tags such as `data-2026.06.05`.
+APW `v0.1.6` is the current stable public package. It adds remote feed commands
+so install-only users can read the live GitHub feed or immutable data tags
+without cloning the repository. The latest reviewed data release is
+`data-2026.06.10`.
 
 The current release includes:
 
 - reviewed seed events for OpenAI, Anthropic, Google Vertex AI, AWS Bedrock, and
   Azure OpenAI;
 - generated JSON, NDJSON, RSS, provider, kind, and severity indexes;
+- no-checkout remote feed commands for live GitHub feeds and signed data tags;
 - source-refresh automation that opens draft candidate-review PRs without
   publishing events;
 - no-op guarded data-publisher workflow scaffolding;
