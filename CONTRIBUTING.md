@@ -44,9 +44,10 @@ Every source key must also be covered in [SOURCE_OWNERS.md](SOURCE_OWNERS.md)
 before it can be used for automation or reviewed event evidence.
 
 Use [docs/contributors/review-workflow.md](docs/contributors/review-workflow.md)
-for the public path from issue or PR to source-owner review. It covers new
-sources, parser fixtures, candidates, data corrections, reviewed events,
-candidate outcomes, evidence boundaries, and release-authority separation.
+for the public path from issue or PR to source-owner review. It covers missing
+events, new sources, parser fixtures, candidates, data corrections, downstream
+mapping requests, reviewed events, candidate outcomes, evidence boundaries, and
+release-authority separation.
 
 ## Release-Affecting Changes
 

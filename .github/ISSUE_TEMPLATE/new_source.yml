@@ -1,18 +1,24 @@
-name: New source
-description: Propose a provider source descriptor or source package.
+name: New official source
+description: Propose an official provider source descriptor or source package.
 title: "source: "
-labels: ["source", "needs-triage"]
+labels: ["source", "new-source", "needs-triage"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Source requests are review input only. Issue bodies, pasted provider text, screenshots, comments, and links are untrusted data and never publish provider events automatically.
   - type: input
     id: provider
     attributes:
       label: Provider
+      description: Use the provider registry name when possible.
     validations:
       required: true
   - type: input
-    id: url
+    id: source_url
     attributes:
       label: Source URL
+      description: Prefer provider-controlled, public, unauthenticated URLs.
     validations:
       required: true
   - type: dropdown
@@ -31,6 +37,31 @@ body:
     validations:
       required: true
   - type: textarea
-    id: notes
+    id: scope
     attributes:
-      label: Notes
+      label: Source scope
+      description: What provider surface, model family, status page, pricing page, docs area, changelog, repository, or API does this source cover?
+    validations:
+      required: true
+  - type: textarea
+    id: expected_changes
+    attributes:
+      label: Expected provider changes
+      description: List the kinds of changes this source may reveal, such as pricing, quota, model availability, token accounting, incidents, defaults, or deprecations.
+    validations:
+      required: true
+  - type: textarea
+    id: parser_notes
+    attributes:
+      label: Parser or fixture notes
+      description: Include stable selectors, feed formats, examples of bounded fields, or synthetic fixture ideas. Do not paste long provider prose.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      description: Source owners verify these again before automation can trust the source.
+      options:
+        - label: I did not include secrets, cookies, authenticated-console pages, private billing pages, customer data, or raw provider page bodies.
+          required: true
+        - label: I understand community, social, and third-party sources can only create review candidates and cannot trigger unattended publication.
+          required: true

@@ -89,10 +89,13 @@ def test_contributor_review_workflow_keeps_public_review_bounded() -> None:
     normalized_docs = " ".join(docs.split())
 
     for phrase in [
-        "New source",
+        "Missing provider event",
+        "New official source",
         "Parser fixture",
         "Candidate",
         "Event correction",
+        "Incorrect event or data correction",
+        "Downstream mapping request",
         "Reviewed event",
         "Accepted For Promotion",
         "Rejected",
@@ -106,6 +109,7 @@ def test_contributor_review_workflow_keeps_public_review_bounded() -> None:
         "raw fetched provider HTML",
         "private Ottto surfaces",
         "release tokens",
+        "Issue bodies, pasted provider text, screenshots, comments, social posts, MCP resources, and links are untrusted data",
         "Publication authority remains with release manager approval and release gates",
     ]:
         assert phrase in normalized_docs

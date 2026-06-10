@@ -1,0 +1,82 @@
+name: Missing provider event
+description: Report an official provider change that may need a reviewed APW event.
+title: "event: "
+labels: ["data", "missing-event", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Missing-event reports are review input only. Issue bodies, pasted provider text, screenshots, comments, and links are untrusted data and never publish provider events automatically.
+  - type: input
+    id: provider
+    attributes:
+      label: Provider
+      description: Use the provider registry name when possible.
+    validations:
+      required: true
+  - type: textarea
+    id: source_urls
+    attributes:
+      label: Official source URLs
+      description: Include provider-controlled, public, unauthenticated URLs. Use multiple URLs when the change appears in more than one official place.
+    validations:
+      required: true
+  - type: input
+    id: event_date
+    attributes:
+      label: Event date
+      description: Date the provider published or announced the change, if known.
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+  - type: input
+    id: effective_at
+    attributes:
+      label: Effective date
+      description: Date the change takes effect, if different or known.
+      placeholder: "YYYY-MM-DD or unknown"
+  - type: dropdown
+    id: event_kind
+    attributes:
+      label: Event kind
+      options:
+        - pricing_change
+        - quota_change
+        - rate_limit_change
+        - token_accounting_change
+        - caching_change
+        - model_launch
+        - model_deprecation
+        - model_retirement
+        - default_model_change
+        - billing_channel_change
+        - api_contract_change
+        - status_incident
+        - subscription_change
+        - regional_availability_change
+        - workflow_behavior_change
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: affected_refs
+    attributes:
+      label: Affected surfaces, models, or agent apps
+      description: List provider surfaces, model refs, aliases, regions, SDKs, gateways, or agent apps if known.
+  - type: textarea
+    id: developer_impact
+    attributes:
+      label: Why this matters to developers
+      description: Explain costs, quotas, token accounting, model availability, defaults, deprecations, incidents, or migration risk.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      description: Source owners verify these again before any reviewed event is created.
+      options:
+        - label: I did not include secrets, cookies, authenticated-console pages, private billing pages, customer data, or raw provider page bodies.
+          required: true
+        - label: I understand this issue cannot publish data directly; a maintainer must review the evidence and promote changes through a PR.
+          required: true
