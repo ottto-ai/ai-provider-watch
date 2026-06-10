@@ -46,6 +46,35 @@ apw event scaffold \
   --direction changed
 ```
 
+When you start from a reviewed candidate, use the candidate bridge to prefill the
+official evidence metadata and bounded candidate summary:
+
+```bash
+apw candidate scaffold-event \
+  --candidates data/candidates/review \
+  --candidate-id candidate-... \
+  --event-date 2026-06-10 \
+  --scope-ref surface:openai/api \
+  --impact-kind behavior \
+  --direction changed \
+  --output data/events/2026-06-10-openai-short-slug.json
+```
+
+The bridge defaults missing scope and impact fields to conservative draft values
+so contributors can get a valid JSON starting point quickly. Source owners must
+edit those fields before promotion when the official evidence supports a more
+specific typed event.
+
+To review the equivalent lower-level command instead of writing JSON:
+
+```bash
+apw candidate scaffold-event \
+  --candidates data/candidates/review \
+  --candidate-id candidate-... \
+  --format command \
+  --event-output data/events/2026-06-10-provider-short-slug.json
+```
+
 Before opening a PR:
 
 ```bash
