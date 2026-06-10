@@ -18,6 +18,136 @@
     {
       "_apw": {
         "confidence": "confirmed",
+        "effective_at": null,
+        "event_date": "2026-06-10",
+        "event_id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
+        "event_kind": "model_deprecation",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "43617b78f364cb2c02bdbd3b5d259ac1089057913e29a4d63d704c06a970fdcf",
+            "selector": "heading:latest-stable-models",
+            "snapshot_ref": "section:latest-stable-models",
+            "source_key": "google.vertex_model_versions",
+            "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "surface:google/vertex-ai",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:google/vertex-ai",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "This event is a planning signal from the reviewed lifecycle table, not a claim that every listed model has the same exact shutdown date.",
+          "Google may update final retirement dates; consumers should monitor the official lifecycle page before making irreversible migrations."
+        ],
+        "migration_deadline": "2026-10-16T00:00:00Z",
+        "provider_refs": [
+          "provider:google"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "Google Cloud's Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.\n\nKind: model_deprecation\nSeverity: medium\nConfidence: confirmed\nProviders: provider:google",
+      "date_modified": "2026-06-10T10:32:49Z",
+      "date_published": "2026-06-10T10:32:49Z",
+      "external_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
+      "id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
+      "summary": "Google Cloud's Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.",
+      "tags": [
+        "impact:model_deprecation",
+        "model_deprecation",
+        "provider:google",
+        "severity:medium",
+        "source:official_docs",
+        "surface:vertex_ai"
+      ],
+      "title": "Google Cloud Listed Gemini And Embedding Model Lifecycle Dates",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-10-google-vertex-gemini-embedding-lifecycle-dates.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-09T00:00:00Z",
+        "event_date": "2026-06-09",
+        "event_id": "2026-06-09-aws-bedrock-claude-fable-5-availability",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "6f01dc703fe5c6c430428b7d45dd52cbe741ce133c188e21570770b459931be5",
+            "selector": "announcement:9bb2ad4662d4565b",
+            "snapshot_ref": "entry:9bb2ad4662d4565b",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/claude-fable-5-aws/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The source-review candidate classified this page as a pricing change; source-owner review corrected the public event to model availability after checking the official announcement.",
+          "APW does not copy provider announcement prose and does not assert workload suitability without independent testing."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic's long-running coding and knowledge-work model family.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:aws-bedrock",
+      "date_modified": "2026-06-10T10:32:32Z",
+      "date_published": "2026-06-10T10:32:32Z",
+      "external_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/claude-fable-5-aws/",
+      "id": "2026-06-09-aws-bedrock-claude-fable-5-availability",
+      "summary": "AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic's long-running coding and knowledge-work model family.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:aws-bedrock",
+        "severity:high",
+        "source:official_blog",
+        "surface:aws_bedrock"
+      ],
+      "title": "AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-09-aws-bedrock-claude-fable-5-availability.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
         "effective_at": "2026-06-05T00:00:00Z",
         "event_date": "2026-06-05",
         "event_id": "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells",
@@ -503,6 +633,62 @@
       ],
       "title": "Anthropic Reported Degraded Claude Code Services",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-03-anthropic-claude-code-services-degraded.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-02T00:00:00Z",
+        "event_date": "2026-06-02",
+        "event_id": "2026-06-02-openai-gpt-image-model-deprecations",
+        "event_kind": "model_deprecation",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+            "selector": "heading:2026-06-02-gpt-image-model-deprecations",
+            "snapshot_ref": "section:2026-06-02-gpt-image-model-deprecations",
+            "source_key": "openai.deprecations",
+            "url": "https://developers.openai.com/api/docs/deprecations"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "This event records the model IDs visible in the reviewed source section and does not assert image quality, feature parity, or pricing differences for the replacement."
+        ],
+        "migration_deadline": "2026-12-01T00:00:00Z",
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.\n\nKind: model_deprecation\nSeverity: medium\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-10T10:32:52Z",
+      "date_published": "2026-06-10T10:32:52Z",
+      "external_url": "https://developers.openai.com/api/docs/deprecations",
+      "id": "2026-06-02-openai-gpt-image-model-deprecations",
+      "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
+      "tags": [
+        "impact:model_deprecation",
+        "model_deprecation",
+        "provider:openai",
+        "severity:medium",
+        "source:official_docs",
+        "surface:image_generation"
+      ],
+      "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-02-openai-gpt-image-model-deprecations.json"
     },
     {
       "_apw": {
@@ -1195,6 +1381,71 @@
       ],
       "title": "Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-01-azure-openai-realtime-20-translate-whisper-docs.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-04-22T00:00:00Z",
+        "event_date": "2026-04-22",
+        "event_id": "2026-04-22-openai-legacy-gpt-snapshot-retirements",
+        "event_kind": "model_retirement",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+            "selector": "heading:2026-04-22-legacy-gpt-model-snapshots",
+            "snapshot_ref": "section:2026-04-22-legacy-gpt-model-snapshots",
+            "source_key": "openai.deprecations",
+            "url": "https://developers.openai.com/api/docs/deprecations"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "removed",
+            "impact_kind": "availability",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "high"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "This event summarizes a deprecations-table section and does not reproduce the full table.",
+          "Some affected model IDs have later October 23, 2026 shutdown dates; consumers should check the official table for model-specific deadlines."
+        ],
+        "migration_deadline": "2026-07-23T00:00:00Z",
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI's deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.\n\nKind: model_retirement\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-10T10:32:52Z",
+      "date_published": "2026-06-10T10:32:52Z",
+      "external_url": "https://developers.openai.com/api/docs/deprecations",
+      "id": "2026-04-22-openai-legacy-gpt-snapshot-retirements",
+      "summary": "OpenAI's deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.",
+      "tags": [
+        "agent:codex",
+        "impact:model_retirement",
+        "model_retirement",
+        "provider:openai",
+        "severity:high",
+        "source:official_docs"
+      ],
+      "title": "OpenAI Scheduled Legacy GPT And Codex Snapshot Retirements For July And October 2026",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-04-22-openai-legacy-gpt-snapshot-retirements.json"
     },
     {
       "_apw": {

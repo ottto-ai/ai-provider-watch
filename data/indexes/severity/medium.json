@@ -1,5 +1,105 @@
 [
   {
+    "announced_at": null,
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": "2026-10-16T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "The source uses mixed wording: some model IDs have exact dates, while Gemini 2.5 IDs are listed as not before October 16, 2026 and gemini-embedding-001 is listed as no sooner than May 20, 2028. APW records the earliest listed lifecycle boundary for alerting and keeps exact-date caveats in limitations.",
+      "model_refs": [
+        "model:google/gemini-2.5-pro",
+        "model:google/gemini-2.5-flash",
+        "model:google/gemini-2.5-flash-lite",
+        "model:google/gemini-live-2.5-flash-native-audio",
+        "model:google/gemini-2.5-flash-image",
+        "model:google/gemini-embedding-001",
+        "model:google/text-embedding-005",
+        "model:google/text-embedding-004",
+        "model:google/text-multilingual-embedding-002",
+        "model:google/multimodalembedding@001"
+      ],
+      "replacement_refs": [
+        "model:google/gemini-3.5-flash",
+        "model:google/gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": null,
+    "event_date": "2026-06-10",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "43617b78f364cb2c02bdbd3b5d259ac1089057913e29a4d63d704c06a970fdcf",
+        "license_note": "Official lifecycle table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:49Z",
+        "selector": "heading:latest-stable-models",
+        "snapshot_ref": "section:latest-stable-models",
+        "source_key": "google.vertex_model_versions",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Track the listed lifecycle dates in model allowlists and agent-routing tests, especially if production workloads still pin Gemini 2.5 or older embedding IDs.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "availability",
+        "recommended_action": "Do not treat the October 16, 2026 date as an exact shutdown; use it as the earliest listed lifecycle boundary and monitor the official page for final retirement updates.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event is a planning signal from the reviewed lifecycle table, not a claim that every listed model has the same exact shutdown date.",
+      "Google may update final retirement dates; consumers should monitor the official lifecycle page before making irreversible migrations."
+    ],
+    "migration_deadline": "2026-10-16T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:49Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Cloud's Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_deprecation",
+      "surface:vertex_ai"
+    ],
+    "title": "Google Cloud Listed Gemini And Embedding Model Lifecycle Dates"
+  },
+  {
     "announced_at": "2026-06-04T19:12:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",
@@ -315,6 +415,81 @@
       "app:claude-code"
     ],
     "title": "Anthropic Reported Degraded Claude Code Services"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-12-01T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "The candidate parser emitted one row that treated GPT Image 2 as retired; source-owner review corrected that field because the official table lists GPT Image 2 as the replacement.",
+      "model_refs": [
+        "model:openai/gpt-image-1-mini",
+        "model:openai/gpt-image-1.5",
+        "model:openai/chatgpt-image-latest"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-image-2"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+        "license_note": "Official deprecations table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:52Z",
+        "selector": "heading:2026-06-02-gpt-image-model-deprecations",
+        "snapshot_ref": "section:2026-06-02-gpt-image-model-deprecations",
+        "source_key": "openai.deprecations",
+        "url": "https://developers.openai.com/api/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-gpt-image-model-deprecations",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Replace deprecated GPT Image IDs in image-generation workflows, allowlists, examples, and tests before December 1, 2026.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event records the model IDs visible in the reviewed source section and does not assert image quality, feature parity, or pricing differences for the replacement."
+    ],
+    "migration_deadline": "2026-12-01T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:52Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_deprecation",
+      "surface:image_generation"
+    ],
+    "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown"
   },
   {
     "announced_at": null,

@@ -1,6 +1,30 @@
 [
   {
     "confidence": "confirmed",
+    "event_date": "2026-06-10",
+    "event_kind": "model_deprecation",
+    "id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "severity": "medium",
+    "summary": "Google Cloud's Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.",
+    "title": "Google Cloud Listed Gemini And Embedding Model Lifecycle Dates"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "id": "2026-06-09-aws-bedrock-claude-fable-5-availability",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "high",
+    "summary": "AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic's long-running coding and knowledge-work model family.",
+    "title": "AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS"
+  },
+  {
+    "confidence": "confirmed",
     "event_date": "2026-06-05",
     "event_kind": "api_contract_change",
     "id": "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells",
@@ -94,6 +118,18 @@
     "severity": "medium",
     "summary": "Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.",
     "title": "Anthropic Reported Degraded Claude Code Services"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-02",
+    "event_kind": "model_deprecation",
+    "id": "2026-06-02-openai-gpt-image-model-deprecations",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
+    "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown"
   },
   {
     "confidence": "confirmed",
@@ -203,41 +239,5 @@
     "severity": "medium",
     "summary": "Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.",
     "title": "Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-05-06",
-    "event_kind": "api_contract_change",
-    "id": "2026-05-06-google-gemini-interactions-api-breaking-change",
-    "provider_refs": [
-      "provider:google"
-    ],
-    "severity": "high",
-    "summary": "Google Gemini API changelog announced a breaking Interactions API request/response schema cutover, with a new default schema on May 26, 2026 and legacy schema removal on June 8, 2026.",
-    "title": "Google Gemini API Announced Interactions API Schema Cutover"
-  },
-  {
-    "confidence": "high",
-    "event_date": "2026-05-01",
-    "event_kind": "model_launch",
-    "id": "2026-05-01-azure-openai-realtime-20-translate-whisper-docs",
-    "provider_refs": [
-      "provider:azure-openai"
-    ],
-    "severity": "low",
-    "summary": "Azure OpenAI what's-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.",
-    "title": "Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-02-01",
-    "event_kind": "model_launch",
-    "id": "2026-02-01-azure-openai-gpt-realtime-audio-15",
-    "provider_refs": [
-      "provider:azure-openai"
-    ],
-    "severity": "medium",
-    "summary": "Azure OpenAI what's-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.",
-    "title": "Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5"
   }
 ]

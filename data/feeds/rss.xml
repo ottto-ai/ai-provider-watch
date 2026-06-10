@@ -5,6 +5,20 @@
     <link>https://github.com/ottto-ai/ai-provider-watch</link>
     <description>Reviewed AI-provider change events.</description>
     <item>
+      <guid isPermaLink="false">2026-06-10-google-vertex-gemini-embedding-lifecycle-dates</guid>
+      <title>Google Cloud Listed Gemini And Embedding Model Lifecycle Dates</title>
+      <description>Google Cloud&#x27;s Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.</description>
+      <category>model_deprecation</category>
+      <pubDate>Wed, 10 Jun 2026 10:32:49 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-09-aws-bedrock-claude-fable-5-availability</guid>
+      <title>AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS</title>
+      <description>AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic&#x27;s long-running coding and knowledge-work model family.</description>
+      <category>model_launch</category>
+      <pubDate>Wed, 10 Jun 2026 10:32:32 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells</guid>
       <title>AWS Bedrock AgentCore Runtime Added Interactive Shells</title>
       <description>AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.</description>
@@ -59,6 +73,13 @@
       <description>Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.</description>
       <category>status_incident</category>
       <pubDate>Thu, 04 Jun 2026 21:19:51 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-02-openai-gpt-image-model-deprecations</guid>
+      <title>OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown</title>
+      <description>OpenAI&#x27;s deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.</description>
+      <category>model_deprecation</category>
+      <pubDate>Wed, 10 Jun 2026 10:32:52 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2026-06-02-openai-codex-role-plugins-sites</guid>
@@ -136,6 +157,13 @@
       <description>Azure OpenAI what&#x27;s-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.</description>
       <category>model_launch</category>
       <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-04-22-openai-legacy-gpt-snapshot-retirements</guid>
+      <title>OpenAI Scheduled Legacy GPT And Codex Snapshot Retirements For July And October 2026</title>
+      <description>OpenAI&#x27;s deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.</description>
+      <category>model_retirement</category>
+      <pubDate>Wed, 10 Jun 2026 10:32:52 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2026-02-01-azure-openai-gpt-realtime-audio-15</guid>

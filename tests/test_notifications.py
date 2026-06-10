@@ -35,11 +35,13 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
 
     _assert_valid("webhook-payload.schema.json", payload)
     assert payload["schema_version"] == "apw.webhook_payload.v0"
-    assert payload["event_count"] == 4
+    assert payload["event_count"] == 6
     assert {event["id"] for event in payload["events"]} == {
         "2026-06-02-openai-codex-role-plugins-sites",
+        "2026-06-02-openai-gpt-image-model-deprecations",
         "2026-06-01-openai-codex-aws-bedrock-ga",
         "2026-06-04-openai-image-api-401-errors",
+        "2026-04-22-openai-legacy-gpt-snapshot-retirements",
         "2024-01-04-openai-gpt3-completions-retirement",
     }
     assert payload["delivery"]["mode"] == "operator_owned"

@@ -1,5 +1,5 @@
 {
-  "event_count": 5,
+  "event_count": 7,
   "events": [
     {
       "confidence": "confirmed",
@@ -35,6 +35,21 @@
     {
       "confidence": "confirmed",
       "event_date": "2026-06-02",
+      "event_kind": "model_deprecation",
+      "id": "2026-06-02-openai-gpt-image-model-deprecations",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
+      "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-02",
       "event_kind": "workflow_behavior_change",
       "id": "2026-06-02-openai-codex-role-plugins-sites",
       "matched_refs": [
@@ -64,6 +79,22 @@
       "severity": "high",
       "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
       "title": "OpenAI Frontier Models And Codex Became Available On AWS"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-04-22",
+      "event_kind": "model_retirement",
+      "id": "2026-04-22-openai-legacy-gpt-snapshot-retirements",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI's deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.",
+      "title": "OpenAI Scheduled Legacy GPT And Codex Snapshot Retirements For July And October 2026"
     },
     {
       "confidence": "confirmed",
