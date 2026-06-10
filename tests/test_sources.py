@@ -240,6 +240,71 @@ def test_parsed_fingerprint_falls_back_when_parser_finds_no_rows() -> None:
     )
 
 
+def test_parsed_fingerprint_stabilizes_ambiguous_pricing_rows() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.pricing")
+    raw_a = b"""
+<table>
+  <tr><th>Model</th><th>Input</th></tr>
+  <tr><td><code>gpt-5.3-codex</code></td><td>$1.00 / 1M tokens</td></tr>
+  <tr><td><code>gpt-5.3-codex</code></td><td>$2.00 / 1M tokens</td></tr>
+</table>
+"""
+    raw_b = raw_a.replace(b"$2.00", b"$3.00")
+    parsed_a = parse_source_payload(source, raw_a, changed=True)
+    parsed_b = parse_source_payload(source, raw_b, changed=True)
+    pricing_a = pricing_state_from_items(parsed_a.items)
+    pricing_b = pricing_state_from_items(parsed_b.items)
+
+    assert pricing_a is not None
+    assert pricing_b is not None
+    assert pricing_a["ambiguous_price_point_keys"] == [
+        "price:gpt-5.3-codex:input_tokens:1m_tokens"
+    ]
+    assert pricing_b["ambiguous_price_point_keys"] == [
+        "price:gpt-5.3-codex:input_tokens:1m_tokens"
+    ]
+    assert (
+        parsed_fingerprint_bytes(
+            source,
+            parsed_a,
+            fallback_bytes=normalize_bytes(fingerprint_bytes(source, raw_a)),
+        )
+        == parsed_fingerprint_bytes(
+            source,
+            parsed_b,
+            fallback_bytes=normalize_bytes(fingerprint_bytes(source, raw_b)),
+        )
+    )
+
+
+def test_parsed_fingerprint_keeps_unambiguous_pricing_values() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.pricing")
+    raw_a = b"""
+<table>
+  <tr><th>Model</th><th>Input</th></tr>
+  <tr><td><code>gpt-5.3-codex</code></td><td>$1.00 / 1M tokens</td></tr>
+</table>
+"""
+    raw_b = raw_a.replace(b"$1.00", b"$1.50")
+    parsed_a = parse_source_payload(source, raw_a, changed=True)
+    parsed_b = parse_source_payload(source, raw_b, changed=True)
+
+    assert pricing_state_from_items(parsed_a.items)["ambiguous_price_point_keys"] == []
+    assert pricing_state_from_items(parsed_b.items)["ambiguous_price_point_keys"] == []
+    assert (
+        parsed_fingerprint_bytes(
+            source,
+            parsed_a,
+            fallback_bytes=normalize_bytes(fingerprint_bytes(source, raw_a)),
+        )
+        != parsed_fingerprint_bytes(
+            source,
+            parsed_b,
+            fallback_bytes=normalize_bytes(fingerprint_bytes(source, raw_b)),
+        )
+    )
+
+
 def test_empty_fingerprint_state_shape() -> None:
     assert build_fingerprint_state([]) == {
         "schema_version": "apw.source_fingerprints.v0",

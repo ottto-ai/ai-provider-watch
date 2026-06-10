@@ -30,11 +30,11 @@ def test_source_coverage_report_matches_schema_and_current_gaps() -> None:
         "blocked_pending_parser_source_count": 0,
         "reviewed_event_count": 33,
         "latest_event_date": "2026-06-10",
-        "candidate_backlog_count": 9,
-        "warning_count": 1,
+        "candidate_backlog_count": 0,
+        "warning_count": 0,
     }
     assert report["source_state"]["source_count"] == 18
-    assert report["candidate_backlog"]["by_status"] == {"needs_review": 9}
+    assert report["candidate_backlog"]["by_status"] == {}
     assert "no raw provider content" in report["coverage_policy"]
 
 
@@ -63,7 +63,7 @@ def test_source_coverage_warnings_are_structured_visibility_signals() -> None:
 
     assert warning_codes.count("enabled_source_missing_source_state") == 0
     assert warning_codes.count("blocked_official_source") == 0
-    assert warning_codes.count("candidate_backlog_present") == 1
+    assert warning_codes.count("candidate_backlog_present") == 0
     assert "source_state_stale" in warning_codes
     assert not [
         warning["source_key"]

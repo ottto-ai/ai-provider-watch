@@ -87,7 +87,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
         ).iter_errors(operations)
     )
     assert operations["schema_version"] == "apw.operations_report.v0"
-    assert operations["summary"]["candidate_backlog_count"] == 9
+    assert operations["summary"]["candidate_backlog_count"] == 0
     freshness = json.loads(artifacts[Path("data/feeds/freshness.json")])
     assert freshness["schema_version"] == "apw.feed_freshness.v0"
     assert freshness["release_id"] == "dev"

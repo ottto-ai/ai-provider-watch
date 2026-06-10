@@ -1,9 +1,7 @@
 {
   "candidate_backlog": {
-    "by_status": {
-      "needs_review": 9
-    },
-    "total": 9
+    "by_status": {},
+    "total": 0
   },
   "contributor_quality": {
     "candidate_quality_command": "uv run apw candidate quality --candidates data/candidates/review",
@@ -35,7 +33,7 @@
   },
   "generated_at": "2026-06-10T16:51:44Z",
   "generated_by": "ai-provider-watch 0.1.9",
-  "overall_status": "warn",
+  "overall_status": "pass",
   "package_version": "0.1.9",
   "policy": {
     "private_ottto_boundary": "no private Ottto UI, Advisor, telemetry, customer data, credentials, or infrastructure required",
@@ -80,11 +78,11 @@
       "unit": "ratio"
     },
     {
-      "actual": 9,
+      "actual": 0,
       "details": "Review candidates present outside reviewed ProviderEvent data.",
       "id": "candidate_backlog",
       "label": "Review candidate backlog",
-      "status": "warn",
+      "status": "pass",
       "target": 0,
       "unit": "candidates"
     },
@@ -101,17 +99,11 @@
   "source_coverage": {
     "path": "data/feeds/coverage.json",
     "schema_version": "apw.source_coverage.v0",
-    "warning_count": 1,
-    "warnings": [
-      {
-        "code": "candidate_backlog_present",
-        "detail": "9 review candidate(s) are present outside reviewed events",
-        "severity": "info"
-      }
-    ]
+    "warning_count": 0,
+    "warnings": []
   },
   "summary": {
-    "candidate_backlog_count": 9,
+    "candidate_backlog_count": 0,
     "enabled_deterministic_source_count": 18,
     "enabled_source_coverage_ratio": 1.0,
     "fetched_enabled_source_count": 18,
@@ -122,7 +114,7 @@
     "reviewed_event_count": 33,
     "source_count": 19,
     "source_state_age_hours": 0.0,
-    "source_state_latest_retrieved_at": "2026-06-10T17:06:15Z",
-    "warning_count": 1
+    "source_state_latest_retrieved_at": "2026-06-10T17:40:28Z",
+    "warning_count": 0
   }
 }

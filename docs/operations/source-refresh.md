@@ -27,6 +27,13 @@ page chrome, build timestamps, and other unparsed provider markup do not create
 candidate-review PR churn. If a parser finds no bounded rows, APW falls back to
 the scoped response bytes so empty or broken parser output is still visible.
 
+For pricing parsers, ambiguous duplicate price rows are fingerprinted by stable
+row keys and pricing signals, not by every conflicting numeric value. Clean
+unambiguous price rows still include normalized values in the fingerprint. This
+keeps dynamic pricing-page variants from opening low-signal daily PRs while
+still surfacing stable model/price-key additions, removals, and unambiguous
+value changes for review.
+
 ## Source Graduation Posture
 
 `sources/registry.json` separates fetch eligibility from reviewed-evidence

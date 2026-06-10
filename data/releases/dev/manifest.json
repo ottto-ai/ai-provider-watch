@@ -1,10 +1,10 @@
 {
   "artifacts": [
     {
-      "bytes": 14374,
+      "bytes": 14185,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "fa48016fa9df8320fd1b60038c2b30abfe60d564b124bc46463e4cc11e89a27c"
+      "sha256": "9e64db92c2de3d131e16ddebdf876e95b1ceb07228640850e25838464cedc427"
     },
     {
       "bytes": 112329,
@@ -28,7 +28,7 @@
       "bytes": 5669,
       "media_type": "application/json",
       "path": "data/feeds/freshness.json",
-      "sha256": "363b387b3f1aa13a16155f1493c96f70e699351946e30c2aeb038a080f470687"
+      "sha256": "f0e489a03d81627ad07e390e89264c6fdd4c6094675b68c6b13527672f852de5"
     },
     {
       "bytes": 10516,
@@ -37,10 +37,10 @@
       "sha256": "392bf55432cc7cc959574296f09a0d1596b1e0fd2021c077424b0edc799b1414"
     },
     {
-      "bytes": 4633,
+      "bytes": 4432,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "6c7cf56d01c3035b287c5caa5b6b1b9d74b826971966f83bda2a249389261aeb"
+      "sha256": "333e94ea38ca9191892531ec1d42056fdc2266cc593e9e889770b128eab552ba"
     },
     {
       "bytes": 16982,
@@ -148,7 +148,7 @@
       "bytes": 2489,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "ab4df48f3a676ae039cc194c4ec13b0c99b0816a8c469798e73ae2ccf49b6cdd"
+      "sha256": "435e2239dfa879e7c383848b8b18315148405d94bfb3a6560e5fb8df536f7c17"
     },
     {
       "bytes": 8382,
@@ -158,13 +158,13 @@
     }
   ],
   "checksums": {
-    "data/feeds/coverage.json": "fa48016fa9df8320fd1b60038c2b30abfe60d564b124bc46463e4cc11e89a27c",
+    "data/feeds/coverage.json": "9e64db92c2de3d131e16ddebdf876e95b1ceb07228640850e25838464cedc427",
     "data/feeds/events.json": "ebf1ace0ad6a8a226b71f1defa7358c3b2c50208c2054b163b067b0219677e31",
     "data/feeds/events.ndjson": "e6f091285d9e1a107a1d019cf80415074f9de66d127beb1267f4e7afbd891577",
     "data/feeds/feed.json": "d5f8670cec342ffe39333c5d682c9eff65abb3cf03d710ffd37a39b14c2ac137",
-    "data/feeds/freshness.json": "363b387b3f1aa13a16155f1493c96f70e699351946e30c2aeb038a080f470687",
+    "data/feeds/freshness.json": "f0e489a03d81627ad07e390e89264c6fdd4c6094675b68c6b13527672f852de5",
     "data/feeds/latest.json": "392bf55432cc7cc959574296f09a0d1596b1e0fd2021c077424b0edc799b1414",
-    "data/feeds/operations.json": "6c7cf56d01c3035b287c5caa5b6b1b9d74b826971966f83bda2a249389261aeb",
+    "data/feeds/operations.json": "333e94ea38ca9191892531ec1d42056fdc2266cc593e9e889770b128eab552ba",
     "data/feeds/rss.xml": "ecd767be0005a2d97fc3bc8cee583cb0503000873167c085f9ebf517e8b92176",
     "data/indexes/kind/api_contract_change.json": "27ac7355b352611a20373480da604e19166b805a601444ced54d06cf6e98e5b9",
     "data/indexes/kind/billing_channel_change.json": "6b42d6f9466206993bd7a03f8144f230282c1a078389d15cfabcaf94f3e4ef21",
@@ -182,7 +182,7 @@
     "data/indexes/severity/high.json": "ef63aeee484081c02ba430f704eb4b98fcd136deb39ba841f3ebb0d663be8b01",
     "data/indexes/severity/low.json": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b",
     "data/indexes/severity/medium.json": "4ac0541442c8b9a920d1506050a663ebefc64e5014f6bc86ef96daf7549bc5b2",
-    "data/releases/dev/checksums.txt": "ab4df48f3a676ae039cc194c4ec13b0c99b0816a8c469798e73ae2ccf49b6cdd",
+    "data/releases/dev/checksums.txt": "435e2239dfa879e7c383848b8b18315148405d94bfb3a6560e5fb8df536f7c17",
     "data/releases/dev/evidence-index.json": "9dc7dba08a82d4abc948094a979d9c1a13c1dd15aab8a97549e27ff6fdd105e7"
   },
   "created_at": "2026-06-10T16:51:44Z",
