@@ -1,0 +1,42 @@
+name: AI Provider Watch Live Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 8 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  apw:
+    runs-on: ubuntu-latest
+    env:
+      APW_REF: main
+      APW_PINNED_REF: data-2026.06.10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - name: Read APW feed and scan this repo
+        run: |
+          mkdir -p .apw
+          uvx --from ai-provider-watch apw remote latest \
+            --ref "$APW_REF" \
+            --risk medium \
+            --limit 20 \
+            > .apw/apw-latest.json
+          uvx --from ai-provider-watch apw remote freshness \
+            --ref "$APW_PINNED_REF" \
+            --summary \
+            > .apw/apw-freshness.txt
+          uvx --from ai-provider-watch apw repo check \
+            --repo . \
+            --since 3650d \
+            --risk medium \
+            --output .apw/apw-impact-report.json
+      - uses: actions/upload-artifact@v7
+        with:
+          name: apw-live-feed
+          path: .apw/
+          if-no-files-found: error
+

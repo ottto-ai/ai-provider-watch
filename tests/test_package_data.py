@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 AI Provider Watch maintainers
+# SPDX-License-Identifier: Apache-2.0
+
 from __future__ import annotations
 
 import json
@@ -147,10 +150,15 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/.mcp.json" in names
     assert "ai_provider_watch/_data/.codex-plugin/plugin.json" in names
     assert "ai_provider_watch/_data/docs/consumer-api.md" in names
+    assert "ai_provider_watch/_data/docs/integrations/live-feed-consumption.md" in names
     assert "ai_provider_watch/_data/docs/operations/release-automation-readiness.md" in names
     assert "ai_provider_watch/_data/docs/operations/v1-launch-gate.md" in names
     assert "ai_provider_watch/_data/docs/agent-consumption.md" in names
     assert "ai_provider_watch/_data/examples/adoption/scenarios.json" in names
+    assert "ai_provider_watch/_data/examples/consumption/github-action-live-feed.yml" in names
+    assert "ai_provider_watch/_data/examples/consumption/python-live-feed.py" in names
+    assert "ai_provider_watch/_data/examples/consumption/agent-live-feed.md" in names
+    assert "ai_provider_watch/_data/examples/consumption/mcp-live-feed.md" in names
     assert "ai_provider_watch/_data/tests/fixtures/downstream-repo/README.md" in names
     assert "ai_provider_watch/_data/.github/ISSUE_TEMPLATE/missing_event.yml" in names
     assert (

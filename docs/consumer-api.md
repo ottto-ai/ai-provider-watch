@@ -31,6 +31,10 @@ explicitly documents a public function from them.
 | `api.load_json_feed(name="events", root=None)` | Load a generated JSON feed artifact such as `events`, `latest`, `coverage`, `feed`, `freshness`, or `operations`. |
 | `api.load_text_feed(name, root=None)` | Load text feed artifacts: `events.ndjson` or `rss.xml`. |
 | `api.load_schema(name, root=None)` | Load a bundled JSON Schema by alias such as `event`, `json_feed`, `source_coverage`, `operations_report`, or `v1_launch_gate`. |
+| `api.remote_feed_url(name="events", ref="main")` | Return the public GitHub raw URL for a reviewed remote feed artifact. |
+| `api.load_remote_events(ref="main", provider=None, min_severity=None, limit=None)` | Fetch reviewed ProviderEvents from a public GitHub ref or signed data tag. |
+| `api.load_remote_json_feed(name="events", ref="main")` | Fetch a JSON feed artifact such as `events`, `latest`, `freshness`, or `operations` from GitHub. |
+| `api.load_remote_text_feed(name, ref="main")` | Fetch text feed artifacts such as `events.ndjson` or `rss.xml` from GitHub. |
 
 All functions are read-only. They do not fetch provider pages, generate
 candidates, promote events, write indexes, create tags, publish packages, call
@@ -78,6 +82,21 @@ The remote commands are read-only and fetch only public APW feed artifacts from
 the `ottto-ai/ai-provider-watch` GitHub repository. They do not call provider
 sites, generate candidates, promote events, write indexes, create tags, publish
 packages, call downstream services, or read credentials.
+
+Python consumers can use the same remote feed contract:
+
+```python
+from ai_provider_watch import api
+
+events = api.load_remote_events(ref="main", min_severity="medium", limit=10)
+freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.10")
+ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.10")
+url = api.remote_feed_url("events.ndjson", ref="data-2026.06.10")
+```
+
+Remote Python helpers are read-only and bounded by timeout and byte-limit
+arguments. See [Live Feed Consumption](integrations/live-feed-consumption.md)
+for copy-paste GitHub Action, Python, agent, and MCP sidecar examples.
 
 ## Compatibility Rules
 

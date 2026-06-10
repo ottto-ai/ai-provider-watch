@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 AI Provider Watch maintainers
+# SPDX-License-Identifier: Apache-2.0
+
 from __future__ import annotations
 
 import json
@@ -6,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from ai_provider_watch import api
-from ai_provider_watch.core import io
+from ai_provider_watch.core import io, remote
 
 ROOT = Path(__file__).resolve().parents[1]
 EVENT_ID = "2026-06-01-google-vertex-gemini-2-0-flash-retirement"
@@ -53,6 +56,20 @@ def _write_minimal_data_root(root: Path) -> None:
     )
 
 
+class _FakeResponse:
+    def __init__(self, payload: bytes) -> None:
+        self.payload = payload
+
+    def __enter__(self) -> _FakeResponse:
+        return self
+
+    def __exit__(self, *args: object) -> None:
+        return None
+
+    def read(self, limit: int) -> bytes:
+        return self.payload[:limit]
+
+
 def test_consumer_api_loads_checkout_data() -> None:
     events = api.load_events(root=ROOT, provider="google", min_severity="medium", limit=5)
 
@@ -94,6 +111,79 @@ def test_consumer_api_rejects_unknown_aliases() -> None:
         api.load_schema("private", root=ROOT)
 
 
+def test_consumer_api_loads_remote_feed_helpers(monkeypatch) -> None:
+    requested: list[tuple[str, float]] = []
+    events = [
+        {
+            "id": "high-openai",
+            "provider_refs": ["provider:openai"],
+            "severity": "high",
+            "event_date": "2026-06-10",
+            "title": "High OpenAI",
+        },
+        {
+            "id": "low-google",
+            "provider_refs": ["provider:google"],
+            "severity": "low",
+            "event_date": "2026-06-09",
+            "title": "Low Google",
+        },
+    ]
+    freshness = {
+        "release_id": "data-2026.06.10",
+        "event_count": 2,
+        "latest_event_date": "2026-06-10",
+    }
+
+    def fake_urlopen(request, timeout):  # noqa: ANN001
+        requested.append((request.full_url, timeout))
+        if request.full_url.endswith("/data/feeds/events.json"):
+            return _FakeResponse(json.dumps(events).encode("utf-8"))
+        if request.full_url.endswith("/data/feeds/freshness.json"):
+            return _FakeResponse(json.dumps(freshness).encode("utf-8"))
+        if request.full_url.endswith("/data/feeds/events.ndjson"):
+            payload = "\n".join(json.dumps(item, sort_keys=True) for item in events) + "\n"
+            return _FakeResponse(payload.encode("utf-8"))
+        raise AssertionError(request.full_url)
+
+    monkeypatch.setattr(remote, "urlopen", fake_urlopen)
+
+    assert api.remote_feed_url("events.ndjson", ref="data-2026.06.10") == (
+        "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/"
+        "data-2026.06.10/data/feeds/events.ndjson"
+    )
+    assert [
+        event["id"]
+        for event in api.load_remote_events(
+            ref="data-2026.06.10",
+            provider="openai",
+            min_severity="medium",
+            limit=5,
+            timeout=3.0,
+            limit_bytes=10_000,
+        )
+    ] == ["high-openai"]
+    assert api.load_remote_json_feed("freshness", ref="data-2026.06.10") == freshness
+    assert "high-openai" in api.load_remote_text_feed(
+        "events.ndjson",
+        ref="data-2026.06.10",
+    )
+    assert requested[0] == (
+        "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/"
+        "data-2026.06.10/data/feeds/events.json",
+        3.0,
+    )
+
+
+def test_consumer_api_remote_helpers_validate_inputs() -> None:
+    with pytest.raises(ValueError, match="unknown min_severity"):
+        api.load_remote_events(min_severity="urgent")
+    with pytest.raises(ValueError, match="limit must be greater than zero"):
+        api.load_remote_events(limit=0)
+    with pytest.raises(ValueError, match="unknown remote JSON feed"):
+        api.load_remote_json_feed("rss")
+
+
 def test_consumer_api_contract_is_documented() -> None:
     docs = "\n".join(
         path.read_text(encoding="utf-8")
@@ -111,6 +201,10 @@ def test_consumer_api_contract_is_documented() -> None:
         "load_json_feed",
         "load_text_feed",
         "load_schema",
+        "load_remote_events",
+        "load_remote_json_feed",
+        "load_remote_text_feed",
+        "remote_feed_url",
         "no-checkout",
         "ignore unknown fields",
         "TypeScript package",

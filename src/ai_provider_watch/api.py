@@ -5,12 +5,15 @@ Python import path for applications that want to read bundled or checkout APW
 data without depending on internal package layout.
 """
 
+# SPDX-FileCopyrightText: 2026 AI Provider Watch maintainers
+# SPDX-License-Identifier: Apache-2.0
+
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
 
-from ai_provider_watch.core import io
+from ai_provider_watch.core import io, remote
 from ai_provider_watch.core.feeds import SEVERITY_RANK, filter_events
 from ai_provider_watch.core.feeds import load_events as _load_events
 from ai_provider_watch.core.validation import SCHEMA_FILES
@@ -42,9 +45,26 @@ __all__ = [
     "load_event",
     "load_events",
     "load_json_feed",
+    "load_remote_events",
+    "load_remote_json_feed",
+    "load_remote_text_feed",
     "load_schema",
     "load_text_feed",
+    "remote_feed_url",
 ]
+
+
+def _validate_min_severity(min_severity: str | None) -> None:
+    if min_severity is None:
+        return
+    if min_severity not in SEVERITY_RANK:
+        allowed = ", ".join(SEVERITY_RANK)
+        raise ValueError(f"unknown min_severity {min_severity!r}; expected one of: {allowed}")
+
+
+def _validate_limit(limit: int | None) -> None:
+    if limit is not None and limit < 1:
+        raise ValueError("limit must be greater than zero")
 
 
 def data_root(root: RootLike = None) -> Path:
@@ -74,11 +94,8 @@ def load_events(
     unknown keys.
     """
 
-    if min_severity is not None and min_severity not in SEVERITY_RANK:
-        allowed = ", ".join(SEVERITY_RANK)
-        raise ValueError(f"unknown min_severity {min_severity!r}; expected one of: {allowed}")
-    if limit is not None and limit < 1:
-        raise ValueError("limit must be greater than zero")
+    _validate_min_severity(min_severity)
+    _validate_limit(limit)
 
     events = filter_events(
         _load_events(data_root(root)),
@@ -108,6 +125,79 @@ def load_json_feed(name: str = "events", *, root: RootLike = None) -> Any:
         allowed = ", ".join(sorted(JSON_FEEDS))
         raise ValueError(f"unknown JSON feed {name!r}; expected one of: {allowed}")
     return io.read_json(data_root(root) / path)
+
+
+def remote_feed_url(name: str = "events", *, ref: str = remote.DEFAULT_REMOTE_REF) -> str:
+    """Return the public GitHub raw URL for one APW remote feed artifact."""
+
+    return remote.remote_raw_url(remote.remote_artifact_path(name), ref=ref)
+
+
+def load_remote_json_feed(
+    name: str = "events",
+    *,
+    ref: str = remote.DEFAULT_REMOTE_REF,
+    timeout: float = remote.DEFAULT_TIMEOUT_SECONDS,
+    limit_bytes: int = remote.DEFAULT_LIMIT_BYTES,
+) -> Any:
+    """Fetch one reviewed APW JSON feed artifact from the public GitHub repo."""
+
+    normalized = name.strip()
+    if normalized not in remote.JSON_REMOTE_ARTIFACTS:
+        allowed = ", ".join(sorted(remote.JSON_REMOTE_ARTIFACTS))
+        raise ValueError(f"unknown remote JSON feed {name!r}; expected one of: {allowed}")
+    return remote.fetch_remote_json(
+        normalized,
+        ref=ref,
+        timeout=timeout,
+        limit_bytes=limit_bytes,
+    )
+
+
+def load_remote_text_feed(
+    name: str,
+    *,
+    ref: str = remote.DEFAULT_REMOTE_REF,
+    timeout: float = remote.DEFAULT_TIMEOUT_SECONDS,
+    limit_bytes: int = remote.DEFAULT_LIMIT_BYTES,
+) -> str:
+    """Fetch one reviewed APW text feed artifact from the public GitHub repo."""
+
+    return remote.fetch_remote_text(
+        name,
+        ref=ref,
+        timeout=timeout,
+        limit_bytes=limit_bytes,
+    )
+
+
+def load_remote_events(
+    *,
+    ref: str = remote.DEFAULT_REMOTE_REF,
+    provider: str | None = None,
+    min_severity: str | None = None,
+    limit: int | None = None,
+    timeout: float = remote.DEFAULT_TIMEOUT_SECONDS,
+    limit_bytes: int = remote.DEFAULT_LIMIT_BYTES,
+) -> list[dict[str, Any]]:
+    """Fetch reviewed ProviderEvents from a public GitHub ref or data tag."""
+
+    _validate_min_severity(min_severity)
+    _validate_limit(limit)
+    events = load_remote_json_feed(
+        "events",
+        ref=ref,
+        timeout=timeout,
+        limit_bytes=limit_bytes,
+    )
+    if not isinstance(events, list):
+        raise remote.RemoteFeedError("remote events feed is not a JSON array")
+    filtered = filter_events(
+        events,
+        provider=provider,
+        min_severity=min_severity,
+    )
+    return filtered[:limit] if limit is not None else filtered
 
 
 def load_text_feed(name: str, *, root: RootLike = None) -> str:

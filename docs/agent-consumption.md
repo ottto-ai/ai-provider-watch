@@ -157,6 +157,7 @@ from ai_provider_watch import api
 
 events = api.load_events(provider="openai", min_severity="medium", limit=10)
 operations = api.load_json_feed("operations")
+live_events = api.load_remote_events(ref="main", min_severity="medium", limit=10)
 ```
 
 The Python API is read-only and follows the same untrusted-data policy as CLI,
@@ -187,6 +188,10 @@ the provider or from APW. `apw_check_repo_models` returns matched refs and line
 hashes, not downstream repo source lines. Expanding MCP beyond the read-only
 adapter requires the prompt-injection red-team gate and MCP read-only tests to
 pass.
+
+For live GitHub refs or signed data tags, fetch `apw remote` artifacts as a
+sidecar and attach them to the MCP host as untrusted data. See
+[Live Feed Consumption](integrations/live-feed-consumption.md).
 
 ## Codex And Claude Skills
 

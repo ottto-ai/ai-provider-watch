@@ -290,6 +290,7 @@ See:
 
 - [Agent Consumption](docs/agent-consumption.md)
 - [Downstream GitHub Action](docs/integrations/github-action.md)
+- [Live Feed Consumption](docs/integrations/live-feed-consumption.md)
 - [Webhook And Slack Payloads](docs/integrations/webhooks.md)
 - [Ecosystem Mappings](docs/integrations/ecosystem-mappings.md)
 - [Agent Dashboard](docs/integrations/agent-dashboard.md)
@@ -321,10 +322,11 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.8` is the current stable public package. It adds contributor and
-source-owner event scaffolding plus remote feed commands, so users can consume
-the live feed and reviewers can turn candidate findings into reviewed event
-drafts with less manual schema work. The latest reviewed data release is
+APW `v0.1.9` is the current stable public package. It adds contributor and
+source-owner event scaffolding, remote feed commands, and stable Python remote
+feed helpers, so users can consume the live feed and reviewers can turn
+candidate findings into reviewed event drafts with less manual schema work. The
+latest reviewed data release is
 `data-2026.06.10`.
 
 The current release includes:
