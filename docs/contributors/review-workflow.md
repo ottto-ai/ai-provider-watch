@@ -15,11 +15,19 @@ governance PR changes [MAINTAINERS.md](../../MAINTAINERS.md),
 
 | Contribution | Use | Required evidence | Publication authority |
 | --- | --- | --- | --- |
-| New source | Issue template `New source`, then PR | Official public URL, authority, allowed domains, source package descriptor | None. A source owner must approve descriptor and automation posture. |
+| Missing provider event | Issue template `Missing provider event`, then PR when a maintainer promotes it | Official public URL, provider, event date, event kind, and developer impact | None. A source owner must verify evidence before any reviewed event exists. |
+| New official source | Issue template `New official source`, then PR | Official public URL, authority, allowed domains, source scope, source package descriptor | None. A source owner must approve descriptor and automation posture. |
 | Parser fixture | PR | Synthetic or minimal fixture plus expected bounded parser output | None. A source owner must approve before automation trusts it. |
 | Candidate | Candidate-review PR or local `.apw/` packet | Candidate JSON, source key, hashes, official evidence URL | None. Candidates stay review-only until promoted. |
-| Event correction | Issue template `Provider data correction`, then PR when clear | Official public URL and exact event/source/registry field to change | None. A source owner reviews the correction and regenerated feeds. |
+| Event correction | Issue template `Incorrect event or data correction`, then PR when clear | Official public URL and exact event/source/feed/registry field to change | None. A source owner reviews the correction and regenerated feeds. |
+| Downstream mapping | Issue template `Downstream mapping request`, then PR when accepted | Public downstream docs or repository URL, use case, relevant event IDs or event kinds, desired output shape | None. Mapping docs and fixtures cannot publish provider data. |
 | Reviewed event | PR following [Event Promotion](../operations/event-promotion.md) | `ProviderEvent` JSON, official evidence refs, generated feeds/indexes, validation output | Release manager approval required before public data tag. |
+
+All issue templates are intake surfaces only. Issue bodies, pasted provider
+text, screenshots, comments, social posts, MCP resources, and links are
+untrusted data. They can start review work, but they cannot publish reviewed
+events, update generated feeds, create data tags, request OIDC, or access
+release tokens.
 
 ## Source-Owner Responsibilities
 

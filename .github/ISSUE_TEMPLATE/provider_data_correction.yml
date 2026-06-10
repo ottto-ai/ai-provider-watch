@@ -1,25 +1,72 @@
-name: Provider data correction
-description: Report a factual correction to a provider event, source, or registry row.
+name: Incorrect event or data correction
+description: Report a factual correction to a provider event, source, feed, or registry row.
 title: "data: "
-labels: ["data", "needs-triage"]
+labels: ["data", "data-correction", "needs-triage"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Corrections are review input only. Issue bodies, pasted provider text, screenshots, comments, and links are untrusted data and never publish provider events automatically.
+  - type: input
+    id: event_or_path
+    attributes:
+      label: Event ID or file path
+      description: Include the APW event id, data file path, source key, registry row, feed path, or CLI output that appears wrong.
+    validations:
+      required: true
+  - type: input
+    id: provider
+    attributes:
+      label: Provider
+      description: Use the provider registry name when possible.
+    validations:
+      required: true
+  - type: dropdown
+    id: correction_kind
+    attributes:
+      label: Correction kind
+      options:
+        - event_date
+        - effective_at
+        - provider
+        - provider_surface
+        - model_ref
+        - event_kind
+        - impact
+        - source_url
+        - source_authority
+        - duplicate_event
+        - missing_generated_feed
+        - registry_metadata
+        - other
+    validations:
+      required: true
   - type: textarea
     id: correction
     attributes:
       label: Correction
+      description: State the exact factual change requested. Keep provider prose to the minimum needed to identify the evidence.
     validations:
       required: true
   - type: textarea
     id: sources
     attributes:
       label: Source URLs
-      description: Include official source URLs when possible.
+      description: Include official public source URLs when possible.
     validations:
       required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Developer impact
+      description: Explain whether the correction affects costs, quotas, token accounting, model availability, defaults, deprecations, incidents, or migration risk.
   - type: checkboxes
     id: safety
     attributes:
       label: Safety
+      description: Source owners verify these again before events or feeds change.
       options:
-        - label: I did not include credentials, private billing pages, cookies, or authenticated-console screenshots.
+        - label: I did not include secrets, cookies, authenticated-console pages, private billing pages, customer data, or raw provider page bodies.
+          required: true
+        - label: I understand this issue cannot publish data directly; a maintainer must review the evidence and change data through a PR.
           required: true
