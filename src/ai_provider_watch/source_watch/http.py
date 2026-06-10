@@ -104,6 +104,21 @@ def parsed_fingerprint_bytes(
     fallback_bytes: bytes,
 ) -> bytes:
     """Return the deterministic change-detection payload for a parsed source."""
+    pricing_state = pricing_state_from_items(parsed.items)
+    operational_state = operational_state_from_items(parsed.items)
+    if pricing_state is not None or operational_state is not None:
+        return write_json_text(
+            {
+                "schema_version": "apw.parsed_source_fingerprint.v0",
+                "source_key": source.key,
+                "parser": source.parser,
+                "pricing_rows": _pricing_fingerprint_state(pricing_state),
+                "operational_rows": operational_state,
+                "raw_excerpt_hashes": parsed.raw_excerpt_hashes,
+                "errors": parsed.errors,
+                "snapshot_ref": parsed.snapshot_ref,
+            }
+        ).encode("utf-8")
     if not (parsed.items or parsed.raw_excerpt_hashes or parsed.errors or parsed.snapshot_ref):
         return fallback_bytes
     return write_json_text(
@@ -117,6 +132,28 @@ def parsed_fingerprint_bytes(
             "snapshot_ref": parsed.snapshot_ref,
         }
     ).encode("utf-8")
+
+
+def _pricing_fingerprint_state(pricing_state: dict[str, Any] | None) -> dict[str, Any] | None:
+    if pricing_state is None:
+        return None
+    ambiguous_keys = {
+        key
+        for key in pricing_state.get("ambiguous_price_point_keys", [])
+        if isinstance(key, str)
+    }
+    if not ambiguous_keys:
+        return pricing_state
+    price_point_keys = {
+        row["row_key"]
+        for row in pricing_state.get("price_points", [])
+        if isinstance(row, dict) and isinstance(row.get("row_key"), str)
+    }
+    return {
+        "schema_version": "apw.pricing_fingerprint_state.v0",
+        "price_point_keys": sorted(price_point_keys | ambiguous_keys),
+        "pricing_signals": pricing_state.get("pricing_signals", []),
+    }
 
 
 def fetch_source(
