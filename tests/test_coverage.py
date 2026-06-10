@@ -28,7 +28,7 @@ def test_source_coverage_report_matches_schema_and_current_gaps() -> None:
         "fetched_enabled_source_ratio": 1.0,
         "manual_review_only_source_count": 1,
         "blocked_pending_parser_source_count": 0,
-        "reviewed_event_count": 37,
+        "reviewed_event_count": 39,
         "latest_event_date": "2026-06-10",
         "candidate_backlog_count": 0,
         "warning_count": 0,

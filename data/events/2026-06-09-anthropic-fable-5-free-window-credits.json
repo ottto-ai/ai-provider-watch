@@ -1,0 +1,148 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-09-anthropic-fable-5-free-window-credits",
+  "title": "Anthropic Set Fable 5 Free Access Window And Usage Credit Requirement",
+  "event_kind": "subscription_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "event_date": "2026-06-09",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-10T21:22:20Z",
+  "announced_at": "2026-06-09T00:00:00Z",
+  "effective_at": "2026-06-23T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Anthropic's June 9 announcement says Claude Fable 5 is available to Pro, Max, Team, and Enterprise plan users, with Max, Team, and Enterprise access included through June 22, 2026 and usage credits required starting June 23, 2026.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      "retrieved_at": "2026-06-10T21:22:20Z",
+      "authority": "official_blog",
+      "content_sha256": "a1bbc1faa7a0ebb51b4195afba586dfe95445918ccfbd6f8827bab33de3b4e28",
+      "snapshot_ref": "entry:a246c9ce289c3c6b",
+      "selector": "announcement:a246c9ce289c3c6b",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "subscription_plan",
+      "scope_ref": "plan:anthropic/max",
+      "impact_kind": "cost",
+      "direction": "increase",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "none",
+      "estimated_cost_effect": {
+        "direction": "increase",
+        "magnitude": "usage credits required after the included-access window ends on 2026-06-22",
+        "basis": "official June 9 announcement subscription-access terms",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "platform_engineers",
+        "coding_agent_users"
+      ],
+      "recommended_action": "Budget Fable 5 usage credits before June 23, 2026 and avoid assuming Max plan access remains included after the free-access window."
+    },
+    {
+      "scope_type": "subscription_plan",
+      "scope_ref": "plan:anthropic/team",
+      "impact_kind": "cost",
+      "direction": "increase",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "none",
+      "estimated_cost_effect": {
+        "direction": "increase",
+        "magnitude": "usage credits required after the included-access window ends on 2026-06-22",
+        "basis": "official June 9 announcement subscription-access terms",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "platform_engineers",
+        "coding_agent_users"
+      ],
+      "recommended_action": "Update team rollout plans and budget approvals before broad Fable 5 adoption after June 22, 2026."
+    },
+    {
+      "scope_type": "subscription_plan",
+      "scope_ref": "plan:anthropic/enterprise",
+      "impact_kind": "cost",
+      "direction": "increase",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "none",
+      "estimated_cost_effect": {
+        "direction": "increase",
+        "magnitude": "usage credits required after the included-access window ends on 2026-06-22",
+        "basis": "official June 9 announcement subscription-access terms",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "platform_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Confirm enterprise usage-credit terms with the account owner before making Fable 5 the default for internal or customer-facing workflows."
+    },
+    {
+      "scope_type": "subscription_plan",
+      "scope_ref": "plan:anthropic/pro",
+      "impact_kind": "quota",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "none",
+      "who_should_care": [
+        "coding_agent_users",
+        "product_engineers",
+        "platform_engineers"
+      ],
+      "recommended_action": "Treat Pro-plan Fable 5 access as limited daily capacity and keep fallback model routes available for repeated or long-running tasks."
+    }
+  ],
+  "detail": {
+    "kind": "subscription_change",
+    "schema_version": "apw.event_detail.v0",
+    "plan_refs": [
+      "plan:anthropic/pro",
+      "plan:anthropic/max",
+      "plan:anthropic/team",
+      "plan:anthropic/enterprise"
+    ],
+    "entitlement_changes": [
+      "Claude Fable 5 access is listed for Pro, Max, Team, and Enterprise plan users.",
+      "Max, Team, and Enterprise access is included through 2026-06-22 and requires usage credits starting 2026-06-23.",
+      "Pro users have limited daily access."
+    ],
+    "old_terms": null,
+    "new_terms": "Fable 5 access varies by Anthropic subscription plan; Max, Team, and Enterprise users need usage credits after the included-access window, and Pro users receive limited daily access.",
+    "effective_at": "2026-06-23T00:00:00Z"
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:anthropic",
+    "impact:subscription_change",
+    "plan:anthropic_max",
+    "plan:anthropic_team",
+    "plan:anthropic_enterprise",
+    "plan:anthropic_pro"
+  ],
+  "limitations": [
+    "APW records subscription-access facts from the official announcement, not account-specific contract terms.",
+    "This event does not assert API, cloud-provider, or regional access terms for Fable 5."
+  ]
+}

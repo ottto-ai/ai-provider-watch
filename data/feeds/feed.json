@@ -83,6 +83,155 @@
     {
       "_apw": {
         "confidence": "confirmed",
+        "effective_at": "2026-06-23T00:00:00Z",
+        "event_date": "2026-06-09",
+        "event_id": "2026-06-09-anthropic-fable-5-free-window-credits",
+        "event_kind": "subscription_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "a1bbc1faa7a0ebb51b4195afba586dfe95445918ccfbd6f8827bab33de3b4e28",
+            "selector": "announcement:a246c9ce289c3c6b",
+            "snapshot_ref": "entry:a246c9ce289c3c6b",
+            "source_key": "anthropic.news",
+            "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "increase",
+            "impact_kind": "cost",
+            "scope_ref": "plan:anthropic/max",
+            "scope_type": "subscription_plan",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "increase",
+            "impact_kind": "cost",
+            "scope_ref": "plan:anthropic/team",
+            "scope_type": "subscription_plan",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "increase",
+            "impact_kind": "cost",
+            "scope_ref": "plan:anthropic/enterprise",
+            "scope_type": "subscription_plan",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "quota",
+            "scope_ref": "plan:anthropic/pro",
+            "scope_type": "subscription_plan",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records subscription-access facts from the official announcement, not account-specific contract terms.",
+          "This event does not assert API, cloud-provider, or regional access terms for Fable 5."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "Anthropic's June 9 announcement says Claude Fable 5 is available to Pro, Max, Team, and Enterprise plan users, with Max, Team, and Enterprise access included through June 22, 2026 and usage credits required starting June 23, 2026.\n\nKind: subscription_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-10T21:22:20Z",
+      "date_published": "2026-06-10T21:22:20Z",
+      "external_url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      "id": "2026-06-09-anthropic-fable-5-free-window-credits",
+      "summary": "Anthropic's June 9 announcement says Claude Fable 5 is available to Pro, Max, Team, and Enterprise plan users, with Max, Team, and Enterprise access included through June 22, 2026 and usage credits required starting June 23, 2026.",
+      "tags": [
+        "impact:subscription_change",
+        "plan:anthropic_enterprise",
+        "plan:anthropic_max",
+        "plan:anthropic_pro",
+        "plan:anthropic_team",
+        "provider:anthropic",
+        "severity:high",
+        "source:official_blog",
+        "subscription_change"
+      ],
+      "title": "Anthropic Set Fable 5 Free Access Window And Usage Credit Requirement",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-09-anthropic-fable-5-free-window-credits.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-09T00:00:00Z",
+        "event_date": "2026-06-09",
+        "event_id": "2026-06-09-anthropic-claude-mythos-5-trusted-access",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "a1bbc1faa7a0ebb51b4195afba586dfe95445918ccfbd6f8827bab33de3b4e28",
+            "selector": "announcement:a246c9ce289c3c6b",
+            "snapshot_ref": "entry:a246c9ce289c3c6b",
+            "source_key": "anthropic.news",
+            "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:anthropic/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "cost",
+            "scope_ref": "model:anthropic/claude-mythos-5",
+            "scope_type": "model",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records normalized factual metadata only; no provider announcement body is copied.",
+          "Access is approval-gated and may not be available to ordinary Anthropic API accounts."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "Anthropic's June 9 announcement introduced Claude Mythos 5 with a 1M-token context window, 128k maximum output tokens, adaptive thinking, and approval-gated API availability for Project Glasswing participants and trusted partners.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:anthropic",
+      "date_modified": "2026-06-10T21:22:20Z",
+      "date_published": "2026-06-10T21:22:20Z",
+      "external_url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      "id": "2026-06-09-anthropic-claude-mythos-5-trusted-access",
+      "summary": "Anthropic's June 9 announcement introduced Claude Mythos 5 with a 1M-token context window, 128k maximum output tokens, adaptive thinking, and approval-gated API availability for Project Glasswing participants and trusted partners.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:anthropic",
+        "severity:high",
+        "source:official_blog",
+        "surface:anthropic_api"
+      ],
+      "title": "Anthropic Introduced Claude Mythos 5 For Trusted Access",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-09-anthropic-claude-mythos-5-trusted-access.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
         "effective_at": "2026-06-09T00:00:00Z",
         "event_date": "2026-06-09",
         "event_id": "2026-06-09-anthropic-fable-5-token-accounting-retention",

@@ -12,6 +12,20 @@
       <pubDate>Wed, 10 Jun 2026 10:32:49 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-09-anthropic-fable-5-free-window-credits</guid>
+      <title>Anthropic Set Fable 5 Free Access Window And Usage Credit Requirement</title>
+      <description>Anthropic&#x27;s June 9 announcement says Claude Fable 5 is available to Pro, Max, Team, and Enterprise plan users, with Max, Team, and Enterprise access included through June 22, 2026 and usage credits required starting June 23, 2026.</description>
+      <category>subscription_change</category>
+      <pubDate>Wed, 10 Jun 2026 21:22:20 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-09-anthropic-claude-mythos-5-trusted-access</guid>
+      <title>Anthropic Introduced Claude Mythos 5 For Trusted Access</title>
+      <description>Anthropic&#x27;s June 9 announcement introduced Claude Mythos 5 with a 1M-token context window, 128k maximum output tokens, adaptive thinking, and approval-gated API availability for Project Glasswing participants and trusted partners.</description>
+      <category>model_launch</category>
+      <pubDate>Wed, 10 Jun 2026 21:22:20 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-09-anthropic-fable-5-token-accounting-retention</guid>
       <title>Anthropic Listed Fable 5 Tokenizer, Fallback Billing, And Retention Constraints</title>
       <description>Anthropic&#x27;s June 9 Claude Platform release notes say Claude Fable 5 uses the Opus 4.7 tokenizer family, adds refusal and fallback handling semantics, and requires 30-day data retention on the Claude API.</description>

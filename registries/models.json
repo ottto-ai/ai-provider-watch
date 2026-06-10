@@ -1,4 +1,23 @@
 {
   "schema_version": "apw.models.v0",
-  "models": []
+  "models": [
+    {
+      "id": "anthropic/claude-fable-5",
+      "provider_id": "anthropic",
+      "display_name": "Claude Fable 5",
+      "aliases": [
+        "claude-fable-5"
+      ],
+      "status": "available"
+    },
+    {
+      "id": "anthropic/claude-mythos-5",
+      "provider_id": "anthropic",
+      "display_name": "Claude Mythos 5",
+      "aliases": [
+        "claude-mythos-5"
+      ],
+      "status": "approval_gated"
+    }
+  ]
 }
