@@ -41,6 +41,12 @@ uv run apw ecosystem render \
   --event-id 2024-01-04-openai-gpt3-completions-retirement \
   --created-at 2026-06-02T00:00:00Z \
   --output .apw/adoption-litellm.json
+
+uv run apw dashboard agent \
+  --since 2026-05-28 \
+  --risk high \
+  --created-at 2026-06-09T00:00:00Z \
+  --output .apw/adoption-agent-dashboard.json
 ```
 
 ## Covered Workflows
@@ -50,17 +56,15 @@ The v0 scenario manifest covers:
 - repository impact scanning for a model-retirement event;
 - webhook payload rendering without delivery credentials;
 - Slack-compatible payload rendering without posting to Slack;
+- status incident routing for on-call teams;
+- pricing, caching, and token-accounting review hints;
+- quota, cost, and workflow-change hints for agent-app maintainers;
 - LiteLLM gateway review hints;
 - models.dev catalog annotation hints;
 - Langfuse trace annotation metadata;
 - Helicone custom-property metadata;
-- OpenLIT/OpenTelemetry-style attributes.
-
-These scenarios currently use a reviewed OpenAI legacy completions retirement
-event because it is stable, source-linked, and easy to exercise in a fixture
-repo. The manifest should grow with scenario IDs for status incidents,
-pricing/token-accounting changes, quota/default-model changes, and
-coding-agent workflow changes as those downstream examples are added.
+- OpenLIT/OpenTelemetry-style attributes;
+- local coding-agent dashboard JSON for high-risk agent events.
 
 ## Safety Boundary
 
@@ -79,4 +83,5 @@ Related docs:
 - [Downstream GitHub Action](github-action.md)
 - [Webhook And Slack Payloads](webhooks.md)
 - [Ecosystem Mappings](ecosystem-mappings.md)
+- [Agent Dashboard](agent-dashboard.md)
 - [Agent Consumption](../agent-consumption.md)

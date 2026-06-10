@@ -19,6 +19,7 @@ from ai_provider_watch.core.feeds import (
 )
 from ai_provider_watch.core.io import package_data_root, read_json, repo_root, write_json_text
 from ai_provider_watch.core.validation import validate
+from ai_provider_watch.pipeline.agent_dashboard import build_agent_dashboard
 from ai_provider_watch.pipeline.candidate_event_packet import build_candidate_to_event_packet
 from ai_provider_watch.pipeline.candidates import (
     build_candidates,
@@ -684,6 +685,28 @@ def cmd_ecosystem_render(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_dashboard_agent(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        payload = build_agent_dashboard(
+            root,
+            since=args.since,
+            risk=args.risk,
+            provider=args.provider,
+            kind=args.kind,
+            event_id=args.event_id,
+            agent_app=args.agent_app,
+            limit=args.limit,
+            created_at=args.created_at,
+            source_url=args.source_url,
+        )
+    except ValueError as exc:
+        print(f"dashboard agent failed: {exc}", file=sys.stderr)
+        return 1
+    _write_or_print(root, payload, args.output)
+    return 0
+
+
 def cmd_release_dry_run(args: argparse.Namespace) -> int:
     root = _root(args.root)
     if not _require_checkout_root(args, root, "release dry-run"):
@@ -1029,6 +1052,36 @@ def build_parser() -> argparse.ArgumentParser:
     )
     ecosystem_render_parser.add_argument("--output", help="write JSON payload to this path instead of stdout")
     ecosystem_render_parser.set_defaults(func=cmd_ecosystem_render)
+
+    dashboard_parser = subparsers.add_parser("dashboard", help="render local dashboard payloads")
+    dashboard_subparsers = dashboard_parser.add_subparsers(dest="dashboard_command", required=True)
+    dashboard_agent_parser = dashboard_subparsers.add_parser(
+        "agent",
+        help="render coding-agent provider-impact cards as local JSON",
+    )
+    dashboard_agent_parser.add_argument("--since", default="30d", help="event date cutoff or day window")
+    dashboard_agent_parser.add_argument(
+        "--risk",
+        choices=sorted(SEVERITY_RANK),
+        default="medium",
+        help="minimum event severity",
+    )
+    dashboard_agent_parser.add_argument("--provider", help="provider id or provider: ref")
+    dashboard_agent_parser.add_argument("--kind", help="event kind filter")
+    dashboard_agent_parser.add_argument("--event-id", help="single event id filter")
+    dashboard_agent_parser.add_argument(
+        "--agent-app",
+        help="agent app id or app: ref, for example codex or app:claude-code",
+    )
+    dashboard_agent_parser.add_argument("--limit", type=int, default=20, help="maximum cards to include")
+    dashboard_agent_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic payloads")
+    dashboard_agent_parser.add_argument(
+        "--source-url",
+        default="https://github.com/ottto-ai/ai-provider-watch",
+        help="source URL to include in the payload",
+    )
+    dashboard_agent_parser.add_argument("--output", help="write JSON payload to this path instead of stdout")
+    dashboard_agent_parser.set_defaults(func=cmd_dashboard_agent)
 
     release_parser = subparsers.add_parser("release", help="release verification commands")
     release_subparsers = release_parser.add_subparsers(dest="release_command", required=True)

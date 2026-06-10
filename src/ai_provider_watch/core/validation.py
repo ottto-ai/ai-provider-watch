@@ -43,6 +43,7 @@ SCHEMA_FILES = {
     "release_publication_packet": "release-publication-packet.schema.json",
     "release_verification": "release-verification.schema.json",
     "adoption_scenarios": "adoption-scenarios.schema.json",
+    "agent_dashboard": "agent-dashboard.schema.json",
 }
 
 DETAIL_BY_EVENT_KIND = {

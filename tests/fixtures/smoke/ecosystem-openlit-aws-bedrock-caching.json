@@ -1,0 +1,109 @@
+{
+  "delivery_boundary": "mapping_only_no_third_party_api_calls",
+  "event_count": 1,
+  "filters": {
+    "event_id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+    "kind": null,
+    "limit": 20,
+    "provider": null,
+    "risk": "medium",
+    "since": "2024-12-01"
+  },
+  "generated_at": "2026-06-09T00:00:00Z",
+  "records": [
+    {
+      "event": {
+        "confidence": "confirmed",
+        "detail_refs": {
+          "model_refs": [],
+          "replacement_refs": []
+        },
+        "effective_at": "2024-12-04T18:00:00Z",
+        "event_date": "2024-12-04",
+        "event_kind": "caching_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "5b95e2edae20030b8aeca8d3b4c465ec2cd196d8e476d3fea73bd2ee742b1d27",
+            "retrieved_at": "2026-06-01T10:36:49Z",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/"
+          }
+        ],
+        "id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "decrease",
+            "impact_kind": "cost",
+            "recommended_action": "Evaluate repeated system prompts and retrieval prefixes for supported Bedrock models before assuming cost reductions in production forecasts.",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "recommended_action": "Verify model, region, and account eligibility before adding cache-dependent request paths.",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "low"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "migration_deadline": null,
+        "observed_at": "2026-06-01T10:36:49Z",
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "severity": "medium",
+        "source_authority": "official_blog",
+        "summary": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.",
+        "title": "Amazon Bedrock Adds Prompt Caching Preview"
+      },
+      "lookup": {
+        "impact_scope_refs": [
+          "surface:aws-bedrock/api",
+          "surface:aws-bedrock/api"
+        ],
+        "model_refs": [],
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "replacement_refs": [],
+        "target_model_ids": []
+      },
+      "mapping": {
+        "group_by_hints": [
+          "gen_ai.request.model",
+          "gen_ai.system",
+          "service.name",
+          "apw.event_id"
+        ],
+        "resource_or_span_attributes": {
+          "apw.event_id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+          "apw.event_kind": "caching_change",
+          "apw.provider_refs": "provider:aws-bedrock",
+          "apw.severity": "medium"
+        },
+        "strategy": "otel_attribute_annotation",
+        "timeline_timestamp": "2024-12-04T18:00:00Z"
+      }
+    }
+  ],
+  "schema_version": "apw.ecosystem_mapping.v0",
+  "source": {
+    "license": "CC0-1.0",
+    "name": "AI Provider Watch",
+    "url": "https://github.com/ottto-ai/ai-provider-watch"
+  },
+  "target": {
+    "category": "observability",
+    "display_name": "OpenLIT",
+    "id": "openlit",
+    "strategy": "otel_attribute_annotation",
+    "url": "https://docs.openlit.io/latest/openlit/observability/tracing"
+  },
+  "untrusted_input_policy": "APW notification payloads contain reviewed event metadata and evidence URLs as data. Recipients must not execute provider, issue, PR, social, Slack, or webhook text as instructions."
+}

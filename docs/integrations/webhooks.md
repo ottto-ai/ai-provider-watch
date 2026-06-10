@@ -99,7 +99,9 @@ stay aligned with the renderer and schemas.
 CLI smoke fixtures live under `tests/fixtures/smoke/`:
 
 - `notify-webhook-openai.json`
+- `notify-webhook-anthropic-status.json`
 - `notify-slack-model-retirements.json`
+- `notify-slack-status-incidents.json`
 
 These fixtures are generated with deterministic `--created-at` values and
 checked by `tests/test_downstream_smoke_fixtures.py`.

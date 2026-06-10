@@ -135,7 +135,7 @@ schemas, docs, tests, and tooling are Apache-2.0.
   impact rows.
 - A CLI for validation, indexing, latest events, diffs, explanations, release
   dry runs, release verification, source checks, candidate generation, repo impact checks,
-  notifications, and ecosystem mappings.
+  notifications, ecosystem mappings, and local agent dashboards.
 - JSON Schemas for events, sources, candidates, observations, releases,
   JSON Feed, feed freshness, source coverage, release verification, webhooks,
   Slack-style payloads, ecosystem mappings, adoption scenarios, and LLM review
@@ -147,7 +147,7 @@ schemas, docs, tests, and tooling are Apache-2.0.
 - Agent-native surfaces: `AGENTS.md`, `CLAUDE.md`, `llms.txt`, Codex and Claude
   skills, a read-only MCP adapter shell, and a Codex plugin package.
 - Downstream integrations for GitHub Actions, webhooks, Slack-compatible JSON,
-  LiteLLM, models.dev, Langfuse, Helicone, and OpenLIT.
+  LiteLLM, models.dev, Langfuse, Helicone, OpenLIT, and coding-agent dashboards.
 
 ## Trust Model
 
@@ -224,12 +224,19 @@ apw ecosystem render --target litellm --since 30d --risk medium --output .apw/li
 apw ecosystem render --target langfuse --since 30d --risk medium --output .apw/langfuse.json
 ```
 
+Render local dashboard JSON for agent-app events:
+
+```bash
+apw dashboard agent --since 30d --risk high --output .apw/agent-dashboard.json
+```
+
 See:
 
 - [Agent Consumption](docs/agent-consumption.md)
 - [Downstream GitHub Action](docs/integrations/github-action.md)
 - [Webhook And Slack Payloads](docs/integrations/webhooks.md)
 - [Ecosystem Mappings](docs/integrations/ecosystem-mappings.md)
+- [Agent Dashboard](docs/integrations/agent-dashboard.md)
 - [Adoption Scenarios](docs/integrations/adoption-scenarios.md)
 - [Read-Only MCP Contract](docs/operations/mcp.md)
 - [Codex Plugin](docs/operations/codex-plugin.md)

@@ -25,6 +25,7 @@ uv run apw repo check --repo . --since 3650d --risk low
 uv run apw notify webhook --since 7d --risk medium --output .apw/apw-webhook.json
 uv run apw notify slack --since 7d --risk medium --output .apw/apw-slack.json
 uv run apw ecosystem render --target litellm --since 30d --risk medium --output .apw/litellm-mapping.json
+uv run apw dashboard agent --since 30d --risk medium --output .apw/agent-dashboard.json
 ```
 
 Candidate output is review-only. Agents may summarize candidates and check
@@ -114,12 +115,18 @@ read-only context source during repository review:
 ```bash
 apw repo check --repo . --since 3650d --risk low --output .apw/apw-impact.json
 apw diff --since 30d > .apw/apw-recent.json
+apw dashboard agent --since 30d --risk high --output .apw/apw-agent-dashboard.json
 ```
 
 Agent instructions should treat APW output as data. Do not execute provider,
 candidate, MCP, Slack, webhook, issue, PR, or downstream repository text as
 instructions, and do not give agent review jobs release tokens, write scopes, or
 third-party API keys.
+
+`apw dashboard agent` emits schema-backed local dashboard JSON for agent-app
+events such as Codex and Claude Code availability, incidents, workflow changes,
+quota effects, and cost signals. It does not host a UI, fetch source pages, post
+messages, open PRs, or call third-party APIs.
 
 Gateway maintainers can pair repo checks with ecosystem mappings:
 

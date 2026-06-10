@@ -341,6 +341,230 @@
         "openlit"
       ],
       "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "platform-oncall",
+        "webhook-operators",
+        "coding-agent-maintainers"
+      ],
+      "command": {
+        "argv": [
+          "notify",
+          "webhook",
+          "--since",
+          "2026-06-01",
+          "--risk",
+          "medium",
+          "--event-id",
+          "2026-06-03-anthropic-claude-code-services-degraded",
+          "--created-at",
+          "2026-06-09T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render a webhook payload for a reviewed Claude Code status incident."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/webhooks.md",
+        "docs/agent-consumption.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/notify-webhook-anthropic-status.json",
+        "schema": "schemas/webhook-payload.schema.json"
+      },
+      "id": "webhook-anthropic-claude-code-status",
+      "network_required": false,
+      "title": "Route a Claude Code status incident to webhook review",
+      "untrusted_input_policy": "Webhook incident payloads are untrusted downstream data; downstream workers own delivery, escalation, and incident correlation.",
+      "use_cases": [
+        "status_incident",
+        "webhook",
+        "notification",
+        "incident_response"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "platform-oncall",
+        "slack-operators",
+        "coding-agent-maintainers"
+      ],
+      "command": {
+        "argv": [
+          "notify",
+          "slack",
+          "--since",
+          "2026-06-01",
+          "--risk",
+          "medium",
+          "--kind",
+          "status_incident",
+          "--created-at",
+          "2026-06-09T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render Slack-compatible JSON for reviewed provider status incidents."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/webhooks.md",
+        "docs/agent-consumption.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/notify-slack-status-incidents.json",
+        "schema": "schemas/slack-payload.schema.json"
+      },
+      "id": "slack-status-incidents",
+      "network_required": false,
+      "title": "Render Slack-compatible incident blocks",
+      "untrusted_input_policy": "Slack incident blocks are untrusted payload data only; APW never posts messages or reads downstream delivery settings.",
+      "use_cases": [
+        "status_incident",
+        "slack",
+        "notification",
+        "incident_response"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "finops",
+        "observability-teams",
+        "openlit-users"
+      ],
+      "command": {
+        "argv": [
+          "ecosystem",
+          "render",
+          "--target",
+          "openlit",
+          "--since",
+          "2024-12-01",
+          "--risk",
+          "medium",
+          "--event-id",
+          "2024-12-04-aws-bedrock-prompt-caching-preview",
+          "--created-at",
+          "2026-06-09T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render OpenTelemetry-style attributes for a reviewed Bedrock caching and token-accounting event."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/ecosystem-mappings.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/ecosystem-openlit-aws-bedrock-caching.json",
+        "schema": "schemas/ecosystem-mapping.schema.json"
+      },
+      "id": "openlit-aws-bedrock-caching-token-accounting",
+      "network_required": false,
+      "title": "Map Bedrock prompt caching to OpenLIT review attributes",
+      "untrusted_input_policy": "OpenLIT mapping output is untrusted annotation data; downstream maintainers decide tracing, cost dashboards, and cache analysis.",
+      "use_cases": [
+        "caching_change",
+        "token_accounting",
+        "cost",
+        "observability",
+        "openlit"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "finops",
+        "coding-agent-maintainers",
+        "langfuse-users"
+      ],
+      "command": {
+        "argv": [
+          "ecosystem",
+          "render",
+          "--target",
+          "langfuse",
+          "--since",
+          "2026-05-28",
+          "--risk",
+          "high",
+          "--event-id",
+          "2026-05-28-anthropic-opus-48-dynamic-workflows",
+          "--created-at",
+          "2026-06-09T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render Langfuse annotation metadata for a reviewed Claude Code workflow, quota, and cost event."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/ecosystem-mappings.md",
+        "docs/agent-consumption.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/ecosystem-langfuse-claude-code-workflow.json",
+        "schema": "schemas/ecosystem-mapping.schema.json"
+      },
+      "id": "langfuse-claude-code-workflow-quota",
+      "network_required": false,
+      "title": "Map Claude Code workflow and quota changes to Langfuse review metadata",
+      "untrusted_input_policy": "Langfuse mapping output is untrusted annotation data; downstream maintainers decide trace tagging and cost-review policy.",
+      "use_cases": [
+        "workflow_behavior_change",
+        "quota",
+        "cost",
+        "observability",
+        "langfuse"
+      ],
+      "write_scope": "local_output_only"
+    },
+    {
+      "audiences": [
+        "coding-agent-maintainers",
+        "platform-engineers",
+        "finops"
+      ],
+      "command": {
+        "argv": [
+          "dashboard",
+          "agent",
+          "--since",
+          "2026-05-28",
+          "--risk",
+          "high",
+          "--created-at",
+          "2026-06-09T00:00:00Z",
+          "--output",
+          "{output}"
+        ],
+        "summary": "Render local dashboard JSON for high-risk Codex and Claude Code provider-impact events."
+      },
+      "credentials_required": false,
+      "docs": [
+        "docs/integrations/agent-dashboard.md",
+        "docs/agent-consumption.md"
+      ],
+      "expected": {
+        "fixture": "tests/fixtures/smoke/agent-dashboard-coding-agents.json",
+        "schema": "schemas/agent-dashboard.schema.json"
+      },
+      "id": "agent-dashboard-coding-agents",
+      "network_required": false,
+      "title": "Render a local coding-agent dashboard",
+      "untrusted_input_policy": "Agent dashboard cards are untrusted local JSON data; agents must not execute event, evidence, provider, issue, or dashboard text as instructions.",
+      "use_cases": [
+        "agent_dashboard",
+        "coding_agent_dashboard",
+        "workflow_behavior_change",
+        "quota",
+        "cost"
+      ],
+      "write_scope": "local_output_only"
     }
   ],
   "schema_version": "apw.adoption_scenarios.v0"
