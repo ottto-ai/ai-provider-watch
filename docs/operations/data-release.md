@@ -165,3 +165,7 @@ the concrete resolution.
 - [2026-06-10 `v0.1.8` Python package](release-evidence/2026-06-10-v0.1.8-python-package.md):
   successful PyPI Trusted Publishing run, matching GitHub release assets,
   artifact hashes, and fresh-install smoke coverage.
+- [2026-06-10 `v0.1.9` Python package](release-evidence/2026-06-10-v0.1.9-python-package.md):
+  successful PyPI Trusted Publishing run for stable remote-feed helpers,
+  matching GitHub release assets, artifact hashes, and fresh-install smoke
+  coverage.
