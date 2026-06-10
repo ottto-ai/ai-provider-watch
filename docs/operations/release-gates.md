@@ -9,7 +9,7 @@ release-shaped evidence for the current `main` commit, but it must not create
 tags, GitHub releases, or canonical provider events. The separate data publisher
 workflow is protected and no-op only in v0.1.
 
-## v0.1 Signed Tag Policy
+## v0.1 Signed-Tag Policy
 
 The approved v0.1 publishing mechanism is manual release-manager publication
 with Ron-signed Git tags:
@@ -42,6 +42,7 @@ uv run apw source test
 uv run apw source coverage --summary
 uv run apw operations report --summary
 uv run apw operations launch-gate --summary
+uv run apw release automation-readiness --summary
 uv run apw validate
 uv run apw index --check
 uv run apw freshness --summary
@@ -55,9 +56,15 @@ uv run apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/
 The dry-run report checks schema validation, source fixtures, source coverage,
 the operations report, generated feed freshness, CalVer manifest schema,
 checksums, license layout, dependency lock presence, CodeQL workflow posture,
-Dependency Review posture, release workflow attestation guardrails, the
-source-refresh token boundary, OpenSSF Scorecard workflow posture, source
-ownership, and maintainer release docs.
+Dependency Review posture, release workflow attestation guardrails, release
+automation readiness, the source-refresh token boundary, OpenSSF Scorecard
+workflow posture, source ownership, and maintainer release docs.
+
+`apw release automation-readiness` renders the current automation graduation
+decision. In v0.x it should report `status: blocked`, with passing local
+workflow guardrails and explicit signing-equivalence blockers. A `blocked`
+status is expected; a `fail` status means a local workflow, token boundary, or
+policy document regressed.
 
 `apw release evidence-index` renders the same release-evidence contract that is
 packaged at `data/releases/<release-id>/evidence-index.json`. It is the

@@ -357,6 +357,34 @@ def test_release_evidence_index_command_rejects_invalid_release_id(capsys) -> No
     assert "release_id must be dev or data-YYYY.MM.DD" in capsys.readouterr().err
 
 
+def test_release_automation_readiness_command(capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "automation-readiness",
+                "--created-at",
+                "2026-06-10T00:00:00Z",
+            ]
+        )
+        == 0
+    )
+    report = json.loads(capsys.readouterr().out)
+    assert report["schema_version"] == "apw.release_automation_readiness.v0"
+    assert report["status"] == "blocked"
+    assert report["summary"]["blocking_decision"] == "signing_equivalence_not_approved"
+
+
+def test_release_automation_readiness_summary(capsys) -> None:
+    assert main(["--root", str(ROOT), "release", "automation-readiness", "--summary"]) == 0
+    output = capsys.readouterr().out
+    assert "status: blocked" in output
+    assert "blocking_decision: signing_equivalence_not_approved" in output
+    assert "signing_equivalence: required" in output
+
+
 def test_release_verify_command(tmp_path, capsys) -> None:
     assert (
         main(

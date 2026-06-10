@@ -28,6 +28,7 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         ROOT / "docs/operations/release-gates.md",
         ROOT / "docs/operations/data-release.md",
         ROOT / "docs/operations/data-publisher.md",
+        ROOT / "docs/operations/release-automation-readiness.md",
         ROOT / "docs/operations/event-promotion.md",
         ROOT / "docs/operations/data-quality.md",
         ROOT / "docs/operations/v1-launch-gate.md",
@@ -56,6 +57,9 @@ def test_release_governance_docs_have_required_operator_gates() -> None:
         "data/feeds/operations.json",
         "public data-quality operations report",
         "apw operations launch-gate",
+        "apw release automation-readiness",
+        "schemas/release-automation-readiness.schema.json",
+        "signing-equivalence",
         "v1 launch gate",
     ]:
         assert phrase in combined

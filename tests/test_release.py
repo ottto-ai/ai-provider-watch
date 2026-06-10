@@ -11,6 +11,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 from ai_provider_watch.core.validation import load_schemas
 from ai_provider_watch.pipeline.release import (
     _is_working_tree_clean,
+    build_release_automation_readiness,
     build_release_publication_packet,
     calver_release_id,
     parse_release_id_date,
@@ -68,6 +69,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert "uv run apw source coverage --summary" in result.report["validation_commands"]
     assert "uv run apw operations report --summary" in result.report["validation_commands"]
     assert "uv run apw operations launch-gate --summary" in result.report["validation_commands"]
+    assert "uv run apw release automation-readiness --summary" in result.report["validation_commands"]
     assert "actionlint .github/workflows/*.yml" in result.report["validation_commands"]
     assert result.report_path.exists()
     report = json.loads(result.report_path.read_text(encoding="utf-8"))
@@ -77,6 +79,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
         "source_coverage_report",
         "operations_report",
         "v1_launch_gate",
+        "release_automation_readiness",
         "generated_dev_artifacts_current",
         "release_manifest_schema",
         "release_checksums",
@@ -141,6 +144,35 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert any(item["name"] == "v1 launch gate" for item in evidence_index["local_verification"])
     assert any(item["name"] == "OpenSSF Scorecard" for item in evidence_index["external_evidence"])
     assert evidence_index["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
+
+
+def test_release_automation_readiness_reports_signing_equivalence_blocker() -> None:
+    report = build_release_automation_readiness(
+        ROOT,
+        created_at="2026-06-10T00:00:00Z",
+    )
+
+    schema = load_schemas(ROOT)["release_automation_readiness"]
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    assert list(validator.iter_errors(report)) == []
+    assert report["schema_version"] == "apw.release_automation_readiness.v0"
+    assert report["status"] == "blocked"
+    assert report["summary"]["blocking_decision"] == "signing_equivalence_not_approved"
+    assert report["summary"]["fail_count"] == 0
+    assert report["summary"]["decision_blocker_count"] == 2
+    assert {check["id"] for check in report["checks"]} >= {
+        "data_publisher_noop_or_packet_only",
+        "release_dry_run_attestation_only",
+        "untrusted_lanes_have_no_release_authority",
+        "manual_signed_tag_baseline_documented",
+        "future_automation_graduation_tests_documented",
+    }
+    assert {blocker["id"] for blocker in report["decision_blockers"]} == {
+        "protected_environment_verification",
+        "signing_equivalence",
+    }
+    assert report["token_boundary"]["publisher_has_release_authority"] is False
+    assert report["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
 
 
 def test_release_publication_packet_requires_reviewed_inputs(tmp_path) -> None:

@@ -107,6 +107,8 @@ def test_package_data_write_commands_require_checkout(monkeypatch, tmp_path, cap
 
     assert cli.main(["index"]) == 1
     assert "index requires an APW checkout" in capsys.readouterr().err
+    assert cli.main(["release", "automation-readiness"]) == 1
+    assert "release automation-readiness requires an APW checkout" in capsys.readouterr().err
 
 
 def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
@@ -135,6 +137,7 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/schemas/release-evidence-index.schema.json" in names
     assert "ai_provider_watch/_data/schemas/release-publication-packet.schema.json" in names
     assert "ai_provider_watch/_data/schemas/release-verification.schema.json" in names
+    assert "ai_provider_watch/_data/schemas/release-automation-readiness.schema.json" in names
     assert "ai_provider_watch/_data/schemas/agent-dashboard.schema.json" in names
     assert "ai_provider_watch/_data/schemas/operations-report.schema.json" in names
     assert "ai_provider_watch/_data/schemas/v1-launch-gate.schema.json" in names
@@ -143,6 +146,7 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/.mcp.json" in names
     assert "ai_provider_watch/_data/.codex-plugin/plugin.json" in names
     assert "ai_provider_watch/_data/docs/consumer-api.md" in names
+    assert "ai_provider_watch/_data/docs/operations/release-automation-readiness.md" in names
     assert "ai_provider_watch/_data/docs/operations/v1-launch-gate.md" in names
     assert "ai_provider_watch/_data/docs/agent-consumption.md" in names
     assert "ai_provider_watch/_data/examples/adoption/scenarios.json" in names

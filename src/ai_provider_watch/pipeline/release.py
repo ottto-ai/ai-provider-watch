@@ -25,6 +25,7 @@ from ai_provider_watch.sources.registry import validate_source_packages
 RELEASE_DRY_RUN_SCHEMA_VERSION = "apw.release_dry_run.v0"
 RELEASE_PUBLICATION_PACKET_SCHEMA_VERSION = "apw.release_publication_packet.v0"
 RELEASE_VERIFICATION_SCHEMA_VERSION = "apw.release_verification.v0"
+RELEASE_AUTOMATION_READINESS_SCHEMA_VERSION = "apw.release_automation_readiness.v0"
 RELEASE_ID_PATTERN = re.compile(r"^data-\d{4}\.\d{2}\.\d{2}$")
 
 
@@ -336,6 +337,303 @@ def _scorecard_workflow_check(root: Path) -> ReleaseCheck:
     else:
         details = f"missing: {', '.join(missing) or 'none'}; forbidden: {', '.join(forbidden) or 'none'}"
     return _check("scorecard_workflow", passed, details)
+
+
+def _readiness_check(
+    check_id: str,
+    status: str,
+    details: str,
+    evidence: list[str],
+) -> dict[str, Any]:
+    return {
+        "id": check_id,
+        "status": status,
+        "details": details,
+        "evidence": evidence,
+    }
+
+
+def _release_check_to_readiness(
+    check: ReleaseCheck,
+    *,
+    check_id: str | None = None,
+    evidence: list[str],
+) -> dict[str, Any]:
+    return _readiness_check(
+        check_id or check.name,
+        check.status,
+        check.details,
+        evidence,
+    )
+
+
+def _workflow_forbidden_readiness_check(
+    root: Path,
+    *,
+    check_id: str,
+    workflow_names: list[str],
+    forbidden: list[str],
+    details: str,
+) -> dict[str, Any]:
+    failures: list[str] = []
+    evidence: list[str] = []
+    for workflow_name in workflow_names:
+        workflow = _workflow_text(root, workflow_name)
+        evidence.append(f".github/workflows/{workflow_name}")
+        if not workflow:
+            failures.append(f"{workflow_name}: missing")
+            continue
+        forbidden_hits = _workflow_forbidden(workflow, forbidden)
+        if forbidden_hits:
+            failures.append(f"{workflow_name}: forbidden {', '.join(forbidden_hits)}")
+    return _readiness_check(
+        check_id,
+        "pass" if not failures else "fail",
+        details if not failures else "; ".join(failures),
+        evidence,
+    )
+
+
+def _required_doc_phrases_check(
+    root: Path,
+    *,
+    check_id: str,
+    paths_and_phrases: dict[str, list[str]],
+    details: str,
+) -> dict[str, Any]:
+    failures: list[str] = []
+    for relative_path, phrases in paths_and_phrases.items():
+        path = root / relative_path
+        if not path.exists():
+            failures.append(f"{relative_path}: missing")
+            continue
+        text = path.read_text(encoding="utf-8")
+        missing = [phrase for phrase in phrases if phrase not in text]
+        if missing:
+            failures.append(f"{relative_path}: missing {', '.join(missing)}")
+    return _readiness_check(
+        check_id,
+        "pass" if not failures else "fail",
+        details if not failures else "; ".join(failures),
+        sorted(paths_and_phrases),
+    )
+
+
+def build_release_automation_readiness(
+    root: Path,
+    *,
+    created_at: str | None = None,
+) -> dict[str, Any]:
+    """Render the v0.x decision record for data-release automation.
+
+    This report deliberately distinguishes healthy local guardrails from release
+    authority. A passing guardrail set still reports ``blocked`` until
+    maintainers approve a signing-equivalent data-tag mechanism in a later PR.
+    """
+
+    generated_at = created_at or datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    untrusted_workflows = ["source-refresh.yml", "llm-review-request.yml", "codex-review.yml"]
+    no_release_authority = [
+        "id-token: write",
+        "attestations: write",
+        "secrets.",
+        "gh release",
+        "git tag",
+        "pull_request_target:",
+    ]
+    checks = [
+        _release_check_to_readiness(
+            _data_publisher_noop_workflow_check(root),
+            check_id="data_publisher_noop_or_packet_only",
+            evidence=[".github/workflows/data-publisher.yml"],
+        ),
+        _release_check_to_readiness(
+            _release_workflow_guardrails_check(root),
+            check_id="release_dry_run_attestation_only",
+            evidence=[".github/workflows/release-data.yml"],
+        ),
+        _workflow_forbidden_readiness_check(
+            root,
+            check_id="untrusted_lanes_have_no_release_authority",
+            workflow_names=untrusted_workflows,
+            forbidden=no_release_authority,
+            details="source refresh, LLM review, and Codex review workflows cannot tag, release, request OIDC, attest, or read secrets",
+        ),
+        _workflow_forbidden_readiness_check(
+            root,
+            check_id="scorecard_has_no_publication_authority",
+            workflow_names=["scorecard.yml"],
+            forbidden=["contents: write", "pull-requests: write", "secrets.", "gh release", "git tag", "pull_request_target:"],
+            details="Scorecard may upload security posture evidence but cannot publish data tags or releases",
+        ),
+        _required_doc_phrases_check(
+            root,
+            check_id="manual_signed_tag_baseline_documented",
+            paths_and_phrases={
+                "docs/operations/data-publisher.md": [
+                    "manual Ron-signed Git tag",
+                    "GitHub artifact attestations are provenance evidence",
+                    "not create a tag",
+                    "does not create or upload a GitHub Release",
+                ],
+                "docs/operations/release-gates.md": [
+                    "v0.1 Signed-Tag Policy",
+                    "signing keys in GitHub Actions",
+                    "artifact attestations",
+                ],
+                "docs/operations/data-release.md": [
+                    "apw release packet",
+                    "manual signed-tag",
+                    "does not create tags",
+                ],
+            },
+            details="release docs preserve the manual signed-tag baseline and explain why attestations are evidence, not data-tag signing authority",
+        ),
+        _required_doc_phrases_check(
+            root,
+            check_id="future_automation_graduation_tests_documented",
+            paths_and_phrases={
+                "docs/operations/data-publisher.md": [
+                    "Future Automated Publishing Gate",
+                    "runs only from trusted `main` commits",
+                    "selected tag mechanism",
+                    "signing keys are never available to workflows that process provider pages",
+                ],
+                "docs/operations/v0.2-release-checklist.md": [
+                    "manual signed tag",
+                    "release-token",
+                    "zero required approving reviews",
+                ],
+                ".github/PULL_REQUEST_TEMPLATE.md": [
+                    "Release-manager, branch-protection, Dependency Review, checksum, and attestation blockers documented",
+                ],
+            },
+            details="future automation is gated by explicit tests, release-manager review, and documented token boundaries",
+        ),
+    ]
+
+    decision_blockers = [
+        {
+            "id": "signing_equivalence",
+            "title": "Select a data-tag signing-equivalent mechanism",
+            "status": "required",
+            "recommendation": (
+                "Keep public data publication manual and release-manager signed until a dedicated PR "
+                "proves an automated mechanism preserves equivalent non-repudiation, branch protection, "
+                "environment review, checksum review, and release-token separation."
+            ),
+            "tradeoffs": [
+                "Manual signed tags are slower but keep private signing keys out of GitHub Actions and untrusted lanes.",
+                "GitHub artifact attestations prove workflow provenance for evidence bundles, but they do not by themselves express release-manager intent for a public data tag.",
+                "A future protected publisher could reduce daily toil, but it must deliberately add write authority and pass stronger key-management tests before publication.",
+            ],
+            "evidence": [
+                "docs/operations/data-publisher.md#approved-v01-publishing-mechanism",
+                "docs/operations/release-gates.md#v01-signed-tag-policy",
+                "https://docs.github.com/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds",
+            ],
+        },
+        {
+            "id": "protected_environment_verification",
+            "title": "Verify the data-release environment and branch rules externally",
+            "status": "required",
+            "recommendation": (
+                "Record environment reviewer, branch-protection, CI, CodeQL, Dependency Review, "
+                "Scorecard, checksum, and attestation evidence in the publication packet before any "
+                "real data tag."
+            ),
+            "tradeoffs": [
+                "Local checks can prove repository files and token boundaries, but they cannot prove GitHub repository settings without live evidence.",
+                "External evidence adds operator work, but it prevents confusing a passing checkout with a publishable release state.",
+            ],
+            "evidence": [
+                "docs/operations/repository-settings.md",
+                "schemas/release-publication-packet.schema.json",
+                "https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment",
+            ],
+        },
+    ]
+    failed_checks = [check for check in checks if check["status"] == "fail"]
+    warning_checks = [check for check in checks if check["status"] == "warn"]
+    status = "fail" if failed_checks else "blocked" if decision_blockers else "ready_for_publish_pr"
+    report = {
+        "schema_version": RELEASE_AUTOMATION_READINESS_SCHEMA_VERSION,
+        "generated_at": generated_at,
+        "generated_by": f"ai-provider-watch {__version__}",
+        "status": status,
+        "summary": {
+            "current_mode": "manual_signed_data_tags",
+            "publisher_mode": "protected_main_noop_or_packet_only",
+            "target_mode": "protected_automation_after_signing_equivalence",
+            "blocking_decision": "signing_equivalence_not_approved" if decision_blockers else None,
+            "check_count": len(checks),
+            "pass_count": len([check for check in checks if check["status"] == "pass"]),
+            "fail_count": len(failed_checks),
+            "warn_count": len(warning_checks),
+            "decision_blocker_count": len(decision_blockers),
+        },
+        "checks": checks,
+        "decision_blockers": decision_blockers,
+        "token_boundary": {
+            "publisher_workflow": ".github/workflows/data-publisher.yml",
+            "dry_run_workflow": ".github/workflows/release-data.yml",
+            "protected_environment": "data-release",
+            "untrusted_lanes": untrusted_workflows,
+            "no_release_tokens_in_untrusted_lanes": True,
+            "publisher_has_release_authority": False,
+        },
+        "policy": {
+            "manual_signed_tag_baseline": "v0.x data publication requires a release-manager signed data-YYYY.MM.DD tag.",
+            "artifact_attestations": "Artifact attestations are provenance evidence for dry-run bundles, not a replacement for release-manager signed data tags.",
+            "secrets": "Do not store signing keys in Actions, repository secrets, environment secrets, or OIDC-backed jobs.",
+            "publication": "Do not add unattended data tag or GitHub Release creation until signing-equivalence and external GitHub settings are approved in a deliberate PR.",
+        },
+        "references": [
+            {
+                "label": "GitHub artifact attestations",
+                "url": "https://docs.github.com/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds",
+            },
+            {
+                "label": "GitHub deployment environments",
+                "url": "https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment",
+            },
+            {
+                "label": "PyPI Trusted Publishing security model",
+                "url": "https://docs.pypi.org/trusted-publishers/security-model/",
+            },
+        ],
+    }
+    errors = _validate_schema_payload(root, "release_automation_readiness", report)
+    if errors:
+        raise ValueError(f"invalid release automation readiness report: {'; '.join(errors)}")
+    return report
+
+
+def _release_automation_readiness_check(root: Path, *, created_at: str) -> ReleaseCheck:
+    try:
+        readiness = build_release_automation_readiness(root, created_at=created_at)
+    except ValueError as exc:
+        return _check("release_automation_readiness", False, str(exc))
+    summary = readiness["summary"]
+    if readiness["status"] == "fail":
+        failed_checks = [
+            check["id"]
+            for check in readiness["checks"]
+            if check["status"] == "fail"
+        ]
+        return _check(
+            "release_automation_readiness",
+            False,
+            f"failed readiness checks: {', '.join(failed_checks)}",
+        )
+    return _check(
+        "release_automation_readiness",
+        True,
+        "release automation readiness report valid; "
+        f"status={readiness['status']}, "
+        f"mode={summary['current_mode']}, "
+        f"blockers={summary['decision_blocker_count']}",
+    )
 
 
 def _external_release_gates() -> list[dict[str, str]]:
@@ -1164,6 +1462,7 @@ def run_release_dry_run(
     checks.append(_source_coverage_check(root, created_at=created_at))
     checks.append(_operations_report_check(root, created_at=created_at))
     checks.append(_v1_launch_gate_check(root, created_at=created_at))
+    checks.append(_release_automation_readiness_check(root, created_at=created_at))
 
     release_artifacts = build_artifacts(
         root,
@@ -1209,6 +1508,7 @@ def run_release_dry_run(
             "uv run apw source coverage --summary",
             "uv run apw operations report --summary",
             "uv run apw operations launch-gate --summary",
+            "uv run apw release automation-readiness --summary",
             "uv run apw validate",
             "uv run apw index --check",
             "actionlint .github/workflows/*.yml",
