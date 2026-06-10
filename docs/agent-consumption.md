@@ -6,9 +6,18 @@ APW is built for humans and agents.
 
 ```bash
 uvx ai-provider-watch latest --risk high
+uvx ai-provider-watch remote latest --ref main --risk medium --limit 10
+uvx ai-provider-watch remote freshness --ref data-2026.06.10 --summary
 uvx ai-provider-watch diff --since 7d --provider openai
 uvx ai-provider-watch explain 2026-05-31-openai-example
 ```
+
+Use local commands such as `latest`, `diff`, and `repo check` when bundled
+package data is enough. Use `remote` commands when an installed agent needs the
+live public GitHub feed or an immutable `data-YYYY.MM.DD` tag without cloning
+APW. Remote commands fetch only reviewed feed artifacts from the public APW
+repository; they do not fetch provider pages, write candidates, publish events,
+or read credentials.
 
 During pre-release work, run from checkout:
 
