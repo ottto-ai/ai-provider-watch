@@ -118,8 +118,10 @@ through `apw ecosystem render` with deterministic `--created-at` values:
 - `ecosystem-litellm-openai.json`
 - `ecosystem-models-dev-openai.json`
 - `ecosystem-langfuse-openai.json`
+- `ecosystem-langfuse-claude-code-workflow.json`
 - `ecosystem-helicone-openai.json`
 - `ecosystem-openlit-openai.json`
+- `ecosystem-openlit-aws-bedrock-caching.json`
 
 `tests/test_downstream_smoke_fixtures.py` checks every fixture against the CLI
 renderer and `schemas/ecosystem-mapping.schema.json`.

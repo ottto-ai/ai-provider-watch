@@ -32,10 +32,15 @@ REQUIRED_AUDIENCES = {
 }
 
 REQUIRED_USE_CASES = {
+    "agent_dashboard",
     "catalog",
+    "caching_change",
+    "coding_agent_dashboard",
+    "cost",
     "gateway",
     "github_action",
     "helicone",
+    "incident_response",
     "langfuse",
     "litellm",
     "model_retirement",
@@ -45,7 +50,11 @@ REQUIRED_USE_CASES = {
     "openlit",
     "repository_impact",
     "slack",
+    "status_incident",
+    "token_accounting",
+    "quota",
     "webhook",
+    "workflow_behavior_change",
 }
 
 FORBIDDEN_TERMS = {
@@ -128,7 +137,7 @@ def test_adoption_scenarios_are_offline_and_read_only() -> None:
         assert scenario["credentials_required"] is False
         assert scenario["network_required"] is False
         assert scenario["write_scope"] == "local_output_only"
-        assert scenario["command"]["argv"][0] in {"ecosystem", "notify", "repo"}
+        assert scenario["command"]["argv"][0] in {"dashboard", "ecosystem", "notify", "repo"}
         assert "untrusted" in scenario["untrusted_input_policy"].lower()
 
 
@@ -169,5 +178,8 @@ def test_adoption_scenarios_doc_points_to_manifest_and_guardrails() -> None:
         "No provider credentials",
         "remain untrusted data",
         "APW examples do not open upstream PRs",
+        "status incident routing",
+        "pricing, caching, and token-accounting review hints",
+        "local coding-agent dashboard JSON",
     ]:
         assert phrase in normalized

@@ -165,6 +165,34 @@ def test_ecosystem_cli_matches_smoke_fixtures(tmp_path) -> None:
         assert payload == read_json(SMOKE / fixture_name)
 
 
+def test_agent_dashboard_cli_matches_smoke_fixture(tmp_path) -> None:
+    output = tmp_path / "agent-dashboard.json"
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "dashboard",
+                "agent",
+                "--since",
+                "2026-05-28",
+                "--risk",
+                "high",
+                "--created-at",
+                "2026-06-09T00:00:00Z",
+                "--output",
+                str(output),
+            ]
+        )
+        == 0
+    )
+
+    payload = _read_output(output)
+    _assert_valid("agent-dashboard.schema.json", payload)
+    assert payload == read_json(SMOKE / "agent-dashboard-coding-agents.json")
+
+
 def test_downstream_smoke_fixtures_do_not_require_ottto_or_credentials() -> None:
     rendered = "\n".join(path.read_text(encoding="utf-8") for path in sorted(SMOKE.glob("*.json")))
     forbidden = [
@@ -190,6 +218,7 @@ def test_downstream_docs_cover_agent_and_gateway_adoption() -> None:
             ROOT / "docs" / "agent-consumption.md",
             ROOT / "docs" / "integrations" / "github-action.md",
             ROOT / "docs" / "integrations" / "ecosystem-mappings.md",
+            ROOT / "docs" / "integrations" / "agent-dashboard.md",
             ROOT / "docs" / "integrations" / "webhooks.md",
         ]
     )
@@ -210,5 +239,7 @@ def test_downstream_docs_cover_agent_and_gateway_adoption() -> None:
         "Langfuse",
         "Helicone",
         "OpenLIT",
+        "apw dashboard agent",
+        "local dashboard JSON",
     ]:
         assert phrase in normalized
