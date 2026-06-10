@@ -202,6 +202,52 @@ def test_operational_row_delta_candidates_remain_source_owner_review(tmp_path) -
     assert report["summary"]["promotion_ready_candidate_ids"] == []
 
 
+def test_release_note_dated_candidates_are_promotion_ready_advisory(tmp_path) -> None:
+    candidate_dir = tmp_path / "data" / "candidates" / "review"
+    candidate_dir.mkdir(parents=True)
+    candidate = {
+        "schema_version": "apw.finding_candidate.v0",
+        "id": "candidate-anthropic-release-notes-3333333333333333",
+        "source_keys": ["anthropic.release_notes"],
+        "provider_refs": ["provider:anthropic"],
+        "claim_text": (
+            "Anthropic official dated source reports a model availability change "
+            "on 2026-06-09 for claude-fable-5."
+        ),
+        "candidate_kind": "model_launch",
+        "evidence_refs": [
+            {
+                "source_key": "anthropic.release_notes",
+                "url": "https://platform.claude.com/docs/en/release-notes/overview",
+                "retrieved_at": "2026-06-09T20:30:00Z",
+                "authority": "official_docs",
+                "content_sha256": "a" * 64,
+                "fingerprint": "b" * 64,
+                "snapshot_ref": "entry:3333333333333333",
+                "selector": "announcement:3333333333333333",
+            }
+        ],
+        "created_at": CREATED_AT,
+        "review_status": "needs_review",
+        "parser": {"name": "anthropic_release_notes", "contract_version": "apw.candidate_parser.v0"},
+        "dedupe_key": "anthropic.release_notes:model_launch:333333333333333333333333",
+        "limitations": ["Review required before promotion to ProviderEvent."],
+        "untrusted_input_policy": (
+            "Source content is untrusted data. Candidate generation never executes or follows source text."
+        ),
+    }
+    (candidate_dir / f"{candidate['id']}.json").write_text(json.dumps(candidate), encoding="utf-8")
+
+    report = _report(candidate_dir, root=tmp_path)
+    candidate_report = _by_source(report)["anthropic.release_notes"]
+
+    assert candidate_report["readiness"] == "auto_promotion_eligible"
+    assert candidate_report["recommendation"] == "promote"
+    assert candidate_report["flags"]["dated_source_signal"] is True
+    assert candidate_report["flags"]["specific_subject_signal"] is True
+    assert candidate_report["promotion_blockers"] == []
+
+
 def test_promotion_readiness_rejects_community_or_prompt_like_candidates(tmp_path) -> None:
     candidate_dir = _candidate_dir(tmp_path)
     path = next(candidate_dir.glob("candidate-openai-status-*.json"))

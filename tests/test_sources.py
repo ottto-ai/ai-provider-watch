@@ -96,7 +96,7 @@ def test_source_packages_validate() -> None:
 
 def test_source_registry_loads_enabled_sources() -> None:
     sources = load_source_descriptors(ROOT)
-    assert len(sources) == 18
+    assert len(sources) == 19
     assert [source.key for source in sources] == sorted(source.key for source in sources)
     assert "anthropic.pricing" in {source.key for source in sources}
 
@@ -108,11 +108,12 @@ def test_source_registry_declares_graduation_posture() -> None:
     blocked = {source.key for source in sources if source.automation_status == "blocked_pending_parser"}
     manual_only = {source.key for source in sources if source.automation_status == "manual_review_only"}
 
-    assert len(enabled) == 18
+    assert len(enabled) == 19
     assert blocked == set()
-    assert manual_only == {"anthropic.release_notes", "openai.codex_docs"}
+    assert manual_only == {"openai.codex_docs"}
     assert {
         "anthropic.news",
+        "anthropic.release_notes",
         "aws_bedrock.whats_new",
         "azure_openai.legacy_models",
         "azure_openai.whats_new",
@@ -1061,6 +1062,11 @@ def test_dated_announcement_parser_fixtures_emit_bounded_claims() -> None:
             "anthropic.news",
             "sources/anthropic/fixtures/news.html",
             "sources/anthropic/fixtures/news.expected.json",
+        ),
+        (
+            "anthropic.release_notes",
+            "sources/anthropic/fixtures/release-notes.html",
+            "sources/anthropic/fixtures/release-notes.expected.json",
         ),
         (
             "google.gemini_changelog",

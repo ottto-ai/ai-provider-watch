@@ -61,7 +61,7 @@ def test_source_coverage_outputs_json(capsys) -> None:
 def test_source_coverage_summary(capsys) -> None:
     assert main(["--root", str(ROOT), "source", "coverage", "--summary"]) == 0
     output = capsys.readouterr().out
-    assert "enabled_deterministic_source_count: 18" in output
+    assert "enabled_deterministic_source_count: 19" in output
     assert "missing_enabled_source_count: 0" in output
     assert "candidate_backlog_count: 0" in output
 

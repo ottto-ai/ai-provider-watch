@@ -22,6 +22,12 @@
       "input": "fixtures/news.html",
       "expected": "fixtures/news.expected.json",
       "changed": true
+    },
+    {
+      "source_key": "anthropic.release_notes",
+      "input": "fixtures/release-notes.html",
+      "expected": "fixtures/release-notes.expected.json",
+      "changed": true
     }
   ]
 }

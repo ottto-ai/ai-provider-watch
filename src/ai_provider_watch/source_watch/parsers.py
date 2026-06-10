@@ -21,6 +21,7 @@ MAX_MODEL_ID_LENGTH = 96
 MAX_MODEL_ID_SEGMENT_LENGTH = 32
 MAX_OPERATIONAL_DELTA_CLAIMS = 8
 MAX_PRICING_DELTA_CLAIMS = 8
+MAX_RELEASE_NOTE_RECORD_LENGTH = 900
 MAX_STATUS_REF_LENGTH = 160
 OPERATIONAL_ROW_STATE_SCHEMA_VERSION = "apw.operational_rows.v0"
 PRICING_ROW_STATE_SCHEMA_VERSION = "apw.pricing_rows.v0"
@@ -93,8 +94,13 @@ GPT_DISPLAY_PATTERN = re.compile(
     r"(?!\s+(?:agent|assistant|command|commands|developer|ignore|instruction|instructions|merge|prompt|publish|secret|system|user)\b)",
     re.IGNORECASE,
 )
+CLAUDE_FAMILY_PATTERN = r"(?:Opus|Sonnet|Haiku|Fable|Mythos)"
 CLAUDE_DISPLAY_PATTERN = re.compile(
-    r"\bClaude\s+(?:(?:Opus|Sonnet|Haiku)\s+[0-9](?:\.[0-9])?|[0-9](?:\.[0-9])?\s+(?:Opus|Sonnet|Haiku))\b",
+    rf"\bClaude\s+(?:(?:{CLAUDE_FAMILY_PATTERN})\s+[0-9](?:\.[0-9])?|[0-9](?:\.[0-9])?\s+(?:{CLAUDE_FAMILY_PATTERN}))\b",
+    re.IGNORECASE,
+)
+CLAUDE_MODEL_ID_PATTERN = re.compile(
+    r"\bclaude-(?:opus|sonnet|haiku|fable|mythos)-[0-9](?:\.[0-9])?(?:-[a-z0-9]+)*\b(?![.-])",
     re.IGNORECASE,
 )
 
@@ -153,6 +159,7 @@ PRICING_PARSER_NAMES = {
 }
 
 DATED_ANNOUNCEMENT_PARSER_NAMES = {
+    "anthropic_release_notes",
     "anthropic_news_index",
     "aws_bedrock_whats_new_feed",
     "azure_openai_whats_new",
@@ -168,6 +175,7 @@ ANNOUNCEMENT_MODEL_PATTERNS = [
     GPT_OSS_PATTERN,
     GPT_DISPLAY_PATTERN,
     CLAUDE_DISPLAY_PATTERN,
+    CLAUDE_MODEL_ID_PATTERN,
     re.compile(
         r"\b(?:Amazon\s+)?Nova\s+(?:[0-9]\s+)?(?:Premier|Pro|Lite|Micro|Canvas|Reel)\b",
         re.IGNORECASE,
@@ -186,9 +194,13 @@ ANNOUNCEMENT_SUBJECT_KEYWORDS = {
     "cache": "prompt-caching",
     "caching": "prompt-caching",
     "claude code": "claude-code",
+    "claude managed agents": "claude-managed-agents",
     "codex": "codex",
     "computer use": "computer-use",
+    "fine-tuning": "fine-tuning",
     "gemini api": "gemini-api",
+    "message batches": "message-batches",
+    "messages api": "messages-api",
     "mcp": "mcp",
     "model router": "model-router",
     "prompt caching": "prompt-caching",
@@ -202,8 +214,12 @@ ANNOUNCEMENT_SUBJECT_KEYWORDS = {
 ANNOUNCEMENT_RELEVANCE_KEYWORDS = tuple(sorted(ANNOUNCEMENT_SUBJECT_KEYWORDS))
 
 ANNOUNCEMENT_KIND_KEYWORDS = (
+    (
+        "token_accounting_change",
+        ("cache", "caching", "cached", "max_tokens", "token accounting", "tokenizer", "tokens"),
+    ),
     ("pricing_change", ("billing", "cost", "price", "pricing")),
-    ("token_accounting_change", ("cache", "caching", "cached", "token accounting", "tokens")),
+    ("billing_channel_change", ("billed", "billing behavior", "charged")),
     ("quota_change", ("quota",)),
     ("rate_limit_change", ("rate limit", "rate-limit", "rpm", "tpm")),
     ("model_retirement", ("retire", "retired", "retirement", "shut down", "shutdown", "sunset")),
@@ -224,7 +240,19 @@ ANNOUNCEMENT_KIND_KEYWORDS = (
         ),
     ),
     ("regional_availability_change", ("region", "regional", "data zone")),
-    ("api_contract_change", ("endpoint", "header", "request parameter", "responses api")),
+    (
+        "api_contract_change",
+        (
+            "400 error",
+            "endpoint",
+            "field",
+            "header",
+            "parameter",
+            "request parameter",
+            "responses api",
+            "webhook",
+        ),
+    ),
     ("sdk_behavior_change", ("sdk", "library")),
     ("workflow_behavior_change", ("agentcore", "claude code", "codex", "coding agent", "managed agents", "mcp", "workflow")),
 )
@@ -637,6 +665,62 @@ class _AnchorTextParser(HTMLParser):
             self._current_text.append(data)
 
 
+class _ReleaseNoteSectionParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self._ignored_depth = 0
+        self._heading_tag: str | None = None
+        self._heading_parts: list[str] = []
+        self._capture_tag: str | None = None
+        self._capture_parts: list[str] = []
+        self.current_date: str | None = None
+        self.records: list[tuple[str, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        normalized_tag = tag.lower()
+        if normalized_tag in {"script", "style", "noscript"}:
+            self._ignored_depth += 1
+            return
+        if self._ignored_depth:
+            return
+        if normalized_tag in {"h1", "h2", "h3", "h4"}:
+            self._heading_tag = normalized_tag
+            self._heading_parts = []
+            return
+        if self.current_date and self._capture_tag is None and normalized_tag in {"li", "p"}:
+            self._capture_tag = normalized_tag
+            self._capture_parts = []
+
+    def handle_endtag(self, tag: str) -> None:
+        normalized_tag = tag.lower()
+        if normalized_tag in {"script", "style", "noscript"} and self._ignored_depth:
+            self._ignored_depth -= 1
+            return
+        if self._ignored_depth:
+            return
+        if self._heading_tag == normalized_tag:
+            date_value = _date_from_text(" ".join(self._heading_parts), allow_month_year=False)
+            if date_value is not None:
+                self.current_date = date_value
+            self._heading_tag = None
+            self._heading_parts = []
+            return
+        if self._capture_tag == normalized_tag:
+            text = _normalize_text(" ".join(self._capture_parts))
+            if self.current_date and text:
+                self.records.append((self.current_date, text[:MAX_RELEASE_NOTE_RECORD_LENGTH]))
+            self._capture_tag = None
+            self._capture_parts = []
+
+    def handle_data(self, data: str) -> None:
+        if self._ignored_depth:
+            return
+        if self._heading_tag is not None:
+            self._heading_parts.append(data)
+        if self._capture_tag is not None:
+            self._capture_parts.append(data)
+
+
 def _sha256_text(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
@@ -1011,6 +1095,30 @@ def _anthropic_news_records(source: SourceDescriptor, raw: bytes) -> list[dict[s
     return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS]
 
 
+def _anthropic_release_note_records(source: SourceDescriptor, raw: bytes) -> list[dict[str, Any]]:
+    parser = _ReleaseNoteSectionParser()
+    parser.feed(raw.decode("utf-8", errors="ignore"))
+    records: list[dict[str, Any]] = []
+    for date_value, text in parser.records:
+        subjects = _announcement_subjects(text)
+        if not _announcement_relevant(text, subjects):
+            continue
+        candidate_kind = _announcement_kind(text, source)
+        if candidate_kind is None:
+            continue
+        records.append(
+            {
+                "text": text,
+                "date_value": date_value,
+                "candidate_kind": candidate_kind,
+                "evidence_url": source.url,
+            }
+        )
+    if records:
+        return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS]
+    return _dated_text_records(source, raw, allow_month_year=False)
+
+
 def _dated_text_records(
     source: SourceDescriptor,
     raw: bytes,
@@ -1057,6 +1165,8 @@ def _dated_announcement_payload(
             raw,
             required_keywords=("bedrock",),
         )
+    elif source.parser == "anthropic_release_notes":
+        records = _anthropic_release_note_records(source, raw)
     elif source.parser == "anthropic_news_index":
         records = _anthropic_news_records(source, raw)
     elif source.parser == "google_gemini_changelog":

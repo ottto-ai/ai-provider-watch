@@ -95,7 +95,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["event_count"] == len(events)
     assert freshness["latest_event_date"] == "2026-06-10"
     assert freshness["source_state"]["path"] == "data/source-state/fingerprints.json"
-    assert freshness["source_state"]["source_count"] == 18
+    assert freshness["source_state"]["source_count"] == 19
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
     assert any(artifact["path"] == "data/feeds/coverage.json" for artifact in freshness["feed_artifacts"])
     assert any(artifact["path"] == "data/feeds/events.json" for artifact in freshness["feed_artifacts"])

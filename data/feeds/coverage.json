@@ -23,10 +23,10 @@
     {
       "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 0,
-      "enabled_deterministic_source_count": 3,
-      "fetched_enabled_source_count": 3,
+      "enabled_deterministic_source_count": 4,
+      "fetched_enabled_source_count": 4,
       "latest_event_date": "2026-06-09",
-      "manual_review_only_source_count": 1,
+      "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [],
       "provider_ref": "provider:anthropic",
       "reviewed_event_count": 8,
@@ -71,10 +71,10 @@
   ],
   "schema_version": "apw.source_coverage.v0",
   "source_state": {
-    "latest_retrieved_at": "2026-06-10T17:40:28Z",
+    "latest_retrieved_at": "2026-06-10T20:21:35Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "source_count": 18
+    "source_count": 19
   },
   "sources": [
     {
@@ -93,7 +93,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:01Z"
+        "retrieved_at": "2026-06-10T20:21:07Z"
       },
       "source_type": "blog"
     },
@@ -113,30 +113,27 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:02Z"
+        "retrieved_at": "2026-06-10T20:21:08Z"
       },
       "source_type": "pricing_page"
     },
     {
       "authority": "official_docs",
-      "automation_status": "manual_review_only",
+      "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "manual_review_only",
-      "enabled": false,
-      "graduation_blockers": [
-        "needs parser fixtures that extract dated release-note sections into bounded factual rows",
-        "needs scoped section hashing so client-rendered page chrome does not create broad review churn"
-      ],
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
       "key": "anthropic.release_notes",
-      "parser": "manual_review",
-      "parser_fixture_count": 0,
+      "parser": "anthropic_release_notes",
+      "parser_fixture_count": 1,
       "provider_refs": [
         "provider:anthropic"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T20:21:08Z"
       },
       "source_type": "docs_page"
     },
@@ -156,7 +153,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:03Z"
+        "retrieved_at": "2026-06-10T20:21:10Z"
       },
       "source_type": "status_page"
     },
@@ -176,7 +173,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:03Z"
+        "retrieved_at": "2026-06-10T20:21:10Z"
       },
       "source_type": "docs_page"
     },
@@ -196,7 +193,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:04Z"
+        "retrieved_at": "2026-06-10T20:21:10Z"
       },
       "source_type": "pricing_page"
     },
@@ -216,7 +213,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:04Z"
+        "retrieved_at": "2026-06-10T20:21:11Z"
       },
       "source_type": "rss_feed"
     },
@@ -236,7 +233,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:05Z"
+        "retrieved_at": "2026-06-10T20:21:12Z"
       },
       "source_type": "docs_page"
     },
@@ -256,7 +253,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:05Z"
+        "retrieved_at": "2026-06-10T20:21:12Z"
       },
       "source_type": "docs_page"
     },
@@ -276,7 +273,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:05Z"
+        "retrieved_at": "2026-06-10T20:21:14Z"
       },
       "source_type": "pricing_page"
     },
@@ -296,7 +293,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:20Z"
+        "retrieved_at": "2026-06-10T20:21:27Z"
       },
       "source_type": "docs_page"
     },
@@ -316,7 +313,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:20Z"
+        "retrieved_at": "2026-06-10T20:21:28Z"
       },
       "source_type": "docs_page"
     },
@@ -336,7 +333,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:22Z"
+        "retrieved_at": "2026-06-10T20:21:29Z"
       },
       "source_type": "docs_page"
     },
@@ -356,7 +353,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:23Z"
+        "retrieved_at": "2026-06-10T20:21:29Z"
       },
       "source_type": "docs_page"
     },
@@ -376,7 +373,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:24Z"
+        "retrieved_at": "2026-06-10T20:21:31Z"
       },
       "source_type": "pricing_page"
     },
@@ -419,7 +416,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:26Z"
+        "retrieved_at": "2026-06-10T20:21:33Z"
       },
       "source_type": "docs_page"
     },
@@ -439,7 +436,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:27Z"
+        "retrieved_at": "2026-06-10T20:21:34Z"
       },
       "source_type": "rss_feed"
     },
@@ -459,7 +456,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:28Z"
+        "retrieved_at": "2026-06-10T20:21:35Z"
       },
       "source_type": "pricing_page"
     },
@@ -479,7 +476,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-10T17:40:28Z"
+        "retrieved_at": "2026-06-10T20:21:35Z"
       },
       "source_type": "atom_feed"
     }
@@ -487,11 +484,11 @@
   "summary": {
     "blocked_pending_parser_source_count": 0,
     "candidate_backlog_count": 0,
-    "enabled_deterministic_source_count": 18,
-    "fetched_enabled_source_count": 18,
+    "enabled_deterministic_source_count": 19,
+    "fetched_enabled_source_count": 19,
     "fetched_enabled_source_ratio": 1.0,
     "latest_event_date": "2026-06-10",
-    "manual_review_only_source_count": 2,
+    "manual_review_only_source_count": 1,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
     "reviewed_event_count": 37,
