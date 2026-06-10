@@ -322,12 +322,12 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.9` is the current stable public package. It adds contributor and
-source-owner event scaffolding, remote feed commands, and stable Python remote
-feed helpers, so users can consume the live feed and reviewers can turn
-candidate findings into reviewed event drafts with less manual schema work. The
-latest reviewed data release is
-`data-2026.06.10`.
+APW `v0.1.10` is the current stable public package target. It bundles the
+latest reviewed public feed snapshot, including the high-signal Anthropic
+release-note events for Claude Fable 5 availability, token accounting, data
+retention, and Claude Opus 4.1 retirement risk. The latest signed data release
+is still `data-2026.06.10`; this package snapshot keeps install-only users
+current until the next approved immutable data tag.
 
 The current release includes:
 
