@@ -37,6 +37,17 @@ uv run apw candidate queue \
   --limit-per-group 12
 ```
 
+For a candidate that survives source-owner review, create a draft event from its
+bounded metadata:
+
+```bash
+uv run apw candidate scaffold-event \
+  --candidates data/candidates/review \
+  --candidate-id candidate-... \
+  --event-date YYYY-MM-DD \
+  --output data/events/YYYY-MM-DD-provider-short-slug.json
+```
+
 ## Safety Contract
 
 `apw candidate queue` is advisory. It does not write `data/events`, mutate
@@ -45,3 +56,8 @@ read release tokens.
 
 `promote` means "review this first and turn it into a sourced event if the
 official evidence checks out." It does not mean "publish automatically."
+
+`apw candidate scaffold-event` is also an authoring aid. It can write a local
+draft only when the caller explicitly passes `--output`; it does not regenerate
+feeds, mark candidates promoted, merge PRs, publish releases, or approve its own
+facts.

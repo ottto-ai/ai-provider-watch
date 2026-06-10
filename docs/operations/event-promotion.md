@@ -75,10 +75,12 @@ write `data/events/`.
    `.apw/event-promotion/<candidate-id>/review.md` when the review is complex.
 
 5. Author one or more `ProviderEvent` JSON files under `data/events/`. Use
-   `apw event scaffold` when you want a schema-shaped draft from reviewed
-   official-source facts, then edit the detail and impact rows as source owner.
-   Use the envelope plus typed `detail` object and repeatable `impacts` rows.
-   Do not flatten event data into one giant nullable object.
+   `apw candidate scaffold-event` when you are starting from a reviewed
+   candidate and want its bounded evidence metadata prefilled. Use
+   `apw event scaffold` when you are starting directly from reviewed
+   official-source facts. In both cases, edit the detail and impact rows as
+   source owner. Use the envelope plus typed `detail` object and repeatable
+   `impacts` rows. Do not flatten event data into one giant nullable object.
 
 6. Copy only bounded metadata into event evidence:
    `source_key`, official `url`, `retrieved_at`, `authority`,
@@ -128,7 +130,7 @@ write `data/events/`.
    list candidate IDs, event IDs, evidence URLs, source-owner approval,
    candidate-to-event packet path, generated files, validation commands, and
    unresolved limitations. It should not paste provider page bodies or
-   candidate claim text.
+   unreviewed candidate claim text.
 
 11. Release only after the release manager confirms the external release gates in
    [release-gates.md](release-gates.md). A daily data-release dry run is

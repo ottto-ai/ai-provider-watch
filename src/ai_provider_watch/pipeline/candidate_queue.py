@@ -159,6 +159,7 @@ def build_candidate_action_queue(
             ],
         },
         "commands": {
+            "candidate_scaffold_event": "uv run apw candidate scaffold-event --candidates data/candidates/review --candidate-id <candidate-id> --event-date YYYY-MM-DD --output data/events/YYYY-MM-DD-provider-short-slug.json",
             "source_owner_packet": "uv run apw candidate packet --candidates data/candidates/review --recommended-action promote --output .apw/source-owner-packet.json",
             "candidate_event_packet": "uv run apw candidate event-packet --candidates data/candidates/review --candidate-id <candidate-id> --event-draft data/events/YYYY-MM-DD-provider-short-slug.json --source-owner @RonShub --source-owner-approval-ref <PR-or-review-ref> --output .apw/candidate-to-event-packet.json",
             "validate_after_promotion": [
@@ -234,6 +235,8 @@ def render_candidate_action_queue_markdown(
         f"- Promote first: {summary.get('promotion_ready_count', 0)}",
         "",
         "Useful commands:",
+        "",
+        f"```bash\n{queue['commands']['candidate_scaffold_event']}\n```",
         "",
         f"```bash\n{queue['commands']['source_owner_packet']}\n```",
         "",

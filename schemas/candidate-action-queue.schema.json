@@ -80,8 +80,9 @@
     "commands": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source_owner_packet", "candidate_event_packet", "validate_after_promotion"],
+      "required": ["candidate_scaffold_event", "source_owner_packet", "candidate_event_packet", "validate_after_promotion"],
       "properties": {
+        "candidate_scaffold_event": { "type": "string", "minLength": 10 },
         "source_owner_packet": { "type": "string", "minLength": 10 },
         "candidate_event_packet": { "type": "string", "minLength": 10 },
         "validate_after_promotion": { "type": "array", "items": { "type": "string" } }

@@ -9,7 +9,7 @@ Render the launch-gate report:
 ```bash
 uv run apw operations launch-gate
 uv run apw operations launch-gate --summary
-uv run apw operations launch-gate --package-version 0.1.7 --summary
+uv run apw operations launch-gate --package-version 0.1.8 --summary
 uv run apw operations launch-gate --output .apw/v1-launch-gate.json
 ```
 

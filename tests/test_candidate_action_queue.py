@@ -72,6 +72,7 @@ def test_candidate_action_queue_groups_next_actions(tmp_path) -> None:
     assert queue["candidate_count"] == 3
     assert queue["summary"]["recommended_action_counts"] == {"promote": 1, "reject": 2}
     assert queue["summary"]["promotion_ready_count"] == 1
+    assert "candidate scaffold-event" in queue["commands"]["candidate_scaffold_event"]
     assert queue["groups"]["promote"][0]["candidate_id"].startswith("candidate-openai-news-")
     assert queue["groups"]["promote"][0]["evidence_refs"][0]["source_key"] == "openai.news"
     assert queue["groups"]["reject"][0]["next_step"].startswith("Close as no public APW event")
@@ -84,6 +85,7 @@ def test_candidate_action_queue_markdown_is_compact_and_actionable(tmp_path) -> 
 
     assert "## Action Queue" in rendered
     assert "### Promote First" in rendered
+    assert "uv run apw candidate scaffold-event" in rendered
     assert "uv run apw candidate packet" in rendered
     assert "candidate-openai-news-" in rendered
     assert "1 more candidates omitted" in rendered

@@ -47,7 +47,7 @@ PROMOTION_CHECKLIST = [
     "Confirm the event kind, source authority, provider refs, affected surfaces or models, dates, severity, confidence, and duplicate status.",
     "Author a reviewed ProviderEvent JSON file under data/events only after source-owner approval.",
     "Use bounded evidence metadata only: URL, source key, authority, retrieved_at, content_sha256, optional selector, optional snapshot_ref, and license_note.",
-    "Do not paste raw provider page bodies, candidate claim text, secrets, authenticated screenshots, community/social text, or private Ottto data into event files.",
+    "Do not paste raw provider page bodies, unreviewed candidate claim text, secrets, authenticated screenshots, community/social text, or private Ottto data into event files; rewrite verified facts as source-owner summaries.",
     "Run uv run apw validate, uv run apw index, uv run apw validate, and uv run apw index --check before opening the promotion PR.",
 ]
 

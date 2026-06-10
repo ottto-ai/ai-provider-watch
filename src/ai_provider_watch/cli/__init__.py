@@ -32,6 +32,11 @@ from ai_provider_watch.pipeline.candidate_queue import (
     build_candidate_action_queue,
     render_candidate_action_queue_markdown,
 )
+from ai_provider_watch.pipeline.candidate_scaffold import (
+    CandidateScaffoldError,
+    build_candidate_event_scaffold,
+    render_candidate_event_scaffold_command,
+)
 from ai_provider_watch.pipeline.candidates import (
     build_candidates,
     ensure_unique_candidate_ids,
@@ -650,6 +655,56 @@ def cmd_candidate_queue(args: argparse.Namespace) -> int:
         output_path.write_text(output, encoding="utf-8")
     else:
         sys.stdout.write(output)
+    return 0
+
+
+def cmd_candidate_scaffold_event(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    candidate_dir = _path_from_root(root, args.candidates)
+    try:
+        scaffold = build_candidate_event_scaffold(
+            read_candidate_files(candidate_dir),
+            candidate_id=args.candidate_id,
+            event_date=args.event_date,
+            provider=args.provider,
+            event_kind=args.kind,
+            title=args.title,
+            summary=args.summary,
+            scope_type=args.scope_type,
+            scope_ref=args.scope_ref,
+            impact_kind=args.impact_kind,
+            direction=args.direction,
+            severity=args.severity,
+            confidence=args.confidence,
+            observed_at=args.observed_at,
+            lifecycle_status=args.lifecycle_status,
+            detail_kind=args.detail_kind,
+            model_refs=args.model_ref,
+            replacement_refs=args.replacement_ref,
+            lifecycle_action=args.lifecycle_action,
+            migration_notes=args.migration_notes,
+            new_default=args.new_default,
+            old_default=args.old_default,
+            status=args.status,
+            components=args.component,
+            subscription_impact=args.subscription_impact,
+            api_usage_impact=args.api_usage_impact,
+            recommended_action=args.recommended_action,
+            limitations=args.limitation,
+        )
+    except (CandidateScaffoldError, ValueError) as exc:
+        print(f"candidate scaffold-event failed: {exc}", file=sys.stderr)
+        return 1
+    if args.format == "command":
+        rendered = render_candidate_event_scaffold_command(scaffold, output=args.event_output)
+        if args.output:
+            output_path = _output_path(root, args.output)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_text(f"{rendered}\n", encoding="utf-8")
+        else:
+            sys.stdout.write(f"{rendered}\n")
+        return 0
+    _write_or_print(root, scaffold.event, args.output)
     return 0
 
 
@@ -1346,6 +1401,69 @@ def build_parser() -> argparse.ArgumentParser:
     )
     candidate_queue_parser.add_argument("--output", help="write queue report to this path instead of stdout")
     candidate_queue_parser.set_defaults(func=cmd_candidate_queue)
+    candidate_scaffold_event_parser = candidate_subparsers.add_parser(
+        "scaffold-event",
+        help="draft a ProviderEvent scaffold from one review candidate",
+    )
+    candidate_scaffold_event_parser.add_argument("--candidates", default="data/candidates/review")
+    candidate_scaffold_event_parser.add_argument("--candidate-id", required=True)
+    candidate_scaffold_event_parser.add_argument(
+        "--event-date",
+        help="provider announcement/effective date, YYYY-MM-DD; defaults to evidence retrieval date with unknown date confidence",
+    )
+    candidate_scaffold_event_parser.add_argument("--provider", help="provider slug/ref override; defaults to the candidate provider")
+    candidate_scaffold_event_parser.add_argument("--kind", choices=event_kind_choices, help="ProviderEvent kind override; defaults to candidate_kind")
+    candidate_scaffold_event_parser.add_argument("--title", help="reviewed event title; defaults to a neutral candidate title")
+    candidate_scaffold_event_parser.add_argument("--summary", help="reviewed summary; defaults to bounded candidate claim text")
+    candidate_scaffold_event_parser.add_argument("--scope-type", choices=[
+        "provider",
+        "provider_surface",
+        "model",
+        "model_alias",
+        "agent_app",
+        "subscription_plan",
+        "api_endpoint",
+        "sdk",
+        "gateway",
+        "cloud_region",
+        "account_type",
+        "unknown",
+    ])
+    candidate_scaffold_event_parser.add_argument("--scope-ref", help="affected provider surface, model, app, endpoint, or other APW ref; defaults to provider ref")
+    candidate_scaffold_event_parser.add_argument("--impact-kind", choices=[
+        "cost",
+        "quota",
+        "rate_limit",
+        "availability",
+        "migration",
+        "behavior",
+        "quality",
+        "security",
+        "compliance",
+        "unknown",
+    ])
+    candidate_scaffold_event_parser.add_argument("--direction", choices=["increase", "decrease", "added", "removed", "changed", "unknown"])
+    candidate_scaffold_event_parser.add_argument("--severity", default="medium", choices=sorted(SEVERITY_RANK))
+    candidate_scaffold_event_parser.add_argument("--confidence", default="confirmed", choices=["low", "medium", "high", "confirmed"])
+    candidate_scaffold_event_parser.add_argument("--observed-at", help="RFC3339 source review timestamp; defaults to candidate evidence retrieval time")
+    candidate_scaffold_event_parser.add_argument("--lifecycle-status", default="reviewed", choices=["candidate", "reviewed", "published", "superseded", "retracted", "rejected"])
+    candidate_scaffold_event_parser.add_argument("--detail-kind", default="generic_change", choices=detail_kind_choices)
+    candidate_scaffold_event_parser.add_argument("--model-ref", action="append", help="model slug/ref for typed model lifecycle details")
+    candidate_scaffold_event_parser.add_argument("--replacement-ref", action="append", help="replacement model slug/ref")
+    candidate_scaffold_event_parser.add_argument("--lifecycle-action", choices=["launch", "deprecation", "retirement", "replacement", "correction"])
+    candidate_scaffold_event_parser.add_argument("--migration-notes")
+    candidate_scaffold_event_parser.add_argument("--new-default")
+    candidate_scaffold_event_parser.add_argument("--old-default")
+    candidate_scaffold_event_parser.add_argument("--status", choices=["investigating", "identified", "monitoring", "resolved", "unknown"])
+    candidate_scaffold_event_parser.add_argument("--component", action="append")
+    candidate_scaffold_event_parser.add_argument("--subscription-impact", default="unknown", choices=["none", "possible", "direct", "unknown"])
+    candidate_scaffold_event_parser.add_argument("--api-usage-impact", default="direct", choices=["none", "possible", "direct", "unknown"])
+    candidate_scaffold_event_parser.add_argument("--recommended-action")
+    candidate_scaffold_event_parser.add_argument("--limitation", action="append")
+    candidate_scaffold_event_parser.add_argument("--format", default="json", choices=["json", "command"])
+    candidate_scaffold_event_parser.add_argument("--event-output", help="event file path to include when rendering --format command")
+    candidate_scaffold_event_parser.add_argument("--output", help="write JSON draft or command text to this path instead of stdout")
+    candidate_scaffold_event_parser.set_defaults(func=cmd_candidate_scaffold_event)
     candidate_packet_parser = candidate_subparsers.add_parser(
         "packet",
         help="render a source-owner event-drafting packet for high-value review candidates",
