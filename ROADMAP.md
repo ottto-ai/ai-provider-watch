@@ -60,11 +60,15 @@ Goal: make the schema/feed contract dependable for production consumers.
 
 Planned work:
 
-- versioned schema compatibility policy;
-- migration notes for breaking feed or CLI changes;
+- versioned schema compatibility policy in
+  [docs/operations/v1-governance.md](docs/operations/v1-governance.md);
+- migration notes for breaking schema, feed, CLI, package, MCP, GitHub Action,
+  or webhook changes;
 - release cadence backed by passing branch rules, attestations, and dependency
   checks;
-- documented maintainer rotation for source owners and release managers.
+- documented source tiers, maintainer rotation, neutrality checkpoint,
+  data-repo split checkpoint, no-hidden-Ottto-dependency audit, and
+  correction/retraction policy.
 
 ## Non-Goals
 

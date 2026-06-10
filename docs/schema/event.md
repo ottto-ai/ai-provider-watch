@@ -1,6 +1,9 @@
 # Event Schema
 
-`ProviderEvent` is the canonical public event envelope.
+`ProviderEvent` is the canonical public event envelope. Compatibility policy for
+the event schema, typed detail union, impact rows, feeds, CLI, package, and MCP
+surfaces is documented in
+[v1 Governance And Neutrality](../operations/v1-governance.md).
 
 Required envelope fields:
 

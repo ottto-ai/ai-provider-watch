@@ -115,6 +115,56 @@ def test_contributor_review_workflow_keeps_public_review_bounded() -> None:
         assert phrase in normalized_docs
 
 
+def test_v1_governance_policy_covers_public_contract_and_neutrality() -> None:
+    policy = (ROOT / "docs/operations/v1-governance.md").read_text(encoding="utf-8")
+    linked_docs = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in [
+            ROOT / "GOVERNANCE.md",
+            ROOT / "MAINTAINERS.md",
+            ROOT / "SOURCE_OWNERS.md",
+            ROOT / "ROADMAP.md",
+            ROOT / "docs/schema/event.md",
+            ROOT / "docs/contributors/review-workflow.md",
+            ROOT / "docs/contributors/source-packages.md",
+            ROOT / "docs/operations/event-promotion.md",
+        ]
+    )
+    combined = " ".join((policy + "\n" + linked_docs).split())
+
+    for phrase in [
+        "Public Contract",
+        "Non-Contract Surfaces",
+        "Pre-1.0 Compatibility",
+        "v1 Compatibility",
+        "breaking changes must be intentional and visible",
+        "migration notes",
+        "adding enum values is compatible only when release notes and migration notes tell consumers how to handle unknown values safely",
+        "Source Tiers",
+        "`official_deterministic`",
+        "`official_manual_review`",
+        "`official_staff_social`",
+        "`community_hint`",
+        "`unsupported_private`",
+        "Source-Owner Onboarding Checklist",
+        "Neutrality Checkpoint",
+        "Data-Repo Split Checkpoint",
+        "No-Hidden-Ottto-Dependency Audit",
+        "Correction And Retraction Policy",
+        "Do not rewrite published data tags",
+        "private vulnerability reports",
+        "private Ottto UI, Advisor, telemetry, SQLAlchemy, Alembic, AWS infra, Slack",
+        "without an Ottto account",
+        "source-owner review and release-manager approval",
+        "docs/operations/v1-governance.md",
+        "https://semver.org/",
+        "https://scorecard.dev/",
+        "privately-reporting-a-security-vulnerability",
+        "using-artifact-attestations",
+    ]:
+        assert phrase in combined
+
+
 def test_python_package_release_docs_have_non_alpha_criteria() -> None:
     docs = (ROOT / "docs/operations/python-package-release.md").read_text(
         encoding="utf-8"

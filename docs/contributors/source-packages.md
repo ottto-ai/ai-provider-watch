@@ -57,6 +57,13 @@ Enabled sources must not use the `manual_review` parser and must not list
 graduation blockers. Disabled sources must document blockers so maintainers can
 see why they are not part of deterministic refresh.
 
+The v1 source-tier policy in
+[v1 Governance And Neutrality](../operations/v1-governance.md) separates
+evidence trust from publication authority. `enabled_deterministic`,
+`blocked_pending_parser`, and `manual_review_only` remain automation statuses;
+no tier can publish events without source-owner review and release-manager
+approval.
+
 Lifecycle pages that mix multiple product families should declare
 `content_scope` with `kind: html_heading_range`. APW applies that scope before
 fingerprinting and parsing, so out-of-scope sections can change without creating

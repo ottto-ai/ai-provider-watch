@@ -33,6 +33,8 @@ release tokens.
 
 Source owners review facts, not provider prose. They must confirm:
 
+- source tier and automation posture follow
+  [v1 Governance And Neutrality](../operations/v1-governance.md);
 - every evidence URL is official, public, unauthenticated, and inside the source
   descriptor's `allowed_domains`;
 - source authority, provider refs, surface refs, model refs, and agent app refs
