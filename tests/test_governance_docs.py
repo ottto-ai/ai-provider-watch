@@ -93,6 +93,7 @@ def test_contributor_review_workflow_keeps_public_review_bounded() -> None:
         for path in [
             ROOT / "CONTRIBUTING.md",
             ROOT / "SOURCE_OWNERS.md",
+            ROOT / "docs/contributors/missing-event-to-pr.md",
             ROOT / "docs/contributors/review-workflow.md",
         ]
     )
@@ -100,6 +101,10 @@ def test_contributor_review_workflow_keeps_public_review_bounded() -> None:
 
     for phrase in [
         "Missing provider event",
+        "Missing Event To PR",
+        "uv run apw event scaffold",
+        "uv run apw candidate scaffold-event",
+        "candidate-to-event packet path",
         "New official source",
         "Parser fixture",
         "Candidate",

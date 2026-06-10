@@ -11,6 +11,7 @@
 ## Data And Source Safety
 
 - [ ] Contributor/source-owner workflow followed when sources, fixtures, candidates, corrections, or reviewed events changed
+- [ ] Missing-event PRs followed `docs/contributors/missing-event-to-pr.md` when applicable
 - [ ] No secrets, cookies, private billing data, or authenticated-console content
 - [ ] Provider/source content treated as untrusted data
 - [ ] Candidate files are review-only and contain no raw provider prose

@@ -10,7 +10,16 @@ PUBLIC_REVIEW_FORMS = {
     "missing_event.yml": {
         "name": "Missing provider event",
         "labels": ["missing-event", "needs-triage"],
-        "required_ids": ["provider", "source_urls", "event_date", "event_kind", "developer_impact", "safety"],
+        "required_ids": [
+            "provider",
+            "source_urls",
+            "source_authority",
+            "event_date",
+            "event_kind",
+            "developer_impact",
+            "contributor_path",
+            "safety",
+        ],
     },
     "provider_data_correction.yml": {
         "name": "Incorrect event or data correction",
@@ -72,6 +81,23 @@ def test_public_review_issue_forms_do_not_expand_automation_or_token_authority()
         normalized = _template_text(filename).lower()
         for fragment in forbidden_fragments:
             assert fragment not in normalized
+
+
+def test_missing_event_form_is_scaffold_ready_without_publication_authority() -> None:
+    text = _template_text("missing_event.yml")
+    normalized = " ".join(text.split())
+
+    for phrase in [
+        "docs/contributors/missing-event-to-pr.md",
+        "APW source key",
+        "Source authority",
+        "Proposed impact rows",
+        "I can open a PR using apw event scaffold",
+        "candidate-review PR and needs source-owner review",
+        "untrusted review input",
+        "cannot publish data directly",
+    ]:
+        assert phrase in normalized
 
 
 def test_issue_template_config_disables_blank_issues() -> None:

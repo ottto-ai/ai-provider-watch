@@ -5,6 +5,9 @@ official-source facts. It is an authoring shortcut for contributors and source
 owners; it does not fetch provider pages, infer facts from prose, regenerate
 feeds, promote candidates, publish tags, or read credentials.
 
+For the full issue-to-PR path, including when to open only a missing-event
+issue, see [Missing Event To PR](missing-event-to-pr.md).
+
 Use it when you already verified the official source and want a valid starting
 point for `data/events/*.json`:
 

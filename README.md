@@ -353,6 +353,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 Useful contributor docs:
 
 - [Contributor Review Workflow](docs/contributors/review-workflow.md)
+- [Missing Event To PR](docs/contributors/missing-event-to-pr.md)
 - [Event Scaffold](docs/contributors/event-scaffold.md)
 - [Event Promotion](docs/operations/event-promotion.md)
 - [Candidate Action Queue](docs/schema/candidate-action-queue.md)

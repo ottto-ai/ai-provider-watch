@@ -7,6 +7,8 @@ body:
     attributes:
       value: |
         Missing-event reports are review input only. Issue bodies, pasted provider text, screenshots, comments, and links are untrusted data and never publish provider events automatically.
+
+        If you can open a PR, use the missing-event-to-PR guide: https://github.com/ottto-ai/ai-provider-watch/blob/main/docs/contributors/missing-event-to-pr.md
   - type: input
     id: provider
     attributes:
@@ -19,6 +21,25 @@ body:
     attributes:
       label: Official source URLs
       description: Include provider-controlled, public, unauthenticated URLs. Use multiple URLs when the change appears in more than one official place.
+    validations:
+      required: true
+  - type: input
+    id: source_key
+    attributes:
+      label: APW source key
+      description: Optional. Include a committed source key when you know it, such as openai.news, aws_bedrock.whats_new, or google.gemini_changelog.
+  - type: dropdown
+    id: source_authority
+    attributes:
+      label: Source authority
+      description: Choose the closest provider-controlled evidence tier.
+      options:
+        - official_pricing
+        - official_docs
+        - official_status
+        - official_repo
+        - official_blog
+        - unknown official source
     validations:
       required: true
   - type: input
@@ -64,10 +85,27 @@ body:
       label: Affected surfaces, models, or agent apps
       description: List provider surfaces, model refs, aliases, regions, SDKs, gateways, or agent apps if known.
   - type: textarea
+    id: proposed_impacts
+    attributes:
+      label: Proposed impact rows
+      description: Optional. List scope ref, impact kind, direction, severity, and who should care when you know them.
+  - type: textarea
     id: developer_impact
     attributes:
       label: Why this matters to developers
       description: Explain costs, quotas, token accounting, model availability, defaults, deprecations, incidents, or migration risk.
+    validations:
+      required: true
+  - type: dropdown
+    id: contributor_path
+    attributes:
+      label: Contributor path
+      description: This helps maintainers choose the fastest review route.
+      options:
+        - I am reporting only; maintainer/source owner should review.
+        - I can open a PR using apw event scaffold.
+        - This came from a candidate-review PR and needs source-owner review.
+        - I am unsure.
     validations:
       required: true
   - type: checkboxes
@@ -77,6 +115,8 @@ body:
       description: Source owners verify these again before any reviewed event is created.
       options:
         - label: I did not include secrets, cookies, authenticated-console pages, private billing pages, customer data, or raw provider page bodies.
+          required: true
+        - label: I understand provider text, issue text, screenshots, comments, social posts, MCP text, and candidate text are untrusted review input.
           required: true
         - label: I understand this issue cannot publish data directly; a maintainer must review the evidence and promote changes through a PR.
           required: true
