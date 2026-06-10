@@ -4,7 +4,7 @@
       "bytes": 16889,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "9c2baf1acbcf479529b7e21ece61da355e176e5bdd2554e8e2a0726a0d2a0ea3"
+      "sha256": "b61d5a674cea37bd2c683b8f2b5d998b70f5f942a52d38e9c5a0b1c9f8b45896"
     },
     {
       "bytes": 108063,
@@ -22,13 +22,13 @@
       "bytes": 92052,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "9b2b76b1726a0b67dae09e75a3b5d5fa09b6e0fc8e269158ded988a21ce39874"
+      "sha256": "5215031d17bc5386ed78d604b210fbe500abf808cd17c82b8c098e73981d3473"
     },
     {
       "bytes": 5668,
       "media_type": "application/json",
       "path": "data/feeds/freshness.json",
-      "sha256": "a0b4e1af72ff9198f929c16d43790e635eb64aa16faeaefd262adc535a120fda"
+      "sha256": "8122ba952fca275d404f7793591ebaf79b2994d0f8b049af3b4b1ef224ab344c"
     },
     {
       "bytes": 10516,
@@ -40,7 +40,7 @@
       "bytes": 7012,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "ab0b0324937695d0d75bfafdfb99810160075cfccb46f610de44ea1154b2664d"
+      "sha256": "0949829eddbd7262ff55151f0c97f510274921eaa8904e398ad2b4a7cb04878f"
     },
     {
       "bytes": 16440,
@@ -148,23 +148,23 @@
       "bytes": 2489,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "99edf70ede07bf779f25564e8c6efa7b6321da3e12846b4cd9bf4a842b89f619"
+      "sha256": "158fa62b67d9d3d1b4e52aa5f7c559b7ab8d4ba2ed97daadcb8a29bd42d8868d"
     },
     {
       "bytes": 8382,
       "media_type": "application/json",
       "path": "data/releases/dev/evidence-index.json",
-      "sha256": "0bd12a367e9434b62765cd4ec89d2fe4d36adec9927941fdcd52773d885684e6"
+      "sha256": "8573c3ea5480972d8d4dda2d4055b76fc795e6c0648047ce6c2811b95794f35e"
     }
   ],
   "checksums": {
-    "data/feeds/coverage.json": "9c2baf1acbcf479529b7e21ece61da355e176e5bdd2554e8e2a0726a0d2a0ea3",
+    "data/feeds/coverage.json": "b61d5a674cea37bd2c683b8f2b5d998b70f5f942a52d38e9c5a0b1c9f8b45896",
     "data/feeds/events.json": "dc3d16cef50900d90ec6eda86ede964ba4fb37342705fe108e969d1265a01480",
     "data/feeds/events.ndjson": "0103bb19b92c20067f4b2316a47cd77350b83a7e90ad21a50561a7e4497c217a",
-    "data/feeds/feed.json": "9b2b76b1726a0b67dae09e75a3b5d5fa09b6e0fc8e269158ded988a21ce39874",
-    "data/feeds/freshness.json": "a0b4e1af72ff9198f929c16d43790e635eb64aa16faeaefd262adc535a120fda",
+    "data/feeds/feed.json": "5215031d17bc5386ed78d604b210fbe500abf808cd17c82b8c098e73981d3473",
+    "data/feeds/freshness.json": "8122ba952fca275d404f7793591ebaf79b2994d0f8b049af3b4b1ef224ab344c",
     "data/feeds/latest.json": "392bf55432cc7cc959574296f09a0d1596b1e0fd2021c077424b0edc799b1414",
-    "data/feeds/operations.json": "ab0b0324937695d0d75bfafdfb99810160075cfccb46f610de44ea1154b2664d",
+    "data/feeds/operations.json": "0949829eddbd7262ff55151f0c97f510274921eaa8904e398ad2b4a7cb04878f",
     "data/feeds/rss.xml": "75ff3d54438dde7c5889dd42634ee362dc1a0309ff46d1c73cfa365cd154f061",
     "data/indexes/kind/api_contract_change.json": "27ac7355b352611a20373480da604e19166b805a601444ced54d06cf6e98e5b9",
     "data/indexes/kind/billing_channel_change.json": "6b42d6f9466206993bd7a03f8144f230282c1a078389d15cfabcaf94f3e4ef21",
@@ -182,11 +182,11 @@
     "data/indexes/severity/high.json": "ef63aeee484081c02ba430f704eb4b98fcd136deb39ba841f3ebb0d663be8b01",
     "data/indexes/severity/low.json": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b",
     "data/indexes/severity/medium.json": "30d8275d92d3a5113dc46299c1f76e890ec961cb8dd6eaab5b56bbcf89166564",
-    "data/releases/dev/checksums.txt": "99edf70ede07bf779f25564e8c6efa7b6321da3e12846b4cd9bf4a842b89f619",
-    "data/releases/dev/evidence-index.json": "0bd12a367e9434b62765cd4ec89d2fe4d36adec9927941fdcd52773d885684e6"
+    "data/releases/dev/checksums.txt": "158fa62b67d9d3d1b4e52aa5f7c559b7ab8d4ba2ed97daadcb8a29bd42d8868d",
+    "data/releases/dev/evidence-index.json": "8573c3ea5480972d8d4dda2d4055b76fc795e6c0648047ce6c2811b95794f35e"
   },
   "created_at": "2026-06-10T10:32:52Z",
-  "generated_by": "ai-provider-watch 0.1.6",
+  "generated_by": "ai-provider-watch 0.1.7",
   "notes": "Deterministic development manifest.",
   "release_id": "dev",
   "schema_version": "apw.release_manifest.v0",

@@ -74,9 +74,11 @@ write `data/events/`.
    Record local review notes under an ignored path such as
    `.apw/event-promotion/<candidate-id>/review.md` when the review is complex.
 
-5. Author one or more `ProviderEvent` JSON files under `data/events/`. Use the
-   envelope plus typed `detail` object and repeatable `impacts` rows. Do not
-   flatten event data into one giant nullable object.
+5. Author one or more `ProviderEvent` JSON files under `data/events/`. Use
+   `apw event scaffold` when you want a schema-shaped draft from reviewed
+   official-source facts, then edit the detail and impact rows as source owner.
+   Use the envelope plus typed `detail` object and repeatable `impacts` rows.
+   Do not flatten event data into one giant nullable object.
 
 6. Copy only bounded metadata into event evidence:
    `source_key`, official `url`, `retrieved_at`, `authority`,
