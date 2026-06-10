@@ -199,6 +199,9 @@ APW is ready to call the public contract v1 when:
 - the public [data quality operations report](data-quality.md) discloses
   source freshness, source coverage, candidate backlog, public intake,
   correction/retraction posture, and release-train mode;
+- the public [v1 launch gate](v1-launch-gate.md) records fresh-environment PyPI
+  install, installed package-data, public feed, repo-impact, and agent-dashboard
+  smoke evidence;
 - release dry run, package install smoke, source coverage, feed freshness,
   CodeQL, Dependency Review, Scorecard, and attestation verification are green
   for the intended release commit.

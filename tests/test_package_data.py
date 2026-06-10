@@ -137,6 +137,20 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/schemas/release-verification.schema.json" in names
     assert "ai_provider_watch/_data/schemas/agent-dashboard.schema.json" in names
     assert "ai_provider_watch/_data/schemas/operations-report.schema.json" in names
+    assert "ai_provider_watch/_data/schemas/v1-launch-gate.schema.json" in names
+    assert "ai_provider_watch/_data/README.md" in names
+    assert "ai_provider_watch/_data/action.yml" in names
+    assert "ai_provider_watch/_data/.mcp.json" in names
+    assert "ai_provider_watch/_data/.codex-plugin/plugin.json" in names
+    assert "ai_provider_watch/_data/docs/operations/v1-launch-gate.md" in names
+    assert "ai_provider_watch/_data/docs/agent-consumption.md" in names
+    assert "ai_provider_watch/_data/examples/adoption/scenarios.json" in names
+    assert "ai_provider_watch/_data/tests/fixtures/downstream-repo/README.md" in names
+    assert "ai_provider_watch/_data/.github/ISSUE_TEMPLATE/missing_event.yml" in names
+    assert (
+        "ai_provider_watch/_data/.github/ISSUE_TEMPLATE/provider_data_correction.yml"
+        in names
+    )
     assert "ai_provider_watch/_data/registries/providers.json" in names
     assert "ai_provider_watch/_data/data/feeds/coverage.json" in names
     assert "ai_provider_watch/_data/data/feeds/feed.json" in names

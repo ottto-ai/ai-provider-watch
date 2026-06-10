@@ -174,6 +174,8 @@ apw --root "$APW_CHECKOUT" validate
 apw --root "$APW_CHECKOUT" index --check
 apw --root "$APW_CHECKOUT" freshness --summary
 apw --root "$APW_CHECKOUT" source coverage --summary
+apw --root "$APW_CHECKOUT" operations report --summary
+apw --root "$APW_CHECKOUT" operations launch-gate --summary
 apw --root "$APW_CHECKOUT" latest --limit 3
 apw --root "$APW_CHECKOUT" diff --since 30d
 apw --root "$APW_CHECKOUT" explain 2026-06-01-google-vertex-gemini-2-0-flash-retirement
@@ -189,6 +191,8 @@ apw validate
 apw index --check
 apw freshness --summary
 apw source coverage --summary
+apw operations report --summary
+apw operations launch-gate --summary
 apw latest --limit 3
 apw diff --since 30d
 apw explain 2026-06-01-google-vertex-gemini-2-0-flash-retirement

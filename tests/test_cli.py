@@ -95,6 +95,38 @@ def test_operations_report_summary(capsys) -> None:
     assert "candidate_backlog_count: 9" in output
 
 
+def test_operations_launch_gate_outputs_json(capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "operations",
+                "launch-gate",
+                "--created-at",
+                "2026-06-10T00:00:00Z",
+                "--package-version",
+                "0.1.1",
+            ]
+        )
+        == 0
+    )
+    report = json.loads(capsys.readouterr().out)
+    assert report["schema_version"] == "apw.v1_launch_gate.v0"
+    assert report["status"] == "manual_required"
+    assert report["summary"]["local_fail_count"] == 0
+    assert any(step["id"] == "pypi_install_fresh_venv" for step in report["external_smoke_steps"])
+
+
+def test_operations_launch_gate_summary(capsys) -> None:
+    assert main(["--root", str(ROOT), "operations", "launch-gate", "--summary"]) == 0
+    output = capsys.readouterr().out
+    assert "status: manual_required" in output
+    assert "local_fail_count: 0" in output
+    assert "external_smoke_step_count:" in output
+    assert "public_docs_no_private_context: pass" in output
+
+
 def test_source_fetch_excludes_disabled_source_by_default(tmp_path, capsys) -> None:
     assert (
         main(

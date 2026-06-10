@@ -17,6 +17,7 @@ from ai_provider_watch.core.feeds import artifact_diffs, build_artifacts, write_
 from ai_provider_watch.core.io import event_paths, write_json_text
 from ai_provider_watch.core.validation import load_schemas, validate
 from ai_provider_watch.pipeline.coverage import build_source_coverage_report
+from ai_provider_watch.pipeline.launch_gate import build_v1_launch_gate
 from ai_provider_watch.pipeline.operations import build_operations_report
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.sources.registry import validate_source_packages
@@ -631,6 +632,29 @@ def _operations_report_check(root: Path, *, created_at: str) -> ReleaseCheck:
     )
 
 
+def _v1_launch_gate_check(root: Path, *, created_at: str) -> ReleaseCheck:
+    launch_gate = build_v1_launch_gate(root, created_at=created_at)
+    errors = _validate_schema_payload(root, "v1_launch_gate", launch_gate)
+    if errors:
+        return _check("v1_launch_gate", False, "; ".join(errors))
+    failed = [
+        f"{check['id']}: {check['details']}"
+        for check in launch_gate["local_checks"]
+        if check["status"] == "fail"
+    ]
+    if failed:
+        return _check("v1_launch_gate", False, "; ".join(failed))
+    summary = launch_gate["summary"]
+    return _check(
+        "v1_launch_gate",
+        True,
+        "launch gate local checks valid; "
+        f"local_pass={summary['local_pass_count']}/{summary['local_check_count']}, "
+        f"external_smoke_steps={summary['external_smoke_step_count']}, "
+        f"status={launch_gate['status']}",
+    )
+
+
 def _relative_or_absolute(root: Path, path: Path) -> str:
     resolved = path.resolve()
     try:
@@ -1139,6 +1163,7 @@ def run_release_dry_run(
     )
     checks.append(_source_coverage_check(root, created_at=created_at))
     checks.append(_operations_report_check(root, created_at=created_at))
+    checks.append(_v1_launch_gate_check(root, created_at=created_at))
 
     release_artifacts = build_artifacts(
         root,
@@ -1183,6 +1208,7 @@ def run_release_dry_run(
             "uv run apw source test",
             "uv run apw source coverage --summary",
             "uv run apw operations report --summary",
+            "uv run apw operations launch-gate --summary",
             "uv run apw validate",
             "uv run apw index --check",
             "actionlint .github/workflows/*.yml",

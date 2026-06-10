@@ -75,6 +75,7 @@ apw index --check
 apw freshness --summary
 apw source coverage --summary
 apw operations report --summary
+apw operations launch-gate --summary
 ```
 
 Verify a local release dry-run evidence bundle without publishing:
@@ -129,6 +130,10 @@ manual-review-only sources, reviewed event counts, and review-candidate backlog.
 Use `apw operations report` to inspect public operating SLOs: source-state
 freshness, reviewed-event freshness, candidate backlog, contributor intake,
 correction policy, and release-train posture.
+
+Use `apw operations launch-gate` to render the v1 external-user launch checklist
+and smoke commands for PyPI install, no-checkout package data, public feeds,
+repo-impact fixtures, and agent-dashboard JSON.
 
 The normalized factual event data and generated feeds are CC0-1.0. Code,
 schemas, docs, tests, and tooling are Apache-2.0.
@@ -262,6 +267,7 @@ Start here:
 - [Event Schema](docs/schema/event.md)
 - [Feed Freshness Schema](docs/schema/feed-freshness.md)
 - [Source Coverage Schema](docs/schema/source-coverage.md)
+- [v1 Launch Gate Schema](docs/schema/v1-launch-gate.md)
 - [Contributor Review Workflow](docs/contributors/review-workflow.md)
 - [Source Packages](docs/contributors/source-packages.md)
 - [Source Refresh](docs/operations/source-refresh.md)
@@ -271,7 +277,7 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.1` is the current stable public package. It updates the bundled
+APW `v0.1.2` is the next stable public package target. It updates the bundled
 reviewed feed snapshot after the June 8 source-owner promotion batch. The first
 public data releases are signed CalVer tags such as `data-2026.06.05`.
 

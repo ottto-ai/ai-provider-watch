@@ -29,6 +29,7 @@ from ai_provider_watch.pipeline.candidates import (
 )
 from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 from ai_provider_watch.pipeline.ecosystem import ECOSYSTEM_TARGETS, build_ecosystem_mapping
+from ai_provider_watch.pipeline.launch_gate import build_v1_launch_gate
 from ai_provider_watch.pipeline.llm_review import (
     DEFAULT_REVIEWER,
     REVIEW_DECISIONS,
@@ -262,6 +263,28 @@ def cmd_operations_report(args: argparse.Namespace) -> int:
         print(f"missing_enabled_source_count: {summary['missing_enabled_source_count']}")
         print(f"candidate_backlog_count: {summary['candidate_backlog_count']}")
         print(f"warning_count: {summary['warning_count']}")
+    else:
+        _write_or_print(root, report, args.output)
+    return 0
+
+
+def cmd_operations_launch_gate(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    report = build_v1_launch_gate(
+        root,
+        created_at=args.created_at,
+        package_version=args.package_version,
+    )
+    if args.summary:
+        summary = report["summary"]
+        print(f"status: {report['status']}")
+        print(f"package_version: {report['package']['version']}")
+        print(f"local_check_count: {summary['local_check_count']}")
+        print(f"local_pass_count: {summary['local_pass_count']}")
+        print(f"local_fail_count: {summary['local_fail_count']}")
+        print(f"external_smoke_step_count: {summary['external_smoke_step_count']}")
+        for check in report["local_checks"]:
+            print(f"{check['id']}: {check['status']}")
     else:
         _write_or_print(root, report, args.output)
     return 0
@@ -902,6 +925,15 @@ def build_parser() -> argparse.ArgumentParser:
     operations_report_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
     operations_report_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     operations_report_parser.set_defaults(func=cmd_operations_report)
+    operations_launch_gate_parser = operations_subparsers.add_parser(
+        "launch-gate",
+        help="render the v1 external-user launch gate and smoke commands",
+    )
+    operations_launch_gate_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic reports")
+    operations_launch_gate_parser.add_argument("--package-version", help="expected PyPI package version for smoke commands")
+    operations_launch_gate_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    operations_launch_gate_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
+    operations_launch_gate_parser.set_defaults(func=cmd_operations_launch_gate)
 
     candidate_parser = subparsers.add_parser("candidate", help="candidate extraction commands")
     candidate_subparsers = candidate_parser.add_subparsers(dest="candidate_command", required=True)

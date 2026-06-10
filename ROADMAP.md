@@ -72,6 +72,8 @@ Planned work:
 - public data-quality operations report covering freshness SLOs, source-state
   coverage, candidate backlog, public intake, correction/retraction posture,
   and release-train mode.
+- schema-backed v1 launch gate covering fresh PyPI install, no-checkout package
+  data, public feed parsing, repo-impact fixtures, and agent-dashboard JSON.
 
 ## Non-Goals
 
