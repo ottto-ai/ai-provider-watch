@@ -40,6 +40,7 @@ uv run ruff check .
 uv run pytest
 uv run apw source test
 uv run apw source coverage --summary
+uv run apw operations report --summary
 uv run apw validate
 uv run apw index --check
 uv run apw freshness --summary
@@ -51,11 +52,11 @@ uv run apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/
 ```
 
 The dry-run report checks schema validation, source fixtures, source coverage,
-generated feed freshness, CalVer manifest schema, checksums, license layout,
-dependency lock presence, CodeQL workflow posture, Dependency Review posture,
-release workflow attestation guardrails, the source-refresh token boundary,
-OpenSSF Scorecard workflow posture, source ownership, and maintainer release
-docs.
+the operations report, generated feed freshness, CalVer manifest schema,
+checksums, license layout, dependency lock presence, CodeQL workflow posture,
+Dependency Review posture, release workflow attestation guardrails, the
+source-refresh token boundary, OpenSSF Scorecard workflow posture, source
+ownership, and maintainer release docs.
 
 `apw release evidence-index` renders the same release-evidence contract that is
 packaged at `data/releases/<release-id>/evidence-index.json`. It is the
@@ -170,6 +171,8 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
 - `apw freshness --summary` output for feed/package/source-state provenance;
 - `apw source coverage --summary` output for enabled source-state coverage,
   blocked parser sources, and review backlog;
+- `apw operations report --summary` output for operating SLOs, source-state
+  freshness, contributor intake, correction policy, and release-train posture;
 - `gh attestation verify` output for the dry-run bundle;
 - `apw release packet` output for reviewed event IDs or explicit skip reason;
 - release notes and manual Ron-signed `data-YYYY.MM.DD` tag plan.

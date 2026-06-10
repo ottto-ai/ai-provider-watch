@@ -196,6 +196,9 @@ APW is ready to call the public contract v1 when:
 - at least one non-Ron maintainer path is documented, even if not yet granted;
 - release, correction, retraction, and security reporting flows are documented;
 - no-hidden-Ottto-dependency audit passes;
+- the public [data quality operations report](data-quality.md) discloses
+  source freshness, source coverage, candidate backlog, public intake,
+  correction/retraction posture, and release-train mode;
 - release dry run, package install smoke, source coverage, feed freshness,
   CodeQL, Dependency Review, Scorecard, and attestation verification are green
   for the intended release commit.

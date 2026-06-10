@@ -106,6 +106,31 @@ def test_validate_reports_stale_source_coverage(tmp_path) -> None:
     assert any("source coverage metadata is stale" in issue for issue in issues)
 
 
+def test_validate_reports_missing_operations_report(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    (tmp_path / "data" / "feeds" / "operations.json").unlink()
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("missing operations report metadata" in issue for issue in issues)
+
+
+def test_validate_reports_stale_operations_report(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    operations_path = tmp_path / "data" / "feeds" / "operations.json"
+    operations = read_json(operations_path)
+    operations["summary"]["source_count"] = 0
+    operations_path.write_text(json.dumps(operations), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("operations report metadata is stale" in issue for issue in issues)
+
+
 def test_validate_reports_missing_json_feed(tmp_path) -> None:
     for dirname in ["data", "registries", "schemas", "sources"]:
         shutil.copytree(ROOT / dirname, tmp_path / dirname)

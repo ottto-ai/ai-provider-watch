@@ -74,6 +74,7 @@ apw validate
 apw index --check
 apw freshness --summary
 apw source coverage --summary
+apw operations report --summary
 ```
 
 Verify a local release dry-run evidence bundle without publishing:
@@ -93,6 +94,7 @@ live in `data/feeds/` and `data/indexes/`:
 - `data/feeds/feed.json`
 - `data/feeds/freshness.json`
 - `data/feeds/latest.json`
+- `data/feeds/operations.json`
 - `data/feeds/rss.xml`
 - `data/indexes/provider/*.json`
 - `data/indexes/kind/*.json`
@@ -106,6 +108,7 @@ https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/eve
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/coverage.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/feed.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/freshness.json
+https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/operations.json
 ```
 
 GitHub CalVer data releases are the canonical immutable feed snapshots. PyPI
@@ -123,13 +126,18 @@ Use `apw source coverage` to inspect feed-health metadata: enabled source count,
 which enabled sources have source-state fingerprints, blocked parser sources,
 manual-review-only sources, reviewed event counts, and review-candidate backlog.
 
+Use `apw operations report` to inspect public operating SLOs: source-state
+freshness, reviewed-event freshness, candidate backlog, contributor intake,
+correction policy, and release-train posture.
+
 The normalized factual event data and generated feeds are CC0-1.0. Code,
 schemas, docs, tests, and tooling are Apache-2.0.
 
 ## What You Get
 
 - A reviewed machine-readable event feed, not a static model catalog.
-- JSON, NDJSON, RSS, JSON Feed 1.1, latest-event, freshness, and coverage
+- JSON, NDJSON, RSS, JSON Feed 1.1, latest-event, freshness, coverage, and
+  operations
   artifacts for different consumption styles.
 - A typed `ProviderEvent` envelope with precise event details and repeatable
   impact rows.
@@ -137,9 +145,9 @@ schemas, docs, tests, and tooling are Apache-2.0.
   dry runs, release verification, source checks, candidate generation, repo impact checks,
   notifications, ecosystem mappings, and local agent dashboards.
 - JSON Schemas for events, sources, candidates, observations, releases,
-  JSON Feed, feed freshness, source coverage, release verification, webhooks,
-  Slack-style payloads, ecosystem mappings, adoption scenarios, and LLM review
-  packets.
+  JSON Feed, feed freshness, source coverage, operations reporting, release
+  verification, webhooks, Slack-style payloads, ecosystem mappings, adoption
+  scenarios, and LLM review packets.
 - Official-source descriptors for OpenAI, Anthropic, Google Gemini / Vertex AI,
   AWS Bedrock, and Azure OpenAI.
 - Review-only source candidates that help maintainers notice provider changes

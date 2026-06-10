@@ -66,6 +66,35 @@ def test_source_coverage_summary(capsys) -> None:
     assert "candidate_backlog_count: 9" in output
 
 
+def test_operations_report_outputs_json(capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "operations",
+                "report",
+                "--created-at",
+                "2026-06-10T00:00:00Z",
+            ]
+        )
+        == 0
+    )
+    report = json.loads(capsys.readouterr().out)
+    assert report["schema_version"] == "apw.operations_report.v0"
+    assert report["overall_status"] == "fail"
+    assert report["summary"]["candidate_backlog_count"] == 9
+    assert report["release_train"]["current_mode"] == "manual_signed_data_tags"
+
+
+def test_operations_report_summary(capsys) -> None:
+    assert main(["--root", str(ROOT), "operations", "report", "--summary"]) == 0
+    output = capsys.readouterr().out
+    assert "overall_status:" in output
+    assert "enabled_source_coverage_ratio: 0.5556" in output
+    assert "candidate_backlog_count: 9" in output
+
+
 def test_source_fetch_excludes_disabled_source_by_default(tmp_path, capsys) -> None:
     assert (
         main(

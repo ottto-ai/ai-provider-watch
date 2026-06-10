@@ -17,6 +17,7 @@ from ai_provider_watch.core.feeds import artifact_diffs, build_artifacts, write_
 from ai_provider_watch.core.io import event_paths, write_json_text
 from ai_provider_watch.core.validation import load_schemas, validate
 from ai_provider_watch.pipeline.coverage import build_source_coverage_report
+from ai_provider_watch.pipeline.operations import build_operations_report
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.sources.registry import validate_source_packages
 
@@ -609,6 +610,27 @@ def _source_coverage_check(root: Path, *, created_at: str) -> ReleaseCheck:
     )
 
 
+def _operations_report_check(root: Path, *, created_at: str) -> ReleaseCheck:
+    operations = build_operations_report(root, created_at=created_at)
+    errors = _validate_schema_payload(root, "operations_report", operations)
+    if errors:
+        return _check("operations_report", False, "; ".join(errors))
+    summary = operations["summary"]
+    failing_slos = [row["id"] for row in operations["slos"] if row["status"] == "fail"]
+    warning_slos = [row["id"] for row in operations["slos"] if row["status"] == "warn"]
+    issue_detail = f"fail={failing_slos or 'none'}, warn={warning_slos or 'none'}"
+    return _check(
+        "operations_report",
+        True,
+        "operations report valid; "
+        f"overall={operations['overall_status']}, "
+        f"latest_event_age_days={summary['latest_reviewed_event_age_days']}, "
+        f"source_state_age_hours={summary['source_state_age_hours']}, "
+        f"coverage_ratio={summary['enabled_source_coverage_ratio']}, "
+        f"candidate_backlog={summary['candidate_backlog_count']} ({issue_detail})",
+    )
+
+
 def _relative_or_absolute(root: Path, path: Path) -> str:
     resolved = path.resolve()
     try:
@@ -1116,6 +1138,7 @@ def run_release_dry_run(
         )
     )
     checks.append(_source_coverage_check(root, created_at=created_at))
+    checks.append(_operations_report_check(root, created_at=created_at))
 
     release_artifacts = build_artifacts(
         root,
@@ -1159,6 +1182,7 @@ def run_release_dry_run(
             "uv run pytest",
             "uv run apw source test",
             "uv run apw source coverage --summary",
+            "uv run apw operations report --summary",
             "uv run apw validate",
             "uv run apw index --check",
             "actionlint .github/workflows/*.yml",

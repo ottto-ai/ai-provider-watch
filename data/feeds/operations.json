@@ -1,0 +1,184 @@
+{
+  "candidate_backlog": {
+    "by_status": {
+      "needs_review": 9
+    },
+    "total": 9
+  },
+  "contributor_quality": {
+    "candidate_quality_command": "uv run apw candidate quality --candidates data/candidates/review",
+    "intake_templates": {
+      "missing_templates": [],
+      "present_templates": [
+        ".github/ISSUE_TEMPLATE/missing_event.yml",
+        ".github/ISSUE_TEMPLATE/provider_data_correction.yml",
+        ".github/ISSUE_TEMPLATE/new_source.yml",
+        ".github/ISSUE_TEMPLATE/downstream_mapping.yml"
+      ],
+      "required_templates": [
+        ".github/ISSUE_TEMPLATE/missing_event.yml",
+        ".github/ISSUE_TEMPLATE/provider_data_correction.yml",
+        ".github/ISSUE_TEMPLATE/new_source.yml",
+        ".github/ISSUE_TEMPLATE/downstream_mapping.yml"
+      ],
+      "status": "pass"
+    },
+    "source_owner_review_path": "docs/contributors/review-workflow.md"
+  },
+  "correction_retraction": {
+    "correction_event_count": 0,
+    "issue_template": ".github/ISSUE_TEMPLATE/provider_data_correction.yml",
+    "latency_status": "not_measured_until_public_issue_volume",
+    "policy_path": "docs/operations/v1-governance.md#correction-and-retraction-policy",
+    "retracted_or_superseded_event_count": 0,
+    "target": "Document correction or retraction disposition in the next reviewed PR and release notes."
+  },
+  "generated_at": "2026-06-08T11:04:15Z",
+  "generated_by": "ai-provider-watch 0.1.1",
+  "overall_status": "fail",
+  "package_version": "0.1.1",
+  "policy": {
+    "private_ottto_boundary": "no private Ottto UI, Advisor, telemetry, customer data, credentials, or infrastructure required",
+    "publication": "operations report is visibility only and cannot publish events, tags, releases, or packages",
+    "raw_provider_content": "no raw provider content is included; report contains counts, timestamps, paths, and policy refs only",
+    "untrusted_input": "issue bodies, PR comments, social posts, MCP text, and provider pages remain untrusted data"
+  },
+  "release_train": {
+    "automation_status": "dry_run_only_until_signing_equivalence",
+    "cadence_target": "daily CalVer data tags after guarded automation is stable",
+    "current_mode": "manual_signed_data_tags",
+    "release_gates_path": "docs/operations/release-gates.md",
+    "v1_governance_path": "docs/operations/v1-governance.md"
+  },
+  "schema_version": "apw.operations_report.v0",
+  "slos": [
+    {
+      "actual": 3,
+      "details": "Days between generated_at and the latest reviewed ProviderEvent event_date.",
+      "id": "reviewed_event_freshness",
+      "label": "Latest reviewed event freshness",
+      "status": "pass",
+      "target": 14,
+      "unit": "days"
+    },
+    {
+      "actual": 25.47,
+      "details": "Hours since the latest deterministic source-state retrieval.",
+      "id": "source_state_freshness",
+      "label": "Source-state freshness",
+      "status": "pass",
+      "target": 72,
+      "unit": "hours"
+    },
+    {
+      "actual": 0.5556,
+      "details": "Share of enabled deterministic sources with committed source-state fingerprints.",
+      "id": "enabled_source_coverage",
+      "label": "Enabled source-state coverage",
+      "status": "fail",
+      "target": 0.8,
+      "unit": "ratio"
+    },
+    {
+      "actual": 9,
+      "details": "Review candidates present outside reviewed ProviderEvent data.",
+      "id": "candidate_backlog",
+      "label": "Review candidate backlog",
+      "status": "warn",
+      "target": 0,
+      "unit": "candidates"
+    },
+    {
+      "actual": 4,
+      "details": "Missing-event, correction, source, and downstream mapping templates exist.",
+      "id": "public_intake_templates",
+      "label": "Public feedback intake templates",
+      "status": "pass",
+      "target": 4,
+      "unit": "templates"
+    }
+  ],
+  "source_coverage": {
+    "path": "data/feeds/coverage.json",
+    "schema_version": "apw.source_coverage.v0",
+    "warning_count": 9,
+    "warnings": [
+      {
+        "code": "enabled_source_missing_source_state",
+        "detail": "enabled deterministic source has no source-state fingerprint",
+        "provider_ref": "provider:anthropic",
+        "severity": "warning",
+        "source_key": "anthropic.news"
+      },
+      {
+        "code": "enabled_source_missing_source_state",
+        "detail": "enabled deterministic source has no source-state fingerprint",
+        "provider_ref": "provider:aws-bedrock",
+        "severity": "warning",
+        "source_key": "aws_bedrock.whats_new"
+      },
+      {
+        "code": "enabled_source_missing_source_state",
+        "detail": "enabled deterministic source has no source-state fingerprint",
+        "provider_ref": "provider:azure-openai",
+        "severity": "warning",
+        "source_key": "azure_openai.legacy_models"
+      },
+      {
+        "code": "enabled_source_missing_source_state",
+        "detail": "enabled deterministic source has no source-state fingerprint",
+        "provider_ref": "provider:azure-openai",
+        "severity": "warning",
+        "source_key": "azure_openai.whats_new"
+      },
+      {
+        "code": "enabled_source_missing_source_state",
+        "detail": "enabled deterministic source has no source-state fingerprint",
+        "provider_ref": "provider:google",
+        "severity": "warning",
+        "source_key": "google.gemini_changelog"
+      },
+      {
+        "code": "enabled_source_missing_source_state",
+        "detail": "enabled deterministic source has no source-state fingerprint",
+        "provider_ref": "provider:google",
+        "severity": "warning",
+        "source_key": "google.vertex_model_versions"
+      },
+      {
+        "code": "enabled_source_missing_source_state",
+        "detail": "enabled deterministic source has no source-state fingerprint",
+        "provider_ref": "provider:openai",
+        "severity": "warning",
+        "source_key": "openai.deprecations"
+      },
+      {
+        "code": "enabled_source_missing_source_state",
+        "detail": "enabled deterministic source has no source-state fingerprint",
+        "provider_ref": "provider:openai",
+        "severity": "warning",
+        "source_key": "openai.news"
+      },
+      {
+        "code": "candidate_backlog_present",
+        "detail": "9 review candidate(s) are present outside reviewed events",
+        "severity": "info"
+      }
+    ]
+  },
+  "summary": {
+    "candidate_backlog_count": 9,
+    "enabled_deterministic_source_count": 18,
+    "enabled_source_coverage_ratio": 0.5556,
+    "fetched_enabled_source_count": 10,
+    "latest_event_date": "2026-06-05",
+    "latest_reviewed_event_age_days": 3,
+    "missing_enabled_source_count": 8,
+    "provider_count": 5,
+    "reviewed_event_count": 28,
+    "source_count": 19,
+    "source_state_age_hours": 25.47,
+    "source_state_latest_retrieved_at": "2026-06-07T09:36:10Z",
+    "warning_count": 9
+  }
+}

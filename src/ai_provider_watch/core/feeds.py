@@ -11,6 +11,10 @@ from typing import Any
 from ai_provider_watch import __version__
 from ai_provider_watch.core.io import event_paths, read_json, write_json_text, write_ndjson_text
 from ai_provider_watch.pipeline.coverage import build_source_coverage_report
+from ai_provider_watch.pipeline.operations import (
+    OPERATIONS_REPORT_SCHEMA_VERSION,
+    build_operations_report,
+)
 
 SEVERITY_RANK = {"info": 0, "low": 1, "medium": 2, "high": 3, "critical": 4}
 JSON_FEED_VERSION = "https://jsonfeed.org/version/1.1"
@@ -335,6 +339,11 @@ def build_release_evidence_index(
                 "required_for_release": True,
             },
             {
+                "path": "data/feeds/operations.json",
+                "purpose": "public operating SLO, backlog, source freshness, and governance visibility",
+                "required_for_release": True,
+            },
+            {
                 "path": f"data/releases/{release_id}/manifest.json",
                 "purpose": "release artifact manifest with SHA-256 hashes and byte counts",
                 "required_for_release": True,
@@ -369,6 +378,11 @@ def build_release_evidence_index(
             {
                 "name": "source coverage",
                 "command": "uv run apw source coverage --summary",
+                "required": True,
+            },
+            {
+                "name": "operations report",
+                "command": "uv run apw operations report --summary",
                 "required": True,
             },
             {
@@ -550,6 +564,12 @@ def build_artifacts(
 
     coverage = build_source_coverage_report(root, created_at=resolved_created_at)
     artifacts[Path("data/feeds/coverage.json")] = write_json_text(coverage)
+    operations = build_operations_report(
+        root,
+        created_at=resolved_created_at,
+        coverage=coverage,
+    )
+    artifacts[Path("data/feeds/operations.json")] = write_json_text(operations)
 
     freshness = _build_freshness(
         root,
@@ -583,6 +603,7 @@ def build_artifacts(
             "feed_freshness": "apw.feed_freshness.v0",
             "json_feed": JSON_FEED_VERSION,
             "source_coverage": "apw.source_coverage.v0",
+            "operations_report": OPERATIONS_REPORT_SCHEMA_VERSION,
             "release_evidence_index": RELEASE_EVIDENCE_INDEX_SCHEMA_VERSION,
             "release_manifest": "apw.release_manifest.v0",
         },

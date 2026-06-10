@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/operations-report.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "generated_by",
+    "package_version",
+    "overall_status",
+    "summary",
+    "slos",
+    "source_coverage",
+    "candidate_backlog",
+    "contributor_quality",
+    "correction_retraction",
+    "release_train",
+    "policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.operations_report.v0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "generated_by": { "type": "string", "minLength": 1 },
+    "package_version": { "type": "string", "minLength": 1 },
+    "overall_status": { "enum": ["pass", "warn", "fail", "unknown"] },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_count",
+        "source_count",
+        "enabled_deterministic_source_count",
+        "fetched_enabled_source_count",
+        "missing_enabled_source_count",
+        "enabled_source_coverage_ratio",
+        "reviewed_event_count",
+        "latest_event_date",
+        "latest_reviewed_event_age_days",
+        "candidate_backlog_count",
+        "source_state_latest_retrieved_at",
+        "source_state_age_hours",
+        "warning_count"
+      ],
+      "properties": {
+        "provider_count": { "type": "integer", "minimum": 0 },
+        "source_count": { "type": "integer", "minimum": 0 },
+        "enabled_deterministic_source_count": { "type": "integer", "minimum": 0 },
+        "fetched_enabled_source_count": { "type": "integer", "minimum": 0 },
+        "missing_enabled_source_count": { "type": "integer", "minimum": 0 },
+        "enabled_source_coverage_ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "reviewed_event_count": { "type": "integer", "minimum": 0 },
+        "latest_event_date": { "type": ["string", "null"], "format": "date" },
+        "latest_reviewed_event_age_days": { "type": ["integer", "null"], "minimum": 0 },
+        "candidate_backlog_count": { "type": "integer", "minimum": 0 },
+        "source_state_latest_retrieved_at": { "type": ["string", "null"], "format": "date-time" },
+        "source_state_age_hours": { "type": ["number", "null"], "minimum": 0 },
+        "warning_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "slos": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/slo" }
+    },
+    "source_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "path", "warning_count", "warnings"],
+      "properties": {
+        "schema_version": { "const": "apw.source_coverage.v0" },
+        "path": { "const": "data/feeds/coverage.json" },
+        "warning_count": { "type": "integer", "minimum": 0 },
+        "warnings": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/warning" }
+        }
+      }
+    },
+    "candidate_backlog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "by_status"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "by_status": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "contributor_quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intake_templates", "source_owner_review_path", "candidate_quality_command"],
+      "properties": {
+        "intake_templates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required_templates", "present_templates", "missing_templates", "status"],
+          "properties": {
+            "required_templates": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "present_templates": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "missing_templates": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "status": { "enum": ["pass", "fail"] }
+          }
+        },
+        "source_owner_review_path": { "type": "string", "minLength": 1 },
+        "candidate_quality_command": { "type": "string", "minLength": 1 }
+      }
+    },
+    "correction_retraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correction_event_count",
+        "retracted_or_superseded_event_count",
+        "latency_status",
+        "target",
+        "policy_path",
+        "issue_template"
+      ],
+      "properties": {
+        "correction_event_count": { "type": "integer", "minimum": 0 },
+        "retracted_or_superseded_event_count": { "type": "integer", "minimum": 0 },
+        "latency_status": { "type": "string", "minLength": 1 },
+        "target": { "type": "string", "minLength": 1 },
+        "policy_path": { "type": "string", "minLength": 1 },
+        "issue_template": { "type": "string", "minLength": 1 }
+      }
+    },
+    "release_train": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_mode",
+        "cadence_target",
+        "automation_status",
+        "release_gates_path",
+        "v1_governance_path"
+      ],
+      "properties": {
+        "current_mode": { "type": "string", "minLength": 1 },
+        "cadence_target": { "type": "string", "minLength": 1 },
+        "automation_status": { "type": "string", "minLength": 1 },
+        "release_gates_path": { "type": "string", "minLength": 1 },
+        "v1_governance_path": { "type": "string", "minLength": 1 }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw_provider_content", "publication", "untrusted_input", "private_ottto_boundary"],
+      "properties": {
+        "raw_provider_content": { "type": "string", "minLength": 1 },
+        "publication": { "type": "string", "minLength": 1 },
+        "untrusted_input": { "type": "string", "minLength": 1 },
+        "private_ottto_boundary": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "slo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "status", "actual", "target", "unit", "details"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["pass", "warn", "fail", "unknown"] },
+        "actual": { "type": ["number", "integer", "null"] },
+        "target": { "type": ["number", "integer"] },
+        "unit": { "type": "string", "minLength": 1 },
+        "details": { "type": "string", "minLength": 1 }
+      }
+    },
+    "warning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "code", "detail"],
+      "properties": {
+        "severity": { "type": "string", "minLength": 1 },
+        "code": { "type": "string", "minLength": 1 },
+        "detail": { "type": "string", "minLength": 1 },
+        "provider_ref": { "type": "string", "minLength": 1 },
+        "source_key": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

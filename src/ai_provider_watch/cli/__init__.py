@@ -37,6 +37,7 @@ from ai_provider_watch.pipeline.llm_review import (
     evaluate_review_result,
 )
 from ai_provider_watch.pipeline.notifications import build_slack_payload, build_webhook_payload
+from ai_provider_watch.pipeline.operations import build_operations_report
 from ai_provider_watch.pipeline.promotion import build_promotion_readiness_report
 from ai_provider_watch.pipeline.quality import build_candidate_quality_report
 from ai_provider_watch.pipeline.release import (
@@ -242,6 +243,25 @@ def cmd_source_coverage(args: argparse.Namespace) -> int:
         print(f"candidate_backlog_count: {summary['candidate_backlog_count']}")
         print(f"warning_count: {summary['warning_count']}")
         print(f"source_state_latest_retrieved_at: {report['source_state']['latest_retrieved_at'] or 'none'}")
+    else:
+        _write_or_print(root, report, args.output)
+    return 0
+
+
+def cmd_operations_report(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    report = build_operations_report(root, created_at=args.created_at)
+    if args.summary:
+        summary = report["summary"]
+        print(f"overall_status: {report['overall_status']}")
+        print(f"latest_event_date: {summary['latest_event_date'] or 'none'}")
+        print(f"latest_reviewed_event_age_days: {summary['latest_reviewed_event_age_days']}")
+        print(f"source_state_latest_retrieved_at: {summary['source_state_latest_retrieved_at'] or 'none'}")
+        print(f"source_state_age_hours: {summary['source_state_age_hours']}")
+        print(f"enabled_source_coverage_ratio: {summary['enabled_source_coverage_ratio']}")
+        print(f"missing_enabled_source_count: {summary['missing_enabled_source_count']}")
+        print(f"candidate_backlog_count: {summary['candidate_backlog_count']}")
+        print(f"warning_count: {summary['warning_count']}")
     else:
         _write_or_print(root, report, args.output)
     return 0
@@ -868,6 +888,20 @@ def build_parser() -> argparse.ArgumentParser:
     source_coverage_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
     source_coverage_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     source_coverage_parser.set_defaults(func=cmd_source_coverage)
+
+    operations_parser = subparsers.add_parser(
+        "operations",
+        help="public operations and data-quality report commands",
+    )
+    operations_subparsers = operations_parser.add_subparsers(dest="operations_command", required=True)
+    operations_report_parser = operations_subparsers.add_parser(
+        "report",
+        help="render public SLO, source freshness, backlog, and governance visibility",
+    )
+    operations_report_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic reports")
+    operations_report_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    operations_report_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
+    operations_report_parser.set_defaults(func=cmd_operations_report)
 
     candidate_parser = subparsers.add_parser("candidate", help="candidate extraction commands")
     candidate_subparsers = candidate_parser.add_subparsers(dest="candidate_command", required=True)
