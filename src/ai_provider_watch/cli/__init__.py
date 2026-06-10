@@ -42,6 +42,7 @@ from ai_provider_watch.pipeline.operations import build_operations_report
 from ai_provider_watch.pipeline.promotion import build_promotion_readiness_report
 from ai_provider_watch.pipeline.quality import build_candidate_quality_report
 from ai_provider_watch.pipeline.release import (
+    build_release_automation_readiness,
     build_release_publication_packet,
     parse_release_date,
     run_release_dry_run,
@@ -853,6 +854,32 @@ def cmd_release_evidence_index(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_release_automation_readiness(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    if not _require_checkout_root(args, root, "release automation-readiness"):
+        return 1
+    try:
+        report = build_release_automation_readiness(root, created_at=args.created_at)
+    except ValueError as exc:
+        print(f"release automation-readiness failed: {exc}", file=sys.stderr)
+        return 1
+    if args.summary:
+        summary = report["summary"]
+        print(f"status: {report['status']}")
+        print(f"current_mode: {summary['current_mode']}")
+        print(f"publisher_mode: {summary['publisher_mode']}")
+        print(f"target_mode: {summary['target_mode']}")
+        print(f"blocking_decision: {summary['blocking_decision'] or 'none'}")
+        print(f"pass_count: {summary['pass_count']}")
+        print(f"fail_count: {summary['fail_count']}")
+        print(f"decision_blocker_count: {summary['decision_blocker_count']}")
+        for blocker in report["decision_blockers"]:
+            print(f"{blocker['id']}: {blocker['status']}")
+    else:
+        _write_or_print(root, report, args.output)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="apw")
     parser.add_argument("--root", help="APW repository root")
@@ -1226,6 +1253,17 @@ def build_parser() -> argparse.ArgumentParser:
     release_evidence_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic output")
     release_evidence_parser.add_argument("--output", help="write JSON evidence index to this path instead of stdout")
     release_evidence_parser.set_defaults(func=cmd_release_evidence_index)
+    release_automation_readiness_parser = release_subparsers.add_parser(
+        "automation-readiness",
+        help="render the data-release automation graduation decision report",
+    )
+    release_automation_readiness_parser.add_argument(
+        "--created-at",
+        help="RFC3339 timestamp for deterministic output",
+    )
+    release_automation_readiness_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    release_automation_readiness_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
+    release_automation_readiness_parser.set_defaults(func=cmd_release_automation_readiness)
     return parser
 
 

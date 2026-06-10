@@ -44,6 +44,7 @@ SCHEMA_FILES = {
     "release_dry_run": "release-dry-run.schema.json",
     "release_publication_packet": "release-publication-packet.schema.json",
     "release_verification": "release-verification.schema.json",
+    "release_automation_readiness": "release-automation-readiness.schema.json",
     "adoption_scenarios": "adoption-scenarios.schema.json",
     "agent_dashboard": "agent-dashboard.schema.json",
 }

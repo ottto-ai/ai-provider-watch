@@ -17,6 +17,7 @@ uv run pytest
 uv run apw source test
 uv run apw source coverage --summary
 uv run apw operations report --summary
+uv run apw release automation-readiness --summary
 uv run apw validate
 uv run apw index --check
 uv run apw release dry-run --output .apw/release-dry-run --require-clean
@@ -62,6 +63,12 @@ Use `apw operations report --summary` before publishing to record operating
 SLOs, source-state freshness, candidate backlog, contributor intake, correction
 policy, and release-train posture. Operations failures are disclosures unless a
 release manager has explicitly promoted that SLO to a release gate.
+
+Use `apw release automation-readiness --summary` to record the release
+automation decision. In v0.x, `status: blocked` is expected because unattended
+publication still lacks an approved signing-equivalent mechanism; `status:
+fail` means a local release workflow, token boundary, or policy document
+regressed.
 
 Generate a schema-backed publication packet before creating any real data tag:
 
@@ -141,7 +148,8 @@ release commit, `uv lock --check`, Dependency Review, branch protection,
 OpenSSF Scorecard, repository security settings, artifact checksum review,
 attestation verification, release manager approval, and a signed tag plan.
 Release automation stays dry-run only until the [release gates](release-gates.md),
-[repository settings](repository-settings.md), and
+[repository settings](repository-settings.md),
+[release automation readiness](release-automation-readiness.md), and
 [guarded data publisher](data-publisher.md) controls are recorded.
 
 Dependency Review is currently a manual gate with explicit `base_ref` and

@@ -287,15 +287,16 @@ Start here:
 - [Source Packages](docs/contributors/source-packages.md)
 - [Source Refresh](docs/operations/source-refresh.md)
 - [Release Gates](docs/operations/release-gates.md)
+- [Release Automation Readiness](docs/operations/release-automation-readiness.md)
 - [v0.2 Release Checklist](docs/operations/v0.2-release-checklist.md)
 - [Python Package Release](docs/operations/python-package-release.md)
 
 ## Project Status
 
-APW `v0.1.2` is the current stable public package. The next package target is
-`v0.1.3`, which adds the documented Python consumer API while preserving the
-bundled reviewed feed snapshot. The first public data releases are signed
-CalVer tags such as `data-2026.06.05`.
+APW `v0.1.4` is the current stable public package. It adds a schema-backed
+release automation readiness report while keeping unattended data publication
+blocked until a signing-equivalent mechanism is approved. The first public data
+releases are signed CalVer tags such as `data-2026.06.05`.
 
 The current release includes:
 
