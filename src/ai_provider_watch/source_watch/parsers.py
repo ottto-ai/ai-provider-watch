@@ -1838,6 +1838,13 @@ def _has_lifecycle_date_header(cell: str) -> bool:
     )
 
 
+def _lifecycle_action_from_date_header(cell: str) -> str:
+    lower_cell = cell.lower()
+    if "deprecat" in lower_cell:
+        return "deprecation"
+    return "retirement"
+
+
 def _has_lifecycle_model_header(cell: str) -> bool:
     lower_cell = cell.lower()
     return "model" in lower_cell and "replacement" not in lower_cell
@@ -1878,7 +1885,7 @@ def _lifecycle_table_text_and_dates(raw: bytes, parser_name: str) -> tuple[str, 
 
 
 def _lifecycle_row_records(raw: bytes, parser_name: str) -> list[dict[str, Any]]:
-    records: dict[tuple[str, tuple[str, ...], tuple[str, ...]], dict[str, Any]] = {}
+    records: dict[tuple[str, str, tuple[str, ...], tuple[str, ...]], dict[str, Any]] = {}
     model_patterns = _lifecycle_model_patterns(parser_name)
     for table in _table_payload(raw):
         headers: list[str] = []
@@ -1891,11 +1898,14 @@ def _lifecycle_row_records(raw: bytes, parser_name: str) -> list[dict[str, Any]]
 
             row_model_ids: set[str] = set()
             replacement_model_ids: set[str] = set()
-            lifecycle_dates: set[str] = set()
+            lifecycle_dates_by_action: dict[str, set[str]] = {}
             for index, cell in enumerate(row):
                 header = headers[index] if index < len(headers) else ""
                 if _has_lifecycle_date_header(header):
-                    lifecycle_dates.update(_lifecycle_dates_from_text(cell))
+                    lifecycle_action = _lifecycle_action_from_date_header(header)
+                    lifecycle_dates_by_action.setdefault(lifecycle_action, set()).update(
+                        _lifecycle_dates_from_text(cell)
+                    )
                 elif _has_lifecycle_replacement_header(header):
                     replacement_model_ids.update(_model_ids_from_patterns(cell, model_patterns))
                 elif _has_lifecycle_model_header(header):
@@ -1904,25 +1914,46 @@ def _lifecycle_row_records(raw: bytes, parser_name: str) -> list[dict[str, Any]]
             if not row_model_ids:
                 row_model_ids.update(_model_ids_from_patterns(_normalize_text(" ".join(row)), model_patterns))
             replacement_model_ids.difference_update(row_model_ids)
-            if not row_model_ids or not lifecycle_dates:
+            if not row_model_ids or not lifecycle_dates_by_action:
                 continue
 
             row_hash = _sha256_text(_normalize_text(" ".join(row)))[:16]
-            for lifecycle_date in lifecycle_dates:
-                key = (
-                    lifecycle_date,
-                    tuple(sorted(row_model_ids)),
-                    tuple(sorted(replacement_model_ids)),
-                )
-                records[key] = {
-                    "kind": "lifecycle_row",
-                    "lifecycle_date": lifecycle_date,
-                    "model_ids": sorted(row_model_ids),
-                    "replacement_model_ids": sorted(replacement_model_ids),
-                    "row_sha256": row_hash,
-                    "source_parser": parser_name,
-                }
+            for lifecycle_action, lifecycle_dates in lifecycle_dates_by_action.items():
+                for lifecycle_date in lifecycle_dates:
+                    key = (
+                        lifecycle_action,
+                        lifecycle_date,
+                        tuple(sorted(row_model_ids)),
+                        tuple(sorted(replacement_model_ids)),
+                    )
+                    records[key] = {
+                        "kind": "lifecycle_row",
+                        "lifecycle_action": lifecycle_action,
+                        "lifecycle_date": lifecycle_date,
+                        "model_ids": sorted(row_model_ids),
+                        "replacement_model_ids": sorted(replacement_model_ids),
+                        "row_sha256": row_hash,
+                        "source_parser": parser_name,
+                    }
     return [records[key] for key in sorted(records, reverse=True)]
+
+
+def _lifecycle_claim_ref(row_hash: str, lifecycle_action: str) -> tuple[str, str]:
+    if lifecycle_action == "deprecation":
+        return f"lifecycle:{row_hash}:deprecation", f"row:{row_hash}:deprecation"
+    return f"lifecycle:{row_hash}", f"row:{row_hash}"
+
+
+def _lifecycle_candidate_kind(record: dict[str, Any], default_candidate_kind: str) -> str:
+    if record.get("lifecycle_action") == "deprecation":
+        return "model_deprecation"
+    return default_candidate_kind
+
+
+def _lifecycle_action_label(record: dict[str, Any]) -> str:
+    if record.get("lifecycle_action") == "deprecation":
+        return "model deprecation"
+    return "model retirement"
 
 
 def _lifecycle_items(raw: bytes, parser_name: str) -> list[dict[str, Any]]:
@@ -1960,7 +1991,7 @@ def _format_model_list(model_ids: list[str]) -> str:
 
 
 def _lifecycle_claims(source: SourceDescriptor, raw: bytes) -> list[dict[str, str]]:
-    candidate_kind, _ = LIFECYCLE_PARSER_CLAIMS[source.parser]
+    default_candidate_kind, _ = LIFECYCLE_PARSER_CLAIMS[source.parser]
     claims: list[dict[str, str]] = []
     for record in _lifecycle_row_records(raw, source.parser)[:MAX_LIFECYCLE_CLAIMS]:
         model_text = _format_model_list(record["model_ids"])
@@ -1969,15 +2000,21 @@ def _lifecycle_claims(source: SourceDescriptor, raw: bytes) -> list[dict[str, st
             f" with replacement {replacement_text}" if record["replacement_model_ids"] else ""
         )
         row_hash = str(record["row_sha256"])
+        candidate_kind = _lifecycle_candidate_kind(record, default_candidate_kind)
+        action_label = _lifecycle_action_label(record)
+        selector, snapshot_ref = _lifecycle_claim_ref(
+            row_hash,
+            str(record.get("lifecycle_action") or "retirement"),
+        )
         claims.append(
             {
                 "candidate_kind": candidate_kind,
                 "claim_text": (
-                    f"{_provider_label(source)} official lifecycle table lists model retirement "
+                    f"{_provider_label(source)} official lifecycle table lists {action_label} "
                     f"on {record['lifecycle_date']} for {model_text}{replacement_clause}."
                 ),
-                "selector": f"lifecycle:{row_hash}",
-                "snapshot_ref": f"row:{row_hash}",
+                "selector": selector,
+                "snapshot_ref": snapshot_ref,
             }
         )
     return claims

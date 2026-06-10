@@ -6,7 +6,7 @@
     "total": 9
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
-  "generated_at": "2026-06-10T10:32:52Z",
+  "generated_at": "2026-06-10T16:51:44Z",
   "generated_by": "ai-provider-watch 0.1.9",
   "package_version": "0.1.9",
   "providers": [
@@ -14,13 +14,10 @@
       "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 2,
       "enabled_deterministic_source_count": 4,
-      "fetched_enabled_source_count": 2,
+      "fetched_enabled_source_count": 4,
       "latest_event_date": "2026-06-04",
       "manual_review_only_source_count": 1,
-      "missing_enabled_source_keys": [
-        "openai.deprecations",
-        "openai.news"
-      ],
+      "missing_enabled_source_keys": [],
       "provider_ref": "provider:openai",
       "reviewed_event_count": 7,
       "source_count": 5
@@ -29,12 +26,10 @@
       "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 2,
       "enabled_deterministic_source_count": 3,
-      "fetched_enabled_source_count": 2,
+      "fetched_enabled_source_count": 3,
       "latest_event_date": "2026-06-03",
       "manual_review_only_source_count": 0,
-      "missing_enabled_source_keys": [
-        "anthropic.news"
-      ],
+      "missing_enabled_source_keys": [],
       "provider_ref": "provider:anthropic",
       "reviewed_event_count": 4,
       "source_count": 3
@@ -43,13 +38,10 @@
       "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 2,
       "enabled_deterministic_source_count": 4,
-      "fetched_enabled_source_count": 2,
+      "fetched_enabled_source_count": 4,
       "latest_event_date": "2026-06-10",
       "manual_review_only_source_count": 0,
-      "missing_enabled_source_keys": [
-        "google.gemini_changelog",
-        "google.vertex_model_versions"
-      ],
+      "missing_enabled_source_keys": [],
       "provider_ref": "provider:google",
       "reviewed_event_count": 8,
       "source_count": 4
@@ -58,12 +50,10 @@
       "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 1,
       "enabled_deterministic_source_count": 3,
-      "fetched_enabled_source_count": 2,
+      "fetched_enabled_source_count": 3,
       "latest_event_date": "2026-06-09",
       "manual_review_only_source_count": 0,
-      "missing_enabled_source_keys": [
-        "aws_bedrock.whats_new"
-      ],
+      "missing_enabled_source_keys": [],
       "provider_ref": "provider:aws-bedrock",
       "reviewed_event_count": 7,
       "source_count": 3
@@ -72,31 +62,28 @@
       "blocked_pending_parser_source_count": 0,
       "candidate_backlog_count": 2,
       "enabled_deterministic_source_count": 4,
-      "fetched_enabled_source_count": 2,
+      "fetched_enabled_source_count": 4,
       "latest_event_date": "2026-05-01",
       "manual_review_only_source_count": 0,
-      "missing_enabled_source_keys": [
-        "azure_openai.legacy_models",
-        "azure_openai.whats_new"
-      ],
+      "missing_enabled_source_keys": [],
       "provider_ref": "provider:azure-openai",
-      "reviewed_event_count": 7,
+      "reviewed_event_count": 8,
       "source_count": 4
     }
   ],
   "schema_version": "apw.source_coverage.v0",
   "source_state": {
-    "latest_retrieved_at": "2026-06-07T09:36:10Z",
+    "latest_retrieved_at": "2026-06-10T17:06:15Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "source_count": 10
+    "source_count": 18
   },
   "sources": [
     {
       "authority": "official_blog",
       "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "enabled_missing_source_state",
+      "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
       "key": "anthropic.news",
@@ -106,9 +93,9 @@
         "provider:anthropic"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T17:05:47Z"
       },
       "source_type": "blog"
     },
@@ -128,7 +115,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:35:52Z"
+        "retrieved_at": "2026-06-10T17:05:47Z"
       },
       "source_type": "pricing_page"
     },
@@ -148,7 +135,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:35:52Z"
+        "retrieved_at": "2026-06-10T17:05:49Z"
       },
       "source_type": "status_page"
     },
@@ -168,7 +155,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:35:53Z"
+        "retrieved_at": "2026-06-10T17:05:49Z"
       },
       "source_type": "docs_page"
     },
@@ -188,7 +175,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:35:53Z"
+        "retrieved_at": "2026-06-10T17:05:49Z"
       },
       "source_type": "pricing_page"
     },
@@ -196,7 +183,7 @@
       "authority": "official_blog",
       "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "enabled_missing_source_state",
+      "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
       "key": "aws_bedrock.whats_new",
@@ -206,9 +193,9 @@
         "provider:aws-bedrock"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T17:05:50Z"
       },
       "source_type": "rss_feed"
     },
@@ -228,7 +215,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:35:53Z"
+        "retrieved_at": "2026-06-10T17:05:51Z"
       },
       "source_type": "docs_page"
     },
@@ -236,7 +223,7 @@
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "enabled_missing_source_state",
+      "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
       "key": "azure_openai.legacy_models",
@@ -246,9 +233,9 @@
         "provider:azure-openai"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T17:05:51Z"
       },
       "source_type": "docs_page"
     },
@@ -268,7 +255,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:35:53Z"
+        "retrieved_at": "2026-06-10T17:05:51Z"
       },
       "source_type": "pricing_page"
     },
@@ -276,7 +263,7 @@
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "enabled_missing_source_state",
+      "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
       "key": "azure_openai.whats_new",
@@ -286,9 +273,9 @@
         "provider:azure-openai"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T17:06:08Z"
       },
       "source_type": "docs_page"
     },
@@ -308,7 +295,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:36:08Z"
+        "retrieved_at": "2026-06-10T17:06:08Z"
       },
       "source_type": "docs_page"
     },
@@ -316,7 +303,7 @@
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "enabled_missing_source_state",
+      "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
       "key": "google.gemini_changelog",
@@ -326,9 +313,9 @@
         "provider:google"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T17:06:08Z"
       },
       "source_type": "docs_page"
     },
@@ -336,7 +323,7 @@
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "enabled_missing_source_state",
+      "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
       "key": "google.vertex_model_versions",
@@ -346,9 +333,9 @@
         "provider:google"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T17:06:09Z"
       },
       "source_type": "docs_page"
     },
@@ -368,7 +355,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:36:09Z"
+        "retrieved_at": "2026-06-10T17:06:11Z"
       },
       "source_type": "pricing_page"
     },
@@ -399,7 +386,7 @@
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "enabled_missing_source_state",
+      "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
       "key": "openai.deprecations",
@@ -409,9 +396,9 @@
         "provider:openai"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T17:06:13Z"
       },
       "source_type": "docs_page"
     },
@@ -419,7 +406,7 @@
       "authority": "official_blog",
       "automation_status": "enabled_deterministic",
       "candidate_backlog_count": 0,
-      "coverage_status": "enabled_missing_source_state",
+      "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
       "key": "openai.news",
@@ -429,9 +416,9 @@
         "provider:openai"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-10T17:06:13Z"
       },
       "source_type": "rss_feed"
     },
@@ -451,7 +438,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:36:10Z"
+        "retrieved_at": "2026-06-10T17:06:15Z"
       },
       "source_type": "pricing_page"
     },
@@ -471,7 +458,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-07T09:36:10Z"
+        "retrieved_at": "2026-06-10T17:06:15Z"
       },
       "source_type": "atom_feed"
     }
@@ -480,78 +467,17 @@
     "blocked_pending_parser_source_count": 0,
     "candidate_backlog_count": 9,
     "enabled_deterministic_source_count": 18,
-    "fetched_enabled_source_count": 10,
-    "fetched_enabled_source_ratio": 0.5556,
+    "fetched_enabled_source_count": 18,
+    "fetched_enabled_source_ratio": 1.0,
     "latest_event_date": "2026-06-10",
     "manual_review_only_source_count": 1,
-    "missing_enabled_source_count": 8,
+    "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 32,
+    "reviewed_event_count": 33,
     "source_count": 19,
-    "warning_count": 10
+    "warning_count": 1
   },
   "warnings": [
-    {
-      "code": "source_state_stale",
-      "detail": "latest source-state retrieval is older than 72 hours",
-      "severity": "warning"
-    },
-    {
-      "code": "enabled_source_missing_source_state",
-      "detail": "enabled deterministic source has no source-state fingerprint",
-      "provider_ref": "provider:anthropic",
-      "severity": "warning",
-      "source_key": "anthropic.news"
-    },
-    {
-      "code": "enabled_source_missing_source_state",
-      "detail": "enabled deterministic source has no source-state fingerprint",
-      "provider_ref": "provider:aws-bedrock",
-      "severity": "warning",
-      "source_key": "aws_bedrock.whats_new"
-    },
-    {
-      "code": "enabled_source_missing_source_state",
-      "detail": "enabled deterministic source has no source-state fingerprint",
-      "provider_ref": "provider:azure-openai",
-      "severity": "warning",
-      "source_key": "azure_openai.legacy_models"
-    },
-    {
-      "code": "enabled_source_missing_source_state",
-      "detail": "enabled deterministic source has no source-state fingerprint",
-      "provider_ref": "provider:azure-openai",
-      "severity": "warning",
-      "source_key": "azure_openai.whats_new"
-    },
-    {
-      "code": "enabled_source_missing_source_state",
-      "detail": "enabled deterministic source has no source-state fingerprint",
-      "provider_ref": "provider:google",
-      "severity": "warning",
-      "source_key": "google.gemini_changelog"
-    },
-    {
-      "code": "enabled_source_missing_source_state",
-      "detail": "enabled deterministic source has no source-state fingerprint",
-      "provider_ref": "provider:google",
-      "severity": "warning",
-      "source_key": "google.vertex_model_versions"
-    },
-    {
-      "code": "enabled_source_missing_source_state",
-      "detail": "enabled deterministic source has no source-state fingerprint",
-      "provider_ref": "provider:openai",
-      "severity": "warning",
-      "source_key": "openai.deprecations"
-    },
-    {
-      "code": "enabled_source_missing_source_state",
-      "detail": "enabled deterministic source has no source-state fingerprint",
-      "provider_ref": "provider:openai",
-      "severity": "warning",
-      "source_key": "openai.news"
-    },
     {
       "code": "candidate_backlog_present",
       "detail": "9 review candidate(s) are present outside reviewed events",

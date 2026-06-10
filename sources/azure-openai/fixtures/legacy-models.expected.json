@@ -4,6 +4,12 @@
     "candidate_claims": [
       {
         "candidate_kind": "model_retirement",
+        "claim_text": "Azure OpenAI official lifecycle table lists model retirement on 2025-03-26 for gpt-4o-realtime-preview with replacement gpt-4o-mini-realtime-preview.",
+        "selector": "lifecycle:610c25aa6cc8506b",
+        "snapshot_ref": "row:610c25aa6cc8506b"
+      },
+      {
+        "candidate_kind": "model_retirement",
         "claim_text": "Azure OpenAI official lifecycle table lists model retirement on 2024-06-14 for text-davinci-003 with replacement text-embedding-3-small.",
         "selector": "lifecycle:15c5aaaf199ff20a",
         "snapshot_ref": "row:15c5aaaf199ff20a"
@@ -19,6 +25,12 @@
         "claim_text": "Azure OpenAI official lifecycle table lists model retirement on 2024-06-14 for babbage-002 with replacement gpt-35-turbo-instruct.",
         "selector": "lifecycle:08da81d14b2d207f",
         "snapshot_ref": "row:08da81d14b2d207f"
+      },
+      {
+        "candidate_kind": "model_deprecation",
+        "claim_text": "Azure OpenAI official lifecycle table lists model deprecation on 2025-02-25 for gpt-4o-realtime-preview with replacement gpt-4o-mini-realtime-preview.",
+        "selector": "lifecycle:610c25aa6cc8506b:deprecation",
+        "snapshot_ref": "row:610c25aa6cc8506b:deprecation"
       }
     ],
     "errors": [],
@@ -31,6 +43,16 @@
       {
         "kind": "model_ref",
         "model_id": "gpt-35-turbo-instruct",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-4o-mini-realtime-preview",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "model_ref",
+        "model_id": "gpt-4o-realtime-preview",
         "source_parser": "azure_openai_legacy_models"
       },
       {
@@ -49,12 +71,36 @@
         "source_parser": "azure_openai_legacy_models"
       },
       {
-        "date": "2024-06-14",
         "kind": "lifecycle_date",
+        "date": "2024-06-14",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "lifecycle_date",
+        "date": "2025-02-25",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "lifecycle_date",
+        "date": "2025-03-26",
         "source_parser": "azure_openai_legacy_models"
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
+        "lifecycle_date": "2025-03-26",
+        "model_ids": [
+          "gpt-4o-realtime-preview"
+        ],
+        "replacement_model_ids": [
+          "gpt-4o-mini-realtime-preview"
+        ],
+        "row_sha256": "610c25aa6cc8506b",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2024-06-14",
         "model_ids": [
           "text-davinci-003"
@@ -67,6 +113,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2024-06-14",
         "model_ids": [
           "text-davinci-002"
@@ -79,6 +126,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2024-06-14",
         "model_ids": [
           "babbage-002"
@@ -87,6 +135,19 @@
           "gpt-35-turbo-instruct"
         ],
         "row_sha256": "08da81d14b2d207f",
+        "source_parser": "azure_openai_legacy_models"
+      },
+      {
+        "kind": "lifecycle_row",
+        "lifecycle_action": "deprecation",
+        "lifecycle_date": "2025-02-25",
+        "model_ids": [
+          "gpt-4o-realtime-preview"
+        ],
+        "replacement_model_ids": [
+          "gpt-4o-mini-realtime-preview"
+        ],
+        "row_sha256": "610c25aa6cc8506b",
         "source_parser": "azure_openai_legacy_models"
       }
     ],

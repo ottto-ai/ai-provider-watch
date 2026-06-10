@@ -102,27 +102,28 @@
         "source_parser": "openai_deprecations"
       },
       {
+        "kind": "lifecycle_date",
         "date": "2024-01-04",
-        "kind": "lifecycle_date",
         "source_parser": "openai_deprecations"
       },
       {
+        "kind": "lifecycle_date",
         "date": "2026-07-14",
-        "kind": "lifecycle_date",
         "source_parser": "openai_deprecations"
       },
       {
+        "kind": "lifecycle_date",
         "date": "2026-08-10",
-        "kind": "lifecycle_date",
         "source_parser": "openai_deprecations"
       },
       {
-        "date": "2026-11-01",
         "kind": "lifecycle_date",
+        "date": "2026-11-01",
         "source_parser": "openai_deprecations"
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2026-11-01",
         "model_ids": [
           "gpt-4.1-mini-search-preview"
@@ -135,6 +136,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2026-08-10",
         "model_ids": [
           "gpt-5.2-chat-latest"
@@ -147,6 +149,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2026-07-14",
         "model_ids": [
           "gpt-4.5-preview"
@@ -159,6 +162,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2024-01-04",
         "model_ids": [
           "text-davinci-003"
@@ -171,6 +175,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2024-01-04",
         "model_ids": [
           "code-davinci-002"
@@ -183,6 +188,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2024-01-04",
         "model_ids": [
           "babbage-002"

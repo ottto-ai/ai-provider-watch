@@ -13,3 +13,8 @@ bounded model/date rows, produced 8 row-scoped lifecycle candidates, and
 reported no parser errors. The configured heading-range scope keeps Azure
 OpenAI rows separate from neighboring provider sections. Do not commit raw
 fetched provider HTML; use `.apw/` smoke artifacts for review evidence.
+
+Lifecycle rows are action-aware. A `Deprecation date` column emits
+`model_deprecation` candidates, while `Retirement date`, `Shutdown date`,
+`Sunset date`, and similar removal columns emit `model_retirement` candidates.
+This keeps deprecation notices from being promoted as completed retirements.

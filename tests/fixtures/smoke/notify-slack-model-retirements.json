@@ -61,14 +61,14 @@
     },
     {
       "text": {
-        "text": "*Azure OpenAI Retires Legacy GPT-3 Model IDs*\n`medium` `model_retirement` `2024-06-14`\nMicrosoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.\nRefs: provider:azure-openai",
+        "text": "*Azure OpenAI Retired 2025 Legacy And Preview Model IDs*\n`medium` `model_retirement` `2025-01-27`\nMicrosoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.\nRefs: provider:azure-openai",
         "type": "mrkdwn"
       },
       "type": "section"
     }
   ],
   "delivery": {
-    "idempotency_key": "apw-slack-v0-874af0e080f0a464766281e0",
+    "idempotency_key": "apw-slack-v0-ea49d3de52a86d1ae1ba6f26",
     "mode": "operator_owned",
     "requires_operator_owned_webhook_url": true,
     "retry_policy": {
@@ -328,56 +328,45 @@
       "confidence": "confirmed",
       "detail_refs": {
         "model_refs": [
-          "model:ada",
-          "model:babbage",
-          "model:curie",
-          "model:davinci",
-          "model:text-ada-001",
-          "model:text-babbage-001",
-          "model:text-curie-001",
-          "model:text-davinci-002",
-          "model:text-davinci-003",
-          "model:code-cushman-001",
-          "model:code-davinci-002",
-          "model:text-similarity-ada-001",
-          "model:text-similarity-babbage-001",
-          "model:text-similarity-curie-001",
-          "model:text-similarity-davinci-001",
-          "model:text-search-ada-doc-001",
-          "model:text-search-ada-query-001",
-          "model:text-search-babbage-doc-001",
-          "model:text-search-babbage-query-001",
-          "model:text-search-curie-doc-001",
-          "model:text-search-curie-query-001",
-          "model:text-search-davinci-doc-001",
-          "model:text-search-davinci-query-001",
-          "model:code-search-ada-code-001",
-          "model:code-search-ada-text-001"
+          "model:davinci-002",
+          "model:dall-e-2",
+          "model:gpt-4o-realtime-preview",
+          "model:gpt-35-turbo",
+          "model:gpt-35-turbo-16k",
+          "model:gpt-4",
+          "model:gpt-4-32k",
+          "model:gpt-4.5-preview",
+          "model:o1-preview"
         ],
         "replacement_refs": [
-          "model:gpt-35-turbo-instruct",
-          "model:text-embedding-3-small"
+          "model:gpt-image-1",
+          "model:gpt-4o-mini-realtime-preview",
+          "model:gpt-4o-mini",
+          "model:gpt-4.1-mini",
+          "model:gpt-4o",
+          "model:gpt-4.1",
+          "model:o1"
         ]
       },
-      "effective_at": "2024-06-14T00:00:00Z",
-      "event_date": "2024-06-14",
+      "effective_at": "2025-01-27T00:00:00Z",
+      "event_date": "2025-01-27",
       "event_kind": "model_retirement",
       "evidence_refs": [
         {
           "authority": "official_docs",
-          "content_sha256": "a41c040bf14faf7e945d2bbcecac16c49a6cced3205a4fa1de9601012474595a",
-          "retrieved_at": "2026-06-01T10:36:49Z",
+          "content_sha256": "bd001e951c273b452251bb4aac796a37f99602a82f888cf35ddb706de6ae5659",
+          "retrieved_at": "2026-06-10T16:51:44Z",
           "source_key": "azure_openai.legacy_models",
-          "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models"
+          "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models"
         }
       ],
-      "id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
+      "id": "2025-01-27-azure-openai-2025-legacy-preview-retirements",
       "impacts": [
         {
           "confidence": "confirmed",
           "direction": "removed",
           "impact_kind": "availability",
-          "recommended_action": "Audit Azure OpenAI deployments and application configuration for retired legacy model IDs before replaying old examples or templates.",
+          "recommended_action": "Audit Azure OpenAI deployments, gateway allowlists, and agent model routes for retired 2025 model IDs before replaying old examples or restoring old fallbacks.",
           "scope_ref": "surface:azure-openai/api",
           "scope_type": "provider_surface",
           "severity": "medium"
@@ -386,22 +375,22 @@
           "confidence": "confirmed",
           "direction": "changed",
           "impact_kind": "migration",
-          "recommended_action": "Map retired Azure OpenAI model IDs to currently supported Azure model deployments and update migration notes.",
+          "recommended_action": "Refresh Azure OpenAI migration notes, test fixtures, and model-selection defaults to use the listed replacement families where applicable.",
           "scope_ref": "surface:azure-openai/api",
           "scope_type": "provider_surface",
           "severity": "medium"
         }
       ],
       "lifecycle_status": "reviewed",
-      "migration_deadline": "2024-06-14T00:00:00Z",
-      "observed_at": "2026-06-01T10:36:49Z",
+      "migration_deadline": "2025-01-27T00:00:00Z",
+      "observed_at": "2026-06-10T16:51:44Z",
       "provider_refs": [
         "provider:azure-openai"
       ],
       "severity": "medium",
       "source_authority": "official_docs",
-      "summary": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.",
-      "title": "Azure OpenAI Retires Legacy GPT-3 Model IDs"
+      "summary": "Microsoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.",
+      "title": "Azure OpenAI Retired 2025 Legacy And Preview Model IDs"
     }
   ],
   "filters": {

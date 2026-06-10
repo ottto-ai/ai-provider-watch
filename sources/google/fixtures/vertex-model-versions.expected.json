@@ -129,27 +129,28 @@
         "source_parser": "google_vertex_model_versions"
       },
       {
+        "kind": "lifecycle_date",
         "date": "2024-07-09",
-        "kind": "lifecycle_date",
         "source_parser": "google_vertex_model_versions"
       },
       {
+        "kind": "lifecycle_date",
         "date": "2025-04-09",
-        "kind": "lifecycle_date",
         "source_parser": "google_vertex_model_versions"
       },
       {
+        "kind": "lifecycle_date",
         "date": "2026-06-01",
-        "kind": "lifecycle_date",
         "source_parser": "google_vertex_model_versions"
       },
       {
-        "date": "2026-10-01",
         "kind": "lifecycle_date",
+        "date": "2026-10-01",
         "source_parser": "google_vertex_model_versions"
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2026-10-01",
         "model_ids": [
           "gemini-live-2.5-flash-native-audio"
@@ -162,6 +163,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2026-10-01",
         "model_ids": [
           "gemini-2.5-flash-image"
@@ -174,6 +176,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2026-06-01",
         "model_ids": [
           "gemini-2.0-flash-lite-001"
@@ -186,6 +189,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2026-06-01",
         "model_ids": [
           "gemini-2.0-flash-001"
@@ -198,6 +202,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2025-04-09",
         "model_ids": [
           "textembedding-gecko@001"
@@ -210,6 +215,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2025-04-09",
         "model_ids": [
           "text-multilingual-embedding-002"
@@ -222,6 +228,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2025-04-09",
         "model_ids": [
           "multimodalembedding@001"
@@ -234,6 +241,7 @@
       },
       {
         "kind": "lifecycle_row",
+        "lifecycle_action": "retirement",
         "lifecycle_date": "2024-07-09",
         "model_ids": [
           "chat-bison",
