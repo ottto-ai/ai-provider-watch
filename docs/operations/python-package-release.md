@@ -77,6 +77,13 @@ and raised the bundled feed from twelve to twenty-eight events. Install-only
 users of `0.1.0` otherwise miss the higher-value AWS Bedrock, Google Gemini API,
 and Azure OpenAI changes until they fetch repository data directly.
 
+Decision for `0.1.10`: publish the package patch and do not recreate the
+already-signed `data-2026.06.10` tag. PR #124 promoted four high-signal
+Anthropic release-note ProviderEvents after the same-day data tag already
+existed. A package snapshot keeps install-only users current without weakening
+the one-tag-per-release-identity policy; the next immutable data release should
+use the next approved `data-YYYY.MM.DD` identity.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.
