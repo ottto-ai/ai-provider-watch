@@ -84,6 +84,12 @@ existed. A package snapshot keeps install-only users current without weakening
 the one-tag-per-release-identity policy; the next immutable data release should
 use the next approved `data-YYYY.MM.DD` identity.
 
+Decision for `0.1.11`: publish the package patch and do not create a data tag.
+PR #130 changed CLI/package behavior by making candidate split/dedupe packet
+ergonomics selector-aware for Anthropic multi-entry official sources. Reviewed
+event data did not change, so the existing signed `data-2026.06.10` identity
+remains the latest immutable data release.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.
