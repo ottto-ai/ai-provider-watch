@@ -52,8 +52,6 @@ MULTI_ENTRY_SOURCE_KEYS = {
 OPENAI_NEWS_DIRECT_CHANGE_URL_TERMS = (
     "api",
     "aws",
-    "chatgpt",
-    "codex",
     "deprecat",
     "gpt",
     "model",
@@ -65,6 +63,21 @@ OPENAI_NEWS_DIRECT_CHANGE_URL_TERMS = (
     "retire",
     "sora",
     "status",
+)
+
+OPENAI_NEWS_DIRECT_CODEX_URL_TERMS = (
+    "codex-api",
+    "codex-aws",
+    "codex-cli",
+    "codex-gpt",
+    "codex-model",
+    "codex-on",
+    "codex-pricing",
+    "codex-release",
+)
+
+OPENAI_NEWS_ADJACENT_URL_TERMS = (
+    "using-codex-to-",
 )
 
 AWS_BEDROCK_ADJACENT_SLUG_MARKERS = (
@@ -289,10 +302,12 @@ def _direct_apw_scope_signal(candidate: dict[str, Any], evidence_urls: list[str]
     normalized_urls = [url.lower() for url in evidence_urls]
 
     if "openai.news" in source_key_values and candidate_kind == "workflow_behavior_change":
+        if any(term in url for url in normalized_urls for term in OPENAI_NEWS_ADJACENT_URL_TERMS):
+            return False
         return any(
             term in url
             for url in normalized_urls
-            for term in OPENAI_NEWS_DIRECT_CHANGE_URL_TERMS
+            for term in OPENAI_NEWS_DIRECT_CHANGE_URL_TERMS + OPENAI_NEWS_DIRECT_CODEX_URL_TERMS
         )
 
     if "aws_bedrock.whats_new" in source_key_values:
