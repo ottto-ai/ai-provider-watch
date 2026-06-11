@@ -265,6 +265,31 @@ def test_candidate_quality_rejects_official_news_codex_research_stories(tmp_path
     assert "direct APW impact signal" in " ".join(row["quality_blockers"])
 
 
+def test_candidate_quality_rejects_official_news_system_cards_as_standalone_events(tmp_path) -> None:
+    candidate = _dated_candidate(
+        candidate_id="candidate-openai-news-dddddddddddddddd",
+        source_key="openai.news",
+        provider_ref="provider:openai",
+        claim_text="OpenAI official dated source reports a model availability change on 2026-05-05 for gpt-5.5.",
+        candidate_kind="model_launch",
+        evidence_url="https://openai.com/index/gpt-5-5-instant-system-card",
+        selector="announcement:dddddddddddddddd",
+        parser_name="openai_news_feed",
+    )
+    report = build_candidate_quality_report(
+        [CandidateFile(path=tmp_path / "candidate.json", payload=candidate)],
+        load_source_descriptors(ROOT, enabled_only=False),
+        root=tmp_path,
+        created_at=CREATED_AT,
+    )
+
+    row = report["candidates"][0]
+    assert row["quality_tier"] == "low_signal"
+    assert row["recommended_action"] == "reject"
+    assert row["dimensions"]["direct_apw_scope_signal"] is False
+    assert "direct APW impact signal" in " ".join(row["quality_blockers"])
+
+
 def test_candidate_quality_rejects_aws_adjacent_service_false_positive(tmp_path) -> None:
     candidate = _dated_candidate(
         candidate_id="candidate-aws-bedrock-whats-new-bbbbbbbbbbbbbbbb",

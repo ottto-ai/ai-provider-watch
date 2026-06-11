@@ -2,12 +2,14 @@
   "schema_version": "apw.provider_surfaces.v0",
   "surfaces": [
     {"id": "openai/api", "provider_id": "openai", "kind": "api", "display_name": "OpenAI API", "docs_url": "https://platform.openai.com/docs"},
+    {"id": "openai/realtime-api", "provider_id": "openai", "kind": "api", "display_name": "OpenAI Realtime API", "docs_url": "https://platform.openai.com/docs/guides/realtime"},
     {"id": "openai/status", "provider_id": "openai", "kind": "status_page", "display_name": "OpenAI Status", "url": "https://status.openai.com/"},
     {"id": "anthropic/api", "provider_id": "anthropic", "kind": "api", "display_name": "Anthropic API", "docs_url": "https://docs.anthropic.com/"},
     {"id": "anthropic/status", "provider_id": "anthropic", "kind": "status_page", "display_name": "Anthropic Status", "url": "https://status.anthropic.com/"},
     {"id": "google/gemini-api", "provider_id": "google", "kind": "api", "display_name": "Gemini API", "docs_url": "https://ai.google.dev/gemini-api/docs"},
     {"id": "google/vertex-ai", "provider_id": "google", "kind": "cloud_marketplace", "display_name": "Vertex AI", "docs_url": "https://cloud.google.com/vertex-ai/generative-ai/docs"},
     {"id": "aws-bedrock/api", "provider_id": "aws-bedrock", "kind": "api", "display_name": "Amazon Bedrock API", "docs_url": "https://docs.aws.amazon.com/bedrock/"},
+    {"id": "aws-bedrock/managed-agents", "provider_id": "aws-bedrock", "kind": "managed_agent", "display_name": "Amazon Bedrock Managed Agents", "docs_url": "https://aws.amazon.com/bedrock/"},
     {"id": "azure-openai/api", "provider_id": "azure-openai", "kind": "api", "display_name": "Azure OpenAI API", "docs_url": "https://learn.microsoft.com/azure/ai-services/openai/"}
   ]
 }

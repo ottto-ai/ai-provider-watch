@@ -264,6 +264,20 @@
       <pubDate>Mon, 08 Jun 2026 11:04:15 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-05-07-openai-realtime-voice-api-models</guid>
+      <title>OpenAI Added GPT-Realtime-2, Translate, And Whisper Voice API Models</title>
+      <description>OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.</description>
+      <category>model_launch</category>
+      <pubDate>Thu, 11 Jun 2026 19:15:39 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-07-openai-gpt-55-cyber-trusted-access</guid>
+      <title>OpenAI Added GPT-5.5-Cyber Limited Preview And Trusted Access Controls</title>
+      <description>OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.</description>
+      <category>model_launch</category>
+      <pubDate>Thu, 11 Jun 2026 19:15:39 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation</guid>
       <title>Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview</title>
       <description>Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.</description>
@@ -278,11 +292,32 @@
       <pubDate>Mon, 08 Jun 2026 11:04:15 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-05-05-openai-gpt-55-instant-default</guid>
+      <title>OpenAI Replaced GPT-5.3 Instant With GPT-5.5 Instant As Default</title>
+      <description>OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.</description>
+      <category>default_model_change</category>
+      <pubDate>Thu, 11 Jun 2026 19:15:39 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-05-01-azure-openai-realtime-20-translate-whisper-docs</guid>
       <title>Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage</title>
       <description>Azure OpenAI what&#x27;s-new notes for May 2026 point to GPT Realtime 2.0 preview, GPT Realtime Translate, and GPT Realtime Whisper concept coverage for low-latency audio translation and transcription workflows.</description>
       <category>model_launch</category>
       <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-04-28-openai-models-codex-aws-bedrock</guid>
+      <title>OpenAI Added Models, Codex, And Managed Agents On AWS</title>
+      <description>OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.</description>
+      <category>model_launch</category>
+      <pubDate>Thu, 11 Jun 2026 19:15:39 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-04-23-openai-gpt-55-chatgpt-codex-api</guid>
+      <title>OpenAI Launched GPT-5.5 For ChatGPT, Codex, And API Developers</title>
+      <description>OpenAI announced GPT-5.5 and GPT-5.5 Pro availability for ChatGPT and Codex paid/business plans, later updated the announcement to mark API availability, and listed API token pricing plus Batch, Flex, and Priority processing multipliers.</description>
+      <category>model_launch</category>
+      <pubDate>Thu, 11 Jun 2026 19:15:39 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2026-04-22-openai-legacy-gpt-snapshot-retirements</guid>
@@ -318,41 +353,6 @@
       <description>Azure OpenAI what&#x27;s-new notes for September 2025 list GPT-5-Codex availability and Sora video-to-video support, affecting coding-agent model access and video generation workflows on Azure.</description>
       <category>model_launch</category>
       <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
-    </item>
-    <item>
-      <guid isPermaLink="false">2025-08-01-azure-openai-gpt5-realtime-audio-model-router</guid>
-      <title>Azure OpenAI Added GPT-5 Models, Realtime Audio GA, And Model Router GPT-5 Support</title>
-      <description>Azure OpenAI what&#x27;s-new notes for August 2025 list GPT-5 family availability, GPT RealTime and Audio general availability, provisioned spillover GA, and model-router support for GPT-5 series models.</description>
-      <category>model_launch</category>
-      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
-    </item>
-    <item>
-      <guid isPermaLink="false">2025-02-24-anthropic-claude-3-7-sonnet-launch</guid>
-      <title>Anthropic Launches Claude 3.7 Sonnet</title>
-      <description>Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.</description>
-      <category>model_launch</category>
-      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
-    </item>
-    <item>
-      <guid isPermaLink="false">2025-01-27-azure-openai-2025-legacy-preview-retirements</guid>
-      <title>Azure OpenAI Retired 2025 Legacy And Preview Model IDs</title>
-      <description>Microsoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.</description>
-      <category>model_retirement</category>
-      <pubDate>Wed, 10 Jun 2026 16:51:44 GMT</pubDate>
-    </item>
-    <item>
-      <guid isPermaLink="false">2024-12-04-aws-bedrock-prompt-caching-preview</guid>
-      <title>Amazon Bedrock Adds Prompt Caching Preview</title>
-      <description>AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.</description>
-      <category>caching_change</category>
-      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
-    </item>
-    <item>
-      <guid isPermaLink="false">2024-06-14-azure-openai-legacy-gpt3-retirement</guid>
-      <title>Azure OpenAI Retires Legacy GPT-3 Model IDs</title>
-      <description>Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.</description>
-      <category>model_retirement</category>
-      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
     </item>
   </channel>
 </rss>

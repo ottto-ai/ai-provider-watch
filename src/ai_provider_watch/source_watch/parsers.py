@@ -255,6 +255,36 @@ LOW_SIGNAL_ANNOUNCEMENT_MARKERS = (
     "redesigned navigation",
 )
 
+OPENAI_NEWS_DIRECT_ARTICLE_URL_TERMS = (
+    "api",
+    "aws",
+    "codex-api",
+    "codex-aws",
+    "codex-cli",
+    "codex-gpt",
+    "codex-model",
+    "codex-on",
+    "codex-pricing",
+    "codex-release",
+    "deprecat",
+    "gpt",
+    "model",
+    "o3",
+    "o4",
+    "pricing",
+    "realtime",
+    "responses",
+    "retire",
+    "sdk",
+    "sora",
+    "status",
+)
+
+OPENAI_NEWS_ADJACENT_ARTICLE_URL_TERMS = (
+    "system-card",
+    "using-codex-to-",
+)
+
 ANNOUNCEMENT_KIND_KEYWORDS = (
     (
         "api_contract_change",
@@ -1137,6 +1167,8 @@ def _rss_or_atom_announcement_records(
     raw: bytes,
     *,
     required_keywords: tuple[str, ...] = (),
+    required_url_terms: tuple[str, ...] = (),
+    excluded_url_terms: tuple[str, ...] = (),
 ) -> tuple[list[dict[str, Any]], list[str]]:
     try:
         root = DET.fromstring(raw)
@@ -1161,6 +1193,11 @@ def _rss_or_atom_announcement_records(
         evidence_url = urljoin(source.url, link) if link else None
         if evidence_url and not is_url_allowed_for_source(evidence_url, source):
             evidence_url = None
+        url_scope = (evidence_url or link).lower()
+        if excluded_url_terms and any(term in url_scope for term in excluded_url_terms):
+            continue
+        if required_url_terms and not any(term in url_scope for term in required_url_terms):
+            continue
         published = (
             entry.findtext("pubDate")
             or entry.findtext("published")
@@ -1351,7 +1388,12 @@ def _dated_announcement_payload(
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]], list[str]]:
     errors: list[str] = []
     if source.parser == "openai_news_feed":
-        records, errors = _rss_or_atom_announcement_records(source, raw)
+        records, errors = _rss_or_atom_announcement_records(
+            source,
+            raw,
+            required_url_terms=OPENAI_NEWS_DIRECT_ARTICLE_URL_TERMS,
+            excluded_url_terms=OPENAI_NEWS_ADJACENT_ARTICLE_URL_TERMS,
+        )
     elif source.parser == "openai_api_changelog":
         records = _openai_api_changelog_records(source, raw)
     elif source.parser == "openai_codex_changelog":
@@ -2415,6 +2457,8 @@ def parse_source_payload(
     elif source.parser in DATED_ANNOUNCEMENT_PARSER_NAMES:
         items, announcement_claims, announcement_errors = _dated_announcement_payload(source, raw)
         errors.extend(announcement_errors)
+        if source.parser == "openai_news_feed":
+            allow_generic_fallback = False
         if changed:
             candidate_claims = announcement_claims
     elif source.parser in MODEL_PARSER_PATTERNS:

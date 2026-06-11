@@ -2376,6 +2376,154 @@
         "confidence": "confirmed",
         "effective_at": "2026-05-07T00:00:00Z",
         "event_date": "2026-05-07",
+        "event_id": "2026-05-07-openai-realtime-voice-api-models",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+            "selector": "announcement:f9ec8fe4f40fd511",
+            "snapshot_ref": "entry:f9ec8fe4f40fd511",
+            "source_key": "openai.news",
+            "url": "https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:openai/realtime-api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "cost",
+            "scope_ref": "surface:openai/realtime-api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "quota",
+            "scope_ref": "model:openai/gpt-realtime-2",
+            "scope_type": "model",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "Pricing is recorded from the announcement; consumers should check the pricing page before billing-sensitive launches.",
+          "No raw announcement body is copied into APW."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T19:15:39Z",
+      "date_published": "2026-06-11T19:15:39Z",
+      "external_url": "https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api",
+      "id": "2026-05-07-openai-realtime-voice-api-models",
+      "summary": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.",
+      "tags": [
+        "impact:cost",
+        "impact:model_launch",
+        "model_launch",
+        "provider:openai",
+        "severity:high",
+        "source:official_blog",
+        "surface:realtime_api"
+      ],
+      "title": "OpenAI Added GPT-Realtime-2, Translate, And Whisper Voice API Models",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-07-openai-realtime-voice-api-models.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-07T00:00:00Z",
+        "event_date": "2026-05-07",
+        "event_id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+            "selector": "announcement:6a792a6a3969e69f",
+            "snapshot_ref": "entry:6a792a6a3969e69f",
+            "source_key": "openai.news",
+            "url": "https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "model:openai/gpt-5.5-cyber",
+            "scope_type": "model",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "security",
+            "scope_ref": "account:openai/trusted-access-for-cyber",
+            "scope_type": "account_type",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "model:openai/gpt-5.5",
+            "scope_type": "model",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records public access-policy metadata only; it does not validate eligibility, authorization, or exact tenant rollout state.",
+          "No raw announcement body is copied into APW."
+        ],
+        "migration_deadline": "2026-06-01T00:00:00Z",
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T19:15:39Z",
+      "date_published": "2026-06-11T19:15:39Z",
+      "external_url": "https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber",
+      "id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
+      "summary": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.",
+      "tags": [
+        "impact:model_launch",
+        "impact:security",
+        "model:gpt_5_5_cyber",
+        "model_launch",
+        "provider:openai",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "OpenAI Added GPT-5.5-Cyber Limited Preview And Trusted Access Controls",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-07-openai-gpt-55-cyber-trusted-access.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-07T00:00:00Z",
+        "event_date": "2026-05-07",
         "event_id": "2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation",
         "event_kind": "model_launch",
         "evidence_refs": [
@@ -2492,6 +2640,71 @@
     },
     {
       "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-05T00:00:00Z",
+        "event_date": "2026-05-05",
+        "event_id": "2026-05-05-openai-gpt-55-instant-default",
+        "event_kind": "default_model_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+            "selector": "announcement:b86d28fdff223099",
+            "snapshot_ref": "entry:b86d28fdff223099",
+            "source_key": "openai.news",
+            "url": "https://openai.com/index/gpt-5-5-instant"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "model:openai/chat-latest",
+            "scope_type": "model_alias",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "removed",
+            "impact_kind": "migration",
+            "scope_ref": "model:openai/gpt-5.3-instant",
+            "scope_type": "model",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW computes the migration deadline as three months after the announcement date; provider-specific rollout timing can vary.",
+          "No raw announcement body is copied into APW."
+        ],
+        "migration_deadline": "2026-08-05T00:00:00Z",
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.\n\nKind: default_model_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T19:15:39Z",
+      "date_published": "2026-06-11T19:15:39Z",
+      "external_url": "https://openai.com/index/gpt-5-5-instant",
+      "id": "2026-05-05-openai-gpt-55-instant-default",
+      "summary": "OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.",
+      "tags": [
+        "default_model_change",
+        "impact:default_model_change",
+        "model:gpt_5_5_instant",
+        "provider:openai",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "OpenAI Replaced GPT-5.3 Instant With GPT-5.5 Instant As Default",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-05-openai-gpt-55-instant-default.json"
+    },
+    {
+      "_apw": {
         "confidence": "high",
         "effective_at": "2026-05-01T00:00:00Z",
         "event_date": "2026-05-01",
@@ -2544,6 +2757,148 @@
       ],
       "title": "Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-01-azure-openai-realtime-20-translate-whisper-docs.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-04-28T00:00:00Z",
+        "event_date": "2026-04-28",
+        "event_id": "2026-04-28-openai-models-codex-aws-bedrock",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+            "selector": "announcement:d259ea1d43cc9c31",
+            "snapshot_ref": "entry:d259ea1d43cc9c31",
+            "source_key": "openai.news",
+            "url": "https://openai.com/index/openai-on-aws"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:aws-bedrock/managed-agents",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "Limited-preview access, AWS account eligibility, regional availability, and exact Bedrock pricing require account-level verification.",
+          "No raw announcement body is copied into APW."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai",
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai, provider:aws-bedrock",
+      "date_modified": "2026-06-11T19:15:39Z",
+      "date_published": "2026-06-11T19:15:39Z",
+      "external_url": "https://openai.com/index/openai-on-aws",
+      "id": "2026-04-28-openai-models-codex-aws-bedrock",
+      "summary": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.",
+      "tags": [
+        "app:codex",
+        "impact:model_launch",
+        "model_launch",
+        "provider:aws-bedrock",
+        "provider:aws_bedrock",
+        "provider:openai",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "OpenAI Added Models, Codex, And Managed Agents On AWS",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-04-28-openai-models-codex-aws-bedrock.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-04-23T00:00:00Z",
+        "event_date": "2026-04-23",
+        "event_id": "2026-04-23-openai-gpt-55-chatgpt-codex-api",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+            "selector": "announcement:64228a7542e628e5",
+            "snapshot_ref": "entry:64228a7542e628e5",
+            "source_key": "openai.news",
+            "url": "https://openai.com/index/introducing-gpt-5-5"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "model:openai/gpt-5.5",
+            "scope_type": "model",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "cost",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The announcement says GPT-5.5 is more token efficient than GPT-5.4, but APW records listed unit prices and does not estimate workload-level savings.",
+          "No raw announcement body is copied into APW."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "OpenAI announced GPT-5.5 and GPT-5.5 Pro availability for ChatGPT and Codex paid/business plans, later updated the announcement to mark API availability, and listed API token pricing plus Batch, Flex, and Priority processing multipliers.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T19:15:39Z",
+      "date_published": "2026-06-11T19:15:39Z",
+      "external_url": "https://openai.com/index/introducing-gpt-5-5",
+      "id": "2026-04-23-openai-gpt-55-chatgpt-codex-api",
+      "summary": "OpenAI announced GPT-5.5 and GPT-5.5 Pro availability for ChatGPT and Codex paid/business plans, later updated the announcement to mark API availability, and listed API token pricing plus Batch, Flex, and Priority processing multipliers.",
+      "tags": [
+        "impact:cost",
+        "impact:model_launch",
+        "model:gpt_5_5",
+        "model_launch",
+        "provider:openai",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "OpenAI Launched GPT-5.5 For ChatGPT, Codex, And API Developers",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-04-23-openai-gpt-55-chatgpt-codex-api.json"
     },
     {
       "_apw": {
@@ -2830,315 +3185,6 @@
       ],
       "title": "Azure OpenAI Added GPT-5-Codex And Sora Video-To-Video Support",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-09-01-azure-openai-gpt5-codex-sora-video.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2025-08-01T00:00:00Z",
-        "event_date": "2025-08-01",
-        "event_id": "2025-08-01-azure-openai-gpt5-realtime-audio-model-router",
-        "event_kind": "model_launch",
-        "evidence_refs": [
-          {
-            "authority": "official_docs",
-            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
-            "selector": "announcement:3b89a90f40acbd9f",
-            "snapshot_ref": "entry:3b89a90f40acbd9f",
-            "source_key": "azure_openai.whats_new",
-            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "availability",
-            "scope_ref": "surface:azure-openai/api",
-            "scope_type": "provider_surface",
-            "severity": "high"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "The source groups these updates under August 2025, so APW uses an approximate month-start event date."
-        ],
-        "migration_deadline": null,
-        "provider_refs": [
-          "provider:azure-openai"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "high",
-        "source_authority": "official_docs"
-      },
-      "content_text": "Azure OpenAI what's-new notes for August 2025 list GPT-5 family availability, GPT RealTime and Audio general availability, provisioned spillover GA, and model-router support for GPT-5 series models.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:azure-openai",
-      "date_modified": "2026-06-08T11:04:13Z",
-      "date_published": "2026-06-08T11:04:13Z",
-      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
-      "id": "2025-08-01-azure-openai-gpt5-realtime-audio-model-router",
-      "summary": "Azure OpenAI what's-new notes for August 2025 list GPT-5 family availability, GPT RealTime and Audio general availability, provisioned spillover GA, and model-router support for GPT-5 series models.",
-      "tags": [
-        "impact:model_launch",
-        "model_launch",
-        "provider:azure-openai",
-        "severity:high",
-        "source:official_docs"
-      ],
-      "title": "Azure OpenAI Added GPT-5 Models, Realtime Audio GA, And Model Router GPT-5 Support",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-08-01-azure-openai-gpt5-realtime-audio-model-router.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2025-02-24T00:00:00Z",
-        "event_date": "2025-02-24",
-        "event_id": "2025-02-24-anthropic-claude-3-7-sonnet-launch",
-        "event_kind": "model_launch",
-        "evidence_refs": [
-          {
-            "authority": "official_blog",
-            "content_sha256": "849c1d78c6bec91d04418e2eade133b65c984f44c675d7d26cbd6c49e3d4ef13",
-            "selector": "Claude 3.7 Sonnet announcement",
-            "snapshot_ref": "reviewed-source:2026-06-01",
-            "source_key": "anthropic.news",
-            "url": "https://www.anthropic.com/news/claude-3-7-sonnet"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "availability",
-            "scope_ref": "surface:anthropic/api",
-            "scope_type": "provider_surface",
-            "severity": "low"
-          },
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "behavior",
-            "scope_ref": "surface:anthropic/api",
-            "scope_type": "provider_surface",
-            "severity": "low"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "Historical seed event; verify current model availability before changing production routing."
-        ],
-        "migration_deadline": null,
-        "provider_refs": [
-          "provider:anthropic"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "low",
-        "source_authority": "official_blog"
-      },
-      "content_text": "Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.\n\nKind: model_launch\nSeverity: low\nConfidence: confirmed\nProviders: provider:anthropic",
-      "date_modified": "2026-06-01T10:36:49Z",
-      "date_published": "2026-06-01T10:36:49Z",
-      "external_url": "https://www.anthropic.com/news/claude-3-7-sonnet",
-      "id": "2025-02-24-anthropic-claude-3-7-sonnet-launch",
-      "summary": "Anthropic launched Claude 3.7 Sonnet across its developer platform and partner cloud surfaces, adding a model option with standard and extended-thinking modes.",
-      "tags": [
-        "impact:model_launch",
-        "model_launch",
-        "provider:anthropic",
-        "severity:low",
-        "source:official_blog"
-      ],
-      "title": "Anthropic Launches Claude 3.7 Sonnet",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-02-24-anthropic-claude-3-7-sonnet-launch.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2025-01-27T00:00:00Z",
-        "event_date": "2025-01-27",
-        "event_id": "2025-01-27-azure-openai-2025-legacy-preview-retirements",
-        "event_kind": "model_retirement",
-        "evidence_refs": [
-          {
-            "authority": "official_docs",
-            "content_sha256": "bd001e951c273b452251bb4aac796a37f99602a82f888cf35ddb706de6ae5659",
-            "selector": "Azure OpenAI retired models table; 2025 retirement rows",
-            "snapshot_ref": "reviewed-source:2026-06-10",
-            "source_key": "azure_openai.legacy_models",
-            "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "removed",
-            "impact_kind": "availability",
-            "scope_ref": "surface:azure-openai/api",
-            "scope_type": "provider_surface",
-            "severity": "medium"
-          },
-          {
-            "confidence": "confirmed",
-            "direction": "changed",
-            "impact_kind": "migration",
-            "scope_ref": "surface:azure-openai/api",
-            "scope_type": "provider_surface",
-            "severity": "medium"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "Historical reviewed event; APW did not observe the original 2025 retirements in real time.",
-          "This event summarizes selected 2025 Azure OpenAI retirement rows and does not reproduce the full provider table.",
-          "Some affected model IDs have later 2025 retirement dates; consumers should check the official table for model-specific deadlines and replacements."
-        ],
-        "migration_deadline": "2025-01-27T00:00:00Z",
-        "provider_refs": [
-          "provider:azure-openai"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "medium",
-        "source_authority": "official_docs"
-      },
-      "content_text": "Microsoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.\n\nKind: model_retirement\nSeverity: medium\nConfidence: confirmed\nProviders: provider:azure-openai",
-      "date_modified": "2026-06-10T16:51:44Z",
-      "date_published": "2026-06-10T16:51:44Z",
-      "external_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models",
-      "id": "2025-01-27-azure-openai-2025-legacy-preview-retirements",
-      "summary": "Microsoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.",
-      "tags": [
-        "impact:model_retirement",
-        "model_retirement",
-        "provider:azure-openai",
-        "severity:medium",
-        "source:official_docs"
-      ],
-      "title": "Azure OpenAI Retired 2025 Legacy And Preview Model IDs",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-01-27-azure-openai-2025-legacy-preview-retirements.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2024-12-04T18:00:00Z",
-        "event_date": "2024-12-04",
-        "event_id": "2024-12-04-aws-bedrock-prompt-caching-preview",
-        "event_kind": "caching_change",
-        "evidence_refs": [
-          {
-            "authority": "official_blog",
-            "content_sha256": "5b95e2edae20030b8aeca8d3b4c465ec2cd196d8e476d3fea73bd2ee742b1d27",
-            "selector": "Amazon Bedrock prompt caching announcement",
-            "snapshot_ref": "reviewed-source:2026-06-01",
-            "source_key": "aws_bedrock.whats_new",
-            "url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "decrease",
-            "impact_kind": "cost",
-            "scope_ref": "surface:aws-bedrock/api",
-            "scope_type": "provider_surface",
-            "severity": "medium"
-          },
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "behavior",
-            "scope_ref": "surface:aws-bedrock/api",
-            "scope_type": "provider_surface",
-            "severity": "low"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "Preview availability was limited at launch; eligibility can vary by model, region, and account."
-        ],
-        "migration_deadline": null,
-        "provider_refs": [
-          "provider:aws-bedrock"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "medium",
-        "source_authority": "official_blog"
-      },
-      "content_text": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.\n\nKind: caching_change\nSeverity: medium\nConfidence: confirmed\nProviders: provider:aws-bedrock",
-      "date_modified": "2026-06-01T10:36:49Z",
-      "date_published": "2026-06-01T10:36:49Z",
-      "external_url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/",
-      "id": "2024-12-04-aws-bedrock-prompt-caching-preview",
-      "summary": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.",
-      "tags": [
-        "caching_change",
-        "impact:caching_change",
-        "provider:aws-bedrock",
-        "severity:medium",
-        "source:official_blog"
-      ],
-      "title": "Amazon Bedrock Adds Prompt Caching Preview",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2024-12-04-aws-bedrock-prompt-caching-preview.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2024-06-14T00:00:00Z",
-        "event_date": "2024-06-14",
-        "event_id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
-        "event_kind": "model_retirement",
-        "evidence_refs": [
-          {
-            "authority": "official_docs",
-            "content_sha256": "a41c040bf14faf7e945d2bbcecac16c49a6cced3205a4fa1de9601012474595a",
-            "selector": "Azure OpenAI retired model table",
-            "snapshot_ref": "reviewed-source:2026-06-01",
-            "source_key": "azure_openai.legacy_models",
-            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "removed",
-            "impact_kind": "availability",
-            "scope_ref": "surface:azure-openai/api",
-            "scope_type": "provider_surface",
-            "severity": "medium"
-          },
-          {
-            "confidence": "confirmed",
-            "direction": "changed",
-            "impact_kind": "migration",
-            "scope_ref": "surface:azure-openai/api",
-            "scope_type": "provider_surface",
-            "severity": "medium"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "Historical seed event; APW did not observe the original 2023 deprecation in real time."
-        ],
-        "migration_deadline": "2024-06-14T00:00:00Z",
-        "provider_refs": [
-          "provider:azure-openai"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "medium",
-        "source_authority": "official_docs"
-      },
-      "content_text": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.\n\nKind: model_retirement\nSeverity: medium\nConfidence: confirmed\nProviders: provider:azure-openai",
-      "date_modified": "2026-06-01T10:36:49Z",
-      "date_published": "2026-06-01T10:36:49Z",
-      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models",
-      "id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
-      "summary": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.",
-      "tags": [
-        "impact:model_retirement",
-        "model_retirement",
-        "provider:azure-openai",
-        "severity:medium",
-        "source:official_docs"
-      ],
-      "title": "Azure OpenAI Retires Legacy GPT-3 Model IDs",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2024-06-14-azure-openai-legacy-gpt3-retirement.json"
     }
   ],
   "language": "en-US",

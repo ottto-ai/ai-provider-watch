@@ -3251,6 +3251,223 @@
     "confidence": "confirmed",
     "date_confidence": "exact",
     "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records Realtime API model availability and listed pricing. APW does not assert tenant entitlement, regional availability, or compatibility with every existing realtime client.",
+      "model_refs": [
+        "model:openai/gpt-realtime-2",
+        "model:openai/gpt-realtime-translate",
+        "model:openai/gpt-realtime-whisper"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-07T00:00:00Z",
+    "event_date": "2026-05-07",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:f9ec8fe4f40fd511",
+        "snapshot_ref": "entry:f9ec8fe4f40fd511",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-07-openai-realtime-voice-api-models",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Update Realtime API model allowlists, latency tests, tool-call tests, and voice-agent evaluation suites before routing customer traffic to the new models.",
+        "scope_ref": "surface:openai/realtime-api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "OpenAI announcement pricing and availability section.",
+          "confidence": "confirmed",
+          "direction": "unknown",
+          "magnitude": "GPT-Realtime-2: $32/1M audio input tokens, $0.40/1M cached input tokens, $64/1M audio output tokens; Translate: $0.034/min; Whisper: $0.017/min"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Separate token-priced realtime voice usage from per-minute translation and transcription usage in billing dashboards.",
+        "scope_ref": "surface:openai/realtime-api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "quota",
+        "recommended_action": "Review context-window, tool-call, reasoning-effort, and interruption-handling behavior before replacing earlier realtime models.",
+        "scope_ref": "model:openai/gpt-realtime-2",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Pricing is recorded from the announcement; consumers should check the pricing page before billing-sensitive launches.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:model_launch",
+      "impact:cost",
+      "surface:realtime_api"
+    ],
+    "title": "OpenAI Added GPT-Realtime-2, Translate, And Whisper Voice API Models"
+  },
+  {
+    "announced_at": "2026-05-07T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "GPT-5.5-Cyber is described as limited preview for specialized authorized workflows. The announcement also changes trusted-access account-security expectations beginning 2026-06-01.",
+      "model_refs": [
+        "model:openai/gpt-5.5-cyber",
+        "model:openai/gpt-5.5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-07T00:00:00Z",
+    "event_date": "2026-05-07",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:6a792a6a3969e69f",
+        "snapshot_ref": "entry:6a792a6a3969e69f",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Treat GPT-5.5-Cyber as gated limited-preview access and verify authorized-use, tenant eligibility, logging, and abuse-monitoring controls before operational use.",
+        "scope_ref": "model:openai/gpt-5.5-cyber",
+        "scope_type": "model",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Require phishing-resistant account security for individual Trusted Access for Cyber users or document equivalent organization-level SSO controls before the June 1, 2026 requirement.",
+        "scope_ref": "account:openai/trusted-access-for-cyber",
+        "scope_type": "account_type",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Re-test defensive-security workflows under the intended trusted-access level because model refusal behavior can vary by access tier.",
+        "scope_ref": "model:openai/gpt-5.5",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "security_engineers",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records public access-policy metadata only; it does not validate eligibility, authorization, or exact tenant rollout state.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": "2026-06-01T00:00:00Z",
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:model_launch",
+      "impact:security",
+      "model:gpt_5_5_cyber"
+    ],
+    "title": "OpenAI Added GPT-5.5-Cyber Limited Preview And Trusted Access Controls"
+  },
+  {
+    "announced_at": "2026-05-07T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
       "deadline": "2026-05-25T00:00:00Z",
       "kind": "model_lifecycle",
       "lifecycle_action": "launch",
@@ -3407,6 +3624,93 @@
     "title": "Google Gemini API Announced Interactions API Schema Cutover"
   },
   {
+    "announced_at": "2026-05-05T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "fallback_policy": "Paid users retain GPT-5.3 Instant in model configuration settings for three months before retirement.",
+      "kind": "default_model_change",
+      "new_default": "model:openai/gpt-5.5-instant",
+      "old_default": "model:openai/gpt-5.3-instant",
+      "rollout_window": "Starting 2026-05-05 for all ChatGPT users and chat-latest in the API.",
+      "schema_version": "apw.event_detail.v0",
+      "surface_ref": "surface:openai/chatgpt"
+    },
+    "effective_at": "2026-05-05T00:00:00Z",
+    "event_date": "2026-05-05",
+    "event_kind": "default_model_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:b86d28fdff223099",
+        "snapshot_ref": "entry:b86d28fdff223099",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/gpt-5-5-instant"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-05-openai-gpt-55-instant-default",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Pin explicit model IDs or rerun evaluation suites if production API workloads depend on chat-latest behavior.",
+        "scope_ref": "model:openai/chat-latest",
+        "scope_type": "model_alias",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "migration",
+        "recommended_action": "Plan fallback testing before the three-month paid-user availability window for GPT-5.3 Instant ends.",
+        "scope_ref": "model:openai/gpt-5.3-instant",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW computes the migration deadline as three months after the announcement date; provider-specific rollout timing can vary.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": "2026-08-05T00:00:00Z",
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:default_model_change",
+      "model:gpt_5_5_instant"
+    ],
+    "title": "OpenAI Replaced GPT-5.3 Instant With GPT-5.5 Instant As Default"
+  },
+  {
     "announced_at": "2026-05-01T00:00:00Z",
     "confidence": "high",
     "date_confidence": "approximate",
@@ -3476,6 +3780,210 @@
       "impact:model_launch"
     ],
     "title": "Azure OpenAI Added GPT Realtime 2.0, Translate, And Whisper Concept Coverage"
+  },
+  {
+    "announced_at": "2026-04-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records OpenAI-announced AWS limited-preview availability and Codex provider routing. APW does not assert Bedrock account eligibility, regional parity, or final pricing.",
+      "model_refs": [
+        "model:openai/gpt-5.5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-28T00:00:00Z",
+    "event_date": "2026-04-28",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:d259ea1d43cc9c31",
+        "snapshot_ref": "entry:d259ea1d43cc9c31",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/openai-on-aws"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-28-openai-models-codex-aws-bedrock",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify Bedrock access, regional coverage, quotas, pricing, and governance controls before routing OpenAI model traffic through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "finops",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Test Codex CLI, desktop app, and VS Code extension behavior when Bedrock is configured as the provider, including auth, billing attribution, and enterprise policy controls.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock Managed Agents separately from direct model invocation because orchestration, tool use, governance, and metering can differ.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Limited-preview access, AWS account eligibility, regional availability, and exact Bedrock pricing require account-level verification.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai",
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "provider:aws_bedrock",
+      "impact:model_launch",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Models, Codex, And Managed Agents On AWS"
+  },
+  {
+    "announced_at": "2026-04-23T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "The April 23 announcement covers ChatGPT and Codex rollout first, with an April 24 update for API availability. APW records public availability and listed API pricing; account eligibility and final API model IDs should be verified in the target tenant.",
+      "model_refs": [
+        "model:openai/gpt-5.5",
+        "model:openai/gpt-5.5-pro"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-23T00:00:00Z",
+    "event_date": "2026-04-23",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:64228a7542e628e5",
+        "snapshot_ref": "entry:64228a7542e628e5",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/introducing-gpt-5-5"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-23-openai-gpt-55-chatgpt-codex-api",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Review plan eligibility, API allowlists, model routing, context-window assumptions, and regression coverage before moving production traffic to GPT-5.5.",
+        "scope_ref": "model:openai/gpt-5.5",
+        "scope_type": "model",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "OpenAI announcement pricing section; Batch and Flex at half standard rate and Priority at 2.5x standard rate.",
+          "confidence": "confirmed",
+          "direction": "increase",
+          "magnitude": "$5/1M input tokens and $30/1M output tokens for gpt-5.5; $30/1M input and $180/1M output for gpt-5.5-pro"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Update cost models and gateway pricing metadata before exposing GPT-5.5 or GPT-5.5 Pro through API defaults, agent routers, or self-service model selectors.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The announcement says GPT-5.5 is more token efficient than GPT-5.4, but APW records listed unit prices and does not estimate workload-level savings.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced GPT-5.5 and GPT-5.5 Pro availability for ChatGPT and Codex paid/business plans, later updated the announcement to mark API availability, and listed API token pricing plus Batch, Flex, and Priority processing multipliers.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:model_launch",
+      "impact:cost",
+      "model:gpt_5_5"
+    ],
+    "title": "OpenAI Launched GPT-5.5 For ChatGPT, Codex, And API Developers"
   },
   {
     "announced_at": "2026-04-22T00:00:00Z",
