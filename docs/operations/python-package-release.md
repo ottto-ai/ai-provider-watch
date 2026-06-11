@@ -119,6 +119,13 @@ source-state-only PRs, filtering consumer-only status-feed noise, and refreshing
 bounded official source state. Reviewed event data did not change, so the
 signed `data-2026.06.11` identity remains the immutable feed snapshot.
 
+Decision for `0.1.16`: publish the package patch after the signed
+`data-2026.06.11.1` revision release. PRs #141, #151, and #153 added or
+updated seventeen reviewed OpenAI/OpenAI-on-AWS ProviderEvents after the
+original `data-2026.06.11` tag. A package snapshot keeps install-only users on
+the same 56-event reviewed feed as the latest immutable data release without
+requiring live remote reads.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.
