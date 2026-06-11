@@ -4,7 +4,7 @@
     "total": 0
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
-  "generated_at": "2026-06-11T15:12:22Z",
+  "generated_at": "2026-06-11T19:15:39Z",
   "generated_by": "ai-provider-watch 0.1.15",
   "package_version": "0.1.15",
   "providers": [
@@ -17,7 +17,7 @@
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [],
       "provider_ref": "provider:openai",
-      "reviewed_event_count": 18,
+      "reviewed_event_count": 23,
       "source_count": 6
     },
     {
@@ -53,7 +53,7 @@
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [],
       "provider_ref": "provider:aws-bedrock",
-      "reviewed_event_count": 8,
+      "reviewed_event_count": 9,
       "source_count": 3
     },
     {
@@ -508,7 +508,7 @@
     "manual_review_only_source_count": 0,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 51,
+    "reviewed_event_count": 56,
     "source_count": 21,
     "warning_count": 0
   },

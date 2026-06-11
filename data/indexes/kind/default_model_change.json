@@ -68,5 +68,92 @@
       "alias:chat_latest"
     ],
     "title": "OpenAI Added The chat-latest API Snapshot Alias"
+  },
+  {
+    "announced_at": "2026-05-05T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "fallback_policy": "Paid users retain GPT-5.3 Instant in model configuration settings for three months before retirement.",
+      "kind": "default_model_change",
+      "new_default": "model:openai/gpt-5.5-instant",
+      "old_default": "model:openai/gpt-5.3-instant",
+      "rollout_window": "Starting 2026-05-05 for all ChatGPT users and chat-latest in the API.",
+      "schema_version": "apw.event_detail.v0",
+      "surface_ref": "surface:openai/chatgpt"
+    },
+    "effective_at": "2026-05-05T00:00:00Z",
+    "event_date": "2026-05-05",
+    "event_kind": "default_model_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:b86d28fdff223099",
+        "snapshot_ref": "entry:b86d28fdff223099",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/gpt-5-5-instant"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-05-openai-gpt-55-instant-default",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Pin explicit model IDs or rerun evaluation suites if production API workloads depend on chat-latest behavior.",
+        "scope_ref": "model:openai/chat-latest",
+        "scope_type": "model_alias",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "migration",
+        "recommended_action": "Plan fallback testing before the three-month paid-user availability window for GPT-5.3 Instant ends.",
+        "scope_ref": "model:openai/gpt-5.3-instant",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW computes the migration deadline as three months after the announcement date; provider-specific rollout timing can vary.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": "2026-08-05T00:00:00Z",
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:default_model_change",
+      "model:gpt_5_5_instant"
+    ],
+    "title": "OpenAI Replaced GPT-5.3 Instant With GPT-5.5 Instant As Default"
   }
 ]

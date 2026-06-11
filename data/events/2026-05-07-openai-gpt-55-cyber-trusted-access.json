@@ -1,0 +1,105 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
+  "title": "OpenAI Added GPT-5.5-Cyber Limited Preview And Trusted Access Controls",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-05-07",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T19:15:39Z",
+  "announced_at": "2026-05-07T00:00:00Z",
+  "effective_at": "2026-05-07T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2026-06-01T00:00:00Z",
+  "summary": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber",
+      "retrieved_at": "2026-06-11T19:15:39Z",
+      "authority": "official_blog",
+      "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+      "snapshot_ref": "entry:6a792a6a3969e69f",
+      "selector": "announcement:6a792a6a3969e69f",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "model",
+      "scope_ref": "model:openai/gpt-5.5-cyber",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "security_engineers",
+        "platform_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Treat GPT-5.5-Cyber as gated limited-preview access and verify authorized-use, tenant eligibility, logging, and abuse-monitoring controls before operational use."
+    },
+    {
+      "scope_type": "account_type",
+      "scope_ref": "account:openai/trusted-access-for-cyber",
+      "impact_kind": "security",
+      "direction": "changed",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "security_engineers",
+        "platform_engineers"
+      ],
+      "recommended_action": "Require phishing-resistant account security for individual Trusted Access for Cyber users or document equivalent organization-level SSO controls before the June 1, 2026 requirement."
+    },
+    {
+      "scope_type": "model",
+      "scope_ref": "model:openai/gpt-5.5",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "security_engineers",
+        "coding_agent_users",
+        "platform_engineers"
+      ],
+      "recommended_action": "Re-test defensive-security workflows under the intended trusted-access level because model refusal behavior can vary by access tier."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:openai/gpt-5.5-cyber",
+      "model:openai/gpt-5.5"
+    ],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "GPT-5.5-Cyber is described as limited preview for specialized authorized workflows. The announcement also changes trusted-access account-security expectations beginning 2026-06-01."
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:openai",
+    "impact:model_launch",
+    "impact:security",
+    "model:gpt_5_5_cyber"
+  ],
+  "limitations": [
+    "APW records public access-policy metadata only; it does not validate eligibility, authorization, or exact tenant rollout state.",
+    "No raw announcement body is copied into APW."
+  ]
+}

@@ -92,6 +92,7 @@ OPENAI_NEWS_DIRECT_CODEX_URL_TERMS = (
 )
 
 OPENAI_NEWS_ADJACENT_URL_TERMS = (
+    "system-card",
     "using-codex-to-",
 )
 
@@ -333,10 +334,9 @@ def _evidence_identity(evidence: dict[str, Any]) -> str | None:
 def _direct_apw_scope_signal(candidate: dict[str, Any], evidence_urls: list[str]) -> bool:
     source_keys = candidate.get("source_keys", [])
     source_key_values = {item for item in source_keys if isinstance(item, str)} if isinstance(source_keys, list) else set()
-    candidate_kind = candidate.get("candidate_kind")
     normalized_urls = [url.lower() for url in evidence_urls]
 
-    if "openai.news" in source_key_values and candidate_kind == "workflow_behavior_change":
+    if "openai.news" in source_key_values:
         if any(term in url for url in normalized_urls for term in OPENAI_NEWS_ADJACENT_URL_TERMS):
             return False
         return any(

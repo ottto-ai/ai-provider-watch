@@ -336,6 +336,10 @@ def test_changed_enabled_sources_emit_sanitized_candidate_claims() -> None:
             assert parsed.candidate_claims == []
             assert parsed.raw_excerpt_hashes == []
             continue
+        if source.parser == "openai_news_feed":
+            assert parsed.candidate_claims == []
+            assert parsed.raw_excerpt_hashes == []
+            continue
 
         assert len(parsed.candidate_claims) == 1
         claim = parsed.candidate_claims[0]
@@ -1174,6 +1178,33 @@ def test_dated_announcement_parser_dedupes_equivalent_claims() -> None:
         "Anthropic official dated source reports a model availability change "
         "on 2026-05-28 for claude-opus-4.8."
     )
+
+
+def test_openai_news_parser_ignores_adjacent_company_posts() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.news")
+    raw = b"""
+        <rss version="2.0">
+          <channel>
+            <item>
+              <title>Customer story mentions Codex</title>
+              <link>https://openai.com/index/example-customer</link>
+              <pubDate>Wed, 03 Jun 2026 12:00:00 GMT</pubDate>
+              <description>ExampleCo uses Codex with GPT-4.1 in an internal workflow.</description>
+            </item>
+            <item>
+              <title>Company acquisition mentions developer workflows</title>
+              <link>https://openai.com/index/openai-to-acquire-example</link>
+              <pubDate>Thu, 04 Jun 2026 12:00:00 GMT</pubDate>
+              <description>Mentions Codex and developer workflows without an API, model, quota, pricing, or availability change.</description>
+            </item>
+          </channel>
+        </rss>
+    """
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert parsed.items == []
+    assert parsed.candidate_claims == []
 
 
 def test_dated_announcement_candidates_use_article_level_evidence_url(tmp_path) -> None:

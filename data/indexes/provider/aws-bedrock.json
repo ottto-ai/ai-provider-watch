@@ -660,6 +660,113 @@
     "title": "OpenAI Frontier Models And Codex Became Available On AWS"
   },
   {
+    "announced_at": "2026-04-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records OpenAI-announced AWS limited-preview availability and Codex provider routing. APW does not assert Bedrock account eligibility, regional parity, or final pricing.",
+      "model_refs": [
+        "model:openai/gpt-5.5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-28T00:00:00Z",
+    "event_date": "2026-04-28",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:d259ea1d43cc9c31",
+        "snapshot_ref": "entry:d259ea1d43cc9c31",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/openai-on-aws"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-28-openai-models-codex-aws-bedrock",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify Bedrock access, regional coverage, quotas, pricing, and governance controls before routing OpenAI model traffic through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "finops",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Test Codex CLI, desktop app, and VS Code extension behavior when Bedrock is configured as the provider, including auth, billing attribution, and enterprise policy controls.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock Managed Agents separately from direct model invocation because orchestration, tool use, governance, and metering can differ.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Limited-preview access, AWS account eligibility, regional availability, and exact Bedrock pricing require account-level verification.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai",
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "provider:aws_bedrock",
+      "impact:model_launch",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Models, Codex, And Managed Agents On AWS"
+  },
+  {
     "announced_at": "2024-12-04T18:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

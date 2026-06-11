@@ -14,5 +14,17 @@
       <pubDate>Tue, 02 Jun 2026 12:00:00 GMT</pubDate>
       <description>Non-product corporate news.</description>
     </item>
+    <item>
+      <title>Customer story mentions Codex</title>
+      <link>https://openai.com/index/example-customer</link>
+      <pubDate>Wed, 03 Jun 2026 12:00:00 GMT</pubDate>
+      <description>ExampleCo uses Codex in an internal workflow with GPT-4.1.</description>
+    </item>
+    <item>
+      <title>Company acquisition mentions developer workflows</title>
+      <link>https://openai.com/index/openai-to-acquire-example</link>
+      <pubDate>Thu, 04 Jun 2026 12:00:00 GMT</pubDate>
+      <description>The post mentions Codex and developer workflows but does not announce a provider API, model, pricing, quota, or availability change.</description>
+    </item>
   </channel>
 </rss>

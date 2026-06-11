@@ -1,5 +1,5 @@
 {
-  "event_count": 18,
+  "event_count": 23,
   "events": [
     {
       "confidence": "confirmed",
@@ -250,6 +250,83 @@
       "severity": "medium",
       "summary": "OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.",
       "title": "OpenAI Added Workload Identity Federation For API Access"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-05-07",
+      "event_kind": "model_launch",
+      "id": "2026-05-07-openai-realtime-voice-api-models",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.",
+      "title": "OpenAI Added GPT-Realtime-2, Translate, And Whisper Voice API Models"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-05-07",
+      "event_kind": "model_launch",
+      "id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.",
+      "title": "OpenAI Added GPT-5.5-Cyber Limited Preview And Trusted Access Controls"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-05-05",
+      "event_kind": "default_model_change",
+      "id": "2026-05-05-openai-gpt-55-instant-default",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.",
+      "title": "OpenAI Replaced GPT-5.3 Instant With GPT-5.5 Instant As Default"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-04-28",
+      "event_kind": "model_launch",
+      "id": "2026-04-28-openai-models-codex-aws-bedrock",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai",
+        "provider:aws-bedrock"
+      ],
+      "severity": "high",
+      "summary": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.",
+      "title": "OpenAI Added Models, Codex, And Managed Agents On AWS"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-04-23",
+      "event_kind": "model_launch",
+      "id": "2026-04-23-openai-gpt-55-chatgpt-codex-api",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI announced GPT-5.5 and GPT-5.5 Pro availability for ChatGPT and Codex paid/business plans, later updated the announcement to mark API availability, and listed API token pricing plus Batch, Flex, and Priority processing multipliers.",
+      "title": "OpenAI Launched GPT-5.5 For ChatGPT, Codex, And API Developers"
     },
     {
       "confidence": "confirmed",
