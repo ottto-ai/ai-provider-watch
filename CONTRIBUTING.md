@@ -20,6 +20,7 @@ AI Provider Watch accepts changes through pull requests.
 
 ```bash
 uv sync --all-extras
+uv run --extra dev reuse lint
 uv run pytest
 uv run apw source test
 uv run apw validate
