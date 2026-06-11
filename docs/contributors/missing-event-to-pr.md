@@ -44,6 +44,20 @@ path when you need source-owner help deciding whether the change is APW-worthy.
 Use the candidate path when a source-refresh PR already produced a review packet
 for the same official evidence.
 
+If a `Missing provider event` issue already exists, render a local review packet
+from the issue body before drafting the event:
+
+```bash
+uv run apw event issue-triage \
+  --issue-body .apw/missing-event-issue.md \
+  --output .apw/missing-event-triage.md
+```
+
+The triage output is advisory. It extracts form fields, flags prompt-injection
+markers, lists missing required fields, and renders a scaffold command with
+review placeholders. Do not copy issue-body prose into the event; use the issue
+only as a pointer to official evidence.
+
 ## Direct Official Source Path
 
 Use this when you reviewed the official source directly and want to draft an

@@ -59,6 +59,10 @@ from ai_provider_watch.pipeline.llm_review import (
     build_review_request,
     evaluate_review_result,
 )
+from ai_provider_watch.pipeline.missing_event_issue import (
+    build_missing_event_issue_triage,
+    render_missing_event_issue_triage_markdown,
+)
 from ai_provider_watch.pipeline.notifications import build_slack_payload, build_webhook_payload
 from ai_provider_watch.pipeline.operations import build_operations_report
 from ai_provider_watch.pipeline.promotion import build_promotion_readiness_report
@@ -244,6 +248,27 @@ def cmd_event_scaffold(args: argparse.Namespace) -> int:
         print(f"event scaffold failed: {exc}", file=sys.stderr)
         return 1
     _write_or_print(root, event, args.output)
+    return 0
+
+
+def cmd_event_issue_triage(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    try:
+        issue_body = Path(args.issue_body).read_text(encoding="utf-8")
+    except OSError as exc:
+        print(f"event issue-triage failed: {exc}", file=sys.stderr)
+        return 1
+    triage = build_missing_event_issue_triage(issue_body)
+    if args.format == "json":
+        _write_or_print(root, triage.as_dict(), args.output)
+        return 0
+    rendered = render_missing_event_issue_triage_markdown(triage)
+    if args.output:
+        output_path = _output_path(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(rendered, encoding="utf-8")
+    else:
+        sys.stdout.write(rendered)
     return 0
 
 
@@ -1259,6 +1284,15 @@ def build_parser() -> argparse.ArgumentParser:
     event_scaffold_parser.add_argument("--limitation", action="append")
     event_scaffold_parser.add_argument("--output", help="write event draft JSON to this path instead of stdout")
     event_scaffold_parser.set_defaults(func=cmd_event_scaffold)
+
+    issue_triage_parser = event_subparsers.add_parser(
+        "issue-triage",
+        help="render review-only triage for a Missing provider event issue body",
+    )
+    issue_triage_parser.add_argument("--issue-body", required=True, help="local Markdown file containing the GitHub issue body")
+    issue_triage_parser.add_argument("--format", default="markdown", choices=["markdown", "json"])
+    issue_triage_parser.add_argument("--output", help="write triage output to this path instead of stdout")
+    issue_triage_parser.set_defaults(func=cmd_event_issue_triage)
 
     remote_parser = subparsers.add_parser("remote", help="read live GitHub feed artifacts without a checkout")
     remote_subparsers = remote_parser.add_subparsers(dest="remote_command", required=True)
