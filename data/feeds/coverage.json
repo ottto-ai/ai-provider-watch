@@ -71,7 +71,7 @@
   ],
   "schema_version": "apw.source_coverage.v0",
   "source_state": {
-    "latest_retrieved_at": "2026-06-11T21:40:20Z",
+    "latest_retrieved_at": "2026-06-11T22:28:58Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
     "source_count": 21
@@ -93,7 +93,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:53Z"
+        "retrieved_at": "2026-06-11T22:28:24Z"
       },
       "source_type": "blog"
     },
@@ -113,7 +113,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:54Z"
+        "retrieved_at": "2026-06-11T22:28:29Z"
       },
       "source_type": "pricing_page"
     },
@@ -133,7 +133,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:55Z"
+        "retrieved_at": "2026-06-11T22:28:30Z"
       },
       "source_type": "docs_page"
     },
@@ -153,7 +153,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:57Z"
+        "retrieved_at": "2026-06-11T22:28:31Z"
       },
       "source_type": "status_page"
     },
@@ -173,7 +173,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:57Z"
+        "retrieved_at": "2026-06-11T22:28:32Z"
       },
       "source_type": "docs_page"
     },
@@ -193,7 +193,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:58Z"
+        "retrieved_at": "2026-06-11T22:28:32Z"
       },
       "source_type": "pricing_page"
     },
@@ -213,7 +213,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:58Z"
+        "retrieved_at": "2026-06-11T22:28:33Z"
       },
       "source_type": "rss_feed"
     },
@@ -233,7 +233,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:58Z"
+        "retrieved_at": "2026-06-11T22:28:34Z"
       },
       "source_type": "docs_page"
     },
@@ -253,7 +253,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:59Z"
+        "retrieved_at": "2026-06-11T22:28:34Z"
       },
       "source_type": "docs_page"
     },
@@ -273,7 +273,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:39:59Z"
+        "retrieved_at": "2026-06-11T22:28:34Z"
       },
       "source_type": "pricing_page"
     },
@@ -293,7 +293,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:12Z"
+        "retrieved_at": "2026-06-11T22:28:50Z"
       },
       "source_type": "docs_page"
     },
@@ -313,7 +313,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:12Z"
+        "retrieved_at": "2026-06-11T22:28:50Z"
       },
       "source_type": "docs_page"
     },
@@ -333,7 +333,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:13Z"
+        "retrieved_at": "2026-06-11T22:28:51Z"
       },
       "source_type": "docs_page"
     },
@@ -353,7 +353,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:13Z"
+        "retrieved_at": "2026-06-11T22:28:52Z"
       },
       "source_type": "docs_page"
     },
@@ -373,7 +373,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:15Z"
+        "retrieved_at": "2026-06-11T22:28:53Z"
       },
       "source_type": "pricing_page"
     },
@@ -393,7 +393,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:17Z"
+        "retrieved_at": "2026-06-11T22:28:55Z"
       },
       "source_type": "docs_page"
     },
@@ -413,7 +413,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:18Z"
+        "retrieved_at": "2026-06-11T22:28:56Z"
       },
       "source_type": "docs_page"
     },
@@ -433,7 +433,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:18Z"
+        "retrieved_at": "2026-06-11T22:28:56Z"
       },
       "source_type": "docs_page"
     },
@@ -453,7 +453,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:19Z"
+        "retrieved_at": "2026-06-11T22:28:57Z"
       },
       "source_type": "rss_feed"
     },
@@ -473,7 +473,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:19Z"
+        "retrieved_at": "2026-06-11T22:28:58Z"
       },
       "source_type": "pricing_page"
     },
@@ -493,7 +493,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T21:40:20Z"
+        "retrieved_at": "2026-06-11T22:28:58Z"
       },
       "source_type": "atom_feed"
     }
