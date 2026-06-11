@@ -1,6 +1,6 @@
 {
   "_apw": {
-    "generated_by": "ai-provider-watch 0.1.10",
+    "generated_by": "ai-provider-watch 0.1.11",
     "policy": "contains reviewed APW event summaries and APW metadata only; no raw provider content.",
     "schema_version": "apw.provider_event.v0",
     "source": "reviewed ProviderEvent records"
