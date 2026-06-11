@@ -1,7 +1,9 @@
 {
   "candidate_backlog": {
-    "by_status": {},
-    "total": 0
+    "by_status": {
+      "needs_review": 6
+    },
+    "total": 6
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
   "generated_at": "2026-06-11T12:15:00Z",
@@ -10,11 +12,11 @@
   "providers": [
     {
       "blocked_pending_parser_source_count": 0,
-      "candidate_backlog_count": 0,
-      "enabled_deterministic_source_count": 5,
-      "fetched_enabled_source_count": 5,
+      "candidate_backlog_count": 6,
+      "enabled_deterministic_source_count": 6,
+      "fetched_enabled_source_count": 6,
       "latest_event_date": "2026-06-04",
-      "manual_review_only_source_count": 1,
+      "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [],
       "provider_ref": "provider:openai",
       "reviewed_event_count": 12,
@@ -71,10 +73,10 @@
   ],
   "schema_version": "apw.source_coverage.v0",
   "source_state": {
-    "latest_retrieved_at": "2026-06-11T14:09:27Z",
+    "latest_retrieved_at": "2026-06-11T14:53:42Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "source_count": 20
+    "source_count": 21
   },
   "sources": [
     {
@@ -93,7 +95,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:08:57Z"
+        "retrieved_at": "2026-06-11T14:53:11Z"
       },
       "source_type": "blog"
     },
@@ -113,7 +115,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:00Z"
+        "retrieved_at": "2026-06-11T14:53:13Z"
       },
       "source_type": "pricing_page"
     },
@@ -133,7 +135,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:01Z"
+        "retrieved_at": "2026-06-11T14:53:14Z"
       },
       "source_type": "docs_page"
     },
@@ -153,7 +155,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:03Z"
+        "retrieved_at": "2026-06-11T14:53:16Z"
       },
       "source_type": "status_page"
     },
@@ -173,7 +175,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:03Z"
+        "retrieved_at": "2026-06-11T14:53:16Z"
       },
       "source_type": "docs_page"
     },
@@ -193,7 +195,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:03Z"
+        "retrieved_at": "2026-06-11T14:53:17Z"
       },
       "source_type": "pricing_page"
     },
@@ -213,7 +215,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:04Z"
+        "retrieved_at": "2026-06-11T14:53:17Z"
       },
       "source_type": "rss_feed"
     },
@@ -233,7 +235,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:04Z"
+        "retrieved_at": "2026-06-11T14:53:18Z"
       },
       "source_type": "docs_page"
     },
@@ -253,7 +255,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:05Z"
+        "retrieved_at": "2026-06-11T14:53:19Z"
       },
       "source_type": "docs_page"
     },
@@ -273,7 +275,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:05Z"
+        "retrieved_at": "2026-06-11T14:53:20Z"
       },
       "source_type": "pricing_page"
     },
@@ -293,7 +295,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:18Z"
+        "retrieved_at": "2026-06-11T14:53:33Z"
       },
       "source_type": "docs_page"
     },
@@ -313,7 +315,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:18Z"
+        "retrieved_at": "2026-06-11T14:53:33Z"
       },
       "source_type": "docs_page"
     },
@@ -333,7 +335,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:19Z"
+        "retrieved_at": "2026-06-11T14:53:34Z"
       },
       "source_type": "docs_page"
     },
@@ -353,7 +355,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:20Z"
+        "retrieved_at": "2026-06-11T14:53:35Z"
       },
       "source_type": "docs_page"
     },
@@ -373,7 +375,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:22Z"
+        "retrieved_at": "2026-06-11T14:53:37Z"
       },
       "source_type": "pricing_page"
     },
@@ -393,30 +395,27 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:24Z"
+        "retrieved_at": "2026-06-11T14:53:39Z"
       },
       "source_type": "docs_page"
     },
     {
       "authority": "official_docs",
-      "automation_status": "manual_review_only",
-      "candidate_backlog_count": 0,
-      "coverage_status": "manual_review_only",
-      "enabled": false,
-      "graduation_blockers": [
-        "needs dated changelog or article mapping before reviewed event promotion",
-        "needs parser fixtures that extract bounded feature names without copied docs text"
-      ],
+      "automation_status": "enabled_deterministic",
+      "candidate_backlog_count": 6,
+      "coverage_status": "enabled_fetched",
+      "enabled": true,
+      "graduation_blockers": [],
       "key": "openai.codex_docs",
-      "parser": "manual_review",
-      "parser_fixture_count": 0,
+      "parser": "openai_codex_changelog",
+      "parser_fixture_count": 1,
       "provider_refs": [
         "provider:openai"
       ],
       "source_state": {
-        "http_status": null,
-        "present": false,
-        "retrieved_at": null
+        "http_status": 200,
+        "present": true,
+        "retrieved_at": "2026-06-11T14:53:39Z"
       },
       "source_type": "docs_page"
     },
@@ -436,7 +435,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:24Z"
+        "retrieved_at": "2026-06-11T14:53:40Z"
       },
       "source_type": "docs_page"
     },
@@ -456,7 +455,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:25Z"
+        "retrieved_at": "2026-06-11T14:53:40Z"
       },
       "source_type": "rss_feed"
     },
@@ -476,7 +475,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:26Z"
+        "retrieved_at": "2026-06-11T14:53:41Z"
       },
       "source_type": "pricing_page"
     },
@@ -496,24 +495,30 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T14:09:27Z"
+        "retrieved_at": "2026-06-11T14:53:42Z"
       },
       "source_type": "atom_feed"
     }
   ],
   "summary": {
     "blocked_pending_parser_source_count": 0,
-    "candidate_backlog_count": 0,
-    "enabled_deterministic_source_count": 20,
-    "fetched_enabled_source_count": 20,
+    "candidate_backlog_count": 6,
+    "enabled_deterministic_source_count": 21,
+    "fetched_enabled_source_count": 21,
     "fetched_enabled_source_ratio": 1.0,
     "latest_event_date": "2026-06-11",
-    "manual_review_only_source_count": 1,
+    "manual_review_only_source_count": 0,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
     "reviewed_event_count": 45,
     "source_count": 21,
-    "warning_count": 0
+    "warning_count": 1
   },
-  "warnings": []
+  "warnings": [
+    {
+      "code": "candidate_backlog_present",
+      "detail": "6 review candidate(s) are present outside reviewed events",
+      "severity": "info"
+    }
+  ]
 }

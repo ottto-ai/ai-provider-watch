@@ -6,13 +6,13 @@ Run locally:
 
 ```bash
 uv run apw source test
-uv run apw source fetch --observations .apw/source-observations.json
+uv run apw source fetch --observations .apw/source-observations.json --limit-bytes 3000000
 ```
 
 To update committed source state:
 
 ```bash
-uv run apw source fetch --write-state --observations .apw/source-observations.json
+uv run apw source fetch --write-state --observations .apw/source-observations.json --limit-bytes 3000000
 ```
 
 The scheduled workflow runs daily. It fetches and parses enabled deterministic

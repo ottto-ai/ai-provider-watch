@@ -1389,7 +1389,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="maintainer smoke: allow --source to fetch disabled descriptors without writing source state",
     )
     source_fetch_parser.add_argument("--timeout", type=float, default=20.0)
-    source_fetch_parser.add_argument("--limit-bytes", type=int, default=1_000_000)
+    source_fetch_parser.add_argument("--limit-bytes", type=int, default=3_000_000)
     source_fetch_parser.set_defaults(func=cmd_source_fetch)
     source_coverage_parser = source_subparsers.add_parser(
         "coverage",

@@ -18,7 +18,7 @@ def test_operations_report_matches_schema_and_current_public_gaps() -> None:
     assert not list(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(report))
     assert report["schema_version"] == "apw.operations_report.v0"
     assert report["generated_at"] == CREATED_AT
-    assert report["overall_status"] == "pass"
+    assert report["overall_status"] == "warn"
     assert report["summary"]["provider_count"] == 5
     assert report["summary"]["reviewed_event_count"] == 45
     assert report["summary"]["latest_event_date"] == "2026-06-11"
@@ -26,8 +26,8 @@ def test_operations_report_matches_schema_and_current_public_gaps() -> None:
     assert report["summary"]["enabled_source_coverage_ratio"] == 1.0
     assert report["summary"]["missing_enabled_source_count"] == 0
     assert report["summary"]["source_count"] == 21
-    assert report["summary"]["candidate_backlog_count"] == 0
-    assert report["summary"]["source_state_latest_retrieved_at"] == "2026-06-11T14:09:27Z"
+    assert report["summary"]["candidate_backlog_count"] == 6
+    assert report["summary"]["source_state_latest_retrieved_at"] == "2026-06-11T14:53:42Z"
     assert report["summary"]["source_state_age_hours"] == 0.0
 
 
@@ -38,7 +38,7 @@ def test_operations_report_slos_and_policy_boundaries() -> None:
     assert slos["reviewed_event_freshness"]["status"] == "pass"
     assert slos["source_state_freshness"]["status"] == "pass"
     assert slos["enabled_source_coverage"]["status"] == "pass"
-    assert slos["candidate_backlog"]["status"] == "pass"
+    assert slos["candidate_backlog"]["status"] == "warn"
     assert slos["public_intake_templates"]["status"] == "pass"
     assert report["contributor_quality"]["intake_templates"]["missing_templates"] == []
     assert report["correction_retraction"]["latency_status"] == "not_measured_until_public_issue_volume"

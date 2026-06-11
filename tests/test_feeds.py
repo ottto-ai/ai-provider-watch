@@ -87,7 +87,8 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
         ).iter_errors(operations)
     )
     assert operations["schema_version"] == "apw.operations_report.v0"
-    assert operations["summary"]["candidate_backlog_count"] == 0
+    assert operations["overall_status"] == "warn"
+    assert operations["summary"]["candidate_backlog_count"] == 6
     freshness = json.loads(artifacts[Path("data/feeds/freshness.json")])
     assert freshness["schema_version"] == "apw.feed_freshness.v0"
     assert freshness["release_id"] == "dev"
@@ -95,7 +96,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["event_count"] == len(events)
     assert freshness["latest_event_date"] == "2026-06-11"
     assert freshness["source_state"]["path"] == "data/source-state/fingerprints.json"
-    assert freshness["source_state"]["source_count"] == 20
+    assert freshness["source_state"]["source_count"] == 21
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
     assert any(artifact["path"] == "data/feeds/coverage.json" for artifact in freshness["feed_artifacts"])
     assert any(artifact["path"] == "data/feeds/events.json" for artifact in freshness["feed_artifacts"])

@@ -20,7 +20,7 @@ jobs:
           python-version: "3.12"
       - run: uv sync --all-extras
       - run: uv run apw source test
-      - run: uv run apw source fetch --write-state --observations .apw/source-observations.json
+      - run: uv run apw source fetch --write-state --observations .apw/source-observations.json --limit-bytes 3000000
       - name: Generate review candidates
         run: |
           created_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -63,7 +63,7 @@ jobs:
           created_at="$(cat .apw/candidate-created-at.txt)"
           {
             echo "uv run apw source test: pass"
-            echo "uv run apw source fetch --write-state --observations .apw/source-observations.json: pass"
+            echo "uv run apw source fetch --write-state --observations .apw/source-observations.json --limit-bytes 3000000: pass"
             echo "uv run apw candidate generate --observations .apw/source-observations.json --output data/candidates/review --created-at ${created_at} --clean --skip-reviewed-duplicates: pass"
             echo "uv run apw index: pass"
             echo "uv run apw validate: pass"

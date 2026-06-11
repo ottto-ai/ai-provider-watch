@@ -19,7 +19,9 @@
     "candidate_claims": [
       {
         "candidate_kind": "status_incident",
-        "claim_text": "Anthropic status source changed and needs maintainer review for possible incident or recovery changes."
+        "claim_text": "Anthropic official status page has a bounded incident or recovery reference that needs maintainer review.",
+        "selector": "statuspage:93d37dbb7a6345f6",
+        "snapshot_ref": "statuspage:93d37dbb7a6345f6"
       }
     ],
     "errors": [],

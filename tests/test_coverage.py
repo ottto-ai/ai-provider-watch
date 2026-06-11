@@ -22,19 +22,19 @@ def test_source_coverage_report_matches_schema_and_current_gaps() -> None:
     assert report["summary"] == {
         "provider_count": 5,
         "source_count": 21,
-        "enabled_deterministic_source_count": 20,
-        "fetched_enabled_source_count": 20,
+        "enabled_deterministic_source_count": 21,
+        "fetched_enabled_source_count": 21,
         "missing_enabled_source_count": 0,
         "fetched_enabled_source_ratio": 1.0,
-        "manual_review_only_source_count": 1,
+        "manual_review_only_source_count": 0,
         "blocked_pending_parser_source_count": 0,
         "reviewed_event_count": 45,
         "latest_event_date": "2026-06-11",
-        "candidate_backlog_count": 0,
-        "warning_count": 0,
+        "candidate_backlog_count": 6,
+        "warning_count": 1,
     }
-    assert report["source_state"]["source_count"] == 20
-    assert report["candidate_backlog"]["by_status"] == {}
+    assert report["source_state"]["source_count"] == 21
+    assert report["candidate_backlog"]["by_status"] == {"needs_review": 6}
     assert "no raw provider content" in report["coverage_policy"]
 
 
@@ -54,8 +54,8 @@ def test_source_coverage_reports_provider_gaps_and_blocked_sources() -> None:
     assert sources["openai.deprecations"]["parser_fixture_count"] == 1
     assert sources["openai.api_changelog"]["coverage_status"] == "enabled_fetched"
     assert sources["openai.api_changelog"]["parser_fixture_count"] == 1
-    assert sources["openai.codex_docs"]["coverage_status"] == "manual_review_only"
-    assert sources["openai.codex_docs"]["parser_fixture_count"] == 0
+    assert sources["openai.codex_docs"]["coverage_status"] == "enabled_fetched"
+    assert sources["openai.codex_docs"]["parser_fixture_count"] == 1
     assert sources["anthropic.release_notes"]["coverage_status"] == "enabled_fetched"
     assert sources["anthropic.release_notes"]["parser_fixture_count"] == 1
     assert sources["openai.news"]["coverage_status"] == "enabled_fetched"
@@ -67,7 +67,7 @@ def test_source_coverage_warnings_are_structured_visibility_signals() -> None:
 
     assert warning_codes.count("enabled_source_missing_source_state") == 0
     assert warning_codes.count("blocked_official_source") == 0
-    assert warning_codes.count("candidate_backlog_present") == 0
+    assert warning_codes.count("candidate_backlog_present") == 1
     assert "source_state_stale" in warning_codes
     assert not [
         warning["source_key"]

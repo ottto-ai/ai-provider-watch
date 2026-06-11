@@ -96,7 +96,7 @@ def test_source_packages_validate() -> None:
 
 def test_source_registry_loads_enabled_sources() -> None:
     sources = load_source_descriptors(ROOT)
-    assert len(sources) == 20
+    assert len(sources) == 21
     assert [source.key for source in sources] == sorted(source.key for source in sources)
     assert "anthropic.pricing" in {source.key for source in sources}
 
@@ -108,9 +108,9 @@ def test_source_registry_declares_graduation_posture() -> None:
     blocked = {source.key for source in sources if source.automation_status == "blocked_pending_parser"}
     manual_only = {source.key for source in sources if source.automation_status == "manual_review_only"}
 
-    assert len(enabled) == 20
+    assert len(enabled) == 21
     assert blocked == set()
-    assert manual_only == {"openai.codex_docs"}
+    assert manual_only == set()
     assert {
         "anthropic.news",
         "anthropic.release_notes",
@@ -121,6 +121,7 @@ def test_source_registry_declares_graduation_posture() -> None:
         "google.vertex_model_versions",
         "openai.deprecations",
         "openai.api_changelog",
+        "openai.codex_docs",
         "openai.news",
     } <= enabled
     for source in sources:
@@ -330,6 +331,10 @@ def test_changed_enabled_sources_emit_sanitized_candidate_claims() -> None:
             assert parsed.candidate_claims == []
             assert parsed.raw_excerpt_hashes == []
             assert parsed.errors and parsed.errors[0].startswith("content_scope start heading not found:")
+            continue
+        if source.parser == "statuspage_html":
+            assert parsed.candidate_claims == []
+            assert parsed.raw_excerpt_hashes == []
             continue
 
         assert len(parsed.candidate_claims) == 1
