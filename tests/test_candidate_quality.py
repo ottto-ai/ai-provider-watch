@@ -151,6 +151,30 @@ def test_candidate_quality_marks_reviewed_event_evidence_as_duplicate(tmp_path) 
     assert row["dimensions"]["not_already_reviewed"] is False
 
 
+def test_candidate_quality_marks_same_article_url_with_parser_selector_as_duplicate(tmp_path) -> None:
+    candidate = _dated_candidate(
+        candidate_id="candidate-anthropic-news-77bbf1a9fc107107",
+        source_key="anthropic.news",
+        provider_ref="provider:anthropic",
+        claim_text="Anthropic official dated source reports a model availability change on 2026-05-28 for claude-opus-4.8.",
+        candidate_kind="model_launch",
+        evidence_url="https://www.anthropic.com/news/claude-opus-4-8",
+        selector="announcement:ed4ed387f1de84c5",
+        parser_name="anthropic_news_index",
+    )
+    report = build_candidate_quality_report(
+        [CandidateFile(path=tmp_path / "candidate.json", payload=candidate)],
+        load_source_descriptors(ROOT, enabled_only=False),
+        root=ROOT,
+        created_at=CREATED_AT,
+    )
+
+    row = report["candidates"][0]
+    assert row["quality_tier"] == "duplicate"
+    assert row["recommended_action"] == "duplicate"
+    assert row["duplicate_event_ids"] == ["2026-05-28-anthropic-opus-48-dynamic-workflows"]
+
+
 def _dated_candidate(
     *,
     candidate_id: str,

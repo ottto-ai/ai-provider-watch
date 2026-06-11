@@ -49,6 +49,21 @@ MULTI_ENTRY_SOURCE_KEYS = {
     "google.gemini_changelog",
 }
 
+ARTICLE_URL_SOURCE_KEYS = {
+    "anthropic.news",
+    "aws_bedrock.whats_new",
+    "openai.news",
+}
+
+SHARED_ARTICLE_INDEX_PATHS = {
+    "",
+    "/",
+    "/index",
+    "/index/",
+    "/news",
+    "/news/",
+}
+
 OPENAI_NEWS_DIRECT_CHANGE_URL_TERMS = (
     "api",
     "aws",
@@ -269,15 +284,35 @@ def _normal_url(url: Any) -> str | None:
     return url.rstrip("/")
 
 
-def _is_multi_entry_evidence(evidence: dict[str, Any]) -> bool:
-    source_key = evidence.get("source_key")
-    if source_key in MULTI_ENTRY_SOURCE_KEYS:
-        return True
+def _is_specific_article_url(evidence: dict[str, Any]) -> bool:
     url = _normal_url(evidence.get("url"))
     if url is None:
         return False
     path = urlparse(url).path.lower()
+    return evidence.get("source_key") in ARTICLE_URL_SOURCE_KEYS and path not in SHARED_ARTICLE_INDEX_PATHS
+
+
+def _is_multi_entry_evidence(evidence: dict[str, Any]) -> bool:
+    source_key = evidence.get("source_key")
+    url = _normal_url(evidence.get("url"))
+    if url is None:
+        return False
+    path = urlparse(url).path.lower()
+    if source_key in MULTI_ENTRY_SOURCE_KEYS:
+        return True
     return any(marker in path for marker in ("/changelog", "/whats-new"))
+
+
+def _manual_reviewed_article_url_identity(evidence: dict[str, Any]) -> str | None:
+    if not _is_specific_article_url(evidence):
+        return None
+    selector = evidence.get("selector")
+    snapshot_ref = evidence.get("snapshot_ref")
+    if isinstance(snapshot_ref, str) and snapshot_ref.startswith("reviewed-source:"):
+        return _normal_url(evidence.get("url"))
+    if isinstance(selector, str) and selector and not selector.startswith("announcement:"):
+        return _normal_url(evidence.get("url"))
+    return None
 
 
 def _evidence_identity(evidence: dict[str, Any]) -> str | None:
@@ -332,6 +367,9 @@ def _reviewed_events_by_evidence(root: Path | None) -> dict[str, list[str]]:
             if identity is None:
                 continue
             reviewed.setdefault(identity, []).append(event["id"])
+            article_url_identity = _manual_reviewed_article_url_identity(evidence)
+            if article_url_identity is not None:
+                reviewed.setdefault(article_url_identity, []).append(event["id"])
     return {identity: sorted(set(event_ids)) for identity, event_ids in reviewed.items()}
 
 
@@ -347,6 +385,10 @@ def _duplicate_event_ids(candidate: dict[str, Any], reviewed_by_evidence: dict[s
         if identity is None:
             continue
         event_ids.update(reviewed_by_evidence.get(identity, []))
+        if _is_specific_article_url(evidence):
+            url_identity = _normal_url(evidence.get("url"))
+            if url_identity is not None:
+                event_ids.update(reviewed_by_evidence.get(url_identity, []))
     return sorted(event_ids)
 
 

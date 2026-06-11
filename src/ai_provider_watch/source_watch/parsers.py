@@ -54,6 +54,35 @@ KIND_LABELS = {
     "workflow_behavior_change": "workflow behavior change",
 }
 
+STATUS_APW_SURFACE_TERMS = (
+    "api",
+    "assistants",
+    "batch",
+    "codex",
+    "console",
+    "developer",
+    "files",
+    "fine-tuning",
+    "images",
+    "login",
+    "models",
+    "platform",
+    "realtime",
+    "responses",
+    "sdk",
+    "sora",
+    "uploads",
+    "vs code",
+)
+
+STATUS_CONSUMER_ONLY_TERMS = (
+    "chatgpt free",
+    "free and go users",
+    "free users",
+    "go users",
+    "voice mode",
+)
+
 OPENAI_MODEL_PATTERN = re.compile(
     r"\bchat-latest\b(?![.-])"
     r"|\bchatgpt-[0-9][a-z]?(?:-[a-z0-9]+)*\b(?![.-])"
@@ -852,6 +881,46 @@ def _atom_items(raw: bytes) -> tuple[list[dict[str, Any]], list[str]]:
         if item != {"kind": "atom_entry"}:
             items.append(item)
     return items, []
+
+
+def _atom_status_has_apw_surface_signal(raw: bytes) -> bool:
+    try:
+        root = DET.fromstring(raw)
+    except (
+        DET.ParseError,
+        DET.DTDForbidden,
+        DET.EntitiesForbidden,
+        DET.ExternalReferenceForbidden,
+    ):
+        return False
+
+    entries = root.findall("{http://www.w3.org/2005/Atom}entry")
+    if not entries:
+        return False
+    entry = entries[0]
+    title = _normalize_text(entry.findtext("{http://www.w3.org/2005/Atom}title") or "")
+    summary = _normalize_text(entry.findtext("{http://www.w3.org/2005/Atom}summary") or "")
+    content = _normalize_text(entry.findtext("{http://www.w3.org/2005/Atom}content") or "")
+    text = f"{title} {summary} {content}".lower()
+    if any(term in text for term in STATUS_CONSUMER_ONLY_TERMS) and not any(
+        term in text for term in STATUS_APW_SURFACE_TERMS
+    ):
+        return False
+    return any(term in text for term in STATUS_APW_SURFACE_TERMS)
+
+
+def _atom_status_candidate_claims(source: SourceDescriptor, raw: bytes) -> list[dict[str, str]]:
+    if not _atom_status_has_apw_surface_signal(raw):
+        return []
+    return [
+        {
+            "candidate_kind": "status_incident",
+            "claim_text": (
+                f"{_provider_label(source)} status source has a developer-surface "
+                "incident or recovery update that needs maintainer review."
+            ),
+        }
+    ]
 
 
 def _model_candidate_text(raw: bytes, *, include_model_hrefs: bool) -> str:
@@ -2254,12 +2323,16 @@ def parse_source_payload(
     errors: list[str] = []
     operational_state: dict[str, Any] | None = None
     pricing_state: dict[str, Any] | None = None
+    allow_generic_fallback = True
     scoped = scoped_source_content(source, raw)
     raw = scoped.raw
     errors.extend(scoped.errors)
     if source.parser == "atom_status":
         items, atom_errors = _atom_items(raw)
         errors.extend(atom_errors)
+        allow_generic_fallback = bool(atom_errors) or not items
+        if changed and not atom_errors:
+            candidate_claims = _atom_status_candidate_claims(source, raw)
     elif source.parser in DATED_ANNOUNCEMENT_PARSER_NAMES:
         items, announcement_claims, announcement_errors = _dated_announcement_payload(source, raw)
         errors.extend(announcement_errors)
@@ -2294,7 +2367,8 @@ def parse_source_payload(
     return ParsedSourcePayload(
         items=items,
         raw_excerpt_hashes=[],
-        candidate_claims=candidate_claims or (_candidate_claims(source, raw) if changed else []),
+        candidate_claims=candidate_claims
+        or (_candidate_claims(source, raw) if changed and allow_generic_fallback else []),
         errors=errors,
         snapshot_ref=None,
     )
