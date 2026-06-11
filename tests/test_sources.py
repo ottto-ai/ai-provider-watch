@@ -96,7 +96,7 @@ def test_source_packages_validate() -> None:
 
 def test_source_registry_loads_enabled_sources() -> None:
     sources = load_source_descriptors(ROOT)
-    assert len(sources) == 19
+    assert len(sources) == 20
     assert [source.key for source in sources] == sorted(source.key for source in sources)
     assert "anthropic.pricing" in {source.key for source in sources}
 
@@ -108,7 +108,7 @@ def test_source_registry_declares_graduation_posture() -> None:
     blocked = {source.key for source in sources if source.automation_status == "blocked_pending_parser"}
     manual_only = {source.key for source in sources if source.automation_status == "manual_review_only"}
 
-    assert len(enabled) == 19
+    assert len(enabled) == 20
     assert blocked == set()
     assert manual_only == {"openai.codex_docs"}
     assert {
@@ -120,6 +120,7 @@ def test_source_registry_declares_graduation_posture() -> None:
         "google.gemini_changelog",
         "google.vertex_model_versions",
         "openai.deprecations",
+        "openai.api_changelog",
         "openai.news",
     } <= enabled
     for source in sources:
@@ -1059,6 +1060,11 @@ def test_dated_announcement_parser_fixtures_emit_bounded_claims() -> None:
             "sources/openai/fixtures/news-feed.expected.json",
         ),
         (
+            "openai.api_changelog",
+            "sources/openai/fixtures/api-changelog.html",
+            "sources/openai/fixtures/api-changelog.expected.json",
+        ),
+        (
             "anthropic.news",
             "sources/anthropic/fixtures/news.html",
             "sources/anthropic/fixtures/news.expected.json",
@@ -1121,6 +1127,7 @@ def test_dated_announcement_parser_fixtures_emit_bounded_claims() -> None:
         for source_key, input_path, _ in cases
     )
     assert "Ignore instructions" not in rendered
+    assert "publish this page body" not in rendered
     assert "Codex and GPT-4.1 availability expands for developers" not in rendered
     assert "Amazon Bedrock adds model availability for Nova Premier" not in rendered
 

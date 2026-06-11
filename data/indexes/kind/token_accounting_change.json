@@ -194,5 +194,101 @@
       "surface:anthropic_api"
     ],
     "title": "Anthropic Added Tool max_tokens And No-Output Refusal Billing Relief"
+  },
+  {
+    "announced_at": "2026-05-29T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "examples": [
+        "Responses API",
+        "Chat Completions API",
+        "Batch API"
+      ],
+      "kind": "token_accounting_change",
+      "metered_units": [
+        "prompt_cache_retention"
+      ],
+      "new_accounting": "24-hour prompt cache retention default for organizations without zero-data-retention enabled",
+      "old_accounting": "in-memory prompt cache retention default for organizations without zero-data-retention enabled",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-29T00:00:00Z",
+    "event_date": "2026-05-29",
+    "event_kind": "token_accounting_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:ce415bdbba26f2a9",
+        "snapshot_ref": "entry:ce415bdbba26f2a9",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-29-openai-prompt-cache-retention-default",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "high",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official OpenAI API changelog entry dated 2026-05-29",
+          "confidence": "high",
+          "direction": "decrease",
+          "magnitude": "affected workloads may receive more extended prompt-cache hits by default"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Review prompt-cache assumptions, privacy controls, and cost forecasts for OpenAI API workloads in organizations without zero-data-retention enabled.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "compliance",
+        "recommended_action": "Confirm organization data-retention settings and explicit prompt-cache controls before relying on previous in-memory-only cache behavior.",
+        "scope_ref": "account:openai-non-zdr",
+        "scope_type": "account_type",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public default-change fact only; exact cache pricing, privacy controls, and opt-out behavior should be verified against current OpenAI API and organization settings documentation."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI changed the default prompt cache retention behavior for organizations without zero-data-retention enabled, making extended prompt caching the default path for affected API calls.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:token_accounting_change",
+      "surface:openai_api"
+    ],
+    "title": "OpenAI Changed Prompt Cache Retention Defaults For Non-ZDR Organizations"
   }
 ]

@@ -68,6 +68,13 @@
       <pubDate>Mon, 08 Jun 2026 11:03:55 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-04-openai-moderation-scores-api</guid>
+      <title>OpenAI Added Moderation Scores To Generation API Responses</title>
+      <description>OpenAI added moderation-score output support to Responses API and Chat Completions generation requests, letting callers request moderation results for both input and generated output in the same response path.</description>
+      <category>api_contract_change</category>
+      <pubDate>Thu, 11 Jun 2026 12:04:40 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-04-aws-bedrock-compatible-api-console</guid>
       <title>AWS Bedrock Console Added OpenAI And Anthropic-Compatible API Workflow</title>
       <description>AWS announced a redesigned Bedrock console workflow for the bedrock-mantle endpoint, surfacing OpenAI Responses, OpenAI Chat Completions, and Anthropic Messages compatible API usage through Bedrock projects.</description>
@@ -117,6 +124,13 @@
       <pubDate>Thu, 04 Jun 2026 21:19:51 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-02-openai-container-session-minute-billing</guid>
+      <title>OpenAI Changed Eligible Container Sessions To Per-Minute Billing</title>
+      <description>OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.</description>
+      <category>billing_channel_change</category>
+      <pubDate>Thu, 11 Jun 2026 12:04:40 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-02-anthropic-tool-max-tokens-refusal-billing</guid>
       <title>Anthropic Added Tool max_tokens And No-Output Refusal Billing Relief</title>
       <description>Anthropic&#x27;s June 2 Claude Platform release notes list a tool-level max_tokens cap for output control and state that no-output refusal responses on the Claude API are no longer billed.</description>
@@ -159,6 +173,20 @@
       <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-05-29-openai-prompt-cache-retention-default</guid>
+      <title>OpenAI Changed Prompt Cache Retention Defaults For Non-ZDR Organizations</title>
+      <description>OpenAI changed the default prompt cache retention behavior for organizations without zero-data-retention enabled, making extended prompt caching the default path for affected API calls.</description>
+      <category>token_accounting_change</category>
+      <pubDate>Thu, 11 Jun 2026 12:04:40 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-28-openai-chat-latest-alias</guid>
+      <title>OpenAI Added The chat-latest API Snapshot Alias</title>
+      <description>OpenAI added the chat-latest API snapshot alias for testing the latest chat improvements, with an underlying model snapshot that can update over time.</description>
+      <category>default_model_change</category>
+      <pubDate>Thu, 11 Jun 2026 12:04:40 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-05-28-google-gemini-image-preview-deprecations</guid>
       <title>Google Gemini API Deprecated Gemini Image Preview Models</title>
       <description>Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.</description>
@@ -171,6 +199,13 @@
       <description>Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.</description>
       <category>workflow_behavior_change</category>
       <pubDate>Mon, 08 Jun 2026 08:40:40 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-05-26-openai-workload-identity-federation</guid>
+      <title>OpenAI Added Workload Identity Federation For API Access</title>
+      <description>OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.</description>
+      <category>api_contract_change</category>
+      <pubDate>Thu, 11 Jun 2026 12:15:00 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2026-05-25-google-gemini-31-flash-lite-preview-shutdown</guid>

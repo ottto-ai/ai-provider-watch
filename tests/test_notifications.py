@@ -35,11 +35,16 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
 
     _assert_valid("webhook-payload.schema.json", payload)
     assert payload["schema_version"] == "apw.webhook_payload.v0"
-    assert payload["event_count"] == 6
+    assert payload["event_count"] == 11
     assert {event["id"] for event in payload["events"]} == {
+        "2026-06-04-openai-moderation-scores-api",
         "2026-06-02-openai-codex-role-plugins-sites",
+        "2026-06-02-openai-container-session-minute-billing",
         "2026-06-02-openai-gpt-image-model-deprecations",
         "2026-06-01-openai-codex-aws-bedrock-ga",
+        "2026-05-29-openai-prompt-cache-retention-default",
+        "2026-05-28-openai-chat-latest-alias",
+        "2026-05-26-openai-workload-identity-federation",
         "2026-06-04-openai-image-api-401-errors",
         "2026-04-22-openai-legacy-gpt-snapshot-retirements",
         "2024-01-04-openai-gpt3-completions-retirement",
@@ -48,7 +53,8 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
     assert payload["delivery"]["method"] == "POST"
     assert payload["delivery"]["retry_policy"]["retry_on_status"] == [408, 429, 500, 502, 503, 504]
     assert "webhook_url" not in rendered
-    assert "token" not in rendered.lower()
+    assert "api_key" not in rendered.lower()
+    assert "authorization" not in rendered.lower()
     assert "quoted_excerpt" not in rendered
 
 

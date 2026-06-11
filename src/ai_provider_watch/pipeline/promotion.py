@@ -57,6 +57,7 @@ DATED_PARSER_NAMES = {
     "azure_openai_legacy_models",
     "google_gemini_changelog",
     "google_vertex_model_versions",
+    "openai_api_changelog",
     "openai_news_feed",
     "openai_deprecations",
 }

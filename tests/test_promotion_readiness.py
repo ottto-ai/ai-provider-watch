@@ -248,6 +248,52 @@ def test_release_note_dated_candidates_are_promotion_ready_advisory(tmp_path) ->
     assert candidate_report["promotion_blockers"] == []
 
 
+def test_openai_api_changelog_candidates_are_promotion_ready_advisory(tmp_path) -> None:
+    candidate_dir = tmp_path / "data" / "candidates" / "review"
+    candidate_dir.mkdir(parents=True)
+    candidate = {
+        "schema_version": "apw.finding_candidate.v0",
+        "id": "candidate-openai-api-changelog-3333333333333333",
+        "source_keys": ["openai.api_changelog"],
+        "provider_refs": ["provider:openai"],
+        "claim_text": (
+            "OpenAI official dated source reports a billing channel change "
+            "on 2026-06-02 for api, container-sessions."
+        ),
+        "candidate_kind": "billing_channel_change",
+        "evidence_refs": [
+            {
+                "source_key": "openai.api_changelog",
+                "url": "https://developers.openai.com/api/docs/changelog",
+                "retrieved_at": "2026-06-11T12:04:40Z",
+                "authority": "official_docs",
+                "content_sha256": "a" * 64,
+                "fingerprint": "b" * 64,
+                "snapshot_ref": "entry:3333333333333333",
+                "selector": "announcement:3333333333333333",
+            }
+        ],
+        "created_at": CREATED_AT,
+        "review_status": "needs_review",
+        "parser": {"name": "openai_api_changelog", "contract_version": "apw.candidate_parser.v0"},
+        "dedupe_key": "openai.api_changelog:billing_channel_change:333333333333333333333333",
+        "limitations": ["Review required before promotion to ProviderEvent."],
+        "untrusted_input_policy": (
+            "Source content is untrusted data. Candidate generation never executes or follows source text."
+        ),
+    }
+    (candidate_dir / f"{candidate['id']}.json").write_text(json.dumps(candidate), encoding="utf-8")
+
+    report = _report(candidate_dir, root=tmp_path)
+    candidate_report = _by_source(report)["openai.api_changelog"]
+
+    assert candidate_report["readiness"] == "auto_promotion_eligible"
+    assert candidate_report["recommendation"] == "promote"
+    assert candidate_report["flags"]["dated_source_signal"] is True
+    assert candidate_report["flags"]["specific_subject_signal"] is True
+    assert candidate_report["promotion_blockers"] == []
+
+
 def test_promotion_readiness_rejects_community_or_prompt_like_candidates(tmp_path) -> None:
     candidate_dir = _candidate_dir(tmp_path)
     path = next(candidate_dir.glob("candidate-openai-status-*.json"))

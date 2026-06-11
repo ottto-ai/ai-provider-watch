@@ -316,6 +316,9 @@ def _registry_terms(root: Path) -> dict[str, set[str]]:
         if isinstance(model_id, str):
             terms["model"].add(model_id)
             terms["model"].add(f"model:{model_id}")
+        for alias in model.get("aliases", []) if isinstance(model, dict) else []:
+            if isinstance(alias, str) and len(alias) >= 3:
+                terms["model"].add(alias)
     for event in events:
         detail = event.get("detail", {})
         if not isinstance(detail, dict):

@@ -34,11 +34,12 @@ Every source key in `sources/registry.json` must appear in this table.
 | `openai.status` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `openai.deprecations` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `openai.news` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
+| `openai.api_changelog` | OpenAI | `apw-data-maintainers` | `enabled_deterministic` |
 | `openai.codex_docs` | OpenAI | `apw-data-maintainers` | `manual_review_only` |
 | `anthropic.pricing` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
 | `anthropic.status` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
 | `anthropic.news` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
-| `anthropic.release_notes` | Anthropic | `apw-data-maintainers` | `manual_review_only` |
+| `anthropic.release_notes` | Anthropic | `apw-data-maintainers` | `enabled_deterministic` |
 | `google.vertex_pricing` | Google Gemini / Vertex AI | `apw-data-maintainers` | `enabled_deterministic` |
 | `google.ai_docs` | Google Gemini / Vertex AI | `apw-data-maintainers` | `enabled_deterministic` |
 | `google.gemini_changelog` | Google Gemini / Vertex AI | `apw-data-maintainers` | `enabled_deterministic` |

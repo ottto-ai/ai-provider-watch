@@ -91,6 +91,21 @@ def _ids(items: list[dict[str, Any]], key: str) -> set[str]:
     return {str(item[key]) for item in items if key in item}
 
 
+def _model_alias_refs(models: list[dict[str, Any]]) -> set[str]:
+    refs: set[str] = set()
+    for model in models:
+        model_id = model.get("id")
+        provider_id = model.get("provider_id")
+        if isinstance(model_id, str):
+            refs.add(f"model_alias:{model_id}")
+        if not isinstance(provider_id, str):
+            continue
+        for alias in model.get("aliases", []):
+            if isinstance(alias, str):
+                refs.add(f"model_alias:{provider_id}/{alias}")
+    return refs
+
+
 def _duplicate_issues(path: Path, items: list[dict[str, Any]], key: str) -> list[ValidationIssue]:
     seen: set[str] = set()
     found: list[ValidationIssue] = []
@@ -117,6 +132,7 @@ def _validate_registries(root: Path) -> tuple[list[ValidationIssue], dict[str, s
     issues.extend(_duplicate_issues(providers_path, providers, "id"))
     issues.extend(_duplicate_issues(surfaces_path, surfaces, "id"))
     issues.extend(_duplicate_issues(apps_path, apps, "id"))
+    issues.extend(_duplicate_issues(models_path, models, "id"))
 
     provider_ids = _ids(providers, "id")
     for surface in surfaces:
@@ -129,6 +145,7 @@ def _validate_registries(root: Path) -> tuple[list[ValidationIssue], dict[str, s
         "surface": {f"surface:{item}" for item in _ids(surfaces, "id")},
         "app": {f"app:{item}" for item in _ids(apps, "id")},
         "model": {f"model:{item}" for item in _ids(models, "id")},
+        "model_alias": _model_alias_refs(models),
     }
 
 

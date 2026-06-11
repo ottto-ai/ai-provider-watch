@@ -111,6 +111,18 @@
     "confidence": "confirmed",
     "event_date": "2026-06-04",
     "event_kind": "api_contract_change",
+    "id": "2026-06-04-openai-moderation-scores-api",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI added moderation-score output support to Responses API and Chat Completions generation requests, letting callers request moderation results for both input and generated output in the same response path.",
+    "title": "OpenAI Added Moderation Scores To Generation API Responses"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-04",
+    "event_kind": "api_contract_change",
     "id": "2026-06-04-aws-bedrock-compatible-api-console",
     "provider_refs": [
       "provider:aws-bedrock"
@@ -194,6 +206,18 @@
   {
     "confidence": "confirmed",
     "event_date": "2026-06-02",
+    "event_kind": "billing_channel_change",
+    "id": "2026-06-02-openai-container-session-minute-billing",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "high",
+    "summary": "OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.",
+    "title": "OpenAI Changed Eligible Container Sessions To Per-Minute Billing"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-02",
     "event_kind": "token_accounting_change",
     "id": "2026-06-02-anthropic-tool-max-tokens-refusal-billing",
     "provider_refs": [
@@ -214,29 +238,5 @@
     "severity": "medium",
     "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
     "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-02",
-    "event_kind": "workflow_behavior_change",
-    "id": "2026-06-02-openai-codex-role-plugins-sites",
-    "provider_refs": [
-      "provider:openai"
-    ],
-    "severity": "high",
-    "summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.",
-    "title": "OpenAI Added Codex Role Plugins, Sites, And Annotations"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-01",
-    "event_kind": "model_retirement",
-    "id": "2026-06-01-google-gemini-api-20-flash-shutdown",
-    "provider_refs": [
-      "provider:google"
-    ],
-    "severity": "high",
-    "summary": "Google Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.",
-    "title": "Google Gemini API Shut Down Gemini 2.0 Flash Models"
   }
 ]

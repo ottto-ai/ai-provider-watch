@@ -1,5 +1,76 @@
 [
   {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI changed eligible API container sessions to per-minute billing with a shorter minimum billing window while keeping the underlying per-minute rate unchanged.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "billing_channel_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:7415cf2e82bd760a",
+        "snapshot_ref": "entry:7415cf2e82bd760a",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-container-session-minute-billing",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official OpenAI API changelog entry dated 2026-06-02",
+          "confidence": "confirmed",
+          "direction": "decrease",
+          "magnitude": "eligible shorter container sessions avoid the former full 20-minute minimum and instead use a 5-minute minimum"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Revisit cost models for OpenAI API workflows that create short-lived eligible container sessions, and keep current built-in tool pricing docs as the source for exact rates.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public changelog billing mechanism change only; exact eligibility, tool coverage, account rollout, and current per-minute rates remain governed by OpenAI's pricing documentation."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:billing_channel_change",
+      "surface:openai_api"
+    ],
+    "title": "OpenAI Changed Eligible Container Sessions To Per-Minute Billing"
+  },
+  {
     "announced_at": "2026-06-01T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",
@@ -21,6 +92,16 @@
         "snapshot_ref": "reviewed-source:2026-06-08",
         "source_key": "openai.news",
         "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+      },
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official API changelog reviewed for corroborating factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:c1b5b4402748824a",
+        "snapshot_ref": "entry:c1b5b4402748824a",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
       }
     ],
     "expires_at": null,
