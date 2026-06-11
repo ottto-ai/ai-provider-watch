@@ -1503,6 +1503,88 @@ def test_atom_status_parser_hashes_invalid_updated_text() -> None:
     assert "provider text" not in rendered
 
 
+def test_atom_status_parser_suppresses_consumer_only_candidate_claims() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.status")
+    raw = b"""<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <id>tag:status.openai.com,2026:incident-consumer</id>
+    <title>Disruption in service availability for Free and Go users</title>
+    <summary>Some ChatGPT Free and Go users are experiencing elevated errors when using conversations.</summary>
+    <updated>2026-06-11T13:03:34Z</updated>
+  </entry>
+</feed>
+"""
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert parsed.errors == []
+    assert parsed.items
+    assert parsed.candidate_claims == []
+    rendered = str(parsed.items) + str(parsed.candidate_claims)
+    assert "Free and Go users" not in rendered
+    assert "conversations" not in rendered
+
+
+def test_atom_status_parser_scores_latest_entry_only_for_candidate_claims() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.status")
+    raw = b"""<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <id>tag:status.openai.com,2026:incident-consumer</id>
+    <title>Disruption in service availability for Free and Go users</title>
+    <summary>Some ChatGPT Free and Go users are experiencing elevated errors.</summary>
+    <updated>2026-06-11T13:03:34Z</updated>
+  </entry>
+  <entry>
+    <id>tag:status.openai.com,2026:incident-api</id>
+    <title>Elevated error rates on Codex and Responses API</title>
+    <summary>Some API requests were failing.</summary>
+    <updated>2026-06-10T13:03:34Z</updated>
+  </entry>
+</feed>
+"""
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert parsed.errors == []
+    assert len(parsed.items) == 2
+    assert parsed.candidate_claims == []
+    rendered = str(parsed.items) + str(parsed.candidate_claims)
+    assert "Free and Go users" not in rendered
+    assert "Elevated error rates" not in rendered
+
+
+def test_atom_status_parser_keeps_developer_surface_candidate_claims() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.status")
+    raw = b"""<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <id>tag:status.openai.com,2026:incident-api</id>
+    <title>Elevated error rates on Codex and Responses API</title>
+    <summary>Some API requests are failing.</summary>
+    <updated>2026-06-11T13:03:34Z</updated>
+  </entry>
+</feed>
+"""
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert parsed.errors == []
+    assert parsed.candidate_claims == [
+        {
+            "candidate_kind": "status_incident",
+            "claim_text": (
+                "OpenAI status source has a developer-surface incident or recovery "
+                "update that needs maintainer review."
+            ),
+        }
+    ]
+    rendered = str(parsed.items) + str(parsed.candidate_claims)
+    assert "Elevated error rates" not in rendered
+    assert "Some API requests" not in rendered
+
+
 def test_atom_status_parser_rejects_dtd_entities() -> None:
     source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.status")
     raw = b"""<?xml version="1.0" encoding="utf-8"?>

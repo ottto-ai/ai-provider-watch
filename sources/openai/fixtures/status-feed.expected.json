@@ -12,12 +12,7 @@
       }
     ],
     "raw_excerpt_hashes": [],
-    "candidate_claims": [
-      {
-        "candidate_kind": "status_incident",
-        "claim_text": "OpenAI status source changed and needs maintainer review for a possible status incident or recovery."
-      }
-    ],
+    "candidate_claims": [],
     "errors": [],
     "snapshot_ref": null
   }
