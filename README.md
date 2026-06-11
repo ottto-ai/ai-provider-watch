@@ -323,12 +323,12 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.13` is the current stable public package. It bundles the
-`data-2026.06.11` reviewed public feed snapshot, including the June 11 AWS
-Bedrock OpenAI GPT availability event, plus the latest CLI and candidate-review
-ergonomics, missing-event issue triage, and source-refresh review gating. Use
-the signed `data-2026.06.11` tag when you need an immutable feed identity; use
-the package when you want no-checkout CLI and bundled data.
+APW `v0.1.14` is the current stable public package. It bundles the latest
+reviewed public feed with 45 ProviderEvents, including the OpenAI API changelog
+events for workload identity federation, `chat-latest`, prompt-cache retention,
+container-session billing, and moderation-score API responses. Use the signed
+`data-2026.06.11` tag when you need the latest immutable data-release identity;
+use the package when you want no-checkout CLI and bundled data.
 
 The current release includes:
 

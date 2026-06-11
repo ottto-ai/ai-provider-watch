@@ -189,3 +189,6 @@ the concrete resolution.
   successful PyPI Trusted Publishing run for issue-triage and source-refresh
   review-gate CLI surfaces, matching GitHub release assets, artifact hashes,
   PyPI provenance, and fresh-install smoke coverage.
+- `v0.1.14` Python package evidence is pending publication. The release is
+  intended to ship the OpenAI API changelog source and 45-event bundled package
+  snapshot without moving the signed `data-2026.06.11` data tag.
