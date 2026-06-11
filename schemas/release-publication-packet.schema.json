@@ -20,7 +20,7 @@
   ],
   "properties": {
     "schema_version": { "const": "apw.release_publication_packet.v0" },
-    "release_id": { "type": "string", "pattern": "^data-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$" },
+    "release_id": { "type": "string", "pattern": "^data-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[1-9][0-9]*)?$" },
     "release_date": { "type": "string", "format": "date" },
     "source_commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
     "created_at": { "type": "string", "format": "date-time" },
@@ -88,7 +88,7 @@
       "required": ["mechanism", "tag_name", "required_commands", "key_boundary"],
       "properties": {
         "mechanism": { "const": "manual_release_manager_signed_git_tag" },
-        "tag_name": { "type": "string", "pattern": "^data-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$" },
+        "tag_name": { "type": "string", "pattern": "^data-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[1-9][0-9]*)?$" },
         "required_commands": {
           "type": "array",
           "minItems": 3,

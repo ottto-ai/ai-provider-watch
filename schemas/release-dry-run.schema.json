@@ -18,7 +18,7 @@
   ],
   "properties": {
     "schema_version": { "const": "apw.release_dry_run.v0" },
-    "release_id": { "type": "string", "pattern": "^data-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$" },
+    "release_id": { "type": "string", "pattern": "^data-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[1-9][0-9]*)?$" },
     "release_date": { "type": "string", "format": "date" },
     "created_at": { "type": "string", "format": "date-time" },
     "source_commit": { "type": ["string", "null"], "pattern": "^[a-f0-9]{40}$" },

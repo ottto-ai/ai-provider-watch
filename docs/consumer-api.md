@@ -68,9 +68,9 @@ operations = api.load_json_feed("operations")
 ```
 
 Package snapshots are not daily data releases. For the freshest immutable data,
-pin a GitHub `data-YYYY.MM.DD` release or read a repository feed URL documented
-in the README. Installed CLI users can read those public artifacts without a
-checkout:
+pin a GitHub `data-YYYY.MM.DD` or same-day revision `data-YYYY.MM.DD.N` release,
+or read a repository feed URL documented in the README. Installed CLI users can
+read those public artifacts without a checkout:
 
 ```bash
 apw remote latest --ref main --risk medium

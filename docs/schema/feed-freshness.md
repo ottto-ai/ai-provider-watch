@@ -32,9 +32,10 @@ Required fields:
 - `generated_at`: deterministic generation timestamp for the feed set.
 - `generated_by`: generator name and version.
 - `package_version`: APW package version.
-- `release_id`: `dev` or a CalVer data release ID such as
-  `data-2026.06.05`.
-- `data_tag`: matching data tag for CalVer releases, or `null` for `dev`.
+- `release_id`: `dev`, a CalVer data release ID such as
+  `data-2026.06.05`, or a same-day revision such as `data-2026.06.05.1`.
+- `data_tag`: matching data tag for CalVer releases and same-day revisions, or
+  `null` for `dev`.
 - `event_count`: count of reviewed `ProviderEvent` records.
 - `latest_event_date`: latest reviewed event date, or `null` for an empty feed.
 - `latest_observed_at`: latest reviewed event observation timestamp.

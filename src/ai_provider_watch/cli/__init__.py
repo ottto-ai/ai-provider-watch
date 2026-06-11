@@ -1345,7 +1345,11 @@ def build_parser() -> argparse.ArgumentParser:
     remote_parser = subparsers.add_parser("remote", help="read live GitHub feed artifacts without a checkout")
     remote_subparsers = remote_parser.add_subparsers(dest="remote_command", required=True)
     remote_latest_parser = remote_subparsers.add_parser("latest", help="print latest events from a remote APW feed")
-    remote_latest_parser.add_argument("--ref", default="main", help="Git ref to read, such as main or data-YYYY.MM.DD")
+    remote_latest_parser.add_argument(
+        "--ref",
+        default="main",
+        help="Git ref to read, such as main, data-YYYY.MM.DD, or data-YYYY.MM.DD.N",
+    )
     remote_latest_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK))
     remote_latest_parser.add_argument("--provider")
     remote_latest_parser.add_argument("--limit", type=int, default=20)
@@ -1353,14 +1357,22 @@ def build_parser() -> argparse.ArgumentParser:
     remote_latest_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
     remote_latest_parser.set_defaults(func=cmd_remote_latest)
     remote_freshness_parser = remote_subparsers.add_parser("freshness", help="print remote feed freshness metadata")
-    remote_freshness_parser.add_argument("--ref", default="main", help="Git ref to read, such as main or data-YYYY.MM.DD")
+    remote_freshness_parser.add_argument(
+        "--ref",
+        default="main",
+        help="Git ref to read, such as main, data-YYYY.MM.DD, or data-YYYY.MM.DD.N",
+    )
     remote_freshness_parser.add_argument("--summary", action="store_true")
     remote_freshness_parser.add_argument("--timeout", type=float, default=20.0)
     remote_freshness_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
     remote_freshness_parser.set_defaults(func=cmd_remote_freshness)
     remote_feed_parser = remote_subparsers.add_parser("feed", help="print one remote feed artifact")
     remote_feed_parser.add_argument("name", choices=sorted(REMOTE_ARTIFACTS))
-    remote_feed_parser.add_argument("--ref", default="main", help="Git ref to read, such as main or data-YYYY.MM.DD")
+    remote_feed_parser.add_argument(
+        "--ref",
+        default="main",
+        help="Git ref to read, such as main, data-YYYY.MM.DD, or data-YYYY.MM.DD.N",
+    )
     remote_feed_parser.add_argument("--timeout", type=float, default=20.0)
     remote_feed_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
     remote_feed_parser.add_argument("--output", help="write remote feed artifact to this path instead of stdout")
@@ -1750,7 +1762,7 @@ def build_parser() -> argparse.ArgumentParser:
     release_dry_run_parser.add_argument("--release-date", help="release date as YYYY-MM-DD; defaults to today in UTC")
     release_dry_run_parser.add_argument(
         "--release-id",
-        help="override CalVer release id; must match data-YYYY.MM.DD and --release-date",
+        help="override CalVer release id; must match data-YYYY.MM.DD or data-YYYY.MM.DD.N and --release-date",
     )
     release_dry_run_parser.add_argument("--source-commit", help="override source commit SHA for offline dry runs")
     release_dry_run_parser.add_argument("--output", default=".apw/release-dry-run")
@@ -1796,7 +1808,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--artifacts-root",
         help="release artifacts root; defaults to the dry-run report sibling artifacts directory",
     )
-    release_verify_parser.add_argument("--release-id", help="expected data-YYYY.MM.DD release id")
+    release_verify_parser.add_argument("--release-id", help="expected data-YYYY.MM.DD or data-YYYY.MM.DD.N release id")
     release_verify_parser.add_argument("--source-commit", help="expected 40-character source commit SHA")
     release_verify_parser.add_argument(
         "--require-publish-packet",
@@ -1812,7 +1824,7 @@ def build_parser() -> argparse.ArgumentParser:
     release_evidence_parser.add_argument(
         "--release-id",
         default="dev",
-        help="release id to describe; use dev or data-YYYY.MM.DD",
+        help="release id to describe; use dev, data-YYYY.MM.DD, or data-YYYY.MM.DD.N",
     )
     release_evidence_parser.add_argument("--source-commit", help="40-character source commit SHA")
     release_evidence_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic output")

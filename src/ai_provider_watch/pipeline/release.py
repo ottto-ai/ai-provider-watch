@@ -26,7 +26,8 @@ RELEASE_DRY_RUN_SCHEMA_VERSION = "apw.release_dry_run.v0"
 RELEASE_PUBLICATION_PACKET_SCHEMA_VERSION = "apw.release_publication_packet.v0"
 RELEASE_VERIFICATION_SCHEMA_VERSION = "apw.release_verification.v0"
 RELEASE_AUTOMATION_READINESS_SCHEMA_VERSION = "apw.release_automation_readiness.v0"
-RELEASE_ID_PATTERN = re.compile(r"^data-\d{4}\.\d{2}\.\d{2}$")
+RELEASE_ID_SYNTAX = "data-YYYY.MM.DD or data-YYYY.MM.DD.N"
+RELEASE_ID_PATTERN = re.compile(r"^data-\d{4}\.\d{2}\.\d{2}(?:\.[1-9]\d*)?$")
 
 
 @dataclass(frozen=True)
@@ -56,9 +57,10 @@ def calver_release_id(release_date: date) -> str:
 
 def parse_release_id_date(release_id: str) -> date:
     if not RELEASE_ID_PATTERN.fullmatch(release_id):
-        raise ValueError(f"release_id must match data-YYYY.MM.DD: {release_id}")
+        raise ValueError(f"release_id must match {RELEASE_ID_SYNTAX}: {release_id}")
     try:
-        return date.fromisoformat(release_id.removeprefix("data-").replace(".", "-"))
+        release_parts = release_id.removeprefix("data-").split(".")
+        return date.fromisoformat("-".join(release_parts[:3]))
     except ValueError as exc:
         raise ValueError(f"release_id must contain a valid calendar date: {release_id}") from exc
 

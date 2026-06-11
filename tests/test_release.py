@@ -52,6 +52,8 @@ def _packet_kwargs(report_path: Path) -> dict:
 def test_calver_release_id() -> None:
     assert calver_release_id(date(2026, 6, 1)) == "data-2026.06.01"
     assert parse_release_id_date("data-2026.06.01") == date(2026, 6, 1)
+    assert parse_release_id_date("data-2026.06.01.1") == date(2026, 6, 1)
+    assert parse_release_id_date("data-2026.06.01.12") == date(2026, 6, 1)
 
 
 def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
@@ -146,6 +148,31 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert evidence_index["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
 
 
+def test_release_dry_run_supports_same_day_revision_release_id(tmp_path) -> None:
+    result = run_release_dry_run(
+        ROOT,
+        release_date=date(2026, 6, 1),
+        release_id="data-2026.06.01.1",
+        output_dir=tmp_path,
+        source_commit=DUMMY_SHA,
+    )
+
+    assert result.failed_checks == []
+    assert result.report["release_id"] == "data-2026.06.01.1"
+    assert result.report_path == tmp_path / "data-2026.06.01.1" / "dry-run-report.json"
+    manifest_path = (
+        result.output_dir
+        / "artifacts"
+        / "data"
+        / "releases"
+        / "data-2026.06.01.1"
+        / "manifest.json"
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert manifest["release_id"] == "data-2026.06.01.1"
+    assert "data/releases/data-2026.06.01.1/evidence-index.json" in manifest["checksums"]
+
+
 def test_release_automation_readiness_reports_signing_equivalence_blocker() -> None:
     report = build_release_automation_readiness(
         ROOT,
@@ -201,6 +228,26 @@ def test_release_publication_packet_requires_reviewed_inputs(tmp_path) -> None:
     assert packet["signing"]["tag_name"] == "data-2026.06.01"
     assert packet["token_boundary"]["publisher_workflow_mode"] == "protected_main_noop_or_packet_only"
     assert packet["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
+
+
+def test_release_publication_packet_supports_same_day_revision_tag(tmp_path) -> None:
+    dry_run = run_release_dry_run(
+        ROOT,
+        release_date=date(2026, 6, 1),
+        release_id="data-2026.06.01.1",
+        output_dir=tmp_path,
+        source_commit=DUMMY_SHA,
+    )
+
+    packet = build_release_publication_packet(
+        ROOT,
+        **_packet_kwargs(dry_run.report_path),
+        reviewed_event_ids=[REVIEWED_EVENT_ID],
+    )
+
+    _assert_publication_packet_schema(packet)
+    assert packet["release_id"] == "data-2026.06.01.1"
+    assert packet["signing"]["tag_name"] == "data-2026.06.01.1"
 
 
 def test_release_verify_checks_dry_run_artifacts(tmp_path) -> None:
@@ -343,6 +390,10 @@ def test_release_dry_run_rejects_non_calver_release_id(tmp_path) -> None:
             output_dir=tmp_path,
             source_commit=DUMMY_SHA,
         )
+    with pytest.raises(ValueError, match="release_id must match data-YYYY.MM.DD"):
+        parse_release_id_date("data-2026.06.01.0")
+    with pytest.raises(ValueError, match="release_id must match data-YYYY.MM.DD"):
+        parse_release_id_date("data-2026.06.01.01")
     assert not any(tmp_path.iterdir())
 
 

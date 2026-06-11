@@ -68,8 +68,10 @@ patch package when one of these is true:
 
 If reviewed events land after a same-day data tag has already been signed, do
 not move or recreate that data tag. Ship the next immutable data release under
-the next approved data-release identity, and publish a package patch only when
-the bundled-data snapshot itself is worth updating.
+the next approved data-release identity. When the release manager wants same-day
+repository consumers to have an immutable snapshot before the next UTC date, use
+the next revision tag such as `data-YYYY.MM.DD.1`. Publish a package patch only
+when the bundled-data snapshot itself is worth updating for install-only users.
 
 Decision for `0.1.1`: publish the package patch. PR #89 promoted the June 8
 official-source review window into sixteen additional reviewed ProviderEvents
@@ -81,8 +83,7 @@ Decision for `0.1.10`: publish the package patch and do not recreate the
 already-signed `data-2026.06.10` tag. PR #124 promoted four high-signal
 Anthropic release-note ProviderEvents after the same-day data tag already
 existed. A package snapshot keeps install-only users current without weakening
-the one-tag-per-release-identity policy; the next immutable data release should
-use the next approved `data-YYYY.MM.DD` identity.
+the one-tag-per-release-identity policy.
 
 Decision for `0.1.11`: publish the package patch and do not create a data tag.
 PR #130 changed CLI/package behavior by making candidate split/dedupe packet

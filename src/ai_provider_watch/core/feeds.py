@@ -21,7 +21,7 @@ JSON_FEED_VERSION = "https://jsonfeed.org/version/1.1"
 APW_HOME_URL = "https://github.com/ottto-ai/ai-provider-watch"
 APW_RAW_MAIN_URL = "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main"
 RELEASE_EVIDENCE_INDEX_SCHEMA_VERSION = "apw.release_evidence_index.v0"
-RELEASE_ID_RE = re.compile(r"^(dev|data-[0-9]{4}\.[0-9]{2}\.[0-9]{2})$")
+RELEASE_ID_RE = re.compile(r"^(dev|data-[0-9]{4}\.[0-9]{2}\.[0-9]{2}(?:\.[1-9][0-9]*)?)$")
 SOURCE_COMMIT_RE = re.compile(r"^[a-f0-9]{40}$")
 
 
@@ -291,7 +291,7 @@ def build_release_evidence_index(
     created_at: str | None = None,
 ) -> dict[str, Any]:
     if not RELEASE_ID_RE.fullmatch(release_id):
-        raise ValueError(f"release_id must be dev or data-YYYY.MM.DD: {release_id}")
+        raise ValueError(f"release_id must be dev, data-YYYY.MM.DD, or data-YYYY.MM.DD.N: {release_id}")
     if source_commit is not None and not SOURCE_COMMIT_RE.fullmatch(source_commit):
         raise ValueError(f"source_commit must be a 40-character lowercase hexadecimal SHA: {source_commit}")
     resolved_created_at = created_at or _event_time(load_events(root))

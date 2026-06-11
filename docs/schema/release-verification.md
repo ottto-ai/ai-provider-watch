@@ -9,6 +9,10 @@ It is produced by:
 apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json
 ```
 
+Same-day revision releases use the same report shape with the revision identity
+in the path, for example
+`.apw/release-dry-run/data-YYYY.MM.DD.1/dry-run-report.json`.
+
 ## Purpose
 
 Use this report before a release manager signs or publishes a data tag. It

@@ -1,7 +1,7 @@
 # Guarded Data Publisher
 
 The guarded data publisher is a protected-environment workflow for future
-`data-YYYY.MM.DD` publication. In v0.x it is evidence-only: it runs release
+`data-YYYY.MM.DD` or `data-YYYY.MM.DD.N` publication. In v0.x it is evidence-only: it runs release
 gates from a trusted `main` commit, can render a reviewed publication packet,
 and records that no data tag or GitHub data release was created.
 
@@ -15,6 +15,11 @@ For v0.1, real public data publication is manual release-manager work:
 3. create a manual Ron-signed Git tag with `git tag -s data-YYYY.MM.DD`;
 4. verify the signed tag with `git tag -v data-YYYY.MM.DD`;
 5. publish the matching GitHub data release with the release evidence packet.
+
+If the same UTC date already has a signed data tag and reviewed event data
+changed again, use the next revision tag such as `data-YYYY.MM.DD.1` instead of
+moving the existing tag. Revision tags follow the same gates and are equally
+immutable.
 
 Do not store signing keys in Actions, repository secrets, environment secrets,
 or OIDC-backed jobs. GitHub artifact attestations are provenance evidence for
@@ -124,7 +129,7 @@ SHA-256 from the protected run.
 
 ## Publication Packet Contract
 
-Before any real `data-YYYY.MM.DD` tag, render
+Before any real `data-YYYY.MM.DD` or `data-YYYY.MM.DD.N` tag, render
 `apw release packet` from the successful dry-run report. The packet conforms to
 `schemas/release-publication-packet.schema.json` and records:
 
@@ -144,7 +149,7 @@ publish packet lists the reviewed event IDs that justify the tag.
 
 ## Future Automated Publishing Gate
 
-Do not add automated `data-YYYY.MM.DD` publishing until a release manager
+Do not add automated `data-YYYY.MM.DD` or `data-YYYY.MM.DD.N` publishing until a release manager
 approves a new mechanism and a follow-up PR changes this workflow deliberately.
 That future PR must treat the v0.1 manual signed-tag policy as the baseline and
 explain why automation is worth the additional key-management and release-token
