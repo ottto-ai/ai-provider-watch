@@ -50,6 +50,110 @@ def test_review_gate_opens_for_candidate_without_changed_source() -> None:
     assert gate["candidate_count"] == 1
 
 
+def test_review_gate_routes_low_signal_candidates_to_source_state_refresh() -> None:
+    gate = build_source_refresh_review_gate(
+        {"changed_source_keys": ["anthropic.status"]},
+        {"candidate_count": 1},
+        {
+            "candidate_count": 1,
+            "summary": {
+                "quality_tier_counts": {"low_signal": 1},
+                "recommended_action_counts": {"reject": 1},
+                "high_value_candidate_ids": [],
+                "reviewable_candidate_ids": [],
+            },
+        },
+    )
+
+    assert gate["review_needed"] is True
+    assert gate["recommendation"] == "open_source_state_refresh_pr"
+    assert gate["reason"] == "source_fingerprint_changes_with_only_non_reviewable_candidates"
+    assert gate["candidate_count"] == 1
+    assert gate["review_candidate_count"] == 0
+    assert gate["suppressed_candidate_count"] == 1
+    assert gate["candidate_quality_action_counts"] == {"reject": 1}
+
+
+def test_review_gate_skips_non_reviewable_candidates_without_source_changes() -> None:
+    gate = build_source_refresh_review_gate(
+        {"changed_source_keys": []},
+        {"candidate_count": 2},
+        {
+            "candidate_count": 2,
+            "summary": {
+                "quality_tier_counts": {"duplicate": 1, "low_signal": 1},
+                "recommended_action_counts": {"duplicate": 1, "reject": 1},
+                "high_value_candidate_ids": [],
+                "reviewable_candidate_ids": [],
+            },
+        },
+    )
+
+    assert gate["review_needed"] is False
+    assert gate["recommendation"] == "skip_candidate_review_pr"
+    assert gate["reason"] == "only_non_reviewable_candidates_without_source_changes"
+    assert gate["review_candidate_count"] == 0
+    assert gate["suppressed_candidate_count"] == 2
+
+
+def test_review_gate_opens_for_quality_reviewable_candidate() -> None:
+    gate = build_source_refresh_review_gate(
+        {"changed_source_keys": ["openai.news"]},
+        {"candidate_count": 2},
+        {
+            "candidate_count": 2,
+            "summary": {
+                "quality_tier_counts": {"high_value": 1, "low_signal": 1},
+                "recommended_action_counts": {"promote": 1, "reject": 1},
+                "high_value_candidate_ids": ["candidate-openai-news-a"],
+                "reviewable_candidate_ids": ["candidate-openai-news-a"],
+            },
+        },
+    )
+
+    assert gate["review_needed"] is True
+    assert gate["recommendation"] == "open_candidate_review_pr"
+    assert gate["reason"] == "reviewable_source_or_candidate_changes"
+    assert gate["review_candidate_count"] == 2
+    assert gate["suppressed_candidate_count"] == 0
+    assert gate["high_value_candidate_count"] == 1
+    assert gate["reviewable_candidate_count"] == 1
+
+
+def test_review_gate_opens_for_quality_count_mismatch() -> None:
+    gate = build_source_refresh_review_gate(
+        {"changed_source_keys": ["openai.news"]},
+        {"candidate_count": 2},
+        {
+            "candidate_count": 1,
+            "summary": {
+                "quality_tier_counts": {"low_signal": 1},
+                "recommended_action_counts": {"reject": 1},
+                "high_value_candidate_ids": [],
+                "reviewable_candidate_ids": [],
+            },
+        },
+    )
+
+    assert gate["recommendation"] == "open_candidate_review_pr"
+    assert gate["reason"] == "candidate_quality_count_mismatch"
+    assert gate["review_candidate_count"] == 2
+    assert gate["suppressed_candidate_count"] == 0
+
+
+def test_review_gate_opens_when_quality_report_lacks_classification() -> None:
+    gate = build_source_refresh_review_gate(
+        {"changed_source_keys": ["openai.news"]},
+        {"candidate_count": 1},
+        {"candidate_count": 1, "summary": {}},
+    )
+
+    assert gate["recommendation"] == "open_candidate_review_pr"
+    assert gate["reason"] == "reviewable_source_or_candidate_changes"
+    assert gate["review_candidate_count"] == 1
+    assert gate["suppressed_candidate_count"] == 0
+
+
 def test_review_gate_distinguishes_source_state_only_refresh() -> None:
     gate = build_source_refresh_review_gate(
         {"changed_source_keys": ["openai.api_changelog"]},
@@ -77,6 +181,7 @@ def test_review_gate_summary_and_github_output(tmp_path: Path) -> None:
     assert "review_needed: true" in summary
     assert "changed_source_keys: anthropic.news" in summary
     assert "candidate_count: 1" in summary
+    assert "review_candidate_count: 1" in summary
     assert "review_needed=true" in output_path.read_text(encoding="utf-8")
     assert "recommendation=open_candidate_review_pr" in output_path.read_text(encoding="utf-8")
 
@@ -87,10 +192,25 @@ def test_source_review_needed_cli_writes_json_summary_and_github_output(
 ) -> None:
     observations = tmp_path / "observations.json"
     generation = tmp_path / "candidate-generation.json"
+    quality = tmp_path / "candidate-quality.json"
     output = tmp_path / "gate.json"
     github_output = tmp_path / "github-output.txt"
-    observations.write_text(json.dumps({"changed_source_keys": []}), encoding="utf-8")
-    generation.write_text(json.dumps({"candidate_count": 0}), encoding="utf-8")
+    observations.write_text(json.dumps({"changed_source_keys": ["anthropic.status"]}), encoding="utf-8")
+    generation.write_text(json.dumps({"candidate_count": 1}), encoding="utf-8")
+    quality.write_text(
+        json.dumps(
+            {
+                "candidate_count": 1,
+                "summary": {
+                    "quality_tier_counts": {"low_signal": 1},
+                    "recommended_action_counts": {"reject": 1},
+                    "high_value_candidate_ids": [],
+                    "reviewable_candidate_ids": [],
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
 
     assert (
         main(
@@ -101,6 +221,8 @@ def test_source_review_needed_cli_writes_json_summary_and_github_output(
                 str(observations),
                 "--candidate-generation",
                 str(generation),
+                "--candidate-quality",
+                str(quality),
                 "--output",
                 str(output),
                 "--github-output",
@@ -114,8 +236,11 @@ def test_source_review_needed_cli_writes_json_summary_and_github_output(
     stdout = capsys.readouterr().out
     payload = json.loads(output.read_text(encoding="utf-8"))
     step_output = github_output.read_text(encoding="utf-8")
-    assert "review_needed: false" in stdout
-    assert payload["review_needed"] is False
-    assert payload["recommendation"] == "skip_candidate_review_pr"
-    assert "review_needed=false" in step_output
-    assert "candidate_count=0" in step_output
+    assert "review_needed: true" in stdout
+    assert "suppressed_candidate_count: 1" in stdout
+    assert payload["review_needed"] is True
+    assert payload["recommendation"] == "open_source_state_refresh_pr"
+    assert payload["review_candidate_count"] == 0
+    assert "review_needed=true" in step_output
+    assert "candidate_count=1" in step_output
+    assert "review_candidate_count=0" in step_output

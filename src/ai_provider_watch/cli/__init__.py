@@ -450,9 +450,11 @@ def cmd_source_review_needed(args: argparse.Namespace) -> int:
     root = _root(args.root)
     observations_path = _path_from_root(root, args.observations)
     candidate_generation_path = _path_from_root(root, args.candidate_generation)
+    candidate_quality_path = _path_from_root(root, args.candidate_quality) if args.candidate_quality else None
     gate = build_source_refresh_review_gate_from_files(
         observations_path,
         candidate_generation_path,
+        candidate_quality_path,
     )
     if args.output:
         output_path = _path_from_root(root, args.output)
@@ -1417,6 +1419,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     source_review_needed_parser.add_argument("--observations", required=True)
     source_review_needed_parser.add_argument("--candidate-generation", required=True)
+    source_review_needed_parser.add_argument(
+        "--candidate-quality",
+        help="optional candidate quality report used to suppress low-signal reject-only candidate PRs",
+    )
     source_review_needed_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
     source_review_needed_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     source_review_needed_parser.add_argument(
