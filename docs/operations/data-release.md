@@ -181,3 +181,7 @@ the concrete resolution.
   Ron-signed data tag and GitHub release for the June 11 AWS Bedrock OpenAI GPT
   availability event, with CI, CodeQL, Dependency Review, Scorecard, protected
   dry-run attestation, packet evidence, and pinned remote-feed smoke.
+- [2026-06-11 `v0.1.12` Python package](release-evidence/2026-06-11-v0.1.12-python-package.md):
+  successful PyPI Trusted Publishing run for the `data-2026.06.11` bundled
+  package snapshot, matching GitHub release assets, artifact hashes, PyPI
+  provenance, and fresh-install smoke coverage.
