@@ -97,6 +97,13 @@ ProviderEvent for OpenAI GPT-5.4 and GPT-5.5 availability in US East
 keeps install-only users aligned with the latest immutable data release without
 requiring a checkout or live remote read.
 
+Decision for `0.1.13`: publish the package patch and do not create a new data
+tag. PR #137 added `apw event issue-triage` for safe missing-event issue triage,
+and this release adds `apw source review-needed` so source-refresh automation
+opens candidate-review PRs only for changed source fingerprints or review
+candidates. Reviewed event data did not change, so the signed
+`data-2026.06.11` identity remains the immutable feed snapshot.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.

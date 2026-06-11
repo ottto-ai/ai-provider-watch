@@ -18,9 +18,15 @@ def _assert_no_release_authority(workflow: str) -> None:
     assert "pull_request_target:" not in workflow
 
 
-def test_source_refresh_workflow_detects_untracked_candidate_files() -> None:
+def test_source_refresh_workflow_detects_review_needed_before_opening_pr() -> None:
     workflow = _workflow("source-refresh.yml")
 
+    assert "id: review_gate" in workflow
+    assert "uv run apw source review-needed" in workflow
+    assert "--observations .apw/source-observations.json" in workflow
+    assert "--candidate-generation .apw/candidate-generation.json" in workflow
+    assert "--github-output \"$GITHUB_OUTPUT\"" in workflow
+    assert "if: steps.review_gate.outputs.review_needed == 'true'" in workflow
     assert (
         "git status --porcelain -- data/source-state/fingerprints.json data/candidates data/feeds data/indexes data/releases/dev"
         in workflow
@@ -28,12 +34,23 @@ def test_source_refresh_workflow_detects_untracked_candidate_files() -> None:
     assert "git diff --quiet -- data/source-state/fingerprints.json data/candidates" not in workflow
 
 
+def test_source_refresh_workflow_uploads_noop_observation_artifacts() -> None:
+    workflow = _workflow("source-refresh.yml")
+
+    assert "actions/upload-artifact@v7" in workflow
+    assert "name: source-refresh-observations" in workflow
+    assert ".apw/source-observations.json" in workflow
+    assert ".apw/candidate-generation.json" in workflow
+    assert ".apw/source-refresh-review-needed.json" in workflow
+    assert "if-no-files-found: ignore" in workflow
+
+
 def test_source_refresh_workflow_regenerates_metadata_after_source_state_change() -> None:
     workflow = _workflow("source-refresh.yml")
 
     assert "uv run apw index: pass" in workflow
     assert "git add data/source-state/fingerprints.json data/candidates data/feeds data/indexes data/releases/dev" in workflow
-    assert workflow.index("- run: uv run apw index") < workflow.index("- run: uv run apw validate")
+    assert workflow.index("run: uv run apw index") < workflow.index("run: uv run apw validate")
 
 
 def test_source_refresh_workflow_cleans_generated_review_candidates() -> None:

@@ -31,10 +31,33 @@ jobs:
             --created-at "$created_at" \
             --clean \
             > .apw/candidate-generation.json
-      - run: uv run apw index
-      - run: uv run apw validate
-      - run: uv run apw index --check
+      - name: Decide whether a candidate-review PR is needed
+        id: review_gate
+        run: |
+          uv run apw source review-needed \
+            --observations .apw/source-observations.json \
+            --candidate-generation .apw/candidate-generation.json \
+            --output .apw/source-refresh-review-needed.json \
+            --github-output "$GITHUB_OUTPUT" \
+            --summary
+      - name: Upload source-refresh observation artifacts
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: source-refresh-observations
+          path: |
+            .apw/source-observations.json
+            .apw/candidate-generation.json
+            .apw/source-refresh-review-needed.json
+          if-no-files-found: ignore
+      - if: steps.review_gate.outputs.review_needed == 'true'
+        run: uv run apw index
+      - if: steps.review_gate.outputs.review_needed == 'true'
+        run: uv run apw validate
+      - if: steps.review_gate.outputs.review_needed == 'true'
+        run: uv run apw index --check
       - name: Build candidate review PR body
+        if: steps.review_gate.outputs.review_needed == 'true'
         run: |
           created_at="$(cat .apw/candidate-created-at.txt)"
           {
@@ -50,7 +73,8 @@ jobs:
             --candidates data/candidates/review \
             --validation-output .apw/candidate-review-validation.txt \
             > .apw/candidate-review-pr-body.md
-      - name: Open candidate review PR when source state changed
+      - name: Open candidate review PR when reviewable changes exist
+        if: steps.review_gate.outputs.review_needed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
