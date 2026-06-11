@@ -26,6 +26,16 @@
       "snapshot_ref": "reviewed-source:2026-06-08",
       "selector": "OpenAI on AWS general availability announcement",
       "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    },
+    {
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "retrieved_at": "2026-06-11T12:11:27Z",
+      "authority": "official_docs",
+      "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+      "snapshot_ref": "entry:c1b5b4402748824a",
+      "selector": "announcement:c1b5b4402748824a",
+      "license_note": "Official API changelog reviewed for corroborating factual metadata; no provider prose copied."
     }
   ],
   "impacts": [

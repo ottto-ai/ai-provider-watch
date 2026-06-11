@@ -91,6 +91,27 @@
       "fixtures": []
     },
     {
+      "key": "openai.api_changelog",
+      "provider_refs": ["provider:openai"],
+      "source_type": "docs_page",
+      "authority": "official_docs",
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "allowed_domains": ["developers.openai.com"],
+      "cadence": "daily",
+      "enabled": true,
+      "parser": "openai_api_changelog",
+      "automation_status": "enabled_deterministic",
+      "graduation_notes": "Official OpenAI API changelog parser emits dated entry candidates with bounded dates, subjects, selectors, and source-page evidence only.",
+      "graduation_blockers": [],
+      "impact_hints": ["billing_channel_change", "pricing_change", "token_accounting_change", "model_launch", "api_contract_change", "workflow_behavior_change"],
+      "rate_limit": "polite daily fetch",
+      "robots_policy_note": "Respect provider robots and cache headers.",
+      "snapshot_policy": "hash dated changelog entries; emit bounded dates, subjects, and source URL only",
+      "license_note": "Use source URL and factual extracted fields only.",
+      "maintainers": ["apw-data-maintainers"],
+      "fixtures": []
+    },
+    {
       "key": "openai.codex_docs",
       "provider_refs": ["provider:openai"],
       "source_type": "docs_page",

@@ -159,6 +159,7 @@ PRICING_PARSER_NAMES = {
 }
 
 DATED_ANNOUNCEMENT_PARSER_NAMES = {
+    "openai_api_changelog",
     "anthropic_release_notes",
     "anthropic_news_index",
     "aws_bedrock_whats_new_feed",
@@ -196,6 +197,7 @@ ANNOUNCEMENT_SUBJECT_KEYWORDS = {
     "claude code": "claude-code",
     "claude managed agents": "claude-managed-agents",
     "codex": "codex",
+    "container session": "container-sessions",
     "computer use": "computer-use",
     "fine-tuning": "fine-tuning",
     "gemini api": "gemini-api",
@@ -213,18 +215,33 @@ ANNOUNCEMENT_SUBJECT_KEYWORDS = {
 
 ANNOUNCEMENT_RELEVANCE_KEYWORDS = tuple(sorted(ANNOUNCEMENT_SUBJECT_KEYWORDS))
 
+LOW_SIGNAL_ANNOUNCEMENT_MARKERS = (
+    "redesigned navigation",
+)
+
 ANNOUNCEMENT_KIND_KEYWORDS = (
+    (
+        "api_contract_change",
+        (
+            "access token",
+            "api key",
+            "federation",
+            "identity token",
+            "short-lived",
+            "workload identity",
+        ),
+    ),
     (
         "token_accounting_change",
         ("cache", "caching", "cached", "max_tokens", "token accounting", "tokenizer", "tokens"),
     ),
+    ("billing_channel_change", ("billed", "billed per minute", "billing behavior", "charged")),
     ("pricing_change", ("billing", "cost", "price", "pricing")),
-    ("billing_channel_change", ("billed", "billing behavior", "charged")),
     ("quota_change", ("quota",)),
     ("rate_limit_change", ("rate limit", "rate-limit", "rpm", "tpm")),
     ("model_retirement", ("retire", "retired", "retirement", "shut down", "shutdown", "sunset")),
     ("model_deprecation", ("deprecat", "legacy model")),
-    ("default_model_change", ("default model", "model router", "routing")),
+    ("default_model_change", ("chat-latest", "default model", "latest instant model", "model router", "regularly updated", "routing")),
     (
         "model_launch",
         (
@@ -931,6 +948,8 @@ def _announcement_kind(text: str, source: SourceDescriptor) -> str | None:
 
 def _announcement_relevant(text: str, subjects: list[str]) -> bool:
     lower_text = text.lower()
+    if any(marker in lower_text for marker in LOW_SIGNAL_ANNOUNCEMENT_MARKERS):
+        return False
     return bool(subjects) or any(keyword in lower_text for keyword in ANNOUNCEMENT_RELEVANCE_KEYWORDS)
 
 
@@ -1152,6 +1171,58 @@ def _dated_text_records(
     return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS]
 
 
+CHANGELOG_SECTION_PATTERN = re.compile(
+    r"\b("
+    + "|".join(MONTHS)
+    + r"),?\s+([0-9]{4})\b",
+    re.IGNORECASE,
+)
+CHANGELOG_ENTRY_PATTERN = re.compile(
+    r"\b("
+    + "|".join(MONTHS)
+    + r")\s+([0-9]{1,2})\s+"
+    r"(Feature|Update|Announcement|Deprecated|Change|Fix)\b",
+    re.IGNORECASE,
+)
+
+
+def _openai_api_changelog_records(source: SourceDescriptor, raw: bytes) -> list[dict[str, Any]]:
+    text = _visible_html_text(raw)
+    markers: list[tuple[int, str, re.Match[str]]] = []
+    markers.extend((match.start(), "section", match) for match in CHANGELOG_SECTION_PATTERN.finditer(text))
+    markers.extend((match.start(), "entry", match) for match in CHANGELOG_ENTRY_PATTERN.finditer(text))
+    markers.sort(key=lambda item: item[0])
+
+    records: list[dict[str, Any]] = []
+    current_year: str | None = None
+    for index, (_, marker_kind, match) in enumerate(markers):
+        if marker_kind == "section":
+            current_year = match.group(2)
+            continue
+        if current_year is None:
+            continue
+        end = markers[index + 1][0] if index + 1 < len(markers) else min(len(text), match.end() + 900)
+        segment = _normalize_text(text[match.start() : end])
+        month = MONTHS[match.group(1).lower()]
+        day = int(match.group(2))
+        date_value = f"{current_year}-{month}-{day:02d}"
+        subjects = _announcement_subjects(segment)
+        if not _announcement_relevant(segment, subjects):
+            continue
+        candidate_kind = _announcement_kind(segment, source)
+        if candidate_kind is None:
+            continue
+        records.append(
+            {
+                "text": segment,
+                "date_value": date_value,
+                "candidate_kind": candidate_kind,
+                "evidence_url": source.url,
+            }
+        )
+    return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS]
+
+
 def _dated_announcement_payload(
     source: SourceDescriptor,
     raw: bytes,
@@ -1159,6 +1230,8 @@ def _dated_announcement_payload(
     errors: list[str] = []
     if source.parser == "openai_news_feed":
         records, errors = _rss_or_atom_announcement_records(source, raw)
+    elif source.parser == "openai_api_changelog":
+        records = _openai_api_changelog_records(source, raw)
     elif source.parser == "aws_bedrock_whats_new_feed":
         records, errors = _rss_or_atom_announcement_records(
             source,

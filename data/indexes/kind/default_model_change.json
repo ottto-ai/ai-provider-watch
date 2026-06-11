@@ -1,0 +1,72 @@
+[
+  {
+    "announced_at": "2026-05-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "fallback_policy": "Underlying snapshot may update over time; OpenAI's changelog points production users toward stable model choices.",
+      "kind": "default_model_change",
+      "new_default": "model_alias:openai/chat-latest",
+      "old_default": null,
+      "rollout_window": null,
+      "schema_version": "apw.event_detail.v0",
+      "surface_ref": "surface:openai/api"
+    },
+    "effective_at": "2026-05-28T00:00:00Z",
+    "event_date": "2026-05-28",
+    "event_kind": "default_model_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:9ce1a02db80e9ba0",
+        "snapshot_ref": "entry:9ce1a02db80e9ba0",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-28-openai-chat-latest-alias",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Use chat-latest only where floating model behavior is acceptable; pin production workflows to stable model IDs when repeatability matters.",
+        "scope_ref": "model_alias:openai/chat-latest",
+        "scope_type": "model_alias",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records alias behavior only; it does not assert the current underlying model snapshot, quality, latency, or production suitability."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI added the chat-latest API snapshot alias for testing the latest chat improvements, with an underlying model snapshot that can update over time.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:default_model_change",
+      "surface:openai_api",
+      "alias:chat_latest"
+    ],
+    "title": "OpenAI Added The chat-latest API Snapshot Alias"
+  }
+]

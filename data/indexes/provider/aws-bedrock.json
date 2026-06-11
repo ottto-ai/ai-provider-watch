@@ -571,6 +571,16 @@
         "snapshot_ref": "reviewed-source:2026-06-08",
         "source_key": "openai.news",
         "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+      },
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official API changelog reviewed for corroborating factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:c1b5b4402748824a",
+        "snapshot_ref": "entry:c1b5b4402748824a",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
       }
     ],
     "expires_at": null,

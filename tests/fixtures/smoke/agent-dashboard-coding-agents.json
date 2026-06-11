@@ -48,7 +48,8 @@
       "event_id": "2026-06-01-openai-codex-aws-bedrock-ga",
       "event_kind": "billing_channel_change",
       "evidence_urls": [
-        "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+        "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/",
+        "https://developers.openai.com/api/docs/changelog"
       ],
       "impact_rows": [
         {

@@ -1,66 +1,72 @@
 {
   "data_tag": null,
-  "event_count": 40,
+  "event_count": 45,
   "feed_artifacts": [
     {
-      "bytes": 14770,
+      "bytes": 15344,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "b3f5f011951978650e838976b333df33a8395ef7e69c222c2e1321000fb473ac"
+      "sha256": "60f8cc1ab3671ad1c4931224b63bae4bc88d8e8bd9daf80da3f34aab756762c9"
     },
     {
-      "bytes": 141709,
+      "bytes": 157613,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "a919be3f8f2e156a2a83df98b058e5e05b46cb7a1662fced8978a3aa08443f7b"
+      "sha256": "08fa4fdc03eabed02f820668f4019b87bc3362933257ed8a2828c99fb0eaab5f"
     },
     {
-      "bytes": 118130,
+      "bytes": 131475,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "aa5ffcf9de4fe6a2250d28696bde242f65e20b9d0992eb550cd9b332fcad6a83"
+      "sha256": "2c33fb13abcc0b71391f19165100720d2835e8c42d55f90480eae67e5b630f26"
     },
     {
-      "bytes": 117258,
+      "bytes": 131320,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "5762c9db644d237fd1be52ad4b834d445fb823c8b308f6d6d874683380a9b691"
+      "sha256": "917a764a5f8f1e0f961d92960905808d1f8b12d1071e407b9634e45db9d3acc3"
     },
     {
-      "bytes": 10717,
+      "bytes": 10814,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",
-      "sha256": "e1becdb9598a1889d6fc14d89dab046019349bebc49214ce1e697a4c923e6a54"
+      "sha256": "60d4c509c1ae84184a14bf6de80eaa30276407abc263ac0a7c306d8991846ef8"
     },
     {
       "bytes": 4434,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "c06dc1f750adee25601c2d1a21a8b64b9eaaef285081b7ba4d28c966b5eff808"
+      "sha256": "5b956b68d662a45544bda9de18d83c665e68babc3a121c9046cbf6ca6a2e2778"
     },
     {
-      "bytes": 20773,
+      "bytes": 23328,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "6404b4124d0a3614a9e3b50e1d9984728b1d26a0546570b076aba8bdd8dff9f9"
+      "sha256": "24d8840b10a3e073a66344fe9bc559340f5d2b30acbd72dce99cd49f3a75d5a2"
     },
     {
-      "bytes": 10500,
+      "bytes": 16184,
       "media_type": "application/json",
       "path": "data/indexes/kind/api_contract_change.json",
-      "sha256": "27ac7355b352611a20373480da604e19166b805a601444ced54d06cf6e98e5b9"
+      "sha256": "352129165f04702e5d961b5dd48938aea0ce101e9e277c09e18826061fd306cc"
     },
     {
-      "bytes": 4003,
+      "bytes": 7610,
       "media_type": "application/json",
       "path": "data/indexes/kind/billing_channel_change.json",
-      "sha256": "6b42d6f9466206993bd7a03f8144f230282c1a078389d15cfabcaf94f3e4ef21"
+      "sha256": "b962d1eaa0148c9fbaf6bf8b405d89f3f3cbb25e2a2910a5ddff9be33a82dead"
     },
     {
       "bytes": 3696,
       "media_type": "application/json",
       "path": "data/indexes/kind/caching_change.json",
       "sha256": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76"
+    },
+    {
+      "bytes": 2749,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/default_model_change.json",
+      "sha256": "1cfb54f80b5e49da5ea3c1337dfefe7855e5ccad0a9c06b5d2673cd31d3bd9f0"
     },
     {
       "bytes": 10419,
@@ -93,10 +99,10 @@
       "sha256": "d53a9fd74e7f6a74c3d697ad839ee417ef46920d458362271d8d4f9a55477913"
     },
     {
-      "bytes": 8322,
+      "bytes": 12189,
       "media_type": "application/json",
       "path": "data/indexes/kind/token_accounting_change.json",
-      "sha256": "99475d3503fd0694295e97549d24d5a1ce1be634c38c8640891e719a50a5a10b"
+      "sha256": "5b3912daf6995145f80dd0641caa4491131dee1c5f3d974abfad6c3858ea1ef9"
     },
     {
       "bytes": 11514,
@@ -111,10 +117,10 @@
       "sha256": "853dba7aba3b3f9fe090d3efd966f6d46a6cac09c6124450660f4f67f5c40f6d"
     },
     {
-      "bytes": 29955,
+      "bytes": 30488,
       "media_type": "application/json",
       "path": "data/indexes/provider/aws-bedrock.json",
-      "sha256": "73c764be945a260a0d1e2c8103f82d8e8d621ede75300e539fe5db9aa12f8882"
+      "sha256": "20fbd5d49f341e7214afcf9aabfade1ef8a8734c4a1ee79f7256979e1ad35609"
     },
     {
       "bytes": 25875,
@@ -129,16 +135,16 @@
       "sha256": "36938bfb152715659219b94a957f77d49d1c373ab0a0621f2fa6a1f642a8c86d"
     },
     {
-      "bytes": 25389,
+      "bytes": 41293,
       "media_type": "application/json",
       "path": "data/indexes/provider/openai.json",
-      "sha256": "441186c824a7c1e4895154b57ac90b9d259e16c67e383c921bc4eb254462c3f4"
+      "sha256": "33f674bdedb85fa98406e931f1cb7bacf3d54b74ea699fdca97eabc6c7d2fa52"
     },
     {
-      "bytes": 72015,
+      "bytes": 79489,
       "media_type": "application/json",
       "path": "data/indexes/severity/high.json",
-      "sha256": "f26e58e217cab8855a76d3cd8cc97ce8e980dbd38d7c3d99ddb67129468fd7bb"
+      "sha256": "82e9897bb0e8a143218c70c38c0ac7745238503068a6aa1ef0ccb90b05027395"
     },
     {
       "bytes": 8665,
@@ -147,17 +153,17 @@
       "sha256": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b"
     },
     {
-      "bytes": 61035,
+      "bytes": 69465,
       "media_type": "application/json",
       "path": "data/indexes/severity/medium.json",
-      "sha256": "616af2ac7db2454bb3b9705c56888592f7b91b83dbd7facdf41966ffc7026b7e"
+      "sha256": "7d38dfdcb7c059e80b921ff863f5d84186b215278d1a13dee9204ea32979c443"
     }
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
-  "generated_at": "2026-06-11T09:15:49Z",
+  "generated_at": "2026-06-11T12:15:00Z",
   "generated_by": "ai-provider-watch 0.1.13",
   "latest_event_date": "2026-06-11",
-  "latest_observed_at": "2026-06-11T09:15:49Z",
+  "latest_observed_at": "2026-06-11T12:15:00Z",
   "package_version": "0.1.13",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
@@ -166,11 +172,11 @@
   "release_id": "dev",
   "schema_version": "apw.feed_freshness.v0",
   "source_state": {
-    "bytes": 22890,
-    "latest_retrieved_at": "2026-06-11T09:20:56Z",
+    "bytes": 23250,
+    "latest_retrieved_at": "2026-06-11T12:15:55Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "sha256": "26ac08e6bca9efbdbee0478e0a09bae652afc90e07a7769febdbe1b0d7eae38c",
-    "source_count": 19
+    "sha256": "8cc3c30f2e5622954c8c69944a92a8691b522dc2166875319e998f4c25c41161",
+    "source_count": 20
   }
 }

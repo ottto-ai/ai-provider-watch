@@ -1,7 +1,7 @@
 {
   "delivery": {
     "content_type": "application/json",
-    "idempotency_key": "apw-webhook-v0-e8fcdf480c818cfdf13205f3",
+    "idempotency_key": "apw-webhook-v0-6b58ddd53d3fd9ba6eb1b087",
     "method": "POST",
     "mode": "operator_owned",
     "retry_policy": {
@@ -18,8 +18,49 @@
       ]
     }
   },
-  "event_count": 6,
+  "event_count": 11,
   "events": [
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-04T00:00:00Z",
+      "event_date": "2026-06-04",
+      "event_kind": "api_contract_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+          "retrieved_at": "2026-06-11T12:11:27Z",
+          "source_key": "openai.api_changelog",
+          "url": "https://developers.openai.com/api/docs/changelog"
+        }
+      ],
+      "id": "2026-06-04-openai-moderation-scores-api",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "behavior",
+          "recommended_action": "Review SDK request/response handling and safety telemetry pipelines if moderation scores should be captured inline with generation responses.",
+          "scope_ref": "surface:openai/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-11T12:04:40Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "OpenAI added moderation-score output support to Responses API and Chat Completions generation requests, letting callers request moderation results for both input and generated output in the same response path.",
+      "title": "OpenAI Added Moderation Scores To Generation API Responses"
+    },
     {
       "confidence": "confirmed",
       "detail_refs": {
@@ -60,6 +101,47 @@
       "source_authority": "official_status",
       "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
       "title": "OpenAI Image API Requests Returned 401 Errors"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-02T00:00:00Z",
+      "event_date": "2026-06-02",
+      "event_kind": "billing_channel_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+          "retrieved_at": "2026-06-11T12:11:27Z",
+          "source_key": "openai.api_changelog",
+          "url": "https://developers.openai.com/api/docs/changelog"
+        }
+      ],
+      "id": "2026-06-02-openai-container-session-minute-billing",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "decrease",
+          "impact_kind": "cost",
+          "recommended_action": "Revisit cost models for OpenAI API workflows that create short-lived eligible container sessions, and keep current built-in tool pricing docs as the source for exact rates.",
+          "scope_ref": "surface:openai/api",
+          "scope_type": "provider_surface",
+          "severity": "high"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-11T12:04:40Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.",
+      "title": "OpenAI Changed Eligible Container Sessions To Per-Minute Billing"
     },
     {
       "confidence": "confirmed",
@@ -183,6 +265,13 @@
           "retrieved_at": "2026-06-08T08:40:40Z",
           "source_key": "openai.news",
           "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+        },
+        {
+          "authority": "official_docs",
+          "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+          "retrieved_at": "2026-06-11T12:11:27Z",
+          "source_key": "openai.api_changelog",
+          "url": "https://developers.openai.com/api/docs/changelog"
         }
       ],
       "id": "2026-06-01-openai-codex-aws-bedrock-ga",
@@ -226,6 +315,138 @@
       "source_authority": "official_blog",
       "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
       "title": "OpenAI Frontier Models And Codex Became Available On AWS"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-05-29T00:00:00Z",
+      "event_date": "2026-05-29",
+      "event_kind": "token_accounting_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+          "retrieved_at": "2026-06-11T12:11:27Z",
+          "source_key": "openai.api_changelog",
+          "url": "https://developers.openai.com/api/docs/changelog"
+        }
+      ],
+      "id": "2026-05-29-openai-prompt-cache-retention-default",
+      "impacts": [
+        {
+          "confidence": "high",
+          "direction": "decrease",
+          "impact_kind": "cost",
+          "recommended_action": "Review prompt-cache assumptions, privacy controls, and cost forecasts for OpenAI API workloads in organizations without zero-data-retention enabled.",
+          "scope_ref": "surface:openai/api",
+          "scope_type": "provider_surface",
+          "severity": "high"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "compliance",
+          "recommended_action": "Confirm organization data-retention settings and explicit prompt-cache controls before relying on previous in-memory-only cache behavior.",
+          "scope_ref": "account:openai-non-zdr",
+          "scope_type": "account_type",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-11T12:04:40Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "OpenAI changed the default prompt cache retention behavior for organizations without zero-data-retention enabled, making extended prompt caching the default path for affected API calls.",
+      "title": "OpenAI Changed Prompt Cache Retention Defaults For Non-ZDR Organizations"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-05-28T00:00:00Z",
+      "event_date": "2026-05-28",
+      "event_kind": "default_model_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+          "retrieved_at": "2026-06-11T12:11:27Z",
+          "source_key": "openai.api_changelog",
+          "url": "https://developers.openai.com/api/docs/changelog"
+        }
+      ],
+      "id": "2026-05-28-openai-chat-latest-alias",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "behavior",
+          "recommended_action": "Use chat-latest only where floating model behavior is acceptable; pin production workflows to stable model IDs when repeatability matters.",
+          "scope_ref": "model_alias:openai/chat-latest",
+          "scope_type": "model_alias",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-11T12:04:40Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "OpenAI added the chat-latest API snapshot alias for testing the latest chat improvements, with an underlying model snapshot that can update over time.",
+      "title": "OpenAI Added The chat-latest API Snapshot Alias"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-05-26T00:00:00Z",
+      "event_date": "2026-05-26",
+      "event_kind": "api_contract_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+          "retrieved_at": "2026-06-11T12:11:27Z",
+          "source_key": "openai.api_changelog",
+          "url": "https://developers.openai.com/api/docs/changelog"
+        }
+      ],
+      "id": "2026-05-26-openai-workload-identity-federation",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "security",
+          "recommended_action": "Evaluate workload identity federation for CI, production services, and agent runners that currently store long-lived OpenAI API keys.",
+          "scope_ref": "surface:openai/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-11T12:15:00Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.",
+      "title": "OpenAI Added Workload Identity Federation For API Access"
     },
     {
       "confidence": "confirmed",

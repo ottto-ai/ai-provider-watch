@@ -2,6 +2,15 @@
   "schema_version": "apw.models.v0",
   "models": [
     {
+      "id": "openai/chat-latest",
+      "provider_id": "openai",
+      "display_name": "chat-latest",
+      "aliases": [
+        "chat-latest"
+      ],
+      "status": "alias"
+    },
+    {
       "id": "anthropic/claude-fable-5",
       "provider_id": "anthropic",
       "display_name": "Claude Fable 5",

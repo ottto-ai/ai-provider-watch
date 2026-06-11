@@ -6,6 +6,7 @@
     "openai.status",
     "openai.deprecations",
     "openai.news",
+    "openai.api_changelog",
     "openai.codex_docs"
   ],
   "status": "parser_fixtures",
@@ -33,6 +34,12 @@
       "source_key": "openai.deprecations",
       "input": "fixtures/deprecations.html",
       "expected": "fixtures/deprecations.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "openai.api_changelog",
+      "input": "fixtures/api-changelog.html",
+      "expected": "fixtures/api-changelog.expected.json",
       "changed": true
     }
   ]

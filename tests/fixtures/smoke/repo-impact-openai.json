@@ -1,6 +1,21 @@
 {
-  "event_count": 7,
+  "event_count": 12,
   "events": [
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-04",
+      "event_kind": "api_contract_change",
+      "id": "2026-06-04-openai-moderation-scores-api",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI added moderation-score output support to Responses API and Chat Completions generation requests, letting callers request moderation results for both input and generated output in the same response path.",
+      "title": "OpenAI Added Moderation Scores To Generation API Responses"
+    },
     {
       "confidence": "confirmed",
       "event_date": "2026-06-04",
@@ -31,6 +46,21 @@
       "severity": "low",
       "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
       "title": "OpenAI Codex Compaction Had Increased Latency"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-02",
+      "event_kind": "billing_channel_change",
+      "id": "2026-06-02-openai-container-session-minute-billing",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.",
+      "title": "OpenAI Changed Eligible Container Sessions To Per-Minute Billing"
     },
     {
       "confidence": "confirmed",
@@ -79,6 +109,51 @@
       "severity": "high",
       "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
       "title": "OpenAI Frontier Models And Codex Became Available On AWS"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-05-29",
+      "event_kind": "token_accounting_change",
+      "id": "2026-05-29-openai-prompt-cache-retention-default",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI changed the default prompt cache retention behavior for organizations without zero-data-retention enabled, making extended prompt caching the default path for affected API calls.",
+      "title": "OpenAI Changed Prompt Cache Retention Defaults For Non-ZDR Organizations"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-05-28",
+      "event_kind": "default_model_change",
+      "id": "2026-05-28-openai-chat-latest-alias",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI added the chat-latest API snapshot alias for testing the latest chat improvements, with an underlying model snapshot that can update over time.",
+      "title": "OpenAI Added The chat-latest API Snapshot Alias"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-05-26",
+      "event_kind": "api_contract_change",
+      "id": "2026-05-26-openai-workload-identity-federation",
+      "matched_refs": [
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.",
+      "title": "OpenAI Added Workload Identity Federation For API Access"
     },
     {
       "confidence": "confirmed",

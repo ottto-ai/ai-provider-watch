@@ -625,6 +625,62 @@
         "confidence": "confirmed",
         "effective_at": "2026-06-04T00:00:00Z",
         "event_date": "2026-06-04",
+        "event_id": "2026-06-04-openai-moderation-scores-api",
+        "event_kind": "api_contract_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+            "selector": "announcement:77f0d7c2044f227f",
+            "snapshot_ref": "entry:77f0d7c2044f227f",
+            "source_key": "openai.api_changelog",
+            "url": "https://developers.openai.com/api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the public API contract addition only; exact SDK support, rollout, and moderation-policy handling should be checked against current OpenAI API docs before implementation."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI added moderation-score output support to Responses API and Chat Completions generation requests, letting callers request moderation results for both input and generated output in the same response path.\n\nKind: api_contract_change\nSeverity: medium\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T12:04:40Z",
+      "date_published": "2026-06-11T12:04:40Z",
+      "external_url": "https://developers.openai.com/api/docs/changelog",
+      "id": "2026-06-04-openai-moderation-scores-api",
+      "summary": "OpenAI added moderation-score output support to Responses API and Chat Completions generation requests, letting callers request moderation results for both input and generated output in the same response path.",
+      "tags": [
+        "api_contract_change",
+        "impact:api_contract_change",
+        "provider:openai",
+        "severity:medium",
+        "source:official_docs",
+        "surface:openai_api"
+      ],
+      "title": "OpenAI Added Moderation Scores To Generation API Responses",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-04-openai-moderation-scores-api.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-04T00:00:00Z",
+        "event_date": "2026-06-04",
         "event_id": "2026-06-04-aws-bedrock-compatible-api-console",
         "event_kind": "api_contract_change",
         "evidence_refs": [
@@ -1048,6 +1104,62 @@
         "confidence": "confirmed",
         "effective_at": "2026-06-02T00:00:00Z",
         "event_date": "2026-06-02",
+        "event_id": "2026-06-02-openai-container-session-minute-billing",
+        "event_kind": "billing_channel_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+            "selector": "announcement:7415cf2e82bd760a",
+            "snapshot_ref": "entry:7415cf2e82bd760a",
+            "source_key": "openai.api_changelog",
+            "url": "https://developers.openai.com/api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "decrease",
+            "impact_kind": "cost",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the public changelog billing mechanism change only; exact eligibility, tool coverage, account rollout, and current per-minute rates remain governed by OpenAI's pricing documentation."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.\n\nKind: billing_channel_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T12:04:40Z",
+      "date_published": "2026-06-11T12:04:40Z",
+      "external_url": "https://developers.openai.com/api/docs/changelog",
+      "id": "2026-06-02-openai-container-session-minute-billing",
+      "summary": "OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.",
+      "tags": [
+        "billing_channel_change",
+        "impact:billing_channel_change",
+        "provider:openai",
+        "severity:high",
+        "source:official_docs",
+        "surface:openai_api"
+      ],
+      "title": "OpenAI Changed Eligible Container Sessions To Per-Minute Billing",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-02-openai-container-session-minute-billing.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-02T00:00:00Z",
+        "event_date": "2026-06-02",
         "event_id": "2026-06-02-anthropic-tool-max-tokens-refusal-billing",
         "event_kind": "token_accounting_change",
         "evidence_refs": [
@@ -1314,6 +1426,14 @@
             "snapshot_ref": "reviewed-source:2026-06-08",
             "source_key": "openai.news",
             "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+          },
+          {
+            "authority": "official_docs",
+            "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+            "selector": "announcement:c1b5b4402748824a",
+            "snapshot_ref": "entry:c1b5b4402748824a",
+            "source_key": "openai.api_changelog",
+            "url": "https://developers.openai.com/api/docs/changelog"
           }
         ],
         "impacts": [
@@ -1435,6 +1555,127 @@
       ],
       "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-01-google-vertex-gemini-2-0-flash-retirement.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-29T00:00:00Z",
+        "event_date": "2026-05-29",
+        "event_id": "2026-05-29-openai-prompt-cache-retention-default",
+        "event_kind": "token_accounting_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+            "selector": "announcement:ce415bdbba26f2a9",
+            "snapshot_ref": "entry:ce415bdbba26f2a9",
+            "source_key": "openai.api_changelog",
+            "url": "https://developers.openai.com/api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "high",
+            "direction": "decrease",
+            "impact_kind": "cost",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "compliance",
+            "scope_ref": "account:openai-non-zdr",
+            "scope_type": "account_type",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the public default-change fact only; exact cache pricing, privacy controls, and opt-out behavior should be verified against current OpenAI API and organization settings documentation."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI changed the default prompt cache retention behavior for organizations without zero-data-retention enabled, making extended prompt caching the default path for affected API calls.\n\nKind: token_accounting_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T12:04:40Z",
+      "date_published": "2026-06-11T12:04:40Z",
+      "external_url": "https://developers.openai.com/api/docs/changelog",
+      "id": "2026-05-29-openai-prompt-cache-retention-default",
+      "summary": "OpenAI changed the default prompt cache retention behavior for organizations without zero-data-retention enabled, making extended prompt caching the default path for affected API calls.",
+      "tags": [
+        "impact:token_accounting_change",
+        "provider:openai",
+        "severity:high",
+        "source:official_docs",
+        "surface:openai_api",
+        "token_accounting_change"
+      ],
+      "title": "OpenAI Changed Prompt Cache Retention Defaults For Non-ZDR Organizations",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-29-openai-prompt-cache-retention-default.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-28T00:00:00Z",
+        "event_date": "2026-05-28",
+        "event_id": "2026-05-28-openai-chat-latest-alias",
+        "event_kind": "default_model_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+            "selector": "announcement:9ce1a02db80e9ba0",
+            "snapshot_ref": "entry:9ce1a02db80e9ba0",
+            "source_key": "openai.api_changelog",
+            "url": "https://developers.openai.com/api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "model_alias:openai/chat-latest",
+            "scope_type": "model_alias",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records alias behavior only; it does not assert the current underlying model snapshot, quality, latency, or production suitability."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI added the chat-latest API snapshot alias for testing the latest chat improvements, with an underlying model snapshot that can update over time.\n\nKind: default_model_change\nSeverity: medium\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T12:04:40Z",
+      "date_published": "2026-06-11T12:04:40Z",
+      "external_url": "https://developers.openai.com/api/docs/changelog",
+      "id": "2026-05-28-openai-chat-latest-alias",
+      "summary": "OpenAI added the chat-latest API snapshot alias for testing the latest chat improvements, with an underlying model snapshot that can update over time.",
+      "tags": [
+        "alias:chat_latest",
+        "default_model_change",
+        "impact:default_model_change",
+        "provider:openai",
+        "severity:medium",
+        "source:official_docs",
+        "surface:openai_api"
+      ],
+      "title": "OpenAI Added The chat-latest API Snapshot Alias",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-28-openai-chat-latest-alias.json"
     },
     {
       "_apw": {
@@ -1562,6 +1803,63 @@
       ],
       "title": "Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-28-anthropic-opus-48-dynamic-workflows.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-05-26T00:00:00Z",
+        "event_date": "2026-05-26",
+        "event_id": "2026-05-26-openai-workload-identity-federation",
+        "event_kind": "api_contract_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+            "selector": "announcement:3017ae508fb206ee",
+            "snapshot_ref": "entry:3017ae508fb206ee",
+            "source_key": "openai.api_changelog",
+            "url": "https://developers.openai.com/api/docs/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "security",
+            "scope_ref": "surface:openai/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the public API access capability only; teams must validate provider documentation, account eligibility, issuer configuration, and rollout status before replacing stored keys."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.\n\nKind: api_contract_change\nSeverity: medium\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-11T12:15:00Z",
+      "date_published": "2026-06-11T12:15:00Z",
+      "external_url": "https://developers.openai.com/api/docs/changelog",
+      "id": "2026-05-26-openai-workload-identity-federation",
+      "summary": "OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.",
+      "tags": [
+        "api_contract_change",
+        "impact:api_contract_change",
+        "impact:security",
+        "provider:openai",
+        "severity:medium",
+        "source:official_docs",
+        "surface:openai_api"
+      ],
+      "title": "OpenAI Added Workload Identity Federation For API Access",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-26-openai-workload-identity-federation.json"
     },
     {
       "_apw": {
