@@ -226,3 +226,11 @@ the concrete resolution.
   successful PyPI Trusted Publishing run for the cleaner source-review loop,
   matching GitHub release assets, artifact hashes, PyPI provenance, and
   fresh-install smoke coverage.
+- [2026-06-11 `data-2026.06.11.1` data release](release-evidence/2026-06-11-data-2026.06.11.1.md):
+  Ron-signed same-day revision data tag for the 56-event reviewed feed, with
+  CI, CodeQL, Dependency Review, Scorecard, protected dry-run attestation,
+  packet evidence, and pinned remote-feed smoke.
+- [2026-06-11 `v0.1.16` Python package](release-evidence/2026-06-11-v0.1.16-python-package.md):
+  successful PyPI Trusted Publishing run for the `data-2026.06.11.1` bundled
+  package snapshot, matching GitHub release assets, artifact hashes, PyPI
+  provenance, and fresh-install smoke coverage.
