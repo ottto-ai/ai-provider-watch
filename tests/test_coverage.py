@@ -9,7 +9,7 @@ from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 
 ROOT = Path(__file__).resolve().parents[1]
 CREATED_AT = "2026-06-08T12:00:00Z"
-STALE_CREATED_AT = "2026-06-14T18:00:00Z"
+STALE_CREATED_AT = "2026-06-15T00:00:00Z"
 
 
 def test_source_coverage_report_matches_schema_and_current_gaps() -> None:
