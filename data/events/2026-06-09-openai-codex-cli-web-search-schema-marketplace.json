@@ -1,0 +1,81 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
+  "title": "OpenAI Codex CLI Added Web Search, Schema, And Plugin Marketplace Updates",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-06-09",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T15:12:22Z",
+  "announced_at": "2026-06-09T00:00:00Z",
+  "effective_at": "2026-06-09T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI's Codex CLI 0.139 changelog records standalone web search support in code mode, richer tool/connector schema preservation, expanded local diagnostics, plugin marketplace JSON/source metadata, and fixes for resume/fork prompts, MCP startup warnings, image edits, and URL handling.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog",
+      "retrieved_at": "2026-06-11T15:12:22Z",
+      "authority": "official_docs",
+      "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+      "snapshot_ref": "entry:78597976f1c82cf1",
+      "selector": "announcement:78597976f1c82cf1",
+      "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "Retest Codex CLI code-mode runs that depend on web search, nested tool calls, MCP schemas, plugin marketplace automation, image edits, or resume/fork prompt handling."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "security",
+      "direction": "changed",
+      "severity": "low",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "security_engineers",
+        "platform_engineers"
+      ],
+      "recommended_action": "Review local diagnostic collection expectations because Codex CLI reports more environment context while redacting raw JSON values."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "Codex CLI 0.139 changed agent workflow behavior around code-mode web search, MCP/tool schema compatibility, diagnostics, plugin marketplace metadata, and several CLI reliability paths."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:openai",
+    "impact:workflow_behavior_change",
+    "app:codex"
+  ],
+  "limitations": [
+    "The plugin catalog cache mentioned in the changelog is software-cache behavior; APW does not classify it as prompt caching or token accounting.",
+    "No raw changelog body is copied into the event."
+  ]
+}

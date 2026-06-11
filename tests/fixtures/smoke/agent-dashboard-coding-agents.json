@@ -5,6 +5,104 @@
         "app:codex"
       ],
       "confidence": "confirmed",
+      "effective_at": "2026-06-08T00:00:00Z",
+      "event_date": "2026-06-08",
+      "event_id": "2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json",
+      "event_kind": "api_contract_change",
+      "evidence_urls": [
+        "https://developers.openai.com/codex/changelog"
+      ],
+      "impact_rows": [
+        {
+          "api_usage_impact": "direct",
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "migration",
+          "recommended_action": "Audit integrations that depend on Codex app-server auth, token usage reads, plugin JSON output, remote MCP metadata, image file references, or CLI-to-desktop handoff before relying on 0.138 behavior.",
+          "scope_ref": "app:codex",
+          "severity": "high",
+          "subscription_impact": "possible"
+        },
+        {
+          "api_usage_impact": "possible",
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "behavior",
+          "recommended_action": "Retest goal workflows and terminal/app handoff on macOS and Windows if local automation assumes older CLI-only behavior.",
+          "scope_ref": "app:codex",
+          "severity": "medium",
+          "subscription_impact": "possible"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "observed_at": "2026-06-11T15:12:22Z",
+      "priority": "high",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "recommended_next_steps": [
+        "Audit integrations that depend on Codex app-server auth, token usage reads, plugin JSON output, remote MCP metadata, image file references, or CLI-to-desktop handoff before relying on 0.138 behavior.",
+        "Retest goal workflows and terminal/app handoff on macOS and Windows if local automation assumes older CLI-only behavior."
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "OpenAI's Codex CLI 0.138 changelog records CLI-to-desktop app handoff, saved image file-path exposure, model-defined reasoning effort ordering, account token usage reads for app-server integrations, v2 personal access token support, and richer structured plugin command output.",
+      "title": "OpenAI Codex CLI Added App Handoff, PAT, And Plugin JSON Contracts"
+    },
+    {
+      "agent_app_refs": [
+        "app:codex"
+      ],
+      "confidence": "confirmed",
+      "effective_at": "2026-06-04T00:00:00Z",
+      "event_date": "2026-06-04",
+      "event_id": "2026-06-04-openai-codex-cli-admin-rpc-tools-agents",
+      "event_kind": "workflow_behavior_change",
+      "evidence_urls": [
+        "https://developers.openai.com/codex/changelog"
+      ],
+      "impact_rows": [
+        {
+          "api_usage_impact": "possible",
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "compliance",
+          "recommended_action": "Review Codex enterprise/admin controls for monthly credit limits, cloud-managed config bundles, and controller grant lifecycle before enabling managed workspaces.",
+          "scope_ref": "app:codex",
+          "severity": "high",
+          "subscription_impact": "direct"
+        },
+        {
+          "api_usage_impact": "direct",
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "behavior",
+          "recommended_action": "Retest hosted web/image tools, plugin list JSON, cached catalog suggestions, multi-agent runtime metadata, and controller RPC clients against Codex CLI 0.137 or newer.",
+          "scope_ref": "app:codex",
+          "severity": "medium",
+          "subscription_impact": "possible"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "observed_at": "2026-06-11T15:12:22Z",
+      "priority": "high",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "recommended_next_steps": [
+        "Review Codex enterprise/admin controls for monthly credit limits, cloud-managed config bundles, and controller grant lifecycle before enabling managed workspaces.",
+        "Retest hosted web/image tools, plugin list JSON, cached catalog suggestions, multi-agent runtime metadata, and controller RPC clients against Codex CLI 0.137 or newer."
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "OpenAI's Codex CLI 0.137 changelog records expanded terminal controls, monthly credit-limit and cloud-managed config support for enterprise/admin flows, app-server v2 controller grant RPCs, plugin JSON/catalog improvements, hosted web and image tools in more code-mode flows, multi-agent v2 runtime metadata, and multiple reliability fixes.",
+      "title": "OpenAI Codex CLI Added Admin Config, Controller RPCs, Hosted Tools, And Multi-Agent Updates"
+    },
+    {
+      "agent_app_refs": [
+        "app:codex"
+      ],
+      "confidence": "confirmed",
       "effective_at": "2026-06-02T00:00:00Z",
       "event_date": "2026-06-02",
       "event_id": "2026-06-02-openai-codex-role-plugins-sites",
@@ -145,7 +243,7 @@
     }
   ],
   "delivery_boundary": "local_dashboard_json_no_third_party_api_calls",
-  "event_count": 3,
+  "event_count": 5,
   "filters": {
     "agent_app": null,
     "event_id": null,

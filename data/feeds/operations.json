@@ -1,9 +1,7 @@
 {
   "candidate_backlog": {
-    "by_status": {
-      "needs_review": 6
-    },
-    "total": 6
+    "by_status": {},
+    "total": 0
   },
   "contributor_quality": {
     "candidate_quality_command": "uv run apw candidate quality --candidates data/candidates/review",
@@ -33,9 +31,9 @@
     "retracted_or_superseded_event_count": 0,
     "target": "Document correction or retraction disposition in the next reviewed PR and release notes."
   },
-  "generated_at": "2026-06-11T12:15:00Z",
+  "generated_at": "2026-06-11T15:12:22Z",
   "generated_by": "ai-provider-watch 0.1.15",
-  "overall_status": "warn",
+  "overall_status": "pass",
   "package_version": "0.1.15",
   "policy": {
     "private_ottto_boundary": "no private Ottto UI, Advisor, telemetry, customer data, credentials, or infrastructure required",
@@ -62,7 +60,7 @@
       "unit": "days"
     },
     {
-      "actual": 0.0,
+      "actual": 0.31,
       "details": "Hours since the latest deterministic source-state retrieval.",
       "id": "source_state_freshness",
       "label": "Source-state freshness",
@@ -80,11 +78,11 @@
       "unit": "ratio"
     },
     {
-      "actual": 6,
+      "actual": 0,
       "details": "Review candidates present outside reviewed ProviderEvent data.",
       "id": "candidate_backlog",
       "label": "Review candidate backlog",
-      "status": "warn",
+      "status": "pass",
       "target": 0,
       "unit": "candidates"
     },
@@ -101,17 +99,11 @@
   "source_coverage": {
     "path": "data/feeds/coverage.json",
     "schema_version": "apw.source_coverage.v0",
-    "warning_count": 1,
-    "warnings": [
-      {
-        "code": "candidate_backlog_present",
-        "detail": "6 review candidate(s) are present outside reviewed events",
-        "severity": "info"
-      }
-    ]
+    "warning_count": 0,
+    "warnings": []
   },
   "summary": {
-    "candidate_backlog_count": 6,
+    "candidate_backlog_count": 0,
     "enabled_deterministic_source_count": 21,
     "enabled_source_coverage_ratio": 1.0,
     "fetched_enabled_source_count": 21,
@@ -119,10 +111,10 @@
     "latest_reviewed_event_age_days": 0,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 45,
+    "reviewed_event_count": 51,
     "source_count": 21,
-    "source_state_age_hours": 0.0,
+    "source_state_age_hours": 0.31,
     "source_state_latest_retrieved_at": "2026-06-11T14:53:42Z",
-    "warning_count": 1
+    "warning_count": 0
   }
 }

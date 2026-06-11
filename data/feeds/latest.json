@@ -26,6 +26,42 @@
   {
     "confidence": "confirmed",
     "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-09-openai-codex-mobile-worktrees-goals-review",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.153 records Codex Mobile support for branch/worktree setup, environment setup scripts, goal management, inline review comments, side chat from transcript selection, prompt editing, and usage/token activity views.",
+    "title": "OpenAI Added Codex Mobile Worktree, Goal, And Review Controls"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI's Codex CLI 0.139 changelog records standalone web search support in code mode, richer tool/connector schema preservation, expanded local diagnostics, plugin marketplace JSON/source metadata, and fixes for resume/fork prompts, MCP startup warnings, image edits, and URL handling.",
+    "title": "OpenAI Codex CLI Added Web Search, Schema, And Plugin Marketplace Updates"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-09-openai-codex-app-migration-plugins-settings",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI's Codex changelog for app version 26.608 records new migration flows from Claude Code and Claude Cowork setup, a revamped plugin management screen, broader settings search, and several workflow reliability fixes.",
+    "title": "OpenAI Codex App Added Migration, Plugin, And Settings Improvements"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
     "event_kind": "subscription_change",
     "id": "2026-06-09-anthropic-fable-5-free-window-credits",
     "provider_refs": [
@@ -85,6 +121,18 @@
   },
   {
     "confidence": "confirmed",
+    "event_date": "2026-06-08",
+    "event_kind": "api_contract_change",
+    "id": "2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "high",
+    "summary": "OpenAI's Codex CLI 0.138 changelog records CLI-to-desktop app handoff, saved image file-path exposure, model-defined reasoning effort ordering, account token usage reads for app-server integrations, v2 personal access token support, and richer structured plugin command output.",
+    "title": "OpenAI Codex CLI Added App Handoff, PAT, And Plugin JSON Contracts"
+  },
+  {
+    "confidence": "confirmed",
     "event_date": "2026-06-05",
     "event_kind": "model_retirement",
     "id": "2026-06-05-anthropic-opus-41-api-retirement",
@@ -106,6 +154,30 @@
     "severity": "high",
     "summary": "AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.",
     "title": "AWS Bedrock AgentCore Runtime Added Interactive Shells"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-04",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-04-openai-codex-cli-admin-rpc-tools-agents",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "high",
+    "summary": "OpenAI's Codex CLI 0.137 changelog records expanded terminal controls, monthly credit-limit and cloud-managed config support for enterprise/admin flows, app-server v2 controller grant RPCs, plugin JSON/catalog improvements, hosted web and image tools in more code-mode flows, multi-agent v2 runtime metadata, and multiple reliability fixes.",
+    "title": "OpenAI Codex CLI Added Admin Config, Controller RPCs, Hosted Tools, And Multi-Agent Updates"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-04",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-04-openai-codex-app-computer-use-plugin-config",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI's Codex app 26.602 changelog records profile activity insights/share cards, Computer Use startup readiness and appshot error-reporting improvements, browser/review UI fixes, expanded onboarding role choices, and a fix for configuration writes after plugin installation.",
+    "title": "OpenAI Codex App Improved Computer Use Startup And Plugin Config Writes"
   },
   {
     "confidence": "confirmed",
@@ -166,77 +238,5 @@
     "severity": "medium",
     "summary": "AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.",
     "title": "AWS Step Functions Added AgentCore-Powered Agentic Reasoning Step"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-03",
-    "event_kind": "model_launch",
-    "id": "2026-06-03-aws-bedrock-gpt-54-govcloud",
-    "provider_refs": [
-      "provider:aws-bedrock"
-    ],
-    "severity": "high",
-    "summary": "AWS announced OpenAI GPT-5.4 availability on Amazon Bedrock in AWS GovCloud US-West, expanding regulated-region deployment options for OpenAI model workloads through Bedrock.",
-    "title": "AWS Bedrock Added OpenAI GPT-5.4 In AWS GovCloud US-West"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-03",
-    "event_kind": "status_incident",
-    "id": "2026-06-03-anthropic-opus-4-7-elevated-errors",
-    "provider_refs": [
-      "provider:anthropic"
-    ],
-    "severity": "medium",
-    "summary": "Anthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.",
-    "title": "Anthropic Reported Elevated Errors on Opus 4.7"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-03",
-    "event_kind": "status_incident",
-    "id": "2026-06-03-anthropic-claude-code-services-degraded",
-    "provider_refs": [
-      "provider:anthropic"
-    ],
-    "severity": "medium",
-    "summary": "Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.",
-    "title": "Anthropic Reported Degraded Claude Code Services"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-02",
-    "event_kind": "billing_channel_change",
-    "id": "2026-06-02-openai-container-session-minute-billing",
-    "provider_refs": [
-      "provider:openai"
-    ],
-    "severity": "high",
-    "summary": "OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.",
-    "title": "OpenAI Changed Eligible Container Sessions To Per-Minute Billing"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-02",
-    "event_kind": "token_accounting_change",
-    "id": "2026-06-02-anthropic-tool-max-tokens-refusal-billing",
-    "provider_refs": [
-      "provider:anthropic"
-    ],
-    "severity": "medium",
-    "summary": "Anthropic's June 2 Claude Platform release notes list a tool-level max_tokens cap for output control and state that no-output refusal responses on the Claude API are no longer billed.",
-    "title": "Anthropic Added Tool max_tokens And No-Output Refusal Billing Relief"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-02",
-    "event_kind": "model_deprecation",
-    "id": "2026-06-02-openai-gpt-image-model-deprecations",
-    "provider_refs": [
-      "provider:openai"
-    ],
-    "severity": "medium",
-    "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
-    "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown"
   }
 ]

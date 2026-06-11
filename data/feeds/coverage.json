@@ -1,25 +1,23 @@
 {
   "candidate_backlog": {
-    "by_status": {
-      "needs_review": 6
-    },
-    "total": 6
+    "by_status": {},
+    "total": 0
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
-  "generated_at": "2026-06-11T12:15:00Z",
+  "generated_at": "2026-06-11T15:12:22Z",
   "generated_by": "ai-provider-watch 0.1.15",
   "package_version": "0.1.15",
   "providers": [
     {
       "blocked_pending_parser_source_count": 0,
-      "candidate_backlog_count": 6,
+      "candidate_backlog_count": 0,
       "enabled_deterministic_source_count": 6,
       "fetched_enabled_source_count": 6,
-      "latest_event_date": "2026-06-04",
+      "latest_event_date": "2026-06-09",
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [],
       "provider_ref": "provider:openai",
-      "reviewed_event_count": 12,
+      "reviewed_event_count": 18,
       "source_count": 6
     },
     {
@@ -402,7 +400,7 @@
     {
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 6,
+      "candidate_backlog_count": 0,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -502,7 +500,7 @@
   ],
   "summary": {
     "blocked_pending_parser_source_count": 0,
-    "candidate_backlog_count": 6,
+    "candidate_backlog_count": 0,
     "enabled_deterministic_source_count": 21,
     "fetched_enabled_source_count": 21,
     "fetched_enabled_source_ratio": 1.0,
@@ -510,15 +508,9 @@
     "manual_review_only_source_count": 0,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 45,
+    "reviewed_event_count": 51,
     "source_count": 21,
-    "warning_count": 1
+    "warning_count": 0
   },
-  "warnings": [
-    {
-      "code": "candidate_backlog_present",
-      "detail": "6 review candidate(s) are present outside reviewed events",
-      "severity": "info"
-    }
-  ]
+  "warnings": []
 }

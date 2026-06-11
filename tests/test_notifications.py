@@ -35,8 +35,14 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
 
     _assert_valid("webhook-payload.schema.json", payload)
     assert payload["schema_version"] == "apw.webhook_payload.v0"
-    assert payload["event_count"] == 11
+    assert payload["event_count"] == 17
     assert {event["id"] for event in payload["events"]} == {
+        "2026-06-09-openai-codex-mobile-worktrees-goals-review",
+        "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
+        "2026-06-09-openai-codex-app-migration-plugins-settings",
+        "2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json",
+        "2026-06-04-openai-codex-cli-admin-rpc-tools-agents",
+        "2026-06-04-openai-codex-app-computer-use-plugin-config",
         "2026-06-04-openai-moderation-scores-api",
         "2026-06-02-openai-codex-role-plugins-sites",
         "2026-06-02-openai-container-session-minute-billing",
