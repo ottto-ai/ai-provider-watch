@@ -30,6 +30,7 @@ jobs:
             --output data/candidates/review \
             --created-at "$created_at" \
             --clean \
+            --skip-reviewed-duplicates \
             > .apw/candidate-generation.json
       - name: Decide whether a candidate-review PR is needed
         id: review_gate
@@ -63,15 +64,20 @@ jobs:
           {
             echo "uv run apw source test: pass"
             echo "uv run apw source fetch --write-state --observations .apw/source-observations.json: pass"
-            echo "uv run apw candidate generate --observations .apw/source-observations.json --output data/candidates/review --created-at ${created_at} --clean: pass"
+            echo "uv run apw candidate generate --observations .apw/source-observations.json --output data/candidates/review --created-at ${created_at} --clean --skip-reviewed-duplicates: pass"
             echo "uv run apw index: pass"
             echo "uv run apw validate: pass"
             echo "uv run apw index --check: pass"
           } > .apw/candidate-review-validation.txt
+          review_body_args=()
+          if [ "${{ steps.review_gate.outputs.recommendation }}" = "open_source_state_refresh_pr" ]; then
+            review_body_args+=(--source-state-only)
+          fi
           uv run apw candidate review-pr-body \
             --observations .apw/source-observations.json \
             --candidates data/candidates/review \
             --validation-output .apw/candidate-review-validation.txt \
+            "${review_body_args[@]}" \
             > .apw/candidate-review-pr-body.md
       - name: Open candidate review PR when reviewable changes exist
         if: steps.review_gate.outputs.review_needed == 'true'
@@ -83,7 +89,16 @@ jobs:
             exit 0
           fi
 
-          branch="data/candidate-review-$(date -u +%Y%m%d-%H%M%S)"
+          recommendation="${{ steps.review_gate.outputs.recommendation }}"
+          if [ "$recommendation" = "open_source_state_refresh_pr" ]; then
+            branch="data/source-state-refresh-$(date -u +%Y%m%d-%H%M%S)"
+            commit_message="data: refresh source state"
+            pr_title="data: refresh source state"
+          else
+            branch="data/candidate-review-$(date -u +%Y%m%d-%H%M%S)"
+            commit_message="data: review source candidates"
+            pr_title="data: review source candidates"
+          fi
           pr_created=0
           cleanup_branch() {
             if [ "$pr_created" != "1" ]; then
@@ -96,13 +111,13 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
           git add data/source-state/fingerprints.json data/candidates data/feeds data/indexes data/releases/dev
-          git commit -m "data: review source candidates"
+          git commit -m "$commit_message"
           git push --set-upstream origin "$branch"
           gh pr create \
             --draft \
             --base main \
             --head "$branch" \
-            --title "data: review source candidates" \
+            --title "$pr_title" \
             --body-file .apw/candidate-review-pr-body.md
           pr_created=1
           trap - EXIT
