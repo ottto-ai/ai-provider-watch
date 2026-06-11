@@ -322,10 +322,10 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.11` is the current stable public package target. It bundles the
-latest reviewed public feed snapshot plus the selector-aware candidate
-split/dedupe packet ergonomics from PR #130. The latest signed data release is
-still `data-2026.06.10`; this package snapshot keeps install-only users current
+APW `v0.1.11` is the current stable public package. It bundles the latest
+reviewed public feed snapshot plus the selector-aware candidate split/dedupe
+packet ergonomics from PR #130. The latest signed data release is still
+`data-2026.06.10`; this package snapshot keeps install-only users current
 without creating a new immutable data tag for a code-only ergonomics change.
 
 The current release includes:

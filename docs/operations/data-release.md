@@ -173,3 +173,7 @@ the concrete resolution.
   successful PyPI Trusted Publishing run for the high-signal Anthropic
   release-note event snapshot, matching GitHub release assets, artifact hashes,
   and fresh-install smoke coverage.
+- [2026-06-11 `v0.1.11` Python package](release-evidence/2026-06-11-v0.1.11-python-package.md):
+  successful PyPI Trusted Publishing run for selector-aware candidate
+  split/dedupe packet ergonomics, matching GitHub release assets, artifact
+  hashes, PyPI provenance, and fresh-install smoke coverage.
