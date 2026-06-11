@@ -5,6 +5,13 @@
     <link>https://github.com/ottto-ai/ai-provider-watch</link>
     <description>Reviewed AI-provider change events.</description>
     <item>
+      <guid isPermaLink="false">2026-06-11-aws-bedrock-openai-gpt-us-east-1</guid>
+      <title>AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia</title>
+      <description>AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.</description>
+      <category>model_launch</category>
+      <pubDate>Thu, 11 Jun 2026 09:15:49 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-10-google-vertex-gemini-embedding-lifecycle-dates</guid>
       <title>Google Cloud Listed Gemini And Embedding Model Lifecycle Dates</title>
       <description>Google Cloud&#x27;s Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.</description>

@@ -216,6 +216,31 @@ def test_candidate_quality_rejects_official_news_customer_stories(tmp_path) -> N
     assert "direct APW impact signal" in " ".join(row["quality_blockers"])
 
 
+def test_candidate_quality_rejects_official_news_codex_research_stories(tmp_path) -> None:
+    candidate = _dated_candidate(
+        candidate_id="candidate-openai-news-cccccccccccccccc",
+        source_key="openai.news",
+        provider_ref="provider:openai",
+        claim_text="OpenAI official dated source reports a workflow behavior change on 2026-06-11 for codex.",
+        candidate_kind="workflow_behavior_change",
+        evidence_url="https://openai.com/index/using-codex-to-simulate-black-holes",
+        selector="announcement:cccccccccccccccc",
+        parser_name="openai_news_feed",
+    )
+    report = build_candidate_quality_report(
+        [CandidateFile(path=tmp_path / "candidate.json", payload=candidate)],
+        load_source_descriptors(ROOT, enabled_only=False),
+        root=tmp_path,
+        created_at=CREATED_AT,
+    )
+
+    row = report["candidates"][0]
+    assert row["quality_tier"] == "low_signal"
+    assert row["recommended_action"] == "reject"
+    assert row["dimensions"]["direct_apw_scope_signal"] is False
+    assert "direct APW impact signal" in " ".join(row["quality_blockers"])
+
+
 def test_candidate_quality_rejects_aws_adjacent_service_false_positive(tmp_path) -> None:
     candidate = _dated_candidate(
         candidate_id="candidate-aws-bedrock-whats-new-bbbbbbbbbbbbbbbb",

@@ -1,6 +1,18 @@
 [
   {
     "confidence": "confirmed",
+    "event_date": "2026-06-11",
+    "event_kind": "model_launch",
+    "id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "high",
+    "summary": "AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.",
+    "title": "AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia"
+  },
+  {
+    "confidence": "confirmed",
     "event_date": "2026-06-10",
     "event_kind": "model_deprecation",
     "id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
@@ -226,18 +238,5 @@
     "severity": "high",
     "summary": "Google Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.",
     "title": "Google Gemini API Shut Down Gemini 2.0 Flash Models"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-01",
-    "event_kind": "billing_channel_change",
-    "id": "2026-06-01-openai-codex-aws-bedrock-ga",
-    "provider_refs": [
-      "provider:openai",
-      "provider:aws-bedrock"
-    ],
-    "severity": "high",
-    "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
-    "title": "OpenAI Frontier Models And Codex Became Available On AWS"
   }
 ]

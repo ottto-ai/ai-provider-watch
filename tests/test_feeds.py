@@ -48,9 +48,9 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert json_feed["version"] == "https://jsonfeed.org/version/1.1"
     assert json_feed["feed_url"].endswith("/data/feeds/feed.json")
     assert "no raw provider content" in json_feed["user_comment"]
-    assert json_feed["items"][0]["id"] == "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates"
+    assert json_feed["items"][0]["id"] == "2026-06-11-aws-bedrock-openai-gpt-us-east-1"
     assert json_feed["items"][0]["url"].endswith(
-        "/data/events/2026-06-10-google-vertex-gemini-embedding-lifecycle-dates.json"
+        "/data/events/2026-06-11-aws-bedrock-openai-gpt-us-east-1.json"
     )
     assert json_feed["items"][0]["_apw"]["evidence_refs"][0]["content_sha256"]
     manifest = json.loads(artifacts[Path("data/releases/dev/manifest.json")])
@@ -93,7 +93,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["release_id"] == "dev"
     assert freshness["data_tag"] is None
     assert freshness["event_count"] == len(events)
-    assert freshness["latest_event_date"] == "2026-06-10"
+    assert freshness["latest_event_date"] == "2026-06-11"
     assert freshness["source_state"]["path"] == "data/source-state/fingerprints.json"
     assert freshness["source_state"]["source_count"] == 19
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"

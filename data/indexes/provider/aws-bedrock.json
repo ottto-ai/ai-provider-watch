@@ -1,5 +1,111 @@
 [
   {
+    "announced_at": "2026-06-11T00:12:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records Bedrock regional availability, not OpenAI first-party API availability, account eligibility, exact pricing, or feature parity.",
+      "model_refs": [
+        "model:openai/gpt-5.4",
+        "model:openai/gpt-5.5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-11T00:12:00Z",
+    "event_date": "2026-06-11",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "7c0b3dfac5f9beba2a22ba209bf1039e24cefc262f6d53cfe53ec5e3efa0a7cc",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T09:15:49Z",
+        "selector": "announcement:fab193d75fdfa2ea",
+        "snapshot_ref": "entry:fab193d75fdfa2ea",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/openai-gpt-us-east-virginia-amazon/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify us-east-1 account access, Bedrock model availability, pricing, quotas, and Responses API behavior before routing GPT-5.4 or GPT-5.5 workloads through Bedrock.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Update regional allowlists, data-residency notes, and fallback routing if us-east-1 Bedrock availability changes preferred OpenAI model placement.",
+        "scope_ref": "region:aws-us-east-1",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "quota",
+        "recommended_action": "Refresh model metadata for context-window assumptions, multimodal input support, tool-calling support, and streaming behavior before exposing these Bedrock model IDs through gateways or SDK defaults.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records availability and regional facts only; exact account eligibility, quota, pricing, latency, and feature parity require AWS account-level verification.",
+      "The official announcement was reviewed for factual metadata; no provider prose is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T09:15:49Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "region:aws_us_east_1"
+    ],
+    "title": "AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia"
+  },
+  {
     "announced_at": "2026-06-09T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

@@ -18,6 +18,79 @@
     {
       "_apw": {
         "confidence": "confirmed",
+        "effective_at": "2026-06-11T00:12:00Z",
+        "event_date": "2026-06-11",
+        "event_id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "7c0b3dfac5f9beba2a22ba209bf1039e24cefc262f6d53cfe53ec5e3efa0a7cc",
+            "selector": "announcement:fab193d75fdfa2ea",
+            "snapshot_ref": "entry:fab193d75fdfa2ea",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/openai-gpt-us-east-virginia-amazon/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "region:aws-us-east-1",
+            "scope_type": "cloud_region",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "quota",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records availability and regional facts only; exact account eligibility, quota, pricing, latency, and feature parity require AWS account-level verification.",
+          "The official announcement was reviewed for factual metadata; no provider prose is copied into APW."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:aws-bedrock",
+      "date_modified": "2026-06-11T09:15:49Z",
+      "date_published": "2026-06-11T09:15:49Z",
+      "external_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/openai-gpt-us-east-virginia-amazon/",
+      "id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
+      "summary": "AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.",
+      "tags": [
+        "impact:model_launch",
+        "model_launch",
+        "provider:aws-bedrock",
+        "region:aws_us_east_1",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-11-aws-bedrock-openai-gpt-us-east-1.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
         "effective_at": null,
         "event_date": "2026-06-10",
         "event_id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
