@@ -60,7 +60,7 @@
       "unit": "days"
     },
     {
-      "actual": 4.37,
+      "actual": 0.0,
       "details": "Hours since the latest deterministic source-state retrieval.",
       "id": "source_state_freshness",
       "label": "Source-state freshness",
@@ -113,8 +113,8 @@
     "provider_count": 5,
     "reviewed_event_count": 56,
     "source_count": 21,
-    "source_state_age_hours": 4.37,
-    "source_state_latest_retrieved_at": "2026-06-11T14:53:42Z",
+    "source_state_age_hours": 0.0,
+    "source_state_latest_retrieved_at": "2026-06-11T20:49:55Z",
     "warning_count": 0
   }
 }
