@@ -185,3 +185,7 @@ the concrete resolution.
   successful PyPI Trusted Publishing run for the `data-2026.06.11` bundled
   package snapshot, matching GitHub release assets, artifact hashes, PyPI
   provenance, and fresh-install smoke coverage.
+- [2026-06-11 `v0.1.13` Python package](release-evidence/2026-06-11-v0.1.13-python-package.md):
+  successful PyPI Trusted Publishing run for issue-triage and source-refresh
+  review-gate CLI surfaces, matching GitHub release assets, artifact hashes,
+  PyPI provenance, and fresh-install smoke coverage.
