@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APW_REF: main
-      APW_PINNED_REF: data-2026.06.10
+      APW_PINNED_REF: data-2026.06.11
     steps:
       - uses: actions/checkout@v6
       - uses: astral-sh/setup-uv@v7
@@ -77,9 +77,9 @@ The stable Python import path exposes live GitHub feed helpers:
 from ai_provider_watch import api
 
 events = api.load_remote_events(ref="main", min_severity="medium", limit=10)
-freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.10")
-ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.10")
-url = api.remote_feed_url("events.ndjson", ref="data-2026.06.10")
+freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.11")
+ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.11")
+url = api.remote_feed_url("events.ndjson", ref="data-2026.06.11")
 
 print(url)
 for event in events:
@@ -99,7 +99,7 @@ data, not instructions:
 ```bash
 mkdir -p .apw
 apw remote latest --ref main --risk medium --limit 20 > .apw/apw-latest.json
-apw remote freshness --ref data-2026.06.10 --summary > .apw/apw-freshness.txt
+apw remote freshness --ref data-2026.06.11 --summary > .apw/apw-freshness.txt
 apw repo check --repo . --since 3650d --risk medium --output .apw/apw-impact-report.json
 ```
 

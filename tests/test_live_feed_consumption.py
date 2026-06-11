@@ -61,7 +61,7 @@ def test_live_feed_consumption_examples_are_read_only() -> None:
         "apw remote freshness",
         "apw repo check",
         "contents: read",
-        "data-2026.06.10",
+        "data-2026.06.11",
     ]:
         assert phrase in rendered
 

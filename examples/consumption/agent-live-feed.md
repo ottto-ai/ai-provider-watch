@@ -6,7 +6,7 @@ changes in a downstream repository.
 ```bash
 mkdir -p .apw
 apw remote latest --ref main --risk medium --limit 20 > .apw/apw-latest.json
-apw remote freshness --ref data-2026.06.10 --summary > .apw/apw-freshness.txt
+apw remote freshness --ref data-2026.06.11 --summary > .apw/apw-freshness.txt
 apw repo check --repo . --since 3650d --risk medium --output .apw/apw-impact-report.json
 ```
 

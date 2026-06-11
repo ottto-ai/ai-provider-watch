@@ -130,7 +130,7 @@ def test_consumer_api_loads_remote_feed_helpers(monkeypatch) -> None:
         },
     ]
     freshness = {
-        "release_id": "data-2026.06.10",
+        "release_id": "data-2026.06.11",
         "event_count": 2,
         "latest_event_date": "2026-06-10",
     }
@@ -148,14 +148,14 @@ def test_consumer_api_loads_remote_feed_helpers(monkeypatch) -> None:
 
     monkeypatch.setattr(remote, "urlopen", fake_urlopen)
 
-    assert api.remote_feed_url("events.ndjson", ref="data-2026.06.10") == (
+    assert api.remote_feed_url("events.ndjson", ref="data-2026.06.11") == (
         "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/"
-        "data-2026.06.10/data/feeds/events.ndjson"
+        "data-2026.06.11/data/feeds/events.ndjson"
     )
     assert [
         event["id"]
         for event in api.load_remote_events(
-            ref="data-2026.06.10",
+            ref="data-2026.06.11",
             provider="openai",
             min_severity="medium",
             limit=5,
@@ -163,14 +163,14 @@ def test_consumer_api_loads_remote_feed_helpers(monkeypatch) -> None:
             limit_bytes=10_000,
         )
     ] == ["high-openai"]
-    assert api.load_remote_json_feed("freshness", ref="data-2026.06.10") == freshness
+    assert api.load_remote_json_feed("freshness", ref="data-2026.06.11") == freshness
     assert "high-openai" in api.load_remote_text_feed(
         "events.ndjson",
-        ref="data-2026.06.10",
+        ref="data-2026.06.11",
     )
     assert requested[0] == (
         "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/"
-        "data-2026.06.10/data/feeds/events.json",
+        "data-2026.06.11/data/feeds/events.json",
         3.0,
     )
 
