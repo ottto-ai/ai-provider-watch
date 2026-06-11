@@ -124,8 +124,8 @@ def test_candidate_quality_marks_reviewed_event_evidence_as_duplicate(tmp_path) 
                 "authority": "official_blog",
                 "content_sha256": "d" * 64,
                 "fingerprint": "e" * 64,
-                "snapshot_ref": "anthropic-news:2026-05-28:opus-4-8",
-                "selector": "article:2026-05-28",
+                "snapshot_ref": "reviewed-source:2026-06-08",
+                "selector": "Claude Opus 4.8 announcement",
             }
         ],
         "created_at": CREATED_AT,
@@ -161,7 +161,9 @@ def _dated_candidate(
     evidence_url: str,
     selector: str,
     parser_name: str,
+    authority: str | None = None,
 ) -> dict:
+    selected_authority = authority or ("official_docs" if source_key == "google.gemini_changelog" else "official_blog")
     return {
         "schema_version": "apw.finding_candidate.v0",
         "id": candidate_id,
@@ -174,7 +176,7 @@ def _dated_candidate(
                 "source_key": source_key,
                 "url": evidence_url,
                 "retrieved_at": "2026-06-08T12:00:00Z",
-                "authority": "official_blog" if source_key != "google.gemini_changelog" else "official_docs",
+                "authority": selected_authority,
                 "content_sha256": "d" * 64,
                 "fingerprint": "e" * 64,
                 "snapshot_ref": selector.replace("announcement:", "entry:"),
@@ -291,6 +293,120 @@ def test_candidate_quality_uses_selector_for_shared_changelog_duplicates(tmp_pat
     assert rows["candidate-google-gemini-changelog-dddddddddddddddd"]["quality_tier"] == "duplicate"
     assert rows["candidate-google-gemini-changelog-dddddddddddddddd"]["duplicate_event_ids"] == [
         "2026-06-01-google-existing-changelog-event"
+    ]
+
+
+def test_candidate_quality_uses_selector_for_shared_anthropic_news_duplicates(tmp_path) -> None:
+    events_dir = tmp_path / "data" / "events"
+    events_dir.mkdir(parents=True)
+    (events_dir / "existing.json").write_text(
+        json.dumps(
+            {
+                "id": "2026-06-01-anthropic-existing-news-event",
+                "evidence_refs": [
+                    {
+                        "source_key": "anthropic.news",
+                        "url": "https://www.anthropic.com/news/shared-announcement",
+                        "selector": "announcement:existing",
+                        "snapshot_ref": "entry:existing",
+                    }
+                ],
+            }
+        )
+    )
+    new_selector = _dated_candidate(
+        candidate_id="candidate-anthropic-news-eeeeeeeeeeeeeeee",
+        source_key="anthropic.news",
+        provider_ref="provider:anthropic",
+        claim_text="Anthropic official dated source reports a model availability change on 2026-06-01 for claude-fable-5.",
+        candidate_kind="model_launch",
+        evidence_url="https://www.anthropic.com/news/shared-announcement",
+        selector="announcement:new",
+        parser_name="anthropic_news_index",
+    )
+    same_selector = _dated_candidate(
+        candidate_id="candidate-anthropic-news-ffffffffffffffff",
+        source_key="anthropic.news",
+        provider_ref="provider:anthropic",
+        claim_text="Anthropic official dated source reports a model availability change on 2026-06-01 for claude-fable-5.",
+        candidate_kind="model_launch",
+        evidence_url="https://www.anthropic.com/news/shared-announcement",
+        selector="announcement:existing",
+        parser_name="anthropic_news_index",
+    )
+    report = build_candidate_quality_report(
+        [
+            CandidateFile(path=tmp_path / "new.json", payload=new_selector),
+            CandidateFile(path=tmp_path / "same.json", payload=same_selector),
+        ],
+        load_source_descriptors(ROOT, enabled_only=False),
+        root=tmp_path,
+        created_at=CREATED_AT,
+    )
+
+    rows = {row["candidate_id"]: row for row in report["candidates"]}
+    assert rows["candidate-anthropic-news-eeeeeeeeeeeeeeee"]["duplicate_event_ids"] == []
+    assert rows["candidate-anthropic-news-ffffffffffffffff"]["quality_tier"] == "duplicate"
+    assert rows["candidate-anthropic-news-ffffffffffffffff"]["duplicate_event_ids"] == [
+        "2026-06-01-anthropic-existing-news-event"
+    ]
+
+
+def test_candidate_quality_uses_selector_for_shared_anthropic_release_notes_duplicates(tmp_path) -> None:
+    events_dir = tmp_path / "data" / "events"
+    events_dir.mkdir(parents=True)
+    (events_dir / "existing.json").write_text(
+        json.dumps(
+            {
+                "id": "2026-06-01-anthropic-existing-release-note-event",
+                "evidence_refs": [
+                    {
+                        "source_key": "anthropic.release_notes",
+                        "url": "https://platform.claude.com/docs/en/release-notes/overview",
+                        "selector": "announcement:existing",
+                        "snapshot_ref": "entry:existing",
+                    }
+                ],
+            }
+        )
+    )
+    new_selector = _dated_candidate(
+        candidate_id="candidate-anthropic-release-notes-1111111111111111",
+        source_key="anthropic.release_notes",
+        provider_ref="provider:anthropic",
+        claim_text="Anthropic official dated source reports a model retirement on 2026-06-01 for claude-opus-4-1.",
+        candidate_kind="model_retirement",
+        evidence_url="https://platform.claude.com/docs/en/release-notes/overview",
+        selector="announcement:new",
+        parser_name="anthropic_release_notes",
+        authority="official_docs",
+    )
+    same_selector = _dated_candidate(
+        candidate_id="candidate-anthropic-release-notes-2222222222222222",
+        source_key="anthropic.release_notes",
+        provider_ref="provider:anthropic",
+        claim_text="Anthropic official dated source reports a model retirement on 2026-06-01 for claude-opus-4-1.",
+        candidate_kind="model_retirement",
+        evidence_url="https://platform.claude.com/docs/en/release-notes/overview",
+        selector="announcement:existing",
+        parser_name="anthropic_release_notes",
+        authority="official_docs",
+    )
+    report = build_candidate_quality_report(
+        [
+            CandidateFile(path=tmp_path / "new.json", payload=new_selector),
+            CandidateFile(path=tmp_path / "same.json", payload=same_selector),
+        ],
+        load_source_descriptors(ROOT, enabled_only=False),
+        root=tmp_path,
+        created_at=CREATED_AT,
+    )
+
+    rows = {row["candidate_id"]: row for row in report["candidates"]}
+    assert rows["candidate-anthropic-release-notes-1111111111111111"]["duplicate_event_ids"] == []
+    assert rows["candidate-anthropic-release-notes-2222222222222222"]["quality_tier"] == "duplicate"
+    assert rows["candidate-anthropic-release-notes-2222222222222222"]["duplicate_event_ids"] == [
+        "2026-06-01-anthropic-existing-release-note-event"
     ]
 
 

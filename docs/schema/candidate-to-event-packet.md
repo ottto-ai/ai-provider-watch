@@ -47,6 +47,9 @@ The packet verifies:
   `duplicate_or_superseded`;
 - candidate quality action is `promote` or `needs_human_review`, not `reject`
   or `duplicate`;
+  - `duplicate` is advisory only when the reviewed duplicate event IDs include
+    every event draft ID in the packet, which can happen after the source owner
+    has already authored drafts into `data/events/`;
 - candidate claim text is omitted and represented by hash, length, and
   prompt-like metadata;
 - every event draft passes event, detail, and impact schemas;

@@ -115,6 +115,12 @@ write `data/events/`.
    events. The command exits nonzero when schema, evidence, source-owner,
    duplicate, prompt-like, or readiness/quality blockers remain.
 
+   If the event drafts are already present in `data/events/` during packet
+   generation, evidence-level duplicate quality can become advisory instead of
+   blocking only when the duplicate reviewed event IDs include the packet event
+   draft IDs. This keeps broad official-source announcements easy to split into
+   event-sized facts without allowing unrelated duplicate IDs through.
+
 9. Run the smallest relevant test during review, then the full local release
    gate before a release-affecting merge.
 
