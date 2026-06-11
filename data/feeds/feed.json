@@ -91,6 +91,80 @@
     {
       "_apw": {
         "confidence": "confirmed",
+        "effective_at": "2026-06-10T19:17:00Z",
+        "event_date": "2026-06-10",
+        "event_id": "2026-06-10-aws-bedrock-gemma-4-availability",
+        "event_kind": "model_launch",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "2a5ce41ed807dbdae897446b818ae58479f748c382ca2bb40cb1d7a73fb764eb",
+            "selector": "announcement:767c31f613cededa",
+            "snapshot_ref": "entry:767c31f613cededa",
+            "source_key": "aws_bedrock.whats_new",
+            "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/gemma-4-amazon-bedrock/"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "region:aws-us-east-1,aws-us-east-2,aws-us-west-2,aws-eu-central-1",
+            "scope_type": "cloud_region",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:aws-bedrock/api",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The source-review candidate classified this page as a pricing change; source-owner review corrected the public event to model availability after checking the official announcement.",
+          "APW records regional availability and high-level capability facts only; exact account eligibility, model IDs, pricing, quotas, latency, and feature parity require AWS account-level verification.",
+          "The official announcement was reviewed for factual metadata; no provider prose is copied into APW."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:aws-bedrock"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_blog"
+      },
+      "content_text": "AWS announced availability of Google DeepMind's Gemma 4 model family on Amazon Bedrock, including Gemma 4 31B, Gemma 4 26B-A4B, and Gemma 4 E2B in US East (N. Virginia), US East (Ohio), US West (Oregon), and Europe (Frankfurt).\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:aws-bedrock",
+      "date_modified": "2026-06-11T21:32:59Z",
+      "date_published": "2026-06-11T21:32:59Z",
+      "external_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/gemma-4-amazon-bedrock/",
+      "id": "2026-06-10-aws-bedrock-gemma-4-availability",
+      "summary": "AWS announced availability of Google DeepMind's Gemma 4 model family on Amazon Bedrock, including Gemma 4 31B, Gemma 4 26B-A4B, and Gemma 4 E2B in US East (N. Virginia), US East (Ohio), US West (Oregon), and Europe (Frankfurt).",
+      "tags": [
+        "impact:model_launch",
+        "model:google-gemma-4",
+        "model_launch",
+        "provider:aws-bedrock",
+        "severity:high",
+        "source:official_blog"
+      ],
+      "title": "AWS Added Gemma 4 Models On Amazon Bedrock",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-10-aws-bedrock-gemma-4-availability.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
         "effective_at": null,
         "event_date": "2026-06-10",
         "event_id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
@@ -3129,62 +3203,6 @@
       ],
       "title": "Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-10-01-azure-openai-audio-image-model-updates.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2025-09-01T00:00:00Z",
-        "event_date": "2025-09-01",
-        "event_id": "2025-09-01-azure-openai-gpt5-codex-sora-video",
-        "event_kind": "model_launch",
-        "evidence_refs": [
-          {
-            "authority": "official_docs",
-            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
-            "selector": "announcement:5b6f69faf99eb4a7",
-            "snapshot_ref": "entry:5b6f69faf99eb4a7",
-            "source_key": "azure_openai.whats_new",
-            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "availability",
-            "scope_ref": "surface:azure-openai/api",
-            "scope_type": "provider_surface",
-            "severity": "high"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "The source groups these updates under September 2025, so APW uses an approximate month-start event date."
-        ],
-        "migration_deadline": null,
-        "provider_refs": [
-          "provider:azure-openai"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "high",
-        "source_authority": "official_docs"
-      },
-      "content_text": "Azure OpenAI what's-new notes for September 2025 list GPT-5-Codex availability and Sora video-to-video support, affecting coding-agent model access and video generation workflows on Azure.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:azure-openai",
-      "date_modified": "2026-06-08T11:04:13Z",
-      "date_published": "2026-06-08T11:04:13Z",
-      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
-      "id": "2025-09-01-azure-openai-gpt5-codex-sora-video",
-      "summary": "Azure OpenAI what's-new notes for September 2025 list GPT-5-Codex availability and Sora video-to-video support, affecting coding-agent model access and video generation workflows on Azure.",
-      "tags": [
-        "app:codex",
-        "impact:model_launch",
-        "model_launch",
-        "provider:azure-openai",
-        "severity:high",
-        "source:official_docs"
-      ],
-      "title": "Azure OpenAI Added GPT-5-Codex And Sora Video-To-Video Support",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-09-01-azure-openai-gpt5-codex-sora-video.json"
     }
   ],
   "language": "en-US",

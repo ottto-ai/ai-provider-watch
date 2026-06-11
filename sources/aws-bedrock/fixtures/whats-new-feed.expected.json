@@ -5,25 +5,48 @@
       {
         "candidate_kind": "model_launch",
         "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-06-03 for amazon-bedrock, amazon-nova-premier, aws-bedrock.",
-        "evidence_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-nova-premier",
         "selector": "announcement:4f1b7a200815c7fd",
-        "snapshot_ref": "entry:4f1b7a200815c7fd"
+        "snapshot_ref": "entry:4f1b7a200815c7fd",
+        "evidence_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-nova-premier"
+      },
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-06-10 for amazon-bedrock, aws-bedrock, gemma-4, gemma-4-26b-a4b, gemma-4-31b, gemma-4-e2b.",
+        "selector": "announcement:aa94ec49a6010bc8",
+        "snapshot_ref": "entry:aa94ec49a6010bc8",
+        "evidence_url": "https://aws.amazon.com/about-aws/whats-new/2026/06/gemma-4-amazon-bedrock/"
       }
     ],
     "errors": [],
     "items": [
       {
-        "candidate_kind": "model_launch",
         "kind": "dated_announcement_ref",
-        "link_sha256": "91c0acf8b2cbc7485b4d70fbad6fb2e6035771cf83d26ca5868814f2fbf6f1f7",
         "published_date": "2026-06-03",
+        "title_sha256": "4f1b7a200815c7fd3ebdcd7eda3a1bd63c2b0d8ecaba583704120f04b3a6a099",
         "source_parser": "aws_bedrock_whats_new_feed",
+        "candidate_kind": "model_launch",
         "subjects": [
           "amazon-bedrock",
           "amazon-nova-premier",
           "aws-bedrock"
         ],
-        "title_sha256": "4f1b7a200815c7fd3ebdcd7eda3a1bd63c2b0d8ecaba583704120f04b3a6a099"
+        "link_sha256": "91c0acf8b2cbc7485b4d70fbad6fb2e6035771cf83d26ca5868814f2fbf6f1f7"
+      },
+      {
+        "kind": "dated_announcement_ref",
+        "published_date": "2026-06-10",
+        "title_sha256": "aa94ec49a6010bc802139d462afe6fd230d2669d6f6e0e1814ed994307009efb",
+        "source_parser": "aws_bedrock_whats_new_feed",
+        "candidate_kind": "model_launch",
+        "subjects": [
+          "amazon-bedrock",
+          "aws-bedrock",
+          "gemma-4",
+          "gemma-4-26b-a4b",
+          "gemma-4-31b",
+          "gemma-4-e2b"
+        ],
+        "link_sha256": "9fe27764fe8a3bf647fc282749bb261ed0059770fa81a0d7fe990419540a68c9"
       }
     ],
     "raw_excerpt_hashes": [],
