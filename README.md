@@ -211,6 +211,7 @@ git clone https://github.com/ottto-ai/ai-provider-watch.git
 cd ai-provider-watch
 uv sync --all-extras
 uv lock --check
+uv run --extra dev reuse lint
 uv run pytest
 uv run apw validate
 uv run apw index --check

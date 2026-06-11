@@ -28,6 +28,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "pytest>=8.2",
+  "reuse>=4.0",
   "ruff>=0.5.0",
 ]
 
