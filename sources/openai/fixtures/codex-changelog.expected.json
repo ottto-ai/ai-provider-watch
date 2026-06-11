@@ -1,0 +1,73 @@
+{
+  "changed": true,
+  "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "workflow_behavior_change",
+        "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-06-09 for codex, codex-cli, mcp.",
+        "evidence_url": "https://developers.openai.com/codex/changelog",
+        "selector": "announcement:7e6128506f6c1058",
+        "snapshot_ref": "entry:7e6128506f6c1058"
+      },
+      {
+        "candidate_kind": "workflow_behavior_change",
+        "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-06-02 for codex, codex-sites.",
+        "evidence_url": "https://developers.openai.com/codex/changelog",
+        "selector": "announcement:0978457ca41ec306",
+        "snapshot_ref": "entry:0978457ca41ec306"
+      },
+      {
+        "candidate_kind": "billing_channel_change",
+        "claim_text": "OpenAI official dated source reports a billing channel change on 2026-06-01 for amazon-bedrock, aws-bedrock, codex.",
+        "evidence_url": "https://developers.openai.com/codex/changelog",
+        "selector": "announcement:9fa940b68cecb7f6",
+        "snapshot_ref": "entry:9fa940b68cecb7f6"
+      }
+    ],
+    "errors": [],
+    "items": [
+      {
+        "candidate_kind": "workflow_behavior_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "afbd4293bcd84cee1e13a867fa41311390c6e2e9266148842959f6fa5a97434c",
+        "published_date": "2026-06-09",
+        "source_parser": "openai_codex_changelog",
+        "subjects": [
+          "codex",
+          "codex-cli",
+          "mcp"
+        ],
+        "title_sha256": "7e6128506f6c10587d8a913f3511b908bd8bb05b85dd8a13a01e99774d0e9092"
+      },
+      {
+        "candidate_kind": "workflow_behavior_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "afbd4293bcd84cee1e13a867fa41311390c6e2e9266148842959f6fa5a97434c",
+        "published_date": "2026-06-02",
+        "source_parser": "openai_codex_changelog",
+        "subjects": [
+          "codex",
+          "codex-sites"
+        ],
+        "title_sha256": "0978457ca41ec30673a07caabae20f93711dace0fbbcb314c27a7a2ca7ab1081"
+      },
+      {
+        "candidate_kind": "billing_channel_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "afbd4293bcd84cee1e13a867fa41311390c6e2e9266148842959f6fa5a97434c",
+        "published_date": "2026-06-01",
+        "source_parser": "openai_codex_changelog",
+        "subjects": [
+          "amazon-bedrock",
+          "aws-bedrock",
+          "codex"
+        ],
+        "title_sha256": "9fa940b68cecb7f6f3940e8a06e325b739e70027646dc29ccd5e23bfddb465cd"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "snapshot_ref": null
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "openai.codex_docs"
+}

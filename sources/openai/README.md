@@ -10,5 +10,7 @@ deterministic refresh after synthetic fixtures and a 2026-06-09 live smoke
 proved the scoped `Deprecations` heading range still bounds the provider page.
 It emits bounded model IDs, lifecycle dates, row hashes, and row-scoped
 candidate claims without copying provider prose or publishing events. Broad
-Codex docs remain manual-review evidence until dated change signals are
-available.
+Codex docs remain unparsed, but the official dated Codex changelog is now a
+deterministic review-candidate source. The Codex changelog parser emits bounded
+dates, subjects, entry hashes, and source-page evidence only; raw docs prose
+stays out of committed data.

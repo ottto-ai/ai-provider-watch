@@ -1,10 +1,10 @@
 {
   "artifacts": [
     {
-      "bytes": 15344,
+      "bytes": 15374,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "6a9ea5a131179f37b5a5720386541364f15f98d754f4683939a44e0e9e8fd963"
+      "sha256": "6192fd9d9e75b6762c87d2322331d192820357c065a1ec5eabdada5ab2c243b6"
     },
     {
       "bytes": 157613,
@@ -28,7 +28,7 @@
       "bytes": 6330,
       "media_type": "application/json",
       "path": "data/feeds/freshness.json",
-      "sha256": "c66ca1f1ae2f8ec141f5b018b5e1748dece0b3ed656a18314a3d97402219d5c7"
+      "sha256": "a740c4abb509cdb0b1013353571a047bf52a7d616091a61c1f866acebe52c3bb"
     },
     {
       "bytes": 10814,
@@ -37,10 +37,10 @@
       "sha256": "60d4c509c1ae84184a14bf6de80eaa30276407abc263ac0a7c306d8991846ef8"
     },
     {
-      "bytes": 4434,
+      "bytes": 4635,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "df9954b779724c8cbbdfcb314b608ab4ecdb21375b192dc55c7592df5ca68567"
+      "sha256": "6fcd5b8a58195afd475e9de8194a086c78256c0b1b6d3e0def6ddabd21c4596f"
     },
     {
       "bytes": 23328,
@@ -166,7 +166,7 @@
       "bytes": 2821,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "fc5be3190aa47b96a1df50b85fcd6b28f10ab60860f858bf3b0e6dad3bf9641f"
+      "sha256": "14f294b4346270ca1a7d82435f47285427e7982e161b5b87ed3fcecccec90e7c"
     },
     {
       "bytes": 8384,
@@ -176,13 +176,13 @@
     }
   ],
   "checksums": {
-    "data/feeds/coverage.json": "6a9ea5a131179f37b5a5720386541364f15f98d754f4683939a44e0e9e8fd963",
+    "data/feeds/coverage.json": "6192fd9d9e75b6762c87d2322331d192820357c065a1ec5eabdada5ab2c243b6",
     "data/feeds/events.json": "08fa4fdc03eabed02f820668f4019b87bc3362933257ed8a2828c99fb0eaab5f",
     "data/feeds/events.ndjson": "2c33fb13abcc0b71391f19165100720d2835e8c42d55f90480eae67e5b630f26",
     "data/feeds/feed.json": "6ef76e394501cf0a02153a4debc859a7fe84db2accfaafe57b0d5608f18ab576",
-    "data/feeds/freshness.json": "c66ca1f1ae2f8ec141f5b018b5e1748dece0b3ed656a18314a3d97402219d5c7",
+    "data/feeds/freshness.json": "a740c4abb509cdb0b1013353571a047bf52a7d616091a61c1f866acebe52c3bb",
     "data/feeds/latest.json": "60d4c509c1ae84184a14bf6de80eaa30276407abc263ac0a7c306d8991846ef8",
-    "data/feeds/operations.json": "df9954b779724c8cbbdfcb314b608ab4ecdb21375b192dc55c7592df5ca68567",
+    "data/feeds/operations.json": "6fcd5b8a58195afd475e9de8194a086c78256c0b1b6d3e0def6ddabd21c4596f",
     "data/feeds/rss.xml": "24d8840b10a3e073a66344fe9bc559340f5d2b30acbd72dce99cd49f3a75d5a2",
     "data/indexes/kind/api_contract_change.json": "352129165f04702e5d961b5dd48938aea0ce101e9e277c09e18826061fd306cc",
     "data/indexes/kind/billing_channel_change.json": "b962d1eaa0148c9fbaf6bf8b405d89f3f3cbb25e2a2910a5ddff9be33a82dead",
@@ -203,7 +203,7 @@
     "data/indexes/severity/high.json": "82e9897bb0e8a143218c70c38c0ac7745238503068a6aa1ef0ccb90b05027395",
     "data/indexes/severity/low.json": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b",
     "data/indexes/severity/medium.json": "7d38dfdcb7c059e80b921ff863f5d84186b215278d1a13dee9204ea32979c443",
-    "data/releases/dev/checksums.txt": "fc5be3190aa47b96a1df50b85fcd6b28f10ab60860f858bf3b0e6dad3bf9641f",
+    "data/releases/dev/checksums.txt": "14f294b4346270ca1a7d82435f47285427e7982e161b5b87ed3fcecccec90e7c",
     "data/releases/dev/evidence-index.json": "0c95a11dabfe8ce4c81d80e31de9eb1d8268369076ae1bbe6d26b15aa722db84"
   },
   "created_at": "2026-06-11T12:15:00Z",

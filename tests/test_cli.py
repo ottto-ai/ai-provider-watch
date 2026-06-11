@@ -8,6 +8,41 @@ from ai_provider_watch.source_watch.http import SourceObservation
 from ai_provider_watch.source_watch.parsers import ParsedSourcePayload
 
 ROOT = Path(__file__).resolve().parents[1]
+DISABLED_SOURCE_KEY = "test.disabled_manual_source"
+
+
+def _write_disabled_source_root(root: Path) -> Path:
+    (root / "data" / "events").mkdir(parents=True)
+    (root / "registries").mkdir(parents=True)
+    (root / "schemas").mkdir(parents=True)
+    (root / "pyproject.toml").write_text("[project]\nname = \"apw-test\"\n", encoding="utf-8")
+    sources_dir = root / "sources"
+    sources_dir.mkdir(parents=True)
+    (sources_dir / "registry.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "apw.source_registry.v0",
+                "sources": [
+                    {
+                        "key": DISABLED_SOURCE_KEY,
+                        "provider_refs": ["provider:test"],
+                        "source_type": "docs_page",
+                        "authority": "official_manual_review",
+                        "url": "https://example.com/provider/manual",
+                        "allowed_domains": ["example.com"],
+                        "enabled": False,
+                        "parser": "manual_review",
+                        "automation_status": "manual_review_only",
+                        "graduation_notes": "disabled fixture source",
+                        "graduation_blockers": ["fixture source is disabled"],
+                        "impact_hints": ["workflow_behavior_change"],
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    return root
 
 
 def test_latest_outputs_json(capsys) -> None:
@@ -55,15 +90,15 @@ def test_source_coverage_outputs_json(capsys) -> None:
     assert coverage["schema_version"] == "apw.source_coverage.v0"
     assert coverage["summary"]["source_count"] == 21
     assert coverage["summary"]["missing_enabled_source_count"] == 0
-    assert coverage["candidate_backlog"]["by_status"] == {}
+    assert coverage["candidate_backlog"]["by_status"] == {"needs_review": 6}
 
 
 def test_source_coverage_summary(capsys) -> None:
     assert main(["--root", str(ROOT), "source", "coverage", "--summary"]) == 0
     output = capsys.readouterr().out
-    assert "enabled_deterministic_source_count: 20" in output
+    assert "enabled_deterministic_source_count: 21" in output
     assert "missing_enabled_source_count: 0" in output
-    assert "candidate_backlog_count: 0" in output
+    assert "candidate_backlog_count: 6" in output
 
 
 def test_operations_report_outputs_json(capsys) -> None:
@@ -82,8 +117,8 @@ def test_operations_report_outputs_json(capsys) -> None:
     )
     report = json.loads(capsys.readouterr().out)
     assert report["schema_version"] == "apw.operations_report.v0"
-    assert report["overall_status"] == "pass"
-    assert report["summary"]["candidate_backlog_count"] == 0
+    assert report["overall_status"] == "warn"
+    assert report["summary"]["candidate_backlog_count"] == 6
     assert report["release_train"]["current_mode"] == "manual_signed_data_tags"
 
 
@@ -92,7 +127,7 @@ def test_operations_report_summary(capsys) -> None:
     output = capsys.readouterr().out
     assert "overall_status:" in output
     assert "enabled_source_coverage_ratio: 1.0" in output
-    assert "candidate_backlog_count: 0" in output
+    assert "candidate_backlog_count: 6" in output
 
 
 def test_operations_launch_gate_outputs_json(capsys) -> None:
@@ -128,15 +163,16 @@ def test_operations_launch_gate_summary(capsys) -> None:
 
 
 def test_source_fetch_excludes_disabled_source_by_default(tmp_path, capsys) -> None:
+    root = _write_disabled_source_root(tmp_path / "repo")
     assert (
         main(
             [
                 "--root",
-                str(ROOT),
+                str(root),
                 "source",
                 "fetch",
                 "--source",
-                "openai.codex_docs",
+                DISABLED_SOURCE_KEY,
                 "--observations",
                 str(tmp_path / "observations.json"),
             ]
@@ -151,6 +187,8 @@ def test_source_fetch_excludes_disabled_source_by_default(tmp_path, capsys) -> N
 
 
 def test_source_fetch_include_disabled_is_smoke_only(tmp_path, monkeypatch, capsys) -> None:
+    root = _write_disabled_source_root(tmp_path / "repo")
+
     def fake_fetch(source, previous_state, *, timeout, limit_bytes):
         return SourceObservation(
             source_key=source.key,
@@ -176,12 +214,12 @@ def test_source_fetch_include_disabled_is_smoke_only(tmp_path, monkeypatch, caps
         main(
             [
                 "--root",
-                str(ROOT),
+                str(root),
                 "source",
                 "fetch",
                 "--include-disabled",
                 "--source",
-                "openai.codex_docs",
+                DISABLED_SOURCE_KEY,
                 "--observations",
                 str(tmp_path / "observations.json"),
             ]
@@ -192,21 +230,22 @@ def test_source_fetch_include_disabled_is_smoke_only(tmp_path, monkeypatch, caps
     output = json.loads(capsys.readouterr().out)
     assert output["source_count"] == 1
     observations = json.loads((tmp_path / "observations.json").read_text(encoding="utf-8"))
-    assert observations["observations"][0]["source_key"] == "openai.codex_docs"
+    assert observations["observations"][0]["source_key"] == DISABLED_SOURCE_KEY
 
 
 def test_source_fetch_include_disabled_rejects_write_state(tmp_path, capsys) -> None:
+    root = _write_disabled_source_root(tmp_path / "repo")
     assert (
         main(
             [
                 "--root",
-                str(ROOT),
+                str(root),
                 "source",
                 "fetch",
                 "--include-disabled",
                 "--write-state",
                 "--source",
-                "openai.codex_docs",
+                DISABLED_SOURCE_KEY,
                 "--observations",
                 str(tmp_path / "observations.json"),
             ]

@@ -189,6 +189,7 @@ PRICING_PARSER_NAMES = {
 
 DATED_ANNOUNCEMENT_PARSER_NAMES = {
     "openai_api_changelog",
+    "openai_codex_changelog",
     "anthropic_release_notes",
     "anthropic_news_index",
     "aws_bedrock_whats_new_feed",
@@ -226,6 +227,9 @@ ANNOUNCEMENT_SUBJECT_KEYWORDS = {
     "claude code": "claude-code",
     "claude managed agents": "claude-managed-agents",
     "codex": "codex",
+    "codex app": "codex-app",
+    "codex cli": "codex-cli",
+    "codex sites": "codex-sites",
     "container session": "container-sessions",
     "computer use": "computer-use",
     "fine-tuning": "fine-tuning",
@@ -238,6 +242,7 @@ ANNOUNCEMENT_SUBJECT_KEYWORDS = {
     "realtime": "realtime-api",
     "responses api": "responses-api",
     "sdk": "sdk",
+    "sites": "codex-sites",
     "token": "tokens",
     "vertex ai": "vertex-ai",
 }
@@ -264,7 +269,10 @@ ANNOUNCEMENT_KIND_KEYWORDS = (
         "token_accounting_change",
         ("cache", "caching", "cached", "max_tokens", "token accounting", "tokenizer", "tokens"),
     ),
-    ("billing_channel_change", ("billed", "billed per minute", "billing behavior", "charged")),
+    (
+        "billing_channel_change",
+        ("billed", "billed per minute", "billing behavior", "billing channel", "charged", "procurement"),
+    ),
     ("pricing_change", ("billing", "cost", "price", "pricing")),
     ("quota_change", ("quota",)),
     ("rate_limit_change", ("rate limit", "rate-limit", "rpm", "tpm")),
@@ -1008,6 +1016,15 @@ def _announcement_kind(text: str, source: SourceDescriptor) -> str | None:
     lower_text = text.lower()
     for candidate_kind, keywords in ANNOUNCEMENT_KIND_KEYWORDS:
         if any(keyword in lower_text for keyword in keywords):
+            if (
+                source.parser == "openai_codex_changelog"
+                and candidate_kind == "model_launch"
+                and any(
+                    term in lower_text
+                    for term in ("codex app", "codex cli", "codex sites", "sites", "subagents", "workflow")
+                )
+            ):
+                return "workflow_behavior_change"
             return candidate_kind
     for hint in source.impact_hints:
         if hint in KIND_LABELS:
@@ -1292,6 +1309,30 @@ def _openai_api_changelog_records(source: SourceDescriptor, raw: bytes) -> list[
     return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS]
 
 
+def _iso_dated_text_records(source: SourceDescriptor, raw: bytes) -> list[dict[str, Any]]:
+    text = _visible_html_text(raw)
+    matches = list(ISO_DATE_PATTERN.finditer(text))
+    records: list[dict[str, Any]] = []
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else min(len(text), match.end() + 900)
+        segment = _normalize_text(text[match.start() : end])
+        subjects = _announcement_subjects(segment)
+        if not _announcement_relevant(segment, subjects):
+            continue
+        candidate_kind = _announcement_kind(segment, source)
+        if candidate_kind is None:
+            continue
+        records.append(
+            {
+                "text": segment,
+                "date_value": match.group(0),
+                "candidate_kind": candidate_kind,
+                "evidence_url": source.url,
+            }
+        )
+    return _dedupe_announcement_records(records)[:MAX_ANNOUNCEMENT_CLAIMS]
+
+
 def _dated_announcement_payload(
     source: SourceDescriptor,
     raw: bytes,
@@ -1301,6 +1342,8 @@ def _dated_announcement_payload(
         records, errors = _rss_or_atom_announcement_records(source, raw)
     elif source.parser == "openai_api_changelog":
         records = _openai_api_changelog_records(source, raw)
+    elif source.parser == "openai_codex_changelog":
+        records = _iso_dated_text_records(source, raw)
     elif source.parser == "aws_bedrock_whats_new_feed":
         records, errors = _rss_or_atom_announcement_records(
             source,
@@ -2300,6 +2343,30 @@ def _statuspage_items(raw: bytes) -> list[dict[str, str]]:
     return href_items + datetime_items
 
 
+def _statuspage_candidate_claims(source: SourceDescriptor, items: list[dict[str, Any]]) -> list[dict[str, str]]:
+    incident_ref = next(
+        (
+            str(item.get("href_sha256"))
+            for item in items
+            if item.get("kind") == "status_incident_ref" and isinstance(item.get("href_sha256"), str)
+        ),
+        None,
+    )
+    if not incident_ref:
+        return []
+    return [
+        {
+            "candidate_kind": "status_incident",
+            "claim_text": (
+                f"{_provider_label(source)} official status page has a bounded incident "
+                "or recovery reference that needs maintainer review."
+            ),
+            "selector": f"statuspage:{incident_ref[:16]}",
+            "snapshot_ref": f"statuspage:{incident_ref[:16]}",
+        }
+    ]
+
+
 def _is_bounded_model_id(model_id: str) -> bool:
     if len(model_id) > MAX_MODEL_ID_LENGTH:
         return False
@@ -2363,6 +2430,9 @@ def parse_source_payload(
         items = _model_ref_items_from_visible_text(raw, source.parser)
     elif source.parser == "statuspage_html":
         items = _statuspage_items(raw)
+        allow_generic_fallback = False
+        if changed:
+            candidate_claims = _statuspage_candidate_claims(source, items)
 
     return ParsedSourcePayload(
         items=items,
