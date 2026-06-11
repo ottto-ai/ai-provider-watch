@@ -1,21 +1,21 @@
 {
-  "candidate_kind": "token_accounting_change",
-  "claim_text": "OpenAI official dated source reports a token-accounting change on 2026-06-09 for codex, codex-cli, mcp, prompt-caching.",
-  "created_at": "2026-06-11T14:55:00Z",
-  "dedupe_key": "openai.codex_docs:token_accounting_change:6e53ad8ee79374c3793e6a54",
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-06-04 for api, codex, codex-app, codex-cli, mcp, sdk.",
+  "created_at": "2026-06-11T15:12:28Z",
+  "dedupe_key": "openai.codex_docs:workflow_behavior_change:e797d44ecc040694e9b344d1",
   "evidence_refs": [
     {
       "authority": "official_docs",
       "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
-      "fingerprint": "c2a3caf01f1b45d99a405a76d033963a87a3428bf720183f9c529f4e43a4912c",
-      "retrieved_at": "2026-06-11T14:53:39Z",
-      "selector": "announcement:78597976f1c82cf1",
-      "snapshot_ref": "entry:78597976f1c82cf1",
+      "fingerprint": "6480364d9af77bba8b0822c3feda9fce6c3cf44259aee643b645012f3718659b",
+      "retrieved_at": "2026-06-11T15:12:22Z",
+      "selector": "announcement:05b866bc82b2b539",
+      "snapshot_ref": "entry:05b866bc82b2b539",
       "source_key": "openai.codex_docs",
       "url": "https://developers.openai.com/codex/changelog"
     }
   ],
-  "id": "candidate-openai-codex-docs-c57ab16fc2902dda",
+  "id": "candidate-openai-codex-docs-e26bf0ac17397f72",
   "limitations": [
     "Review required before promotion to ProviderEvent.",
     "Candidate text is a normalized factual claim, not provider instructions."

@@ -1137,6 +1137,29 @@ def test_dated_announcement_parser_fixtures_emit_bounded_claims() -> None:
     assert "Amazon Bedrock adds model availability for Nova Premier" not in rendered
 
 
+def test_codex_changelog_cached_catalog_is_not_token_accounting() -> None:
+    source = next(item for item in load_source_descriptors(ROOT) if item.key == "openai.codex_docs")
+    raw = b"""
+        <main>
+          <h1>Codex changelog</h1>
+          <time datetime="2026-06-09">2026-06-09</time>
+          <h3>Codex CLI 0.139.0</h3>
+          <p>Code mode now supports standalone web search and the plugin marketplace
+          can use a cached remote catalog for Codex CLI workflows.</p>
+        </main>
+    """
+
+    parsed = parse_source_payload(source, raw, changed=True)
+
+    assert parsed.errors == []
+    assert len(parsed.candidate_claims) == 1
+    claim = parsed.candidate_claims[0]
+    assert claim["candidate_kind"] == "workflow_behavior_change"
+    assert "prompt-caching" not in claim["claim_text"]
+    assert parsed.items[0]["candidate_kind"] == "workflow_behavior_change"
+    assert "prompt-caching" not in parsed.items[0]["subjects"]
+
+
 def test_dated_announcement_parser_dedupes_equivalent_claims() -> None:
     source = next(item for item in load_source_descriptors(ROOT) if item.key == "anthropic.news")
     raw = b"""
