@@ -4,7 +4,7 @@
     "total": 0
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
-  "generated_at": "2026-06-11T19:15:39Z",
+  "generated_at": "2026-06-11T21:32:59Z",
   "generated_by": "ai-provider-watch 0.1.16",
   "package_version": "0.1.16",
   "providers": [
@@ -53,7 +53,7 @@
       "manual_review_only_source_count": 0,
       "missing_enabled_source_keys": [],
       "provider_ref": "provider:aws-bedrock",
-      "reviewed_event_count": 9,
+      "reviewed_event_count": 10,
       "source_count": 3
     },
     {
@@ -71,7 +71,7 @@
   ],
   "schema_version": "apw.source_coverage.v0",
   "source_state": {
-    "latest_retrieved_at": "2026-06-11T20:49:55Z",
+    "latest_retrieved_at": "2026-06-11T21:40:20Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
     "source_count": 21
@@ -93,7 +93,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:22Z"
+        "retrieved_at": "2026-06-11T21:39:53Z"
       },
       "source_type": "blog"
     },
@@ -113,7 +113,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:26Z"
+        "retrieved_at": "2026-06-11T21:39:54Z"
       },
       "source_type": "pricing_page"
     },
@@ -133,7 +133,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:27Z"
+        "retrieved_at": "2026-06-11T21:39:55Z"
       },
       "source_type": "docs_page"
     },
@@ -153,7 +153,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:28Z"
+        "retrieved_at": "2026-06-11T21:39:57Z"
       },
       "source_type": "status_page"
     },
@@ -173,7 +173,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:28Z"
+        "retrieved_at": "2026-06-11T21:39:57Z"
       },
       "source_type": "docs_page"
     },
@@ -193,7 +193,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:29Z"
+        "retrieved_at": "2026-06-11T21:39:58Z"
       },
       "source_type": "pricing_page"
     },
@@ -213,7 +213,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:30Z"
+        "retrieved_at": "2026-06-11T21:39:58Z"
       },
       "source_type": "rss_feed"
     },
@@ -233,7 +233,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:31Z"
+        "retrieved_at": "2026-06-11T21:39:58Z"
       },
       "source_type": "docs_page"
     },
@@ -253,7 +253,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:31Z"
+        "retrieved_at": "2026-06-11T21:39:59Z"
       },
       "source_type": "docs_page"
     },
@@ -273,7 +273,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:32Z"
+        "retrieved_at": "2026-06-11T21:39:59Z"
       },
       "source_type": "pricing_page"
     },
@@ -293,7 +293,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:47Z"
+        "retrieved_at": "2026-06-11T21:40:12Z"
       },
       "source_type": "docs_page"
     },
@@ -313,7 +313,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:47Z"
+        "retrieved_at": "2026-06-11T21:40:12Z"
       },
       "source_type": "docs_page"
     },
@@ -333,7 +333,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:47Z"
+        "retrieved_at": "2026-06-11T21:40:13Z"
       },
       "source_type": "docs_page"
     },
@@ -353,7 +353,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:48Z"
+        "retrieved_at": "2026-06-11T21:40:13Z"
       },
       "source_type": "docs_page"
     },
@@ -373,7 +373,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:50Z"
+        "retrieved_at": "2026-06-11T21:40:15Z"
       },
       "source_type": "pricing_page"
     },
@@ -393,7 +393,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:52Z"
+        "retrieved_at": "2026-06-11T21:40:17Z"
       },
       "source_type": "docs_page"
     },
@@ -413,7 +413,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:53Z"
+        "retrieved_at": "2026-06-11T21:40:18Z"
       },
       "source_type": "docs_page"
     },
@@ -433,7 +433,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:53Z"
+        "retrieved_at": "2026-06-11T21:40:18Z"
       },
       "source_type": "docs_page"
     },
@@ -453,7 +453,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:54Z"
+        "retrieved_at": "2026-06-11T21:40:19Z"
       },
       "source_type": "rss_feed"
     },
@@ -473,7 +473,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:55Z"
+        "retrieved_at": "2026-06-11T21:40:19Z"
       },
       "source_type": "pricing_page"
     },
@@ -493,7 +493,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T20:49:55Z"
+        "retrieved_at": "2026-06-11T21:40:20Z"
       },
       "source_type": "atom_feed"
     }
@@ -508,7 +508,7 @@
     "manual_review_only_source_count": 0,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 56,
+    "reviewed_event_count": 57,
     "source_count": 21,
     "warning_count": 0
   },

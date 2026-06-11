@@ -9,6 +9,12 @@
       <description>Amazon Bedrock customers can access new model availability in supported regions.</description>
     </item>
     <item>
+      <title>Gemma 4 models now available on Amazon Bedrock</title>
+      <link>https://aws.amazon.com/about-aws/whats-new/2026/06/gemma-4-amazon-bedrock/</link>
+      <pubDate>Wed, 10 Jun 2026 19:17:00 GMT</pubDate>
+      <description>Gemma 4 31B, Gemma 4 26B-A4B, and Gemma 4 E2B are available on Amazon Bedrock with reasoning, multimodal input, function calling, streaming, and improved price performance.</description>
+    </item>
+    <item>
       <title>Amazon S3 console update</title>
       <link>https://aws.amazon.com/about-aws/whats-new/2026/06/s3-console-update</link>
       <pubDate>Thu, 04 Jun 2026 10:00:00 GMT</pubDate>

@@ -113,6 +113,10 @@ GEMINI_ID_PATTERN = re.compile(
     r"\bgemini-(?:(?:live-)?[0-9](?:\.[0-9])?|embedding)(?:-(?:[0-9]{2,8}|audio|embedding|embeddings|exp|flash|generation|image|images|latest|learnlm|lite|live|nano|native|preview|pro|realtime|stable|thinking|tts|ultra|vision))*\b(?![.-])",
     re.IGNORECASE,
 )
+GEMMA_DISPLAY_PATTERN = re.compile(
+    r"\bGemma\s+[0-9](?:\s+[0-9]+B(?:-[A-Z0-9]+)?|\s+E[0-9]+B)?\b",
+    re.IGNORECASE,
+)
 GOOGLE_LEGACY_MODEL_PATTERN = re.compile(
     r"\b(?:chat-bison|code-gecko|imagetext|multimodalembedding@[0-9]{3}|text-bison|text-embedding-[0-9]{3}|text-multilingual-embedding-[0-9]{3}|textembedding-gecko(?:-multilingual)?@[0-9]{3})\b(?![.-])",
     re.IGNORECASE,
@@ -202,6 +206,7 @@ ANNOUNCEMENT_MODEL_PATTERNS = [
     OPENAI_MODEL_PATTERN,
     OPENAI_LEGACY_MODEL_PATTERN,
     GEMINI_ID_PATTERN,
+    GEMMA_DISPLAY_PATTERN,
     GOOGLE_LEGACY_MODEL_PATTERN,
     GPT_OSS_PATTERN,
     GPT_DISPLAY_PATTERN,
@@ -253,6 +258,16 @@ ANNOUNCEMENT_RELEVANCE_KEYWORDS = tuple(sorted(ANNOUNCEMENT_SUBJECT_KEYWORDS))
 
 LOW_SIGNAL_ANNOUNCEMENT_MARKERS = (
     "redesigned navigation",
+)
+
+MODEL_AVAILABILITY_KEYWORDS = (
+    "announces the availability",
+    "available on",
+    "available through",
+    "model availability",
+    "models are available",
+    "models now available",
+    "now available",
 )
 
 OPENAI_NEWS_DIRECT_ARTICLE_URL_TERMS = (
@@ -1056,6 +1071,10 @@ def _announcement_subjects(text: str) -> list[str]:
 
 def _announcement_kind(text: str, source: SourceDescriptor) -> str | None:
     lower_text = text.lower()
+    if any(keyword in lower_text for keyword in MODEL_AVAILABILITY_KEYWORDS) and any(
+        pattern.search(text) for pattern in ANNOUNCEMENT_MODEL_PATTERNS
+    ):
+        return "model_launch"
     for candidate_kind, keywords in ANNOUNCEMENT_KIND_KEYWORDS:
         if any(keyword in lower_text for keyword in keywords):
             if (

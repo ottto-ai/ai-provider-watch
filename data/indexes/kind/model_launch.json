@@ -106,6 +106,115 @@
     "title": "AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia"
   },
   {
+    "announced_at": "2026-06-10T19:17:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records AWS-hosted Bedrock availability for Gemma 4. APW does not assert Google first-party API availability, exact Bedrock model IDs, account eligibility, pricing, quotas, latency, or feature parity.",
+      "model_refs": [
+        "model:google/gemma-4-31b",
+        "model:google/gemma-4-26b-a4b",
+        "model:google/gemma-4-e2b"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-10T19:17:00Z",
+    "event_date": "2026-06-10",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "2a5ce41ed807dbdae897446b818ae58479f748c382ca2bb40cb1d7a73fb764eb",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T21:32:59Z",
+        "selector": "announcement:767c31f613cededa",
+        "snapshot_ref": "entry:767c31f613cededa",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/gemma-4-amazon-bedrock/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-10-aws-bedrock-gemma-4-availability",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock access, regional availability, pricing, quotas, latency, and model behavior before routing Gemma 4 workloads through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Refresh regional allowlists, deployment docs, data-residency notes, and fallback routing for Bedrock deployments that may adopt Gemma 4.",
+        "scope_ref": "region:aws-us-east-1,aws-us-east-2,aws-us-west-2,aws-eu-central-1",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Benchmark reasoning, multimodal input, function calling, structured output, and streaming behavior before exposing Gemma 4 through gateways, SDK defaults, or coding-agent model routes.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this page as a pricing change; source-owner review corrected the public event to model availability after checking the official announcement.",
+      "APW records regional availability and high-level capability facts only; exact account eligibility, model IDs, pricing, quotas, latency, and feature parity require AWS account-level verification.",
+      "The official announcement was reviewed for factual metadata; no provider prose is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T21:32:59Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced availability of Google DeepMind's Gemma 4 model family on Amazon Bedrock, including Gemma 4 31B, Gemma 4 26B-A4B, and Gemma 4 E2B in US East (N. Virginia), US East (Ohio), US West (Oregon), and Europe (Frankfurt).",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "model:google-gemma-4"
+    ],
+    "title": "AWS Added Gemma 4 Models On Amazon Bedrock"
+  },
+  {
     "announced_at": "2026-06-09T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

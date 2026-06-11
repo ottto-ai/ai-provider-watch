@@ -99,6 +99,33 @@
         "claude-mythos-5"
       ],
       "status": "approval_gated"
+    },
+    {
+      "id": "google/gemma-4-31b",
+      "provider_id": "google",
+      "display_name": "Gemma 4 31B",
+      "aliases": [
+        "gemma-4-31b"
+      ],
+      "status": "available"
+    },
+    {
+      "id": "google/gemma-4-26b-a4b",
+      "provider_id": "google",
+      "display_name": "Gemma 4 26B-A4B",
+      "aliases": [
+        "gemma-4-26b-a4b"
+      ],
+      "status": "available"
+    },
+    {
+      "id": "google/gemma-4-e2b",
+      "provider_id": "google",
+      "display_name": "Gemma 4 E2B",
+      "aliases": [
+        "gemma-4-e2b"
+      ],
+      "status": "available"
     }
   ]
 }

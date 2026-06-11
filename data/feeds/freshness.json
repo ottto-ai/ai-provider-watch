@@ -1,48 +1,48 @@
 {
   "data_tag": null,
-  "event_count": 56,
+  "event_count": 57,
   "feed_artifacts": [
     {
-      "bytes": 15185,
+      "bytes": 15186,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "0f6c2ebd7c82204dd40c115be095c6aed13e2fdc9e2bc78fd363b4a142b4d4e9"
+      "sha256": "014e888ffdc5e7773ec4676a189d6729af5d26dfce505e45b3fca9cd4605146e"
     },
     {
-      "bytes": 199468,
+      "bytes": 204206,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "59905ccf179e3edf054661609db18f550bda93d91a114420d98df2905dbc0c9c"
+      "sha256": "6ed004156fd408ece0d2a8dd7e3683da9940178c4b09fab6a69da05a136d6a04"
     },
     {
-      "bytes": 166535,
+      "bytes": 170520,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "16f44ec437f6004d56e30bb4d34164a97a85050086b466649d13696605244008"
+      "sha256": "e3eef123d1cfcd0a85115e273e1453d54f4aa6a4f42810fc673048f184143c1c"
     },
     {
-      "bytes": 148811,
+      "bytes": 149855,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "58b3feb93fc32c77b2a927e80d5c10ed4d9552b947db624abf0191c6150b6b6f"
+      "sha256": "4493431ace28140a15b31218401b506dca309cce7026580aad348ecf567c87d2"
     },
     {
-      "bytes": 11630,
+      "bytes": 11577,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",
-      "sha256": "212c024dd04342ab7be12a01e23d8cb6cf947f24beb616b23bfed777f01714b7"
+      "sha256": "a0543f4a3e7021fd9fdd6e266c9ab979e0fa3ade234c784743bc19d89d28f8e0"
     },
     {
       "bytes": 4434,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "b6a2840bcae89b5536cf82564e5aa4c08ba2303c066fe02cacab30fecc6953d7"
+      "sha256": "bf73778dceebebd401cedd689a464a099cf30e45d8f063bdb4299741845bee1e"
     },
     {
-      "bytes": 26801,
+      "bytes": 26818,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "8d6b7d01270b17fb23b332808ca010b9172dfccf119f651489da98dee517a408"
+      "sha256": "31c89015d2e7e71a5d0fa7d070dd3c50cbc66121a839601042235b9eb0b76c25"
     },
     {
       "bytes": 19933,
@@ -75,10 +75,10 @@
       "sha256": "d264ed07c84da6e63659a36207c4b0cd510387816dc2e36eda5b633bfe1cfd65"
     },
     {
-      "bytes": 62580,
+      "bytes": 67318,
       "media_type": "application/json",
       "path": "data/indexes/kind/model_launch.json",
-      "sha256": "d47ddbeb63d4e2657e4b03704d1c26d5080d52283e31ac9b67a8dc208778ab36"
+      "sha256": "8ea33d54a3a43298584f759c5425e0013f85debb4b87197ed471b9fdcad27155"
     },
     {
       "bytes": 30572,
@@ -117,10 +117,10 @@
       "sha256": "853dba7aba3b3f9fe090d3efd966f6d46a6cac09c6124450660f4f67f5c40f6d"
     },
     {
-      "bytes": 34676,
+      "bytes": 39414,
       "media_type": "application/json",
       "path": "data/indexes/provider/aws-bedrock.json",
-      "sha256": "ac0eee8fbf135f32a808a254aa30e336aec8ac7dfe9856237165bdc2db90dd7d"
+      "sha256": "f584cbd8a8036f10d797647e7a8c7836de7078ab7200d6415cdaa044761ca337"
     },
     {
       "bytes": 25875,
@@ -141,10 +141,10 @@
       "sha256": "cc96a5bdd9438d8df3aa755019292ef5f0df7ba5fc0396b344c312b639dabd4b"
     },
     {
-      "bytes": 107551,
+      "bytes": 112289,
       "media_type": "application/json",
       "path": "data/indexes/severity/high.json",
-      "sha256": "6bb11902e699fbe08af41162d321c6b9dd994d9cecf2179203f9a7ba0a2c16ce"
+      "sha256": "0d0568896c034a404060aa4e02ca42c3278a024ac40d6738e433a279cd0cf793"
     },
     {
       "bytes": 8665,
@@ -160,10 +160,10 @@
     }
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
-  "generated_at": "2026-06-11T19:15:39Z",
+  "generated_at": "2026-06-11T21:32:59Z",
   "generated_by": "ai-provider-watch 0.1.16",
   "latest_event_date": "2026-06-11",
-  "latest_observed_at": "2026-06-11T19:15:39Z",
+  "latest_observed_at": "2026-06-11T21:32:59Z",
   "package_version": "0.1.16",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
@@ -173,10 +173,10 @@
   "schema_version": "apw.feed_freshness.v0",
   "source_state": {
     "bytes": 23604,
-    "latest_retrieved_at": "2026-06-11T20:49:55Z",
+    "latest_retrieved_at": "2026-06-11T21:40:20Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "sha256": "9454cba83d4ea6e9e5b087808d01db1b95c28fc153d41157adb2ce530a225061",
+    "sha256": "e185c2bdcb3a8c2062a22e4ae30ef51c6a13b6718ce18e2cc1d1db5c29ffdc83",
     "source_count": 21
   }
 }
