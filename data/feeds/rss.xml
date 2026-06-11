@@ -19,6 +19,27 @@
       <pubDate>Wed, 10 Jun 2026 10:32:49 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-09-openai-codex-mobile-worktrees-goals-review</guid>
+      <title>OpenAI Added Codex Mobile Worktree, Goal, And Review Controls</title>
+      <description>OpenAI&#x27;s Codex changelog for ChatGPT iOS 1.2026.153 records Codex Mobile support for branch/worktree setup, environment setup scripts, goal management, inline review comments, side chat from transcript selection, prompt editing, and usage/token activity views.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Thu, 11 Jun 2026 15:12:22 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-09-openai-codex-cli-web-search-schema-marketplace</guid>
+      <title>OpenAI Codex CLI Added Web Search, Schema, And Plugin Marketplace Updates</title>
+      <description>OpenAI&#x27;s Codex CLI 0.139 changelog records standalone web search support in code mode, richer tool/connector schema preservation, expanded local diagnostics, plugin marketplace JSON/source metadata, and fixes for resume/fork prompts, MCP startup warnings, image edits, and URL handling.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Thu, 11 Jun 2026 15:12:22 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-09-openai-codex-app-migration-plugins-settings</guid>
+      <title>OpenAI Codex App Added Migration, Plugin, And Settings Improvements</title>
+      <description>OpenAI&#x27;s Codex changelog for app version 26.608 records new migration flows from Claude Code and Claude Cowork setup, a revamped plugin management screen, broader settings search, and several workflow reliability fixes.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Thu, 11 Jun 2026 15:12:22 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-09-anthropic-fable-5-free-window-credits</guid>
       <title>Anthropic Set Fable 5 Free Access Window And Usage Credit Requirement</title>
       <description>Anthropic&#x27;s June 9 announcement says Claude Fable 5 is available to Pro, Max, Team, and Enterprise plan users, with Max, Team, and Enterprise access included through June 22, 2026 and usage credits required starting June 23, 2026.</description>
@@ -54,6 +75,13 @@
       <pubDate>Wed, 10 Jun 2026 10:32:32 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json</guid>
+      <title>OpenAI Codex CLI Added App Handoff, PAT, And Plugin JSON Contracts</title>
+      <description>OpenAI&#x27;s Codex CLI 0.138 changelog records CLI-to-desktop app handoff, saved image file-path exposure, model-defined reasoning effort ordering, account token usage reads for app-server integrations, v2 personal access token support, and richer structured plugin command output.</description>
+      <category>api_contract_change</category>
+      <pubDate>Thu, 11 Jun 2026 15:12:22 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-05-anthropic-opus-41-api-retirement</guid>
       <title>Anthropic Scheduled Claude Opus 4.1 API Retirement For August 2026</title>
       <description>Anthropic&#x27;s Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.</description>
@@ -66,6 +94,20 @@
       <description>AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.</description>
       <category>api_contract_change</category>
       <pubDate>Mon, 08 Jun 2026 11:03:55 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-04-openai-codex-cli-admin-rpc-tools-agents</guid>
+      <title>OpenAI Codex CLI Added Admin Config, Controller RPCs, Hosted Tools, And Multi-Agent Updates</title>
+      <description>OpenAI&#x27;s Codex CLI 0.137 changelog records expanded terminal controls, monthly credit-limit and cloud-managed config support for enterprise/admin flows, app-server v2 controller grant RPCs, plugin JSON/catalog improvements, hosted web and image tools in more code-mode flows, multi-agent v2 runtime metadata, and multiple reliability fixes.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Thu, 11 Jun 2026 15:12:22 GMT</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">2026-06-04-openai-codex-app-computer-use-plugin-config</guid>
+      <title>OpenAI Codex App Improved Computer Use Startup And Plugin Config Writes</title>
+      <description>OpenAI&#x27;s Codex app 26.602 changelog records profile activity insights/share cards, Computer Use startup readiness and appshot error-reporting improvements, browser/review UI fixes, expanded onboarding role choices, and a fix for configuration writes after plugin installation.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Thu, 11 Jun 2026 15:12:22 GMT</pubDate>
     </item>
     <item>
       <guid isPermaLink="false">2026-06-04-openai-moderation-scores-api</guid>
@@ -309,13 +351,6 @@
       <guid isPermaLink="false">2024-06-14-azure-openai-legacy-gpt3-retirement</guid>
       <title>Azure OpenAI Retires Legacy GPT-3 Model IDs</title>
       <description>Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.</description>
-      <category>model_retirement</category>
-      <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
-    </item>
-    <item>
-      <guid isPermaLink="false">2024-01-04-openai-gpt3-completions-retirement</guid>
-      <title>OpenAI Retires Older GPT-3 Completions Models</title>
-      <description>OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.</description>
       <category>model_retirement</category>
       <pubDate>Mon, 01 Jun 2026 10:36:49 GMT</pubDate>
     </item>

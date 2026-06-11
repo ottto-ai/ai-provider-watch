@@ -90,7 +90,7 @@ def test_source_coverage_outputs_json(capsys) -> None:
     assert coverage["schema_version"] == "apw.source_coverage.v0"
     assert coverage["summary"]["source_count"] == 21
     assert coverage["summary"]["missing_enabled_source_count"] == 0
-    assert coverage["candidate_backlog"]["by_status"] == {"needs_review": 6}
+    assert coverage["candidate_backlog"]["by_status"] == {}
 
 
 def test_source_coverage_summary(capsys) -> None:
@@ -98,7 +98,7 @@ def test_source_coverage_summary(capsys) -> None:
     output = capsys.readouterr().out
     assert "enabled_deterministic_source_count: 21" in output
     assert "missing_enabled_source_count: 0" in output
-    assert "candidate_backlog_count: 6" in output
+    assert "candidate_backlog_count: 0" in output
 
 
 def test_operations_report_outputs_json(capsys) -> None:
@@ -117,8 +117,8 @@ def test_operations_report_outputs_json(capsys) -> None:
     )
     report = json.loads(capsys.readouterr().out)
     assert report["schema_version"] == "apw.operations_report.v0"
-    assert report["overall_status"] == "warn"
-    assert report["summary"]["candidate_backlog_count"] == 6
+    assert report["overall_status"] == "pass"
+    assert report["summary"]["candidate_backlog_count"] == 0
     assert report["release_train"]["current_mode"] == "manual_signed_data_tags"
 
 
@@ -127,7 +127,7 @@ def test_operations_report_summary(capsys) -> None:
     output = capsys.readouterr().out
     assert "overall_status:" in output
     assert "enabled_source_coverage_ratio: 1.0" in output
-    assert "candidate_backlog_count: 6" in output
+    assert "candidate_backlog_count: 0" in output
 
 
 def test_operations_launch_gate_outputs_json(capsys) -> None:

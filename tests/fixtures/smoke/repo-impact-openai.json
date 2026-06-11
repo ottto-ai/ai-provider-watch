@@ -1,6 +1,102 @@
 {
-  "event_count": 12,
+  "event_count": 18,
   "events": [
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-09",
+      "event_kind": "workflow_behavior_change",
+      "id": "2026-06-09-openai-codex-mobile-worktrees-goals-review",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.153 records Codex Mobile support for branch/worktree setup, environment setup scripts, goal management, inline review comments, side chat from transcript selection, prompt editing, and usage/token activity views.",
+      "title": "OpenAI Added Codex Mobile Worktree, Goal, And Review Controls"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-09",
+      "event_kind": "workflow_behavior_change",
+      "id": "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI's Codex CLI 0.139 changelog records standalone web search support in code mode, richer tool/connector schema preservation, expanded local diagnostics, plugin marketplace JSON/source metadata, and fixes for resume/fork prompts, MCP startup warnings, image edits, and URL handling.",
+      "title": "OpenAI Codex CLI Added Web Search, Schema, And Plugin Marketplace Updates"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-09",
+      "event_kind": "workflow_behavior_change",
+      "id": "2026-06-09-openai-codex-app-migration-plugins-settings",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI's Codex changelog for app version 26.608 records new migration flows from Claude Code and Claude Cowork setup, a revamped plugin management screen, broader settings search, and several workflow reliability fixes.",
+      "title": "OpenAI Codex App Added Migration, Plugin, And Settings Improvements"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-08",
+      "event_kind": "api_contract_change",
+      "id": "2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI's Codex CLI 0.138 changelog records CLI-to-desktop app handoff, saved image file-path exposure, model-defined reasoning effort ordering, account token usage reads for app-server integrations, v2 personal access token support, and richer structured plugin command output.",
+      "title": "OpenAI Codex CLI Added App Handoff, PAT, And Plugin JSON Contracts"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-04",
+      "event_kind": "workflow_behavior_change",
+      "id": "2026-06-04-openai-codex-cli-admin-rpc-tools-agents",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI's Codex CLI 0.137 changelog records expanded terminal controls, monthly credit-limit and cloud-managed config support for enterprise/admin flows, app-server v2 controller grant RPCs, plugin JSON/catalog improvements, hosted web and image tools in more code-mode flows, multi-agent v2 runtime metadata, and multiple reliability fixes.",
+      "title": "OpenAI Codex CLI Added Admin Config, Controller RPCs, Hosted Tools, And Multi-Agent Updates"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-04",
+      "event_kind": "workflow_behavior_change",
+      "id": "2026-06-04-openai-codex-app-computer-use-plugin-config",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI's Codex app 26.602 changelog records profile activity insights/share cards, Computer Use startup readiness and appshot error-reporting improvements, browser/review UI fixes, expanded onboarding role choices, and a fix for configuration writes after plugin installation.",
+      "title": "OpenAI Codex App Improved Computer Use Startup And Plugin Config Writes"
+    },
     {
       "confidence": "confirmed",
       "event_date": "2026-06-04",

@@ -1,5 +1,98 @@
 [
   {
+    "announced_at": "2026-06-08T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "codex app-server account token usage reads",
+        "v2 personal access token support",
+        "plugin add/remove and marketplace JSON output",
+        "plugin detail default prompts, remote MCP servers, and unavailable app templates",
+        "local image file-path exposure to the model"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "app:codex",
+        "surface:openai/api"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-08T00:00:00Z",
+    "event_date": "2026-06-08",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:9226f7fa6d0c1c5b",
+        "snapshot_ref": "entry:9226f7fa6d0c1c5b",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Audit integrations that depend on Codex app-server auth, token usage reads, plugin JSON output, remote MCP metadata, image file references, or CLI-to-desktop handoff before relying on 0.138 behavior.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest goal workflows and terminal/app handoff on macOS and Windows if local automation assumes older CLI-only behavior.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records Codex CLI and app-server contract changes from the public changelog; it does not assert broader OpenAI API contract changes outside Codex surfaces.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex CLI 0.138 changelog records CLI-to-desktop app handoff, saved image file-path exposure, model-defined reasoning effort ordering, account token usage reads for app-server integrations, v2 personal access token support, and richer structured plugin command output.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:api_contract_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex CLI Added App Handoff, PAT, And Plugin JSON Contracts"
+  },
+  {
     "announced_at": "2026-06-05T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

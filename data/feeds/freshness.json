@@ -1,54 +1,54 @@
 {
   "data_tag": null,
-  "event_count": 45,
+  "event_count": 51,
   "feed_artifacts": [
     {
-      "bytes": 15374,
+      "bytes": 15185,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "6192fd9d9e75b6762c87d2322331d192820357c065a1ec5eabdada5ab2c243b6"
+      "sha256": "21cc6532886f4a0b6d18111c54e31b92f2eef916ef05f6d0bd124e13b870c902"
     },
     {
-      "bytes": 157613,
+      "bytes": 178843,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "08fa4fdc03eabed02f820668f4019b87bc3362933257ed8a2828c99fb0eaab5f"
+      "sha256": "4c1939e61c6feefb38e44c5ddef99ffe3b0ac7308eff535b205a679c70aafdd7"
     },
     {
-      "bytes": 131475,
+      "bytes": 149369,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "2c33fb13abcc0b71391f19165100720d2835e8c42d55f90480eae67e5b630f26"
+      "sha256": "86380a136c04c613e07a4da4cd4e36ede5bffc0aecb3b1c9191537d4d8e8720d"
     },
     {
-      "bytes": 131320,
+      "bytes": 147427,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "6ef76e394501cf0a02153a4debc859a7fe84db2accfaafe57b0d5608f18ab576"
+      "sha256": "3f4689b4b6f8d5e1e4c63770d2c99902edb65d45d56b782bcbb0068f75fbcfe8"
     },
     {
-      "bytes": 10814,
+      "bytes": 11630,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",
-      "sha256": "60d4c509c1ae84184a14bf6de80eaa30276407abc263ac0a7c306d8991846ef8"
+      "sha256": "212c024dd04342ab7be12a01e23d8cb6cf947f24beb616b23bfed777f01714b7"
     },
     {
-      "bytes": 4635,
+      "bytes": 4436,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "6fcd5b8a58195afd475e9de8194a086c78256c0b1b6d3e0def6ddabd21c4596f"
+      "sha256": "d1990bf52b798ee01f088915fbc4ba46bb8d38b4b9e807c0fc6055537773badb"
     },
     {
-      "bytes": 23328,
+      "bytes": 26631,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "24d8840b10a3e073a66344fe9bc559340f5d2b30acbd72dce99cd49f3a75d5a2"
+      "sha256": "da509cb911caae5d5756c4f85cd1d304427a56bbb21539cd3326d048492d8a20"
     },
     {
-      "bytes": 16184,
+      "bytes": 19933,
       "media_type": "application/json",
       "path": "data/indexes/kind/api_contract_change.json",
-      "sha256": "352129165f04702e5d961b5dd48938aea0ce101e9e277c09e18826061fd306cc"
+      "sha256": "a8b0fa419de03e1078476f48169a8c71be2246e803bbaf7f236abf21ab3e60d0"
     },
     {
       "bytes": 7610,
@@ -105,10 +105,10 @@
       "sha256": "5b3912daf6995145f80dd0641caa4491131dee1c5f3d974abfad6c3858ea1ef9"
     },
     {
-      "bytes": 11514,
+      "bytes": 28995,
       "media_type": "application/json",
       "path": "data/indexes/kind/workflow_behavior_change.json",
-      "sha256": "3219a1b8446de2d40a069a202bcf8e733c85a8a0f050debbf8709ebe71572835"
+      "sha256": "984caef6db72b31977b064595ad169bc58439346c3d0d4a05c10ddc80704000e"
     },
     {
       "bytes": 37963,
@@ -135,16 +135,16 @@
       "sha256": "36938bfb152715659219b94a957f77d49d1c373ab0a0621f2fa6a1f642a8c86d"
     },
     {
-      "bytes": 41293,
+      "bytes": 62523,
       "media_type": "application/json",
       "path": "data/indexes/provider/openai.json",
-      "sha256": "33f674bdedb85fa98406e931f1cb7bacf3d54b74ea699fdca97eabc6c7d2fa52"
+      "sha256": "137d4563ce8428c6c678494b80d4cf9a5236bd6925cf7beb73c5c93dabf697f6"
     },
     {
-      "bytes": 79489,
+      "bytes": 86926,
       "media_type": "application/json",
       "path": "data/indexes/severity/high.json",
-      "sha256": "82e9897bb0e8a143218c70c38c0ac7745238503068a6aa1ef0ccb90b05027395"
+      "sha256": "be002d3b6f400e5ac5f986f02010950474d1015db7cd2c549116a866cdcf2f1b"
     },
     {
       "bytes": 8665,
@@ -153,17 +153,17 @@
       "sha256": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b"
     },
     {
-      "bytes": 69465,
+      "bytes": 83258,
       "media_type": "application/json",
       "path": "data/indexes/severity/medium.json",
-      "sha256": "7d38dfdcb7c059e80b921ff863f5d84186b215278d1a13dee9204ea32979c443"
+      "sha256": "ee879a229fad79ba02f97b8e7753cae5d689e63988f1472e73fe080ed55255cc"
     }
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
-  "generated_at": "2026-06-11T12:15:00Z",
+  "generated_at": "2026-06-11T15:12:22Z",
   "generated_by": "ai-provider-watch 0.1.15",
   "latest_event_date": "2026-06-11",
-  "latest_observed_at": "2026-06-11T12:15:00Z",
+  "latest_observed_at": "2026-06-11T15:12:22Z",
   "package_version": "0.1.15",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
