@@ -323,12 +323,13 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.14` is the current stable public package. It bundles the latest
-reviewed public feed with 45 ProviderEvents, including the OpenAI API changelog
-events for workload identity federation, `chat-latest`, prompt-cache retention,
-container-session billing, and moderation-score API responses. Use the signed
-`data-2026.06.11` tag when you need the latest immutable data-release identity;
-use the package when you want no-checkout CLI and bundled data.
+APW `v0.1.15` is the current stable public package. It bundles the latest
+reviewed public feed with 45 ProviderEvents and includes the cleaner
+source-review loop that suppresses already-reviewed duplicate candidates,
+separates source-state-only refresh PRs from candidate-review PRs, and avoids
+consumer-only status noise. Use the signed `data-2026.06.11` tag when you need
+the latest immutable data-release identity; use the package when you want
+no-checkout CLI and bundled data.
 
 The current release includes:
 
