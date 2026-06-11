@@ -193,3 +193,7 @@ the concrete resolution.
   successful PyPI Trusted Publishing run for the OpenAI API changelog source
   and 45-event bundled package snapshot, matching GitHub release assets,
   artifact hashes, PyPI provenance, and fresh-install smoke coverage.
+- [2026-06-11 `v0.1.15` Python package](release-evidence/2026-06-11-v0.1.15-python-package.md):
+  successful PyPI Trusted Publishing run for the cleaner source-review loop,
+  matching GitHub release assets, artifact hashes, PyPI provenance, and
+  fresh-install smoke coverage.
