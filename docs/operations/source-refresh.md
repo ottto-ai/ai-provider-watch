@@ -15,10 +15,24 @@ To update committed source state:
 uv run apw source fetch --write-state --observations .apw/source-observations.json
 ```
 
-The scheduled workflow runs daily and opens a draft PR only when
-`data/source-state/fingerprints.json` or generated review candidates change.
-Raw provider content is fetched, hashed, and discarded. Event promotion remains
-a separate maintainer-reviewed workflow.
+The scheduled workflow runs daily. It fetches and parses enabled deterministic
+sources, uploads sanitized observation artifacts, and opens a draft PR only when
+the deterministic review gate reports at least one changed source fingerprint or
+review candidate. Raw provider content is fetched, hashed, and discarded. Event
+promotion remains a separate maintainer-reviewed workflow.
+
+The review gate is reproducible locally:
+
+```bash
+uv run apw source review-needed \
+  --observations .apw/source-observations.json \
+  --candidate-generation .apw/candidate-generation.json \
+  --summary
+```
+
+When `review_needed: false`, the workflow stops after uploading observation
+artifacts. It does not commit retrieval timestamp/content-hash churn, regenerate
+feed metadata, or open a no-op candidate-review PR.
 
 `content_sha256` is the fetched response hash for audit. `fingerprint` is the
 change-detection hash. For parser-backed sources, APW hashes the deterministic
@@ -86,17 +100,20 @@ source content must not receive release tokens.
 
 ## Candidate Review PRs
 
-The daily workflow now builds a draft candidate-review PR after source refresh:
+When the review gate reports `review_needed: true`, the daily workflow builds a
+draft candidate-review PR after source refresh:
 
 1. fetch enabled official sources, parse sanitized observation metadata, and
    update fingerprint state;
 2. clean and regenerate review-only candidates in `data/candidates/review`;
-3. run `apw validate`, regenerate generated metadata with `apw index`, then
+3. decide whether changed source fingerprints or review candidates justify a
+   candidate-review PR;
+4. run `apw validate`, regenerate generated metadata with `apw index`, then
    rerun `apw validate` and `apw index --check`;
-4. render a PR body with observation counts, changed source keys, candidate
+5. render a PR body with observation counts, changed source keys, candidate
    file paths, advisory promotion-readiness context, candidate-quality tiers,
    validation output, and a maintainer checklist;
-5. commit only `data/source-state/fingerprints.json`, sanitized candidate JSON,
+6. commit only `data/source-state/fingerprints.json`, sanitized candidate JSON,
    and generated feed/index/release metadata such as freshness/checksum files.
 
 The repository-level GitHub Actions workflow permission must allow Actions to

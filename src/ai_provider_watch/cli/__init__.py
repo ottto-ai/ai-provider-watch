@@ -77,6 +77,11 @@ from ai_provider_watch.pipeline.release import (
 from ai_provider_watch.pipeline.repo_impact import repo_impact_report
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
 from ai_provider_watch.pipeline.source_owner_packet import build_source_owner_packet
+from ai_provider_watch.pipeline.source_refresh_gate import (
+    build_source_refresh_review_gate_from_files,
+    render_source_refresh_review_gate_summary,
+    write_github_output,
+)
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.source_watch.http import (
     fetch_source,
@@ -434,6 +439,27 @@ def cmd_source_coverage(args: argparse.Namespace) -> int:
         print(f"source_state_latest_retrieved_at: {report['source_state']['latest_retrieved_at'] or 'none'}")
     else:
         _write_or_print(root, report, args.output)
+    return 0
+
+
+def cmd_source_review_needed(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    observations_path = _path_from_root(root, args.observations)
+    candidate_generation_path = _path_from_root(root, args.candidate_generation)
+    gate = build_source_refresh_review_gate_from_files(
+        observations_path,
+        candidate_generation_path,
+    )
+    if args.output:
+        output_path = _path_from_root(root, args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(write_json_text(gate), encoding="utf-8")
+    if args.github_output:
+        write_github_output(Path(args.github_output), gate)
+    if args.summary:
+        sys.stdout.write(render_source_refresh_review_gate_summary(gate))
+    else:
+        _print_json(gate)
     return 0
 
 
@@ -1351,6 +1377,19 @@ def build_parser() -> argparse.ArgumentParser:
     source_coverage_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
     source_coverage_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     source_coverage_parser.set_defaults(func=cmd_source_coverage)
+    source_review_needed_parser = source_subparsers.add_parser(
+        "review-needed",
+        help="decide whether source refresh output needs a candidate-review PR",
+    )
+    source_review_needed_parser.add_argument("--observations", required=True)
+    source_review_needed_parser.add_argument("--candidate-generation", required=True)
+    source_review_needed_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    source_review_needed_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
+    source_review_needed_parser.add_argument(
+        "--github-output",
+        help="append GitHub Actions output variables to this file, usually $GITHUB_OUTPUT",
+    )
+    source_review_needed_parser.set_defaults(func=cmd_source_review_needed)
 
     operations_parser = subparsers.add_parser(
         "operations",
