@@ -66,7 +66,11 @@ from ai_provider_watch.pipeline.missing_event_issue import (
 from ai_provider_watch.pipeline.notifications import build_slack_payload, build_webhook_payload
 from ai_provider_watch.pipeline.operations import build_operations_report
 from ai_provider_watch.pipeline.promotion import build_promotion_readiness_report
-from ai_provider_watch.pipeline.quality import build_candidate_quality_report
+from ai_provider_watch.pipeline.quality import (
+    build_candidate_quality_report,
+    build_reviewed_evidence_index,
+    duplicate_event_ids_for_candidate,
+)
 from ai_provider_watch.pipeline.release import (
     build_release_automation_readiness,
     build_release_publication_packet,
@@ -535,6 +539,21 @@ def cmd_candidate_generate(args: argparse.Namespace) -> int:
     except ValueError as exc:
         print(f"candidate generation failed: {exc}", file=sys.stderr)
         return 1
+    skipped_reviewed_duplicate_ids: list[str] = []
+    if args.skip_reviewed_duplicates:
+        reviewed_by_evidence = build_reviewed_evidence_index(root)
+        filtered_candidates: list[dict[str, Any]] = []
+        for candidate in result.candidates:
+            duplicate_event_ids = duplicate_event_ids_for_candidate(candidate, reviewed_by_evidence)
+            candidate_id = candidate.get("id")
+            if duplicate_event_ids and isinstance(candidate_id, str):
+                skipped_reviewed_duplicate_ids.append(candidate_id)
+                continue
+            filtered_candidates.append(candidate)
+        result = type(result)(
+            candidates=filtered_candidates,
+            skipped_observations=result.skipped_observations,
+        )
     try:
         ensure_unique_candidate_ids(result.candidates)
     except ValueError as exc:
@@ -552,6 +571,8 @@ def cmd_candidate_generate(args: argparse.Namespace) -> int:
     _print_json(
         {
             "candidate_count": len(result.candidates),
+            "skipped_reviewed_duplicate_count": len(skipped_reviewed_duplicate_ids),
+            "skipped_reviewed_duplicate_ids": skipped_reviewed_duplicate_ids,
             "written_paths": [str(path.relative_to(root)) if path.is_relative_to(root) else str(path) for path in written],
             "skipped_observations": result.skipped_observations,
         }
@@ -599,6 +620,7 @@ def cmd_candidate_review_pr_body(args: argparse.Namespace) -> int:
         validation_output=validation_output,
         promotion_report=promotion_report,
         quality_report=quality_report,
+        review_kind="source_state" if args.source_state_only else "candidate",
     )
     sys.stdout.write(body)
     return 0
@@ -1425,6 +1447,11 @@ def build_parser() -> argparse.ArgumentParser:
     candidate_generate_parser.add_argument("--created-at", required=True)
     candidate_generate_parser.add_argument("--clean", action="store_true")
     candidate_generate_parser.add_argument("--dry-run", action="store_true")
+    candidate_generate_parser.add_argument(
+        "--skip-reviewed-duplicates",
+        action="store_true",
+        help="do not write candidates whose evidence is already covered by reviewed ProviderEvents",
+    )
     candidate_generate_parser.set_defaults(func=cmd_candidate_generate)
     candidate_review_body_parser = candidate_subparsers.add_parser(
         "review-pr-body",
@@ -1433,6 +1460,11 @@ def build_parser() -> argparse.ArgumentParser:
     candidate_review_body_parser.add_argument("--observations", required=True)
     candidate_review_body_parser.add_argument("--candidates", default="data/candidates/review")
     candidate_review_body_parser.add_argument("--validation-output")
+    candidate_review_body_parser.add_argument(
+        "--source-state-only",
+        action="store_true",
+        help="render copy for a source-fingerprint-only refresh with no candidate promotion request",
+    )
     candidate_review_body_parser.set_defaults(func=cmd_candidate_review_pr_body)
     candidate_readiness_parser = candidate_subparsers.add_parser(
         "readiness",

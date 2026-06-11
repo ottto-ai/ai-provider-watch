@@ -32,16 +32,21 @@ def build_source_refresh_review_gate(
     changed_source_keys = _string_list(observation_bundle.get("changed_source_keys"))
     candidate_count = _candidate_count(candidate_generation)
     review_needed = bool(changed_source_keys or candidate_count)
+    if candidate_count:
+        recommendation = "open_candidate_review_pr"
+        reason = "reviewable_source_or_candidate_changes"
+    elif changed_source_keys:
+        recommendation = "open_source_state_refresh_pr"
+        reason = "source_fingerprint_changes_without_candidates"
+    else:
+        recommendation = "skip_candidate_review_pr"
+        reason = "no_changed_sources_or_candidates"
 
     return {
         "schema_version": SCHEMA_VERSION,
         "review_needed": review_needed,
-        "recommendation": "open_candidate_review_pr"
-        if review_needed
-        else "skip_candidate_review_pr",
-        "reason": "reviewable_source_or_candidate_changes"
-        if review_needed
-        else "no_changed_sources_or_candidates",
+        "recommendation": recommendation,
+        "reason": reason,
         "changed_source_count": len(changed_source_keys),
         "changed_source_keys": changed_source_keys,
         "candidate_count": candidate_count,

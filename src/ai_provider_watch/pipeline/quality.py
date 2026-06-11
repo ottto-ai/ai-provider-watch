@@ -350,6 +350,19 @@ def _duplicate_event_ids(candidate: dict[str, Any], reviewed_by_evidence: dict[s
     return sorted(event_ids)
 
 
+def build_reviewed_evidence_index(root: Path | None) -> dict[str, list[str]]:
+    """Return reviewed event ids keyed by normalized evidence identity."""
+    return _reviewed_events_by_evidence(root)
+
+
+def duplicate_event_ids_for_candidate(
+    candidate: dict[str, Any],
+    reviewed_by_evidence: dict[str, list[str]],
+) -> list[str]:
+    """Return reviewed event ids that already cover a generated candidate."""
+    return _duplicate_event_ids(candidate, reviewed_by_evidence)
+
+
 def _source_descriptors(source_keys: list[str], sources_by_key: dict[str, SourceDescriptor]) -> list[SourceDescriptor]:
     return [sources_by_key[key] for key in source_keys if key in sources_by_key]
 

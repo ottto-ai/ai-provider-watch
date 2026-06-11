@@ -438,6 +438,70 @@ def test_candidate_generate_command_writes_review_files(tmp_path, capsys) -> Non
     assert read_json(written[0])["schema_version"] == "apw.finding_candidate.v0"
 
 
+def test_candidate_generate_can_skip_reviewed_duplicate_evidence(tmp_path, capsys) -> None:
+    observations = {
+        "schema_version": "apw.source_observations.v0",
+        "changed_source_keys": ["openai.api_changelog"],
+        "created_at": CREATED_AT,
+        "observations": [
+            {
+                "schema_version": "apw.observation.v0",
+                "source_key": "openai.api_changelog",
+                "final_url": "https://developers.openai.com/api/docs/changelog",
+                "retrieved_at": "2026-06-11T13:00:00Z",
+                "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+                "fingerprint": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                "http_status": 200,
+                "content_type": "text/html; charset=utf-8",
+                "changed": True,
+                "snapshot_ref": "entry:ce415bdbba26f2a9",
+                "items": [],
+                "errors": [],
+                "raw_excerpt_hashes": [],
+                "candidate_claims": [
+                    {
+                        "candidate_kind": "token_accounting_change",
+                        "claim_text": "OpenAI official dated source reports a token-accounting change on 2026-05-29 for batch-api, prompt-caching.",
+                        "evidence_url": "https://developers.openai.com/api/docs/changelog",
+                        "snapshot_ref": "entry:ce415bdbba26f2a9",
+                        "selector": "announcement:ce415bdbba26f2a9",
+                    }
+                ],
+            }
+        ],
+    }
+    observations_path = tmp_path / "observations.json"
+    observations_path.write_text(json.dumps(observations), encoding="utf-8")
+    output_dir = tmp_path / "out"
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "candidate",
+                "generate",
+                "--observations",
+                str(observations_path),
+                "--output",
+                str(output_dir),
+                "--created-at",
+                CREATED_AT,
+                "--skip-reviewed-duplicates",
+            ]
+        )
+        == 0
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["candidate_count"] == 0
+    assert payload["skipped_reviewed_duplicate_count"] == 1
+    assert payload["skipped_reviewed_duplicate_ids"] == [
+        "candidate-openai-api-changelog-0496c32ab3bf322e"
+    ]
+    assert output_dir.exists()
+    assert not list(output_dir.glob("*.json"))
+
+
 def test_candidate_generate_dry_run_does_not_write(tmp_path, capsys) -> None:
     assert (
         main(

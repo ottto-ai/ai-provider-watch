@@ -23,6 +23,11 @@ def test_source_refresh_workflow_detects_review_needed_before_opening_pr() -> No
 
     assert "id: review_gate" in workflow
     assert "uv run apw source review-needed" in workflow
+    assert "--skip-reviewed-duplicates" in workflow
+    assert "--source-state-only" in workflow
+    assert "open_source_state_refresh_pr" in workflow
+    assert 'branch="data/source-state-refresh-$(date -u +%Y%m%d-%H%M%S)"' in workflow
+    assert 'pr_title="data: refresh source state"' in workflow
     assert "--observations .apw/source-observations.json" in workflow
     assert "--candidate-generation .apw/candidate-generation.json" in workflow
     assert "--github-output \"$GITHUB_OUTPUT\"" in workflow

@@ -91,12 +91,20 @@ APW-2.02 adds deterministic candidate generation from observation bundles:
 uv run apw candidate generate \
   --observations .apw/source-observations.json \
   --output .apw/candidates \
-  --created-at 2026-05-31T20:15:00Z
+  --created-at 2026-05-31T20:15:00Z \
+  --skip-reviewed-duplicates
 ```
 
 Candidate output is review input only. The daily workflow must not publish
 events from candidates without maintainer review, and workflows that process
 source content must not receive release tokens.
+
+`--skip-reviewed-duplicates` suppresses candidates whose evidence identity is
+already covered by a reviewed ProviderEvent. This keeps recurring official
+changelog/RSS entries from reopening duplicate review rows after the feed has
+already promoted the underlying fact. The command reports
+`skipped_reviewed_duplicate_count` and the skipped candidate IDs in its JSON
+summary so automation can prove why no candidate files were written.
 
 ## Candidate Review PRs
 
@@ -120,6 +128,18 @@ The repository-level GitHub Actions workflow permission must allow Actions to
 create pull requests. The workflow still uses only the default `GITHUB_TOKEN`,
 does not receive release tokens or secrets, and deletes the generated remote
 branch if PR creation fails after the branch push.
+
+When changed official-source fingerprints produce zero new candidate files after
+reviewed-duplicate suppression, `apw source review-needed` returns
+`recommendation: open_source_state_refresh_pr`. That PR is for sanitized
+source-state and generated feed-health metadata only. It is not an event
+promotion request and should not add stale duplicate candidates back into
+`data/candidates/review`.
+
+The workflow renders those PRs with source-state wording by passing
+`--source-state-only` to `apw candidate review-pr-body`, and uses the title
+`data: refresh source state`. Runs with new candidate files keep the candidate
+review title and body.
 
 The PR body intentionally omits provider page bodies and candidate claim text.
 Candidate JSON can include bounded factual `claim_text`, but those files are not

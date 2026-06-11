@@ -50,6 +50,20 @@ def test_review_gate_opens_for_candidate_without_changed_source() -> None:
     assert gate["candidate_count"] == 1
 
 
+def test_review_gate_distinguishes_source_state_only_refresh() -> None:
+    gate = build_source_refresh_review_gate(
+        {"changed_source_keys": ["openai.api_changelog"]},
+        {"candidate_count": 0},
+    )
+
+    assert gate["review_needed"] is True
+    assert gate["recommendation"] == "open_source_state_refresh_pr"
+    assert gate["reason"] == "source_fingerprint_changes_without_candidates"
+    assert gate["changed_source_keys"] == ["openai.api_changelog"]
+    assert gate["changed_source_count"] == 1
+    assert gate["candidate_count"] == 0
+
+
 def test_review_gate_summary_and_github_output(tmp_path: Path) -> None:
     gate = build_source_refresh_review_gate(
         {"changed_source_keys": ["anthropic.news"]},
