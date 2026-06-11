@@ -4,7 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       release_date:
-        description: "UTC release date for data-YYYY.MM.DD. Empty uses today."
+        description: "UTC release date as YYYY-MM-DD. Empty uses today."
+        required: false
+        type: string
+        default: ""
+      release_id:
+        description: "Optional data release ID, such as data-YYYY.MM.DD or data-YYYY.MM.DD.N."
         required: false
         type: string
         default: ""
@@ -131,6 +136,7 @@ jobs:
       - name: Run publisher no-op dry run
         env:
           INPUT_RELEASE_DATE: ${{ inputs.release_date }}
+          INPUT_RELEASE_ID: ${{ inputs.release_id }}
         run: |
           release_date="$INPUT_RELEASE_DATE"
           if [ -z "$release_date" ]; then
@@ -140,10 +146,15 @@ jobs:
             [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;;
             *) echo "release_date must be YYYY-MM-DD" >&2; exit 1 ;;
           esac
+          release_id="$INPUT_RELEASE_ID"
+          if [ -z "$release_id" ]; then
+            release_id="data-${release_date//-/.}"
+          fi
           echo "APW_RELEASE_DATE=$release_date" >> "$GITHUB_ENV"
-          echo "APW_RELEASE_ID=data-${release_date//-/.}" >> "$GITHUB_ENV"
+          echo "APW_RELEASE_ID=$release_id" >> "$GITHUB_ENV"
           uv run apw release dry-run \
             --release-date "$release_date" \
+            --release-id "$release_id" \
             --output .apw/data-publisher-noop \
             --require-clean
       - name: Verify publisher dry-run evidence

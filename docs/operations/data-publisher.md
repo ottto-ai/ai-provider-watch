@@ -67,6 +67,7 @@ gh workflow run data-publisher.yml \
   --repo ottto-ai/ai-provider-watch \
   --ref main \
   -f release_date="$(date -u +%F)" \
+  -f release_id="data-$(date -u +%Y.%m.%d)" \
   -f publish_mode=no-op
 ```
 
@@ -100,6 +101,7 @@ gh workflow run data-publisher.yml \
   --repo ottto-ai/ai-provider-watch \
   --ref main \
   -f release_date="$(date -u +%F)" \
+  -f release_id="data-$(date -u +%Y.%m.%d)" \
   -f publish_mode=packet \
   -f source_owner_approval_ref="<issue-or-pr-comment-url>" \
   -f release_manager_approval_ref="<issue-or-pr-comment-url>" \
@@ -126,6 +128,18 @@ still keeps `contents: read`, does not request OIDC, does not use secrets, does
 not create a tag, and does not create or upload a GitHub Release. If
 `checksum_review_ref` is omitted, the workflow records the dry-run report
 SHA-256 from the protected run.
+
+For a same-day revision packet, pass the exact revision identity:
+
+```bash
+gh workflow run data-publisher.yml \
+  --repo ottto-ai/ai-provider-watch \
+  --ref main \
+  -f release_date=2026-06-11 \
+  -f release_id=data-2026.06.11.1 \
+  -f publish_mode=packet \
+  ...
+```
 
 ## Publication Packet Contract
 

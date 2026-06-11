@@ -160,6 +160,16 @@ state, or process provider page content. The job keeps `contents: read`, uses
 OIDC only for artifact attestation, and serializes runs with workflow
 concurrency so a slow dry run does not overlap the next one.
 
+Manual dry-run dispatch accepts an explicit same-day revision identity:
+
+```bash
+gh workflow run release-data.yml \
+  --repo ottto-ai/ai-provider-watch \
+  --ref main \
+  -f release_date=2026-06-11 \
+  -f release_id=data-2026.06.11.1
+```
+
 The dry run does not publish a tag, upload a release, or require a release
 token. A public data tag still requires maintainer review, green GitHub CI,
 CodeQL workflow completion, a matching GitHub code-scanning analysis for the

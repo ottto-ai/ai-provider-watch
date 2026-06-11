@@ -71,6 +71,8 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
     assert "schedule:" in workflow
     assert 'cron: "43 7 * * *"' in workflow
     assert "workflow_dispatch:" in workflow
+    assert "release_date:" in workflow
+    assert "release_id:" in workflow
     assert "concurrency:" in workflow
     assert "group: data-release-dry-run-${{ github.ref }}" in workflow
     assert "cancel-in-progress: false" in workflow
@@ -88,6 +90,7 @@ def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() 
     assert "apw source coverage --summary" in workflow
     assert "apw latest --limit 1 >/tmp/apw-installed-latest.json" in workflow
     assert "apw --root \"$PWD\" release dry-run" in workflow
+    assert "--release-id \"$release_id\"" in workflow
     assert "apw --root \"$PWD\" release verify" in workflow
     assert "--require-clean" in workflow
     assert "apw-release-dry-run.tgz" in workflow
@@ -196,6 +199,8 @@ def test_data_publisher_workflow_is_protected_noop_or_packet_only() -> None:
     assert "pull_request:" not in workflow
     assert "pull_request_target:" not in workflow
     assert "publish_mode:" in workflow
+    assert "release_id:" in workflow
+    assert "INPUT_RELEASE_ID" in workflow
     assert "default: no-op" in workflow
     assert "options:\n          - no-op\n          - packet" in workflow
     assert "permissions:\n  contents: read" in workflow
@@ -213,6 +218,7 @@ def test_data_publisher_workflow_is_protected_noop_or_packet_only() -> None:
     assert "uv run apw validate" in workflow
     assert "uv run apw index --check" in workflow
     assert "uv run apw release dry-run" in workflow
+    assert "--release-id \"$release_id\"" in workflow
     assert "uv run apw release verify" in workflow
     assert "uv run apw \"${args[@]}\"" in workflow
     assert "publication-packet.json" in workflow
