@@ -30,10 +30,10 @@ events, update generated feeds, create data tags, request OIDC, or access
 release tokens.
 
 For missing official changes, use [Missing Event To PR](missing-event-to-pr.md)
-to decide between the issue-only path, direct `apw event scaffold` path, and
-candidate-review `apw candidate scaffold-event` path. The guide is meant to
-reduce maintainer back-and-forth; it does not grant source-owner or release
-authority.
+to decide between the issue-only path, review-only `apw event issue-triage`
+path, direct `apw event scaffold` path, and candidate-review
+`apw candidate scaffold-event` path. The guide is meant to reduce maintainer
+back-and-forth; it does not grant source-owner or release authority.
 
 ## Source-Owner Responsibilities
 

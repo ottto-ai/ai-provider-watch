@@ -92,6 +92,9 @@ When you cannot edit the repo, open a `Missing provider event` issue. Include
 official URLs, dates, event kind, source authority, affected refs, and why the
 change matters to developers.
 
+When an issue already exists, maintainers can run `apw event issue-triage` on
+the issue body to get a review checklist and scaffold command with placeholders.
+
 ## Source-Owner Quick Check
 
 A source owner can approve promotion when the PR proves:

@@ -8,6 +8,19 @@ feeds, promote candidates, publish tags, or read credentials.
 For the full issue-to-PR path, including when to open only a missing-event
 issue, see [Missing Event To PR](missing-event-to-pr.md).
 
+When starting from a `Missing provider event` issue, first render review-only
+triage from the issue body:
+
+```bash
+apw event issue-triage \
+  --issue-body .apw/missing-event-issue.md \
+  --output .apw/missing-event-triage.md
+```
+
+The generated command contains placeholders for reviewed title, summary,
+content hash, scope, and impact details. Replace them from official evidence
+before running `apw event scaffold`.
+
 Use it when you already verified the official source and want a valid starting
 point for `data/events/*.json`:
 

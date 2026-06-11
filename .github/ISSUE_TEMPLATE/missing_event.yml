@@ -13,6 +13,8 @@ body:
         Best reports are official, dated, specific, developer-impacting changes affecting cost, quotas, token accounting, model availability, defaults, deprecations, incidents, or migration risk.
 
         If you can open a PR, use the missing-event-to-PR guide: https://github.com/ottto-ai/ai-provider-watch/blob/main/docs/contributors/missing-event-to-pr.md
+
+        Maintainers may run `apw event issue-triage` on this issue body to produce a review checklist and scaffold command with placeholders. The command output still requires source-owner review against official evidence.
   - type: input
     id: provider
     attributes:
