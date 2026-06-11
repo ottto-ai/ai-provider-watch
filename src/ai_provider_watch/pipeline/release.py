@@ -190,6 +190,7 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
         workflow,
         [
             "workflow_dispatch:",
+            "release_id:",
             "contents: read",
             "id-token: write",
             "attestations: write",
@@ -201,6 +202,7 @@ def _release_workflow_guardrails_check(root: Path) -> ReleaseCheck:
             "uv run apw index --check",
             "uv build --out-dir .apw/dist",
             "apw latest --limit 1 >/tmp/apw-installed-latest.json",
+            "--release-id \"$release_id\"",
             "--require-clean",
             "apw --root \"$PWD\" release verify",
             "apw-release-dry-run.tgz",
@@ -233,6 +235,7 @@ def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
         workflow,
         [
             "workflow_dispatch:",
+            "release_id:",
             "publish_mode:",
             "no-op",
             "packet",
@@ -248,6 +251,7 @@ def _data_publisher_noop_workflow_check(root: Path) -> ReleaseCheck:
             "uv run apw validate",
             "uv run apw index --check",
             "uv run apw release dry-run",
+            "--release-id \"$release_id\"",
             "uv run apw release verify",
             'uv run apw "${args[@]}"',
             "publication-packet.json",

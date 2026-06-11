@@ -4,6 +4,17 @@ on:
   schedule:
     - cron: "43 7 * * *"
   workflow_dispatch:
+    inputs:
+      release_date:
+        description: "UTC release date as YYYY-MM-DD. Empty uses today."
+        required: false
+        type: string
+        default: ""
+      release_id:
+        description: "Optional data release ID, such as data-YYYY.MM.DD or data-YYYY.MM.DD.N."
+        required: false
+        type: string
+        default: ""
 
 permissions:
   contents: read
@@ -33,6 +44,9 @@ jobs:
       - run: uv run apw index --check
       - run: uv build --out-dir .apw/dist
       - name: Install package and run release dry-run
+        env:
+          INPUT_RELEASE_DATE: ${{ inputs.release_date }}
+          INPUT_RELEASE_ID: ${{ inputs.release_id }}
         run: |
           uv venv .apw/install-smoke --python 3.12 --seed
           . .apw/install-smoke/bin/activate
@@ -46,11 +60,23 @@ jobs:
             apw latest --limit 1 >/tmp/apw-installed-latest.json
           )
           apw --root "$PWD" validate
+          release_date="$INPUT_RELEASE_DATE"
+          if [ -z "$release_date" ]; then
+            release_date="$(date -u +%F)"
+          fi
+          case "$release_date" in
+            [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;;
+            *) echo "release_date must be YYYY-MM-DD" >&2; exit 1 ;;
+          esac
+          release_id="$INPUT_RELEASE_ID"
+          if [ -z "$release_id" ]; then
+            release_id="data-${release_date//-/.}"
+          fi
           apw --root "$PWD" release dry-run \
-            --release-date "$(date -u +%F)" \
+            --release-date "$release_date" \
+            --release-id "$release_id" \
             --output .apw/release-dry-run \
             --require-clean
-          release_id="data-$(date -u +%Y.%m.%d)"
           apw --root "$PWD" release verify \
             --dry-run-report ".apw/release-dry-run/${release_id}/dry-run-report.json" \
             --release-id "$release_id" \
