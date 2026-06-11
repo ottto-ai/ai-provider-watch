@@ -65,7 +65,10 @@ def _evidence_refs(candidate: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _next_step(action: str, duplicate_event_ids: list[str]) -> str:
     if action == "promote":
-        return "Verify official evidence, author ProviderEvent JSON, run candidate event-packet, then open the promotion PR."
+        return (
+            "Verify official evidence, author ProviderEvent JSON, run candidate event-packet, "
+            "and use repeated --event-draft values when one candidate should split into multiple events."
+        )
     if action == "needs_human_review":
         return "Open the official evidence and decide whether to promote, split, reject, or mark duplicate."
     if action == "duplicate":

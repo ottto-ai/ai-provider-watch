@@ -43,6 +43,8 @@ ARTICLE_PATH_MARKERS = (
 )
 
 MULTI_ENTRY_SOURCE_KEYS = {
+    "anthropic.news",
+    "anthropic.release_notes",
     "azure_openai.whats_new",
     "google.gemini_changelog",
 }

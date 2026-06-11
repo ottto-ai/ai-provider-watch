@@ -90,6 +90,16 @@ def _candidate_summary(candidate: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _same_packet_duplicate(quality: dict[str, Any], event_ids: list[str]) -> bool:
+    duplicate_ids = {
+        item
+        for item in quality.get("duplicate_event_ids", [])
+        if isinstance(item, str)
+    }
+    packet_ids = set(event_ids)
+    return bool(duplicate_ids) and bool(packet_ids) and packet_ids <= duplicate_ids
+
+
 def _safe_string(value: Any, fallback: str) -> str:
     return value if isinstance(value, str) and value else fallback
 
@@ -279,10 +289,6 @@ def build_candidate_to_event_packet(
     packet_blockers: list[str] = []
     if readiness.get("readiness") not in {"auto_promotion_eligible", "needs_source_owner_review"}:
         packet_blockers.append(f"Candidate readiness {readiness.get('readiness')} is not promotable.")
-    if quality.get("recommended_action") not in {"promote", "needs_human_review"}:
-        packet_blockers.append(
-            f"Candidate quality action {quality.get('recommended_action')} is not promotable."
-        )
     claim_text = candidate.get("claim_text")
     if not isinstance(claim_text, str) or contains_prompt_injection_marker(claim_text):
         packet_blockers.append("Candidate claim text is missing or prompt-like.")
@@ -319,6 +325,21 @@ def build_candidate_to_event_packet(
     event_ids_for_resolution = [
         row["event_id"] for row in event_rows if isinstance(row.get("event_id"), str)
     ]
+    if quality.get("recommended_action") not in {"promote", "needs_human_review"}:
+        if quality.get("recommended_action") == "duplicate" and _same_packet_duplicate(quality, event_ids_for_resolution):
+            quality = {
+                **quality,
+                "packet_advisories": [
+                    (
+                        "Candidate quality is duplicate only because the packet event draft ids "
+                        "already appear in reviewed event data."
+                    )
+                ],
+            }
+        else:
+            packet_blockers.append(
+                f"Candidate quality action {quality.get('recommended_action')} is not promotable."
+            )
     return {
         "schema_version": CANDIDATE_TO_EVENT_PACKET_SCHEMA_VERSION,
         "created_at": created_at,
