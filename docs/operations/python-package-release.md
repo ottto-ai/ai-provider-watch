@@ -111,6 +111,13 @@ raised the bundled feed to forty-five reviewed events. A package snapshot keeps
 install-only users current with the higher-value OpenAI API changes while the
 next immutable data tag waits for the next approved data-release identity.
 
+Decision for `0.1.15`: publish the package patch and do not create a new data
+tag. PRs #144-#146 changed source-refresh and candidate-review behavior by
+suppressing reviewed duplicate candidates, splitting candidate-review PRs from
+source-state-only PRs, filtering consumer-only status-feed noise, and refreshing
+bounded official source state. Reviewed event data did not change, so the
+signed `data-2026.06.11` identity remains the immutable feed snapshot.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.
