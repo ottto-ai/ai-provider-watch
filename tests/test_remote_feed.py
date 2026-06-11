@@ -24,9 +24,9 @@ class _FakeResponse:
 
 
 def test_remote_raw_url_pins_repo_and_encodes_ref() -> None:
-    assert remote.remote_raw_url("data/feeds/latest.json", ref="data-2026.06.10") == (
+    assert remote.remote_raw_url("data/feeds/latest.json", ref="data-2026.06.11") == (
         "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/"
-        "data-2026.06.10/data/feeds/latest.json"
+        "data-2026.06.11/data/feeds/latest.json"
     )
     assert "%2F" in remote.remote_raw_url("data/feeds/latest.json", ref="feature/feed")
 
@@ -61,7 +61,7 @@ def test_remote_latest_cli_filters_fake_live_feed(monkeypatch, capsys) -> None:
                 "remote",
                 "latest",
                 "--ref",
-                "data-2026.06.10",
+                "data-2026.06.11",
                 "--provider",
                 "openai",
                 "--risk",
@@ -77,7 +77,7 @@ def test_remote_latest_cli_filters_fake_live_feed(monkeypatch, capsys) -> None:
 
     assert requested_urls == [
         "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/"
-        "data-2026.06.10/data/feeds/events.json"
+        "data-2026.06.11/data/feeds/events.json"
     ]
     assert [event["id"] for event in json.loads(capsys.readouterr().out)] == ["high-openai"]
 

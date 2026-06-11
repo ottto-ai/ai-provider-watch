@@ -74,8 +74,8 @@ checkout:
 
 ```bash
 apw remote latest --ref main --risk medium
-apw remote freshness --ref data-2026.06.10 --summary
-apw remote feed events.ndjson --ref data-2026.06.10 --output apw-events.ndjson
+apw remote freshness --ref data-2026.06.11 --summary
+apw remote feed events.ndjson --ref data-2026.06.11 --output apw-events.ndjson
 ```
 
 The remote commands are read-only and fetch only public APW feed artifacts from
@@ -89,9 +89,9 @@ Python consumers can use the same remote feed contract:
 from ai_provider_watch import api
 
 events = api.load_remote_events(ref="main", min_severity="medium", limit=10)
-freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.10")
-ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.10")
-url = api.remote_feed_url("events.ndjson", ref="data-2026.06.10")
+freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.11")
+ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.11")
+url = api.remote_feed_url("events.ndjson", ref="data-2026.06.11")
 ```
 
 Remote Python helpers are read-only and bounded by timeout and byte-limit

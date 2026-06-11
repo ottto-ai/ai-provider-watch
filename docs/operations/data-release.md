@@ -177,3 +177,7 @@ the concrete resolution.
   successful PyPI Trusted Publishing run for selector-aware candidate
   split/dedupe packet ergonomics, matching GitHub release assets, artifact
   hashes, PyPI provenance, and fresh-install smoke coverage.
+- [2026-06-11 `data-2026.06.11` data release](release-evidence/2026-06-11-data-2026.06.11.md):
+  Ron-signed data tag and GitHub release for the June 11 AWS Bedrock OpenAI GPT
+  availability event, with CI, CodeQL, Dependency Review, Scorecard, protected
+  dry-run attestation, packet evidence, and pinned remote-feed smoke.

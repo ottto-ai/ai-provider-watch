@@ -90,6 +90,13 @@ ergonomics selector-aware for Anthropic multi-entry official sources. Reviewed
 event data did not change, so the existing signed `data-2026.06.10` identity
 remains the latest immutable data release.
 
+Decision for `0.1.12`: publish the package patch after the signed
+`data-2026.06.11` release. PR #134 promoted a high-signal official AWS Bedrock
+ProviderEvent for OpenAI GPT-5.4 and GPT-5.5 availability in US East
+(N. Virginia), raising the reviewed feed to forty events. A package snapshot
+keeps install-only users aligned with the latest immutable data release without
+requiring a checkout or live remote read.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.

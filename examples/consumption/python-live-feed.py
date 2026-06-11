@@ -8,9 +8,9 @@ from ai_provider_watch import api
 
 def main() -> None:
     events = api.load_remote_events(ref="main", min_severity="medium", limit=10)
-    freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.10")
-    ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.10")
-    url = api.remote_feed_url("events.ndjson", ref="data-2026.06.10")
+    freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.11")
+    ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.11")
+    url = api.remote_feed_url("events.ndjson", ref="data-2026.06.11")
 
     print(url)
     for event in events:

@@ -7,7 +7,7 @@ APW is built for humans and agents.
 ```bash
 uvx ai-provider-watch latest --risk high
 uvx ai-provider-watch remote latest --ref main --risk medium --limit 10
-uvx ai-provider-watch remote freshness --ref data-2026.06.10 --summary
+uvx ai-provider-watch remote freshness --ref data-2026.06.11 --summary
 uvx ai-provider-watch diff --since 7d --provider openai
 uvx ai-provider-watch explain 2026-05-31-openai-example
 ```
