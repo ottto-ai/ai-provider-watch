@@ -104,6 +104,13 @@ opens candidate-review PRs only for changed source fingerprints or review
 candidates. Reviewed event data did not change, so the signed
 `data-2026.06.11` identity remains the immutable feed snapshot.
 
+Decision for `0.1.14`: publish the package patch and do not recreate the
+already-signed `data-2026.06.11` tag. PR #141 added the deterministic OpenAI
+API changelog source, promoted five reviewed OpenAI API ProviderEvents, and
+raised the bundled feed to forty-five reviewed events. A package snapshot keeps
+install-only users current with the higher-value OpenAI API changes while the
+next immutable data tag waits for the next approved data-release identity.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.
