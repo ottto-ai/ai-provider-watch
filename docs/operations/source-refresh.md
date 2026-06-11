@@ -27,6 +27,7 @@ The review gate is reproducible locally:
 uv run apw source review-needed \
   --observations .apw/source-observations.json \
   --candidate-generation .apw/candidate-generation.json \
+  --candidate-quality .apw/candidate-quality.json \
   --summary
 ```
 
@@ -116,12 +117,17 @@ draft candidate-review PR after source refresh:
 2. clean and regenerate review-only candidates in `data/candidates/review`;
 3. decide whether changed source fingerprints or review candidates justify a
    candidate-review PR;
-4. run `apw validate`, regenerate generated metadata with `apw index`, then
+4. rank candidate quality with `apw candidate quality` and pass the advisory
+   report into `apw source review-needed`;
+5. when the only generated candidates are non-reviewable low-signal rejects or
+   duplicates, delete those candidate JSON files and continue as a
+   source-state-only refresh instead of opening a noisy candidate-review PR;
+6. run `apw validate`, regenerate generated metadata with `apw index`, then
    rerun `apw validate` and `apw index --check`;
-5. render a PR body with observation counts, changed source keys, candidate
+7. render a PR body with observation counts, changed source keys, candidate
    file paths, advisory promotion-readiness context, candidate-quality tiers,
    validation output, and a maintainer checklist;
-6. commit only `data/source-state/fingerprints.json`, sanitized candidate JSON,
+8. commit only `data/source-state/fingerprints.json`, sanitized candidate JSON,
    and generated feed/index/release metadata such as freshness/checksum files.
 
 The repository-level GitHub Actions workflow permission must allow Actions to
@@ -135,6 +141,15 @@ reviewed-duplicate suppression, `apw source review-needed` returns
 source-state and generated feed-health metadata only. It is not an event
 promotion request and should not add stale duplicate candidates back into
 `data/candidates/review`.
+
+The same source-state-only route applies when candidate generation writes files
+but candidate quality classifies every candidate as non-reviewable, such as
+`recommended_action: reject` low-signal source churn or duplicate evidence. The
+workflow uploads `.apw/candidate-quality.json` for audit, deletes the
+non-reviewable generated candidate JSON before indexing, and opens a
+source-state refresh PR when fingerprints changed. If candidate quality reports
+any `promote` or `needs_human_review` row, the workflow still opens the normal
+candidate-review PR.
 
 The workflow renders those PRs with source-state wording by passing
 `--source-state-only` to `apw candidate review-pr-body`, and uses the title

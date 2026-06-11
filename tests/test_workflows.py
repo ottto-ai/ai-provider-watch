@@ -30,6 +30,7 @@ def test_source_refresh_workflow_detects_review_needed_before_opening_pr() -> No
     assert 'pr_title="data: refresh source state"' in workflow
     assert "--observations .apw/source-observations.json" in workflow
     assert "--candidate-generation .apw/candidate-generation.json" in workflow
+    assert "--candidate-quality .apw/candidate-quality.json" in workflow
     assert "--github-output \"$GITHUB_OUTPUT\"" in workflow
     assert "if: steps.review_gate.outputs.review_needed == 'true'" in workflow
     assert (
@@ -46,6 +47,7 @@ def test_source_refresh_workflow_uploads_noop_observation_artifacts() -> None:
     assert "name: source-refresh-observations" in workflow
     assert ".apw/source-observations.json" in workflow
     assert ".apw/candidate-generation.json" in workflow
+    assert ".apw/candidate-quality.json" in workflow
     assert ".apw/source-refresh-review-needed.json" in workflow
     assert "if-no-files-found: ignore" in workflow
 
@@ -55,6 +57,7 @@ def test_source_refresh_workflow_regenerates_metadata_after_source_state_change(
 
     assert "uv run apw index: pass" in workflow
     assert "git add data/source-state/fingerprints.json data/candidates data/feeds data/indexes data/releases/dev" in workflow
+    assert workflow.index("Drop non-reviewable generated candidates") < workflow.index("run: uv run apw index")
     assert workflow.index("run: uv run apw index") < workflow.index("run: uv run apw validate")
 
 
@@ -63,6 +66,20 @@ def test_source_refresh_workflow_cleans_generated_review_candidates() -> None:
 
     assert "--output data/candidates/review" in workflow
     assert "--clean" in workflow
+    assert "find data/candidates/review -type f -name '*.json' -delete" in workflow
+    assert "if: steps.review_gate.outputs.recommendation == 'open_source_state_refresh_pr'" in workflow
+
+
+def test_source_refresh_workflow_ranks_candidate_quality_before_review_gate() -> None:
+    workflow = _workflow("source-refresh.yml")
+
+    assert "name: Rank review candidate quality" in workflow
+    assert "uv run apw candidate quality" in workflow
+    assert "--candidates data/candidates/review" in workflow
+    assert "--output .apw/candidate-quality.json" in workflow
+    assert workflow.index("name: Rank review candidate quality") < workflow.index(
+        "name: Decide whether a candidate-review PR is needed"
+    )
 
 
 def test_release_dry_run_workflow_runs_install_smoke_and_has_no_publish_token() -> None:

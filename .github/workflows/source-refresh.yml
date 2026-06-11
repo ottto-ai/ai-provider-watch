@@ -32,12 +32,20 @@ jobs:
             --clean \
             --skip-reviewed-duplicates \
             > .apw/candidate-generation.json
+      - name: Rank review candidate quality
+        run: |
+          created_at="$(cat .apw/candidate-created-at.txt)"
+          uv run apw candidate quality \
+            --candidates data/candidates/review \
+            --created-at "$created_at" \
+            --output .apw/candidate-quality.json
       - name: Decide whether a candidate-review PR is needed
         id: review_gate
         run: |
           uv run apw source review-needed \
             --observations .apw/source-observations.json \
             --candidate-generation .apw/candidate-generation.json \
+            --candidate-quality .apw/candidate-quality.json \
             --output .apw/source-refresh-review-needed.json \
             --github-output "$GITHUB_OUTPUT" \
             --summary
@@ -49,8 +57,12 @@ jobs:
           path: |
             .apw/source-observations.json
             .apw/candidate-generation.json
+            .apw/candidate-quality.json
             .apw/source-refresh-review-needed.json
           if-no-files-found: ignore
+      - name: Drop non-reviewable generated candidates for source-state-only PRs
+        if: steps.review_gate.outputs.recommendation == 'open_source_state_refresh_pr'
+        run: find data/candidates/review -type f -name '*.json' -delete
       - if: steps.review_gate.outputs.review_needed == 'true'
         run: uv run apw index
       - if: steps.review_gate.outputs.review_needed == 'true'
@@ -65,6 +77,8 @@ jobs:
             echo "uv run apw source test: pass"
             echo "uv run apw source fetch --write-state --observations .apw/source-observations.json --limit-bytes 3000000: pass"
             echo "uv run apw candidate generate --observations .apw/source-observations.json --output data/candidates/review --created-at ${created_at} --clean --skip-reviewed-duplicates: pass"
+            echo "uv run apw candidate quality --candidates data/candidates/review --created-at ${created_at} --output .apw/candidate-quality.json: pass"
+            echo "uv run apw source review-needed --observations .apw/source-observations.json --candidate-generation .apw/candidate-generation.json --candidate-quality .apw/candidate-quality.json: pass"
             echo "uv run apw index: pass"
             echo "uv run apw validate: pass"
             echo "uv run apw index --check: pass"
