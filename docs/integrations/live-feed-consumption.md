@@ -7,6 +7,8 @@ public APW feed without cloning this repository.
 
 - Use `main` for the freshest reviewed feed currently on GitHub.
 - Use a signed `data-YYYY.MM.DD` tag for immutable release evidence.
+- Use a signed `data-YYYY.MM.DD.N` revision tag when a same-day immutable
+  release supersedes the earlier same-day snapshot without moving it.
 - Use a package snapshot when offline or no-checkout behavior matters more than
   latest data freshness.
 

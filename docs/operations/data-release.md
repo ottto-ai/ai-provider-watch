@@ -1,6 +1,9 @@
 # Data Release
 
-Data releases use CalVer tags such as `data-2026.06.01`.
+Data releases use CalVer tags such as `data-2026.06.01`. If reviewed event
+data changes after that day's immutable tag already exists, use a same-day
+revision tag such as `data-2026.06.01.1`, then `.2`, and so on. Never move,
+delete, or recreate an existing `data-*` tag.
 
 Each release should include generated feeds, `data/feeds/feed.json`,
 `data/feeds/freshness.json`, `data/feeds/coverage.json`,
@@ -24,16 +27,30 @@ uv run apw release dry-run --output .apw/release-dry-run --require-clean
 ```
 
 The dry run writes an ignored evidence bundle under
-`.apw/release-dry-run/data-YYYY.MM.DD/`. The GitHub workflow also packages that
+`.apw/release-dry-run/<release-id>/`, where `<release-id>` is
+`data-YYYY.MM.DD` or `data-YYYY.MM.DD.N`. The GitHub workflow also packages that
 bundle as `.apw/apw-release-dry-run.tgz` and creates an artifact attestation for
 it. The bundle includes release-shaped feed artifacts,
 `data/feeds/freshness.json`,
 `data/feeds/coverage.json`,
 `data/feeds/operations.json`,
 `data/feeds/feed.json`,
-`data/releases/data-YYYY.MM.DD/manifest.json`,
-`data/releases/data-YYYY.MM.DD/evidence-index.json`, checksums, and a
+`data/releases/<release-id>/manifest.json`,
+`data/releases/<release-id>/evidence-index.json`, checksums, and a
 schema-backed `dry-run-report.json`.
+
+Use plain `data-YYYY.MM.DD` for the first approved release identity for a UTC
+date. Use `data-YYYY.MM.DD.N` only when all of these are true:
+
+- the plain same-day tag already exists;
+- source-owner-reviewed event data changed after that tag;
+- the release manager wants a new immutable public data snapshot before the next
+  UTC date;
+- the revision number is the next unused positive integer with no leading zero.
+
+The revision suffix is an immutable release identity. It does not weaken the
+review, packet, signing, branch-protection, checksum, Dependency Review,
+CodeQL, Scorecard, or attestation gates.
 
 The evidence index is the stable machine-readable release contract for humans,
 agents, package consumers, and downstream automation:
@@ -70,7 +87,9 @@ publication still lacks an approved signing-equivalent mechanism; `status:
 fail` means a local release workflow, token boundary, or policy document
 regressed.
 
-Generate a schema-backed publication packet before creating any real data tag:
+Generate a schema-backed publication packet before creating any real data tag.
+For a same-day revision, replace every `data-YYYY.MM.DD` path and `--release-id`
+below with the exact revision identity, for example `data-2026.06.01.1`:
 
 ```bash
 uv run apw release packet \

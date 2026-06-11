@@ -15,7 +15,8 @@ uvx ai-provider-watch explain 2026-05-31-openai-example
 Use local commands such as `latest`, `diff`, and `repo check` when bundled
 package data is enough. Use `remote` commands when an installed agent needs the
 live public GitHub feed or an immutable `data-YYYY.MM.DD` tag without cloning
-APW. Remote commands fetch only reviewed feed artifacts from the public APW
+APW. Same-day immutable revisions use `data-YYYY.MM.DD.N`. Remote commands fetch
+only reviewed feed artifacts from the public APW
 repository; they do not fetch provider pages, write candidates, publish events,
 or read credentials.
 

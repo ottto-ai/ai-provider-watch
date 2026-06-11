@@ -20,6 +20,11 @@ git tag -v data-YYYY.MM.DD
 git push origin data-YYYY.MM.DD
 ```
 
+If the plain same-day tag already exists and reviewed event data changed again,
+publish the next immutable revision tag instead, for example
+`data-YYYY.MM.DD.1`. Revision tags are release identities, not mutable aliases:
+do not move, delete, recreate, or force-push any existing `data-*` tag.
+
 GitHub artifact attestations are provenance evidence for release dry-run
 artifacts. They do not replace the release manager's signed Git tag. Do not
 store signing keys in GitHub Actions, repository secrets, environment secrets,
@@ -53,6 +58,10 @@ uv run apw release packet --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/
 uv run apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json --publication-packet .apw/release-dry-run/data-YYYY.MM.DD/publication-packet.json --release-id data-YYYY.MM.DD --source-commit "$(git rev-parse HEAD)"
 ```
 
+For same-day revisions, pass `--release-id data-YYYY.MM.DD.N` to the dry run and
+use that exact directory and tag name in every packet, verify, and signing
+command.
+
 The dry-run report checks schema validation, source fixtures, source coverage,
 the operations report, generated feed freshness, CalVer manifest schema,
 checksums, license layout, dependency lock presence, CodeQL workflow posture,
@@ -80,7 +89,8 @@ commands remain separate required gates.
 
 ## Required External Gates
 
-Use these checks before creating any `data-YYYY.MM.DD` tag:
+Use these checks before creating any `data-YYYY.MM.DD` or `data-YYYY.MM.DD.N`
+tag:
 
 ```bash
 export REPO=ottto-ai/ai-provider-watch
@@ -185,7 +195,8 @@ A release manager listed in [MAINTAINERS.md](../../MAINTAINERS.md) must approve:
   readiness and required fresh-environment smoke commands;
 - `gh attestation verify` output for the dry-run bundle;
 - `apw release packet` output for reviewed event IDs or explicit skip reason;
-- release notes and manual Ron-signed `data-YYYY.MM.DD` tag plan.
+- release notes and manual Ron-signed `data-YYYY.MM.DD` or
+  `data-YYYY.MM.DD.N` tag plan.
 - protected `data-release` environment approval for any publisher run.
 
 Source owner approval is required when the release includes new source

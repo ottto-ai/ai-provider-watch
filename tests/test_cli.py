@@ -287,6 +287,31 @@ def test_release_dry_run_command(tmp_path, capsys) -> None:
     assert output["artifact_count"] > 0
 
 
+def test_release_dry_run_command_accepts_same_day_revision_id(tmp_path, capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "dry-run",
+                "--release-date",
+                "2026-06-01",
+                "--release-id",
+                "data-2026.06.01.1",
+                "--source-commit",
+                "0123456789abcdef0123456789abcdef01234567",
+                "--output",
+                str(tmp_path),
+            ]
+        )
+        == 0
+    )
+    output = json.loads(capsys.readouterr().out)
+    assert output["release_id"] == "data-2026.06.01.1"
+    assert output["report_path"].endswith("data-2026.06.01.1/dry-run-report.json")
+
+
 def test_release_packet_command(tmp_path, capsys) -> None:
     assert (
         main(
@@ -379,6 +404,28 @@ def test_release_evidence_index_command(capsys) -> None:
     assert index["token_boundary"]["no_release_tokens_in_untrusted_lanes"] is True
 
 
+def test_release_evidence_index_command_accepts_same_day_revision_id(capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "release",
+                "evidence-index",
+                "--release-id",
+                "data-2026.06.01.1",
+                "--source-commit",
+                "0123456789abcdef0123456789abcdef01234567",
+                "--created-at",
+                "2026-06-01T12:00:00Z",
+            ]
+        )
+        == 0
+    )
+    index = json.loads(capsys.readouterr().out)
+    assert index["release_id"] == "data-2026.06.01.1"
+
+
 def test_release_evidence_index_command_rejects_invalid_release_id(capsys) -> None:
     assert (
         main(
@@ -393,7 +440,7 @@ def test_release_evidence_index_command_rejects_invalid_release_id(capsys) -> No
         )
         == 1
     )
-    assert "release_id must be dev or data-YYYY.MM.DD" in capsys.readouterr().err
+    assert "release_id must be dev, data-YYYY.MM.DD, or data-YYYY.MM.DD.N" in capsys.readouterr().err
 
 
 def test_release_automation_readiness_command(capsys) -> None:

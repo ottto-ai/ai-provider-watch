@@ -92,6 +92,10 @@ Verify a local release dry-run evidence bundle without publishing:
 apw release verify --dry-run-report .apw/release-dry-run/data-YYYY.MM.DD/dry-run-report.json
 ```
 
+Immutable data releases use `data-YYYY.MM.DD`. If a second approved feed
+snapshot is needed on the same UTC date, APW uses the next revision tag such as
+`data-YYYY.MM.DD.1`; existing `data-*` tags are never moved.
+
 ## Feed Artifacts
 
 The canonical reviewed events live in `data/events/`. Generated feed artifacts
