@@ -37,6 +37,7 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
     assert payload["schema_version"] == "apw.webhook_payload.v0"
     assert payload["event_count"] == 20
     assert {event["id"] for event in payload["events"]} == {
+        "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
         "2026-06-09-openai-codex-mobile-worktrees-goals-review",
         "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
         "2026-06-09-openai-codex-app-migration-plugins-settings",
@@ -45,6 +46,7 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
         "2026-06-04-openai-codex-app-computer-use-plugin-config",
         "2026-06-04-openai-moderation-scores-api",
         "2026-06-04-openai-image-api-401-errors",
+        "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
         "2026-06-02-openai-codex-role-plugins-sites",
         "2026-06-02-openai-container-session-minute-billing",
         "2026-06-02-openai-gpt-image-model-deprecations",
@@ -55,8 +57,6 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
         "2026-05-07-openai-realtime-voice-api-models",
         "2026-05-07-openai-gpt-55-cyber-trusted-access",
         "2026-05-05-openai-gpt-55-instant-default",
-        "2026-04-28-openai-models-codex-aws-bedrock",
-        "2026-04-23-openai-gpt-55-chatgpt-codex-api",
     }
     assert payload["delivery"]["mode"] == "operator_owned"
     assert payload["delivery"]["method"] == "POST"

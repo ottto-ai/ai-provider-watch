@@ -1,6 +1,22 @@
 {
-  "event_count": 23,
+  "event_count": 25,
   "events": [
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-11",
+      "event_kind": "rate_limit_change",
+      "id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.",
+      "title": "OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls"
+    },
     {
       "confidence": "confirmed",
       "event_date": "2026-06-09",
@@ -142,6 +158,22 @@
       "severity": "low",
       "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
       "title": "OpenAI Codex Compaction Had Increased Latency"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-02",
+      "event_kind": "workflow_behavior_change",
+      "id": "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.",
+      "title": "OpenAI Codex Mobile Added Defaults, Windows SSH, And Side Chat Controls"
     },
     {
       "confidence": "confirmed",

@@ -18,6 +18,80 @@
     {
       "_apw": {
         "confidence": "confirmed",
+        "effective_at": "2026-06-11T00:00:00Z",
+        "event_date": "2026-06-11",
+        "event_id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+        "event_kind": "rate_limit_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+            "selector": "announcement:aab6a574450e9f37",
+            "snapshot_ref": "entry:aab6a574450e9f37",
+            "source_key": "openai.codex_docs",
+            "url": "https://developers.openai.com/codex/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "rate_limit",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "quality",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records official changelog facts only; exact tenant eligibility, referral promotion availability, reset quantities, regional Computer Use availability, and app rollout timing may vary.",
+          "No raw changelog body is copied into the event."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.\n\nKind: rate_limit_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-12T10:40:30Z",
+      "date_published": "2026-06-12T10:40:30Z",
+      "external_url": "https://developers.openai.com/codex/changelog",
+      "id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+      "summary": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.",
+      "tags": [
+        "app:codex",
+        "impact:rate_limit_change",
+        "impact:workflow_behavior_change",
+        "provider:openai",
+        "rate_limit_change",
+        "severity:high",
+        "source:official_docs"
+      ],
+      "title": "OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-11-openai-codex-app-rate-limit-reset-computer-use.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
         "effective_at": "2026-06-11T00:12:00Z",
         "event_date": "2026-06-11",
         "event_id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
@@ -1569,6 +1643,71 @@
         "confidence": "confirmed",
         "effective_at": "2026-06-02T00:00:00Z",
         "event_date": "2026-06-02",
+        "event_id": "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
+        "event_kind": "workflow_behavior_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+            "selector": "announcement:c02b3b4bcf0d9352",
+            "snapshot_ref": "entry:c02b3b4bcf0d9352",
+            "source_key": "openai.codex_docs",
+            "url": "https://developers.openai.com/codex/changelog"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "security",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "low"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records official changelog metadata only; exact mobile rollout and account eligibility can vary.",
+          "No raw changelog body is copied into the event."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "medium",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.\n\nKind: workflow_behavior_change\nSeverity: medium\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-06-12T10:40:30Z",
+      "date_published": "2026-06-12T10:40:30Z",
+      "external_url": "https://developers.openai.com/codex/changelog",
+      "id": "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
+      "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.",
+      "tags": [
+        "app:codex",
+        "impact:workflow_behavior_change",
+        "provider:openai",
+        "severity:medium",
+        "source:official_docs",
+        "workflow_behavior_change"
+      ],
+      "title": "OpenAI Codex Mobile Added Defaults, Windows SSH, And Side Chat Controls",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-06-02T00:00:00Z",
+        "event_date": "2026-06-02",
         "event_id": "2026-06-02-openai-container-session-minute-billing",
         "event_kind": "billing_channel_change",
         "evidence_refs": [
@@ -3093,116 +3232,6 @@
       ],
       "title": "Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-02-01-azure-openai-gpt-realtime-audio-15.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2025-12-15T00:00:00Z",
-        "event_date": "2025-12-15",
-        "event_id": "2025-12-15-azure-openai-gpt-image-audio-model-updates",
-        "event_kind": "model_launch",
-        "evidence_refs": [
-          {
-            "authority": "official_docs",
-            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
-            "selector": "announcement:6784ee397c68e714",
-            "snapshot_ref": "entry:6784ee397c68e714",
-            "source_key": "azure_openai.whats_new",
-            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "availability",
-            "scope_ref": "surface:azure-openai/api",
-            "scope_type": "provider_surface",
-            "severity": "medium"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "APW records the listed Azure OpenAI model-update facts; exact regions and access gates should be checked in Azure before deployment."
-        ],
-        "migration_deadline": null,
-        "provider_refs": [
-          "provider:azure-openai"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "medium",
-        "source_authority": "official_docs"
-      },
-      "content_text": "Azure OpenAI what's-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.\n\nKind: model_launch\nSeverity: medium\nConfidence: confirmed\nProviders: provider:azure-openai",
-      "date_modified": "2026-06-08T11:04:13Z",
-      "date_published": "2026-06-08T11:04:13Z",
-      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
-      "id": "2025-12-15-azure-openai-gpt-image-audio-model-updates",
-      "summary": "Azure OpenAI what's-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.",
-      "tags": [
-        "impact:model_launch",
-        "model_launch",
-        "provider:azure-openai",
-        "severity:medium",
-        "source:official_docs"
-      ],
-      "title": "Azure OpenAI Added GPT-Image-1.5 And December Audio Model Updates",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-12-15-azure-openai-gpt-image-audio-model-updates.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2025-10-01T00:00:00Z",
-        "event_date": "2025-10-01",
-        "event_id": "2025-10-01-azure-openai-audio-image-model-updates",
-        "event_kind": "model_launch",
-        "evidence_refs": [
-          {
-            "authority": "official_docs",
-            "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
-            "selector": "announcement:d7e34b7a124014a9",
-            "snapshot_ref": "entry:d7e34b7a124014a9",
-            "source_key": "azure_openai.whats_new",
-            "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "availability",
-            "scope_ref": "surface:azure-openai/api",
-            "scope_type": "provider_surface",
-            "severity": "medium"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "The source groups these updates under October 2025, so APW uses an approximate month-start event date."
-        ],
-        "migration_deadline": null,
-        "provider_refs": [
-          "provider:azure-openai"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "medium",
-        "source_authority": "official_docs"
-      },
-      "content_text": "Azure OpenAI what's-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.\n\nKind: model_launch\nSeverity: medium\nConfidence: confirmed\nProviders: provider:azure-openai",
-      "date_modified": "2026-06-08T11:04:13Z",
-      "date_published": "2026-06-08T11:04:13Z",
-      "external_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
-      "id": "2025-10-01-azure-openai-audio-image-model-updates",
-      "summary": "Azure OpenAI what's-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.",
-      "tags": [
-        "impact:model_launch",
-        "model_launch",
-        "provider:azure-openai",
-        "severity:medium",
-        "source:official_docs"
-      ],
-      "title": "Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2025-10-01-azure-openai-audio-image-model-updates.json"
     }
   ],
   "language": "en-US",

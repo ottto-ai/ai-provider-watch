@@ -2,6 +2,18 @@
   {
     "confidence": "confirmed",
     "event_date": "2026-06-11",
+    "event_kind": "rate_limit_change",
+    "id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "high",
+    "summary": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.",
+    "title": "OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-11",
     "event_kind": "model_launch",
     "id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
     "provider_refs": [
@@ -226,17 +238,5 @@
     "severity": "medium",
     "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
     "title": "OpenAI Image API Requests Returned 401 Errors"
-  },
-  {
-    "confidence": "confirmed",
-    "event_date": "2026-06-04",
-    "event_kind": "status_incident",
-    "id": "2026-06-04-openai-codex-compaction-latency",
-    "provider_refs": [
-      "provider:openai"
-    ],
-    "severity": "low",
-    "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
-    "title": "OpenAI Codex Compaction Had Increased Latency"
   }
 ]

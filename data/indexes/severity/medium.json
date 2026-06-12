@@ -826,6 +826,88 @@
     "confidence": "confirmed",
     "date_confidence": "exact",
     "detail": {
+      "change_summary": "ChatGPT for iOS 1.2026.146 changed Codex Mobile workflow behavior around follow-up defaults, code-diff display, Windows SSH host access, side conversations, and mobile task-lock controls.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-12T10:40:30Z",
+        "selector": "announcement:c02b3b4bcf0d9352",
+        "snapshot_ref": "entry:c02b3b4bcf0d9352",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update Codex Mobile team runbooks for follow-up defaults, line wrapping, Windows SSH host setup, side-chat workflows, and mobile task-lock expectations before comparing behavior with earlier iOS builds.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Decide whether mobile device-lock controls should be required for teams that review Codex tasks or changed files on iOS.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official changelog metadata only; exact mobile rollout and account eligibility can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-12T10:40:30Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex Mobile Added Defaults, Windows SSH, And Side Chat Controls"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
       "examples": [
         "Use tools[].max_tokens to cap tool output on short-review workflows.",
         "Classify no-output refusal responses separately from billed completion responses."

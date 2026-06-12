@@ -48,9 +48,9 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert json_feed["version"] == "https://jsonfeed.org/version/1.1"
     assert json_feed["feed_url"].endswith("/data/feeds/feed.json")
     assert "no raw provider content" in json_feed["user_comment"]
-    assert json_feed["items"][0]["id"] == "2026-06-11-aws-bedrock-openai-gpt-us-east-1"
+    assert json_feed["items"][0]["id"] == "2026-06-11-openai-codex-app-rate-limit-reset-computer-use"
     assert json_feed["items"][0]["url"].endswith(
-        "/data/events/2026-06-11-aws-bedrock-openai-gpt-us-east-1.json"
+        "/data/events/2026-06-11-openai-codex-app-rate-limit-reset-computer-use.json"
     )
     assert json_feed["items"][0]["_apw"]["evidence_refs"][0]["content_sha256"]
     manifest = json.loads(artifacts[Path("data/releases/dev/manifest.json")])

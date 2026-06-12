@@ -5,6 +5,66 @@
         "app:codex"
       ],
       "confidence": "confirmed",
+      "effective_at": "2026-06-11T00:00:00Z",
+      "event_date": "2026-06-11",
+      "event_id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+      "event_kind": "rate_limit_change",
+      "evidence_urls": [
+        "https://developers.openai.com/codex/changelog"
+      ],
+      "impact_rows": [
+        {
+          "api_usage_impact": "possible",
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "rate_limit",
+          "recommended_action": "Review Codex Plus, Pro, and Business usage policies before relying on reset banking or referral-earned credits in automation planning.",
+          "scope_ref": "app:codex",
+          "severity": "high",
+          "subscription_impact": "direct"
+        },
+        {
+          "api_usage_impact": "possible",
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "availability",
+          "recommended_action": "Re-check Codex Computer Use enablement, regional eligibility, and per-app access controls before changing browser or desktop automation runbooks.",
+          "scope_ref": "app:codex",
+          "severity": "medium",
+          "subscription_impact": "direct"
+        },
+        {
+          "api_usage_impact": "possible",
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "quality",
+          "recommended_action": "Retest browser-debugging workflows that depend on console, network, runtime-error, or page-state inspection because Developer mode adds deeper browser access paths.",
+          "scope_ref": "app:codex",
+          "severity": "medium",
+          "subscription_impact": "possible"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "observed_at": "2026-06-12T10:40:30Z",
+      "priority": "high",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "recommended_next_steps": [
+        "Review Codex Plus, Pro, and Business usage policies before relying on reset banking or referral-earned credits in automation planning.",
+        "Re-check Codex Computer Use enablement, regional eligibility, and per-app access controls before changing browser or desktop automation runbooks.",
+        "Retest browser-debugging workflows that depend on console, network, runtime-error, or page-state inspection because Developer mode adds deeper browser access paths."
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.",
+      "title": "OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls"
+    },
+    {
+      "agent_app_refs": [
+        "app:codex"
+      ],
+      "confidence": "confirmed",
       "effective_at": "2026-06-08T00:00:00Z",
       "event_date": "2026-06-08",
       "event_id": "2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json",
@@ -243,7 +303,7 @@
     }
   ],
   "delivery_boundary": "local_dashboard_json_no_third_party_api_calls",
-  "event_count": 5,
+  "event_count": 6,
   "filters": {
     "agent_app": null,
     "event_id": null,

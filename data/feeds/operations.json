@@ -31,7 +31,7 @@
     "retracted_or_superseded_event_count": 0,
     "target": "Document correction or retraction disposition in the next reviewed PR and release notes."
   },
-  "generated_at": "2026-06-11T21:32:59Z",
+  "generated_at": "2026-06-12T10:40:30Z",
   "generated_by": "ai-provider-watch 0.1.16",
   "overall_status": "pass",
   "package_version": "0.1.16",
@@ -51,7 +51,7 @@
   "schema_version": "apw.operations_report.v0",
   "slos": [
     {
-      "actual": 0,
+      "actual": 1,
       "details": "Days between generated_at and the latest reviewed ProviderEvent event_date.",
       "id": "reviewed_event_freshness",
       "label": "Latest reviewed event freshness",
@@ -108,13 +108,13 @@
     "enabled_source_coverage_ratio": 1.0,
     "fetched_enabled_source_count": 21,
     "latest_event_date": "2026-06-11",
-    "latest_reviewed_event_age_days": 0,
+    "latest_reviewed_event_age_days": 1,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 57,
+    "reviewed_event_count": 59,
     "source_count": 21,
     "source_state_age_hours": 0.0,
-    "source_state_latest_retrieved_at": "2026-06-11T22:28:58Z",
+    "source_state_latest_retrieved_at": "2026-06-12T10:40:32Z",
     "warning_count": 0
   }
 }

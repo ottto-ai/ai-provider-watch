@@ -5,6 +5,13 @@
     <link>https://github.com/ottto-ai/ai-provider-watch</link>
     <description>Reviewed AI-provider change events.</description>
     <item>
+      <guid isPermaLink="false">2026-06-11-openai-codex-app-rate-limit-reset-computer-use</guid>
+      <title>OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls</title>
+      <description>OpenAI&#x27;s Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.</description>
+      <category>rate_limit_change</category>
+      <pubDate>Fri, 12 Jun 2026 10:40:30 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-11-aws-bedrock-openai-gpt-us-east-1</guid>
       <title>AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia</title>
       <description>AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.</description>
@@ -173,6 +180,13 @@
       <pubDate>Thu, 04 Jun 2026 21:19:51 GMT</pubDate>
     </item>
     <item>
+      <guid isPermaLink="false">2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat</guid>
+      <title>OpenAI Codex Mobile Added Defaults, Windows SSH, And Side Chat Controls</title>
+      <description>OpenAI&#x27;s Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.</description>
+      <category>workflow_behavior_change</category>
+      <pubDate>Fri, 12 Jun 2026 10:40:30 GMT</pubDate>
+    </item>
+    <item>
       <guid isPermaLink="false">2026-06-02-openai-container-session-minute-billing</guid>
       <title>OpenAI Changed Eligible Container Sessions To Per-Minute Billing</title>
       <description>OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.</description>
@@ -337,20 +351,6 @@
       <guid isPermaLink="false">2026-02-01-azure-openai-gpt-realtime-audio-15</guid>
       <title>Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5</title>
       <description>Azure OpenAI what&#x27;s-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.</description>
-      <category>model_launch</category>
-      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
-    </item>
-    <item>
-      <guid isPermaLink="false">2025-12-15-azure-openai-gpt-image-audio-model-updates</guid>
-      <title>Azure OpenAI Added GPT-Image-1.5 And December Audio Model Updates</title>
-      <description>Azure OpenAI what&#x27;s-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.</description>
-      <category>model_launch</category>
-      <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
-    </item>
-    <item>
-      <guid isPermaLink="false">2025-10-01-azure-openai-audio-image-model-updates</guid>
-      <title>Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini</title>
-      <description>Azure OpenAI what&#x27;s-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.</description>
       <category>model_launch</category>
       <pubDate>Mon, 08 Jun 2026 11:04:13 GMT</pubDate>
     </item>
