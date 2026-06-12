@@ -1,7 +1,7 @@
 {
   "delivery": {
     "content_type": "application/json",
-    "idempotency_key": "apw-webhook-v0-d393a946bdc0e55055184a7c",
+    "idempotency_key": "apw-webhook-v0-137dfc85fc9be4fd182c3200",
     "method": "POST",
     "mode": "operator_owned",
     "retry_policy": {
@@ -20,6 +20,65 @@
   },
   "event_count": 20,
   "events": [
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-11T00:00:00Z",
+      "event_date": "2026-06-11",
+      "event_kind": "rate_limit_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+          "retrieved_at": "2026-06-12T10:40:30Z",
+          "source_key": "openai.codex_docs",
+          "url": "https://developers.openai.com/codex/changelog"
+        }
+      ],
+      "id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "rate_limit",
+          "recommended_action": "Review Codex Plus, Pro, and Business usage policies before relying on reset banking or referral-earned credits in automation planning.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "high"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "availability",
+          "recommended_action": "Re-check Codex Computer Use enablement, regional eligibility, and per-app access controls before changing browser or desktop automation runbooks.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "medium"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "quality",
+          "recommended_action": "Retest browser-debugging workflows that depend on console, network, runtime-error, or page-state inspection because Developer mode adds deeper browser access paths.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-12T10:40:30Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.",
+      "title": "OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls"
+    },
     {
       "confidence": "confirmed",
       "detail_refs": {
@@ -401,6 +460,56 @@
       "source_authority": "official_status",
       "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
       "title": "OpenAI Image API Requests Returned 401 Errors"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-02T00:00:00Z",
+      "event_date": "2026-06-02",
+      "event_kind": "workflow_behavior_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+          "retrieved_at": "2026-06-12T10:40:30Z",
+          "source_key": "openai.codex_docs",
+          "url": "https://developers.openai.com/codex/changelog"
+        }
+      ],
+      "id": "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "behavior",
+          "recommended_action": "Update Codex Mobile team runbooks for follow-up defaults, line wrapping, Windows SSH host setup, side-chat workflows, and mobile task-lock expectations before comparing behavior with earlier iOS builds.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "medium"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "security",
+          "recommended_action": "Decide whether mobile device-lock controls should be required for teams that review Codex tasks or changed files on iOS.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "low"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-12T10:40:30Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.",
+      "title": "OpenAI Codex Mobile Added Defaults, Windows SSH, And Side Chat Controls"
     },
     {
       "confidence": "confirmed",
@@ -922,121 +1031,6 @@
       "source_authority": "official_blog",
       "summary": "OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.",
       "title": "OpenAI Replaced GPT-5.3 Instant With GPT-5.5 Instant As Default"
-    },
-    {
-      "confidence": "confirmed",
-      "detail_refs": {
-        "model_refs": [
-          "model:openai/gpt-5.5"
-        ],
-        "replacement_refs": []
-      },
-      "effective_at": "2026-04-28T00:00:00Z",
-      "event_date": "2026-04-28",
-      "event_kind": "model_launch",
-      "evidence_refs": [
-        {
-          "authority": "official_blog",
-          "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
-          "retrieved_at": "2026-06-11T19:15:39Z",
-          "source_key": "openai.news",
-          "url": "https://openai.com/index/openai-on-aws"
-        }
-      ],
-      "id": "2026-04-28-openai-models-codex-aws-bedrock",
-      "impacts": [
-        {
-          "confidence": "confirmed",
-          "direction": "added",
-          "impact_kind": "availability",
-          "recommended_action": "Verify Bedrock access, regional coverage, quotas, pricing, and governance controls before routing OpenAI model traffic through AWS.",
-          "scope_ref": "surface:aws-bedrock/api",
-          "scope_type": "provider_surface",
-          "severity": "high"
-        },
-        {
-          "confidence": "confirmed",
-          "direction": "added",
-          "impact_kind": "behavior",
-          "recommended_action": "Test Codex CLI, desktop app, and VS Code extension behavior when Bedrock is configured as the provider, including auth, billing attribution, and enterprise policy controls.",
-          "scope_ref": "app:codex",
-          "scope_type": "agent_app",
-          "severity": "high"
-        },
-        {
-          "confidence": "confirmed",
-          "direction": "added",
-          "impact_kind": "availability",
-          "recommended_action": "Evaluate Bedrock Managed Agents separately from direct model invocation because orchestration, tool use, governance, and metering can differ.",
-          "scope_ref": "surface:aws-bedrock/managed-agents",
-          "scope_type": "provider_surface",
-          "severity": "medium"
-        }
-      ],
-      "lifecycle_status": "reviewed",
-      "migration_deadline": null,
-      "observed_at": "2026-06-11T19:15:39Z",
-      "provider_refs": [
-        "provider:openai",
-        "provider:aws-bedrock"
-      ],
-      "severity": "high",
-      "source_authority": "official_blog",
-      "summary": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.",
-      "title": "OpenAI Added Models, Codex, And Managed Agents On AWS"
-    },
-    {
-      "confidence": "confirmed",
-      "detail_refs": {
-        "model_refs": [
-          "model:openai/gpt-5.5",
-          "model:openai/gpt-5.5-pro"
-        ],
-        "replacement_refs": []
-      },
-      "effective_at": "2026-04-23T00:00:00Z",
-      "event_date": "2026-04-23",
-      "event_kind": "model_launch",
-      "evidence_refs": [
-        {
-          "authority": "official_blog",
-          "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
-          "retrieved_at": "2026-06-11T19:15:39Z",
-          "source_key": "openai.news",
-          "url": "https://openai.com/index/introducing-gpt-5-5"
-        }
-      ],
-      "id": "2026-04-23-openai-gpt-55-chatgpt-codex-api",
-      "impacts": [
-        {
-          "confidence": "confirmed",
-          "direction": "added",
-          "impact_kind": "availability",
-          "recommended_action": "Review plan eligibility, API allowlists, model routing, context-window assumptions, and regression coverage before moving production traffic to GPT-5.5.",
-          "scope_ref": "model:openai/gpt-5.5",
-          "scope_type": "model",
-          "severity": "high"
-        },
-        {
-          "confidence": "confirmed",
-          "direction": "changed",
-          "impact_kind": "cost",
-          "recommended_action": "Update cost models and gateway pricing metadata before exposing GPT-5.5 or GPT-5.5 Pro through API defaults, agent routers, or self-service model selectors.",
-          "scope_ref": "surface:openai/api",
-          "scope_type": "provider_surface",
-          "severity": "high"
-        }
-      ],
-      "lifecycle_status": "reviewed",
-      "migration_deadline": null,
-      "observed_at": "2026-06-11T19:15:39Z",
-      "provider_refs": [
-        "provider:openai"
-      ],
-      "severity": "high",
-      "source_authority": "official_blog",
-      "summary": "OpenAI announced GPT-5.5 and GPT-5.5 Pro availability for ChatGPT and Codex paid/business plans, later updated the announcement to mark API availability, and listed API token pricing plus Batch, Flex, and Priority processing multipliers.",
-      "title": "OpenAI Launched GPT-5.5 For ChatGPT, Codex, And API Developers"
     }
   ],
   "filters": {

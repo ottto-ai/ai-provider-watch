@@ -1,9 +1,7 @@
 {
   "candidate_backlog": {
-    "by_status": {
-      "needs_review": 5
-    },
-    "total": 5
+    "by_status": {},
+    "total": 0
   },
   "contributor_quality": {
     "candidate_quality_command": "uv run apw candidate quality --candidates data/candidates/review",
@@ -33,9 +31,9 @@
     "retracted_or_superseded_event_count": 0,
     "target": "Document correction or retraction disposition in the next reviewed PR and release notes."
   },
-  "generated_at": "2026-06-11T21:32:59Z",
+  "generated_at": "2026-06-12T10:40:30Z",
   "generated_by": "ai-provider-watch 0.1.16",
-  "overall_status": "warn",
+  "overall_status": "pass",
   "package_version": "0.1.16",
   "policy": {
     "private_ottto_boundary": "no private Ottto UI, Advisor, telemetry, customer data, credentials, or infrastructure required",
@@ -53,7 +51,7 @@
   "schema_version": "apw.operations_report.v0",
   "slos": [
     {
-      "actual": 0,
+      "actual": 1,
       "details": "Days between generated_at and the latest reviewed ProviderEvent event_date.",
       "id": "reviewed_event_freshness",
       "label": "Latest reviewed event freshness",
@@ -80,11 +78,11 @@
       "unit": "ratio"
     },
     {
-      "actual": 5,
+      "actual": 0,
       "details": "Review candidates present outside reviewed ProviderEvent data.",
       "id": "candidate_backlog",
       "label": "Review candidate backlog",
-      "status": "warn",
+      "status": "pass",
       "target": 0,
       "unit": "candidates"
     },
@@ -101,28 +99,22 @@
   "source_coverage": {
     "path": "data/feeds/coverage.json",
     "schema_version": "apw.source_coverage.v0",
-    "warning_count": 1,
-    "warnings": [
-      {
-        "code": "candidate_backlog_present",
-        "detail": "5 review candidate(s) are present outside reviewed events",
-        "severity": "info"
-      }
-    ]
+    "warning_count": 0,
+    "warnings": []
   },
   "summary": {
-    "candidate_backlog_count": 5,
+    "candidate_backlog_count": 0,
     "enabled_deterministic_source_count": 21,
     "enabled_source_coverage_ratio": 1.0,
     "fetched_enabled_source_count": 21,
     "latest_event_date": "2026-06-11",
-    "latest_reviewed_event_age_days": 0,
+    "latest_reviewed_event_age_days": 1,
     "missing_enabled_source_count": 0,
     "provider_count": 5,
-    "reviewed_event_count": 57,
+    "reviewed_event_count": 59,
     "source_count": 21,
     "source_state_age_hours": 0.0,
     "source_state_latest_retrieved_at": "2026-06-12T10:40:32Z",
-    "warning_count": 1
+    "warning_count": 0
   }
 }
