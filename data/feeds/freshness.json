@@ -3,10 +3,10 @@
   "event_count": 57,
   "feed_artifacts": [
     {
-      "bytes": 15186,
+      "bytes": 15375,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "c862ffcb8d6ffad5d685ddda82563ca91d142e97c11690989c593d1d80c85bb0"
+      "sha256": "8e31c18f32abd4a75b0a3e61b41aeb8dbe3db063c9abf0dcaf3a263c5a4bb0a3"
     },
     {
       "bytes": 204206,
@@ -33,10 +33,10 @@
       "sha256": "a0543f4a3e7021fd9fdd6e266c9ab979e0fa3ade234c784743bc19d89d28f8e0"
     },
     {
-      "bytes": 4434,
+      "bytes": 4635,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "ff4b764bc0ae9ea83b598e649cdbc38b160105a1c9868a746bdecf47764fa83b"
+      "sha256": "1d720ada2e2951a89ddd4ed70b00de5e1c00128b080b0e11a0c9dedf89e9b62f"
     },
     {
       "bytes": 26818,
@@ -173,10 +173,10 @@
   "schema_version": "apw.feed_freshness.v0",
   "source_state": {
     "bytes": 23604,
-    "latest_retrieved_at": "2026-06-11T22:28:58Z",
+    "latest_retrieved_at": "2026-06-12T10:40:32Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "sha256": "ae5bc3a409a872c95215322e851cd2750be86235dee36bb4f986f83604849e60",
+    "sha256": "1ebe2a2d3cdb4064c67f9ad0cec7d4fe3a5f46c49b85ad78b0879551eb962cc4",
     "source_count": 21
   }
 }

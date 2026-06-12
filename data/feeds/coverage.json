@@ -1,7 +1,9 @@
 {
   "candidate_backlog": {
-    "by_status": {},
-    "total": 0
+    "by_status": {
+      "needs_review": 5
+    },
+    "total": 5
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
   "generated_at": "2026-06-11T21:32:59Z",
@@ -10,7 +12,7 @@
   "providers": [
     {
       "blocked_pending_parser_source_count": 0,
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 4,
       "enabled_deterministic_source_count": 6,
       "fetched_enabled_source_count": 6,
       "latest_event_date": "2026-06-09",
@@ -22,7 +24,7 @@
     },
     {
       "blocked_pending_parser_source_count": 0,
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "enabled_deterministic_source_count": 4,
       "fetched_enabled_source_count": 4,
       "latest_event_date": "2026-06-09",
@@ -71,7 +73,7 @@
   ],
   "schema_version": "apw.source_coverage.v0",
   "source_state": {
-    "latest_retrieved_at": "2026-06-11T22:28:58Z",
+    "latest_retrieved_at": "2026-06-12T10:40:32Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
     "source_count": 21
@@ -93,7 +95,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:24Z"
+        "retrieved_at": "2026-06-12T10:40:01Z"
       },
       "source_type": "blog"
     },
@@ -113,7 +115,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:29Z"
+        "retrieved_at": "2026-06-12T10:40:07Z"
       },
       "source_type": "pricing_page"
     },
@@ -133,14 +135,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:30Z"
+        "retrieved_at": "2026-06-12T10:40:08Z"
       },
       "source_type": "docs_page"
     },
     {
       "authority": "official_status",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -153,7 +155,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:31Z"
+        "retrieved_at": "2026-06-12T10:40:09Z"
       },
       "source_type": "status_page"
     },
@@ -173,7 +175,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:32Z"
+        "retrieved_at": "2026-06-12T10:40:09Z"
       },
       "source_type": "docs_page"
     },
@@ -193,7 +195,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:32Z"
+        "retrieved_at": "2026-06-12T10:40:10Z"
       },
       "source_type": "pricing_page"
     },
@@ -213,7 +215,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:33Z"
+        "retrieved_at": "2026-06-12T10:40:10Z"
       },
       "source_type": "rss_feed"
     },
@@ -233,7 +235,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:34Z"
+        "retrieved_at": "2026-06-12T10:40:10Z"
       },
       "source_type": "docs_page"
     },
@@ -253,7 +255,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:34Z"
+        "retrieved_at": "2026-06-12T10:40:11Z"
       },
       "source_type": "docs_page"
     },
@@ -273,7 +275,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:34Z"
+        "retrieved_at": "2026-06-12T10:40:11Z"
       },
       "source_type": "pricing_page"
     },
@@ -293,7 +295,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:50Z"
+        "retrieved_at": "2026-06-12T10:40:26Z"
       },
       "source_type": "docs_page"
     },
@@ -313,7 +315,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:50Z"
+        "retrieved_at": "2026-06-12T10:40:27Z"
       },
       "source_type": "docs_page"
     },
@@ -333,7 +335,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:51Z"
+        "retrieved_at": "2026-06-12T10:40:27Z"
       },
       "source_type": "docs_page"
     },
@@ -353,7 +355,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:52Z"
+        "retrieved_at": "2026-06-12T10:40:27Z"
       },
       "source_type": "docs_page"
     },
@@ -373,7 +375,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:53Z"
+        "retrieved_at": "2026-06-12T10:40:28Z"
       },
       "source_type": "pricing_page"
     },
@@ -393,14 +395,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:55Z"
+        "retrieved_at": "2026-06-12T10:40:29Z"
       },
       "source_type": "docs_page"
     },
     {
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 3,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -413,7 +415,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:56Z"
+        "retrieved_at": "2026-06-12T10:40:30Z"
       },
       "source_type": "docs_page"
     },
@@ -433,7 +435,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:56Z"
+        "retrieved_at": "2026-06-12T10:40:30Z"
       },
       "source_type": "docs_page"
     },
@@ -453,7 +455,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:57Z"
+        "retrieved_at": "2026-06-12T10:40:31Z"
       },
       "source_type": "rss_feed"
     },
@@ -473,14 +475,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:58Z"
+        "retrieved_at": "2026-06-12T10:40:32Z"
       },
       "source_type": "pricing_page"
     },
     {
       "authority": "official_status",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -493,14 +495,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-11T22:28:58Z"
+        "retrieved_at": "2026-06-12T10:40:32Z"
       },
       "source_type": "atom_feed"
     }
   ],
   "summary": {
     "blocked_pending_parser_source_count": 0,
-    "candidate_backlog_count": 0,
+    "candidate_backlog_count": 5,
     "enabled_deterministic_source_count": 21,
     "fetched_enabled_source_count": 21,
     "fetched_enabled_source_ratio": 1.0,
@@ -510,7 +512,13 @@
     "provider_count": 5,
     "reviewed_event_count": 57,
     "source_count": 21,
-    "warning_count": 0
+    "warning_count": 1
   },
-  "warnings": []
+  "warnings": [
+    {
+      "code": "candidate_backlog_present",
+      "detail": "5 review candidate(s) are present outside reviewed events",
+      "severity": "info"
+    }
+  ]
 }
