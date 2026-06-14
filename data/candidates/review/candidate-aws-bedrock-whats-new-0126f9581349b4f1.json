@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-06-09 for amazon-bedrock, aws-bedrock, claude-fable-5, claude-mythos-5.",
+  "created_at": "2026-06-14T09:56:13Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:2d80f756d51c540278936180",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "e0dab5a4dade263fe89beab289ef8020bc63f12e614043a3da5136f4906e20dc",
+      "fingerprint": "d0e6df2e55b067b27548d41fbe27ce12f09485854847d2a5a19f06d988595ad8",
+      "retrieved_at": "2026-06-14T09:55:53Z",
+      "selector": "announcement:9c4203db0086fd18",
+      "snapshot_ref": "entry:9c4203db0086fd18",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/claude-fable-5-aws/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-0126f9581349b4f1",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
