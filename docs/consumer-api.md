@@ -95,8 +95,9 @@ url = api.remote_feed_url("events.ndjson", ref="data-2026.06.11")
 ```
 
 Remote Python helpers are read-only and bounded by timeout and byte-limit
-arguments. See [Live Feed Consumption](integrations/live-feed-consumption.md)
-for copy-paste GitHub Action, Python, agent, and MCP sidecar examples.
+arguments. See
+[Reviewed Remote Feed Consumption](integrations/live-feed-consumption.md) for
+copy-paste GitHub Action, Python, agent, and MCP sidecar examples.
 
 ## Compatibility Rules
 

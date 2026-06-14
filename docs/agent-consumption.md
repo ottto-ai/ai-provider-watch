@@ -190,9 +190,9 @@ hashes, not downstream repo source lines. Expanding MCP beyond the read-only
 adapter requires the prompt-injection red-team gate and MCP read-only tests to
 pass.
 
-For live GitHub refs or signed data tags, fetch `apw remote` artifacts as a
+For reviewed GitHub refs or signed data tags, fetch `apw remote` artifacts as a
 sidecar and attach them to the MCP host as untrusted data. See
-[Live Feed Consumption](integrations/live-feed-consumption.md).
+[Reviewed Remote Feed Consumption](integrations/live-feed-consumption.md).
 
 ## Codex And Claude Skills
 

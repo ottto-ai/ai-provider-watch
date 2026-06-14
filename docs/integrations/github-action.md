@@ -67,13 +67,13 @@ jobs:
 For a stable production repository, pin the action to a release tag or audited
 commit SHA once the first non-alpha APW package/action release exists.
 
-## No-Checkout Live Feed Workflow
+## No-Checkout Reviewed Remote Feed Workflow
 
 If a downstream repository only needs public APW feed artifacts from GitHub, use
 the published package and `apw remote` instead of checking out APW as an action:
 
 ```yaml
-name: AI Provider Watch Live Feed
+name: AI Provider Watch Reviewed Remote Feed
 
 on:
   workflow_dispatch:
@@ -95,8 +95,8 @@ jobs:
           uvx --from ai-provider-watch apw repo check --repo . --since 3650d --risk medium --output .apw/apw-impact-report.json
 ```
 
-See [Live Feed Consumption](live-feed-consumption.md) for the full workflow
-file, Python API example, agent preflight, and MCP sidecar pattern.
+See [Reviewed Remote Feed Consumption](live-feed-consumption.md) for the full
+workflow file, Python API example, agent preflight, and MCP sidecar pattern.
 
 ## Local Equivalent
 
