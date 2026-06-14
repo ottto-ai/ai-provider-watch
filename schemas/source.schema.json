@@ -25,6 +25,8 @@
         "enabled": { "type": "boolean" },
         "parser": { "type": "string", "minLength": 3, "maxLength": 120 },
         "automation_status": { "enum": ["enabled_deterministic", "manual_review_only", "blocked_pending_parser"] },
+        "introduced_at": { "type": "string", "format": "date-time" },
+        "introduced_ref": { "type": "string", "minLength": 3, "maxLength": 200 },
         "graduation_notes": { "type": "string", "minLength": 3, "maxLength": 240 },
         "graduation_blockers": { "type": "array", "items": { "type": "string", "minLength": 3, "maxLength": 160 } },
         "content_scope": { "$ref": "#/$defs/content_scope" },
