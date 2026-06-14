@@ -52,6 +52,10 @@ store raw provider HTML, source-page prose, authenticated console content,
 screenshots, cookies, credentials, customer telemetry, or generated candidate
 text.
 
+For provider/source support visibility, read `data/feeds/source-catalog.json`
+or run `apw source catalog --summary`. For source-health warnings and review
+backlog, read `data/feeds/coverage.json` or run `apw source coverage --summary`.
+
 ## CLI
 
 Print the machine-readable artifact:

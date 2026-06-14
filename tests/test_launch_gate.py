@@ -28,6 +28,7 @@ def test_v1_launch_gate_matches_schema_and_requires_external_smoke() -> None:
     assert report["summary"]["local_pass_count"] == report["summary"]["local_check_count"]
     assert report["package"]["name"] == "ai-provider-watch"
     assert report["package"]["version"] == "0.1.1"
+    assert "data/feeds/source-catalog.json" in report["required_feed_artifacts"]
     assert "data/feeds/operations.json" in report["required_feed_artifacts"]
     assert {step["id"] for step in report["external_smoke_steps"]} >= {
         "pypi_install_fresh_venv",

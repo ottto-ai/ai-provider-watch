@@ -15,6 +15,10 @@ from ai_provider_watch.pipeline.operations import (
     OPERATIONS_REPORT_SCHEMA_VERSION,
     build_operations_report,
 )
+from ai_provider_watch.pipeline.source_catalog import (
+    SOURCE_CATALOG_SCHEMA_VERSION,
+    build_source_catalog,
+)
 
 SEVERITY_RANK = {"info": 0, "low": 1, "medium": 2, "high": 3, "critical": 4}
 JSON_FEED_VERSION = "https://jsonfeed.org/version/1.1"
@@ -339,6 +343,11 @@ def build_release_evidence_index(
                 "required_for_release": True,
             },
             {
+                "path": "data/feeds/source-catalog.json",
+                "purpose": "provider/source catalog, validation state, and current support visibility",
+                "required_for_release": True,
+            },
+            {
                 "path": "data/feeds/operations.json",
                 "purpose": "public operating SLO, backlog, source freshness, and governance visibility",
                 "required_for_release": True,
@@ -378,6 +387,11 @@ def build_release_evidence_index(
             {
                 "name": "source coverage",
                 "command": "uv run apw source coverage --summary",
+                "required": True,
+            },
+            {
+                "name": "source catalog",
+                "command": "uv run apw source catalog --summary",
                 "required": True,
             },
             {
@@ -569,6 +583,8 @@ def build_artifacts(
 
     coverage = build_source_coverage_report(root, created_at=resolved_created_at)
     artifacts[Path("data/feeds/coverage.json")] = write_json_text(coverage)
+    source_catalog = build_source_catalog(root, created_at=resolved_created_at)
+    artifacts[Path("data/feeds/source-catalog.json")] = write_json_text(source_catalog)
     operations = build_operations_report(
         root,
         created_at=resolved_created_at,
@@ -608,6 +624,7 @@ def build_artifacts(
             "feed_freshness": "apw.feed_freshness.v0",
             "json_feed": JSON_FEED_VERSION,
             "source_coverage": "apw.source_coverage.v0",
+            "source_catalog": SOURCE_CATALOG_SCHEMA_VERSION,
             "operations_report": OPERATIONS_REPORT_SCHEMA_VERSION,
             "release_evidence_index": RELEASE_EVIDENCE_INDEX_SCHEMA_VERSION,
             "release_manifest": "apw.release_manifest.v0",

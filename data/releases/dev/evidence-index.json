@@ -141,6 +141,11 @@
       "required": true
     },
     {
+      "command": "uv run apw source catalog --summary",
+      "name": "source catalog",
+      "required": true
+    },
+    {
       "command": "uv run apw operations report --summary",
       "name": "operations report",
       "required": true
@@ -212,6 +217,11 @@
     {
       "path": "data/feeds/coverage.json",
       "purpose": "source coverage and candidate backlog visibility",
+      "required_for_release": true
+    },
+    {
+      "path": "data/feeds/source-catalog.json",
+      "purpose": "provider/source catalog, validation state, and current support visibility",
       "required_for_release": true
     },
     {

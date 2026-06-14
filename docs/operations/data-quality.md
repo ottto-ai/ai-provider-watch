@@ -5,6 +5,11 @@ APW publishes a machine-readable operations report at
 freshness, source coverage, candidate backlog, contributor intake, correction
 policy, and release-train posture.
 
+Use `data/feeds/source-catalog.json` for the provider/source support matrix and
+per-source validation metadata. Use `data/feeds/coverage.json` for compact
+source-health warnings. Use `data/feeds/operations.json` for public operating
+SLOs and release-train posture.
+
 Render it locally:
 
 ```bash

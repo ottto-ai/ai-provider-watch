@@ -69,6 +69,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert result.report["source_commit"] == DUMMY_SHA
     assert "uv lock --check" in result.report["validation_commands"]
     assert "uv run apw source coverage --summary" in result.report["validation_commands"]
+    assert "uv run apw source catalog --summary" in result.report["validation_commands"]
     assert "uv run apw operations report --summary" in result.report["validation_commands"]
     assert "uv run apw operations launch-gate --summary" in result.report["validation_commands"]
     assert "uv run apw release automation-readiness --summary" in result.report["validation_commands"]
@@ -79,6 +80,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
         "release_id_calver",
         "schema_and_repo_validation",
         "source_coverage_report",
+        "source_catalog",
         "operations_report",
         "v1_launch_gate",
         "release_automation_readiness",
@@ -125,6 +127,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     assert manifest["release_id"] == "data-2026.06.01"
     assert manifest["source_commit"] == DUMMY_SHA
     assert "data/feeds/coverage.json" in manifest["checksums"]
+    assert "data/feeds/source-catalog.json" in manifest["checksums"]
     assert "data/feeds/feed.json" in manifest["checksums"]
     assert "data/feeds/events.json" in manifest["checksums"]
     assert "data/feeds/operations.json" in manifest["checksums"]
@@ -142,6 +145,7 @@ def test_release_dry_run_writes_report_and_release_artifacts(tmp_path) -> None:
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     assert list(validator.iter_errors(evidence_index)) == []
     assert evidence_index["schema_version"] == "apw.release_evidence_index.v0"
+    assert any(item["name"] == "source catalog" for item in evidence_index["local_verification"])
     assert any(item["name"] == "operations report" for item in evidence_index["local_verification"])
     assert any(item["name"] == "v1 launch gate" for item in evidence_index["local_verification"])
     assert any(item["name"] == "OpenSSF Scorecard" for item in evidence_index["external_evidence"])
@@ -278,6 +282,10 @@ def test_release_verify_checks_dry_run_artifacts(tmp_path) -> None:
     assert any(artifact["path"] == "data/feeds/feed.json" for artifact in result.report["verified_artifacts"])
     assert any(
         artifact["path"] == "data/feeds/operations.json"
+        for artifact in result.report["verified_artifacts"]
+    )
+    assert any(
+        artifact["path"] == "data/feeds/source-catalog.json"
         for artifact in result.report["verified_artifacts"]
     )
 

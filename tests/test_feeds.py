@@ -18,6 +18,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert Path("data/feeds/feed.json") in artifacts
     assert Path("data/feeds/latest.json") in artifacts
     assert Path("data/feeds/coverage.json") in artifacts
+    assert Path("data/feeds/source-catalog.json") in artifacts
     assert Path("data/feeds/freshness.json") in artifacts
     assert Path("data/feeds/operations.json") in artifacts
     assert Path("data/releases/dev/manifest.json") in artifacts
@@ -59,11 +60,13 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert manifest["schema_versions"]["feed_freshness"] == "apw.feed_freshness.v0"
     assert manifest["schema_versions"]["json_feed"] == "https://jsonfeed.org/version/1.1"
     assert manifest["schema_versions"]["source_coverage"] == "apw.source_coverage.v0"
+    assert manifest["schema_versions"]["source_catalog"] == "apw.source_catalog.v0"
     assert manifest["schema_versions"]["operations_report"] == "apw.operations_report.v0"
     assert manifest["schema_versions"]["release_evidence_index"] == "apw.release_evidence_index.v0"
     assert "data/feeds/coverage.json" in manifest["checksums"]
     assert "data/feeds/feed.json" in manifest["checksums"]
     assert "data/feeds/freshness.json" in manifest["checksums"]
+    assert "data/feeds/source-catalog.json" in manifest["checksums"]
     assert "data/feeds/operations.json" in manifest["checksums"]
     assert "data/releases/dev/evidence-index.json" in manifest["checksums"]
     evidence_index = json.loads(artifacts[Path("data/releases/dev/evidence-index.json")])
@@ -74,11 +77,24 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
         ).iter_errors(evidence_index)
     )
     assert any(item["name"] == "PyPI Trusted Publishing" for item in evidence_index["external_evidence"])
+    assert any(item["path"] == "data/feeds/source-catalog.json" for item in evidence_index["release_artifacts"])
+    assert any(item["name"] == "source catalog" for item in evidence_index["local_verification"])
     assert any(item["path"] == ".github/workflows/scorecard.yml" for item in evidence_index["github_workflows"])
     coverage = json.loads(artifacts[Path("data/feeds/coverage.json")])
     assert coverage["schema_version"] == "apw.source_coverage.v0"
     assert coverage["summary"]["source_count"] == 21
     assert coverage["summary"]["missing_enabled_source_count"] == 0
+    source_catalog = json.loads(artifacts[Path("data/feeds/source-catalog.json")])
+    assert not list(
+        Draft202012Validator(
+            load_schemas(ROOT)["source_catalog"],
+            format_checker=FormatChecker(),
+        ).iter_errors(source_catalog)
+    )
+    assert source_catalog["schema_version"] == "apw.source_catalog.v0"
+    assert source_catalog["summary"]["provider_count"] == 5
+    assert source_catalog["summary"]["validated_source_count"] == 21
+    assert source_catalog["providers"][0]["source_count"] >= 1
     operations = json.loads(artifacts[Path("data/feeds/operations.json")])
     assert not list(
         Draft202012Validator(
@@ -100,6 +116,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"
     assert any(artifact["path"] == "data/feeds/coverage.json" for artifact in freshness["feed_artifacts"])
     assert any(artifact["path"] == "data/feeds/events.json" for artifact in freshness["feed_artifacts"])
+    assert any(artifact["path"] == "data/feeds/source-catalog.json" for artifact in freshness["feed_artifacts"])
     assert any(artifact["path"] == "data/feeds/operations.json" for artifact in freshness["feed_artifacts"])
     assert any(
         artifact["path"] == "data/feeds/feed.json"

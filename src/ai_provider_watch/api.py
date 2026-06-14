@@ -24,6 +24,8 @@ JSON_FEEDS: dict[str, str] = {
     "events": "data/feeds/events.json",
     "latest": "data/feeds/latest.json",
     "coverage": "data/feeds/coverage.json",
+    "source-catalog": "data/feeds/source-catalog.json",
+    "source_catalog": "data/feeds/source-catalog.json",
     "feed": "data/feeds/feed.json",
     "json_feed": "data/feeds/feed.json",
     "json-feed": "data/feeds/feed.json",
