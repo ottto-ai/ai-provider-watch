@@ -28,12 +28,12 @@ explicitly documents a public function from them.
 | `api.data_root(root=None)` | Resolve an APW checkout root or bundled package-data root. |
 | `api.load_events(root=None, provider=None, min_severity=None, limit=None)` | Load reviewed `ProviderEvent` dictionaries sorted newest first. |
 | `api.load_event(event_id, root=None)` | Load one reviewed event by id, returning `None` when absent. |
-| `api.load_json_feed(name="events", root=None)` | Load a generated JSON feed artifact such as `events`, `latest`, `coverage`, `feed`, `freshness`, or `operations`. |
+| `api.load_json_feed(name="events", root=None)` | Load a generated JSON feed artifact such as `events`, `latest`, `coverage`, `source-catalog`, `feed`, `freshness`, or `operations`. |
 | `api.load_text_feed(name, root=None)` | Load text feed artifacts: `events.ndjson` or `rss.xml`. |
-| `api.load_schema(name, root=None)` | Load a bundled JSON Schema by alias such as `event`, `json_feed`, `source_coverage`, `operations_report`, or `v1_launch_gate`. |
+| `api.load_schema(name, root=None)` | Load a bundled JSON Schema by alias such as `event`, `json_feed`, `source_coverage`, `source_catalog`, `operations_report`, or `v1_launch_gate`. |
 | `api.remote_feed_url(name="events", ref="main")` | Return the public GitHub raw URL for a reviewed remote feed artifact. |
 | `api.load_remote_events(ref="main", provider=None, min_severity=None, limit=None)` | Fetch reviewed ProviderEvents from a public GitHub ref or signed data tag. |
-| `api.load_remote_json_feed(name="events", ref="main")` | Fetch a JSON feed artifact such as `events`, `latest`, `freshness`, or `operations` from GitHub. |
+| `api.load_remote_json_feed(name="events", ref="main")` | Fetch a JSON feed artifact such as `events`, `latest`, `source-catalog`, `freshness`, or `operations` from GitHub. |
 | `api.load_remote_text_feed(name, ref="main")` | Fetch text feed artifacts such as `events.ndjson` or `rss.xml` from GitHub. |
 
 All functions are read-only. They do not fetch provider pages, generate
@@ -75,6 +75,7 @@ read those public artifacts without a checkout:
 ```bash
 apw remote latest --ref main --risk medium
 apw remote freshness --ref data-2026.06.11 --summary
+apw remote feed source-catalog --ref main --output apw-source-catalog.json
 apw remote feed events.ndjson --ref data-2026.06.11 --output apw-events.ndjson
 ```
 
@@ -90,6 +91,7 @@ from ai_provider_watch import api
 
 events = api.load_remote_events(ref="main", min_severity="medium", limit=10)
 freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.11")
+catalog = api.load_remote_json_feed("source-catalog", ref="main")
 ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.11")
 url = api.remote_feed_url("events.ndjson", ref="data-2026.06.11")
 ```

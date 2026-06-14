@@ -7,6 +7,7 @@ delete, or recreate an existing `data-*` tag.
 
 Each release should include generated feeds, `data/feeds/feed.json`,
 `data/feeds/freshness.json`, `data/feeds/coverage.json`,
+`data/feeds/source-catalog.json`,
 `data/feeds/operations.json`,
 provider/kind/severity indexes, manifest with artifact hashes, source commit,
 schema version, and a short release summary.
@@ -19,6 +20,7 @@ uv lock --check
 uv run pytest
 uv run apw source test
 uv run apw source coverage --summary
+uv run apw source catalog --summary
 uv run apw operations report --summary
 uv run apw release automation-readiness --summary
 uv run apw validate
@@ -33,6 +35,7 @@ bundle as `.apw/apw-release-dry-run.tgz` and creates an artifact attestation for
 it. The bundle includes release-shaped feed artifacts,
 `data/feeds/freshness.json`,
 `data/feeds/coverage.json`,
+`data/feeds/source-catalog.json`,
 `data/feeds/operations.json`,
 `data/feeds/feed.json`,
 `data/releases/<release-id>/manifest.json`,
@@ -75,6 +78,10 @@ Use `apw source coverage --summary` before publishing to record enabled source
 coverage, missing source-state fingerprints, blocked parser sources, and review
 candidate backlog. Coverage warnings are visibility signals, not automatic
 publication approval.
+
+Use `apw source catalog --summary` before publishing to record the current
+provider/source support matrix, validated source count, latest source-state
+retrieval timestamp, and reviewed-event counts.
 
 Use `apw operations report --summary` before publishing to record operating
 SLOs, source-state freshness, candidate backlog, contributor intake, correction

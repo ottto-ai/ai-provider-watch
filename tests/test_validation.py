@@ -106,6 +106,31 @@ def test_validate_reports_stale_source_coverage(tmp_path) -> None:
     assert any("source coverage metadata is stale" in issue for issue in issues)
 
 
+def test_validate_reports_missing_source_catalog(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    (tmp_path / "data" / "feeds" / "source-catalog.json").unlink()
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("missing source catalog metadata" in issue for issue in issues)
+
+
+def test_validate_reports_stale_source_catalog(tmp_path) -> None:
+    for dirname in ["data", "registries", "schemas", "sources"]:
+        shutil.copytree(ROOT / dirname, tmp_path / dirname)
+
+    source_catalog_path = tmp_path / "data" / "feeds" / "source-catalog.json"
+    source_catalog = read_json(source_catalog_path)
+    source_catalog["summary"]["source_count"] = 0
+    source_catalog_path.write_text(json.dumps(source_catalog), encoding="utf-8")
+
+    issues = [issue.render() for issue in validate(tmp_path)]
+
+    assert any("source catalog metadata is stale" in issue for issue in issues)
+
+
 def test_validate_reports_missing_operations_report(tmp_path) -> None:
     for dirname in ["data", "registries", "schemas", "sources"]:
         shutil.copytree(ROOT / dirname, tmp_path / dirname)

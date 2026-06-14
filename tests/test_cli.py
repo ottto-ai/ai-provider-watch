@@ -101,6 +101,36 @@ def test_source_coverage_summary(capsys) -> None:
     assert "candidate_backlog_count: 0" in output
 
 
+def test_source_catalog_outputs_json(capsys) -> None:
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "source",
+                "catalog",
+                "--created-at",
+                "2026-06-08T12:00:00Z",
+            ]
+        )
+        == 0
+    )
+    catalog = json.loads(capsys.readouterr().out)
+    assert catalog["schema_version"] == "apw.source_catalog.v0"
+    assert catalog["summary"]["provider_count"] == 5
+    assert catalog["summary"]["source_count"] == 21
+    assert catalog["summary"]["validated_source_count"] == 21
+    assert any(provider["display_name"] == "OpenAI" for provider in catalog["providers"])
+
+
+def test_source_catalog_summary(capsys) -> None:
+    assert main(["--root", str(ROOT), "source", "catalog", "--summary"]) == 0
+    output = capsys.readouterr().out
+    assert "validated_source_count: 21" in output
+    assert "OpenAI: 6 sources" in output
+    assert "source_state_latest_retrieved_at:" in output
+
+
 def test_operations_report_outputs_json(capsys) -> None:
     assert (
         main(

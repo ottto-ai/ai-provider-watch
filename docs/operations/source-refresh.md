@@ -21,6 +21,28 @@ the deterministic review gate reports at least one changed source fingerprint or
 review candidate. Raw provider content is fetched, hashed, and discarded. Event
 promotion remains a separate maintainer-reviewed workflow.
 
+The default daily cadence is a review-quality default, not a compute limit. A
+normal scheduled run currently completes in about a minute on GitHub-hosted
+Linux runners. The slower part is the intentional source-owner review and PR
+merge boundary before data becomes public.
+
+Hourly refresh is feasible for fast, bounded sources such as status feeds,
+official RSS feeds, and dated changelogs. Broad docs and pricing pages should
+stay slower by default because they are larger, noisier, more likely to include
+page chrome churn, and more sensitive to provider robots/rate-limit
+expectations. The recommended path to higher freshness is split lanes:
+
+- fast lane: status feeds, RSS/news feeds, and dated changelogs every 10-60
+  minutes;
+- medium lane: official release notes and compact docs pages hourly;
+- slow lane: broad pricing/model docs daily unless a maintainer manually
+  dispatches a refresh;
+- review lane: any changed fingerprint or generated candidate still opens a PR
+  and cannot publish events without maintainer review.
+
+Manual `workflow_dispatch` can run the current source refresh at any time. That
+is the safe bridge before adding separate fast/medium/slow workflow schedules.
+
 This daily source-refresh workflow is the audited repository path. It is not the
 planned high-frequency live publisher. Users who need current news should use
 the live feed once it exists; users who need reproducible reviewed data should

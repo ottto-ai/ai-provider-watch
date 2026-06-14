@@ -102,6 +102,41 @@ Immutable data releases use `data-YYYY.MM.DD`. If a second approved feed
 snapshot is needed on the same UTC date, APW uses the next revision tag such as
 `data-YYYY.MM.DD.1`; existing `data-*` tags are never moved.
 
+## What APW Currently Watches
+
+APW starts with official, provider-controlled sources for five major AI
+providers:
+
+| Provider | Current official sources | Source types | Reviewed events |
+| --- | ---: | --- | ---: |
+| OpenAI | 6 | pricing, status, deprecations, news, API changelog, Codex changelog | 25 |
+| Anthropic | 4 | pricing, status, news, release notes | 10 |
+| Google Gemini / Vertex AI | 4 | Vertex pricing, Gemini model docs, Gemini changelog, Vertex model versions | 8 |
+| AWS Bedrock | 3 | pricing, docs, What's New | 10 |
+| Azure OpenAI | 4 | pricing, docs, What's New, legacy-model docs | 8 |
+
+The machine-readable catalog is the authoritative support surface:
+
+```bash
+apw source catalog --summary
+apw remote feed source-catalog --ref main --output apw-source-catalog.json
+```
+
+It is published at
+`data/feeds/source-catalog.json` and records provider/source coverage, source
+types, cadence hints, parser names, fixture counts, validation status, latest
+source-state retrieval timestamps, candidate backlog counts, and reviewed-event
+counts. It also has optional `introduced_at` and `introduced_ref` fields for
+future source-adoption history; historical rows that predate the catalog may
+leave those fields `null` until maintainers backfill them from PR history.
+
+APW tracks provider changes that affect developer cost, quotas, token
+accounting, model availability, defaults, deprecations, incidents, API
+contracts, billing channels, subscriptions, regional availability, and
+agent/tooling migration risk. It does not publish raw provider page bodies.
+Source fetches and generated candidates are review inputs; only reviewed
+`ProviderEvent` records become public feed facts.
+
 ## Feed Artifacts
 
 The canonical reviewed events live in `data/events/`. Generated feed artifacts
@@ -110,6 +145,7 @@ live in `data/feeds/` and `data/indexes/`:
 - `data/feeds/events.json`
 - `data/feeds/events.ndjson`
 - `data/feeds/coverage.json`
+- `data/feeds/source-catalog.json`
 - `data/feeds/feed.json`
 - `data/feeds/freshness.json`
 - `data/feeds/latest.json`
@@ -125,6 +161,7 @@ For direct consumption, pin a release tag or read from the repository:
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/latest.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/events.ndjson
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/coverage.json
+https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/source-catalog.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/feed.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/freshness.json
 https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/feeds/operations.json
@@ -188,6 +225,10 @@ Use `apw source coverage` to inspect feed-health metadata: enabled source count,
 which enabled sources have source-state fingerprints, blocked parser sources,
 manual-review-only sources, reviewed event counts, and review-candidate backlog.
 
+Use `apw source catalog` to inspect the current provider/source support matrix,
+including source types, cadence hints, validation timestamps, parser fixture
+counts, reviewed-event counts, and source-specific review backlog.
+
 Use `apw operations report` to inspect public operating SLOs: source-state
 freshness, reviewed-event freshness, candidate backlog, contributor intake,
 correction policy, and release-train posture.
@@ -202,9 +243,8 @@ schemas, docs, tests, and tooling are Apache-2.0.
 ## What You Get
 
 - A reviewed machine-readable event feed, not a static model catalog.
-- JSON, NDJSON, RSS, JSON Feed 1.1, latest-event, freshness, coverage, and
-  operations
-  artifacts for different consumption styles.
+- JSON, NDJSON, RSS, JSON Feed 1.1, latest-event, freshness, coverage,
+  source-catalog, and operations artifacts for different consumption styles.
 - A typed `ProviderEvent` envelope with precise event details and repeatable
   impact rows.
 - A CLI for validation, indexing, latest events, diffs, explanations, release
@@ -213,9 +253,9 @@ schemas, docs, tests, and tooling are Apache-2.0.
 - A documented Python read API at `ai_provider_watch.api` for loading reviewed
   events, generated feeds, schemas, and bundled no-checkout package data.
 - JSON Schemas for events, sources, candidates, observations, releases,
-  JSON Feed, feed freshness, source coverage, operations reporting, release
-  verification, webhooks, Slack-style payloads, ecosystem mappings, adoption
-  scenarios, and LLM review packets.
+  JSON Feed, feed freshness, source coverage, source catalog, operations
+  reporting, release verification, webhooks, Slack-style payloads, ecosystem
+  mappings, adoption scenarios, and LLM review packets.
 - Official-source descriptors for OpenAI, Anthropic, Google Gemini / Vertex AI,
   AWS Bedrock, and Azure OpenAI.
 - Review-only source candidates that help maintainers notice provider changes
@@ -357,6 +397,7 @@ Start here:
 - [Event Schema](docs/schema/event.md)
 - [Feed Freshness Schema](docs/schema/feed-freshness.md)
 - [Source Coverage Schema](docs/schema/source-coverage.md)
+- [Source Catalog Schema](docs/schema/source-catalog.md)
 - [v1 Launch Gate Schema](docs/schema/v1-launch-gate.md)
 - [Contributor Review Workflow](docs/contributors/review-workflow.md)
 - [Source Packages](docs/contributors/source-packages.md)

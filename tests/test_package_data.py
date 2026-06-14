@@ -133,6 +133,7 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     assert "ai_provider_watch/_data/schemas/candidate-action-queue.schema.json" in names
     assert "ai_provider_watch/_data/schemas/json-feed.schema.json" in names
     assert "ai_provider_watch/_data/schemas/source-coverage.schema.json" in names
+    assert "ai_provider_watch/_data/schemas/source-catalog.schema.json" in names
     assert "ai_provider_watch/_data/schemas/candidate-quality.schema.json" in names
     assert "ai_provider_watch/_data/schemas/candidate-to-event-packet.schema.json" in names
     assert "ai_provider_watch/_data/schemas/source-owner-packet.schema.json" in names
@@ -171,6 +172,7 @@ def test_wheel_contains_read_only_apw_data(tmp_path) -> None:
     )
     assert "ai_provider_watch/_data/registries/providers.json" in names
     assert "ai_provider_watch/_data/data/feeds/coverage.json" in names
+    assert "ai_provider_watch/_data/data/feeds/source-catalog.json" in names
     assert "ai_provider_watch/_data/data/feeds/feed.json" in names
     assert "ai_provider_watch/_data/data/feeds/operations.json" in names
     assert "ai_provider_watch/_data/sources/registry.json" in names
