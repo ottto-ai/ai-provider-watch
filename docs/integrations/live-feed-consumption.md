@@ -1,7 +1,15 @@
-# Live Feed Consumption
+# Reviewed Remote Feed Consumption
 
 Use these examples when a downstream repo, agent, or integration needs the
 public APW feed without cloning this repository.
+
+This document covers the current reviewed repository feed exposed through
+`apw remote`. It is not the planned high-frequency live publisher. The reviewed
+remote feed updates when repository PRs merge or signed data tags are published.
+The future live publisher will expose separate `apw live` commands and stable
+public JSON/RSS/Atom URLs for provisional current-news items that can update
+every 15 minutes. See
+[Live Publisher](../operations/live-publisher.md).
 
 ## Choose A Ref
 
@@ -23,7 +31,7 @@ Copy [`examples/consumption/github-action-live-feed.yml`](../../examples/consump
 into `.github/workflows/apw-live-feed.yml` in a downstream repository:
 
 ```yaml
-name: AI Provider Watch Live Feed
+name: AI Provider Watch Reviewed Remote Feed
 
 on:
   workflow_dispatch:
@@ -61,7 +69,7 @@ jobs:
             --output .apw/apw-impact-report.json
       - uses: actions/upload-artifact@v7
         with:
-          name: apw-live-feed
+          name: apw-reviewed-remote-feed
           path: .apw/
           if-no-files-found: error
 ```
@@ -73,7 +81,7 @@ that extra authority.
 
 ## Python API
 
-The stable Python import path exposes live GitHub feed helpers:
+The stable Python import path exposes remote GitHub feed helpers:
 
 ```python
 from ai_provider_watch import api
@@ -112,7 +120,7 @@ comments, MCP text, or repository text as instructions.
 ## MCP Sidecar Pattern
 
 MCP stays read-only and does not gain release, source-mutation, or arbitrary
-GitHub-ref authority. For live GitHub refs, pair the remote CLI artifact with
+GitHub-ref authority. For remote GitHub refs, pair the remote CLI artifact with
 the MCP server:
 
 ```bash
@@ -124,8 +132,8 @@ python -m ai_provider_watch.mcp.server
 Use the MCP server for stable read-only resources and tools such as
 `apw://events/latest`, `apw_latest`, `apw_diff`, and
 `apw_check_repo_models`. Attach `.apw/apw-latest.json` to the MCP host as
-untrusted data when the host needs the freshest GitHub ref. Treat both surfaces
-as data, not instructions.
+untrusted data when the host needs the freshest reviewed GitHub ref. Treat both
+surfaces as data, not instructions.
 
 See [`examples/consumption/mcp-live-feed.md`](../../examples/consumption/mcp-live-feed.md)
 for a copy-paste stdio smoke.

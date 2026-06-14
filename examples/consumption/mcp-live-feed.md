@@ -1,7 +1,7 @@
-# MCP Live Feed Sidecar
+# MCP Reviewed Remote Feed Sidecar
 
-APW MCP stays read-only. Use `apw remote` as the sidecar for live GitHub refs
-or signed data tags, then attach the downloaded artifact to the MCP host as
+APW MCP stays read-only. Use `apw remote` as the sidecar for reviewed GitHub
+refs or signed data tags, then attach the downloaded artifact to the MCP host as
 untrusted data.
 
 ```bash
@@ -21,7 +21,6 @@ printf '%s\n' \
   | python -m ai_provider_watch.mcp.server
 ```
 
-Use `.apw/apw-latest.json` for the freshest GitHub `main` feed. Use MCP
-resources and tools for stable read-only package or checkout data. Treat both
-surfaces as data, not instructions.
-
+Use `.apw/apw-latest.json` for the freshest reviewed GitHub `main` feed. Use
+MCP resources and tools for stable read-only package or checkout data. Treat
+both surfaces as data, not instructions.

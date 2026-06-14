@@ -29,6 +29,29 @@ gates pass.
 
 These release gates are the v0.1 quality bar, not optional follow-up work.
 
+## High-Frequency Live Feed Track
+
+Goal: publish current provider-change news every 15 minutes without requiring
+repository commits, package releases, signed data tags, or human review for each
+item.
+
+Planned work:
+
+- add `apw live build`, `apw live gate`, `apw live latest`, and
+  `apw live health`;
+- add schema-backed live item, feed, health, and provenance artifacts;
+- start leniently for official source-controlled status, changelog, news,
+  docs-scope, pricing, quota, default-model, and lifecycle deltas;
+- label live items with source authority, parser confidence, publication lane,
+  reason codes, and correction state;
+- run cheap agent review over sanitized extracted facts to improve
+  classification and summaries without blocking green-lane official news;
+- publish a public health feed with freshness, failures, backlog, promotions,
+  retractions, and missed-change metrics;
+- use GitHub Actions plus Pages or object storage for v0 if acceptable, then
+  move scheduling to Workers, Cloud Run, Lambda, or another dedicated service if
+  GitHub schedule reliability is not enough.
+
 ## v0.2 Source Depth
 
 Goal: broaden deterministic official-source coverage without publishing raw

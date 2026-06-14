@@ -24,8 +24,11 @@ apw explain <event-id>
 apw release dry-run
 ```
 
-LLM or agent curation is optional and must be fenced by validation, source
-allowlists, and human review.
+LLM or agent curation is optional. Audited repository `ProviderEvent` promotion
+must be fenced by validation, source allowlists, and maintainer review.
+Provisional live-feed publication may run autonomously from official
+source-controlled evidence when it is schema-valid, provenance-labeled, and
+correctable.
 
 ## Core Entities
 
@@ -41,6 +44,12 @@ allowlists, and human review.
 - `EventDetail`: typed payload for the event kind.
 - `ImpactAssessment`: affected scope row.
 - `EvidenceRef`: source-backed proof pointer.
+- `LiveItem`: provisional news item produced from official observations,
+  parser deltas, and live publication policy. Live items can be automated,
+  agent-reviewed, needs-followup, promoted, superseded, or retracted.
+- `LiveFeed`: high-frequency JSON/RSS/Atom view of `LiveItem` records for users
+  who need current provider-change news before audited repository snapshots are
+  updated.
 - `FeedFreshness`: generated provenance summary for feed version, package
   version, latest event date, source-state timestamp, release manifest path,
   checksum manifest path, and feed/index artifact hashes.
@@ -74,6 +83,13 @@ Events reference registries by stable refs such as `provider:openai`,
 Official provider-controlled sources can support reviewed publication after
 deterministic validation. Social, community, and third-party sources can create
 review candidates, but they do not publish canonical events unattended.
+
+The high-frequency live publisher has a different bias from the audited
+repository path. It may publish provisional automated or agent-reviewed live
+items from official source-controlled evidence, including `needs_followup`
+items, when the item carries source authority, parser confidence, publication
+lane, reason codes, and correction state. Community-only, social-only, issue,
+PR, and MCP text remain candidate-only.
 
 ## Candidate Pipeline
 
@@ -120,6 +136,32 @@ Candidate files carry:
 
 Promotion from candidate to `ProviderEvent` remains a maintainer-reviewed PR
 step.
+
+## Live Publisher Posture
+
+The live publisher is the current-news surface, not the signed data-release
+surface. It should publish compact JSON/RSS/Atom artifacts every 15 minutes to a
+stable public URL without creating repository commits, Python package releases,
+or signed Git tags for each run.
+
+The first live lane should optimize for recall and speed:
+
+- auto-publish official status incidents and dated official changelog, release
+  note, or news entries;
+- publish scoped official docs, pricing, quota, default-model, and lifecycle
+  parser deltas as `needs_followup` when the parser names concrete subjects;
+- run cheap agent review over sanitized extracted facts to improve
+  classification and summaries without treating source text as instructions;
+- keep public health, provenance, confidence labels, and correction/retraction
+  state so imperfect early items can be fixed quickly;
+- run a daily improvement loop that deduplicates live items, promotes clear
+  events through audited PRs, adds parser fixtures, and reports misses or false
+  positives.
+
+GitHub Actions on a 15-minute schedule is acceptable for a low-cost v0 or
+dry-run lane, but it is a best-effort scheduler. A durable public feed should
+publish to object storage or CDN-backed static hosting, and should move the
+scheduler off GitHub if missed runs become a freshness problem.
 
 Prompt-injection regressions live in
 `tests/fixtures/redteam/untrusted-input-cases.json` and are exercised by

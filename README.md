@@ -47,6 +47,12 @@ The published package includes a reviewed public data snapshot, so read-only
 commands work outside a checkout. For the freshest feed, use the GitHub data
 artifacts, signed data tags, or `apw remote` commands below.
 
+APW also plans a high-frequency live publisher for users who want fresh news
+without waiting for repository commits or package releases. See
+[Live Publisher](docs/operations/live-publisher.md). Until that public endpoint
+exists, use package data for offline snapshots and `apw remote` for the latest
+reviewed repository feed.
+
 ## Quickstart
 
 Show the latest reviewed events:
@@ -129,6 +135,13 @@ package releases are installable CLI snapshots that bundle reviewed data for
 offline and no-checkout use; APW does not publish a new package for every data
 tag. Patch packages are published when bundled data freshness materially helps
 install-only users or when CLI/package behavior changes.
+
+Repository feed artifacts are audited snapshots. They are useful and public,
+but they are not the long-term high-frequency live service. The planned live
+publisher will use the same open-source source contracts, parsers, schemas, and
+validation gates while publishing fresh live JSON/RSS/Atom artifacts to stable
+public URLs every 15 minutes. Those live artifacts should not require a
+repository commit for each update.
 
 Use the remote CLI when you want the freshest public data from an installed
 package:
@@ -295,13 +308,14 @@ See:
 
 - [Agent Consumption](docs/agent-consumption.md)
 - [Downstream GitHub Action](docs/integrations/github-action.md)
-- [Live Feed Consumption](docs/integrations/live-feed-consumption.md)
+- [Reviewed Remote Feed Consumption](docs/integrations/live-feed-consumption.md)
 - [Webhook And Slack Payloads](docs/integrations/webhooks.md)
 - [Ecosystem Mappings](docs/integrations/ecosystem-mappings.md)
 - [Agent Dashboard](docs/integrations/agent-dashboard.md)
 - [Adoption Scenarios](docs/integrations/adoption-scenarios.md)
 - [Read-Only MCP Contract](docs/operations/mcp.md)
 - [Codex Plugin](docs/operations/codex-plugin.md)
+- [Live Publisher](docs/operations/live-publisher.md)
 
 ## Schema And Architecture
 
@@ -339,7 +353,8 @@ The current release includes:
 - reviewed seed events for OpenAI, Anthropic, Google Vertex AI, AWS Bedrock, and
   Azure OpenAI;
 - generated JSON, NDJSON, RSS, provider, kind, and severity indexes;
-- no-checkout remote feed commands for live GitHub feeds and signed data tags;
+- no-checkout remote feed commands for reviewed GitHub feeds and signed data
+  tags;
 - event scaffold authoring helpers for reviewed official-source facts;
 - candidate-to-event scaffold helpers for source-owner reviewed findings;
 - source-refresh automation that opens draft candidate-review PRs without
