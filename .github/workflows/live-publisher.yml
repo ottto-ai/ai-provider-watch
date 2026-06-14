@@ -12,6 +12,9 @@ concurrency:
   group: live-publisher-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  APW_LIVE_BASE_URL: https://ai-provider-watch.ottto.net/v1
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -48,9 +51,45 @@ jobs:
             --observations .apw/live-source-observations.json \
             --created-at "$created_at" \
             --output .apw/live \
+            --feed-url "${APW_LIVE_BASE_URL}/feed.json" \
             --limit 50
       - name: Gate live artifacts
         run: uv run apw live gate --input .apw/live --summary
+      - name: Report live publish configuration
+        id: r2_config
+        env:
+          APW_R2_ACCOUNT_ID: ${{ secrets.APW_R2_ACCOUNT_ID }}
+          APW_R2_ACCESS_KEY_ID: ${{ secrets.APW_R2_ACCESS_KEY_ID }}
+          APW_R2_SECRET_ACCESS_KEY: ${{ secrets.APW_R2_SECRET_ACCESS_KEY }}
+          APW_R2_BUCKET: ${{ vars.APW_R2_BUCKET }}
+        run: |
+          if [ -n "$APW_R2_ACCOUNT_ID" ] && \
+             [ -n "$APW_R2_ACCESS_KEY_ID" ] && \
+             [ -n "$APW_R2_SECRET_ACCESS_KEY" ] && \
+             [ -n "$APW_R2_BUCKET" ]; then
+            echo "R2 publish configured for ${APW_LIVE_BASE_URL}"
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "R2 publish skipped: configure APW_R2_ACCOUNT_ID, APW_R2_ACCESS_KEY_ID, APW_R2_SECRET_ACCESS_KEY, and APW_R2_BUCKET."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Publish live artifacts to Cloudflare R2
+        if: steps.r2_config.outputs.configured == 'true'
+        env:
+          APW_R2_ACCOUNT_ID: ${{ secrets.APW_R2_ACCOUNT_ID }}
+          APW_R2_BUCKET: ${{ vars.APW_R2_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.APW_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.APW_R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+        run: |
+          uvx --from awscli aws s3 sync \
+            .apw/live "s3://${APW_R2_BUCKET}/v1/" \
+            --endpoint-url "https://${APW_R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
+            --delete \
+            --cache-control "public, max-age=60"
+      - name: Smoke public live health endpoint
+        if: steps.r2_config.outputs.configured == 'true'
+        run: uv run apw live health --url "${APW_LIVE_BASE_URL}/health.json" --summary
       - name: Upload live dry-run artifacts
         uses: actions/upload-artifact@v7
         if: always()
