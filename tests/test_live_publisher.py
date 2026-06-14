@@ -13,7 +13,9 @@ from ai_provider_watch.pipeline.candidates import (
     write_candidate_files,
 )
 from ai_provider_watch.pipeline.live import (
+    DEFAULT_LIVE_BASE_URL,
     build_live_artifacts,
+    live_artifact_url,
     validate_live_artifacts,
     write_live_artifacts,
 )
@@ -139,3 +141,60 @@ def test_live_cli_build_gate_latest_and_health(tmp_path, capsys) -> None:
         == 0
     )
     assert "promoted:" in capsys.readouterr().out
+
+
+def test_live_cli_reads_public_url(monkeypatch, tmp_path, capsys) -> None:
+    output_dir = tmp_path / "live"
+    result = build_live_artifacts(ROOT, created_at=CREATED_AT, limit=3)
+    write_live_artifacts(output_dir, result.artifacts)
+    latest_payload = json.loads((output_dir / "latest.json").read_text(encoding="utf-8"))
+    health_payload = json.loads((output_dir / "health.json").read_text(encoding="utf-8"))
+    fetched_urls: list[str] = []
+
+    def fake_fetch_live_json(url: str, *, timeout: float, limit_bytes: int):
+        fetched_urls.append(url)
+        assert timeout == 20.0
+        assert limit_bytes == 5_000_000
+        if url.endswith("/latest.json"):
+            return latest_payload
+        if url.endswith("/health.json"):
+            return health_payload
+        raise AssertionError(url)
+
+    monkeypatch.setattr("ai_provider_watch.cli.fetch_live_json", fake_fetch_live_json)
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "live",
+                "latest",
+                "--base-url",
+                DEFAULT_LIVE_BASE_URL,
+                "--limit",
+                "1",
+            ]
+        )
+        == 0
+    )
+    latest = json.loads(capsys.readouterr().out)
+    assert len(latest) == 1
+    assert fetched_urls[-1] == live_artifact_url(DEFAULT_LIVE_BASE_URL, "latest")
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "live",
+                "health",
+                "--url",
+                live_artifact_url(DEFAULT_LIVE_BASE_URL, "health"),
+                "--summary",
+            ]
+        )
+        == 0
+    )
+    assert "status: ok" in capsys.readouterr().out
+    assert fetched_urls[-1] == live_artifact_url(DEFAULT_LIVE_BASE_URL, "health")

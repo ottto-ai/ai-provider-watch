@@ -53,9 +53,14 @@ from ai_provider_watch.pipeline.event_scaffold import (
 )
 from ai_provider_watch.pipeline.launch_gate import build_v1_launch_gate
 from ai_provider_watch.pipeline.live import (
+    DEFAULT_LIVE_BASE_URL,
     LIVE_ARTIFACTS,
+    LiveFeedError,
     build_live_artifacts,
+    fetch_live_json,
+    live_artifact_url,
     live_latest,
+    live_latest_from_feed,
     load_live_feed,
     validate_live_artifacts,
     write_live_artifacts,
@@ -428,15 +433,26 @@ def cmd_live_gate(args: argparse.Namespace) -> int:
 
 def cmd_live_latest(args: argparse.Namespace) -> int:
     root = _root(args.root)
-    path = _path_from_root(root, args.input)
     try:
-        items = live_latest(
-            path,
-            provider=args.provider,
-            min_severity=args.risk,
-            limit=args.limit,
-        )
-    except (OSError, ValueError) as exc:
+        if args.url or args.base_url:
+            url = args.url or live_artifact_url(args.base_url, "latest")
+            feed = fetch_live_json(url, timeout=args.timeout, limit_bytes=args.limit_bytes)
+            if not isinstance(feed, dict):
+                raise ValueError("live latest feed is not a JSON object")
+            items = live_latest_from_feed(
+                feed,
+                provider=args.provider,
+                min_severity=args.risk,
+                limit=args.limit,
+            )
+        else:
+            items = live_latest(
+                _path_from_root(root, args.input),
+                provider=args.provider,
+                min_severity=args.risk,
+                limit=args.limit,
+            )
+    except (OSError, LiveFeedError, ValueError) as exc:
         print(f"live latest failed: {exc}", file=sys.stderr)
         return 1
     _print_json(items)
@@ -445,10 +461,15 @@ def cmd_live_latest(args: argparse.Namespace) -> int:
 
 def cmd_live_health(args: argparse.Namespace) -> int:
     root = _root(args.root)
-    path = _path_from_root(root, args.input)
     try:
-        health = load_live_feed(path)
-    except (OSError, ValueError) as exc:
+        if args.url or args.base_url:
+            url = args.url or live_artifact_url(args.base_url, "health")
+            health = fetch_live_json(url, timeout=args.timeout, limit_bytes=args.limit_bytes)
+            if not isinstance(health, dict):
+                raise ValueError("live health feed is not a JSON object")
+        else:
+            health = load_live_feed(_path_from_root(root, args.input))
+    except (OSError, LiveFeedError, ValueError) as exc:
         print(f"live health failed: {exc}", file=sys.stderr)
         return 1
     if args.summary:
@@ -1491,7 +1512,8 @@ def build_parser() -> argparse.ArgumentParser:
     live_build_parser.add_argument("--limit", type=int, default=50, help="maximum items in latest.json/feed/rss/atom")
     live_build_parser.add_argument(
         "--feed-url",
-        help="public JSON Feed URL to embed once a live publisher target exists",
+        default=live_artifact_url(DEFAULT_LIVE_BASE_URL, "feed"),
+        help="public JSON Feed URL to embed in feed.json",
     )
     live_build_parser.add_argument(
         "--no-reviewed",
@@ -1508,13 +1530,29 @@ def build_parser() -> argparse.ArgumentParser:
     live_gate_parser.set_defaults(func=cmd_live_gate)
     live_latest_parser = live_subparsers.add_parser("latest", help="print latest live items from a live artifact")
     live_latest_parser.add_argument("--input", default=".apw/live/latest.json", help="live latest.json artifact")
+    live_latest_parser.add_argument("--url", help="HTTPS URL for live latest.json")
+    live_latest_parser.add_argument(
+        "--base-url",
+        default=None,
+        help=f"HTTPS live base URL; defaults conceptually to {DEFAULT_LIVE_BASE_URL} when publishing is configured",
+    )
     live_latest_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK))
     live_latest_parser.add_argument("--provider")
     live_latest_parser.add_argument("--limit", type=int, default=20)
+    live_latest_parser.add_argument("--timeout", type=float, default=20.0)
+    live_latest_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
     live_latest_parser.set_defaults(func=cmd_live_latest)
     live_health_parser = live_subparsers.add_parser("health", help="print live health metadata")
     live_health_parser.add_argument("--input", default=".apw/live/health.json", help="live health.json artifact")
+    live_health_parser.add_argument("--url", help="HTTPS URL for live health.json")
+    live_health_parser.add_argument(
+        "--base-url",
+        default=None,
+        help=f"HTTPS live base URL; defaults conceptually to {DEFAULT_LIVE_BASE_URL} when publishing is configured",
+    )
     live_health_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    live_health_parser.add_argument("--timeout", type=float, default=20.0)
+    live_health_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
     live_health_parser.set_defaults(func=cmd_live_health)
 
     source_parser = subparsers.add_parser("source", help="source package and fetch commands")

@@ -9,6 +9,9 @@ from email.utils import format_datetime
 from html import escape
 from pathlib import Path
 from typing import Any
+from urllib.error import HTTPError, URLError
+from urllib.parse import urljoin, urlparse
+from urllib.request import Request, urlopen
 
 from jsonschema import Draft202012Validator, FormatChecker
 
@@ -22,6 +25,9 @@ LIVE_FEED_SCHEMA_VERSION = "apw.live_feed.v0"
 LIVE_HEALTH_SCHEMA_VERSION = "apw.live_health.v0"
 LIVE_PROVENANCE_SCHEMA_VERSION = "apw.live_provenance.v0"
 LIVE_CADENCE_MINUTES = 15
+DEFAULT_LIVE_BASE_URL = "https://ai-provider-watch.ottto.net/v1"
+DEFAULT_TIMEOUT_SECONDS = 20.0
+DEFAULT_LIMIT_BYTES = 5_000_000
 LIVE_ARTIFACTS = {
     "latest": "latest.json",
     "events": "events.json",
@@ -36,6 +42,10 @@ LIVE_JSON_ARTIFACTS = {"latest", "events", "feed", "health", "provenance"}
 AUTO_AUTHORITIES = {"official_status", "official_blog", "official_repo"}
 FOLLOWUP_AUTHORITIES = {"official_docs", "official_pricing"}
 EXCLUDED_AUTHORITIES = {"official_staff_social", "community_hint", "third_party_catalog", "manual"}
+
+
+class LiveFeedError(RuntimeError):
+    """Raised when a live APW feed artifact cannot be fetched safely."""
 
 
 @dataclass(frozen=True)
@@ -349,7 +359,7 @@ def _atom(items: list[dict[str, Any]], *, created_at: str) -> str:
 
 
 def _json_feed(items: list[dict[str, Any]], *, feed_url: str | None) -> dict[str, Any]:
-    url = feed_url or "https://feeds.ai-provider-watch.org/v1/feed.json"
+    url = feed_url or live_artifact_url(DEFAULT_LIVE_BASE_URL, "feed")
     return {
         "version": JSON_FEED_VERSION,
         "title": "AI Provider Watch Live",
@@ -546,11 +556,72 @@ def load_live_feed(path: Path) -> dict[str, Any]:
     return payload
 
 
-def live_latest(path: Path, *, provider: str | None = None, min_severity: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
-    feed = load_live_feed(path)
+def live_artifact_url(base_url: str, artifact: str) -> str:
+    path = LIVE_ARTIFACTS.get(artifact)
+    if path is None:
+        allowed = ", ".join(sorted(LIVE_ARTIFACTS))
+        raise ValueError(f"unknown live artifact {artifact!r}; expected one of: {allowed}")
+    normalized_base = base_url.strip()
+    if not normalized_base:
+        raise ValueError("live base URL is required")
+    parsed = urlparse(normalized_base)
+    if parsed.scheme != "https" or not parsed.netloc:
+        raise ValueError("live base URL must be an https URL")
+    return urljoin(f"{normalized_base.rstrip('/')}/", path)
+
+
+def fetch_live_text(
+    url: str,
+    *,
+    timeout: float = DEFAULT_TIMEOUT_SECONDS,
+    limit_bytes: int = DEFAULT_LIMIT_BYTES,
+) -> str:
+    normalized_url = url.strip()
+    parsed = urlparse(normalized_url)
+    if parsed.scheme != "https" or not parsed.netloc:
+        raise ValueError("live URL must be an https URL")
+    request = Request(
+        normalized_url,
+        headers={
+            "Accept": "application/json, application/feed+json, application/xml, text/plain, */*",
+            "User-Agent": f"ai-provider-watch/{__version__}",
+        },
+    )
+    try:
+        with urlopen(request, timeout=timeout) as response:
+            payload = response.read(limit_bytes + 1)
+    except HTTPError as exc:
+        raise LiveFeedError(f"live feed fetch failed: HTTP {exc.code} {normalized_url}") from exc
+    except (OSError, TimeoutError, URLError) as exc:
+        raise LiveFeedError(f"live feed fetch failed: {exc}") from exc
+    if len(payload) > limit_bytes:
+        raise LiveFeedError(f"live feed exceeds byte limit: {limit_bytes}")
+    return payload.decode("utf-8")
+
+
+def fetch_live_json(
+    url: str,
+    *,
+    timeout: float = DEFAULT_TIMEOUT_SECONDS,
+    limit_bytes: int = DEFAULT_LIMIT_BYTES,
+) -> Any:
+    text = fetch_live_text(url, timeout=timeout, limit_bytes=limit_bytes)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise LiveFeedError(f"live feed is not valid JSON: {url}") from exc
+
+
+def live_latest_from_feed(
+    feed: dict[str, Any],
+    *,
+    provider: str | None = None,
+    min_severity: str | None = None,
+    limit: int = 20,
+) -> list[dict[str, Any]]:
     items = feed.get("items", [])
     if not isinstance(items, list):
-        raise ValueError(f"live feed items is not a JSON array: {path}")
+        raise ValueError("live feed items is not a JSON array")
     filtered = [item for item in items if isinstance(item, dict)]
     if provider:
         provider_ref = provider if provider.startswith("provider:") else f"provider:{provider}"
@@ -559,6 +630,18 @@ def live_latest(path: Path, *, provider: str | None = None, min_severity: str | 
         floor = SEVERITY_RANK[min_severity]
         filtered = [item for item in filtered if SEVERITY_RANK.get(str(item.get("severity", "info")), 0) >= floor]
     return filtered[:limit]
+
+
+def live_latest(path: Path, *, provider: str | None = None, min_severity: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+    try:
+        return live_latest_from_feed(
+            load_live_feed(path),
+            provider=provider,
+            min_severity=min_severity,
+            limit=limit,
+        )
+    except ValueError as exc:
+        raise ValueError(f"{exc}: {path}") from exc
 
 
 def _schema_errors(schema: dict[str, Any], payload: Any, label: str) -> list[str]:

@@ -20,14 +20,14 @@ Every 15 minutes, APW should publish fresh, interesting provider-change material
 from official sources to stable public URLs:
 
 ```text
-https://feeds.ai-provider-watch.org/v1/latest.json
-https://feeds.ai-provider-watch.org/v1/events.ndjson
-https://feeds.ai-provider-watch.org/v1/feed.json
-https://feeds.ai-provider-watch.org/v1/rss.xml
-https://feeds.ai-provider-watch.org/v1/atom.xml
-https://feeds.ai-provider-watch.org/v1/source-catalog.json
-https://feeds.ai-provider-watch.org/v1/health.json
-https://feeds.ai-provider-watch.org/v1/provenance.json
+https://ai-provider-watch.ottto.net/v1/latest.json
+https://ai-provider-watch.ottto.net/v1/events.ndjson
+https://ai-provider-watch.ottto.net/v1/feed.json
+https://ai-provider-watch.ottto.net/v1/rss.xml
+https://ai-provider-watch.ottto.net/v1/atom.xml
+https://ai-provider-watch.ottto.net/v1/source-catalog.json
+https://ai-provider-watch.ottto.net/v1/health.json
+https://ai-provider-watch.ottto.net/v1/provenance.json
 ```
 
 Consumers that want current news should read the live URLs. Consumers that need
@@ -290,14 +290,39 @@ The read-only `Live Publisher Dry Run` workflow runs every 15 minutes, builds
 `.apw/live`, gates the output, and uploads artifacts. It uses `contents: read`
 and does not commit, tag, publish a package, or read release secrets.
 
+Once the public endpoint is configured, users can read live artifacts directly:
+
+```bash
+apw live latest --base-url https://ai-provider-watch.ottto.net/v1 --limit 10
+apw live health --base-url https://ai-provider-watch.ottto.net/v1 --summary
+```
+
+The workflow is also R2-publish ready. It publishes only when all of this
+dedicated APW configuration exists:
+
+- repository secret `APW_R2_ACCOUNT_ID`;
+- repository secret `APW_R2_ACCESS_KEY_ID`;
+- repository secret `APW_R2_SECRET_ACCESS_KEY`;
+- repository variable `APW_R2_BUCKET`, recommended value
+  `ai-provider-watch-live`;
+- Cloudflare R2 custom domain `ai-provider-watch.ottto.net` connected to the
+  bucket.
+
+The publish step syncs `.apw/live` to `s3://$APW_R2_BUCKET/v1/` through R2's
+S3-compatible endpoint and then smokes
+`https://ai-provider-watch.ottto.net/v1/health.json`. The workflow still has
+only `contents: read` GitHub permissions and must not receive release, PyPI,
+provider, Slack, or private Ottto credentials.
+
 Remaining v0 work:
 
-1. Add a public publisher target:
-   - GitHub Pages if no cloud setup is available;
-   - Cloudflare R2 if a stable custom domain can be configured.
-2. Add daily agent improvement workflow that opens parser/fixture/promotion PRs.
-3. Add public `source-catalog.json` once the source-catalog schema lands.
-4. Add optional agent-review enrichment over sanitized live items.
+1. Create the Cloudflare R2 bucket and scoped bucket write token.
+2. Connect `ai-provider-watch.ottto.net` as the R2 custom domain.
+3. Add the four GitHub repository secret/variable values above.
+4. Confirm the next scheduled run publishes and the public health smoke passes.
+5. Add daily agent improvement workflow that opens parser/fixture/promotion PRs.
+6. Add public `source-catalog.json` once the source-catalog schema lands.
+7. Add optional agent-review enrichment over sanitized live items.
 
 The first live release may publish more imperfect items than the audited feed.
 That is intentional. The core quality metric is whether APW surfaces interesting

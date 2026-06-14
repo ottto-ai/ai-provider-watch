@@ -152,9 +152,23 @@ apw live latest --input .apw/live/latest.json --limit 10
 apw live health --input .apw/live/health.json --summary
 ```
 
+The planned public v0 endpoint is:
+
+```text
+https://ai-provider-watch.ottto.net/v1/
+```
+
+Once R2 publishing is configured, users can read the public live feed directly:
+
+```bash
+apw live latest --base-url https://ai-provider-watch.ottto.net/v1 --limit 10
+apw live health --base-url https://ai-provider-watch.ottto.net/v1 --summary
+```
+
 The repository also includes a read-only 15-minute GitHub Actions dry run that
-uploads `.apw/live` artifacts. It does not publish a public URL until a Pages,
-R2, or other hosting target is configured.
+uploads `.apw/live` artifacts. It conditionally publishes to Cloudflare R2 only
+when the dedicated APW R2 bucket, custom domain, and scoped credentials are
+configured; otherwise it remains artifact-only.
 
 Use the remote CLI when you want the freshest public data from an installed
 package:
