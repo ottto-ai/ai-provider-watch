@@ -1,4 +1,4 @@
-name: AI Provider Watch Live Feed
+name: AI Provider Watch Reviewed Remote Feed
 
 on:
   workflow_dispatch:
@@ -36,7 +36,6 @@ jobs:
             --output .apw/apw-impact-report.json
       - uses: actions/upload-artifact@v7
         with:
-          name: apw-live-feed
+          name: apw-reviewed-remote-feed
           path: .apw/
           if-no-files-found: error
-

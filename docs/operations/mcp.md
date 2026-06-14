@@ -143,7 +143,7 @@ For the freshest GitHub `main` feed or an immutable `data-YYYY.MM.DD` tag, use
 `apw remote` as a sidecar and attach the downloaded artifact to the MCP host as
 untrusted data. The MCP server itself remains the stable read-only package or
 checkout data surface. See
-[Live Feed Consumption](../integrations/live-feed-consumption.md).
+[Reviewed Remote Feed Consumption](../integrations/live-feed-consumption.md).
 
 ## Local Smoke
 

@@ -43,6 +43,14 @@ expectations. The recommended path to higher freshness is split lanes:
 Manual `workflow_dispatch` can run the current source refresh at any time. That
 is the safe bridge before adding separate fast/medium/slow workflow schedules.
 
+This daily source-refresh workflow is the audited repository path. It is not the
+planned high-frequency live publisher. Users who need current news should use
+the live feed once it exists; users who need reproducible reviewed data should
+use repository feeds, signed data tags, or package snapshots. The live publisher
+can publish provisional official-source items every 15 minutes without creating
+a repository commit for each run, while this workflow keeps durable source
+state, review candidates, and generated repository metadata in PRs.
+
 The review gate is reproducible locally:
 
 ```bash
