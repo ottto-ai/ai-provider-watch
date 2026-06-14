@@ -52,13 +52,6 @@ from ai_provider_watch.pipeline.event_scaffold import (
     sha256_file,
 )
 from ai_provider_watch.pipeline.launch_gate import build_v1_launch_gate
-from ai_provider_watch.pipeline.llm_review import (
-    DEFAULT_REVIEWER,
-    REVIEW_DECISIONS,
-    REVIEWER_BACKENDS,
-    build_review_request,
-    evaluate_review_result,
-)
 from ai_provider_watch.pipeline.live import (
     LIVE_ARTIFACTS,
     build_live_artifacts,
@@ -66,6 +59,13 @@ from ai_provider_watch.pipeline.live import (
     load_live_feed,
     validate_live_artifacts,
     write_live_artifacts,
+)
+from ai_provider_watch.pipeline.llm_review import (
+    DEFAULT_REVIEWER,
+    REVIEW_DECISIONS,
+    REVIEWER_BACKENDS,
+    build_review_request,
+    evaluate_review_result,
 )
 from ai_provider_watch.pipeline.missing_event_issue import (
     build_missing_event_issue_triage,
