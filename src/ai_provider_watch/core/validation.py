@@ -38,6 +38,7 @@ SCHEMA_FILES = {
     "json_feed": "json-feed.schema.json",
     "feed_freshness": "feed-freshness.schema.json",
     "source_coverage": "source-coverage.schema.json",
+    "source_catalog": "source-catalog.schema.json",
     "operations_report": "operations-report.schema.json",
     "v1_launch_gate": "v1-launch-gate.schema.json",
     "release_manifest": "release-manifest.schema.json",
@@ -402,6 +403,28 @@ def validate(root: Path) -> list[ValidationIssue]:
                 ValidationIssue(
                     str(coverage_path),
                     "source coverage metadata is stale; run apw index",
+                )
+            )
+    source_catalog_path = root / "data" / "feeds" / "source-catalog.json"
+    if not source_catalog_path.exists():
+        issues.append(ValidationIssue(str(source_catalog_path), "missing source catalog metadata"))
+    else:
+        source_catalog = read_json(source_catalog_path)
+        issues.extend(
+            _issues(
+                source_catalog_path,
+                source_catalog,
+                schemas["source_catalog"],
+                "source catalog",
+            )
+        )
+        expected_source_catalog_text = build_artifacts(root)[Path("data/feeds/source-catalog.json")]
+        expected_source_catalog = json.loads(expected_source_catalog_text)
+        if source_catalog != expected_source_catalog:
+            issues.append(
+                ValidationIssue(
+                    str(source_catalog_path),
+                    "source catalog metadata is stale; run apw index",
                 )
             )
     operations_path = root / "data" / "feeds" / "operations.json"

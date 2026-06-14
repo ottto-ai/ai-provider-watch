@@ -20,6 +20,7 @@ REQUIRED_FEED_ARTIFACTS = [
     "data/feeds/latest.json",
     "data/feeds/rss.xml",
     "data/feeds/coverage.json",
+    "data/feeds/source-catalog.json",
     "data/feeds/operations.json",
 ]
 
@@ -164,7 +165,8 @@ def _external_smoke_steps(package_version: str) -> list[dict[str, Any]]:
             "command": (
                 "mkdir -p /tmp/apw-installed-data-smoke && cd /tmp/apw-installed-data-smoke && "
                 "apw validate && apw index --check && apw freshness --summary && "
-                "apw source coverage --summary && apw operations report --summary && "
+                "apw source coverage --summary && apw source catalog --summary && "
+                "apw operations report --summary && "
                 "apw latest --limit 3 && apw diff --since 30d && "
                 f"apw explain {EXPLAIN_SMOKE_EVENT_ID}"
             ),
@@ -182,9 +184,10 @@ def _external_smoke_steps(package_version: str) -> list[dict[str, Any]]:
                 "apw --root \"$APW_CHECKOUT\" index --check && "
                 "apw --root \"$APW_CHECKOUT\" freshness --summary && "
                 "apw --root \"$APW_CHECKOUT\" source coverage --summary && "
+                "apw --root \"$APW_CHECKOUT\" source catalog --summary && "
                 "apw --root \"$APW_CHECKOUT\" operations report --summary"
             ),
-            "expected": "Checkout schemas, feeds, coverage, freshness, and operations metadata are current.",
+            "expected": "Checkout schemas, feeds, coverage, catalog, freshness, and operations metadata are current.",
             "required": True,
             "network_required": False,
             "trust_boundary": "read-only local checkout path; no provider fetching or release authority",
@@ -223,6 +226,7 @@ def _external_smoke_steps(package_version: str) -> list[dict[str, Any]]:
                 "export APW_CHECKOUT=/path/to/ai-provider-watch && "
                 "python -m json.tool \"$APW_CHECKOUT/data/feeds/events.json\" >/tmp/apw-events.json && "
                 "python -m json.tool \"$APW_CHECKOUT/data/feeds/feed.json\" >/tmp/apw-json-feed.json && "
+                "python -m json.tool \"$APW_CHECKOUT/data/feeds/source-catalog.json\" >/tmp/apw-source-catalog.json && "
                 "python -m json.tool \"$APW_CHECKOUT/data/feeds/operations.json\" >/tmp/apw-operations.json && "
                 "python - <<'PY'\n"
                 "import os\n"
@@ -233,7 +237,7 @@ def _external_smoke_steps(package_version: str) -> list[dict[str, Any]]:
                 "    assert data.strip()\n"
                 "PY"
             ),
-            "expected": "JSON, NDJSON, RSS, JSON Feed, and operations artifacts are parseable or non-empty.",
+            "expected": "JSON, NDJSON, RSS, JSON Feed, source catalog, and operations artifacts are parseable or non-empty.",
             "required": True,
             "network_required": False,
             "trust_boundary": "public CC0 data artifacts only; no provider or downstream credentials",

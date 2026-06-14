@@ -80,6 +80,7 @@ from ai_provider_watch.pipeline.release import (
 )
 from ai_provider_watch.pipeline.repo_impact import repo_impact_report
 from ai_provider_watch.pipeline.review_pr import build_review_pr_body, read_candidate_files
+from ai_provider_watch.pipeline.source_catalog import build_source_catalog
 from ai_provider_watch.pipeline.source_owner_packet import build_source_owner_packet
 from ai_provider_watch.pipeline.source_refresh_gate import (
     build_source_refresh_review_gate_from_files,
@@ -443,6 +444,33 @@ def cmd_source_coverage(args: argparse.Namespace) -> int:
         print(f"source_state_latest_retrieved_at: {report['source_state']['latest_retrieved_at'] or 'none'}")
     else:
         _write_or_print(root, report, args.output)
+    return 0
+
+
+def cmd_source_catalog(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    catalog = build_source_catalog(root, created_at=args.created_at)
+    if args.summary:
+        summary = catalog["summary"]
+        print(f"provider_count: {summary['provider_count']}")
+        print(f"source_count: {summary['source_count']}")
+        print(f"enabled_deterministic_source_count: {summary['enabled_deterministic_source_count']}")
+        print(f"validated_source_count: {summary['validated_source_count']}")
+        print(f"reviewed_event_count: {summary['reviewed_event_count']}")
+        print(f"latest_event_date: {summary['latest_event_date'] or 'none'}")
+        print(f"candidate_backlog_count: {summary['candidate_backlog_count']}")
+        print(f"source_state_latest_retrieved_at: {summary['source_state_latest_retrieved_at'] or 'none'}")
+        print("providers:")
+        for provider in catalog["providers"]:
+            print(
+                "  "
+                f"{provider['display_name']}: "
+                f"{provider['source_count']} sources, "
+                f"{provider['reviewed_event_count']} reviewed events, "
+                f"latest {provider['latest_event_date'] or 'none'}"
+            )
+    else:
+        _write_or_print(root, catalog, args.output)
     return 0
 
 
@@ -1413,6 +1441,14 @@ def build_parser() -> argparse.ArgumentParser:
     source_coverage_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
     source_coverage_parser.add_argument("--output", help="write JSON report to this path instead of stdout")
     source_coverage_parser.set_defaults(func=cmd_source_coverage)
+    source_catalog_parser = source_subparsers.add_parser(
+        "catalog",
+        help="print the provider/source catalog with validation and coverage metadata",
+    )
+    source_catalog_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic reports")
+    source_catalog_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    source_catalog_parser.add_argument("--output", help="write JSON catalog to this path instead of stdout")
+    source_catalog_parser.set_defaults(func=cmd_source_catalog)
     source_review_needed_parser = source_subparsers.add_parser(
         "review-needed",
         help="decide whether source refresh output needs a candidate-review PR",

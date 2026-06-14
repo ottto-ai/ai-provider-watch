@@ -3,6 +3,10 @@
 `SourceCoverageReport` is the public feed-health summary for APW source
 coverage, source-state freshness, known parser gaps, and review backlog.
 
+Use [Source Catalog](source-catalog.md) when you need the provider/source
+support matrix and per-source validation details. Use source coverage when you
+need a compact health report and warning list for release review.
+
 The canonical artifact is:
 
 ```text

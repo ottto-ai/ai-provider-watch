@@ -35,6 +35,7 @@ For `0.1.x` package releases, APW maintainers should preserve these contracts:
 - event schema version: `apw.provider_event.v0`;
 - feed artifact names: `data/feeds/events.json`,
   `data/feeds/events.ndjson`, `data/feeds/coverage.json`,
+  `data/feeds/source-catalog.json`,
   `data/feeds/feed.json`, `data/feeds/freshness.json`,
   `data/feeds/latest.json`, and `data/feeds/rss.xml`;
 - source/candidate workflows stay review-only and do not publish events without

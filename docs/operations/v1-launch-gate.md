@@ -27,10 +27,11 @@ Before declaring v1 launch readiness, run the report's external smoke steps:
 
 - install `ai-provider-watch` from PyPI in a fresh virtual environment;
 - run read-only commands from outside a checkout against bundled package data;
-- run checkout validation, freshness, source coverage, and operations summaries;
+- run checkout validation, freshness, source coverage, source catalog, and
+  operations summaries;
 - run `apw repo check` against `tests/fixtures/downstream-repo`;
 - render `apw dashboard agent` JSON;
-- parse JSON, NDJSON, RSS, JSON Feed, and operations artifacts.
+- parse JSON, NDJSON, RSS, JSON Feed, source catalog, and operations artifacts.
 
 The launch gate passes only when a maintainer records command output for the
 fresh PyPI install, no-checkout bundled-data path, public feed parsing, repo

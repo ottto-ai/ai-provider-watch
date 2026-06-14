@@ -19,6 +19,7 @@ from ai_provider_watch.core.validation import load_schemas, validate
 from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 from ai_provider_watch.pipeline.launch_gate import build_v1_launch_gate
 from ai_provider_watch.pipeline.operations import build_operations_report
+from ai_provider_watch.pipeline.source_catalog import build_source_catalog
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.sources.registry import validate_source_packages
 
@@ -915,6 +916,24 @@ def _source_coverage_check(root: Path, *, created_at: str) -> ReleaseCheck:
     )
 
 
+def _source_catalog_check(root: Path, *, created_at: str) -> ReleaseCheck:
+    catalog = build_source_catalog(root, created_at=created_at)
+    errors = _validate_schema_payload(root, "source_catalog", catalog)
+    if errors:
+        return _check("source_catalog", False, "; ".join(errors))
+    summary = catalog["summary"]
+    return _check(
+        "source_catalog",
+        True,
+        "source catalog valid; "
+        f"providers={summary['provider_count']}, "
+        f"sources={summary['source_count']}, "
+        f"validated_sources={summary['validated_source_count']}, "
+        f"latest_event_date={summary['latest_event_date']}, "
+        f"source_state_latest_retrieved_at={summary['source_state_latest_retrieved_at']}",
+    )
+
+
 def _operations_report_check(root: Path, *, created_at: str) -> ReleaseCheck:
     operations = build_operations_report(root, created_at=created_at)
     errors = _validate_schema_payload(root, "operations_report", operations)
@@ -1466,6 +1485,7 @@ def run_release_dry_run(
         )
     )
     checks.append(_source_coverage_check(root, created_at=created_at))
+    checks.append(_source_catalog_check(root, created_at=created_at))
     checks.append(_operations_report_check(root, created_at=created_at))
     checks.append(_v1_launch_gate_check(root, created_at=created_at))
     checks.append(_release_automation_readiness_check(root, created_at=created_at))
@@ -1512,6 +1532,7 @@ def run_release_dry_run(
             "uv run pytest",
             "uv run apw source test",
             "uv run apw source coverage --summary",
+            "uv run apw source catalog --summary",
             "uv run apw operations report --summary",
             "uv run apw operations launch-gate --summary",
             "uv run apw release automation-readiness --summary",

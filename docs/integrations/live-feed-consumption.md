@@ -12,6 +12,26 @@ public APW feed without cloning this repository.
 - Use a package snapshot when offline or no-checkout behavior matters more than
   latest data freshness.
 
+There are three practical freshness levels:
+
+1. Installed package snapshot: `apw latest --limit 3` reads the reviewed feed
+   bundled into the installed `ai-provider-watch` package. It works offline and
+   outside a checkout, but it updates only when maintainers publish a new Python
+   package.
+2. Live reviewed repository feed: `apw remote latest --ref main --limit 3`
+   reads `data/feeds/events.json` from GitHub `main`. It updates after a
+   reviewed PR lands and `apw index` regenerates feed artifacts. This is the
+   right default for users and agents that want current reviewed news.
+3. Immutable data release: `apw remote latest --ref data-YYYY.MM.DD --limit 3`
+   reads a signed data tag. It is best for audit, reproducibility, and release
+   evidence, not for same-hour freshness.
+
+Use `apw remote feed source-catalog --ref main` to see what APW currently
+watches and when each enabled source was last validated. Use
+`apw remote freshness --ref main --summary` to see the current event count,
+latest reviewed event date, package version, and latest source-state retrieval
+timestamp.
+
 Remote reads fetch only APW feed artifacts from
 `ottto-ai/ai-provider-watch`. They do not fetch provider pages, generate
 candidates, promote events, create tags, publish packages, open PRs, post
@@ -80,12 +100,14 @@ from ai_provider_watch import api
 
 events = api.load_remote_events(ref="main", min_severity="medium", limit=10)
 freshness = api.load_remote_json_feed("freshness", ref="data-2026.06.11")
+catalog = api.load_remote_json_feed("source-catalog", ref="main")
 ndjson = api.load_remote_text_feed("events.ndjson", ref="data-2026.06.11")
 url = api.remote_feed_url("events.ndjson", ref="data-2026.06.11")
 
 print(url)
 for event in events:
     print(event["id"], event["title"])
+print(catalog["summary"]["source_count"], catalog["summary"]["validated_source_count"])
 print(freshness["release_id"], len(ndjson.splitlines()))
 ```
 
