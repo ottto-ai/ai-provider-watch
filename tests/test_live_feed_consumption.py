@@ -13,7 +13,7 @@ def _text(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
 
 
-def test_live_feed_consumption_docs_cover_copy_paste_paths() -> None:
+def test_remote_feed_consumption_docs_cover_copy_paste_paths() -> None:
     docs = "\n".join(
         _text(path)
         for path in [
@@ -29,7 +29,8 @@ def test_live_feed_consumption_docs_cover_copy_paste_paths() -> None:
     normalized = " ".join(docs.split())
 
     for phrase in [
-        "Live Feed Consumption",
+        "Reviewed Remote Feed Consumption",
+        "planned high-frequency live publisher",
         "examples/consumption/github-action-live-feed.yml",
         "examples/consumption/python-live-feed.py",
         "examples/consumption/agent-live-feed.md",
