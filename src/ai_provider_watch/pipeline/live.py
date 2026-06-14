@@ -79,7 +79,9 @@ def _truncate(value: str, limit: int) -> str:
     normalized = " ".join(value.split())
     if len(normalized) <= limit:
         return normalized
-    return f"{normalized[: limit - 1].rstrip()}..."
+    if limit <= 3:
+        return "." * limit
+    return f"{normalized[: limit - 3].rstrip()}..."
 
 
 def _provider_label(provider_refs: list[str]) -> str:
