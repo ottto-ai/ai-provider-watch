@@ -202,6 +202,10 @@ apw live latest --base-url https://ai-provider-watch.ottto.net/v1 --limit 10
 apw live health --base-url https://ai-provider-watch.ottto.net/v1 --summary
 ```
 
+The live endpoint publishes JSON, NDJSON, JSON Feed, RSS, Atom, health,
+provenance, and source-catalog artifacts; the catalog URL is
+`https://ai-provider-watch.ottto.net/v1/source-catalog.json`.
+
 The repository also includes a read-only 15-minute GitHub Actions dry run that
 uploads `.apw/live` artifacts. It conditionally publishes to Cloudflare R2 only
 when the dedicated APW R2 bucket, custom domain, and scoped credentials are
