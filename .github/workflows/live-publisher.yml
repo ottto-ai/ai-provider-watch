@@ -1,0 +1,64 @@
+name: Live Publisher Dry Run
+
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-publisher-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: uv sync --all-extras
+      - run: uv run apw source test
+      - name: Fetch official sources without mutating repository state
+        run: |
+          uv run apw source fetch \
+            --observations .apw/live-source-observations.json \
+            --limit-bytes 1500000
+      - name: Generate provisional live candidates
+        run: |
+          created_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "$created_at" > .apw/live-created-at.txt
+          uv run apw candidate generate \
+            --observations .apw/live-source-observations.json \
+            --output .apw/live-candidates \
+            --created-at "$created_at" \
+            --clean \
+            --skip-reviewed-duplicates \
+            > .apw/live-candidate-generation.json
+      - name: Build live artifacts
+        run: |
+          created_at="$(cat .apw/live-created-at.txt)"
+          uv run apw live build \
+            --candidates .apw/live-candidates \
+            --observations .apw/live-source-observations.json \
+            --created-at "$created_at" \
+            --output .apw/live \
+            --limit 50
+      - name: Gate live artifacts
+        run: uv run apw live gate --input .apw/live --summary
+      - name: Upload live dry-run artifacts
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: apw-live-dry-run
+          path: |
+            .apw/live/
+            .apw/live-candidates/
+            .apw/live-source-observations.json
+            .apw/live-candidate-generation.json
+          if-no-files-found: error

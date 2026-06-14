@@ -277,20 +277,27 @@ Cost controls:
 
 ## Recommended v0 Path
 
-1. Add `apw live build --output .apw/live` that produces live feed artifacts
-   from current observations, candidates, and live policy gates.
-2. Add `apw live gate` with lenient policy labels and reason codes.
-3. Add `schemas/live-event.schema.json`, `schemas/live-feed.schema.json`, and
-   `schemas/live-health.schema.json`.
-4. Add fixtures for green-lane status, changelog, docs, pricing, and lifecycle
-   deltas.
-5. Add a GitHub Actions dry-run workflow scheduled every 15 minutes that uploads
-   `.apw/live` as an artifact and reports health.
-6. Add a public publisher target:
+The local dry-run surface now exists:
+
+```bash
+apw live build --output .apw/live
+apw live gate --input .apw/live --summary
+apw live latest --input .apw/live/latest.json --limit 10
+apw live health --input .apw/live/health.json --summary
+```
+
+The read-only `Live Publisher Dry Run` workflow runs every 15 minutes, builds
+`.apw/live`, gates the output, and uploads artifacts. It uses `contents: read`
+and does not commit, tag, publish a package, or read release secrets.
+
+Remaining v0 work:
+
+1. Add a public publisher target:
    - GitHub Pages if no cloud setup is available;
    - Cloudflare R2 if a stable custom domain can be configured.
-7. Add `apw live latest` and `apw live health`.
-8. Add daily agent improvement workflow that opens parser/fixture/promotion PRs.
+2. Add daily agent improvement workflow that opens parser/fixture/promotion PRs.
+3. Add public `source-catalog.json` once the source-catalog schema lands.
+4. Add optional agent-review enrichment over sanitized live items.
 
 The first live release may publish more imperfect items than the audited feed.
 That is intentional. The core quality metric is whether APW surfaces interesting

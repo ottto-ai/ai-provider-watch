@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/live-health.schema.json",
+  "title": "APW Live Health",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "generated_by",
+    "status",
+    "cadence_minutes",
+    "source",
+    "items",
+    "artifacts",
+    "policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.live_health.v0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "generated_by": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["ok", "degraded", "failed"] },
+    "cadence_minutes": { "const": 15 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_count",
+        "changed_source_count",
+        "candidate_count",
+        "excluded_candidate_count",
+        "reviewed_event_count"
+      ],
+      "properties": {
+        "observation_count": { "type": "integer", "minimum": 0 },
+        "changed_source_count": { "type": "integer", "minimum": 0 },
+        "candidate_count": { "type": "integer", "minimum": 0 },
+        "excluded_candidate_count": { "type": "integer", "minimum": 0 },
+        "reviewed_event_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "automated", "agent_reviewed", "needs_followup", "promoted", "retracted"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "automated": { "type": "integer", "minimum": 0 },
+        "agent_reviewed": { "type": "integer", "minimum": 0 },
+        "needs_followup": { "type": "integer", "minimum": 0 },
+        "promoted": { "type": "integer", "minimum": 0 },
+        "retracted": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/artifact" }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "release_authority", "untrusted_input_policy"],
+      "properties": {
+        "mode": { "const": "dry_run_or_public_live_artifacts" },
+        "release_authority": { "const": "not_a_signed_data_release" },
+        "untrusted_input_policy": { "type": "string", "pattern": "untrusted data" }
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "media_type", "sha256", "bytes"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "media_type": { "type": "string", "minLength": 3 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "bytes": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

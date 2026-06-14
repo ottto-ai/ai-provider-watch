@@ -37,9 +37,10 @@ item.
 
 Planned work:
 
-- add `apw live build`, `apw live gate`, `apw live latest`, and
-  `apw live health`;
-- add schema-backed live item, feed, health, and provenance artifacts;
+- keep hardening the local `apw live build`, `apw live gate`,
+  `apw live latest`, and `apw live health` dry-run surface;
+- keep hardening schema-backed live item, feed, health, and provenance
+  artifacts;
 - start leniently for official source-controlled status, changelog, news,
   docs-scope, pricing, quota, default-model, and lifecycle deltas;
 - label live items with source authority, parser confidence, publication lane,
@@ -48,8 +49,9 @@ Planned work:
   classification and summaries without blocking green-lane official news;
 - publish a public health feed with freshness, failures, backlog, promotions,
   retractions, and missed-change metrics;
-- use GitHub Actions plus Pages or object storage for v0 if acceptable, then
-  move scheduling to Workers, Cloud Run, Lambda, or another dedicated service if
+- use the 15-minute GitHub Actions dry-run workflow as the v0 artifact builder,
+  then publish to Pages or object storage once a target is configured;
+- move scheduling to Workers, Cloud Run, Lambda, or another dedicated service if
   GitHub schedule reliability is not enough.
 
 ## v0.2 Source Depth

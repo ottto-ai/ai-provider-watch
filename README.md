@@ -143,6 +143,19 @@ validation gates while publishing fresh live JSON/RSS/Atom artifacts to stable
 public URLs every 15 minutes. Those live artifacts should not require a
 repository commit for each update.
 
+The local dry-run surface is available now:
+
+```bash
+apw live build --output .apw/live
+apw live gate --input .apw/live --summary
+apw live latest --input .apw/live/latest.json --limit 10
+apw live health --input .apw/live/health.json --summary
+```
+
+The repository also includes a read-only 15-minute GitHub Actions dry run that
+uploads `.apw/live` artifacts. It does not publish a public URL until a Pages,
+R2, or other hosting target is configured.
+
 Use the remote CLI when you want the freshest public data from an installed
 package:
 

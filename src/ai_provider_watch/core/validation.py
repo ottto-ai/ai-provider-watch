@@ -48,6 +48,10 @@ SCHEMA_FILES = {
     "release_automation_readiness": "release-automation-readiness.schema.json",
     "adoption_scenarios": "adoption-scenarios.schema.json",
     "agent_dashboard": "agent-dashboard.schema.json",
+    "live_event": "live-event.schema.json",
+    "live_feed": "live-feed.schema.json",
+    "live_health": "live-health.schema.json",
+    "live_provenance": "live-provenance.schema.json",
 }
 
 DETAIL_BY_EVENT_KIND = {

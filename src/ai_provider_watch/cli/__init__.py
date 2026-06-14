@@ -59,6 +59,14 @@ from ai_provider_watch.pipeline.llm_review import (
     build_review_request,
     evaluate_review_result,
 )
+from ai_provider_watch.pipeline.live import (
+    LIVE_ARTIFACTS,
+    build_live_artifacts,
+    live_latest,
+    load_live_feed,
+    validate_live_artifacts,
+    write_live_artifacts,
+)
 from ai_provider_watch.pipeline.missing_event_issue import (
     build_missing_event_issue_triage,
     render_missing_event_issue_triage_markdown,
@@ -364,6 +372,96 @@ def cmd_remote_feed(args: argparse.Namespace) -> int:
         output_path.write_text(output, encoding="utf-8")
     else:
         sys.stdout.write(output)
+    return 0
+
+
+def cmd_live_build(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    output_dir = _output_path(root, args.output)
+    candidate_dir = _path_from_root(root, args.candidates) if args.candidates else None
+    observations_path = _path_from_root(root, args.observations) if args.observations else None
+    try:
+        result = build_live_artifacts(
+            root,
+            candidate_dir=candidate_dir,
+            observations_path=observations_path,
+            created_at=args.created_at,
+            limit=args.limit,
+            feed_url=args.feed_url,
+            include_reviewed=not args.no_reviewed,
+        )
+        written = write_live_artifacts(output_dir, result.artifacts)
+    except (OSError, ValueError) as exc:
+        print(f"live build failed: {exc}", file=sys.stderr)
+        return 1
+    _print_json(
+        {
+            "artifact_count": len(written),
+            "item_count": result.item_count,
+            "candidate_count": result.candidate_count,
+            "excluded_candidate_count": result.excluded_candidate_count,
+            "output": str(output_dir),
+            "artifacts": [str(path) for path in written],
+        }
+    )
+    return 0
+
+
+def cmd_live_gate(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    input_dir = _path_from_root(root, args.input)
+    errors = validate_live_artifacts(root, input_dir)
+    if errors:
+        for error in errors:
+            print(f"live gate failed: {error}", file=sys.stderr)
+        return 1
+    if args.summary:
+        health = load_live_feed(input_dir / LIVE_ARTIFACTS["health"])
+        print(f"status: {health['status']}")
+        print(f"item_count: {health['items']['total']}")
+        print(f"candidate_count: {health['source']['candidate_count']}")
+        print(f"excluded_candidate_count: {health['source']['excluded_candidate_count']}")
+    else:
+        _print_json({"status": "ok", "input": str(input_dir)})
+    return 0
+
+
+def cmd_live_latest(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    path = _path_from_root(root, args.input)
+    try:
+        items = live_latest(
+            path,
+            provider=args.provider,
+            min_severity=args.risk,
+            limit=args.limit,
+        )
+    except (OSError, ValueError) as exc:
+        print(f"live latest failed: {exc}", file=sys.stderr)
+        return 1
+    _print_json(items)
+    return 0
+
+
+def cmd_live_health(args: argparse.Namespace) -> int:
+    root = _root(args.root)
+    path = _path_from_root(root, args.input)
+    try:
+        health = load_live_feed(path)
+    except (OSError, ValueError) as exc:
+        print(f"live health failed: {exc}", file=sys.stderr)
+        return 1
+    if args.summary:
+        print(f"status: {health['status']}")
+        print(f"generated_at: {health['generated_at']}")
+        print(f"item_count: {health['items']['total']}")
+        print(f"automated: {health['items']['automated']}")
+        print(f"needs_followup: {health['items']['needs_followup']}")
+        print(f"promoted: {health['items']['promoted']}")
+        print(f"candidate_count: {health['source']['candidate_count']}")
+        print(f"excluded_candidate_count: {health['source']['excluded_candidate_count']}")
+    else:
+        _print_json(health)
     return 0
 
 
@@ -1344,7 +1442,7 @@ def build_parser() -> argparse.ArgumentParser:
     issue_triage_parser.add_argument("--output", help="write triage output to this path instead of stdout")
     issue_triage_parser.set_defaults(func=cmd_event_issue_triage)
 
-    remote_parser = subparsers.add_parser("remote", help="read live GitHub feed artifacts without a checkout")
+    remote_parser = subparsers.add_parser("remote", help="read reviewed GitHub feed artifacts without a checkout")
     remote_subparsers = remote_parser.add_subparsers(dest="remote_command", required=True)
     remote_latest_parser = remote_subparsers.add_parser("latest", help="print latest events from a remote APW feed")
     remote_latest_parser.add_argument(
@@ -1379,6 +1477,45 @@ def build_parser() -> argparse.ArgumentParser:
     remote_feed_parser.add_argument("--limit-bytes", type=int, default=5_000_000)
     remote_feed_parser.add_argument("--output", help="write remote feed artifact to this path instead of stdout")
     remote_feed_parser.set_defaults(func=cmd_remote_feed)
+
+    live_parser = subparsers.add_parser("live", help="build and inspect provisional live feed artifacts")
+    live_subparsers = live_parser.add_subparsers(dest="live_command", required=True)
+    live_build_parser = live_subparsers.add_parser(
+        "build",
+        help="build provisional live JSON/RSS/Atom artifacts from reviewed events and optional candidates",
+    )
+    live_build_parser.add_argument("--output", default=".apw/live", help="output directory for live artifacts")
+    live_build_parser.add_argument("--candidates", help="optional FindingCandidate directory to include as provisional live items")
+    live_build_parser.add_argument("--observations", help="optional source observations bundle for health counts")
+    live_build_parser.add_argument("--created-at", help="RFC3339 timestamp for deterministic output; defaults to now in UTC")
+    live_build_parser.add_argument("--limit", type=int, default=50, help="maximum items in latest.json/feed/rss/atom")
+    live_build_parser.add_argument(
+        "--feed-url",
+        help="public JSON Feed URL to embed once a live publisher target exists",
+    )
+    live_build_parser.add_argument(
+        "--no-reviewed",
+        action="store_true",
+        help="omit reviewed ProviderEvents and include only provisional candidates",
+    )
+    live_build_parser.set_defaults(func=cmd_live_build)
+    live_gate_parser = live_subparsers.add_parser(
+        "gate",
+        help="validate live artifacts before upload or publication",
+    )
+    live_gate_parser.add_argument("--input", default=".apw/live", help="directory containing live artifacts")
+    live_gate_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    live_gate_parser.set_defaults(func=cmd_live_gate)
+    live_latest_parser = live_subparsers.add_parser("latest", help="print latest live items from a live artifact")
+    live_latest_parser.add_argument("--input", default=".apw/live/latest.json", help="live latest.json artifact")
+    live_latest_parser.add_argument("--risk", choices=sorted(SEVERITY_RANK))
+    live_latest_parser.add_argument("--provider")
+    live_latest_parser.add_argument("--limit", type=int, default=20)
+    live_latest_parser.set_defaults(func=cmd_live_latest)
+    live_health_parser = live_subparsers.add_parser("health", help="print live health metadata")
+    live_health_parser.add_argument("--input", default=".apw/live/health.json", help="live health.json artifact")
+    live_health_parser.add_argument("--summary", action="store_true", help="print a concise text summary instead of JSON")
+    live_health_parser.set_defaults(func=cmd_live_health)
 
     source_parser = subparsers.add_parser("source", help="source package and fetch commands")
     source_subparsers = source_parser.add_subparsers(dest="source_command", required=True)
