@@ -85,6 +85,53 @@ def test_live_artifacts_include_lenient_official_candidates(tmp_path) -> None:
         )
 
 
+def test_live_candidate_titles_respect_schema_limit(tmp_path) -> None:
+    candidate_dir = tmp_path / "candidates"
+    candidate_dir.mkdir()
+    long_claim = (
+        "AWS Bedrock official dated source reports a model availability change on "
+        "2026-06-09 for amazon-bedrock, aws-bedrock, claude-fable-5, "
+        "claude-fable-5-20260609, us-east-1, us-west-2, eu-central-1, and ap-southeast-2."
+    )
+    (candidate_dir / "aws-long-title.json").write_text(
+        json.dumps(
+            {
+                "id": "candidate-aws-bedrock-long-title-1234567890abcdef",
+                "candidate_kind": "model_launch",
+                "provider_refs": ["provider:aws-bedrock"],
+                "claim_text": long_claim,
+                "parser": {"name": "aws_bedrock_whats_new_feed"},
+                "evidence_refs": [
+                    {
+                        "source_key": "aws-bedrock.whats_new",
+                        "url": "https://aws.amazon.com/about-aws/whats-new/",
+                        "retrieved_at": CREATED_AT,
+                        "authority": "official_docs",
+                        "content_sha256": "a" * 64,
+                        "fingerprint": "b" * 64,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    output_dir = tmp_path / "live"
+    result = build_live_artifacts(
+        ROOT,
+        candidate_dir=candidate_dir,
+        created_at=CREATED_AT,
+        include_reviewed=False,
+    )
+    write_live_artifacts(output_dir, result.artifacts)
+
+    assert validate_live_artifacts(ROOT, output_dir) == []
+    latest = json.loads((output_dir / "latest.json").read_text(encoding="utf-8"))
+    title = latest["items"][0]["title"]
+    assert len(title) <= 140
+    assert title.endswith("...")
+
+
 def test_live_cli_build_gate_latest_and_health(tmp_path, capsys) -> None:
     output_dir = tmp_path / "live"
     assert (
