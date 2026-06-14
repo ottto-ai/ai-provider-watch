@@ -19,6 +19,7 @@ from ai_provider_watch import __version__
 from ai_provider_watch.core.feeds import APW_HOME_URL, JSON_FEED_VERSION, SEVERITY_RANK, load_events
 from ai_provider_watch.core.io import read_json, write_json_text, write_ndjson_text
 from ai_provider_watch.pipeline.review_pr import CandidateFile, read_candidate_files
+from ai_provider_watch.pipeline.source_catalog import build_source_catalog
 
 LIVE_EVENT_SCHEMA_VERSION = "apw.live_event.v0"
 LIVE_FEED_SCHEMA_VERSION = "apw.live_feed.v0"
@@ -35,10 +36,11 @@ LIVE_ARTIFACTS = {
     "feed": "feed.json",
     "rss": "rss.xml",
     "atom": "atom.xml",
+    "source-catalog": "source-catalog.json",
     "health": "health.json",
     "provenance": "provenance.json",
 }
-LIVE_JSON_ARTIFACTS = {"latest", "events", "feed", "health", "provenance"}
+LIVE_JSON_ARTIFACTS = {"latest", "events", "feed", "source-catalog", "health", "provenance"}
 AUTO_AUTHORITIES = {"official_status", "official_blog", "official_repo"}
 FOLLOWUP_AUTHORITIES = {"official_docs", "official_pricing"}
 EXCLUDED_AUTHORITIES = {"official_staff_social", "community_hint", "third_party_catalog", "manual"}
@@ -512,6 +514,9 @@ def build_live_artifacts(
         Path("feed.json"): write_json_text(_json_feed(items, feed_url=feed_url)),
         Path("rss.xml"): _rss(items),
         Path("atom.xml"): _atom(items, created_at=resolved_created_at),
+        Path("source-catalog.json"): write_json_text(
+            build_source_catalog(root, created_at=resolved_created_at)
+        ),
     }
     observation_count, changed_source_count = _read_observation_counts(observations_path)
     summaries_without_health = [_artifact_summary(path, text) for path, text in sorted(artifacts.items())]
@@ -658,6 +663,7 @@ def validate_live_artifacts(root: Path, input_dir: Path) -> list[str]:
         "live_feed": read_json(root / "schemas" / "live-feed.schema.json"),
         "live_health": read_json(root / "schemas" / "live-health.schema.json"),
         "live_provenance": read_json(root / "schemas" / "live-provenance.schema.json"),
+        "source_catalog": read_json(root / "schemas" / "source-catalog.schema.json"),
     }
     errors: list[str] = []
     for name in ("latest", "events"):
@@ -677,6 +683,17 @@ def validate_live_artifacts(root: Path, input_dir: Path) -> list[str]:
             errors.append(f"missing live artifact: {path}")
             continue
         errors.extend(_schema_errors(schemas[schema_key], read_json(path), name))
+    source_catalog_path = input_dir / LIVE_ARTIFACTS["source-catalog"]
+    if not source_catalog_path.exists():
+        errors.append(f"missing live artifact: {source_catalog_path}")
+    else:
+        errors.extend(
+            _schema_errors(
+                schemas["source_catalog"],
+                read_json(source_catalog_path),
+                "source-catalog",
+            )
+        )
     ndjson_path = input_dir / LIVE_ARTIFACTS["events.ndjson"]
     if not ndjson_path.exists():
         errors.append(f"missing live artifact: {ndjson_path}")

@@ -321,8 +321,7 @@ Remaining v0 work:
 3. Add the four GitHub repository secret/variable values above.
 4. Confirm the next scheduled run publishes and the public health smoke passes.
 5. Add daily agent improvement workflow that opens parser/fixture/promotion PRs.
-6. Add public `source-catalog.json` once the source-catalog schema lands.
-7. Add optional agent-review enrichment over sanitized live items.
+6. Add optional agent-review enrichment over sanitized live items.
 
 The first live release may publish more imperfect items than the audited feed.
 That is intentional. The core quality metric is whether APW surfaces interesting
