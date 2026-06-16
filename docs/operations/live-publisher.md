@@ -20,6 +20,7 @@ Every 15 minutes, APW should publish fresh, interesting provider-change material
 from official sources to stable public URLs:
 
 ```text
+https://ai-provider-watch.ottto.net/v1/
 https://ai-provider-watch.ottto.net/v1/latest.json
 https://ai-provider-watch.ottto.net/v1/events.ndjson
 https://ai-provider-watch.ottto.net/v1/feed.json
@@ -29,6 +30,10 @@ https://ai-provider-watch.ottto.net/v1/source-catalog.json
 https://ai-provider-watch.ottto.net/v1/health.json
 https://ai-provider-watch.ottto.net/v1/provenance.json
 ```
+
+The bare `/v1` and `/v1/` paths are browser landing pages. Machine consumers
+should read the explicit artifact URLs above or use `apw live latest` and
+`apw live health`.
 
 Consumers that want current news should read the live URLs. Consumers that need
 reproducibility should pin repository `data-*` tags or package snapshots.

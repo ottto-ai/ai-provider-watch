@@ -82,11 +82,22 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.APW_R2_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: auto
         run: |
+          endpoint_url="https://${APW_R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
           uvx --from awscli aws s3 sync \
             .apw/live "s3://${APW_R2_BUCKET}/v1/" \
-            --endpoint-url "https://${APW_R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
+            --endpoint-url "$endpoint_url" \
             --delete \
             --cache-control "public, max-age=60"
+          for key in "v1" "v1/"; do
+            uvx --from awscli aws s3api put-object \
+              --bucket "$APW_R2_BUCKET" \
+              --key "$key" \
+              --body .apw/live/index.html \
+              --content-type "text/html; charset=utf-8" \
+              --cache-control "public, max-age=60" \
+              --endpoint-url "$endpoint_url" \
+              >/dev/null
+          done
       - name: Smoke public live health endpoint
         if: steps.r2_config.outputs.configured == 'true'
         run: uv run apw live health --url "${APW_LIVE_BASE_URL}/health.json" --summary
@@ -95,6 +106,7 @@ jobs:
         if: always()
         with:
           name: apw-live-dry-run
+          retention-days: 2
           path: |
             .apw/live/
             .apw/live-candidates/
