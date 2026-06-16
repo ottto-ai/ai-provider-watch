@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "api_contract_change",
+  "claim_text": "OpenAI official dated source reports an API contract change on 2026-06-15 for amazon-bedrock, api, audio, aws-bedrock, claude-code, codex.",
+  "created_at": "2026-06-16T11:34:25Z",
+  "dedupe_key": "openai.codex_docs:api_contract_change:758834aeb4f01c12a72c9042",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "b02be4c83403d892145e8cf594f66b36a3677d36b2856873b0688ef641e9a16c",
+      "fingerprint": "ec060fb378f881cd0b3ab2efe9eee6e229291df5012ec764d05c2540d8151003",
+      "retrieved_at": "2026-06-16T11:34:23Z",
+      "selector": "announcement:3df757e82ec6bf10",
+      "snapshot_ref": "entry:3df757e82ec6bf10",
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog"
+    }
+  ],
+  "id": "candidate-openai-codex-docs-95df6df6d66fcc00",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_codex_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.codex_docs"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

@@ -19,7 +19,7 @@
         "daily",
         "hourly"
       ],
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 8,
       "display_name": "Anthropic",
       "enabled_deterministic_source_count": 4,
       "event_kind_counts": {
@@ -84,7 +84,7 @@
       "cadences": [
         "daily"
       ],
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 4,
       "display_name": "AWS Bedrock",
       "enabled_deterministic_source_count": 3,
       "event_kind_counts": {
@@ -253,7 +253,7 @@
         "daily",
         "hourly"
       ],
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 2,
       "display_name": "OpenAI",
       "enabled_deterministic_source_count": 6,
       "event_kind_counts": {
@@ -331,7 +331,7 @@
       "authority": "official_blog",
       "automation_status": "enabled_deterministic",
       "cadence": "daily",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "enabled": true,
       "graduation_blockers": [],
       "graduation_notes": "Official Anthropic news index parser emits dated announcement candidates with article URLs, title/link hashes, and bounded Claude/model/workflow subjects only.",
@@ -343,7 +343,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "anthropic.news",
-      "last_validated_at": "2026-06-12T14:11:42Z",
+      "last_validated_at": "2026-06-16T11:33:58Z",
       "latest_event_date": "2026-06-09",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -359,12 +359,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash news links; emit bounded dates, subjects, and article URLs only",
       "source_state": {
-        "content_sha256": "21fed9c376e1011b19cb64aae632ced0acd133def1f0eef9daf9626ec13e0d7f",
+        "content_sha256": "8827d73d165147a2ee892ac5fb4b138cf695c3d756dbe2e4ea2243e80c7e742d",
         "final_url": "https://www.anthropic.com/news",
-        "fingerprint": "f5e5035015e6f24c1696a83865eaa8f2e8dad640f4f31322d006d49b89515ac4",
+        "fingerprint": "b7028cc76b0234d1e5a9c886462786e215698e62a058ae1181e3f7e44db84f29",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:42Z"
+        "retrieved_at": "2026-06-16T11:33:58Z"
       },
       "source_type": "blog",
       "url": "https://www.anthropic.com/news",
@@ -386,7 +386,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "anthropic.pricing",
-      "last_validated_at": "2026-06-12T14:11:50Z",
+      "last_validated_at": "2026-06-16T11:34:04Z",
       "latest_event_date": null,
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -402,12 +402,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash normalized text; emit bounded pricing/model signals only",
       "source_state": {
-        "content_sha256": "37e9cdb67fc59d6317a4d76ac29c1058c82487b7552157f2b71ef107fc2fe56e",
+        "content_sha256": "9e6d15c7348c2b147f5678513a5c568ee255d5c73490347fb3b365d0257134d3",
         "final_url": "https://platform.claude.com/docs/en/about-claude/pricing",
         "fingerprint": "031defe753c0471044c591a72af34993d1c9d63fe46b310985549f7f1cf1daa2",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:50Z"
+        "retrieved_at": "2026-06-16T11:34:04Z"
       },
       "source_type": "pricing_page",
       "url": "https://platform.claude.com/docs/en/about-claude/pricing",
@@ -417,7 +417,7 @@
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
       "cadence": "daily",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 6,
       "enabled": true,
       "graduation_blockers": [],
       "graduation_notes": "Official Claude Platform release-note parser emits dated section candidates from bounded list items/paragraphs with source-page evidence and hashed text only. Event promotion remains source-owner reviewed.",
@@ -432,7 +432,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "anthropic.release_notes",
-      "last_validated_at": "2026-06-12T14:11:51Z",
+      "last_validated_at": "2026-06-16T11:34:05Z",
       "latest_event_date": "2026-06-09",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -448,12 +448,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash parsed dated sections; emit bounded dates, subjects, and source-page URL only",
       "source_state": {
-        "content_sha256": "d2b16b54fda2d4613b88bd996b2e302ea6d13f8cc0a5f7d619e99ab93479d5e3",
+        "content_sha256": "96051dd2a977cfd842de5949ea64ea2b129bbc9834603a9c4e4979e0b2bbd6dd",
         "final_url": "https://platform.claude.com/docs/en/release-notes/overview",
-        "fingerprint": "1210fbffca24da5ac0924084eab742b8b0b8919fb3779d03f028a93f767ca46f",
+        "fingerprint": "868baec3f7c886ff3f96e37148c82645138d9009c0a9a1b6787e7226b98f4b9b",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:51Z"
+        "retrieved_at": "2026-06-16T11:34:05Z"
       },
       "source_type": "docs_page",
       "url": "https://platform.claude.com/docs/en/release-notes/overview",
@@ -463,7 +463,7 @@
       "authority": "official_status",
       "automation_status": "enabled_deterministic",
       "cadence": "hourly",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "enabled": true,
       "graduation_blockers": [],
       "graduation_notes": "Fixture-backed Statuspage parser hashes incident links and preserves only bounded timestamps.",
@@ -474,7 +474,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "anthropic.status",
-      "last_validated_at": "2026-06-12T14:11:54Z",
+      "last_validated_at": "2026-06-16T11:34:06Z",
       "latest_event_date": "2026-06-03",
       "license_note": "Use source URL and factual incident metadata only.",
       "maintainers": [
@@ -490,12 +490,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash status incident links; emit RFC3339 timestamps only",
       "source_state": {
-        "content_sha256": "2a95add6b4ebe9b67a0755414275f96937bde5fd7ba7e84540be35728472a611",
+        "content_sha256": "8d768d65e26a3a638e2e2d3c4ea92a7c20fbef5a8678ddea8a275ce1d33122e6",
         "final_url": "https://status.claude.com/",
-        "fingerprint": "510be1ecd92ffdc35e41ece70bea256ce8dd0470d85e8e2621ba654bde179e52",
+        "fingerprint": "a7cad40c8a0dedcfab83c490b2976fb36c67ed9cd452feaadbec68331fb5c928",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:54Z"
+        "retrieved_at": "2026-06-16T11:34:06Z"
       },
       "source_type": "status_page",
       "url": "https://status.claude.com/",
@@ -517,7 +517,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "aws_bedrock.docs",
-      "last_validated_at": "2026-06-12T14:11:54Z",
+      "last_validated_at": "2026-06-16T11:34:06Z",
       "latest_event_date": null,
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -533,12 +533,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash normalized text; emit bounded model display signals only",
       "source_state": {
-        "content_sha256": "28f470e4a1e839abfc49bc321f6b681d56713474a1ddac7f14f6ebb79585d107",
+        "content_sha256": "ab75f8145be6669929cc36129b7387ac38ab4532db7b4672757bb624eb4bb5af",
         "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html",
         "fingerprint": "1f16cee3f1d4a80d7587cb4932ff97cbf26deb4d6c9df86a1750569ade6705ca",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:54Z"
+        "retrieved_at": "2026-06-16T11:34:06Z"
       },
       "source_type": "docs_page",
       "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html",
@@ -559,7 +559,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "aws_bedrock.pricing",
-      "last_validated_at": "2026-06-12T14:11:54Z",
+      "last_validated_at": "2026-06-16T11:34:07Z",
       "latest_event_date": null,
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -575,12 +575,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash normalized text; emit bounded pricing/model signals only",
       "source_state": {
-        "content_sha256": "182094e6de07e4a28ec35684cd7978fbe048157142a32eef347ceb610fe0d254",
+        "content_sha256": "bd130db51e68079427e1727d3597e77e913a8b96a682c2a49b8a123c89111781",
         "final_url": "https://aws.amazon.com/bedrock/pricing/",
         "fingerprint": "2af4ebe9f7261c2cbcb49f1a032c4990526c1a1c18f94f20edd5e350aebb7695",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:54Z"
+        "retrieved_at": "2026-06-16T11:34:07Z"
       },
       "source_type": "pricing_page",
       "url": "https://aws.amazon.com/bedrock/pricing/",
@@ -590,7 +590,7 @@
       "authority": "official_blog",
       "automation_status": "enabled_deterministic",
       "cadence": "daily",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 4,
       "enabled": true,
       "graduation_blockers": [],
       "graduation_notes": "Official AWS What's New RSS parser filters Bedrock-related entries and emits bounded dated candidates with article URLs and title/link hashes only.",
@@ -604,7 +604,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "aws_bedrock.whats_new",
-      "last_validated_at": "2026-06-12T14:11:55Z",
+      "last_validated_at": "2026-06-16T11:34:07Z",
       "latest_event_date": "2026-06-11",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -620,12 +620,12 @@
       "robots_policy_note": "Fetch official RSS feed only; respect provider robots and cache headers.",
       "snapshot_policy": "hash feed entries; emit bounded Bedrock-related dates, subjects, and article URLs only",
       "source_state": {
-        "content_sha256": "44529a340167bbdbc2d712fd9cfd9ef3e091d5e114578f6b162fbc73d87ef32c",
+        "content_sha256": "11240ea9200e1ca5ceb0cbaa8effee584e5dc297ca641ff3627f9444787fe527",
         "final_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
-        "fingerprint": "2716e04aa8b95f190b92b347fc559830af4b7f98999c44acafa4bc64b56dac27",
+        "fingerprint": "fe424e42cdca3ec0ccd984ed128edc2b202c59737bcf964565b87616c4472797",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:55Z"
+        "retrieved_at": "2026-06-16T11:34:07Z"
       },
       "source_type": "rss_feed",
       "url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
@@ -647,7 +647,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "azure_openai.docs",
-      "last_validated_at": "2026-06-12T14:11:55Z",
+      "last_validated_at": "2026-06-16T11:34:07Z",
       "latest_event_date": null,
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -663,12 +663,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash normalized text; do not publish raw page",
       "source_state": {
-        "content_sha256": "7227a392a15215452d670cdbf66d924cb32f38fc5912b6984f92056d0edddbf3",
+        "content_sha256": "646b5d358160a905a64de48ae28d78706644643ac3e621fd86684cbffa3f0ac1",
         "final_url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure?pivots=azure-openai",
         "fingerprint": "53fba51b5d5da1f5e87b4a27b31e2e1cc71d9b0052c8451028045a9c76e53c67",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:55Z"
+        "retrieved_at": "2026-06-16T11:34:07Z"
       },
       "source_type": "docs_page",
       "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure?pivots=azure-openai",
@@ -689,7 +689,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "azure_openai.legacy_models",
-      "last_validated_at": "2026-06-12T14:11:55Z",
+      "last_validated_at": "2026-06-16T11:34:07Z",
       "latest_event_date": "2025-01-27",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -705,12 +705,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash scoped lifecycle table rows; emit bounded model/date rows only",
       "source_state": {
-        "content_sha256": "bd001e951c273b452251bb4aac796a37f99602a82f888cf35ddb706de6ae5659",
+        "content_sha256": "96128b3b0fa185975647c778aaae5da6e50478a5c4c8b687168ba6af12707dd7",
         "final_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models",
         "fingerprint": "682e7e429aa9e6a30e5993626b8387cfa659afe5502483270c6252af0a0fb654",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:55Z"
+        "retrieved_at": "2026-06-16T11:34:07Z"
       },
       "source_type": "docs_page",
       "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models",
@@ -731,7 +731,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "azure_openai.pricing",
-      "last_validated_at": "2026-06-12T14:11:56Z",
+      "last_validated_at": "2026-06-16T11:34:08Z",
       "latest_event_date": null,
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -747,12 +747,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash normalized text; emit bounded pricing/model signals only",
       "source_state": {
-        "content_sha256": "4a659b1a172456b9f46a6e4f3ba3753ab538ca355ee07fb4a9d387f6df44a668",
+        "content_sha256": "4cca18f8edf5aa982b3e339b6ee7f36bc02a90c0d0a50da3454beebbc7b2e8be",
         "final_url": "https://azure.microsoft.com/en-us/pricing/details/azure-openai/",
         "fingerprint": "b8f1ceb1106b1ecef79da5cc834e80881b62b5f1d1117bf4520d8113ee33c8f3",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:11:56Z"
+        "retrieved_at": "2026-06-16T11:34:08Z"
       },
       "source_type": "pricing_page",
       "url": "https://azure.microsoft.com/en-us/pricing/details/azure-openai/",
@@ -775,7 +775,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "azure_openai.whats_new",
-      "last_validated_at": "2026-06-12T14:12:09Z",
+      "last_validated_at": "2026-06-16T11:34:20Z",
       "latest_event_date": "2026-05-01",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -791,12 +791,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash dated What's New sections; emit bounded dates, subjects, and source URL only",
       "source_state": {
-        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "content_sha256": "0a84a41be394a5382b166f40d9893a7cbf2600844878cb70730a5d87905eab06",
         "final_url": "https://learn.microsoft.com/en-us/azure/foundry-classic/openai/whats-new",
         "fingerprint": "7cac4640c7da7e35923846bf1cca4f9a6df24fb6ad883b6341fc8f0a9a904fe8",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:09Z"
+        "retrieved_at": "2026-06-16T11:34:20Z"
       },
       "source_type": "docs_page",
       "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
@@ -818,7 +818,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "google.ai_docs",
-      "last_validated_at": "2026-06-12T14:12:09Z",
+      "last_validated_at": "2026-06-16T11:34:21Z",
       "latest_event_date": null,
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -834,12 +834,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash normalized text; do not publish raw page",
       "source_state": {
-        "content_sha256": "c1b7c251b7176c4c8d69662b22640cc76f3b10a4339a8a724c40fa76c407af73",
+        "content_sha256": "420373ceb78c25833c223cee982ccfa527275fb7d88297ee9831b8bc2a7d4cc3",
         "final_url": "https://ai.google.dev/gemini-api/docs/models",
         "fingerprint": "f6efa00dfec3d4f35b10f99a751935ba95728066ea736fddebbeb58e20d2d173",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:09Z"
+        "retrieved_at": "2026-06-16T11:34:21Z"
       },
       "source_type": "docs_page",
       "url": "https://ai.google.dev/gemini-api/docs/models",
@@ -863,7 +863,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "google.gemini_changelog",
-      "last_validated_at": "2026-06-12T14:12:10Z",
+      "last_validated_at": "2026-06-16T11:34:21Z",
       "latest_event_date": "2026-06-01",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -879,12 +879,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash dated changelog sections; emit bounded dates, subjects, and source URL only",
       "source_state": {
-        "content_sha256": "04d8ac7ca6076019b20b115eb5805f1c1937895d316743de4052e621aba3b455",
+        "content_sha256": "bcf2291c054910d23bb9ef4a336047af265993346af020588e9dcc1cf073d7fe",
         "final_url": "https://ai.google.dev/gemini-api/docs/changelog",
         "fingerprint": "7102dc5b078d6d9a0a48845d1756f89b6ae0797c78977ce69c80a9e9cd7d731d",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:10Z"
+        "retrieved_at": "2026-06-16T11:34:21Z"
       },
       "source_type": "docs_page",
       "url": "https://ai.google.dev/gemini-api/docs/changelog",
@@ -906,7 +906,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "google.vertex_model_versions",
-      "last_validated_at": "2026-06-12T14:12:11Z",
+      "last_validated_at": "2026-06-16T11:34:21Z",
       "latest_event_date": "2026-06-10",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -922,12 +922,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash scoped lifecycle table rows; emit bounded model/date rows only",
       "source_state": {
-        "content_sha256": "36a8ef03c9566ee3d75de58194be4cb1ff6282ea6b4f83ba9352154c4c569121",
+        "content_sha256": "0ba5edcdfd24fa9b8f3a2830b4d2861df03be7470e0c6200340173e590818e1d",
         "final_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
         "fingerprint": "3870e26eb79d15a70bf591cc9e78449ed668a3396e6edd88068ab8384143fe6b",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:11Z"
+        "retrieved_at": "2026-06-16T11:34:21Z"
       },
       "source_type": "docs_page",
       "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",
@@ -949,7 +949,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "google.vertex_pricing",
-      "last_validated_at": "2026-06-12T14:12:13Z",
+      "last_validated_at": "2026-06-16T11:34:22Z",
       "latest_event_date": null,
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -965,12 +965,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash normalized text; emit bounded pricing/model signals only",
       "source_state": {
-        "content_sha256": "eb5f6b45082d6c9c3a29f32406cbbd4328a6815c82a56148593a18ebc41d7c39",
+        "content_sha256": "a491a2378a0b3985e45c477d01929c1ec62ba80700b1f85dce831b5bb0ea425c",
         "final_url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
         "fingerprint": "f05a55e0acb2941e267fcb2c95069f3f4ddfb4eb0c3031e61e8581cc6dfca5ad",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:13Z"
+        "retrieved_at": "2026-06-16T11:34:22Z"
       },
       "source_type": "pricing_page",
       "url": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
@@ -995,7 +995,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "openai.api_changelog",
-      "last_validated_at": "2026-06-12T14:12:15Z",
+      "last_validated_at": "2026-06-16T11:34:23Z",
       "latest_event_date": "2026-06-04",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -1011,12 +1011,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash dated changelog entries; emit bounded dates, subjects, and source URL only",
       "source_state": {
-        "content_sha256": "9258b3e603291f6ec89a5077cc8c9d418ee2b4c146573aefd5d885159757c6b8",
+        "content_sha256": "e816147ca92aec0f4bc95d334f2da25122ca6b00a27781bbdd4a44078dc2bae0",
         "final_url": "https://developers.openai.com/api/docs/changelog",
         "fingerprint": "6d73e63db4ed164c94bd20dae308ab394a78921261a9dce5c96850686c5cc048",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:15Z"
+        "retrieved_at": "2026-06-16T11:34:23Z"
       },
       "source_type": "docs_page",
       "url": "https://developers.openai.com/api/docs/changelog",
@@ -1026,7 +1026,7 @@
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
       "cadence": "daily",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "enabled": true,
       "graduation_blockers": [],
       "graduation_notes": "Graduated from broad manual Codex docs to the official dated Codex changelog. The parser emits only dates, bounded subjects, entry hashes, and review-only candidate claims.",
@@ -1038,7 +1038,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "openai.codex_docs",
-      "last_validated_at": "2026-06-12T14:12:15Z",
+      "last_validated_at": "2026-06-16T11:34:23Z",
       "latest_event_date": "2026-06-11",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -1054,12 +1054,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash dated changelog entries; emit bounded dates, subjects, and source URL only",
       "source_state": {
-        "content_sha256": "52ebc9e278ff617484784d5fb0d3825a87f8e873055ec02ac487fabc3746a7ac",
+        "content_sha256": "b02be4c83403d892145e8cf594f66b36a3677d36b2856873b0688ef641e9a16c",
         "final_url": "https://developers.openai.com/codex/changelog",
-        "fingerprint": "cc2eb326eb262b0f8d8ab606c6c0178f89d12887eb0fc294389bdfa351882bdc",
+        "fingerprint": "ec060fb378f881cd0b3ab2efe9eee6e229291df5012ec764d05c2540d8151003",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:15Z"
+        "retrieved_at": "2026-06-16T11:34:23Z"
       },
       "source_type": "docs_page",
       "url": "https://developers.openai.com/codex/changelog",
@@ -1081,7 +1081,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "openai.deprecations",
-      "last_validated_at": "2026-06-12T14:12:16Z",
+      "last_validated_at": "2026-06-16T11:34:24Z",
       "latest_event_date": "2026-06-02",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -1097,12 +1097,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash source page during human review; do not publish raw page",
       "source_state": {
-        "content_sha256": "878b9e301c650f690d2422cea7c86e3354c3315bc300bc5712b708b83e9a80f3",
+        "content_sha256": "819dfdb87b4df399dccff871d7d492e0d133b1de4854006c813ca25bf7a740ad",
         "final_url": "https://developers.openai.com/api/docs/deprecations",
-        "fingerprint": "5d74e87ff2eff6f0bfa8fa3bb81d73e2cf17cfe8f1e8d9cc1eed754c0e6b8834",
+        "fingerprint": "f2f785edd904552c152b89ba84de2e14aaf3449c0d6ba3c5bb73c5a725b8a8c7",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:16Z"
+        "retrieved_at": "2026-06-16T11:34:24Z"
       },
       "source_type": "docs_page",
       "url": "https://platform.openai.com/docs/deprecations",
@@ -1125,7 +1125,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "openai.news",
-      "last_validated_at": "2026-06-12T14:12:17Z",
+      "last_validated_at": "2026-06-16T11:34:24Z",
       "latest_event_date": "2026-06-02",
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -1141,12 +1141,12 @@
       "robots_policy_note": "Fetch official RSS feed only; respect provider robots and cache headers.",
       "snapshot_policy": "hash feed entries; emit bounded dates, subjects, and article URLs only",
       "source_state": {
-        "content_sha256": "09761353dd44b221eeaa51d7a0f6370128836600c5b7920f42e097ede80f5281",
+        "content_sha256": "21213ef1bfd48ce6cb311410ec346e62d056aa63af40ca9571947b316f342382",
         "final_url": "https://openai.com/news/rss.xml",
         "fingerprint": "7426dcce24d1147cde3a9ce6040db259435a2dac4471c86b9aa88228a72520ec",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:17Z"
+        "retrieved_at": "2026-06-16T11:34:24Z"
       },
       "source_type": "rss_feed",
       "url": "https://openai.com/news/rss.xml",
@@ -1167,7 +1167,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "openai.pricing",
-      "last_validated_at": "2026-06-12T14:12:17Z",
+      "last_validated_at": "2026-06-16T11:34:25Z",
       "latest_event_date": null,
       "license_note": "Use source URL and factual extracted fields only.",
       "maintainers": [
@@ -1183,12 +1183,12 @@
       "robots_policy_note": "Respect provider robots and cache headers.",
       "snapshot_policy": "hash normalized text; emit bounded pricing/model signals only",
       "source_state": {
-        "content_sha256": "ae90d337378a11335943cba13b8b232f53df7a13d9f2935cc58ecf430bc91fb7",
+        "content_sha256": "1c0d4c308b40f96f2050aabc0943adb9b7d08f838b6e3ad0276bf1892536fcb8",
         "final_url": "https://developers.openai.com/api/docs/pricing",
         "fingerprint": "1e99361410e81957658a2246b24df813c51e28f9c9f2756eba643b0d55c04b08",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:17Z"
+        "retrieved_at": "2026-06-16T11:34:25Z"
       },
       "source_type": "pricing_page",
       "url": "https://developers.openai.com/api/docs/pricing",
@@ -1198,7 +1198,7 @@
       "authority": "official_status",
       "automation_status": "enabled_deterministic",
       "cadence": "hourly",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "enabled": true,
       "graduation_blockers": [],
       "graduation_notes": "Fixture-backed Atom parser hashes incident metadata and emits no copied status text.",
@@ -1209,7 +1209,7 @@
       "introduced_at": null,
       "introduced_ref": null,
       "key": "openai.status",
-      "last_validated_at": "2026-06-12T14:12:18Z",
+      "last_validated_at": "2026-06-16T11:34:25Z",
       "latest_event_date": "2026-06-04",
       "license_note": "Use source URL and factual incident metadata only.",
       "maintainers": [
@@ -1225,12 +1225,12 @@
       "robots_policy_note": "Fetch feed only.",
       "snapshot_policy": "hash feed items; do not publish raw feed body",
       "source_state": {
-        "content_sha256": "4804c4c522f686504d15519657e7908287adc332b8e17c3575d09c596e31d73f",
+        "content_sha256": "02ef797e0b810e5593a7a6eab876622a1ec3284181bdccbb0ec824338d896c4c",
         "final_url": "https://status.openai.com/feed.atom",
-        "fingerprint": "f104c66a23f64c4b8c9189ccfdb2ddda621ec0a51c685213e1bd6584b097a451",
+        "fingerprint": "f6f04fa4499e7edfc3d95a16185a09c7312ad0c626f558fb670abaa116387256",
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-12T14:12:18Z"
+        "retrieved_at": "2026-06-16T11:34:25Z"
       },
       "source_type": "atom_feed",
       "url": "https://status.openai.com/feed.atom",
@@ -1242,7 +1242,7 @@
       "daily": 19,
       "hourly": 2
     },
-    "candidate_backlog_count": 0,
+    "candidate_backlog_count": 14,
     "enabled_deterministic_source_count": 21,
     "event_kind_counts": {
       "api_contract_change": 6,
@@ -1262,7 +1262,7 @@
     "provider_count": 5,
     "reviewed_event_count": 59,
     "source_count": 21,
-    "source_state_latest_retrieved_at": "2026-06-12T14:12:18Z",
+    "source_state_latest_retrieved_at": "2026-06-16T11:34:25Z",
     "source_type_counts": {
       "atom_feed": 1,
       "blog": 1,
