@@ -252,3 +252,17 @@ def test_data_publisher_workflow_is_protected_noop_or_packet_only() -> None:
     assert "git tag" not in workflow
     assert "no data tag or GitHub data release was created" in workflow
     assert "review evidence only" in workflow
+
+
+def test_live_publisher_publishes_root_aliases() -> None:
+    workflow = _workflow("live-publisher.yml")
+
+    assert 'for key in "v1" "v1/"; do' in workflow
+    assert "for artifact in" in workflow
+    assert "latest.json" in workflow
+    assert "events.ndjson" in workflow
+    assert "source-catalog.json" in workflow
+    assert '--key "$artifact"' in workflow
+    assert "Smoke public live root aliases" in workflow
+    assert 'root_url="${APW_LIVE_BASE_URL%/v1}"' in workflow
+    assert 'uv run apw live latest --url "$root_url/latest.json" --limit 1' in workflow

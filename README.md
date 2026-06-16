@@ -198,12 +198,15 @@ https://ai-provider-watch.ottto.net/v1/
 Browsers can open that endpoint as a landing page. Machines should read the
 explicit artifact URLs such as `/v1/latest.json`, `/v1/feed.json`,
 `/v1/rss.xml`, `/v1/source-catalog.json`, and `/v1/health.json`.
+For convenience, the same live artifacts are also published at root-level alias
+URLs such as `https://ai-provider-watch.ottto.net/latest.json`.
 
 Users can read the public live feed directly:
 
 ```bash
 apw live latest --base-url https://ai-provider-watch.ottto.net/v1 --limit 10
 apw live health --base-url https://ai-provider-watch.ottto.net/v1 --summary
+apw live latest --url https://ai-provider-watch.ottto.net/latest.json --limit 10
 ```
 
 The live endpoint publishes JSON, NDJSON, JSON Feed, RSS, Atom, health,

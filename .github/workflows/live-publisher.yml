@@ -98,6 +98,34 @@ jobs:
               --endpoint-url "$endpoint_url" \
               >/dev/null
           done
+          for artifact in \
+            index.html \
+            latest.json \
+            events.json \
+            events.ndjson \
+            feed.json \
+            rss.xml \
+            atom.xml \
+            source-catalog.json \
+            health.json \
+            provenance.json; do
+            case "$artifact" in
+              feed.json) content_type="application/feed+json" ;;
+              *.json) content_type="application/json" ;;
+              *.ndjson) content_type="application/x-ndjson" ;;
+              *.xml) content_type="application/xml" ;;
+              *.html) content_type="text/html; charset=utf-8" ;;
+              *) content_type="application/octet-stream" ;;
+            esac
+            uvx --from awscli aws s3api put-object \
+              --bucket "$APW_R2_BUCKET" \
+              --key "$artifact" \
+              --body ".apw/live/$artifact" \
+              --content-type "$content_type" \
+              --cache-control "public, max-age=60" \
+              --endpoint-url "$endpoint_url" \
+              >/dev/null
+          done
       - name: Smoke public live health endpoint
         if: steps.r2_config.outputs.configured == 'true'
         run: uv run apw live health --url "${APW_LIVE_BASE_URL}/health.json" --summary
@@ -107,6 +135,13 @@ jobs:
           for url in "${APW_LIVE_BASE_URL}" "${APW_LIVE_BASE_URL}/"; do
             curl -fsSL "$url" | grep -F "<title>AI Provider Watch Live Feed</title>"
           done
+      - name: Smoke public live root aliases
+        if: steps.r2_config.outputs.configured == 'true'
+        run: |
+          root_url="${APW_LIVE_BASE_URL%/v1}"
+          curl -fsSL "$root_url/index.html" | grep -F "<title>AI Provider Watch Live Feed</title>"
+          uv run apw live health --url "$root_url/health.json" --summary
+          uv run apw live latest --url "$root_url/latest.json" --limit 1 >/tmp/apw-root-latest.json
       - name: Upload live dry-run artifacts
         uses: actions/upload-artifact@v7
         if: always()

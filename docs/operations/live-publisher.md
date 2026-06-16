@@ -35,6 +35,21 @@ The bare `/v1` and `/v1/` paths are browser landing pages. Machine consumers
 should read the explicit artifact URLs above or use `apw live latest` and
 `apw live health`.
 
+For discoverability, the same live artifacts are also mirrored to root-level
+aliases such as:
+
+```text
+https://ai-provider-watch.ottto.net/latest.json
+https://ai-provider-watch.ottto.net/events.ndjson
+https://ai-provider-watch.ottto.net/feed.json
+https://ai-provider-watch.ottto.net/rss.xml
+https://ai-provider-watch.ottto.net/source-catalog.json
+https://ai-provider-watch.ottto.net/health.json
+```
+
+The `/v1/*` URLs are the canonical versioned API surface. Root aliases are
+convenience links for users who naturally try the domain plus artifact name.
+
 Consumers that want current news should read the live URLs. Consumers that need
 reproducibility should pin repository `data-*` tags or package snapshots.
 
@@ -342,9 +357,11 @@ configuration exists:
 
 The publish step syncs `.apw/live` to `s3://$APW_R2_BUCKET/v1/` through R2's
 S3-compatible endpoint, writes exact landing objects for `/v1` and `/v1/`, and
-then smokes the public health and landing endpoints. The workflow still has only
-`contents: read` GitHub permissions and must not receive release, PyPI,
-provider, Slack, or private Ottto credentials.
+mirrors the same compact artifacts to root-level alias keys such as
+`latest.json` and `health.json`. It then smokes the public health, landing, and
+root alias endpoints. The workflow still has only `contents: read` GitHub
+permissions and must not receive release, PyPI, provider, Slack, or private
+Ottto credentials.
 
 Remaining v0 work:
 
