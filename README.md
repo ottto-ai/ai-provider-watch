@@ -47,11 +47,11 @@ The published package includes a reviewed public data snapshot, so read-only
 commands work outside a checkout. For the freshest feed, use the GitHub data
 artifacts, signed data tags, or `apw remote` commands below.
 
-APW also plans a high-frequency live publisher for users who want fresh news
+APW also publishes a high-frequency live feed for users who want fresh news
 without waiting for repository commits or package releases. See
-[Live Publisher](docs/operations/live-publisher.md). Until that public endpoint
-exists, use package data for offline snapshots and `apw remote` for the latest
-reviewed repository feed.
+[Live Publisher](docs/operations/live-publisher.md). Use package data for
+offline snapshots, `apw remote` for the latest reviewed repository feed, and
+`apw live` for the 15-minute provisional news feed.
 
 ## Quickstart
 
@@ -189,13 +189,17 @@ apw live latest --input .apw/live/latest.json --limit 10
 apw live health --input .apw/live/health.json --summary
 ```
 
-The planned public v0 endpoint is:
+The public v0 live endpoint is:
 
 ```text
 https://ai-provider-watch.ottto.net/v1/
 ```
 
-Once R2 publishing is configured, users can read the public live feed directly:
+Browsers can open that endpoint as a landing page. Machines should read the
+explicit artifact URLs such as `/v1/latest.json`, `/v1/feed.json`,
+`/v1/rss.xml`, `/v1/source-catalog.json`, and `/v1/health.json`.
+
+Users can read the public live feed directly:
 
 ```bash
 apw live latest --base-url https://ai-provider-watch.ottto.net/v1 --limit 10

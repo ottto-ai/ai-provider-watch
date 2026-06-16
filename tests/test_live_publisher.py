@@ -68,7 +68,13 @@ def test_live_artifacts_include_lenient_official_candidates(tmp_path) -> None:
     assert health["source"]["candidate_count"] == 3
     assert health["items"]["automated"] == 1
     assert health["items"]["needs_followup"] == 2
+    assert any(artifact["path"] == "index.html" for artifact in health["artifacts"])
     assert any(artifact["path"] == "source-catalog.json" for artifact in health["artifacts"])
+
+    index = (output_dir / "index.html").read_text(encoding="utf-8")
+    assert "AI Provider Watch Live Feed" in index
+    assert "apw live latest --base-url https://ai-provider-watch.ottto.net/v1 --limit 10" in index
+    assert 'href="health.json"' in index
 
     source_catalog = json.loads((output_dir / "source-catalog.json").read_text(encoding="utf-8"))
     assert source_catalog["schema_version"] == "apw.source_catalog.v0"
@@ -152,7 +158,7 @@ def test_live_cli_build_gate_latest_and_health(tmp_path, capsys) -> None:
         == 0
     )
     build_output = json.loads(capsys.readouterr().out)
-    assert build_output["artifact_count"] == 9
+    assert build_output["artifact_count"] == 10
     assert build_output["item_count"] == 3
 
     assert main(["--root", str(ROOT), "live", "gate", "--input", str(output_dir), "--summary"]) == 0

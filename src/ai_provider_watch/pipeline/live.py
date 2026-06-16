@@ -30,6 +30,7 @@ DEFAULT_LIVE_BASE_URL = "https://ai-provider-watch.ottto.net/v1"
 DEFAULT_TIMEOUT_SECONDS = 20.0
 DEFAULT_LIMIT_BYTES = 5_000_000
 LIVE_ARTIFACTS = {
+    "index": "index.html",
     "latest": "latest.json",
     "events": "events.json",
     "events.ndjson": "events.ndjson",
@@ -288,6 +289,8 @@ def _live_feed(items: list[dict[str, Any]], *, created_at: str, feed_kind: str) 
 
 
 def _media_type(path: str) -> str:
+    if path.endswith(".html"):
+        return "text/html; charset=utf-8"
     if path.endswith("feed.json"):
         return "application/feed+json"
     if path.endswith(".json"):
@@ -306,6 +309,92 @@ def _artifact_summary(path: Path, text: str) -> dict[str, Any]:
         "sha256": _sha256_text(text),
         "bytes": len(text.encode("utf-8")),
     }
+
+
+def _base_url_from_feed_url(feed_url: str | None) -> str:
+    if not feed_url:
+        return DEFAULT_LIVE_BASE_URL
+    parsed = urlparse(feed_url)
+    if parsed.scheme == "https" and parsed.netloc:
+        return feed_url.rsplit("/", 1)[0].rstrip("/")
+    return DEFAULT_LIVE_BASE_URL
+
+
+def _index_provider_label(item: dict[str, Any]) -> str:
+    provider_refs = item.get("provider_refs")
+    if isinstance(provider_refs, list):
+        for provider_ref in provider_refs:
+            if isinstance(provider_ref, str) and provider_ref:
+                return provider_ref.split(":", 1)[-1]
+    return "unknown"
+
+
+def _index_html(items: list[dict[str, Any]], *, created_at: str, base_url: str) -> str:
+    artifact_links = [
+        ("Latest JSON", "latest.json"),
+        ("All Events JSON", "events.json"),
+        ("Events NDJSON", "events.ndjson"),
+        ("JSON Feed", "feed.json"),
+        ("RSS", "rss.xml"),
+        ("Atom", "atom.xml"),
+        ("Source Catalog", "source-catalog.json"),
+        ("Health", "health.json"),
+        ("Provenance", "provenance.json"),
+    ]
+    link_rows = "\n".join(
+        f'        <li><a href="{escape(path)}">{escape(label)}</a></li>'
+        for label, path in artifact_links
+    )
+    item_rows = "\n".join(
+        "        <li>"
+        f"<strong>{escape(_index_provider_label(item))}</strong> "
+        f"{escape(str(item.get('title', 'Untitled live item')))}"
+        "</li>"
+        for item in items[:5]
+    )
+    if not item_rows:
+        item_rows = "        <li>No live items are currently published.</li>"
+    return f"""<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Provider Watch Live Feed</title>
+    <style>
+      :root {{ color-scheme: light dark; }}
+      body {{
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 3rem 1.25rem;
+        line-height: 1.5;
+      }}
+      main {{ max-width: 48rem; margin: 0 auto; }}
+      h1 {{ font-size: 2rem; margin: 0 0 .5rem; }}
+      h2 {{ font-size: 1rem; margin-top: 2rem; }}
+      code {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }}
+      ul {{ padding-left: 1.25rem; }}
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>AI Provider Watch Live Feed</h1>
+      <p>Fresh provisional AI-provider change news, generated every 15 minutes from official sources.</p>
+      <p><strong>Status:</strong> <a href="health.json">health.json</a> generated at <code>{escape(created_at)}</code>.</p>
+      <h2>Artifacts</h2>
+      <ul>
+{link_rows}
+      </ul>
+      <h2>CLI</h2>
+      <pre><code>apw live latest --base-url {escape(base_url)} --limit 10
+apw live health --base-url {escape(base_url)} --summary</code></pre>
+      <h2>Recent Items</h2>
+      <ul>
+{item_rows}
+      </ul>
+    </main>
+  </body>
+</html>
+"""
 
 
 def _rss_pub_date(value: str) -> str:
@@ -510,6 +599,11 @@ def build_live_artifacts(
     latest_feed = _live_feed(items, created_at=resolved_created_at, feed_kind="latest")
     events_feed = _live_feed(_sort_items([*candidate_items, *reviewed_items]), created_at=resolved_created_at, feed_kind="events")
     artifacts: dict[Path, str] = {
+        Path("index.html"): _index_html(
+            items,
+            created_at=resolved_created_at,
+            base_url=_base_url_from_feed_url(feed_url),
+        ),
         Path("latest.json"): write_json_text(latest_feed),
         Path("events.json"): write_json_text(events_feed),
         Path("events.ndjson"): write_ndjson_text(events_feed["items"]),
@@ -709,7 +803,7 @@ def validate_live_artifacts(root: Path, input_dir: Path) -> list[str]:
                 errors.append(f"events.ndjson line {line_number}: {exc}")
                 continue
             errors.extend(_schema_errors(schemas["live_event"], item, f"events.ndjson[{line_number}]"))
-    for name in ("feed", "rss", "atom"):
+    for name in ("index", "feed", "rss", "atom"):
         path = input_dir / LIVE_ARTIFACTS[name]
         if not path.exists():
             errors.append(f"missing live artifact: {path}")
