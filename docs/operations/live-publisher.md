@@ -321,15 +321,16 @@ The read-only `Live Publisher Dry Run` workflow runs every 15 minutes, builds
 `.apw/live`, gates the output, and uploads artifacts. It uses `contents: read`
 and does not commit, tag, publish a package, or read release secrets.
 
-Once the public endpoint is configured, users can read live artifacts directly:
+The public v0 endpoint is configured at `ai-provider-watch.ottto.net`. Users can
+read live artifacts directly:
 
 ```bash
 apw live latest --base-url https://ai-provider-watch.ottto.net/v1 --limit 10
 apw live health --base-url https://ai-provider-watch.ottto.net/v1 --summary
 ```
 
-The workflow is also R2-publish ready. It publishes only when all of this
-dedicated APW configuration exists:
+The workflow publishes to Cloudflare R2 only when all of this dedicated APW
+configuration exists:
 
 - repository secret `APW_R2_ACCOUNT_ID`;
 - repository secret `APW_R2_ACCESS_KEY_ID`;
@@ -340,19 +341,18 @@ dedicated APW configuration exists:
   bucket.
 
 The publish step syncs `.apw/live` to `s3://$APW_R2_BUCKET/v1/` through R2's
-S3-compatible endpoint and then smokes
-`https://ai-provider-watch.ottto.net/v1/health.json`. The workflow still has
-only `contents: read` GitHub permissions and must not receive release, PyPI,
+S3-compatible endpoint, writes exact landing objects for `/v1` and `/v1/`, and
+then smokes the public health and landing endpoints. The workflow still has only
+`contents: read` GitHub permissions and must not receive release, PyPI,
 provider, Slack, or private Ottto credentials.
 
 Remaining v0 work:
 
-1. Create the Cloudflare R2 bucket and scoped bucket write token.
-2. Connect `ai-provider-watch.ottto.net` as the R2 custom domain.
-3. Add the four GitHub repository secret/variable values above.
-4. Confirm the next scheduled run publishes and the public health smoke passes.
-5. Add daily agent improvement workflow that opens parser/fixture/promotion PRs.
-6. Add optional agent-review enrichment over sanitized live items.
+1. Add the daily agent improvement workflow that opens parser, fixture,
+   promotion, and quality-report PRs.
+2. Add optional agent-review enrichment over sanitized live items.
+3. Add live-quality metrics for misses, duplicate/noisy items, retractions, and
+   promotions back into the reviewed repository feed.
 
 The first live release may publish more imperfect items than the audited feed.
 That is intentional. The core quality metric is whether APW surfaces interesting
