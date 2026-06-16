@@ -6,7 +6,7 @@
       "bytes": 15186,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "544074532fcf12319f23de7f87746268df0baaa09a5b4e499c14a8552ca61679"
+      "sha256": "f62551ae76931b9ca2add78a19af341d1b65f3fd084526e4470a5da12d1b2ea2"
     },
     {
       "bytes": 212217,
@@ -24,7 +24,7 @@
       "bytes": 150991,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "5c3b623fea115af2864e6ac7179984ed50ca80e206f1015a1b857064ac1c6923"
+      "sha256": "2a8b789c1b2faffbaa9d44aa7c303ce151ca873267f42bc777ad9df78ce55492"
     },
     {
       "bytes": 11715,
@@ -36,7 +36,7 @@
       "bytes": 4434,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "a84124701ffdd1f54584d130bf23556d852d40f88477065aa5dcf0bf75183a13"
+      "sha256": "3222d1f3aeb4311e49e6cfdd8885a8955e3790b7389557390cd0f98ca80b5e9a"
     },
     {
       "bytes": 26959,
@@ -48,7 +48,7 @@
       "bytes": 47440,
       "media_type": "application/json",
       "path": "data/feeds/source-catalog.json",
-      "sha256": "8d642ecfe7f0580e1bb78ab2498b4bd97bb338c13fb57b1b0085b205ef82f4ac"
+      "sha256": "caf02d36a78023769c9857208fc319a5e31351a69443d9c2235d7de33d2bfeef"
     },
     {
       "bytes": 19933,
@@ -173,10 +173,10 @@
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
   "generated_at": "2026-06-12T10:40:30Z",
-  "generated_by": "ai-provider-watch 0.1.16",
+  "generated_by": "ai-provider-watch 0.1.17",
   "latest_event_date": "2026-06-11",
   "latest_observed_at": "2026-06-12T10:40:30Z",
-  "package_version": "0.1.16",
+  "package_version": "0.1.17",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
     "manifest_path": "data/releases/dev/manifest.json"

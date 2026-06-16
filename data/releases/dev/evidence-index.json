@@ -58,7 +58,7 @@
       "status": "required"
     }
   ],
-  "generated_by": "ai-provider-watch 0.1.16",
+  "generated_by": "ai-provider-watch 0.1.17",
   "github_workflows": [
     {
       "authority": "dry_run_attestation_only",
@@ -190,7 +190,7 @@
     "cli": "apw",
     "name": "ai-provider-watch",
     "pypi_url": "https://pypi.org/project/ai-provider-watch/",
-    "version": "0.1.16"
+    "version": "0.1.17"
   },
   "policies": {
     "community_sources": "review candidates only; no unattended publishing",

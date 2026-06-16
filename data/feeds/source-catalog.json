@@ -7,8 +7,8 @@
     "review_boundary": "Source fetches and generated candidates are review inputs only; publication requires reviewed ProviderEvent records."
   },
   "generated_at": "2026-06-12T10:40:30Z",
-  "generated_by": "ai-provider-watch 0.1.16",
-  "package_version": "0.1.16",
+  "generated_by": "ai-provider-watch 0.1.17",
+  "package_version": "0.1.17",
   "providers": [
     {
       "aliases": [
