@@ -246,25 +246,51 @@ This is the best production target if APW becomes a serious public feed product.
 APW feed artifacts are small. The expensive part should not be storage or
 bandwidth; it is source fetching, agent review, and operational attention.
 
-Starting assumptions:
+Current v0 assumptions:
 
 - 96 runs/day for a 15-minute cadence.
-- Current deterministic source refresh runs in about one minute.
+- Current deterministic source refresh usually completes in under one minute.
 - Standard GitHub-hosted runners are free for public repositories.
-- Cloudflare Workers paid plan starts at a low fixed monthly base.
-- Cloudflare R2 charges primarily for storage and operations, with no internet
-  egress fees; APW-sized feeds should stay low-cost unless adoption becomes
-  large.
-- A one-minute GitHub Actions run every 15 minutes is roughly 2,880 runner
-  minutes/month. In a public repository on standard runners, that is expected to
-  be free; in a private repository, it would need normal Actions minute
-  budgeting.
-- Publishing ten small objects every 15 minutes is roughly 28,800 write-class
-  operations/month before retries, below R2's current free monthly operation
-  tier.
-- Agent review cost depends on model choice and item count. The default should
-  be a cheap model over sanitized deltas only, with per-run cost caps and a
-  fallback that still publishes deterministic green-lane official items.
+- The workflow uses standard Ubuntu runners, not larger runners.
+- Cloudflare R2 has no internet egress fees and includes monthly free tiers for
+  storage, Class A write/list operations, and Class B read operations.
+- The workflow uploads dry-run artifacts with `retention-days: 2`.
+- No AI model is called by the default live publisher.
+
+Expected direct cost at this cadence is $0/day while APW stays within the
+public-repository GitHub Actions and R2 free tiers.
+
+Approximate R2 operation budget:
+
+| Workload | Estimate |
+| --- | ---: |
+| Scheduled runs | 96/day, about 2,880/30-day month |
+| Live objects written per run | 10 artifact files plus `/v1` and `/v1/` landing objects |
+| Conservative Class A operations | about 20/run including sync/list overhead |
+| Conservative Class A operations/month | about 57,600 |
+| R2 Class A free tier | 1,000,000/month |
+| Paid equivalent if no free tier applied | about $0.26/month, about $0.009/day |
+| Workflow smoke reads | a few hundred Class B reads/day |
+| R2 Class B free tier | 10,000,000/month |
+
+Public read traffic is the first cost variable to watch. R2 Class B reads are
+currently $0.36 per million after the free tier:
+
+| Public traffic | Rough R2 read cost if APW is the only R2 usage |
+| --- | ---: |
+| 100,000 reads/day | $0/month, under 10M reads/month |
+| 1,000,000 reads/day | about $7.20/month after the 10M free reads |
+| 10,000,000 reads/day | about $104/month after the 10M free reads |
+
+Storage should remain negligible because the live publisher replaces a compact
+set of feed files in place. The GitHub artifact copy is capped to two days, so
+even 96 runs/day should stay far below normal artifact-storage quotas for
+APW-sized outputs. If the workflow begins uploading large source snapshots,
+increase monitoring before increasing retention.
+
+Future agent review cost depends on model choice and item count. The default
+should be a cheap model over sanitized deltas only, with per-run cost caps and a
+fallback that still publishes deterministic green-lane official items.
 
 Cost controls:
 

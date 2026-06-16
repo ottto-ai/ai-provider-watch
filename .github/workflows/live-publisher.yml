@@ -101,6 +101,12 @@ jobs:
       - name: Smoke public live health endpoint
         if: steps.r2_config.outputs.configured == 'true'
         run: uv run apw live health --url "${APW_LIVE_BASE_URL}/health.json" --summary
+      - name: Smoke public live landing endpoints
+        if: steps.r2_config.outputs.configured == 'true'
+        run: |
+          for url in "${APW_LIVE_BASE_URL}" "${APW_LIVE_BASE_URL}/"; do
+            curl -fsSL "$url" | grep -F "<title>AI Provider Watch Live Feed</title>"
+          done
       - name: Upload live dry-run artifacts
         uses: actions/upload-artifact@v7
         if: always()
