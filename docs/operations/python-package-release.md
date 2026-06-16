@@ -127,6 +127,13 @@ original `data-2026.06.11` tag. A package snapshot keeps install-only users on
 the same 56-event reviewed feed as the latest immutable data release without
 requiring live remote reads.
 
+Decision for `0.1.17`: publish the package patch after the signed
+`data-2026.06.16` release. The signed data tag raises the reviewed bundled feed
+to 59 ProviderEvents, including OpenAI Codex workflow/rate-limit changes and
+AWS Bedrock Gemma 4 availability. A package snapshot keeps install-only users
+aligned with the latest immutable data release while the separate live feed
+continues to carry provisional official-source candidates.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.
