@@ -257,7 +257,8 @@ def test_data_publisher_workflow_is_protected_noop_or_packet_only() -> None:
 def test_live_publisher_publishes_root_aliases() -> None:
     workflow = _workflow("live-publisher.yml")
 
-    assert 'for key in "" "v1" "v1/"; do' in workflow
+    assert 'for key in "v1" "v1/"; do' in workflow
+    assert 'for key in "" "v1" "v1/"; do' not in workflow
     assert "for artifact in" in workflow
     assert "latest.json" in workflow
     assert "events.ndjson" in workflow

@@ -88,7 +88,7 @@ jobs:
             --endpoint-url "$endpoint_url" \
             --delete \
             --cache-control "public, max-age=60"
-          for key in "" "v1" "v1/"; do
+          for key in "v1" "v1/"; do
             uvx --from awscli aws s3api put-object \
               --bucket "$APW_R2_BUCKET" \
               --key "$key" \

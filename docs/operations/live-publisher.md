@@ -49,6 +49,10 @@ https://ai-provider-watch.ottto.net/health.json
 
 The `/v1/*` URLs are the canonical versioned API surface. Root aliases are
 convenience links for users who naturally try the domain plus artifact name.
+The domain root, `https://ai-provider-watch.ottto.net/`, is served by a
+Cloudflare URL Rewrite Rule that rewrites only that root path to `/index.html`;
+R2's S3-compatible API rejects zero-length object keys, so the publisher cannot
+upload a literal empty root object.
 
 Consumers that want current news should read the live URLs. Consumers that need
 reproducibility should pin repository `data-*` tags or package snapshots.
@@ -362,6 +366,12 @@ mirrors the same compact artifacts to root-level alias keys such as
 root alias endpoints. The workflow still has only `contents: read` GitHub
 permissions and must not receive release, PyPI, provider, Slack, or private
 Ottto credentials.
+
+The Cloudflare zone for `ottto.net` must also have one URL Rewrite Rule:
+
+- name: `AI Provider Watch root landing`;
+- match: hostname equals `ai-provider-watch.ottto.net` and URI path equals `/`;
+- action: static path rewrite to `/index.html`, query preserved.
 
 Remaining v0 work:
 
