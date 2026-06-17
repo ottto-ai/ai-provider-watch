@@ -33,7 +33,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
         "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
     } <= event_ids
     latest = json.loads(artifacts[Path("data/feeds/latest.json")])
-    assert "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells" in {
+    assert "2026-06-16-openai-codex-eea-computer-use-chrome-memories" in {
         event["id"] for event in latest
     }
     rss = artifacts[Path("data/feeds/rss.xml")]
@@ -49,9 +49,9 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert json_feed["version"] == "https://jsonfeed.org/version/1.1"
     assert json_feed["feed_url"].endswith("/data/feeds/feed.json")
     assert "no raw provider content" in json_feed["user_comment"]
-    assert json_feed["items"][0]["id"] == "2026-06-11-openai-codex-app-rate-limit-reset-computer-use"
+    assert json_feed["items"][0]["id"] == "2026-06-16-openai-codex-eea-computer-use-chrome-memories"
     assert json_feed["items"][0]["url"].endswith(
-        "/data/events/2026-06-11-openai-codex-app-rate-limit-reset-computer-use.json"
+        "/data/events/2026-06-16-openai-codex-eea-computer-use-chrome-memories.json"
     )
     assert json_feed["items"][0]["_apw"]["evidence_refs"][0]["content_sha256"]
     manifest = json.loads(artifacts[Path("data/releases/dev/manifest.json")])
@@ -110,7 +110,7 @@ def test_build_artifacts_for_reviewed_seed_feed() -> None:
     assert freshness["release_id"] == "dev"
     assert freshness["data_tag"] is None
     assert freshness["event_count"] == len(events)
-    assert freshness["latest_event_date"] == "2026-06-11"
+    assert freshness["latest_event_date"] == "2026-06-16"
     assert freshness["source_state"]["path"] == "data/source-state/fingerprints.json"
     assert freshness["source_state"]["source_count"] == 21
     assert freshness["release_artifacts"]["checksums_path"] == "data/releases/dev/checksums.txt"

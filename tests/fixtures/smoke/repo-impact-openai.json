@@ -1,6 +1,38 @@
 {
-  "event_count": 25,
+  "event_count": 27,
   "events": [
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-16",
+      "event_kind": "regional_availability_change",
+      "id": "2026-06-16-openai-codex-eea-computer-use-chrome-memories",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "summary": "OpenAI Codex changelog says more Codex app capabilities are rolling out in the European Economic Area, United Kingdom, and Switzerland, including Computer Use, the Chrome extension, Memories behavior, and Chronicle preview availability for Pro users on macOS.",
+      "title": "OpenAI Expanded Codex Computer Use, Chrome Extension, Memories, And Chronicle In Europe"
+    },
+    {
+      "confidence": "confirmed",
+      "event_date": "2026-06-15",
+      "event_kind": "workflow_behavior_change",
+      "id": "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
+      "matched_refs": [
+        "app:codex",
+        "provider:openai"
+      ],
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "summary": "OpenAI Codex changelog records June 15 updates for ChatGPT iOS and Codex CLI, including mobile workspace browsing and diff controls, MCP approval choices, CLI usage views, permanent session deletion, Claude Code import, managed Amazon Bedrock API-key authentication, and credential storage improvements.",
+      "title": "OpenAI Codex Added Mobile Workspace Controls, MCP Approvals, Usage Views, And Bedrock Auth"
+    },
     {
       "confidence": "confirmed",
       "event_date": "2026-06-11",

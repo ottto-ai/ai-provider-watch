@@ -1,0 +1,94 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-15-aws-bedrock-grok-43-availability",
+  "title": "AWS Bedrock Added Grok 4.3 From xAI",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "event_date": "2026-06-15",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-17T02:17:05Z",
+  "announced_at": "2026-06-15T00:00:00Z",
+  "effective_at": "2026-06-15T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced Grok 4.3 from xAI on Amazon Bedrock, describing a reasoning-first model with configurable reasoning effort, tool use, structured output, streaming, and Mantle inference-engine support for price/performance-sensitive workloads.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/grok-amazon-bedrock/",
+      "retrieved_at": "2026-06-17T02:17:05Z",
+      "authority": "official_blog",
+      "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+      "snapshot_ref": "entry:6e15c76919cb2949",
+      "selector": "announcement:6e15c76919cb2949",
+      "license_note": "Official source reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers",
+        "coding_agent_users",
+        "finops"
+      ],
+      "recommended_action": "Evaluate Grok 4.3 regional availability, quotas, pricing, and tool-calling behavior before adding it to Bedrock routing policies."
+    },
+    {
+      "scope_type": "model",
+      "scope_ref": "model:aws-bedrock/grok-4.3",
+      "impact_kind": "cost",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "finops",
+        "platform_engineers"
+      ],
+      "recommended_action": "Benchmark Mantle-backed Grok 4.3 price/performance and reasoning-effort settings against existing Bedrock model routes.",
+      "estimated_cost_effect": {
+        "direction": "unknown",
+        "magnitude": "AWS describes token efficiency and Mantle price/performance, but APW did not verify invoice-level deltas.",
+        "basis": "official AWS launch announcement",
+        "confidence": "high"
+      }
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:aws-bedrock/grok-4.3"
+    ],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "This event records Bedrock-hosted model availability, not xAI first-party API availability or exact account eligibility."
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:aws_bedrock",
+    "impact:model_launch",
+    "surface:aws_bedrock"
+  ],
+  "limitations": [
+    "The source-review candidate classified this as a pricing change; source-owner review corrected the event to model availability with cost/performance impact.",
+    "APW does not copy AWS announcement prose or assert measured latency/cost."
+  ]
+}

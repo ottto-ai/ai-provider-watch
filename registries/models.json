@@ -126,6 +126,16 @@
         "gemma-4-e2b"
       ],
       "status": "available"
+    },
+    {
+      "id": "aws-bedrock/grok-4.3",
+      "provider_id": "aws-bedrock",
+      "display_name": "Grok 4.3 on Amazon Bedrock",
+      "aliases": [
+        "grok-4.3",
+        "grok-43"
+      ],
+      "status": "available"
     }
   ]
 }

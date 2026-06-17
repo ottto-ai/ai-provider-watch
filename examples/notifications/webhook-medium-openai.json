@@ -1,7 +1,7 @@
 {
   "delivery": {
     "content_type": "application/json",
-    "idempotency_key": "apw-webhook-v0-137dfc85fc9be4fd182c3200",
+    "idempotency_key": "apw-webhook-v0-3d51eb648ed241d642f73a8d",
     "method": "POST",
     "mode": "operator_owned",
     "retry_policy": {
@@ -20,6 +20,115 @@
   },
   "event_count": 20,
   "events": [
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-16T00:00:00Z",
+      "event_date": "2026-06-16",
+      "event_kind": "regional_availability_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+          "retrieved_at": "2026-06-17T02:17:28Z",
+          "source_key": "openai.codex_docs",
+          "url": "https://developers.openai.com/codex/changelog"
+        }
+      ],
+      "id": "2026-06-16-openai-codex-eea-computer-use-chrome-memories",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "availability",
+          "recommended_action": "Re-check regional Codex app enablement, Chrome extension policies, and Computer Use approvals before updating European workspace runbooks.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "medium"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "behavior",
+          "recommended_action": "Confirm Memories defaults and Chronicle eligibility before relying on persisted preferences or screen-context memory in regulated regional workspaces.",
+          "scope_ref": "region:eea-uk-ch",
+          "scope_type": "cloud_region",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-17T02:17:28Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_docs",
+      "summary": "OpenAI Codex changelog says more Codex app capabilities are rolling out in the European Economic Area, United Kingdom, and Switzerland, including Computer Use, the Chrome extension, Memories behavior, and Chronicle preview availability for Pro users on macOS.",
+      "title": "OpenAI Expanded Codex Computer Use, Chrome Extension, Memories, And Chronicle In Europe"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-15T00:00:00Z",
+      "event_date": "2026-06-15",
+      "event_kind": "workflow_behavior_change",
+      "evidence_refs": [
+        {
+          "authority": "official_docs",
+          "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+          "retrieved_at": "2026-06-17T02:17:28Z",
+          "source_key": "openai.codex_docs",
+          "url": "https://developers.openai.com/codex/changelog"
+        }
+      ],
+      "id": "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "behavior",
+          "recommended_action": "Review MCP approval scopes, deletion safeguards, credential storage, and mobile workspace access before updating Codex automation policies.",
+          "scope_ref": "app:codex",
+          "scope_type": "agent_app",
+          "severity": "high"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "migration",
+          "recommended_action": "If using Codex with Bedrock credentials, test managed API-key storage and local policy handling before moving workloads into shared workspaces.",
+          "scope_ref": "surface:aws-bedrock/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "added",
+          "impact_kind": "migration",
+          "recommended_action": "Treat Claude Code import as a migration path that still needs config, credential, and memory review before bulk adoption.",
+          "scope_ref": "app:claude-code",
+          "scope_type": "agent_app",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-17T02:17:28Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "OpenAI Codex changelog records June 15 updates for ChatGPT iOS and Codex CLI, including mobile workspace browsing and diff controls, MCP approval choices, CLI usage views, permanent session deletion, Claude Code import, managed Amazon Bedrock API-key authentication, and credential storage improvements.",
+      "title": "OpenAI Codex Added Mobile Workspace Controls, MCP Approvals, Usage Views, And Bedrock Auth"
+    },
     {
       "confidence": "confirmed",
       "detail_refs": {
@@ -919,118 +1028,6 @@
       "source_authority": "official_blog",
       "summary": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.",
       "title": "OpenAI Added GPT-Realtime-2, Translate, And Whisper Voice API Models"
-    },
-    {
-      "confidence": "confirmed",
-      "detail_refs": {
-        "model_refs": [
-          "model:openai/gpt-5.5-cyber",
-          "model:openai/gpt-5.5"
-        ],
-        "replacement_refs": []
-      },
-      "effective_at": "2026-05-07T00:00:00Z",
-      "event_date": "2026-05-07",
-      "event_kind": "model_launch",
-      "evidence_refs": [
-        {
-          "authority": "official_blog",
-          "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
-          "retrieved_at": "2026-06-11T19:15:39Z",
-          "source_key": "openai.news",
-          "url": "https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber"
-        }
-      ],
-      "id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
-      "impacts": [
-        {
-          "confidence": "confirmed",
-          "direction": "added",
-          "impact_kind": "availability",
-          "recommended_action": "Treat GPT-5.5-Cyber as gated limited-preview access and verify authorized-use, tenant eligibility, logging, and abuse-monitoring controls before operational use.",
-          "scope_ref": "model:openai/gpt-5.5-cyber",
-          "scope_type": "model",
-          "severity": "high"
-        },
-        {
-          "confidence": "confirmed",
-          "direction": "changed",
-          "impact_kind": "security",
-          "recommended_action": "Require phishing-resistant account security for individual Trusted Access for Cyber users or document equivalent organization-level SSO controls before the June 1, 2026 requirement.",
-          "scope_ref": "account:openai/trusted-access-for-cyber",
-          "scope_type": "account_type",
-          "severity": "high"
-        },
-        {
-          "confidence": "confirmed",
-          "direction": "changed",
-          "impact_kind": "behavior",
-          "recommended_action": "Re-test defensive-security workflows under the intended trusted-access level because model refusal behavior can vary by access tier.",
-          "scope_ref": "model:openai/gpt-5.5",
-          "scope_type": "model",
-          "severity": "medium"
-        }
-      ],
-      "lifecycle_status": "reviewed",
-      "migration_deadline": "2026-06-01T00:00:00Z",
-      "observed_at": "2026-06-11T19:15:39Z",
-      "provider_refs": [
-        "provider:openai"
-      ],
-      "severity": "high",
-      "source_authority": "official_blog",
-      "summary": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.",
-      "title": "OpenAI Added GPT-5.5-Cyber Limited Preview And Trusted Access Controls"
-    },
-    {
-      "confidence": "confirmed",
-      "detail_refs": {
-        "model_refs": [],
-        "replacement_refs": []
-      },
-      "effective_at": "2026-05-05T00:00:00Z",
-      "event_date": "2026-05-05",
-      "event_kind": "default_model_change",
-      "evidence_refs": [
-        {
-          "authority": "official_blog",
-          "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
-          "retrieved_at": "2026-06-11T19:15:39Z",
-          "source_key": "openai.news",
-          "url": "https://openai.com/index/gpt-5-5-instant"
-        }
-      ],
-      "id": "2026-05-05-openai-gpt-55-instant-default",
-      "impacts": [
-        {
-          "confidence": "confirmed",
-          "direction": "changed",
-          "impact_kind": "behavior",
-          "recommended_action": "Pin explicit model IDs or rerun evaluation suites if production API workloads depend on chat-latest behavior.",
-          "scope_ref": "model:openai/chat-latest",
-          "scope_type": "model_alias",
-          "severity": "high"
-        },
-        {
-          "confidence": "confirmed",
-          "direction": "removed",
-          "impact_kind": "migration",
-          "recommended_action": "Plan fallback testing before the three-month paid-user availability window for GPT-5.3 Instant ends.",
-          "scope_ref": "model:openai/gpt-5.3-instant",
-          "scope_type": "model",
-          "severity": "medium"
-        }
-      ],
-      "lifecycle_status": "reviewed",
-      "migration_deadline": "2026-08-05T00:00:00Z",
-      "observed_at": "2026-06-11T19:15:39Z",
-      "provider_refs": [
-        "provider:openai"
-      ],
-      "severity": "high",
-      "source_authority": "official_blog",
-      "summary": "OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.",
-      "title": "OpenAI Replaced GPT-5.3 Instant With GPT-5.5 Instant As Default"
     }
   ],
   "filters": {

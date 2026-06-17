@@ -1,0 +1,97 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
+  "title": "OpenAI Codex Added Mobile Workspace Controls, MCP Approvals, Usage Views, And Bedrock Auth",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-06-15",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-17T02:17:28Z",
+  "announced_at": "2026-06-15T00:00:00Z",
+  "effective_at": "2026-06-15T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI Codex changelog records June 15 updates for ChatGPT iOS and Codex CLI, including mobile workspace browsing and diff controls, MCP approval choices, CLI usage views, permanent session deletion, Claude Code import, managed Amazon Bedrock API-key authentication, and credential storage improvements.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog",
+      "retrieved_at": "2026-06-17T02:17:28Z",
+      "authority": "official_docs",
+      "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+      "snapshot_ref": "entry:3df757e82ec6bf10",
+      "selector": "announcement:3df757e82ec6bf10",
+      "license_note": "Official source reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers",
+        "security_engineers"
+      ],
+      "recommended_action": "Review MCP approval scopes, deletion safeguards, credential storage, and mobile workspace access before updating Codex automation policies."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "migration",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "platform_engineers",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "If using Codex with Bedrock credentials, test managed API-key storage and local policy handling before moving workloads into shared workspaces."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:claude-code",
+      "impact_kind": "migration",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers"
+      ],
+      "recommended_action": "Treat Claude Code import as a migration path that still needs config, credential, and memory review before bulk adoption."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "Codex mobile and CLI updates added workspace/diff controls, MCP approval choices, account usage views, deletion flows, Claude Code import, Bedrock API-key handling, and reliability fixes."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:openai",
+    "impact:workflow_behavior_change",
+    "app:codex",
+    "app:claude_code",
+    "surface:aws_bedrock"
+  ],
+  "limitations": [
+    "The candidate classified part of this source as API and rate-limit changes; source-owner review records it as a broader Codex workflow/security/credential update. Exact rollout, plan eligibility, and managed credential behavior may vary."
+  ]
+}

@@ -1,5 +1,264 @@
 [
   {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Transform added generative-AI model migration assessment that can compare current model usage with Bedrock alternatives and surface code, prompt-caching, lifecycle, and cost recommendations.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c007f28dfbb2acf6",
+        "snapshot_ref": "entry:c007f28dfbb2acf6",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-transform-model-to-model-assessments"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-transform-model-migration-assessment",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Use the assessment output as review input when migrating OpenAI, Gemini, Anthropic SDK, LiteLLM, or Ollama workloads toward Bedrock; do not apply generated code changes without normal review.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "cost",
+        "recommended_action": "Compare APW and AWS Transform cost findings before changing multi-provider routing defaults.",
+        "scope_ref": "gateway:litellm",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the AWS migration-assessment feature as provider-change context; it does not validate generated migrations or AWS cost estimates."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS Transform support for model-to-model migration assessment of generative AI workloads, including model mapping to Bedrock equivalents, cost comparisons, prompt-caching analysis, lifecycle awareness, and production-ready code changes.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:migration",
+      "surface:aws_bedrock",
+      "gateway:litellm"
+    ],
+    "title": "AWS Transform Added Model-To-Model Migration Assessment For GenAI Workloads"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex mobile and CLI updates added workspace/diff controls, MCP approval choices, account usage views, deletion flows, Claude Code import, Bedrock API-key handling, and reliability fixes.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:28Z",
+        "selector": "announcement:3df757e82ec6bf10",
+        "snapshot_ref": "entry:3df757e82ec6bf10",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Review MCP approval scopes, deletion safeguards, credential storage, and mobile workspace access before updating Codex automation policies.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "If using Codex with Bedrock credentials, test managed API-key storage and local policy handling before moving workloads into shared workspaces.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Treat Claude Code import as a migration path that still needs config, credential, and memory review before bulk adoption.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The candidate classified part of this source as API and rate-limit changes; source-owner review records it as a broader Codex workflow/security/credential update. Exact rollout, plan eligibility, and managed credential behavior may vary."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:28Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI Codex changelog records June 15 updates for ChatGPT iOS and Codex CLI, including mobile workspace browsing and diff controls, MCP approval choices, CLI usage views, permanent session deletion, Claude Code import, managed Amazon Bedrock API-key authentication, and credential storage improvements.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex",
+      "app:claude_code",
+      "surface:aws_bedrock"
+    ],
+    "title": "OpenAI Codex Added Mobile Workspace Controls, MCP Approvals, Usage Views, And Bedrock Auth"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS DevOps Agent gained custom SRE agent support and MCP/A2A protocol integration paths for operational agent workflows.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c9f791c5a991760f",
+        "snapshot_ref": "entry:c9f791c5a991760f",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-devops-agent-custom-agents/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-devops-agent-custom-sre-mcp-a2a",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review custom SRE agent permissions, MCP/A2A boundaries, and runbook ownership before enabling in production operations.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Treat new MCP/A2A integrations as untrusted tool surfaces and validate least-privilege policies before connecting agent hosts.",
+        "scope_ref": "gateway:mcp",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to an agent workflow/protocol surface change."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS DevOps Agent expansion with custom SRE agents plus MCP and A2A protocol support, adding new agent-integration surfaces for teams using AWS-managed operational agents.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:workflow_behavior_change",
+      "gateway:mcp",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS DevOps Agent Added Custom SRE Agents And MCP/A2A Protocol Support"
+  },
+  {
     "announced_at": "2026-06-09T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

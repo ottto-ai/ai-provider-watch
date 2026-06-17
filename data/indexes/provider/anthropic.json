@@ -1,5 +1,96 @@
 [
   {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-06-15T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "This event records API model retirement from Anthropic release notes. Researchers may have separate access paths; APW does not assert eligibility for exceptions.",
+      "model_refs": [
+        "model:anthropic/claude-sonnet-4-20250514",
+        "model:anthropic/claude-opus-4-20250514"
+      ],
+      "replacement_refs": [
+        "model:anthropic/claude-sonnet-4.6",
+        "model:anthropic/claude-opus-4.8"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "e9de4e04a4e337722f8558767c7b22a5b4495717334b737eeec576667aeb01a8",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:02Z",
+        "selector": "announcement:efe4be97db18acaf",
+        "snapshot_ref": "entry:efe4be97db18acaf",
+        "source_key": "anthropic.release_notes",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-anthropic-sonnet-4-opus-4-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Remove retired Claude Sonnet 4 and Claude Opus 4 IDs from routing allowlists and migrate pinned traffic to supported successor models.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Audit applications, gateways, and eval fixtures for pinned claude-sonnet-4-20250514 or claude-opus-4-20250514 model IDs before retrying failed requests.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official release-note metadata only, not account-specific exception eligibility.",
+      "The release-note candidate also mentioned successor models; APW records them as replacement refs, not as new launches."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:02Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Anthropic release notes say Claude Sonnet 4 and Claude Opus 4 API model IDs were retired on June 15, 2026, with requests to those IDs now returning errors and recommended upgrades to Sonnet 4.6 and Opus 4.8.",
+    "tags": [
+      "source:official_docs",
+      "provider:anthropic",
+      "impact:model_retirement",
+      "surface:anthropic_api"
+    ],
+    "title": "Anthropic Retired Claude Sonnet 4 And Claude Opus 4 API Models"
+  },
+  {
     "announced_at": "2026-06-09T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",
