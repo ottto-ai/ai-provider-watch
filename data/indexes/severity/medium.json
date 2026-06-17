@@ -1,5 +1,422 @@
 [
   {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app capabilities expanded across EEA, UK, and Switzerland, including desktop Computer Use, Chrome extension access, Memories behavior, and Chronicle preview availability.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "regional_availability_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:28Z",
+        "selector": "announcement:7d3577a92340acf0",
+        "snapshot_ref": "entry:7d3577a92340acf0",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-openai-codex-eea-computer-use-chrome-memories",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Re-check regional Codex app enablement, Chrome extension policies, and Computer Use approvals before updating European workspace runbooks.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Confirm Memories defaults and Chronicle eligibility before relying on persisted preferences or screen-context memory in regulated regional workspaces.",
+        "scope_ref": "region:eea-uk-ch",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Rollout timing and workspace eligibility may vary by account, plan, platform, and region."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:28Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI Codex changelog says more Codex app capabilities are rolling out in the European Economic Area, United Kingdom, and Switzerland, including Computer Use, the Chrome extension, Memories behavior, and Chronicle preview availability for Pro users on macOS.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:regional_availability_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Expanded Codex Computer Use, Chrome Extension, Memories, And Chronicle In Europe"
+  },
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Transform added generative-AI model migration assessment that can compare current model usage with Bedrock alternatives and surface code, prompt-caching, lifecycle, and cost recommendations.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c007f28dfbb2acf6",
+        "snapshot_ref": "entry:c007f28dfbb2acf6",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-transform-model-to-model-assessments"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-transform-model-migration-assessment",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Use the assessment output as review input when migrating OpenAI, Gemini, Anthropic SDK, LiteLLM, or Ollama workloads toward Bedrock; do not apply generated code changes without normal review.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "cost",
+        "recommended_action": "Compare APW and AWS Transform cost findings before changing multi-provider routing defaults.",
+        "scope_ref": "gateway:litellm",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the AWS migration-assessment feature as provider-change context; it does not validate generated migrations or AWS cost estimates."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS Transform support for model-to-model migration assessment of generative AI workloads, including model mapping to Bedrock equivalents, cost comparisons, prompt-caching analysis, lifecycle awareness, and production-ready code changes.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:migration",
+      "surface:aws_bedrock",
+      "gateway:litellm"
+    ],
+    "title": "AWS Transform Added Model-To-Model Migration Assessment For GenAI Workloads"
+  },
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "agentic_workflow_guardrail_api"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/guardrails/agentic-workflows"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:561d3c9e616d78cd",
+        "snapshot_ref": "entry:561d3c9e616d78cd",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-guardrails-api-ai/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-bedrock-guardrails-agentic-api",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Review guardrail integration points for agent workflows before changing safety or compliance controls.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Add compatibility tests for the new Guardrails API if Bedrock agents or custom agent frameworks call guardrails directly.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public AWS announcement only; it does not assert regional coverage, IAM policy details, or SDK version support."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a new Amazon Bedrock Guardrails API targeting agentic AI workflows, adding a developer-facing guardrail integration path for agent systems built on Bedrock.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:api_contract_change",
+      "impact:security",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock Guardrails Added An API For Agentic AI Workflows"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS DevOps Agent gained custom SRE agent support and MCP/A2A protocol integration paths for operational agent workflows.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c9f791c5a991760f",
+        "snapshot_ref": "entry:c9f791c5a991760f",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-devops-agent-custom-agents/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-devops-agent-custom-sre-mcp-a2a",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review custom SRE agent permissions, MCP/A2A boundaries, and runbook ownership before enabling in production operations.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Treat new MCP/A2A integrations as untrusted tool surfaces and validate least-privilege policies before connecting agent hosts.",
+        "scope_ref": "gateway:mcp",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to an agent workflow/protocol surface change."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS DevOps Agent expansion with custom SRE agents plus MCP and A2A protocol support, adding new agent-integration surfaces for teams using AWS-managed operational agents.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:workflow_behavior_change",
+      "gateway:mcp",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS DevOps Agent Added Custom SRE Agents And MCP/A2A Protocol Support"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "long_term_memory_metadata_consistency"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/agentcore-memory"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:dc63cbdab3b50b47",
+        "snapshot_ref": "entry:dc63cbdab3b50b47",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/05/agentcore-memory-scmetadata"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-bedrock-agentcore-memory-metadata",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest agent memory flows that depend on metadata ordering, freshness, or read-after-write assumptions.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Update AgentCore Memory wrappers and tests to account for strictly consistent metadata semantics where enabled.",
+        "scope_ref": "endpoint:aws-bedrock/agentcore-memory",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to AgentCore API/behavior metadata semantics."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced strictly consistent metadata support for Amazon Bedrock AgentCore Memory, a developer-facing change for long-term memory behavior and metadata reads in agent workloads.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:api_contract_change",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock AgentCore Memory Added Strictly Consistent Metadata"
+  },
+  {
     "announced_at": null,
     "confidence": "confirmed",
     "date_confidence": "approximate",

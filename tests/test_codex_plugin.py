@@ -81,4 +81,4 @@ def test_mcp_stdio_server_lists_tools_and_reads_latest_resource() -> None:
     template_uris = {item["uriTemplate"] for item in responses[2]["result"]["resourceTemplates"]}
     assert "apw://events/{event_id}" in template_uris
     latest_text = responses[3]["result"]["contents"][0]["text"]
-    assert "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells" in latest_text
+    assert "2026-06-16-openai-codex-eea-computer-use-chrome-memories" in latest_text

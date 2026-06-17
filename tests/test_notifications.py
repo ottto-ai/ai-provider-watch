@@ -37,6 +37,8 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
     assert payload["schema_version"] == "apw.webhook_payload.v0"
     assert payload["event_count"] == 20
     assert {event["id"] for event in payload["events"]} == {
+        "2026-06-16-openai-codex-eea-computer-use-chrome-memories",
+        "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
         "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
         "2026-06-09-openai-codex-mobile-worktrees-goals-review",
         "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
@@ -55,8 +57,6 @@ def test_webhook_payload_is_schema_backed_and_operator_owned() -> None:
         "2026-05-28-openai-chat-latest-alias",
         "2026-05-26-openai-workload-identity-federation",
         "2026-05-07-openai-realtime-voice-api-models",
-        "2026-05-07-openai-gpt-55-cyber-trusted-access",
-        "2026-05-05-openai-gpt-55-instant-default",
     }
     assert payload["delivery"]["mode"] == "operator_owned"
     assert payload["delivery"]["method"] == "POST"

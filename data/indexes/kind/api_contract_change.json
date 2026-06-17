@@ -1,5 +1,180 @@
 [
   {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "agentic_workflow_guardrail_api"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/guardrails/agentic-workflows"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:561d3c9e616d78cd",
+        "snapshot_ref": "entry:561d3c9e616d78cd",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-guardrails-api-ai/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-bedrock-guardrails-agentic-api",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Review guardrail integration points for agent workflows before changing safety or compliance controls.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Add compatibility tests for the new Guardrails API if Bedrock agents or custom agent frameworks call guardrails directly.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public AWS announcement only; it does not assert regional coverage, IAM policy details, or SDK version support."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a new Amazon Bedrock Guardrails API targeting agentic AI workflows, adding a developer-facing guardrail integration path for agent systems built on Bedrock.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:api_contract_change",
+      "impact:security",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock Guardrails Added An API For Agentic AI Workflows"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "long_term_memory_metadata_consistency"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/agentcore-memory"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:dc63cbdab3b50b47",
+        "snapshot_ref": "entry:dc63cbdab3b50b47",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/05/agentcore-memory-scmetadata"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-bedrock-agentcore-memory-metadata",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest agent memory flows that depend on metadata ordering, freshness, or read-after-write assumptions.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Update AgentCore Memory wrappers and tests to account for strictly consistent metadata semantics where enabled.",
+        "scope_ref": "endpoint:aws-bedrock/agentcore-memory",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to AgentCore API/behavior metadata semantics."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced strictly consistent metadata support for Amazon Bedrock AgentCore Memory, a developer-facing change for long-term memory behavior and metadata reads in agent workloads.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:api_contract_change",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock AgentCore Memory Added Strictly Consistent Metadata"
+  },
+  {
     "announced_at": "2026-06-08T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

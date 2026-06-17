@@ -1,5 +1,99 @@
 [
   {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records Bedrock-hosted model availability, not xAI first-party API availability or exact account eligibility.",
+      "model_refs": [
+        "model:aws-bedrock/grok-4.3"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:6e15c76919cb2949",
+        "snapshot_ref": "entry:6e15c76919cb2949",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/grok-amazon-bedrock/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-bedrock-grok-43-availability",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Grok 4.3 regional availability, quotas, pricing, and tool-calling behavior before adding it to Bedrock routing policies.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "official AWS launch announcement",
+          "confidence": "high",
+          "direction": "unknown",
+          "magnitude": "AWS describes token efficiency and Mantle price/performance, but APW did not verify invoice-level deltas."
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Benchmark Mantle-backed Grok 4.3 price/performance and reasoning-effort settings against existing Bedrock model routes.",
+        "scope_ref": "model:aws-bedrock/grok-4.3",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as a pricing change; source-owner review corrected the event to model availability with cost/performance impact.",
+      "APW does not copy AWS announcement prose or assert measured latency/cost."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced Grok 4.3 from xAI on Amazon Bedrock, describing a reasoning-first model with configurable reasoning effort, tool use, structured output, streaming, and Mantle inference-engine support for price/performance-sensitive workloads.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:model_launch",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock Added Grok 4.3 From xAI"
+  },
+  {
     "announced_at": "2026-06-11T00:12:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",

@@ -31,8 +31,9 @@ def test_agent_dashboard_filters_high_risk_agent_events() -> None:
     _assert_valid(payload)
     assert payload["schema_version"] == "apw.agent_dashboard.v0"
     assert payload["delivery_boundary"] == "local_dashboard_json_no_third_party_api_calls"
-    assert payload["event_count"] == 6
+    assert payload["event_count"] == 7
     assert [card["event_id"] for card in payload["cards"]] == [
+        "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
         "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
         "2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json",
         "2026-06-04-openai-codex-cli-admin-rpc-tools-agents",
@@ -59,8 +60,8 @@ def test_agent_dashboard_can_filter_one_agent_app() -> None:
 
     _assert_valid(payload)
     assert payload["filters"]["agent_app"] == "app:claude-code"
-    assert payload["event_count"] == 3
-    assert all(card["agent_app_refs"] == ["app:claude-code"] for card in payload["cards"])
+    assert payload["event_count"] == 4
+    assert all("app:claude-code" in card["agent_app_refs"] for card in payload["cards"])
     assert {card["event_kind"] for card in payload["cards"]} == {
         "status_incident",
         "workflow_behavior_change",
@@ -112,7 +113,7 @@ def test_agent_dashboard_cli_writes_schema_valid_payload(tmp_path) -> None:
 
     payload = read_json(output)
     _assert_valid(payload)
-    assert payload["event_count"] == 6
+    assert payload["event_count"] == 7
 
 
 def test_agent_dashboard_cli_rejects_out_of_schema_limit(capsys) -> None:

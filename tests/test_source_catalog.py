@@ -30,7 +30,7 @@ def test_source_catalog_matches_schema_and_current_support() -> None:
     assert providers["provider:openai"]["display_name"] == "OpenAI"
     assert providers["provider:openai"]["source_count"] == 6
     assert providers["provider:openai"]["validated_source_count"] == 6
-    assert providers["provider:openai"]["latest_event_date"] == "2026-06-11"
+    assert providers["provider:openai"]["latest_event_date"] == "2026-06-16"
     assert "pricing_page" in providers["provider:openai"]["source_types"]
     assert "status_incident" in providers["provider:openai"]["impact_hints"]
 

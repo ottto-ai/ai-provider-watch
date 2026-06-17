@@ -1,0 +1,81 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-15-aws-devops-agent-custom-sre-mcp-a2a",
+  "title": "AWS DevOps Agent Added Custom SRE Agents And MCP/A2A Protocol Support",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "event_date": "2026-06-15",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-17T02:17:05Z",
+  "announced_at": "2026-06-15T00:00:00Z",
+  "effective_at": "2026-06-15T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced AWS DevOps Agent expansion with custom SRE agents plus MCP and A2A protocol support, adding new agent-integration surfaces for teams using AWS-managed operational agents.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-devops-agent-custom-agents/",
+      "retrieved_at": "2026-06-17T02:17:05Z",
+      "authority": "official_blog",
+      "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+      "snapshot_ref": "entry:c9f791c5a991760f",
+      "selector": "announcement:c9f791c5a991760f",
+      "license_note": "Official source reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/managed-agents",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "reliability_engineers",
+        "security_engineers"
+      ],
+      "recommended_action": "Review custom SRE agent permissions, MCP/A2A boundaries, and runbook ownership before enabling in production operations."
+    },
+    {
+      "scope_type": "gateway",
+      "scope_ref": "gateway:mcp",
+      "impact_kind": "security",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "security_engineers",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "Treat new MCP/A2A integrations as untrusted tool surfaces and validate least-privilege policies before connecting agent hosts."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "AWS DevOps Agent gained custom SRE agent support and MCP/A2A protocol integration paths for operational agent workflows."
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:aws_bedrock",
+    "impact:workflow_behavior_change",
+    "gateway:mcp",
+    "surface:aws_bedrock"
+  ],
+  "limitations": [
+    "The source-review candidate classified this as model availability; source-owner review corrected it to an agent workflow/protocol surface change."
+  ]
+}
