@@ -88,7 +88,7 @@ jobs:
             --endpoint-url "$endpoint_url" \
             --delete \
             --cache-control "public, max-age=60"
-          for key in "v1" "v1/"; do
+          for key in "" "v1" "v1/"; do
             uvx --from awscli aws s3api put-object \
               --bucket "$APW_R2_BUCKET" \
               --key "$key" \
@@ -139,6 +139,9 @@ jobs:
         if: steps.r2_config.outputs.configured == 'true'
         run: |
           root_url="${APW_LIVE_BASE_URL%/v1}"
+          for url in "$root_url" "$root_url/"; do
+            curl -fsSL "$url" | grep -F "<title>AI Provider Watch Live Feed</title>"
+          done
           curl -fsSL "$root_url/index.html" | grep -F "<title>AI Provider Watch Live Feed</title>"
           uv run apw live health --url "$root_url/health.json" --summary
           uv run apw live latest --url "$root_url/latest.json" --limit 1 >/tmp/apw-root-latest.json
