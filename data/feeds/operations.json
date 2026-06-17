@@ -32,9 +32,9 @@
     "target": "Document correction or retraction disposition in the next reviewed PR and release notes."
   },
   "generated_at": "2026-06-17T02:17:28Z",
-  "generated_by": "ai-provider-watch 0.1.17",
+  "generated_by": "ai-provider-watch 0.1.18",
   "overall_status": "pass",
-  "package_version": "0.1.17",
+  "package_version": "0.1.18",
   "policy": {
     "private_ottto_boundary": "no private Ottto UI, Advisor, telemetry, customer data, credentials, or infrastructure required",
     "publication": "operations report is visibility only and cannot publish events, tags, releases, or packages",

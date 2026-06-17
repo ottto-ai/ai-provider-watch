@@ -420,10 +420,10 @@ Start here:
 
 ## Project Status
 
-APW `v0.1.17` is the current stable public package. It bundles the signed
-`data-2026.06.16` feed with 59 reviewed ProviderEvents, including the OpenAI
-Codex app workflow/rate-limit updates and AWS Bedrock Gemma 4 availability
-event promoted after the previous data tag. Use the signed `data-2026.06.16`
+APW `v0.1.18` is the current stable public package. It bundles the signed
+`data-2026.06.17` feed with 67 reviewed ProviderEvents, including June 2026
+official-source OpenAI Codex, Anthropic Claude, and AWS Bedrock updates
+promoted after the previous data tag. Use the signed `data-2026.06.17`
 tag when you need the latest immutable data-release identity; use the package
 when you want no-checkout CLI and bundled data.
 

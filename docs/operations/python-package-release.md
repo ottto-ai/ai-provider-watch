@@ -134,6 +134,13 @@ AWS Bedrock Gemma 4 availability. A package snapshot keeps install-only users
 aligned with the latest immutable data release while the separate live feed
 continues to carry provisional official-source candidates.
 
+Decision for `0.1.18`: publish the package patch after the signed
+`data-2026.06.17` release. The signed data tag raises the reviewed bundled feed
+to 67 ProviderEvents, including June 2026 official-source OpenAI Codex,
+Anthropic Claude, and AWS Bedrock changes. A package snapshot keeps
+install-only users aligned with the latest immutable data release while the
+separate live feed continues to carry provisional official-source candidates.
+
 ## Trusted Publisher Configuration
 
 Configure PyPI with a pending Trusted Publisher before the first package upload.
