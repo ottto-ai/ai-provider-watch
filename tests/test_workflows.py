@@ -259,6 +259,9 @@ def test_live_publisher_publishes_root_aliases() -> None:
 
     assert 'for key in "v1" "v1/"; do' in workflow
     assert 'for key in "" "v1" "v1/"; do' not in workflow
+    assert "--allow-source-errors" in workflow
+    assert "repository_dispatch:" in workflow
+    assert "types: [apw-live-publish]" in workflow
     assert "for artifact in" in workflow
     assert "latest.json" in workflow
     assert "events.ndjson" in workflow

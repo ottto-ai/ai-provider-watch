@@ -57,6 +57,18 @@ upload a literal empty root object.
 Consumers that want current news should read the live URLs. Consumers that need
 reproducibility should pin repository `data-*` tags or package snapshots.
 
+## Best-Effort Fetching
+
+The live publisher uses `apw source fetch --allow-source-errors` because a
+single official source can temporarily reject, rate-limit, or time out a fetch.
+In live mode, that source becomes an inert observation with no candidate claims,
+the run continues with the remaining official sources, and `health.json` reports
+`status: degraded` plus `source.source_error_count`.
+
+Canonical source-state refreshes do not use this flag. `--allow-source-errors`
+is rejected with `--write-state` so transient provider or network errors cannot
+overwrite reviewed source fingerprints.
+
 ## Non-Goal
 
 The live publisher is not the signed data-release process. It should not create
@@ -76,9 +88,9 @@ snapshots can correct, supersede, or promote live items.
 | Data tag | Signed Git tag | Release-manager action | Immutable evidence and reproducibility |
 | PyPI package data | Python package release | Package publication | Offline/no-checkout CLI snapshot |
 
-The README and CLI should make this distinction explicit. `apw latest` reads
-package or checkout data. `apw remote latest --ref main` reads the repository
-snapshot. A future `apw live latest` should read the live feed.
+The README and CLI make this distinction explicit. `apw latest` reads package
+or checkout data. `apw remote latest --ref main` reads the repository snapshot.
+`apw live latest` reads the live feed.
 
 ## Publication Bias
 
@@ -218,6 +230,13 @@ Cons:
 - secrets must stay out of source-fetch/agent lanes where possible.
 
 This is the preferred low-cost v0 if Cloudflare setup is acceptable.
+
+The APW live workflow also accepts `repository_dispatch` events with type
+`apw-live-publish`. If GitHub's native cron proves too sparse for the desired
+freshness, run a small external scheduler, such as Cloudflare Workers Cron or a
+cloud scheduler, that calls GitHub's repository dispatch API every 15 minutes.
+That keeps the public publisher implementation in the OSS repo while moving
+timer accuracy out of GitHub's best-effort `schedule` queue.
 
 ### Option C: Cloudflare Workers Cron + R2
 

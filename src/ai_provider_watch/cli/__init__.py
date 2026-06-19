@@ -102,6 +102,7 @@ from ai_provider_watch.pipeline.source_refresh_gate import (
 )
 from ai_provider_watch.source_watch.fixtures import validate_parser_fixtures
 from ai_provider_watch.source_watch.http import (
+    fetch_error_observation,
     fetch_source,
     read_fingerprint_state,
     write_fingerprint_state,
@@ -481,6 +482,7 @@ def cmd_live_health(args: argparse.Namespace) -> int:
         print(f"needs_followup: {health['items']['needs_followup']}")
         print(f"promoted: {health['items']['promoted']}")
         print(f"candidate_count: {health['source']['candidate_count']}")
+        print(f"source_error_count: {health['source'].get('source_error_count', 0)}")
         print(f"excluded_candidate_count: {health['source']['excluded_candidate_count']}")
     else:
         _print_json(health)
@@ -509,6 +511,12 @@ def cmd_source_fetch(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 1
+    if args.allow_source_errors and args.write_state:
+        print(
+            "source fetch failed: --allow-source-errors cannot be combined with --write-state",
+            file=sys.stderr,
+        )
+        return 1
     if args.include_disabled and not args.source:
         print("source fetch failed: --include-disabled requires at least one --source", file=sys.stderr)
         return 1
@@ -519,15 +527,23 @@ def cmd_source_fetch(args: argparse.Namespace) -> int:
     if args.source:
         wanted = set(args.source)
         sources = [source for source in sources if source.key in wanted]
-    observations = [
-        fetch_source(
-            source,
-            previous_state,
-            timeout=args.timeout,
-            limit_bytes=args.limit_bytes,
-        )
-        for source in sources
-    ]
+    observations = []
+    source_error_keys: list[str] = []
+    for source in sources:
+        try:
+            observations.append(
+                fetch_source(
+                    source,
+                    previous_state,
+                    timeout=args.timeout,
+                    limit_bytes=args.limit_bytes,
+                )
+            )
+        except (OSError, TimeoutError) as exc:
+            if not args.allow_source_errors:
+                raise
+            source_error_keys.append(source.key)
+            observations.append(fetch_error_observation(source, previous_state, exc))
     if observations_path:
         write_observations(observations_path, observations)
     if args.write_state:
@@ -538,6 +554,7 @@ def cmd_source_fetch(args: argparse.Namespace) -> int:
         {
             "source_count": len(observations),
             "changed_source_keys": changed,
+            "source_error_keys": source_error_keys,
             "state_path": str(state_path.relative_to(root)),
         }
     )
@@ -1604,6 +1621,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--include-disabled",
         action="store_true",
         help="maintainer smoke: allow --source to fetch disabled descriptors without writing source state",
+    )
+    source_fetch_parser.add_argument(
+        "--allow-source-errors",
+        action="store_true",
+        help="best-effort live mode: record HTTP/network fetch failures as inert observations",
     )
     source_fetch_parser.add_argument("--timeout", type=float, default=20.0)
     source_fetch_parser.add_argument("--limit-bytes", type=int, default=3_000_000)

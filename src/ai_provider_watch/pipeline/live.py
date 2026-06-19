@@ -493,13 +493,14 @@ def _health(
     artifact_summaries: list[dict[str, Any]],
     observation_count: int,
     changed_source_count: int,
+    source_error_count: int,
     candidate_count: int,
     excluded_candidate_count: int,
     reviewed_event_count: int,
 ) -> dict[str, Any]:
     counts = Counter(item["state"] for item in items)
     status = "ok"
-    if excluded_candidate_count:
+    if excluded_candidate_count or source_error_count:
         status = "degraded"
     return {
         "schema_version": LIVE_HEALTH_SCHEMA_VERSION,
@@ -510,6 +511,7 @@ def _health(
         "source": {
             "observation_count": observation_count,
             "changed_source_count": changed_source_count,
+            "source_error_count": source_error_count,
             "candidate_count": candidate_count,
             "excluded_candidate_count": excluded_candidate_count,
             "reviewed_event_count": reviewed_event_count,
@@ -552,15 +554,17 @@ def _provenance(*, created_at: str, artifact_summaries: list[dict[str, Any]]) ->
     }
 
 
-def _read_observation_counts(path: Path | None) -> tuple[int, int]:
+def _read_observation_counts(path: Path | None) -> tuple[int, int, int]:
     if path is None or not path.exists():
-        return 0, 0
+        return 0, 0, 0
     payload = read_json(path)
     observations = payload.get("observations", []) if isinstance(payload, dict) else []
     changed = payload.get("changed_source_keys", []) if isinstance(payload, dict) else []
+    source_errors = payload.get("source_error_keys", []) if isinstance(payload, dict) else []
     return (
         len(observations) if isinstance(observations, list) else 0,
         len(changed) if isinstance(changed, list) else 0,
+        len(source_errors) if isinstance(source_errors, list) else 0,
     )
 
 
@@ -614,7 +618,7 @@ def build_live_artifacts(
             build_source_catalog(root, created_at=resolved_created_at)
         ),
     }
-    observation_count, changed_source_count = _read_observation_counts(observations_path)
+    observation_count, changed_source_count, source_error_count = _read_observation_counts(observations_path)
     summaries_without_health = [_artifact_summary(path, text) for path, text in sorted(artifacts.items())]
     health = _health(
         created_at=resolved_created_at,
@@ -622,6 +626,7 @@ def build_live_artifacts(
         artifact_summaries=summaries_without_health,
         observation_count=observation_count,
         changed_source_count=changed_source_count,
+        source_error_count=source_error_count,
         candidate_count=len(candidates),
         excluded_candidate_count=len(candidates) - len(candidate_items),
         reviewed_event_count=len(reviewed_events),

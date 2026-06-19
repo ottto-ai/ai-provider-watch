@@ -27,6 +27,7 @@
       "required": [
         "observation_count",
         "changed_source_count",
+        "source_error_count",
         "candidate_count",
         "excluded_candidate_count",
         "reviewed_event_count"
@@ -34,6 +35,7 @@
       "properties": {
         "observation_count": { "type": "integer", "minimum": 0 },
         "changed_source_count": { "type": "integer", "minimum": 0 },
+        "source_error_count": { "type": "integer", "minimum": 0 },
         "candidate_count": { "type": "integer", "minimum": 0 },
         "excluded_candidate_count": { "type": "integer", "minimum": 0 },
         "reviewed_event_count": { "type": "integer", "minimum": 0 }

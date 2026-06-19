@@ -65,6 +65,7 @@ def test_live_artifacts_include_lenient_official_candidates(tmp_path) -> None:
     assert health["status"] == "ok"
     assert health["source"]["observation_count"] == 4
     assert health["source"]["changed_source_count"] == 3
+    assert health["source"]["source_error_count"] == 0
     assert health["source"]["candidate_count"] == 3
     assert health["items"]["automated"] == 1
     assert health["items"]["needs_followup"] == 2
@@ -89,6 +90,46 @@ def test_live_artifacts_include_lenient_official_candidates(tmp_path) -> None:
                 format_checker=FormatChecker(),
             ).iter_errors(item)
         )
+
+
+def test_live_health_is_degraded_when_source_fetch_errors(tmp_path) -> None:
+    observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
+    observations["source_error_keys"] = ["openai.status"]
+    observations["observations"].append(
+        {
+            "schema_version": "apw.observation.v0",
+            "source_key": "openai.status",
+            "retrieved_at": CREATED_AT,
+            "final_url": "https://status.openai.com/feed.atom",
+            "http_status": 405,
+            "content_type": None,
+            "content_sha256": "e3b0c44298fc1c149afbf4c8996fb924"
+            "27ae41e4649b934ca495991b7852b855",
+            "fingerprint": "c" * 64,
+            "changed": False,
+            "items": [],
+            "raw_excerpt_hashes": [],
+            "candidate_claims": [],
+            "errors": ["source fetch failed: HTTP 405 Not Allowed"],
+            "snapshot_ref": "fetch_error:405",
+        }
+    )
+    observations_path = tmp_path / "observations.json"
+    observations_path.write_text(json.dumps(observations), encoding="utf-8")
+
+    result = build_live_artifacts(
+        ROOT,
+        observations_path=observations_path,
+        created_at=CREATED_AT,
+        limit=3,
+    )
+    output_dir = tmp_path / "live"
+    write_live_artifacts(output_dir, result.artifacts)
+
+    assert validate_live_artifacts(ROOT, output_dir) == []
+    health = json.loads((output_dir / "health.json").read_text(encoding="utf-8"))
+    assert health["status"] == "degraded"
+    assert health["source"]["source_error_count"] == 1
 
 
 def test_live_candidate_titles_respect_schema_limit(tmp_path) -> None:

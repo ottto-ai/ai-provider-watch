@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from urllib.error import HTTPError, URLError
 
 from ai_provider_watch.core.io import read_json, write_json_text
 from ai_provider_watch.source_watch.parsers import (
@@ -20,6 +21,7 @@ from ai_provider_watch.source_watch.scopes import scoped_source_content
 from ai_provider_watch.sources.registry import SourceDescriptor
 
 USER_AGENT = "ai-provider-watch-source-refresh/0.1"
+EMPTY_CONTENT_SHA256 = hashlib.sha256(b"").hexdigest()
 
 
 @dataclass(frozen=True)
@@ -209,8 +211,54 @@ def fetch_source(
     )
 
 
+def fetch_error_observation(
+    source: SourceDescriptor,
+    previous_state: dict[str, Any],
+    exc: HTTPError | URLError | OSError | TimeoutError,
+) -> SourceObservation:
+    retrieved_at = datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    previous_source_state = previous_state.get("sources", {}).get(source.key, {})
+    if not isinstance(previous_source_state, dict):
+        previous_source_state = {}
+    previous_fingerprint = previous_source_state.get("fingerprint")
+    if not isinstance(previous_fingerprint, str) or not re.fullmatch(r"[a-f0-9]{64}", previous_fingerprint):
+        previous_fingerprint = _sha256(f"fetch-error:{source.key}".encode())
+
+    http_status = 599
+    if isinstance(exc, HTTPError):
+        http_status = int(exc.code)
+        detail = f"HTTP {exc.code} {getattr(exc, 'reason', None) or exc.msg}"
+    elif isinstance(exc, URLError):
+        detail = f"{exc.__class__.__name__}: {exc.reason}"
+    else:
+        detail = f"{exc.__class__.__name__}: {exc}"
+
+    return SourceObservation(
+        source_key=source.key,
+        retrieved_at=retrieved_at,
+        final_url=source.url,
+        http_status=http_status,
+        content_type=None,
+        content_sha256=EMPTY_CONTENT_SHA256,
+        fingerprint=previous_fingerprint,
+        changed=False,
+        parsed=ParsedSourcePayload(
+            items=[],
+            raw_excerpt_hashes=[],
+            candidate_claims=[],
+            errors=[f"source fetch failed: {detail}"],
+            snapshot_ref=f"fetch_error:{http_status}",
+        ),
+    )
+
+
 def write_observations(path: Path, observations: list[SourceObservation]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    source_error_keys = [
+        observation.source_key
+        for observation in observations
+        if any(error.startswith("source fetch failed:") for error in observation.parsed.errors)
+    ]
     payload = {
         "schema_version": "apw.source_observations.v0",
         "created_at": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
@@ -218,6 +266,7 @@ def write_observations(path: Path, observations: list[SourceObservation]) -> Non
         "changed_source_keys": [
             observation.source_key for observation in observations if observation.changed
         ],
+        "source_error_keys": source_error_keys,
     }
     path.write_text(write_json_text(payload), encoding="utf-8")
 

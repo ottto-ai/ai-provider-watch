@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from urllib.error import HTTPError
 
 from ai_provider_watch.cli import main
 from ai_provider_watch.source_watch.http import SourceObservation
@@ -285,6 +286,75 @@ def test_source_fetch_include_disabled_rejects_write_state(tmp_path, capsys) -> 
 
     captured = capsys.readouterr()
     assert "--include-disabled is maintainer-smoke only" in captured.err
+
+
+def test_source_fetch_allow_source_errors_records_error_observation(
+    tmp_path,
+    monkeypatch,
+    capsys,
+) -> None:
+    root = _write_disabled_source_root(tmp_path / "repo")
+
+    def fake_fetch(source, previous_state, *, timeout, limit_bytes):
+        raise HTTPError(source.url, 405, "Not Allowed", hdrs=None, fp=None)
+
+    monkeypatch.setattr("ai_provider_watch.cli.fetch_source", fake_fetch)
+
+    assert (
+        main(
+            [
+                "--root",
+                str(root),
+                "source",
+                "fetch",
+                "--include-disabled",
+                "--allow-source-errors",
+                "--source",
+                DISABLED_SOURCE_KEY,
+                "--observations",
+                str(tmp_path / "observations.json"),
+            ]
+        )
+        == 0
+    )
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["source_count"] == 1
+    assert output["changed_source_keys"] == []
+    assert output["source_error_keys"] == [DISABLED_SOURCE_KEY]
+
+    observations = json.loads((tmp_path / "observations.json").read_text(encoding="utf-8"))
+    observation = observations["observations"][0]
+    assert observations["source_error_keys"] == [DISABLED_SOURCE_KEY]
+    assert observation["source_key"] == DISABLED_SOURCE_KEY
+    assert observation["http_status"] == 405
+    assert observation["changed"] is False
+    assert observation["candidate_claims"] == []
+    assert observation["errors"] == ["source fetch failed: HTTP 405 Not Allowed"]
+
+
+def test_source_fetch_allow_source_errors_rejects_write_state(tmp_path, capsys) -> None:
+    root = _write_disabled_source_root(tmp_path / "repo")
+    assert (
+        main(
+            [
+                "--root",
+                str(root),
+                "source",
+                "fetch",
+                "--allow-source-errors",
+                "--write-state",
+                "--source",
+                DISABLED_SOURCE_KEY,
+                "--observations",
+                str(tmp_path / "observations.json"),
+            ]
+        )
+        == 1
+    )
+
+    captured = capsys.readouterr()
+    assert "--allow-source-errors cannot be combined with --write-state" in captured.err
 
 
 def test_source_fetch_include_disabled_requires_source(capsys) -> None:
