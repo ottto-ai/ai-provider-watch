@@ -238,6 +238,10 @@ cloud scheduler, that calls GitHub's repository dispatch API every 15 minutes.
 That keeps the public publisher implementation in the OSS repo while moving
 timer accuracy out of GitHub's best-effort `schedule` queue.
 
+APW includes a Cloudflare Worker/Cron package at
+`ops/cloudflare/live-dispatcher/`. It is deployable with Wrangler after a
+repo-scoped `GITHUB_DISPATCH_TOKEN` secret is configured for the Worker.
+
 ### Option C: Cloudflare Workers Cron + R2
 
 Run the scheduler and publisher on Cloudflare Workers, store outputs in R2.

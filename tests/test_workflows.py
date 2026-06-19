@@ -271,3 +271,23 @@ def test_live_publisher_publishes_root_aliases() -> None:
     assert 'root_url="${APW_LIVE_BASE_URL%/v1}"' in workflow
     assert 'for url in "$root_url" "$root_url/"; do' in workflow
     assert 'uv run apw live latest --url "$root_url/latest.json" --limit 1' in workflow
+
+
+def test_cloudflare_live_dispatcher_targets_live_publisher() -> None:
+    worker = (ROOT / "ops" / "cloudflare" / "live-dispatcher" / "worker.js").read_text(
+        encoding="utf-8"
+    )
+    wrangler = (ROOT / "ops" / "cloudflare" / "live-dispatcher" / "wrangler.toml").read_text(
+        encoding="utf-8"
+    )
+    readme = (ROOT / "ops" / "cloudflare" / "live-dispatcher" / "README.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert 'const OWNER = "ottto-ai";' in worker
+    assert 'const REPO = "ai-provider-watch";' in worker
+    assert 'const EVENT_TYPE = "apw-live-publish";' in worker
+    assert "/dispatches" in worker
+    assert 'crons = ["7,22,37,52 * * * *"]' in wrangler
+    assert "GITHUB_DISPATCH_TOKEN" in readme
+    assert "Do not use the local `gh` keyring OAuth token" in readme
