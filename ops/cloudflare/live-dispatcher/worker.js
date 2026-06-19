@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Ottto Inc.
+// SPDX-License-Identifier: Apache-2.0
+
 const OWNER = "ottto-ai";
 const REPO = "ai-provider-watch";
 const EVENT_TYPE = "apw-live-publish";
@@ -47,4 +50,3 @@ async function dispatchLivePublisher(env, scheduledTime) {
     throw new Error(`GitHub repository_dispatch failed: ${response.status} ${body.slice(0, 500)}`);
   }
 }
-
