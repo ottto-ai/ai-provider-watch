@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "AWS Bedrock official dated source reports a pricing change on 2026-06-17 for amazon-bedrock, aws-bedrock, bedrock-agentcore.",
+  "created_at": "2026-06-22T12:26:05Z",
+  "dedupe_key": "aws_bedrock.whats_new:pricing_change:373ee9d785043ba87d781656",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "0a088b2d02f423feaa0249d0ddb062d24b5e27447be40e2329589e6a09c6cb1f",
+      "fingerprint": "e8bc503b2c4fe19678d40195578c5bfd1a5cc597aadff4156ea2e366b00fce13",
+      "retrieved_at": "2026-06-22T12:25:48Z",
+      "selector": "announcement:b736b4f87435ec68",
+      "snapshot_ref": "entry:b736b4f87435ec68",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-policy-guardrails-generally-available"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-9c77a89c28a528bd",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
