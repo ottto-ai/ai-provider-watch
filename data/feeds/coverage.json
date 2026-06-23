@@ -1,7 +1,9 @@
 {
   "candidate_backlog": {
-    "by_status": {},
-    "total": 0
+    "by_status": {
+      "needs_review": 24
+    },
+    "total": 24
   },
   "coverage_policy": "Coverage metadata contains counts, source keys, timestamps, and hashes only; no raw provider content.",
   "generated_at": "2026-06-17T02:17:28Z",
@@ -10,7 +12,7 @@
   "providers": [
     {
       "blocked_pending_parser_source_count": 0,
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 5,
       "enabled_deterministic_source_count": 6,
       "fetched_enabled_source_count": 6,
       "latest_event_date": "2026-06-16",
@@ -22,7 +24,7 @@
     },
     {
       "blocked_pending_parser_source_count": 0,
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 14,
       "enabled_deterministic_source_count": 4,
       "fetched_enabled_source_count": 4,
       "latest_event_date": "2026-06-15",
@@ -34,7 +36,7 @@
     },
     {
       "blocked_pending_parser_source_count": 0,
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "enabled_deterministic_source_count": 4,
       "fetched_enabled_source_count": 4,
       "latest_event_date": "2026-06-10",
@@ -46,7 +48,7 @@
     },
     {
       "blocked_pending_parser_source_count": 0,
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 4,
       "enabled_deterministic_source_count": 3,
       "fetched_enabled_source_count": 3,
       "latest_event_date": "2026-06-16",
@@ -71,7 +73,7 @@
   ],
   "schema_version": "apw.source_coverage.v0",
   "source_state": {
-    "latest_retrieved_at": "2026-06-17T02:17:31Z",
+    "latest_retrieved_at": "2026-06-23T10:02:47Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
     "source_count": 21
@@ -93,14 +95,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:16:58Z"
+        "retrieved_at": "2026-06-23T10:02:24Z"
       },
       "source_type": "blog"
     },
     {
       "authority": "official_pricing",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 8,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -113,14 +115,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:01Z"
+        "retrieved_at": "2026-06-23T10:02:25Z"
       },
       "source_type": "pricing_page"
     },
     {
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 5,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -133,14 +135,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:02Z"
+        "retrieved_at": "2026-06-23T10:02:25Z"
       },
       "source_type": "docs_page"
     },
     {
       "authority": "official_status",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -153,7 +155,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:03Z"
+        "retrieved_at": "2026-06-23T10:02:27Z"
       },
       "source_type": "status_page"
     },
@@ -173,7 +175,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:03Z"
+        "retrieved_at": "2026-06-23T10:02:27Z"
       },
       "source_type": "docs_page"
     },
@@ -193,14 +195,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:04Z"
+        "retrieved_at": "2026-06-23T10:02:27Z"
       },
       "source_type": "pricing_page"
     },
     {
       "authority": "official_blog",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 4,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -213,7 +215,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:05Z"
+        "retrieved_at": "2026-06-23T10:02:28Z"
       },
       "source_type": "rss_feed"
     },
@@ -233,7 +235,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:05Z"
+        "retrieved_at": "2026-06-23T10:02:28Z"
       },
       "source_type": "docs_page"
     },
@@ -253,7 +255,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:06Z"
+        "retrieved_at": "2026-06-23T10:02:28Z"
       },
       "source_type": "docs_page"
     },
@@ -273,7 +275,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:06Z"
+        "retrieved_at": "2026-06-23T10:02:28Z"
       },
       "source_type": "pricing_page"
     },
@@ -293,7 +295,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:21Z"
+        "retrieved_at": "2026-06-23T10:02:43Z"
       },
       "source_type": "docs_page"
     },
@@ -313,14 +315,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:22Z"
+        "retrieved_at": "2026-06-23T10:02:43Z"
       },
       "source_type": "docs_page"
     },
     {
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -333,7 +335,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:23Z"
+        "retrieved_at": "2026-06-23T10:02:44Z"
       },
       "source_type": "docs_page"
     },
@@ -353,7 +355,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:24Z"
+        "retrieved_at": "2026-06-23T10:02:44Z"
       },
       "source_type": "docs_page"
     },
@@ -373,7 +375,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:26Z"
+        "retrieved_at": "2026-06-23T10:02:45Z"
       },
       "source_type": "pricing_page"
     },
@@ -393,14 +395,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:28Z"
+        "retrieved_at": "2026-06-23T10:02:46Z"
       },
       "source_type": "docs_page"
     },
     {
       "authority": "official_docs",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 2,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -413,7 +415,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:28Z"
+        "retrieved_at": "2026-06-23T10:02:46Z"
       },
       "source_type": "docs_page"
     },
@@ -433,14 +435,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:29Z"
+        "retrieved_at": "2026-06-23T10:02:46Z"
       },
       "source_type": "docs_page"
     },
     {
       "authority": "official_blog",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 2,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -453,7 +455,7 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:30Z"
+        "retrieved_at": "2026-06-23T10:02:46Z"
       },
       "source_type": "rss_feed"
     },
@@ -473,14 +475,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:31Z"
+        "retrieved_at": "2026-06-23T10:02:47Z"
       },
       "source_type": "pricing_page"
     },
     {
       "authority": "official_status",
       "automation_status": "enabled_deterministic",
-      "candidate_backlog_count": 0,
+      "candidate_backlog_count": 1,
       "coverage_status": "enabled_fetched",
       "enabled": true,
       "graduation_blockers": [],
@@ -493,14 +495,14 @@
       "source_state": {
         "http_status": 200,
         "present": true,
-        "retrieved_at": "2026-06-17T02:17:31Z"
+        "retrieved_at": "2026-06-23T10:02:47Z"
       },
       "source_type": "atom_feed"
     }
   ],
   "summary": {
     "blocked_pending_parser_source_count": 0,
-    "candidate_backlog_count": 0,
+    "candidate_backlog_count": 24,
     "enabled_deterministic_source_count": 21,
     "fetched_enabled_source_count": 21,
     "fetched_enabled_source_ratio": 1.0,
@@ -510,7 +512,13 @@
     "provider_count": 5,
     "reviewed_event_count": 67,
     "source_count": 21,
-    "warning_count": 0
+    "warning_count": 1
   },
-  "warnings": []
+  "warnings": [
+    {
+      "code": "candidate_backlog_present",
+      "detail": "24 review candidate(s) are present outside reviewed events",
+      "severity": "info"
+    }
+  ]
 }
