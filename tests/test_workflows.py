@@ -289,5 +289,6 @@ def test_cloudflare_live_dispatcher_targets_live_publisher() -> None:
     assert 'const EVENT_TYPE = "apw-live-publish";' in worker
     assert "/dispatches" in worker
     assert 'crons = ["7,22,37,52 * * * *"]' in wrangler
+    assert "workers_dev = false" in wrangler
     assert "GITHUB_DISPATCH_TOKEN" in readme
     assert "Do not use the local `gh` keyring OAuth token" in readme
