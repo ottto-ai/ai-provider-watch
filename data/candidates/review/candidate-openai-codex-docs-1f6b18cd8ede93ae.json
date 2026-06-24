@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "rate_limit_change",
+  "claim_text": "OpenAI official dated source reports a rate-limit change on 2026-06-18 for api, codex, codex-cli, mcp, realtime-api.",
+  "created_at": "2026-06-24T09:51:05Z",
+  "dedupe_key": "openai.codex_docs:rate_limit_change:e76258d1825154a0c99620bc",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "afca04b16ef33dba6b14ec4c5d9d119c8665805377f722cf4f04e882022a98bf",
+      "fingerprint": "4ab9d80da3a1a630418a3b0577181346ece51eb5c0e7e1edcd475ec06aca4434",
+      "retrieved_at": "2026-06-24T09:51:03Z",
+      "selector": "announcement:74549307f3fd871d",
+      "snapshot_ref": "entry:74549307f3fd871d",
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog"
+    }
+  ],
+  "id": "candidate-openai-codex-docs-1f6b18cd8ede93ae",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_codex_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.codex_docs"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
