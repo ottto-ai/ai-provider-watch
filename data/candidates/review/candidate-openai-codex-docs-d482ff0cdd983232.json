@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-06-25 for codex, codex-app.",
+  "created_at": "2026-06-26T09:52:01Z",
+  "dedupe_key": "openai.codex_docs:workflow_behavior_change:ae2e042dbcb327ea95c5d273",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "6f8a4e5bac1004646c09722ba1fedd5e2f00a87cbf0cd0358d7198df5334ec29",
+      "fingerprint": "b0bd4047d0c07cd44a3b202e5973ea0a1f9979fd000c5d49ed3c6289021874e7",
+      "retrieved_at": "2026-06-26T09:52:00Z",
+      "selector": "announcement:4a2915691b13e035",
+      "snapshot_ref": "entry:4a2915691b13e035",
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog"
+    }
+  ],
+  "id": "candidate-openai-codex-docs-d482ff0cdd983232",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_codex_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.codex_docs"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
