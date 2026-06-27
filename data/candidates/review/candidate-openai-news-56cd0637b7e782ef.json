@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-06-18 for gpt-5.5.",
+  "created_at": "2026-06-27T08:49:43Z",
+  "dedupe_key": "openai.news:model_launch:df9a5ebab99ec5b438b35012",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "c3f865c21f01ff8899dd75a7d36544c44f4dcedc2a3eda04c81c902af5927390",
+      "fingerprint": "e61197cbe469dc278a833c62498dfcd98a9b7dadf6f4cc27c981053ae11f1765",
+      "retrieved_at": "2026-06-27T08:49:42Z",
+      "selector": "announcement:64e3068cbf437825",
+      "snapshot_ref": "entry:64e3068cbf437825",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/improving-health-intelligence-in-chatgpt"
+    }
+  ],
+  "id": "candidate-openai-news-56cd0637b7e782ef",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

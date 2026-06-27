@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "default_model_change",
+  "claim_text": "OpenAI official dated source reports a default-model change on 2026-06-18 for codex, codex-app, computer-use.",
+  "created_at": "2026-06-27T08:49:43Z",
+  "dedupe_key": "openai.codex_docs:default_model_change:e933ae8df6d3e3cb835879e4",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "c1753f6c89b001dc4a4c19eb4372e648c12a88be4311665c0bb5cf701f4c5be1",
+      "fingerprint": "ce2bca60c30fba77023479c96ce7ad2d97d9493b356c5e0e0f1678433cb119f0",
+      "retrieved_at": "2026-06-27T08:49:41Z",
+      "selector": "announcement:3cceac09a4b1d366",
+      "snapshot_ref": "entry:3cceac09a4b1d366",
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog"
+    }
+  ],
+  "id": "candidate-openai-codex-docs-30b36d0300b301d4",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_codex_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.codex_docs"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
