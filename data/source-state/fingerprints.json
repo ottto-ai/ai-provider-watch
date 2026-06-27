@@ -2,32 +2,58 @@
   "schema_version": "apw.source_fingerprints.v0",
   "sources": {
     "anthropic.news": {
-      "content_sha256": "ecfbfed6876ec60291b9ea2b2915d3bb6ac8bf4924617a886809afa068a441ff",
+      "content_sha256": "f9c8eca2089cd41cee0d5dd8520163740c641bdc6c84694b05977bb223210177",
       "final_url": "https://www.anthropic.com/news",
       "fingerprint": "b7028cc76b0234d1e5a9c886462786e215698e62a058ae1181e3f7e44db84f29",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:16:58Z"
+      "retrieved_at": "2026-06-27T08:49:17Z"
     },
     "anthropic.pricing": {
-      "content_sha256": "5cfa6da144a794cb2e91cd97bc548151e7b614280351320409ecb890ee58f235",
+      "content_sha256": "765073ef565c24442bb9e8723ff81ea41203daa775e874e8340fdc2a63a3e49b",
       "final_url": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "fingerprint": "a68390986bb025b075276e03fb8f0494c4b9ef60502dcdc69b81bf57c4f9372c",
+      "fingerprint": "031defe753c0471044c591a72af34993d1c9d63fe46b310985549f7f1cf1daa2",
       "http_status": 200,
       "pricing_rows": {
         "ambiguous_price_point_keys": [
           "price:claude-fable-5:cache_write:1m_tokens",
           "price:claude-fable-5:input_tokens:1m_tokens",
           "price:claude-fable-5:output_tokens:1m_tokens",
+          "price:claude-haiku-3.5:cache_write:1m_tokens",
+          "price:claude-haiku-3.5:input_tokens:1m_tokens",
+          "price:claude-haiku-3.5:output_tokens:1m_tokens",
+          "price:claude-haiku-4.5:cache_write:1m_tokens",
+          "price:claude-haiku-4.5:input_tokens:1m_tokens",
+          "price:claude-haiku-4.5:output_tokens:1m_tokens",
           "price:claude-mythos-5:cache_write:1m_tokens",
           "price:claude-mythos-5:input_tokens:1m_tokens",
           "price:claude-mythos-5:output_tokens:1m_tokens",
+          "price:claude-opus-4.1:cache_write:1m_tokens",
+          "price:claude-opus-4.1:input_tokens:1m_tokens",
+          "price:claude-opus-4.1:output_tokens:1m_tokens",
+          "price:claude-opus-4.5:cache_write:1m_tokens",
+          "price:claude-opus-4.5:input_tokens:1m_tokens",
+          "price:claude-opus-4.5:output_tokens:1m_tokens",
+          "price:claude-opus-4.6:cache_write:1m_tokens",
           "price:claude-opus-4.6:input_tokens:1m_tokens",
           "price:claude-opus-4.6:output_tokens:1m_tokens",
+          "price:claude-opus-4.7:cache_write:1m_tokens",
           "price:claude-opus-4.7:input_tokens:1m_tokens",
           "price:claude-opus-4.7:output_tokens:1m_tokens",
           "price:claude-opus-4.8:cache_write:1m_tokens",
           "price:claude-opus-4.8:input_tokens:1m_tokens",
-          "price:claude-opus-4.8:output_tokens:1m_tokens"
+          "price:claude-opus-4.8:output_tokens:1m_tokens",
+          "price:claude-opus-4:cache_write:1m_tokens",
+          "price:claude-opus-4:input_tokens:1m_tokens",
+          "price:claude-opus-4:output_tokens:1m_tokens",
+          "price:claude-sonnet-4.5:cache_write:1m_tokens",
+          "price:claude-sonnet-4.5:input_tokens:1m_tokens",
+          "price:claude-sonnet-4.5:output_tokens:1m_tokens",
+          "price:claude-sonnet-4.6:cache_write:1m_tokens",
+          "price:claude-sonnet-4.6:input_tokens:1m_tokens",
+          "price:claude-sonnet-4.6:output_tokens:1m_tokens",
+          "price:claude-sonnet-4:cache_write:1m_tokens",
+          "price:claude-sonnet-4:input_tokens:1m_tokens",
+          "price:claude-sonnet-4:output_tokens:1m_tokens"
         ],
         "price_points": [
           {
@@ -39,35 +65,19 @@
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "input_tokens",
+            "billing_dimension": "cache_hit",
             "model_id": "claude-haiku-3.5",
-            "price_usd_per_1m_tokens": "0.40",
-            "row_key": "price:claude-haiku-3.5:input_tokens:1m_tokens",
-            "row_sha256": "ad108bf6bdcfb587ed13b6fbc98c0fe1f313029f4e5fdada4c81d808352ba5ff",
+            "price_usd_per_1m_tokens": "0.08",
+            "row_key": "price:claude-haiku-3.5:cache_hit:1m_tokens",
+            "row_sha256": "c866506fccdfa71fdc9625c9d710f7db5ec174f0984b503eff6f28fcd8dd4b1f",
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "output_tokens",
-            "model_id": "claude-haiku-3.5",
-            "price_usd_per_1m_tokens": "2",
-            "row_key": "price:claude-haiku-3.5:output_tokens:1m_tokens",
-            "row_sha256": "5f9dbbc576231ff5bc83dc6fbbc85c9f89383230f8e4bef049671948f8b26ce4",
-            "unit": "1m_tokens"
-          },
-          {
-            "billing_dimension": "input_tokens",
+            "billing_dimension": "cache_hit",
             "model_id": "claude-haiku-4.5",
-            "price_usd_per_1m_tokens": "0.50",
-            "row_key": "price:claude-haiku-4.5:input_tokens:1m_tokens",
-            "row_sha256": "fe5e252f727478fb75b5a78ab5657f0951ef6582b1c1ff31d3309b62367116c0",
-            "unit": "1m_tokens"
-          },
-          {
-            "billing_dimension": "output_tokens",
-            "model_id": "claude-haiku-4.5",
-            "price_usd_per_1m_tokens": "2.50",
-            "row_key": "price:claude-haiku-4.5:output_tokens:1m_tokens",
-            "row_sha256": "d3c3a61537b22518e6d60215bd2b708279f24281008b4546958c6c24d02933c6",
+            "price_usd_per_1m_tokens": "0.10",
+            "row_key": "price:claude-haiku-4.5:cache_hit:1m_tokens",
+            "row_sha256": "40ae2740708d600a3e7d038308a98be8504dc27c83c20cec734e23fc826a9c11",
             "unit": "1m_tokens"
           },
           {
@@ -79,99 +89,75 @@
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "input_tokens",
+            "billing_dimension": "cache_hit",
             "model_id": "claude-opus-4.1",
-            "price_usd_per_1m_tokens": "7.50",
-            "row_key": "price:claude-opus-4.1:input_tokens:1m_tokens",
-            "row_sha256": "e85adc00d8904bd086e0a4ae783b2f6a158d359e3b1ccd3d0f46f3f059ba82e7",
+            "price_usd_per_1m_tokens": "1.50",
+            "row_key": "price:claude-opus-4.1:cache_hit:1m_tokens",
+            "row_sha256": "4f3612dfdcf80e500fda19f84eceda4e15b9e77a249cf74282ffc871e6f7965b",
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "output_tokens",
-            "model_id": "claude-opus-4.1",
-            "price_usd_per_1m_tokens": "37.50",
-            "row_key": "price:claude-opus-4.1:output_tokens:1m_tokens",
-            "row_sha256": "c21baeafd52951e3824e01bb4783303c39b861a75637955dd0879a1b8cc200c2",
-            "unit": "1m_tokens"
-          },
-          {
-            "billing_dimension": "input_tokens",
+            "billing_dimension": "cache_hit",
             "model_id": "claude-opus-4.5",
-            "price_usd_per_1m_tokens": "2.50",
-            "row_key": "price:claude-opus-4.5:input_tokens:1m_tokens",
-            "row_sha256": "7ab6ff7d694e88f37440df96a949e3c0734af6d520b3908ab7c13ca371df490a",
+            "price_usd_per_1m_tokens": "0.50",
+            "row_key": "price:claude-opus-4.5:cache_hit:1m_tokens",
+            "row_sha256": "727ec5abb156887cd8bf4b78c7cf4a02272da8f3ab52b907d0acf87eb70b1409",
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "output_tokens",
-            "model_id": "claude-opus-4.5",
-            "price_usd_per_1m_tokens": "12.50",
-            "row_key": "price:claude-opus-4.5:output_tokens:1m_tokens",
-            "row_sha256": "96b52fda0efc0c2bb1df9a771d6454c552e3c103894db12284329cef48cb8d27",
+            "billing_dimension": "cache_hit",
+            "model_id": "claude-opus-4.6",
+            "price_usd_per_1m_tokens": "0.50",
+            "row_key": "price:claude-opus-4.6:cache_hit:1m_tokens",
+            "row_sha256": "6bfa5af93c34e17a1dbd252ad50e895a51ba2b9b2fcd8495045651b31f9659f2",
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "input_tokens",
+            "billing_dimension": "cache_hit",
+            "model_id": "claude-opus-4.7",
+            "price_usd_per_1m_tokens": "0.50",
+            "row_key": "price:claude-opus-4.7:cache_hit:1m_tokens",
+            "row_sha256": "1c45733a5e87501d9e889549f20cf63a05c6faccfaf965635a52c87cabce7fd5",
+            "unit": "1m_tokens"
+          },
+          {
+            "billing_dimension": "cache_hit",
+            "model_id": "claude-opus-4.8",
+            "price_usd_per_1m_tokens": "0.50",
+            "row_key": "price:claude-opus-4.8:cache_hit:1m_tokens",
+            "row_sha256": "176964ec30bce254f2db0032456bfc63bd8040030bbfe247d49679994bf24ba1",
+            "unit": "1m_tokens"
+          },
+          {
+            "billing_dimension": "cache_hit",
             "model_id": "claude-opus-4",
-            "price_usd_per_1m_tokens": "7.50",
-            "row_key": "price:claude-opus-4:input_tokens:1m_tokens",
-            "row_sha256": "cda20c458e2928c4135bb6127ab2c23ce45b896312ef3df539d8770707606e67",
+            "price_usd_per_1m_tokens": "1.50",
+            "row_key": "price:claude-opus-4:cache_hit:1m_tokens",
+            "row_sha256": "47ecb6465dd6b5d898d5a76ad8453be8235ec50ed3a883ea3eb34d3e22ada7ab",
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "output_tokens",
-            "model_id": "claude-opus-4",
-            "price_usd_per_1m_tokens": "37.50",
-            "row_key": "price:claude-opus-4:output_tokens:1m_tokens",
-            "row_sha256": "96121c636377da45dd72a50e54da4aa5a0e9335ddfc3833d113af9bd8733914f",
-            "unit": "1m_tokens"
-          },
-          {
-            "billing_dimension": "input_tokens",
+            "billing_dimension": "cache_hit",
             "model_id": "claude-sonnet-4.5",
-            "price_usd_per_1m_tokens": "1.50",
-            "row_key": "price:claude-sonnet-4.5:input_tokens:1m_tokens",
-            "row_sha256": "2ca0e36f1b20ba8f0707f11e1a6da65d69001d7ed0b1f2d56c6d80cb5a2a2611",
+            "price_usd_per_1m_tokens": "0.30",
+            "row_key": "price:claude-sonnet-4.5:cache_hit:1m_tokens",
+            "row_sha256": "fe7d800054a6b13e71429a08822cf84dc0afa107a33c9a9fc93793900a04e3ce",
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "output_tokens",
-            "model_id": "claude-sonnet-4.5",
-            "price_usd_per_1m_tokens": "7.50",
-            "row_key": "price:claude-sonnet-4.5:output_tokens:1m_tokens",
-            "row_sha256": "2ef00940c65411bd45a8e1b2b40347ebd7613079b6ca9535a6137926b437ae11",
-            "unit": "1m_tokens"
-          },
-          {
-            "billing_dimension": "input_tokens",
+            "billing_dimension": "cache_hit",
             "model_id": "claude-sonnet-4.6",
-            "price_usd_per_1m_tokens": "1.50",
-            "row_key": "price:claude-sonnet-4.6:input_tokens:1m_tokens",
-            "row_sha256": "3b2d7ca4c62cce18d4b5657b21fc811e4bc008e64e56a9608b7c4d68c89c1380",
+            "price_usd_per_1m_tokens": "0.30",
+            "row_key": "price:claude-sonnet-4.6:cache_hit:1m_tokens",
+            "row_sha256": "059de8714644034588b1248f4cb5c2e546f49a8274a663451b605bb561b3ce56",
             "unit": "1m_tokens"
           },
           {
-            "billing_dimension": "output_tokens",
-            "model_id": "claude-sonnet-4.6",
-            "price_usd_per_1m_tokens": "7.50",
-            "row_key": "price:claude-sonnet-4.6:output_tokens:1m_tokens",
-            "row_sha256": "b99f034157e920e4d73816454122dcb0819e3bccb38d05ed70c9ba7065d98de4",
-            "unit": "1m_tokens"
-          },
-          {
-            "billing_dimension": "input_tokens",
+            "billing_dimension": "cache_hit",
             "model_id": "claude-sonnet-4",
-            "price_usd_per_1m_tokens": "1.50",
-            "row_key": "price:claude-sonnet-4:input_tokens:1m_tokens",
-            "row_sha256": "b8298338f235d8734a460cd4efcc743ba4702c5c686351f5631306606d0df003",
-            "unit": "1m_tokens"
-          },
-          {
-            "billing_dimension": "output_tokens",
-            "model_id": "claude-sonnet-4",
-            "price_usd_per_1m_tokens": "7.50",
-            "row_key": "price:claude-sonnet-4:output_tokens:1m_tokens",
-            "row_sha256": "36ed5c487bd052699c0d920fada48056c167d08b821a0da552955261bb9c330e",
+            "price_usd_per_1m_tokens": "0.30",
+            "row_key": "price:claude-sonnet-4:cache_hit:1m_tokens",
+            "row_sha256": "a88d3d98541dd2df38cc16d7717198c9102d7414ae151f39a826ab449bc2feb8",
             "unit": "1m_tokens"
           }
         ],
@@ -219,31 +205,31 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-06-17T02:17:01Z"
+      "retrieved_at": "2026-06-27T08:49:19Z"
     },
     "anthropic.release_notes": {
-      "content_sha256": "e9de4e04a4e337722f8558767c7b22a5b4495717334b737eeec576667aeb01a8",
+      "content_sha256": "9798528e527ac17295613fea5aaa2feadac5d0db580aa19938a925aab154f681",
       "final_url": "https://platform.claude.com/docs/en/release-notes/overview",
-      "fingerprint": "d31061b7f92d0897b0abe7723a51ea629b9a630baaa13dc0fe9e876e7048bde5",
+      "fingerprint": "54274254fdbde9ddc3c1a3f7dbdb9a5c63bf7ccbfa7d2373626d5103cddbc94f",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:02Z"
+      "retrieved_at": "2026-06-27T08:49:19Z"
     },
     "anthropic.status": {
-      "content_sha256": "20264ecc32d27d399bcbf13387bc625f93d406fe57da06fb305b9bdf541db312",
+      "content_sha256": "b8fd87f896a12a72038e07b73eabc07a03626b53b3ae215f0ed52500fb68eaff",
       "final_url": "https://status.claude.com/",
-      "fingerprint": "ee100fdbb94f40adb1f70700502cbaeda687e3c525f5613a2423e2cf5f84892e",
+      "fingerprint": "2aad6d77fcf05cbf39d6af553da6e6b6d6f28bb9074e5457e1416371bd144469",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:03Z"
+      "retrieved_at": "2026-06-27T08:49:20Z"
     },
     "aws_bedrock.docs": {
-      "content_sha256": "ab75f8145be6669929cc36129b7387ac38ab4532db7b4672757bb624eb4bb5af",
+      "content_sha256": "047da877784ea1cd41f362d655184709c4992fcc1ea60da739fe267fc657f85e",
       "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html",
       "fingerprint": "1f16cee3f1d4a80d7587cb4932ff97cbf26deb4d6c9df86a1750569ade6705ca",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:03Z"
+      "retrieved_at": "2026-06-27T08:49:21Z"
     },
     "aws_bedrock.pricing": {
-      "content_sha256": "67c4c7534af07964f177d40dd98a054fda49e1c032e9366a94b9473e8b7d5bb6",
+      "content_sha256": "012be2be5745d4a6eeb2ebdbaa45046c0a7e6a68976d0c2d755abcb15bbe3203",
       "final_url": "https://aws.amazon.com/bedrock/pricing/",
       "fingerprint": "2af4ebe9f7261c2cbcb49f1a032c4990526c1a1c18f94f20edd5e350aebb7695",
       "http_status": 200,
@@ -299,17 +285,17 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-06-17T02:17:04Z"
+      "retrieved_at": "2026-06-27T08:49:21Z"
     },
     "aws_bedrock.whats_new": {
-      "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+      "content_sha256": "bbb4293ab90770ed371c06a5748452418308b31bc1ba700fe292d9664ff72d90",
       "final_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
-      "fingerprint": "078024f2c47c55b2e7eae3058830e08f383c68fe65901462d4b5efe9057e23ea",
+      "fingerprint": "ef6b86730f915a780db0bd973d28d920a6108a5eb20c1d397d0e94d5d6e808e4",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:05Z"
+      "retrieved_at": "2026-06-27T08:49:21Z"
     },
     "azure_openai.docs": {
-      "content_sha256": "646b5d358160a905a64de48ae28d78706644643ac3e621fd86684cbffa3f0ac1",
+      "content_sha256": "843c93722f3d63b9ce5f3719186935d291ae421370a690b8c75d2f3729a1ad5a",
       "final_url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure?pivots=azure-openai",
       "fingerprint": "53fba51b5d5da1f5e87b4a27b31e2e1cc71d9b0052c8451028045a9c76e53c67",
       "http_status": 200,
@@ -322,17 +308,17 @@
         "limit_signals": [],
         "schema_version": "apw.operational_rows.v0"
       },
-      "retrieved_at": "2026-06-17T02:17:05Z"
+      "retrieved_at": "2026-06-27T08:49:21Z"
     },
     "azure_openai.legacy_models": {
-      "content_sha256": "96128b3b0fa185975647c778aaae5da6e50478a5c4c8b687168ba6af12707dd7",
+      "content_sha256": "caaa4f9e5b88fe63544df54a5791ae0a880a0598867801acf3e49e9668010e71",
       "final_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models",
       "fingerprint": "682e7e429aa9e6a30e5993626b8387cfa659afe5502483270c6252af0a0fb654",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:06Z"
+      "retrieved_at": "2026-06-27T08:49:21Z"
     },
     "azure_openai.pricing": {
-      "content_sha256": "e4bda052086dd7a822e1a6df75acd8ef93fefc53c1d858af94f64f8db9782ec1",
+      "content_sha256": "720457a1b1ab4046a849112fa3669e4652fe00e8979cb29567d95d9f1352278d",
       "final_url": "https://azure.microsoft.com/en-us/pricing/details/azure-openai/",
       "fingerprint": "b8f1ceb1106b1ecef79da5cc834e80881b62b5f1d1117bf4520d8113ee33c8f3",
       "http_status": 200,
@@ -383,38 +369,38 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-06-17T02:17:06Z"
+      "retrieved_at": "2026-06-27T08:49:22Z"
     },
     "azure_openai.whats_new": {
-      "content_sha256": "0a84a41be394a5382b166f40d9893a7cbf2600844878cb70730a5d87905eab06",
+      "content_sha256": "8d51cfd8952021d09a0f94668804be765a3d552b1ab1c27971717f0bbf03366e",
       "final_url": "https://learn.microsoft.com/en-us/azure/foundry-classic/openai/whats-new",
       "fingerprint": "7cac4640c7da7e35923846bf1cca4f9a6df24fb6ad883b6341fc8f0a9a904fe8",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:21Z"
+      "retrieved_at": "2026-06-27T08:49:39Z"
     },
     "google.ai_docs": {
-      "content_sha256": "d566d356c42e48e8453123bd4b553d7ac02c8bb9bf0e8458e45dd352193fe44a",
+      "content_sha256": "97f0ab6d62aaf5112820d74f3498303da337b2e3287662422b13e20afd7328fa",
       "final_url": "https://ai.google.dev/gemini-api/docs/models",
       "fingerprint": "f6efa00dfec3d4f35b10f99a751935ba95728066ea736fddebbeb58e20d2d173",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:22Z"
+      "retrieved_at": "2026-06-27T08:49:39Z"
     },
     "google.gemini_changelog": {
-      "content_sha256": "9a8946eabcf05013bae7f32c31b6bf0ae3dd570df68971bab6f25a6a789c046b",
+      "content_sha256": "0dbabfbc36d7e2816f41fa3b5dcd4e6ee2a062e355aed31efef0321689cc71e5",
       "final_url": "https://ai.google.dev/gemini-api/docs/changelog",
-      "fingerprint": "7102dc5b078d6d9a0a48845d1756f89b6ae0797c78977ce69c80a9e9cd7d731d",
+      "fingerprint": "af7ad0ddfeaf8ab2b50b7cf3b1c9fc2d746a51e48dc042d92509d37172aa33ce",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:23Z"
+      "retrieved_at": "2026-06-27T08:49:39Z"
     },
     "google.vertex_model_versions": {
-      "content_sha256": "a036dfe1224bb1d594c2fcd478941af93bfab870dfe1dc56b16e519be6b7039b",
+      "content_sha256": "361fc6ede8641cbc2760aa3f0663dec4867fba9aeadfb8b78916e956bf943bca",
       "final_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
       "fingerprint": "cf0ad59d261b93b9b8b38f319b029bb6265868b7e4fd8f1ea489493dae21bb5b",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:24Z"
+      "retrieved_at": "2026-06-27T08:49:39Z"
     },
     "google.vertex_pricing": {
-      "content_sha256": "6cc899c0ecc0c0184aaf59806dc1950f0d0b15134fec09b3f0bc0c6358288d09",
+      "content_sha256": "864e79d315d4fe6afd52246f9c457adbb81d78b21eff24fc5edb8995856abd18",
       "final_url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
       "fingerprint": "f05a55e0acb2941e267fcb2c95069f3f4ddfb4eb0c3031e61e8581cc6dfca5ad",
       "http_status": 200,
@@ -475,38 +461,38 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-06-17T02:17:26Z"
+      "retrieved_at": "2026-06-27T08:49:40Z"
     },
     "openai.api_changelog": {
-      "content_sha256": "40bb1c4aac3ccedbd512520db3cfa510327417be479fcaf811b55d093a7e930d",
+      "content_sha256": "32449cae7af3128f4d30f11727bbe8bd515263622a3af71886919c228da9944c",
       "final_url": "https://developers.openai.com/api/docs/changelog",
-      "fingerprint": "6d73e63db4ed164c94bd20dae308ab394a78921261a9dce5c96850686c5cc048",
+      "fingerprint": "a96481e3e0888de1734640352af7576fc8efa88a4f6c18c9a0ea9e3db5892ef1",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:28Z"
+      "retrieved_at": "2026-06-27T08:49:41Z"
     },
     "openai.codex_docs": {
-      "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+      "content_sha256": "c1753f6c89b001dc4a4c19eb4372e648c12a88be4311665c0bb5cf701f4c5be1",
       "final_url": "https://developers.openai.com/codex/changelog",
-      "fingerprint": "796e7a6c6f35af4dbe4b549822fb1b59d4ebc538108112ed47e456ac3fb2d462",
+      "fingerprint": "ce2bca60c30fba77023479c96ce7ad2d97d9493b356c5e0e0f1678433cb119f0",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:28Z"
+      "retrieved_at": "2026-06-27T08:49:41Z"
     },
     "openai.deprecations": {
-      "content_sha256": "aa60ae1c4096793dc406f50c21ed5a05bd6ba79ccb1bec7d8847ae482e03b3a8",
+      "content_sha256": "28ab94e08ee840786f243cf9c9df5f925e53b70d5b5251002081629c0c16abc9",
       "final_url": "https://developers.openai.com/api/docs/deprecations",
       "fingerprint": "f2f785edd904552c152b89ba84de2e14aaf3449c0d6ba3c5bb73c5a725b8a8c7",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:29Z"
+      "retrieved_at": "2026-06-27T08:49:41Z"
     },
     "openai.news": {
-      "content_sha256": "6ea289de362eb2bf5223d03e1e6bc52179959e12be09526585622bd06fa405b1",
+      "content_sha256": "c3f865c21f01ff8899dd75a7d36544c44f4dcedc2a3eda04c81c902af5927390",
       "final_url": "https://openai.com/news/rss.xml",
-      "fingerprint": "7426dcce24d1147cde3a9ce6040db259435a2dac4471c86b9aa88228a72520ec",
+      "fingerprint": "e61197cbe469dc278a833c62498dfcd98a9b7dadf6f4cc27c981053ae11f1765",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:30Z"
+      "retrieved_at": "2026-06-27T08:49:42Z"
     },
     "openai.pricing": {
-      "content_sha256": "6ba74c5187649bac53dc83573b266fa65095f617a479388383e31a4a4a6ba97e",
+      "content_sha256": "0813f0caabe939bcf49be0b459bc07f82d4fee15ebaa791c2df2390cbc127d22",
       "final_url": "https://developers.openai.com/api/docs/pricing",
       "fingerprint": "1e99361410e81957658a2246b24df813c51e28f9c9f2756eba643b0d55c04b08",
       "http_status": 200,
@@ -532,14 +518,14 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-06-17T02:17:31Z"
+      "retrieved_at": "2026-06-27T08:49:42Z"
     },
     "openai.status": {
-      "content_sha256": "169e6157c2b91bf66ec629198e0203c1e99154c2a524f56eb37525de8babe723",
+      "content_sha256": "9130396289df25d6da89727feb65bcdf41ad67839215a47407bff23654dd71af",
       "final_url": "https://status.openai.com/feed.atom",
-      "fingerprint": "8139f9ee876defd6b6edbed509c34974071e50a624b7b9dfc06834cb337c1aa9",
+      "fingerprint": "b3510601db2822a541a86aef4521b14d6cba084c0f938a6b358ac32368042e0e",
       "http_status": 200,
-      "retrieved_at": "2026-06-17T02:17:31Z"
+      "retrieved_at": "2026-06-27T08:49:42Z"
     }
   }
 }
