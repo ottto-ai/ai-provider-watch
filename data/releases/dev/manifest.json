@@ -1,10 +1,10 @@
 {
   "artifacts": [
     {
-      "bytes": 15186,
+      "bytes": 15380,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "f91b80e33a75611db313507f48629ea5701738fe66be712271de5e11fc4cc1e5"
+      "sha256": "54808de66b3ce92b3b69f16fa5efb87b00074b9900ebe3beb8c4c751291cb515"
     },
     {
       "bytes": 240538,
@@ -28,7 +28,7 @@
       "bytes": 6979,
       "media_type": "application/json",
       "path": "data/feeds/freshness.json",
-      "sha256": "30c3cea407eddc76c4b8bcc5d81162ad04bb10dff7e39447cdcfd2640686fe9b"
+      "sha256": "0d4447b050fb7421ae7473e51359c0a64587d69024764a9500427c2996c63e41"
     },
     {
       "bytes": 11711,
@@ -37,10 +37,10 @@
       "sha256": "a357b6b26eae3c471a8bfb6885bab890f530ce813dace66447cf47bef350d0b7"
     },
     {
-      "bytes": 4434,
+      "bytes": 4640,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "1d60bd50b0fa1d3eaa3d88483f1cf29c270ccf54d2a41c3e500d5702097573cb"
+      "sha256": "9a6d35f671454a6de945ae3b84bd8bd5d2271a75aaddb5892998fc2438e68e5a"
     },
     {
       "bytes": 27241,
@@ -49,10 +49,10 @@
       "sha256": "8c20361af856ca09da5f03dd94ef99ba9b1254d7ea75970a7b10bb9278f9fb87"
     },
     {
-      "bytes": 47527,
+      "bytes": 47529,
       "media_type": "application/json",
       "path": "data/feeds/source-catalog.json",
-      "sha256": "bf1bcc439e8936d12954ca6112c42bf3857b41487794d988b0d830e380b58d82"
+      "sha256": "b757b94bb4fcf6fe71ded6fcd794eeb5ae219a80669b5a723ed56961d10dbefe"
     },
     {
       "bytes": 26585,
@@ -184,7 +184,7 @@
       "bytes": 3143,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "717ff7d16fa58ed70e1a773e2adf5cf615b2ca20bbf8e827ca7f382862feab57"
+      "sha256": "51da299ae3485f3fc8c62a72330944bbd34c8c36f8ab65a8335736b1b73ea697"
     },
     {
       "bytes": 8698,
@@ -194,15 +194,15 @@
     }
   ],
   "checksums": {
-    "data/feeds/coverage.json": "f91b80e33a75611db313507f48629ea5701738fe66be712271de5e11fc4cc1e5",
+    "data/feeds/coverage.json": "54808de66b3ce92b3b69f16fa5efb87b00074b9900ebe3beb8c4c751291cb515",
     "data/feeds/events.json": "b49ce0cc44f67c9a1e4862b8b3ae2bf0cc687007f205c98c595bea10666d9e6e",
     "data/feeds/events.ndjson": "f7bfc0586d198c0497c46f4cc6739922b2538fa698ecb75ef14979c98f9f42d4",
     "data/feeds/feed.json": "6a78281436fa7b184b530b8b41e0a5e5c02804dc96ed2a633a90e81a1aedf3bc",
-    "data/feeds/freshness.json": "30c3cea407eddc76c4b8bcc5d81162ad04bb10dff7e39447cdcfd2640686fe9b",
+    "data/feeds/freshness.json": "0d4447b050fb7421ae7473e51359c0a64587d69024764a9500427c2996c63e41",
     "data/feeds/latest.json": "a357b6b26eae3c471a8bfb6885bab890f530ce813dace66447cf47bef350d0b7",
-    "data/feeds/operations.json": "1d60bd50b0fa1d3eaa3d88483f1cf29c270ccf54d2a41c3e500d5702097573cb",
+    "data/feeds/operations.json": "9a6d35f671454a6de945ae3b84bd8bd5d2271a75aaddb5892998fc2438e68e5a",
     "data/feeds/rss.xml": "8c20361af856ca09da5f03dd94ef99ba9b1254d7ea75970a7b10bb9278f9fb87",
-    "data/feeds/source-catalog.json": "bf1bcc439e8936d12954ca6112c42bf3857b41487794d988b0d830e380b58d82",
+    "data/feeds/source-catalog.json": "b757b94bb4fcf6fe71ded6fcd794eeb5ae219a80669b5a723ed56961d10dbefe",
     "data/indexes/kind/api_contract_change.json": "0903e5001214e07a83c1fb963179a2b3a57f7fbc65076317f6eb720edd53636a",
     "data/indexes/kind/billing_channel_change.json": "b962d1eaa0148c9fbaf6bf8b405d89f3f3cbb25e2a2910a5ddff9be33a82dead",
     "data/indexes/kind/caching_change.json": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76",
@@ -224,7 +224,7 @@
     "data/indexes/severity/high.json": "59a0af1b4285f31277206c347f9bd28e97119d563e422b35782edc1003b44184",
     "data/indexes/severity/low.json": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b",
     "data/indexes/severity/medium.json": "ffad297c6e9d19118e1bc2936bcdbfee2d50bab4d131c1ae2ea8b4c2dd4bf66d",
-    "data/releases/dev/checksums.txt": "717ff7d16fa58ed70e1a773e2adf5cf615b2ca20bbf8e827ca7f382862feab57",
+    "data/releases/dev/checksums.txt": "51da299ae3485f3fc8c62a72330944bbd34c8c36f8ab65a8335736b1b73ea697",
     "data/releases/dev/evidence-index.json": "52cefb187ce74bb8f89e81d03a37b3c9c305072c1b134a3489d8c4e45d176e01"
   },
   "created_at": "2026-06-17T02:17:28Z",

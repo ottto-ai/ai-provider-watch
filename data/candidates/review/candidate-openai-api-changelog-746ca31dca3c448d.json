@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "default_model_change",
+  "claim_text": "OpenAI official dated source reports a default-model change on 2026-06-24 for api, chat-latest, gpt-5.5.",
+  "created_at": "2026-06-28T09:32:49Z",
+  "dedupe_key": "openai.api_changelog:default_model_change:54d053b9380d8459dee01ce8",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "32449cae7af3128f4d30f11727bbe8bd515263622a3af71886919c228da9944c",
+      "fingerprint": "a96481e3e0888de1734640352af7576fc8efa88a4f6c18c9a0ea9e3db5892ef1",
+      "retrieved_at": "2026-06-28T09:32:47Z",
+      "selector": "announcement:ef21355bb97cb19a",
+      "snapshot_ref": "entry:ef21355bb97cb19a",
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog"
+    }
+  ],
+  "id": "candidate-openai-api-changelog-746ca31dca3c448d",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_api_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.api_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
