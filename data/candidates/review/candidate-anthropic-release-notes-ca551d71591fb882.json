@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "billing_channel_change",
+  "claim_text": "Anthropic official dated source reports a billing channel change on 2026-06-29 for claude-opus-4-6, claude-opus-4.6, claude-opus-4.8.",
+  "created_at": "2026-06-30T10:00:38Z",
+  "dedupe_key": "anthropic.release_notes:billing_channel_change:4a27b7730f9d4897fd1d545f",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "77889971db22e12868a74cb4f200dc1352639b011110a63ef6fe784868b87853",
+      "fingerprint": "d5a64cb7880300b1993eeaed9e4c0874eef4fa7377d2dbb12e23bda4f4d04fc5",
+      "retrieved_at": "2026-06-30T10:00:15Z",
+      "selector": "announcement:119580a697eec183",
+      "snapshot_ref": "entry:119580a697eec183",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-ca551d71591fb882",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
