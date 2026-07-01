@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official dated source reports a model availability change on 2026-06-30 for claude-sonnet-4.6, claude-sonnet-5, tokens.",
+  "created_at": "2026-07-01T10:13:34Z",
+  "dedupe_key": "anthropic.release_notes:model_launch:0412375b48392b17a52cc57e",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "d3f8ab1315322f9797a6bc661738bc51eaef65dd42c7e6698188440ee7c89b17",
+      "fingerprint": "f0567b4b3cd062735ae963f2c7d9b8a28fd9cc939e52d04b1fbec281af2a58ac",
+      "retrieved_at": "2026-07-01T10:13:12Z",
+      "selector": "announcement:bce8456cb48a9593",
+      "snapshot_ref": "entry:bce8456cb48a9593",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-e12c0762abb3ea0d",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

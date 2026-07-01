@@ -1,0 +1,35 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock model documentation source changed and needs maintainer review for possible model availability, deprecation, or regional availability changes.",
+  "created_at": "2026-07-01T10:13:34Z",
+  "dedupe_key": "aws_bedrock.docs:model_launch:4f3768871feec3f6d2921073",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "52f8b3fa91b8da8ffe83fedaa0344d2a485535f83081ea53c6a76b8b5a27dc29",
+      "fingerprint": "af321e7d6c3d660745f2d7863fa494cc3024879a862505b69e28fd0fefd1a849",
+      "retrieved_at": "2026-07-01T10:13:12Z",
+      "snapshot_ref": null,
+      "source_key": "aws_bedrock.docs",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html"
+    }
+  ],
+  "id": "candidate-aws-bedrock-docs-9532a2de7d4e228f",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_model_cards"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.docs"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
