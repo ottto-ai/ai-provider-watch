@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official dated source reports a model availability change on 2026-06-30 for claude-managed-agents.",
+  "created_at": "2026-07-02T09:31:43Z",
+  "dedupe_key": "anthropic.release_notes:model_launch:b162020bb9df00ecdea39059",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "6d3be42c5a5e614ee01a1763a21b34c950030c047fff9793ad6bad160d0cd910",
+      "fingerprint": "cc19a2b2b2c089c7c5c74f75fc5c5780f1b434fefd7763bae582d6aab94bfe24",
+      "retrieved_at": "2026-07-02T09:31:20Z",
+      "selector": "announcement:13e100af644f4355",
+      "snapshot_ref": "entry:13e100af644f4355",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-b63c71d9c2380624",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
