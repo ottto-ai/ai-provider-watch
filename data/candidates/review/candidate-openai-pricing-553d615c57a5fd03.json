@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "token_accounting_change",
+  "claim_text": "OpenAI official pricing table added cache write pricing signal.",
+  "created_at": "2026-07-11T08:14:48Z",
+  "dedupe_key": "openai.pricing:token_accounting_change:8529d28c9111c0fbd42a7d02",
+  "evidence_refs": [
+    {
+      "authority": "official_pricing",
+      "content_sha256": "d9a00a1bca9441520ccece09b4c739b573be0e32ce686ae400f5a0868fe5cf90",
+      "fingerprint": "52a90857dbf15f19def1a2b752e4d79481888c21bf307ab98196d40dd901c25a",
+      "retrieved_at": "2026-07-11T08:14:47Z",
+      "selector": "pricing-signal:08b04fd5220766e8",
+      "snapshot_ref": "signal:08b04fd5220766e8",
+      "source_key": "openai.pricing",
+      "url": "https://developers.openai.com/api/docs/pricing"
+    }
+  ],
+  "id": "candidate-openai-pricing-553d615c57a5fd03",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_pricing"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.pricing"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
