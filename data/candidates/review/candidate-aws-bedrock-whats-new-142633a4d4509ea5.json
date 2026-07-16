@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-07-07 for amazon-bedrock, aws-bedrock, sdk.",
+  "created_at": "2026-07-16T08:33:54Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:95062f162f58c6582947729a",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "1550d46f701dbb8e0f732aa7270517a352bc90dd9c9776c6c98c52b0cdc9bc46",
+      "fingerprint": "37d4d638a4921aa0abdc8fdbc4909348ebea72d67bd406792e0c2dc1bc1524c8",
+      "retrieved_at": "2026-07-16T08:33:32Z",
+      "selector": "announcement:3e104196aa1a7375",
+      "snapshot_ref": "entry:3e104196aa1a7375",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/07/amazon-rds-oracle-database-26ai/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-142633a4d4509ea5",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
