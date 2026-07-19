@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-07-13 for amazon-bedrock, api, aws-bedrock, gpt-5.6, prompt-caching, responses-api.",
+  "created_at": "2026-07-19T08:32:48Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:d8575efeb223887778009331",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "d9f8d3431ea145c19e1bcb1ed6ca34ac1edd4c68bad77b4ecbbee887d8b9ee82",
+      "fingerprint": "37d4d638a4921aa0abdc8fdbc4909348ebea72d67bd406792e0c2dc1bc1524c8",
+      "retrieved_at": "2026-07-19T08:32:24Z",
+      "selector": "announcement:e01e5cb145916528",
+      "snapshot_ref": "entry:e01e5cb145916528",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/07/openai-gpt-sol-terra/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-2ead828e7974974c",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
