@@ -17,6 +17,173 @@
   "items": [
     {
       "_apw": {
+        "confidence": "high",
+        "effective_at": "2026-07-12T00:00:00Z",
+        "event_date": "2026-07-12",
+        "event_id": "2026-07-12-openai-chatgpt-weekly-window-agentic-credits",
+        "event_kind": "quota_change",
+        "evidence_refs": [
+          {
+            "authority": "official_pricing",
+            "content_sha256": "dd90950c58e2f44abdc65ef1b0c725ee20ad6c037c1da3f86522511e1016a0fc",
+            "selector": "normalized-visible-text",
+            "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs/pricing@2026-07-20",
+            "source_key": "openai.pricing",
+            "url": "https://learn.chatgpt.com/docs/pricing"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "high",
+            "direction": "changed",
+            "impact_kind": "quota",
+            "scope_ref": "plan:openai/chatgpt-plus-pro-business",
+            "scope_type": "subscription_plan",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "cost",
+            "scope_ref": "plan:openai/chatgpt",
+            "scope_type": "subscription_plan",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "quota",
+            "scope_ref": "plan:openai/chatgpt",
+            "scope_type": "subscription_plan",
+            "severity": "low"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "The current OpenAI pricing page still documents a shared five-hour window with additional weekly limits, so the reported five-hour-window suspension was likely adjusted after 2026-07-12.",
+          "Third-party reporting (winbuzzer.com, 2026-07-14) indicates OpenAI eased GPT-5.6 timing limits after the change while keeping weekly caps; it was not used as primary evidence.",
+          "Exact per-plan caps, eligibility, credit prices, and window state can change; the official pricing page remains the source of truth for current numbers.",
+          "No raw provider prose is copied into the event."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_pricing"
+      },
+      "content_text": "OpenAI restructured ChatGPT and Codex usage limits so a weekly limit governs the primary cap, reported suspending the shared five-hour window on Plus, Pro, and Business plans, while adding purchasable ChatGPT credits to continue past included usage and banked rate-limit resets earned through referrals.\n\nKind: quota_change\nSeverity: high\nConfidence: high\nProviders: provider:openai",
+      "date_modified": "2026-07-20T19:29:09Z",
+      "date_published": "2026-07-20T19:29:09Z",
+      "external_url": "https://learn.chatgpt.com/docs/pricing",
+      "id": "2026-07-12-openai-chatgpt-weekly-window-agentic-credits",
+      "summary": "OpenAI restructured ChatGPT and Codex usage limits so a weekly limit governs the primary cap, reported suspending the shared five-hour window on Plus, Pro, and Business plans, while adding purchasable ChatGPT credits to continue past included usage and banked rate-limit resets earned through referrals.",
+      "tags": [
+        "app:chatgpt",
+        "app:codex",
+        "impact:quota_change",
+        "provider:openai",
+        "quota_change",
+        "severity:high",
+        "source:official_pricing"
+      ],
+      "title": "OpenAI Made Weekly Limits Primary For ChatGPT Codex Usage And Added Purchasable Credits",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-07-12-openai-chatgpt-weekly-window-agentic-credits.json"
+    },
+    {
+      "_apw": {
+        "confidence": "confirmed",
+        "effective_at": "2026-07-09T00:00:00Z",
+        "event_date": "2026-07-09",
+        "event_id": "2026-07-09-openai-chatgpt-codex-app-unification",
+        "event_kind": "workflow_behavior_change",
+        "evidence_refs": [
+          {
+            "authority": "official_docs",
+            "content_sha256": "0fc0e3d50d6bd45d46409eae2a016b860b110d6816050632908def339ad094a5",
+            "selector": "normalized-visible-text",
+            "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs@2026-07-20",
+            "source_key": "openai.codex_docs",
+            "url": "https://learn.chatgpt.com/docs"
+          },
+          {
+            "authority": "official_pricing",
+            "content_sha256": "dd90950c58e2f44abdc65ef1b0c725ee20ad6c037c1da3f86522511e1016a0fc",
+            "selector": "normalized-visible-text",
+            "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs/pricing@2026-07-20",
+            "source_key": "openai.pricing",
+            "url": "https://learn.chatgpt.com/docs/pricing"
+          }
+        ],
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "migration",
+            "scope_ref": "app:codex",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "cost",
+            "scope_ref": "plan:openai/chatgpt-work-codex",
+            "scope_type": "subscription_plan",
+            "severity": "high"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "availability",
+            "scope_ref": "model:openai/gpt-5.6",
+            "scope_type": "model",
+            "severity": "medium"
+          },
+          {
+            "confidence": "confirmed",
+            "direction": "changed",
+            "impact_kind": "behavior",
+            "scope_ref": "surface:openai/codex",
+            "scope_type": "provider_surface",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "limitations": [
+          "APW records the public restructure metadata only; exact ChatGPT Work and Codex mode availability, desktop rollout, tenant eligibility, and per-plan pricing vary by account.",
+          "The OpenAI Help Center article help.openai.com/en/articles/20001275-chatgpt-work-and-codex and third-party launch coverage (9to5mac.com, 2026-07-09) corroborate the announcement but were not used as primary evidence.",
+          "No raw provider prose is copied into the event."
+        ],
+        "migration_deadline": null,
+        "provider_refs": [
+          "provider:openai"
+        ],
+        "schema_version": "apw.provider_event.v0",
+        "severity": "high",
+        "source_authority": "official_docs"
+      },
+      "content_text": "OpenAI folded the standalone Codex desktop app into a single ChatGPT app with Chat, Work, and Codex modes, made ChatGPT Work share Codex usage limits, pricing, and credits, launched the GPT-5.6 Sol, Terra, and Luna model family, and moved Codex developer docs from developers.openai.com/codex to learn.chatgpt.com/docs.\n\nKind: workflow_behavior_change\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
+      "date_modified": "2026-07-20T19:29:09Z",
+      "date_published": "2026-07-20T19:29:09Z",
+      "external_url": "https://learn.chatgpt.com/docs",
+      "id": "2026-07-09-openai-chatgpt-codex-app-unification",
+      "summary": "OpenAI folded the standalone Codex desktop app into a single ChatGPT app with Chat, Work, and Codex modes, made ChatGPT Work share Codex usage limits, pricing, and credits, launched the GPT-5.6 Sol, Terra, and Luna model family, and moved Codex developer docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+      "tags": [
+        "app:chatgpt",
+        "app:codex",
+        "impact:workflow_behavior_change",
+        "provider:openai",
+        "severity:high",
+        "source:official_docs",
+        "workflow_behavior_change"
+      ],
+      "title": "OpenAI Unified The Codex App Into ChatGPT With Chat, Work, And Codex Modes",
+      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-07-09-openai-chatgpt-codex-app-unification.json"
+    },
+    {
+      "_apw": {
         "confidence": "confirmed",
         "effective_at": "2026-06-16T00:00:00Z",
         "event_date": "2026-06-16",
@@ -3115,154 +3282,6 @@
       ],
       "title": "Google Gemini API Released Gemini 3.5 Flash And Managed Agents Preview",
       "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-19-google-gemini-35-flash-managed-agents.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2026-05-07T00:00:00Z",
-        "event_date": "2026-05-07",
-        "event_id": "2026-05-07-openai-realtime-voice-api-models",
-        "event_kind": "model_launch",
-        "evidence_refs": [
-          {
-            "authority": "official_blog",
-            "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
-            "selector": "announcement:f9ec8fe4f40fd511",
-            "snapshot_ref": "entry:f9ec8fe4f40fd511",
-            "source_key": "openai.news",
-            "url": "https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "availability",
-            "scope_ref": "surface:openai/realtime-api",
-            "scope_type": "provider_surface",
-            "severity": "high"
-          },
-          {
-            "confidence": "confirmed",
-            "direction": "changed",
-            "impact_kind": "cost",
-            "scope_ref": "surface:openai/realtime-api",
-            "scope_type": "provider_surface",
-            "severity": "high"
-          },
-          {
-            "confidence": "confirmed",
-            "direction": "changed",
-            "impact_kind": "quota",
-            "scope_ref": "model:openai/gpt-realtime-2",
-            "scope_type": "model",
-            "severity": "medium"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "Pricing is recorded from the announcement; consumers should check the pricing page before billing-sensitive launches.",
-          "No raw announcement body is copied into APW."
-        ],
-        "migration_deadline": null,
-        "provider_refs": [
-          "provider:openai"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "high",
-        "source_authority": "official_blog"
-      },
-      "content_text": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
-      "date_modified": "2026-06-11T19:15:39Z",
-      "date_published": "2026-06-11T19:15:39Z",
-      "external_url": "https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api",
-      "id": "2026-05-07-openai-realtime-voice-api-models",
-      "summary": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.",
-      "tags": [
-        "impact:cost",
-        "impact:model_launch",
-        "model_launch",
-        "provider:openai",
-        "severity:high",
-        "source:official_blog",
-        "surface:realtime_api"
-      ],
-      "title": "OpenAI Added GPT-Realtime-2, Translate, And Whisper Voice API Models",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-07-openai-realtime-voice-api-models.json"
-    },
-    {
-      "_apw": {
-        "confidence": "confirmed",
-        "effective_at": "2026-05-07T00:00:00Z",
-        "event_date": "2026-05-07",
-        "event_id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
-        "event_kind": "model_launch",
-        "evidence_refs": [
-          {
-            "authority": "official_blog",
-            "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
-            "selector": "announcement:6a792a6a3969e69f",
-            "snapshot_ref": "entry:6a792a6a3969e69f",
-            "source_key": "openai.news",
-            "url": "https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber"
-          }
-        ],
-        "impacts": [
-          {
-            "confidence": "confirmed",
-            "direction": "added",
-            "impact_kind": "availability",
-            "scope_ref": "model:openai/gpt-5.5-cyber",
-            "scope_type": "model",
-            "severity": "high"
-          },
-          {
-            "confidence": "confirmed",
-            "direction": "changed",
-            "impact_kind": "security",
-            "scope_ref": "account:openai/trusted-access-for-cyber",
-            "scope_type": "account_type",
-            "severity": "high"
-          },
-          {
-            "confidence": "confirmed",
-            "direction": "changed",
-            "impact_kind": "behavior",
-            "scope_ref": "model:openai/gpt-5.5",
-            "scope_type": "model",
-            "severity": "medium"
-          }
-        ],
-        "lifecycle_status": "reviewed",
-        "limitations": [
-          "APW records public access-policy metadata only; it does not validate eligibility, authorization, or exact tenant rollout state.",
-          "No raw announcement body is copied into APW."
-        ],
-        "migration_deadline": "2026-06-01T00:00:00Z",
-        "provider_refs": [
-          "provider:openai"
-        ],
-        "schema_version": "apw.provider_event.v0",
-        "severity": "high",
-        "source_authority": "official_blog"
-      },
-      "content_text": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.\n\nKind: model_launch\nSeverity: high\nConfidence: confirmed\nProviders: provider:openai",
-      "date_modified": "2026-06-11T19:15:39Z",
-      "date_published": "2026-06-11T19:15:39Z",
-      "external_url": "https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber",
-      "id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
-      "summary": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.",
-      "tags": [
-        "impact:model_launch",
-        "impact:security",
-        "model:gpt_5_5_cyber",
-        "model_launch",
-        "provider:openai",
-        "severity:high",
-        "source:official_blog"
-      ],
-      "title": "OpenAI Added GPT-5.5-Cyber Limited Preview And Trusted Access Controls",
-      "url": "https://raw.githubusercontent.com/ottto-ai/ai-provider-watch/main/data/events/2026-05-07-openai-gpt-55-cyber-trusted-access.json"
     }
   ],
   "language": "en-US",

@@ -4,55 +4,55 @@
       "bytes": 15186,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "f91b80e33a75611db313507f48629ea5701738fe66be712271de5e11fc4cc1e5"
+      "sha256": "024bc7f223e4dc99b0a5d98b8b95718c20f9c54aa8b5a2fee3cc07eb49861460"
     },
     {
-      "bytes": 240538,
+      "bytes": 252558,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "b49ce0cc44f67c9a1e4862b8b3ae2bf0cc687007f205c98c595bea10666d9e6e"
+      "sha256": "7226e64537f11e28afb2efc7d987b7d9b45a8ffce97e51e43cfd88aaa5906ffd"
     },
     {
-      "bytes": 200902,
+      "bytes": 211212,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "f7bfc0586d198c0497c46f4cc6739922b2538fa698ecb75ef14979c98f9f42d4"
+      "sha256": "a2df16132ee45c79535b4056873868b9cfa217ae02739b0f8f2705f42b2dfc1f"
     },
     {
-      "bytes": 153009,
+      "bytes": 154704,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "6a78281436fa7b184b530b8b41e0a5e5c02804dc96ed2a633a90e81a1aedf3bc"
+      "sha256": "288e38e27f78642bd05f44ebce07079cbd62165658c4a24003ee920c3881f927"
     },
     {
-      "bytes": 6979,
+      "bytes": 7190,
       "media_type": "application/json",
       "path": "data/feeds/freshness.json",
-      "sha256": "30c3cea407eddc76c4b8bcc5d81162ad04bb10dff7e39447cdcfd2640686fe9b"
+      "sha256": "dafacbe75e8ac3e0d70bb8e19b730e078267250797eedcb783b9933cd606ce19"
     },
     {
-      "bytes": 11711,
+      "bytes": 11970,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",
-      "sha256": "a357b6b26eae3c471a8bfb6885bab890f530ce813dace66447cf47bef350d0b7"
+      "sha256": "f4536e66a6248a55e4433be0cd7e4ba628fd1fc9ba21759e639ed242516dd8f6"
     },
     {
       "bytes": 4434,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "1d60bd50b0fa1d3eaa3d88483f1cf29c270ccf54d2a41c3e500d5702097573cb"
+      "sha256": "7b54a2de343e5964d120d66c2c97589aec48c6312f0bddc860037392febe1f77"
     },
     {
-      "bytes": 27241,
+      "bytes": 27469,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "8c20361af856ca09da5f03dd94ef99ba9b1254d7ea75970a7b10bb9278f9fb87"
+      "sha256": "ebbb533863c9b6b9fbb8172e9a3250c87ee5a1d337e516331337be8e12ea2a94"
     },
     {
-      "bytes": 47527,
+      "bytes": 47758,
       "media_type": "application/json",
       "path": "data/feeds/source-catalog.json",
-      "sha256": "bf1bcc439e8936d12954ca6112c42bf3857b41487794d988b0d830e380b58d82"
+      "sha256": "d87348ca7fcfb36921069ce8aa0a58b3b04178bedf7dfe4bc51e267afea50f67"
     },
     {
       "bytes": 26585,
@@ -97,6 +97,12 @@
       "sha256": "b893a6a85c1a3978fa8dfa39076f9fb5f9c4618cd1b89038fac4a808eeb6c1cc"
     },
     {
+      "bytes": 5934,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/quota_change.json",
+      "sha256": "286729e4bbcacbca6458b622932f5f0b83c4c8beee2ad34d3a828b6e062bf0c4"
+    },
+    {
       "bytes": 4611,
       "media_type": "application/json",
       "path": "data/indexes/kind/rate_limit_change.json",
@@ -127,10 +133,10 @@
       "sha256": "5b3912daf6995145f80dd0641caa4491131dee1c5f3d974abfad6c3858ea1ef9"
     },
     {
-      "bytes": 43218,
+      "bytes": 49307,
       "media_type": "application/json",
       "path": "data/indexes/kind/workflow_behavior_change.json",
-      "sha256": "53c996a6b03609fe604a7a48a61affaed68aaf7ae02c507023caa6d2dff5adcc"
+      "sha256": "6371b60bc5760d5fee659816563ccc9ad59344151aacfc34a9c09e56c4ea091c"
     },
     {
       "bytes": 41691,
@@ -157,16 +163,16 @@
       "sha256": "36938bfb152715659219b94a957f77d49d1c373ab0a0621f2fa6a1f642a8c86d"
     },
     {
-      "bytes": 98616,
+      "bytes": 110636,
       "media_type": "application/json",
       "path": "data/indexes/provider/openai.json",
-      "sha256": "73f21fe90eaf53f1da4de79c9d7f19871eda614e55977865c228ebe03797e04b"
+      "sha256": "648da7898ff773861cbb72a5513b216a48bf7f6c212548c46642979150298ac2"
     },
     {
-      "bytes": 128551,
+      "bytes": 140571,
       "media_type": "application/json",
       "path": "data/indexes/severity/high.json",
-      "sha256": "59a0af1b4285f31277206c347f9bd28e97119d563e422b35782edc1003b44184"
+      "sha256": "960375bb42921752835d7b721581a0ec618d29b3133f1a25d314bf4daeb536b0"
     },
     {
       "bytes": 8665,
@@ -181,28 +187,28 @@
       "sha256": "ffad297c6e9d19118e1bc2936bcdbfee2d50bab4d131c1ae2ea8b4c2dd4bf66d"
     },
     {
-      "bytes": 3143,
+      "bytes": 3245,
       "media_type": "text/plain",
       "path": "data/releases/dev/checksums.txt",
-      "sha256": "717ff7d16fa58ed70e1a773e2adf5cf615b2ca20bbf8e827ca7f382862feab57"
+      "sha256": "e5a3f48f6bb299be52c30f13782f70a95b19df567b674bc07017507d97ffa082"
     },
     {
       "bytes": 8698,
       "media_type": "application/json",
       "path": "data/releases/dev/evidence-index.json",
-      "sha256": "52cefb187ce74bb8f89e81d03a37b3c9c305072c1b134a3489d8c4e45d176e01"
+      "sha256": "a58c7e336a8f01006adba04723f1801a939706e0233e65da9c9fdbd4f4d23809"
     }
   ],
   "checksums": {
-    "data/feeds/coverage.json": "f91b80e33a75611db313507f48629ea5701738fe66be712271de5e11fc4cc1e5",
-    "data/feeds/events.json": "b49ce0cc44f67c9a1e4862b8b3ae2bf0cc687007f205c98c595bea10666d9e6e",
-    "data/feeds/events.ndjson": "f7bfc0586d198c0497c46f4cc6739922b2538fa698ecb75ef14979c98f9f42d4",
-    "data/feeds/feed.json": "6a78281436fa7b184b530b8b41e0a5e5c02804dc96ed2a633a90e81a1aedf3bc",
-    "data/feeds/freshness.json": "30c3cea407eddc76c4b8bcc5d81162ad04bb10dff7e39447cdcfd2640686fe9b",
-    "data/feeds/latest.json": "a357b6b26eae3c471a8bfb6885bab890f530ce813dace66447cf47bef350d0b7",
-    "data/feeds/operations.json": "1d60bd50b0fa1d3eaa3d88483f1cf29c270ccf54d2a41c3e500d5702097573cb",
-    "data/feeds/rss.xml": "8c20361af856ca09da5f03dd94ef99ba9b1254d7ea75970a7b10bb9278f9fb87",
-    "data/feeds/source-catalog.json": "bf1bcc439e8936d12954ca6112c42bf3857b41487794d988b0d830e380b58d82",
+    "data/feeds/coverage.json": "024bc7f223e4dc99b0a5d98b8b95718c20f9c54aa8b5a2fee3cc07eb49861460",
+    "data/feeds/events.json": "7226e64537f11e28afb2efc7d987b7d9b45a8ffce97e51e43cfd88aaa5906ffd",
+    "data/feeds/events.ndjson": "a2df16132ee45c79535b4056873868b9cfa217ae02739b0f8f2705f42b2dfc1f",
+    "data/feeds/feed.json": "288e38e27f78642bd05f44ebce07079cbd62165658c4a24003ee920c3881f927",
+    "data/feeds/freshness.json": "dafacbe75e8ac3e0d70bb8e19b730e078267250797eedcb783b9933cd606ce19",
+    "data/feeds/latest.json": "f4536e66a6248a55e4433be0cd7e4ba628fd1fc9ba21759e639ed242516dd8f6",
+    "data/feeds/operations.json": "7b54a2de343e5964d120d66c2c97589aec48c6312f0bddc860037392febe1f77",
+    "data/feeds/rss.xml": "ebbb533863c9b6b9fbb8172e9a3250c87ee5a1d337e516331337be8e12ea2a94",
+    "data/feeds/source-catalog.json": "d87348ca7fcfb36921069ce8aa0a58b3b04178bedf7dfe4bc51e267afea50f67",
     "data/indexes/kind/api_contract_change.json": "0903e5001214e07a83c1fb963179a2b3a57f7fbc65076317f6eb720edd53636a",
     "data/indexes/kind/billing_channel_change.json": "b962d1eaa0148c9fbaf6bf8b405d89f3f3cbb25e2a2910a5ddff9be33a82dead",
     "data/indexes/kind/caching_change.json": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76",
@@ -210,24 +216,25 @@
     "data/indexes/kind/model_deprecation.json": "d264ed07c84da6e63659a36207c4b0cd510387816dc2e36eda5b633bfe1cfd65",
     "data/indexes/kind/model_launch.json": "7f5d5e98b0faf413b67ba55b0035928751872dfcba6eff13bae558a3add69c00",
     "data/indexes/kind/model_retirement.json": "b893a6a85c1a3978fa8dfa39076f9fb5f9c4618cd1b89038fac4a808eeb6c1cc",
+    "data/indexes/kind/quota_change.json": "286729e4bbcacbca6458b622932f5f0b83c4c8beee2ad34d3a828b6e062bf0c4",
     "data/indexes/kind/rate_limit_change.json": "2a44c009aed4cb8ab0c8f0eceb856357bb4a0e504d87d87039c6ee8d2ccd5aef",
     "data/indexes/kind/regional_availability_change.json": "5555c75dc73d5c58db2bbc7ffd81e448c003acfdc98c384eada139e8ad6b5fe9",
     "data/indexes/kind/status_incident.json": "6d1ded4685dadd9bdef6e4af9f59b256f11735518f846f3bac2ff2c16b44ca1a",
     "data/indexes/kind/subscription_change.json": "d53a9fd74e7f6a74c3d697ad839ee417ef46920d458362271d8d4f9a55477913",
     "data/indexes/kind/token_accounting_change.json": "5b3912daf6995145f80dd0641caa4491131dee1c5f3d974abfad6c3858ea1ef9",
-    "data/indexes/kind/workflow_behavior_change.json": "53c996a6b03609fe604a7a48a61affaed68aaf7ae02c507023caa6d2dff5adcc",
+    "data/indexes/kind/workflow_behavior_change.json": "6371b60bc5760d5fee659816563ccc9ad59344151aacfc34a9c09e56c4ea091c",
     "data/indexes/provider/anthropic.json": "cc389a0481c96c9c90ff5193c28646ae8997ac9560c01290e8c004b83b827fcf",
     "data/indexes/provider/aws-bedrock.json": "07f86feaa65c5021d94aaa2ca772403fc7d408f157df6a5eefeac3637c79eb98",
     "data/indexes/provider/azure-openai.json": "f7efbff7c6bd0ab20176598c913265b1f391c7b74f8155ed9518fce556c4159b",
     "data/indexes/provider/google.json": "36938bfb152715659219b94a957f77d49d1c373ab0a0621f2fa6a1f642a8c86d",
-    "data/indexes/provider/openai.json": "73f21fe90eaf53f1da4de79c9d7f19871eda614e55977865c228ebe03797e04b",
-    "data/indexes/severity/high.json": "59a0af1b4285f31277206c347f9bd28e97119d563e422b35782edc1003b44184",
+    "data/indexes/provider/openai.json": "648da7898ff773861cbb72a5513b216a48bf7f6c212548c46642979150298ac2",
+    "data/indexes/severity/high.json": "960375bb42921752835d7b721581a0ec618d29b3133f1a25d314bf4daeb536b0",
     "data/indexes/severity/low.json": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b",
     "data/indexes/severity/medium.json": "ffad297c6e9d19118e1bc2936bcdbfee2d50bab4d131c1ae2ea8b4c2dd4bf66d",
-    "data/releases/dev/checksums.txt": "717ff7d16fa58ed70e1a773e2adf5cf615b2ca20bbf8e827ca7f382862feab57",
-    "data/releases/dev/evidence-index.json": "52cefb187ce74bb8f89e81d03a37b3c9c305072c1b134a3489d8c4e45d176e01"
+    "data/releases/dev/checksums.txt": "e5a3f48f6bb299be52c30f13782f70a95b19df567b674bc07017507d97ffa082",
+    "data/releases/dev/evidence-index.json": "a58c7e336a8f01006adba04723f1801a939706e0233e65da9c9fdbd4f4d23809"
   },
-  "created_at": "2026-06-17T02:17:28Z",
+  "created_at": "2026-07-20T19:29:09Z",
   "generated_by": "ai-provider-watch 0.1.18",
   "notes": "Deterministic development manifest.",
   "release_id": "dev",

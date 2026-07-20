@@ -9,7 +9,7 @@ from ai_provider_watch.pipeline.coverage import build_source_coverage_report
 
 ROOT = Path(__file__).resolve().parents[1]
 CREATED_AT = "2026-06-08T12:00:00Z"
-STALE_CREATED_AT = "2026-06-20T03:00:00Z"
+STALE_CREATED_AT = "2026-07-24T03:00:00Z"
 
 
 def test_source_coverage_report_matches_schema_and_current_gaps() -> None:
@@ -28,8 +28,8 @@ def test_source_coverage_report_matches_schema_and_current_gaps() -> None:
         "fetched_enabled_source_ratio": 1.0,
         "manual_review_only_source_count": 0,
         "blocked_pending_parser_source_count": 0,
-        "reviewed_event_count": 67,
-        "latest_event_date": "2026-06-16",
+        "reviewed_event_count": 69,
+        "latest_event_date": "2026-07-12",
         "candidate_backlog_count": 0,
         "warning_count": 0,
     }

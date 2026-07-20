@@ -2,6 +2,45 @@
   "cards": [
     {
       "agent_app_refs": [
+        "app:codex"
+      ],
+      "confidence": "confirmed",
+      "effective_at": "2026-07-09T00:00:00Z",
+      "event_date": "2026-07-09",
+      "event_id": "2026-07-09-openai-chatgpt-codex-app-unification",
+      "event_kind": "workflow_behavior_change",
+      "evidence_urls": [
+        "https://learn.chatgpt.com/docs",
+        "https://learn.chatgpt.com/docs/pricing"
+      ],
+      "impact_rows": [
+        {
+          "api_usage_impact": "none",
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "migration",
+          "recommended_action": "Expect the standalone Codex desktop app to move under the unified ChatGPT app with Chat, Work, and Codex modes; re-verify app install, sign-in, and mode selection before comparing behavior with pre-unification baselines.",
+          "scope_ref": "app:codex",
+          "severity": "high",
+          "subscription_impact": "possible"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "observed_at": "2026-07-20T19:29:09Z",
+      "priority": "high",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "recommended_next_steps": [
+        "Expect the standalone Codex desktop app to move under the unified ChatGPT app with Chat, Work, and Codex modes; re-verify app install, sign-in, and mode selection before comparing behavior with pre-unification baselines."
+      ],
+      "severity": "high",
+      "source_authority": "official_docs",
+      "summary": "OpenAI folded the standalone Codex desktop app into a single ChatGPT app with Chat, Work, and Codex modes, made ChatGPT Work share Codex usage limits, pricing, and credits, launched the GPT-5.6 Sol, Terra, and Luna model family, and moved Codex developer docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+      "title": "OpenAI Unified The Codex App Into ChatGPT With Chat, Work, And Codex Modes"
+    },
+    {
+      "agent_app_refs": [
         "app:claude-code",
         "app:codex"
       ],
@@ -353,7 +392,7 @@
     }
   ],
   "delivery_boundary": "local_dashboard_json_no_third_party_api_calls",
-  "event_count": 7,
+  "event_count": 8,
   "filters": {
     "agent_app": null,
     "event_id": null,
