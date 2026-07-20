@@ -1,0 +1,118 @@
+[
+  {
+    "announced_at": "2026-07-12T00:00:00Z",
+    "confidence": "high",
+    "date_confidence": "exact",
+    "detail": {
+      "kind": "quota_change",
+      "quota_items": [
+        {
+          "extension_mechanism": "purchasable_chatgpt_or_workspace_credits",
+          "note": "Weekly limit governs as primary cap; the five-hour window was reported suspended on 2026-07-12 and the current pricing page documents both windows, so exact window state can vary.",
+          "primary_window": "weekly",
+          "scope": "chatgpt_plus_pro_business",
+          "secondary_window": "five_hour_reported_suspended_2026-07-12"
+        }
+      ],
+      "reset_policy": "Banked rate-limit resets are earned through eligible Codex referrals and are usable for 30 days after they are granted.",
+      "schema_version": "apw.event_detail.v0",
+      "window": "Weekly limit reported as the primary cap; the shared five-hour window was reported suspended on Plus, Pro, and Business on 2026-07-12. The current pricing page still documents a shared five-hour window with additional weekly limits, indicating the window state was later adjusted."
+    },
+    "effective_at": "2026-07-12T00:00:00Z",
+    "event_date": "2026-07-12",
+    "event_kind": "quota_change",
+    "evidence_refs": [
+      {
+        "authority": "official_pricing",
+        "content_sha256": "dd90950c58e2f44abdc65ef1b0c725ee20ad6c037c1da3f86522511e1016a0fc",
+        "license_note": "Official OpenAI pricing docs reviewed for factual metadata; no provider prose copied. Hash is sha256 of tag-stripped, whitespace-normalized visible text at retrieval.",
+        "retrieved_at": "2026-07-20T19:29:09Z",
+        "selector": "normalized-visible-text",
+        "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs/pricing@2026-07-20",
+        "source_key": "openai.pricing",
+        "url": "https://learn.chatgpt.com/docs/pricing"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-07-12-openai-chatgpt-weekly-window-agentic-credits",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "high",
+        "direction": "changed",
+        "impact_kind": "quota",
+        "recommended_action": "Track the weekly usage limit as the governing cap for ChatGPT and Codex on Plus, Pro, and Business instead of assuming only a short rolling window; the shorter five-hour window was reported suspended, so plan quota monitoring around weekly consumption.",
+        "scope_ref": "plan:openai/chatgpt-plus-pro-business",
+        "scope_type": "subscription_plan",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "finops",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "estimated_cost_effect": {
+          "basis": "official OpenAI learn.chatgpt.com/docs/pricing page reviewed 2026-07-20",
+          "confidence": "confirmed",
+          "direction": "increase",
+          "magnitude": "optional purchasable ChatGPT credits let Plus and Pro users, and workspace credits let Business/Edu/Enterprise flexible plans, continue past included usage at additional cost"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Budget for optional ChatGPT/workspace credit purchases that extend usage past plan limits; treat them as incremental spend and keep the official pricing page as the source for current credit prices and eligibility.",
+        "scope_ref": "plan:openai/chatgpt",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "quota",
+        "recommended_action": "Account for banked rate-limit resets granted through eligible Codex referrals, which are usable for 30 days after they are granted, when reasoning about short-term available headroom.",
+        "scope_ref": "plan:openai/chatgpt",
+        "scope_type": "subscription_plan",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "finops"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The current OpenAI pricing page still documents a shared five-hour window with additional weekly limits, so the reported five-hour-window suspension was likely adjusted after 2026-07-12.",
+      "Third-party reporting (winbuzzer.com, 2026-07-14) indicates OpenAI eased GPT-5.6 timing limits after the change while keeping weekly caps; it was not used as primary evidence.",
+      "Exact per-plan caps, eligibility, credit prices, and window state can change; the official pricing page remains the source of truth for current numbers.",
+      "No raw provider prose is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-07-20T19:29:09Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_pricing",
+    "summary": "OpenAI restructured ChatGPT and Codex usage limits so a weekly limit governs the primary cap, reported suspending the shared five-hour window on Plus, Pro, and Business plans, while adding purchasable ChatGPT credits to continue past included usage and banked rate-limit resets earned through referrals.",
+    "tags": [
+      "source:official_pricing",
+      "provider:openai",
+      "impact:quota_change",
+      "app:codex",
+      "app:chatgpt"
+    ],
+    "title": "OpenAI Made Weekly Limits Primary For ChatGPT Codex Usage And Added Purchasable Credits"
+  }
+]

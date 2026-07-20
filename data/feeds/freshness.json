@@ -1,54 +1,54 @@
 {
   "data_tag": null,
-  "event_count": 67,
+  "event_count": 69,
   "feed_artifacts": [
     {
       "bytes": 15186,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "f91b80e33a75611db313507f48629ea5701738fe66be712271de5e11fc4cc1e5"
+      "sha256": "024bc7f223e4dc99b0a5d98b8b95718c20f9c54aa8b5a2fee3cc07eb49861460"
     },
     {
-      "bytes": 240538,
+      "bytes": 252558,
       "media_type": "application/json",
       "path": "data/feeds/events.json",
-      "sha256": "b49ce0cc44f67c9a1e4862b8b3ae2bf0cc687007f205c98c595bea10666d9e6e"
+      "sha256": "7226e64537f11e28afb2efc7d987b7d9b45a8ffce97e51e43cfd88aaa5906ffd"
     },
     {
-      "bytes": 200902,
+      "bytes": 211212,
       "media_type": "application/x-ndjson",
       "path": "data/feeds/events.ndjson",
-      "sha256": "f7bfc0586d198c0497c46f4cc6739922b2538fa698ecb75ef14979c98f9f42d4"
+      "sha256": "a2df16132ee45c79535b4056873868b9cfa217ae02739b0f8f2705f42b2dfc1f"
     },
     {
-      "bytes": 153009,
+      "bytes": 154704,
       "media_type": "application/feed+json",
       "path": "data/feeds/feed.json",
-      "sha256": "6a78281436fa7b184b530b8b41e0a5e5c02804dc96ed2a633a90e81a1aedf3bc"
+      "sha256": "288e38e27f78642bd05f44ebce07079cbd62165658c4a24003ee920c3881f927"
     },
     {
-      "bytes": 11711,
+      "bytes": 11970,
       "media_type": "application/json",
       "path": "data/feeds/latest.json",
-      "sha256": "a357b6b26eae3c471a8bfb6885bab890f530ce813dace66447cf47bef350d0b7"
+      "sha256": "f4536e66a6248a55e4433be0cd7e4ba628fd1fc9ba21759e639ed242516dd8f6"
     },
     {
       "bytes": 4434,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "1d60bd50b0fa1d3eaa3d88483f1cf29c270ccf54d2a41c3e500d5702097573cb"
+      "sha256": "7b54a2de343e5964d120d66c2c97589aec48c6312f0bddc860037392febe1f77"
     },
     {
-      "bytes": 27241,
+      "bytes": 27469,
       "media_type": "application/rss+xml",
       "path": "data/feeds/rss.xml",
-      "sha256": "8c20361af856ca09da5f03dd94ef99ba9b1254d7ea75970a7b10bb9278f9fb87"
+      "sha256": "ebbb533863c9b6b9fbb8172e9a3250c87ee5a1d337e516331337be8e12ea2a94"
     },
     {
-      "bytes": 47527,
+      "bytes": 47758,
       "media_type": "application/json",
       "path": "data/feeds/source-catalog.json",
-      "sha256": "bf1bcc439e8936d12954ca6112c42bf3857b41487794d988b0d830e380b58d82"
+      "sha256": "d87348ca7fcfb36921069ce8aa0a58b3b04178bedf7dfe4bc51e267afea50f67"
     },
     {
       "bytes": 26585,
@@ -93,6 +93,12 @@
       "sha256": "b893a6a85c1a3978fa8dfa39076f9fb5f9c4618cd1b89038fac4a808eeb6c1cc"
     },
     {
+      "bytes": 5934,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/quota_change.json",
+      "sha256": "286729e4bbcacbca6458b622932f5f0b83c4c8beee2ad34d3a828b6e062bf0c4"
+    },
+    {
       "bytes": 4611,
       "media_type": "application/json",
       "path": "data/indexes/kind/rate_limit_change.json",
@@ -123,10 +129,10 @@
       "sha256": "5b3912daf6995145f80dd0641caa4491131dee1c5f3d974abfad6c3858ea1ef9"
     },
     {
-      "bytes": 43218,
+      "bytes": 49307,
       "media_type": "application/json",
       "path": "data/indexes/kind/workflow_behavior_change.json",
-      "sha256": "53c996a6b03609fe604a7a48a61affaed68aaf7ae02c507023caa6d2dff5adcc"
+      "sha256": "6371b60bc5760d5fee659816563ccc9ad59344151aacfc34a9c09e56c4ea091c"
     },
     {
       "bytes": 41691,
@@ -153,16 +159,16 @@
       "sha256": "36938bfb152715659219b94a957f77d49d1c373ab0a0621f2fa6a1f642a8c86d"
     },
     {
-      "bytes": 98616,
+      "bytes": 110636,
       "media_type": "application/json",
       "path": "data/indexes/provider/openai.json",
-      "sha256": "73f21fe90eaf53f1da4de79c9d7f19871eda614e55977865c228ebe03797e04b"
+      "sha256": "648da7898ff773861cbb72a5513b216a48bf7f6c212548c46642979150298ac2"
     },
     {
-      "bytes": 128551,
+      "bytes": 140571,
       "media_type": "application/json",
       "path": "data/indexes/severity/high.json",
-      "sha256": "59a0af1b4285f31277206c347f9bd28e97119d563e422b35782edc1003b44184"
+      "sha256": "960375bb42921752835d7b721581a0ec618d29b3133f1a25d314bf4daeb536b0"
     },
     {
       "bytes": 8665,
@@ -178,10 +184,10 @@
     }
   ],
   "freshness_policy": "Contains artifact hashes, counts, and timestamps only; no raw provider content.",
-  "generated_at": "2026-06-17T02:17:28Z",
+  "generated_at": "2026-07-20T19:29:09Z",
   "generated_by": "ai-provider-watch 0.1.18",
-  "latest_event_date": "2026-06-16",
-  "latest_observed_at": "2026-06-17T02:17:28Z",
+  "latest_event_date": "2026-07-12",
+  "latest_observed_at": "2026-07-20T19:29:09Z",
   "package_version": "0.1.18",
   "release_artifacts": {
     "checksums_path": "data/releases/dev/checksums.txt",
@@ -190,11 +196,11 @@
   "release_id": "dev",
   "schema_version": "apw.feed_freshness.v0",
   "source_state": {
-    "bytes": 23981,
-    "latest_retrieved_at": "2026-06-17T02:17:31Z",
+    "bytes": 24028,
+    "latest_retrieved_at": "2026-07-20T19:47:08Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "sha256": "8afae48faf1b27c59e76c3f8b2095b67dca225ca00a1997559ea1d0fced2d7e0",
+    "sha256": "eb4c45e1c38ba510a5c1762244956aa1e38812739bb98cbc6367ca10062f83d8",
     "source_count": 21
   }
 }

@@ -1,5 +1,130 @@
 [
   {
+    "announced_at": "2026-07-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI's 'next chapter for ChatGPT' announcement merged the standalone Codex app into one ChatGPT app offering Chat, Work, and Codex modes, unified ChatGPT Work with Codex usage/pricing/credits, launched the GPT-5.6 Sol/Terra/Luna family, and relocated Codex docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-07-09T00:00:00Z",
+    "event_date": "2026-07-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "0fc0e3d50d6bd45d46409eae2a016b860b110d6816050632908def339ad094a5",
+        "license_note": "Official OpenAI docs reviewed for factual metadata; no provider prose copied. Hash is sha256 of tag-stripped, whitespace-normalized visible text at retrieval.",
+        "retrieved_at": "2026-07-20T19:29:09Z",
+        "selector": "normalized-visible-text",
+        "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs@2026-07-20",
+        "source_key": "openai.codex_docs",
+        "url": "https://learn.chatgpt.com/docs"
+      },
+      {
+        "authority": "official_pricing",
+        "content_sha256": "dd90950c58e2f44abdc65ef1b0c725ee20ad6c037c1da3f86522511e1016a0fc",
+        "license_note": "Official OpenAI pricing docs reviewed for factual metadata; no provider prose copied. Hash is sha256 of tag-stripped, whitespace-normalized visible text at retrieval.",
+        "retrieved_at": "2026-07-20T19:29:09Z",
+        "selector": "normalized-visible-text",
+        "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs/pricing@2026-07-20",
+        "source_key": "openai.pricing",
+        "url": "https://learn.chatgpt.com/docs/pricing"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-07-09-openai-chatgpt-codex-app-unification",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Expect the standalone Codex desktop app to move under the unified ChatGPT app with Chat, Work, and Codex modes; re-verify app install, sign-in, and mode selection before comparing behavior with pre-unification baselines.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "cost",
+        "recommended_action": "ChatGPT Work and Codex now share usage limits, pricing, and credits inside the same plan; re-model per-seat cost and usage attribution because Work-mode activity can draw down the same Codex limits and credits.",
+        "scope_ref": "plan:openai/chatgpt-work-codex",
+        "scope_type": "subscription_plan",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate the new GPT-5.6 Sol, Terra, and Luna variants; each has different quality, speed, and per-message credit costs, so pick the variant per workload before assuming prior default-model behavior.",
+        "scope_ref": "model:openai/gpt-5.6",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Codex developer documentation moved from developers.openai.com/codex/* to learn.chatgpt.com/docs/*; update source watchers, bookmarks, and doc links to the new host to avoid stale or redirected fetches.",
+        "scope_ref": "surface:openai/codex",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public restructure metadata only; exact ChatGPT Work and Codex mode availability, desktop rollout, tenant eligibility, and per-plan pricing vary by account.",
+      "The OpenAI Help Center article help.openai.com/en/articles/20001275-chatgpt-work-and-codex and third-party launch coverage (9to5mac.com, 2026-07-09) corroborate the announcement but were not used as primary evidence.",
+      "No raw provider prose is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-07-20T19:29:09Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI folded the standalone Codex desktop app into a single ChatGPT app with Chat, Work, and Codex modes, made ChatGPT Work share Codex usage limits, pricing, and credits, launched the GPT-5.6 Sol, Terra, and Luna model family, and moved Codex developer docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex",
+      "app:chatgpt"
+    ],
+    "title": "OpenAI Unified The Codex App Into ChatGPT With Chat, Work, And Codex Modes"
+  },
+  {
     "announced_at": "2026-06-16T00:00:00Z",
     "confidence": "confirmed",
     "date_confidence": "exact",
