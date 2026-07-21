@@ -2,14 +2,14 @@
   "schema_version": "apw.source_fingerprints.v0",
   "sources": {
     "anthropic.news": {
-      "content_sha256": "889b47da98bb6000d0b93fadbae3752b189812d6e935b078fa3ca3b0cef83a1c",
+      "content_sha256": "5d2f1d1751ec516fc34abf2a53d438a4b1983a08dc915beb1c308a419ec78c2d",
       "final_url": "https://www.anthropic.com/news",
       "fingerprint": "a8096b61d7f0739640ec9597222024f787685e0d3a5b9932160eccc0c0167e54",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:46:30Z"
+      "retrieved_at": "2026-07-21T08:43:36Z"
     },
     "anthropic.pricing": {
-      "content_sha256": "ea6fbf48cb03b679e7e6c56f557c5eca608264c18688f819615f46bc705cdffd",
+      "content_sha256": "e4304d08f1b268ea95cfd1472dd1b205dadab9cc7c079d5b38a1d41e02a71148",
       "final_url": "https://platform.claude.com/docs/en/about-claude/pricing",
       "fingerprint": "7547e97a1c0648a5c0a8b0ffe87e806196e68fbe46bfd0be00f3fcefc4446bae",
       "http_status": 200,
@@ -209,31 +209,31 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-07-20T19:46:37Z"
+      "retrieved_at": "2026-07-21T08:43:42Z"
     },
     "anthropic.release_notes": {
-      "content_sha256": "6e42e9c4c837ef2d4094314a66db1912653998a85323341a96b30a023d4d389e",
+      "content_sha256": "937078539fff5b41b40bd93251a551485e1ff088ab717806097b7d1499255732",
       "final_url": "https://platform.claude.com/docs/en/release-notes/overview",
       "fingerprint": "d1d181985980460a7d8818e2b83e8978cb2588b2adec905ab7c2d33295f37538",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:46:37Z"
+      "retrieved_at": "2026-07-21T08:43:42Z"
     },
     "anthropic.status": {
-      "content_sha256": "36811ec4b59e330d842a41003bbc591d7774d82e0c26c659dcd00890e97912f8",
+      "content_sha256": "ba46ed20bc8b85a0b125b60557f585c8019959e4ce5a13e901544f353c3bc793",
       "final_url": "https://status.claude.com/",
-      "fingerprint": "4120d50b3f308626fa60a348265033c89c8727d4d4e7803958e71be43ecce16b",
+      "fingerprint": "36298b170f13ba93525a66be587aeb8bb2afc6bcce984e84cd977928bf0d956b",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:46:39Z"
+      "retrieved_at": "2026-07-21T08:43:42Z"
     },
     "aws_bedrock.docs": {
       "content_sha256": "0a88bb06226191a2fa1903f4060f21b91ae9ad8b983357b7eec16f8853639a24",
       "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html",
       "fingerprint": "af321e7d6c3d660745f2d7863fa494cc3024879a862505b69e28fd0fefd1a849",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:46:39Z"
+      "retrieved_at": "2026-07-21T08:43:43Z"
     },
     "aws_bedrock.pricing": {
-      "content_sha256": "993be104801c613532a42edbfcea507a9b1bf8882ea17470c6804ac1120ec825",
+      "content_sha256": "bd78090ffd84bab7b66919da86e4fbab5fec1ea7ff1a6de36337369d9581eb7d",
       "final_url": "https://aws.amazon.com/bedrock/pricing/",
       "fingerprint": "2af4ebe9f7261c2cbcb49f1a032c4990526c1a1c18f94f20edd5e350aebb7695",
       "http_status": 200,
@@ -289,14 +289,14 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-07-20T19:46:39Z"
+      "retrieved_at": "2026-07-21T08:43:43Z"
     },
     "aws_bedrock.whats_new": {
-      "content_sha256": "8e8ef0a4180c1eb37f6177ded682741f6a6c3f04187d1c9ee82e51362577039b",
+      "content_sha256": "86cbea7636417eb97c48ff623796efe47ac5979039d10aa1ba86a37f42534e4d",
       "final_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
-      "fingerprint": "b01993f5348460c8d6e733dac03b8910a0181bc57cd232cd3c9714172034158e",
+      "fingerprint": "c9ea4b51c9b0c4191288af34d2ae9772d562e127fcb44ce8e1ca3cd2d83c684d",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:46:40Z"
+      "retrieved_at": "2026-07-21T08:43:43Z"
     },
     "azure_openai.docs": {
       "content_sha256": "bed74cacc85fc779ff6724112dd08ff5121b842602045952ea6a569e448f5098",
@@ -312,17 +312,17 @@
         "limit_signals": [],
         "schema_version": "apw.operational_rows.v0"
       },
-      "retrieved_at": "2026-07-20T19:46:41Z"
+      "retrieved_at": "2026-07-21T08:43:43Z"
     },
     "azure_openai.legacy_models": {
       "content_sha256": "cf1b878a3ef707e045a99db6750dce5a1ffd79b11132958641fc5707a18bc581",
       "final_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models",
       "fingerprint": "682e7e429aa9e6a30e5993626b8387cfa659afe5502483270c6252af0a0fb654",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:46:41Z"
+      "retrieved_at": "2026-07-21T08:43:43Z"
     },
     "azure_openai.pricing": {
-      "content_sha256": "66f5c3c536dab402758b61ad3ade5e51a192a9f348ae5b678e6941bb12e8979c",
+      "content_sha256": "7b33b31b75b0c1b9741084582b42c57dc5e5565e749cbedf8b62daf22e15e083",
       "final_url": "https://azure.microsoft.com/en-us/pricing/details/azure-openai/",
       "fingerprint": "b8f1ceb1106b1ecef79da5cc834e80881b62b5f1d1117bf4520d8113ee33c8f3",
       "http_status": 200,
@@ -373,38 +373,38 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-07-20T19:46:42Z"
+      "retrieved_at": "2026-07-21T08:43:44Z"
     },
     "azure_openai.whats_new": {
       "content_sha256": "b6d18e6d4013a17ff233114ab5c217717bbea717684e8ea099dcfebc603cbc0b",
       "final_url": "https://learn.microsoft.com/en-us/azure/foundry-classic/openai/whats-new",
       "fingerprint": "7cac4640c7da7e35923846bf1cca4f9a6df24fb6ad883b6341fc8f0a9a904fe8",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:46:59Z"
+      "retrieved_at": "2026-07-21T08:43:58Z"
     },
     "google.ai_docs": {
-      "content_sha256": "63f96b2952a9b25041697367c1741a27404b634e4dcf12b67f2958e3f8065af6",
+      "content_sha256": "c009403ae2e555b622debdfc8b7eca7ff17c1e8197cca92140584a3bc3ff869e",
       "final_url": "https://ai.google.dev/gemini-api/docs/models",
       "fingerprint": "d21f4ea684a3cc5498174ce77e55181b58b365a9739b30c4dd0707b6db783d05",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:46:59Z"
+      "retrieved_at": "2026-07-21T08:43:58Z"
     },
     "google.gemini_changelog": {
-      "content_sha256": "766eaa0ba26026759d4e17e272df6558fc30866614ab3f20ad1155a1cd1e86ae",
+      "content_sha256": "3fa37f51e695b2c6c42149e4091179e559b62ad2d2f455c87776c26c68f513be",
       "final_url": "https://ai.google.dev/gemini-api/docs/changelog",
       "fingerprint": "ede655e0586039b8a6f73a845ae45666b97d17bd1b4436a12311abc862289056",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:47:00Z"
+      "retrieved_at": "2026-07-21T08:43:59Z"
     },
     "google.vertex_model_versions": {
-      "content_sha256": "22d7b0772474ba73973ac1a073c47e340ff32b2a0c41054b3eeca163c5a91010",
-      "final_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-      "fingerprint": "2dd449e4081c32cc8e2c4240106a22ce5184f2e0671a9b9597618985cf3a262a",
+      "content_sha256": "54cd3381aa905b745e13ebb1683af46e30c3faea39d87b53d0976a2d393369c9",
+      "final_url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",
+      "fingerprint": "cd4cd0cc157d4420d0dd3db43495a5b04686d22a7a1e586d26817c99fdfdb037",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:47:01Z"
+      "retrieved_at": "2026-07-21T08:43:59Z"
     },
     "google.vertex_pricing": {
-      "content_sha256": "c2a1d6039c518abaf909fc27e8144343689851a4244214a2ea66dc858dde2c33",
+      "content_sha256": "0c0d4108e2d3be0f9b7a7bd531d1be1a1da50fef121b99f52a5e83cbe2ec04e0",
       "final_url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
       "fingerprint": "f05a55e0acb2941e267fcb2c95069f3f4ddfb4eb0c3031e61e8581cc6dfca5ad",
       "http_status": 200,
@@ -465,38 +465,38 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-07-20T19:47:03Z"
+      "retrieved_at": "2026-07-21T08:43:59Z"
     },
     "openai.api_changelog": {
-      "content_sha256": "1c9866a9598b0010ef8af1bf5cd132ff0341d10f1cf40564641f493fa463c6ce",
+      "content_sha256": "9a08242a1b55b2428303fcafb892229116faea61852b3f823126eb6707c70c69",
       "final_url": "https://developers.openai.com/api/docs/changelog",
       "fingerprint": "f4c292081e19c2e31e8e0e0481f8db46d945e462e44c80ac35d24d14c97fda6c",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:47:05Z"
+      "retrieved_at": "2026-07-21T08:44:00Z"
     },
     "openai.codex_docs": {
-      "content_sha256": "d83b07d530a30c16bde666ca78ed0c230912565dd63211f3a4fa6029909866d1",
+      "content_sha256": "0186d999dbbb03d9c8a6551f5034487cdd0d04bca328a1c5fc5fd2e69d8ed73d",
       "final_url": "https://learn.chatgpt.com/docs/changelog",
       "fingerprint": "6d035f468372195c568722d951c8bd32f0115256965d33b6e4cd90de5b11fce3",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:47:06Z"
+      "retrieved_at": "2026-07-21T08:44:00Z"
     },
     "openai.deprecations": {
-      "content_sha256": "642712a3151dca32b4af85707c8f61a15e6c9d2b5e789bcc0ab85e8492575b64",
+      "content_sha256": "92498fbeb0444d79b08818a67b5938de4f329195897f84dd5748657f7cd98249",
       "final_url": "https://developers.openai.com/api/docs/deprecations",
-      "fingerprint": "f2f785edd904552c152b89ba84de2e14aaf3449c0d6ba3c5bb73c5a725b8a8c7",
+      "fingerprint": "740db3d44d2713190660b29b75436a71dea53fd65b3184583f8b3a9f8c5797e4",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:47:06Z"
+      "retrieved_at": "2026-07-21T08:44:01Z"
     },
     "openai.news": {
-      "content_sha256": "3b79d6f993ded2c3d1f95c2d56df73d0b3347b98cd0e9aea31d52e5795a4feca",
+      "content_sha256": "460a671c54b2ef8d424274f7a19d1654c8542d599f5c559e1353dae0cb558bb8",
       "final_url": "https://openai.com/news/rss.xml",
       "fingerprint": "48cdc86364910a4974dcb825707759b3e71516ee7f1be99c1f4cf2c444780c2d",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:47:07Z"
+      "retrieved_at": "2026-07-21T08:44:01Z"
     },
     "openai.pricing": {
-      "content_sha256": "07dac628b4ce1c9f5ec231d2d89ecf8bed646fff77b051a00f1cc58007eb0fe9",
+      "content_sha256": "4665c11eed003a8316e60d874044f6649551e87e1bae4ab1844a0062977803ee",
       "final_url": "https://developers.openai.com/api/docs/pricing",
       "fingerprint": "52a90857dbf15f19def1a2b752e4d79481888c21bf307ab98196d40dd901c25a",
       "http_status": 200,
@@ -527,14 +527,14 @@
         ],
         "schema_version": "apw.pricing_rows.v0"
       },
-      "retrieved_at": "2026-07-20T19:47:08Z"
+      "retrieved_at": "2026-07-21T08:44:02Z"
     },
     "openai.status": {
-      "content_sha256": "d61eb9a2be781946efb7adea51c1d56d0e50c9cccc81f1ebd225b18cc19efbd3",
+      "content_sha256": "38c52bb32741ff6260d337880d5c70afd55238bde1a3399907fcebc3c97b9641",
       "final_url": "https://status.openai.com/feed.atom",
-      "fingerprint": "0e3b33f108135250f5284ba9a0322a787d194645a5d8172ae6dc2c51689bb946",
+      "fingerprint": "b8903fca9279c5f549246377da9e09e92dc5cbed72f2767cbd24a2820268bf67",
       "http_status": 200,
-      "retrieved_at": "2026-07-20T19:47:08Z"
+      "retrieved_at": "2026-07-21T08:44:02Z"
     }
   }
 }
