@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "AWS Bedrock official dated source reports a pricing change on 2026-07-14 for amazon-bedrock, api, aws-bedrock, bedrock-agentcore.",
+  "created_at": "2026-07-23T08:44:10Z",
+  "dedupe_key": "aws_bedrock.whats_new:pricing_change:7d395bafbccad2a22728447e",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "b638632b6ad16e474a50dea2cee287e34f909cc6974a823b1015c7eb81fe96e8",
+      "fingerprint": "0d2fa3b54012172b1dbcca352fe0f4692179beb905a005f427cbce40bd4aa3d5",
+      "retrieved_at": "2026-07-23T08:43:52Z",
+      "selector": "announcement:f1beb65879c7945a",
+      "snapshot_ref": "entry:f1beb65879c7945a",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/07/aws-security-hub-ai/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-12a805e2ac18a8ed",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
