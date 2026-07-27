@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-07-24 for amazon-bedrock, api, aws-bedrock, claude-opus-5.",
+  "created_at": "2026-07-27T10:08:22Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:52b9e4a4f9c680070d80a237",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "2ad3ba94fd81c9648a6e59a1988e67a08f51a35f1d065f14e58a44fcd87dad4d",
+      "fingerprint": "41d49cbf08bcd942b7849f5a75429977bd7b566834e20c91a26e1702ad70a8c7",
+      "retrieved_at": "2026-07-27T10:07:54Z",
+      "selector": "announcement:85e9ce927f374374",
+      "snapshot_ref": "entry:85e9ce927f374374",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/07/claude-opus-5-aws/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-d01dbce882a4a132",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
