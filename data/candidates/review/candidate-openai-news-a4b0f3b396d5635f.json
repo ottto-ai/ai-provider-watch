@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-07-09 for gpt-5.6.",
+  "created_at": "2026-08-05T09:04:28Z",
+  "dedupe_key": "openai.news:model_launch:0b036893b38c859f1c238dc2",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "b710ed3d035e0bcb74e243de9113abbdb167941390128cdf1489d6ab7a365367",
+      "fingerprint": "562b1d9970db36739d9a2a8226a4aae5afc711ac6aa27ed58cff2586d1f68b7b",
+      "retrieved_at": "2026-08-05T09:04:27Z",
+      "selector": "announcement:ee4f507d40089b30",
+      "snapshot_ref": "entry:ee4f507d40089b30",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot"
+    }
+  ],
+  "id": "candidate-openai-news-a4b0f3b396d5635f",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
