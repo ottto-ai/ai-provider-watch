@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-08-05 for amazon-bedrock, aws-bedrock.",
+  "created_at": "2026-08-07T07:40:18Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:d36e925519b23cbf50c39873",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "86e8c4396b8aea4e388f30a31ec3fc28ec319ba45f053605ac439e77074bccd3",
+      "fingerprint": "72575e91c500b271a7fdb21230b9b3da22d43efcd6e6c356b8bd90d72fd1698b",
+      "retrieved_at": "2026-08-07T07:39:59Z",
+      "selector": "announcement:354831515b7458d7",
+      "snapshot_ref": "entry:354831515b7458d7",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/08/amazon-dynamodb-vector-search"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-63edd225c30a1a83",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
