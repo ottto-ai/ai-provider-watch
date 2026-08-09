@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "Google Gemini/Vertex official dated source reports a pricing change on 2026-07-21 for gemini-3.5-flash-lite, gemini-3.6-flash, tokens.",
+  "created_at": "2026-08-09T07:15:33Z",
+  "dedupe_key": "google.gemini_changelog:pricing_change:d37331db311acb6a9ff24d04",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "9927d2bf2d488bfc1db18e8596a7cff4daa7afdfdd1e9c7b7670d64f0ad26cf0",
+      "fingerprint": "49554bc924a93a5dafaab2c269843409527dbf82934971c1f64b10f490db574f",
+      "retrieved_at": "2026-08-09T07:15:27Z",
+      "selector": "announcement:903f68c6bb7cfc74",
+      "snapshot_ref": "entry:903f68c6bb7cfc74",
+      "source_key": "google.gemini_changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog"
+    }
+  ],
+  "id": "candidate-google-gemini-changelog-4f179d318a589629",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "google_gemini_changelog"
+  },
+  "provider_refs": [
+    "provider:google"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "google.gemini_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
