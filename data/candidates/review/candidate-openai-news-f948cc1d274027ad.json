@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-08-03 for realtime-api.",
+  "created_at": "2026-08-10T08:03:29Z",
+  "dedupe_key": "openai.news:model_launch:fd2e053f436e603ceee6322e",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "949a9a764c387ac89a2f839649ea75e8e24798bbe52d18ff1c8327926544e2a9",
+      "fingerprint": "7d3b2e71e095cb9d42400bf4e6107f4d226db754b10177a58f8cecb3b0ed7df6",
+      "retrieved_at": "2026-08-10T08:03:29Z",
+      "selector": "announcement:a55ff7233598ecf8",
+      "snapshot_ref": "entry:a55ff7233598ecf8",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/continuous-voice-interaction-with-gpt-live"
+    }
+  ],
+  "id": "candidate-openai-news-f948cc1d274027ad",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
