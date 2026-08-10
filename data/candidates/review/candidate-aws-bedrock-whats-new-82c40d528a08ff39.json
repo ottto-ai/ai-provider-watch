@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "api_contract_change",
+  "claim_text": "AWS Bedrock official dated source reports an API contract change on 2026-08-04 for amazon-bedrock, api, aws-bedrock, gpt-5.4, gpt-5.5, gpt-5.6.",
+  "created_at": "2026-08-10T08:03:29Z",
+  "dedupe_key": "aws_bedrock.whats_new:api_contract_change:04168d89a8248fd91a1d3b60",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "5854a1b2bb14b35680ade03452f0b30f001c463b6002111b26c63912e6ccdb69",
+      "fingerprint": "ee23adcf39caf606b28d24575d0e369c743516730bada021227cf8ea9cf51623",
+      "retrieved_at": "2026-08-10T08:03:10Z",
+      "selector": "announcement:cf2330efc2e71a16",
+      "snapshot_ref": "entry:cf2330efc2e71a16",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/08/amazon-bedrock-web/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-82c40d528a08ff39",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
