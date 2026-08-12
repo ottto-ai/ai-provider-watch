@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-08-10 for api.",
+  "created_at": "2026-08-12T07:51:23Z",
+  "dedupe_key": "openai.news:model_launch:0e25a5393dea36da6314bb70",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "50f6a2bcd61e4015a904064db779f52eeccf6d69285cc85acbf7df9fc2c7073a",
+      "fingerprint": "6039fe3caa0d1a9e66360b5b086ddfb97dfe525fd88a65232567a1cda05172e6",
+      "retrieved_at": "2026-08-12T07:51:22Z",
+      "selector": "announcement:e4cb4983076007ce",
+      "snapshot_ref": "entry:e4cb4983076007ce",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/zapier"
+    }
+  ],
+  "id": "candidate-openai-news-dbed8e340e619960",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
