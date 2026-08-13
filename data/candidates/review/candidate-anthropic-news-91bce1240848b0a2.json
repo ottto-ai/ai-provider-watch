@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "Anthropic official dated source reports a workflow behavior change on 2026-07-06 for claude-code.",
+  "created_at": "2026-08-13T07:52:10Z",
+  "dedupe_key": "anthropic.news:workflow_behavior_change:b2b67277a562b1cb533dea9b",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "d3a4f8cf8fa7bbec2b0a6dd98da7d6a2ec13993e75bab8e12b1d9178173b7399",
+      "fingerprint": "a05cfba20140e8a85cc68c7fa02690f2d210df3ee2c0157f5a0b78d9e9d5c706",
+      "retrieved_at": "2026-08-13T07:51:47Z",
+      "selector": "announcement:41fa622b2fadc1dc",
+      "snapshot_ref": "entry:41fa622b2fadc1dc",
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/features/making-of-claude-code"
+    }
+  ],
+  "id": "candidate-anthropic-news-91bce1240848b0a2",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_news_index"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
