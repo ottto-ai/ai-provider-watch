@@ -3,10 +3,10 @@
   "event_count": 69,
   "feed_artifacts": [
     {
-      "bytes": 15186,
+      "bytes": 15381,
       "media_type": "application/json",
       "path": "data/feeds/coverage.json",
-      "sha256": "024bc7f223e4dc99b0a5d98b8b95718c20f9c54aa8b5a2fee3cc07eb49861460"
+      "sha256": "1c2785077fbabd7012e007af3fa201e6b21747289dad12cfbe09d4b15bd7963f"
     },
     {
       "bytes": 252558,
@@ -33,10 +33,10 @@
       "sha256": "f4536e66a6248a55e4433be0cd7e4ba628fd1fc9ba21759e639ed242516dd8f6"
     },
     {
-      "bytes": 4434,
+      "bytes": 4640,
       "media_type": "application/json",
       "path": "data/feeds/operations.json",
-      "sha256": "7b54a2de343e5964d120d66c2c97589aec48c6312f0bddc860037392febe1f77"
+      "sha256": "c1e33df5c9a6c34738fb192f521587983fada726d591304227352c3eee67ee9d"
     },
     {
       "bytes": 27469,
@@ -45,10 +45,10 @@
       "sha256": "ebbb533863c9b6b9fbb8172e9a3250c87ee5a1d337e516331337be8e12ea2a94"
     },
     {
-      "bytes": 47758,
+      "bytes": 47761,
       "media_type": "application/json",
       "path": "data/feeds/source-catalog.json",
-      "sha256": "d87348ca7fcfb36921069ce8aa0a58b3b04178bedf7dfe4bc51e267afea50f67"
+      "sha256": "d4505d7cc75f58164c1e92d9c6b5b6153ba09e097e90c6920d3b4b6eb458e47a"
     },
     {
       "bytes": 26585,
@@ -196,11 +196,11 @@
   "release_id": "dev",
   "schema_version": "apw.feed_freshness.v0",
   "source_state": {
-    "bytes": 24028,
-    "latest_retrieved_at": "2026-07-20T19:47:08Z",
+    "bytes": 25926,
+    "latest_retrieved_at": "2026-08-16T06:58:14Z",
     "path": "data/source-state/fingerprints.json",
     "present": true,
-    "sha256": "eb4c45e1c38ba510a5c1762244956aa1e38812739bb98cbc6367ca10062f83d8",
+    "sha256": "ceed98b90c6b65d86d62704be2f073ebb0cbfb422b5c2ed9333c1b5650c9b775",
     "source_count": 21
   }
 }
