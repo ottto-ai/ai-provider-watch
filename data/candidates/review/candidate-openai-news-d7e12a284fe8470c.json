@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-08-04 for codex.",
+  "created_at": "2026-08-17T07:15:27Z",
+  "dedupe_key": "openai.news:workflow_behavior_change:7f51551b0f5b761c39905e87",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "f31b347c6310d8015f21163afba5ac3c12fb5be019d743e43be9b2c446ee55cc",
+      "fingerprint": "da28df5e511ebee7b3fc0a4e0fa746f7466e97ea4e8cbeb9ed6e007cdafca20a",
+      "retrieved_at": "2026-08-17T07:15:27Z",
+      "selector": "announcement:4a840ea7c08c4f8e",
+      "snapshot_ref": "entry:4a840ea7c08c4f8e",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/learn-teach-chatgpt-work-codex"
+    }
+  ],
+  "id": "candidate-openai-news-d7e12a284fe8470c",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
