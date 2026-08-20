@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "token_accounting_change",
+  "claim_text": "OpenAI official dated source reports a token-accounting change on 2026-08-05 for gpt-5.6, tokens.",
+  "created_at": "2026-08-20T07:05:28Z",
+  "dedupe_key": "openai.api_changelog:token_accounting_change:a0c5478a207e31893dfa7319",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "c91b4f1bc6e955dd820143b463afb93db446d138a473b402a5212be458d1ec16",
+      "fingerprint": "d9f8c8f096c69ae37096319d2d09979052550494903d7e9e5cd1e5b915d41021",
+      "retrieved_at": "2026-08-20T07:05:26Z",
+      "selector": "announcement:8ac1a4099228afb5",
+      "snapshot_ref": "entry:8ac1a4099228afb5",
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog"
+    }
+  ],
+  "id": "candidate-openai-api-changelog-263121dd7204c963",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_api_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.api_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
