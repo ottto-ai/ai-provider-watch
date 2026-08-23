@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "AWS Bedrock official dated source reports a pricing change on 2026-08-18 for amazon-bedrock, api, aws-bedrock, gpt-5.6.",
+  "created_at": "2026-08-23T07:00:35Z",
+  "dedupe_key": "aws_bedrock.whats_new:pricing_change:0920742fb5663d63f8a258a0",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "8a106b66f21ad2f80302bd0fc5f82157150752f9f01dc65151a4be3c98216464",
+      "fingerprint": "1a7d7762ef5e9e343b367d4ddc7ef5165c6537159f4a2a922c4f0c8937fdcf24",
+      "retrieved_at": "2026-08-23T07:00:15Z",
+      "selector": "announcement:d6fdc134f31fb982",
+      "snapshot_ref": "entry:d6fdc134f31fb982",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/08/amazon-bedrock-openai-india-v1/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-8581ea91e6ed4ef7",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
