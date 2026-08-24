@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "token_accounting_change",
+  "claim_text": "Anthropic official dated source reports a token-accounting change on 2026-08-19 for claude-managed-agents, codex-sites, sdk, tokens.",
+  "created_at": "2026-08-24T07:19:43Z",
+  "dedupe_key": "anthropic.release_notes:token_accounting_change:bda6c07e3d84fc58ec5ba948",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "1bf11d2f231adfe8fd40b65704a3332098c1fef087eedd833efba5426a62eeba",
+      "fingerprint": "886f3b7b9904d441dd39cd0787365d5ec7accbf2a351b9f55f09f8961e0bd09e",
+      "retrieved_at": "2026-08-24T07:19:20Z",
+      "selector": "announcement:b8f10d29e051f375",
+      "snapshot_ref": "entry:b8f10d29e051f375",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-e37931fd03f9ddd6",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
