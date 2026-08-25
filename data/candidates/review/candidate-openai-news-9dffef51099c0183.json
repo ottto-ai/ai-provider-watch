@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-08-11 for amazon-bedrock, aws-bedrock.",
+  "created_at": "2026-08-25T07:07:47Z",
+  "dedupe_key": "openai.news:model_launch:1b51d09f52efb94b9953ce4f",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "b324fb9ac569e7f163e6a5ae7abdbd97f256be1b9e5f77727a2396b83911085b",
+      "fingerprint": "ee76a78a46ce571dace39e2b5c0fd2cd860153ae45108f3e57397ad281ab613c",
+      "retrieved_at": "2026-08-25T07:07:47Z",
+      "selector": "announcement:570d65672afc6d23",
+      "snapshot_ref": "entry:570d65672afc6d23",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/daybreak-models-are-now-available-on-aws"
+    }
+  ],
+  "id": "candidate-openai-news-9dffef51099c0183",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

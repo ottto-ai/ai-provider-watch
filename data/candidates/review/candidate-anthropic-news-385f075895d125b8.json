@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official dated source reports a model availability change on 2026-06-30 for claude-sonnet-5.",
+  "created_at": "2026-08-25T07:07:47Z",
+  "dedupe_key": "anthropic.news:model_launch:398c2cb8c6c39b275258db33",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "583fd43e2c862c676be993e6c23613de7c2dce6d93acc9ee01a6f8888ad787ce",
+      "fingerprint": "2c9f7c2a65d4eb32be2c43943fa7cb39978b10f765faa63293bf62148abc338a",
+      "retrieved_at": "2026-08-25T07:07:27Z",
+      "selector": "announcement:bc6f677809cced6f",
+      "snapshot_ref": "entry:bc6f677809cced6f",
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/news/claude-sonnet-5"
+    }
+  ],
+  "id": "candidate-anthropic-news-385f075895d125b8",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_news_index"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
