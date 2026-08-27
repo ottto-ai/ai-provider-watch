@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "OpenAI official dated source reports a pricing change on 2026-08-13 for api, gpt-5.6, responses-api.",
+  "created_at": "2026-08-27T17:37:51Z",
+  "dedupe_key": "openai.news:pricing_change:ad2fded7d6af7667c8acfe81",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "406fe1a7154c114b244c49f78c7d611c0bfc7b466eb117f204e1f8a1d5a50c6c",
+      "fingerprint": "ee76a78a46ce571dace39e2b5c0fd2cd860153ae45108f3e57397ad281ab613c",
+      "retrieved_at": "2026-08-27T17:37:51Z",
+      "selector": "announcement:ced0e949ece69bd2",
+      "snapshot_ref": "entry:ced0e949ece69bd2",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/builders-guide-to-gpt-5-6"
+    }
+  ],
+  "id": "candidate-openai-news-565812ae325641ef",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
