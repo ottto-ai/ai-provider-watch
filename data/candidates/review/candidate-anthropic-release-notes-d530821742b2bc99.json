@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "api_contract_change",
+  "claim_text": "Anthropic official dated source reports an API contract change on 2026-08-26 for api, sdk, tokens.",
+  "created_at": "2026-08-28T18:41:21Z",
+  "dedupe_key": "anthropic.release_notes:api_contract_change:6132ec1b41e10fc597d34ecc",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "1ecaea39acd583668c457370623ff114d0ea8bfa0d5a1bb3ec71e37a65efe685",
+      "fingerprint": "84d1d7c567c435b2c0106f70903d2b6cb6917cdc65ce443dae01388d60a6ce99",
+      "retrieved_at": "2026-08-28T18:40:56Z",
+      "selector": "announcement:850277fccc7498e7",
+      "snapshot_ref": "entry:850277fccc7498e7",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-d530821742b2bc99",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
