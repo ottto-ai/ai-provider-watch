@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-08-20 for amazon-bedrock, api, aws-bedrock, bedrock-agentcore.",
+  "created_at": "2026-08-28T18:41:21Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:911c47e49db2c75b6344db4b",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "7938c71dcad9a0a8c2e65bbafe9c0bbeaa36e7bd046418f0f82931c1045991ae",
+      "fingerprint": "2a7758980139a244b490477ea2002c6c296b7bb29fb5bb9053cd2788e11a2333",
+      "retrieved_at": "2026-08-28T18:40:58Z",
+      "selector": "announcement:d864f7ccf660a1db",
+      "snapshot_ref": "entry:d864f7ccf660a1db",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/08/agentcore-memory-json-payloads"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-20c725737a167581",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

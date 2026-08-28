@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-08-24 for gpt-5.6.",
+  "created_at": "2026-08-28T18:41:21Z",
+  "dedupe_key": "openai.news:model_launch:d5d0a8692ee7e6d1aaa991f2",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "99cff8c3fc2b64d8b6e81898bca76f47b7fde120d7b5053ef2f122c5e409f0d9",
+      "fingerprint": "ee76a78a46ce571dace39e2b5c0fd2cd860153ae45108f3e57397ad281ab613c",
+      "retrieved_at": "2026-08-28T18:41:20Z",
+      "selector": "announcement:769886d9b45090b0",
+      "snapshot_ref": "entry:769886d9b45090b0",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/gpt-5-6-in-kiro"
+    }
+  ],
+  "id": "candidate-openai-news-e76f33b6efef96e5",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
