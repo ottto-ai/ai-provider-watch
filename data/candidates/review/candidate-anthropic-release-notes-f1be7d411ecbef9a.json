@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_deprecation",
+  "claim_text": "Anthropic official dated source reports a model deprecation on 2026-08-20 for api, aws-bedrock, sdk.",
+  "created_at": "2026-08-29T12:41:12Z",
+  "dedupe_key": "anthropic.release_notes:model_deprecation:2a528b33f849aef67aa8e6a6",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "c96cd6f8c3c5cd2a6b80dd896ecd19a7c11e8e4a2c4e56a80056f0251e948c22",
+      "fingerprint": "84d1d7c567c435b2c0106f70903d2b6cb6917cdc65ce443dae01388d60a6ce99",
+      "retrieved_at": "2026-08-29T12:40:48Z",
+      "selector": "announcement:3b8c108d495c3e36",
+      "snapshot_ref": "entry:3b8c108d495c3e36",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-f1be7d411ecbef9a",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
