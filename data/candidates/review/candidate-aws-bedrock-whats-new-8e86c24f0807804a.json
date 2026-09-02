@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-08-28 for amazon-bedrock, aws-bedrock, bedrock-agentcore, tokens.",
+  "created_at": "2026-09-02T11:17:32Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:047abce6aac5935c272ffc1f",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "8b43354a818803efff671f125fdc921ef1d1f659be261a252d6604c17dff5c61",
+      "fingerprint": "597a3ee4b603055c397e25d9c2b189c3360739de5fcd33b47c801036044d7a4e",
+      "retrieved_at": "2026-09-02T11:17:13Z",
+      "selector": "announcement:8f9d48b74e7287cc",
+      "snapshot_ref": "entry:8f9d48b74e7287cc",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/08/agentcorememory-fine-grained-access-control"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-8e86c24f0807804a",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
