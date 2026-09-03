@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-09-02 for amazon-bedrock, api, aws-bedrock, gpt-5.4, gpt-5.6, responses-api.",
+  "created_at": "2026-09-03T11:13:07Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:63789a799d60ce9af0f7ba43",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "31737c67969719d99f845dfd4fb917e04034894b6ef7c55e3678c6a84284a187",
+      "fingerprint": "439c3d845ee21af917c07f1079ca9c38e0894303b9d3a3a537a69ced1619a394",
+      "retrieved_at": "2026-09-03T11:12:48Z",
+      "selector": "announcement:5a9bd85ca93d7abb",
+      "snapshot_ref": "entry:5a9bd85ca93d7abb",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-1074d82d77fecc2e",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
