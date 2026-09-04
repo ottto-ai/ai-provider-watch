@@ -1,0 +1,35 @@
+{
+  "candidate_kind": "status_incident",
+  "claim_text": "OpenAI status source has a developer-surface incident or recovery update that needs maintainer review.",
+  "created_at": "2026-09-04T11:17:01Z",
+  "dedupe_key": "openai.status:status_incident:f63fdd6eabedb99255f9264f",
+  "evidence_refs": [
+    {
+      "authority": "official_status",
+      "content_sha256": "e2fbd7c3247364a26f866b4511f67a78e53939c09fc1f66a9ab319fef9ad7519",
+      "fingerprint": "f3128e98bbf325a2123155f9ecf1ffcdd4f8a63412331e0138ff4dd54613dc12",
+      "retrieved_at": "2026-09-04T11:17:01Z",
+      "snapshot_ref": null,
+      "source_key": "openai.status",
+      "url": "https://status.openai.com/feed.atom"
+    }
+  ],
+  "id": "candidate-openai-status-2f83c59360df8763",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "atom_status"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.status"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
