@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official dated source reports a model availability change on 2026-07-24 for claude-opus-5.",
+  "created_at": "2026-09-06T10:55:17Z",
+  "dedupe_key": "anthropic.news:model_launch:1fae93fd5c39c2ccc1d9e00e",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "847c045dbb47c4f998602fff9b96abe148cb83b23a8f429d56c6e823ec5c33d4",
+      "fingerprint": "3a6e3d91ff6a1ece335c4c598f0d75fcc2ea15100377e97e16e7c6dc10811607",
+      "retrieved_at": "2026-09-06T10:54:56Z",
+      "selector": "announcement:b83af0c6ef6f403f",
+      "snapshot_ref": "entry:b83af0c6ef6f403f",
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/news/claude-opus-5"
+    }
+  ],
+  "id": "candidate-anthropic-news-1e786d90a8f571c7",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_news_index"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
