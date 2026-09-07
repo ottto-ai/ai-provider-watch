@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "api_contract_change",
+  "claim_text": "Anthropic official dated source reports an API contract change on 2026-09-01 for api, claude-fable-5, claude-fable-5.1, claude-mythos-5, claude-mythos-5.1, claude-opus-5.",
+  "created_at": "2026-09-07T12:31:14Z",
+  "dedupe_key": "anthropic.release_notes:api_contract_change:c5b155007946544b5330fc78",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "1ccb37198361fcbc95d62e223149c401c5d9e2ed619a6e36a74a02b9cbdf3518",
+      "fingerprint": "91c1ce0afdc19f54342a06f19df99e80aae3336799a63f79b61fff34c78cfe4c",
+      "retrieved_at": "2026-09-07T12:30:52Z",
+      "selector": "announcement:a6e8555ff4331e49",
+      "snapshot_ref": "entry:a6e8555ff4331e49",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-2b7b6054284f80e4",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

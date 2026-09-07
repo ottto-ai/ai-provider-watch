@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-09-04 for amazon-bedrock, aws-bedrock.",
+  "created_at": "2026-09-07T12:31:14Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:296314e7670946a120f7800c",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "4053f1d4f57062b2cade5b601ad9baa4b5ef265efc3474425ecae59911a4ad7c",
+      "fingerprint": "7245afc8b8af18fa37e2afa4610c4328b250e3c16e94cf8532b21da69da414da",
+      "retrieved_at": "2026-09-07T12:30:53Z",
+      "selector": "announcement:dcd38ce026683965",
+      "snapshot_ref": "entry:dcd38ce026683965",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-managed-knowledge-base-user-managed-setup-sharepoint-onedrive-confluence/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-8963210c1843c1c3",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
