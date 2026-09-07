@@ -1,0 +1,35 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Google Gemini/Vertex model documentation source changed and needs maintainer review for possible model availability, deprecation, default-model, or workflow behavior changes.",
+  "created_at": "2026-09-07T12:31:14Z",
+  "dedupe_key": "google.ai_docs:model_launch:b7032bd640f5795216d2bf07",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "113ebce35ca919d69aae1a43d1e09c1a9fdad410f9a0ea107185a94c30bfeed6",
+      "fingerprint": "4a352a89b7f717a6df49301714c6aabe2fc9c91308cad559f02dcd6354e0fd56",
+      "retrieved_at": "2026-09-07T12:31:08Z",
+      "snapshot_ref": null,
+      "source_key": "google.ai_docs",
+      "url": "https://ai.google.dev/gemini-api/docs/models"
+    }
+  ],
+  "id": "candidate-google-ai-docs-415a375a7a1881c7",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "google_ai_models"
+  },
+  "provider_refs": [
+    "provider:google"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "google.ai_docs"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
