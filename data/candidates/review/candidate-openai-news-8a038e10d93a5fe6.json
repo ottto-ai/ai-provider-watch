@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-09-03 for gpt-6.",
+  "created_at": "2026-09-08T11:18:01Z",
+  "dedupe_key": "openai.news:model_launch:fe386f9ec2f76089cd807a99",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "95f809c50a986ac7a037f1928f8740040154f5fcb2aa6d122a6976e0a534a688",
+      "fingerprint": "f9cc2a48bedcdb9ceed237ad42a34d6bcb58ea1cf86378c3f4ce9cf84c5dc7a1",
+      "retrieved_at": "2026-09-08T11:18:00Z",
+      "selector": "announcement:b6307b7e8e78464c",
+      "snapshot_ref": "entry:b6307b7e8e78464c",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/safety-overview-gpt-6-astra"
+    }
+  ],
+  "id": "candidate-openai-news-8a038e10d93a5fe6",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
