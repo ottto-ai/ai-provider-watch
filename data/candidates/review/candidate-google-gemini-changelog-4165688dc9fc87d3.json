@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Google Gemini/Vertex official dated source reports a model availability change on 2026-08-26 for api, audio.",
+  "created_at": "2026-09-11T11:19:47Z",
+  "dedupe_key": "google.gemini_changelog:model_launch:9f52baa60e9deb05c49fb455",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "75415acaf09d7931e27968e77733737cb5aeb7de3567dc3d0edbd0f4fbd42b88",
+      "fingerprint": "b3db2c8034203730e7746b913d84ec60dac2768009b68daddb246e939f9d1b17",
+      "retrieved_at": "2026-09-11T11:19:43Z",
+      "selector": "announcement:dfdae30ccde89d32",
+      "snapshot_ref": "entry:dfdae30ccde89d32",
+      "source_key": "google.gemini_changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog"
+    }
+  ],
+  "id": "candidate-google-gemini-changelog-4165688dc9fc87d3",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "google_gemini_changelog"
+  },
+  "provider_refs": [
+    "provider:google"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "google.gemini_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
