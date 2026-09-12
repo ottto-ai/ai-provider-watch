@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-09-10 for codex.",
+  "created_at": "2026-09-12T10:45:08Z",
+  "dedupe_key": "openai.news:workflow_behavior_change:b71b6e5e6735f5a1bf6b7ced",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "05cfa5b17b102ea64e4e0c9de969dfddeb2b4fd7af37ad4b8f1b4e9b3fde4154",
+      "fingerprint": "847ff43b2a227cd0c08fa72ad610f7a71d887c5c1cb1c807948f0a12d7caa292",
+      "retrieved_at": "2026-09-12T10:45:07Z",
+      "selector": "announcement:3dab11507dffbc3c",
+      "snapshot_ref": "entry:3dab11507dffbc3c",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials"
+    }
+  ],
+  "id": "candidate-openai-news-c8a188641ef5a9bb",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
