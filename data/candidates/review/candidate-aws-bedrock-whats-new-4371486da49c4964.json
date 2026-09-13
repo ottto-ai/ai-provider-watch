@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "AWS Bedrock official dated source reports a pricing change on 2026-09-09 for amazon-bedrock, aws-bedrock.",
+  "created_at": "2026-09-13T11:51:08Z",
+  "dedupe_key": "aws_bedrock.whats_new:pricing_change:1261d9bf3163bdad11587693",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "f94ed74f75f8d61a243e071b8a28bdff4ec0c22d66134124b1c81b00281e3d73",
+      "fingerprint": "e8296d32c1dba82bde94276552c132652addadd6bb27b8653063f30c41ed63db",
+      "retrieved_at": "2026-09-13T11:50:45Z",
+      "selector": "announcement:5b2f8b51d7601806",
+      "snapshot_ref": "entry:5b2f8b51d7601806",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-managed-knowledge-base-confluence-data-center-native-data-source-connector/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-4371486da49c4964",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
