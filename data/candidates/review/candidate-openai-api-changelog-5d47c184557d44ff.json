@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "OpenAI official dated source reports a pricing change on 2026-09-08 for api, gpt-image-2.5-flare, gpt-image-2.5-sunburst, responses-api, tokens.",
+  "created_at": "2026-09-17T11:40:11Z",
+  "dedupe_key": "openai.api_changelog:pricing_change:3ee31e27a04517fb4db5a925",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "eba55d5a0c2babefc73340bcd0857d644a08b18f81bbffb2cb8ad3673457d0a9",
+      "fingerprint": "53789c45b53ffd6cbb5e0a96f7e67a4c448ae28f94eac7b9d195401f8f7679e4",
+      "retrieved_at": "2026-09-17T11:40:10Z",
+      "selector": "announcement:2e6ce0fe7a40e7fe",
+      "snapshot_ref": "entry:2e6ce0fe7a40e7fe",
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog"
+    }
+  ],
+  "id": "candidate-openai-api-changelog-5d47c184557d44ff",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_api_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.api_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
