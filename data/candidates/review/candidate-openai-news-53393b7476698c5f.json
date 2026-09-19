@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-09-10 for gpt-6.",
+  "created_at": "2026-09-19T10:57:45Z",
+  "dedupe_key": "openai.news:model_launch:e3dfb1b2e503c80d6ad25b95",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "bd1a152cbb5c813df69e64bc0f59c7f3153f6abb8eed3c7840c66edfadb7b130",
+      "fingerprint": "7d24ff920be90056b2fcecb8e4019d709c61ecce1d8d6f93f5b522116c01b913",
+      "retrieved_at": "2026-09-19T10:57:44Z",
+      "selector": "announcement:bb9118581549d0da",
+      "snapshot_ref": "entry:bb9118581549d0da",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/introducing-chatgpt-financial-services"
+    }
+  ],
+  "id": "candidate-openai-news-53393b7476698c5f",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
