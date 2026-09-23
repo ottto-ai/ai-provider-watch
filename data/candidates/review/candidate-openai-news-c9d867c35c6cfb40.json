@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "token_accounting_change",
+  "claim_text": "OpenAI official dated source reports a token-accounting change on 2026-09-22 for gpt-6, prompt-caching.",
+  "created_at": "2026-09-23T11:34:43Z",
+  "dedupe_key": "openai.news:token_accounting_change:6394953ab7519f53f56364e1",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "2a7ca55aa88c79522a8191d63b6588f1715538376e77abc486ce7f0ba6de5272",
+      "fingerprint": "4b73d6d54d1b908ecc00aaf3da9399795e9c9642fc1e9658d77ca1482f7e8851",
+      "retrieved_at": "2026-09-23T11:34:43Z",
+      "selector": "announcement:0c590d4201d61af7",
+      "snapshot_ref": "entry:0c590d4201d61af7",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/better-prompt-caching-for-gpt-6"
+    }
+  ],
+  "id": "candidate-openai-news-c9d867c35c6cfb40",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

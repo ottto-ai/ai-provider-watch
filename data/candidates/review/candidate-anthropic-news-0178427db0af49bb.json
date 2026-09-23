@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "Anthropic official dated source reports a pricing change on 2026-09-22 for claude-fable-5.1, claude-opus-5.5.",
+  "created_at": "2026-09-23T11:34:43Z",
+  "dedupe_key": "anthropic.news:pricing_change:370a341e322697f2453749a7",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "fb325ade2f27b30548c6a823a7a48285e2f5035b6a67a176fc42bca8e3f97d41",
+      "fingerprint": "69c1caf2099d39a700fb208829767af16c0fed64597b1def34d8695296d3a327",
+      "retrieved_at": "2026-09-23T11:34:24Z",
+      "selector": "announcement:fe78b3a59f8aed4f",
+      "snapshot_ref": "entry:fe78b3a59f8aed4f",
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/claude-opus-5-5"
+    }
+  ],
+  "id": "candidate-anthropic-news-0178427db0af49bb",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_news_index"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
