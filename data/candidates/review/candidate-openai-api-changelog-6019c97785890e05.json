@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-09-10 for api, codex, mcp.",
+  "created_at": "2026-09-24T11:44:40Z",
+  "dedupe_key": "openai.api_changelog:model_launch:97cb8687b344504ffaa9014f",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "27a7188a85b706acf14af7eed072634e1ebfdae3f3d7d739d0a329a27da5bc50",
+      "fingerprint": "a99658300ac709027e3373a6ac6e95cb2c606c1603406bf3fa71135e40b87a3c",
+      "retrieved_at": "2026-09-24T11:44:38Z",
+      "selector": "announcement:bdb506f9a7e96135",
+      "snapshot_ref": "entry:bdb506f9a7e96135",
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog"
+    }
+  ],
+  "id": "candidate-openai-api-changelog-6019c97785890e05",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_api_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.api_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

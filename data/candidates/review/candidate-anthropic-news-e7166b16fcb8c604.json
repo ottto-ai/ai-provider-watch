@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official dated source reports a model availability change on 2026-09-01 for claude-fable-5.1, claude-mythos-5.1.",
+  "created_at": "2026-09-24T11:44:40Z",
+  "dedupe_key": "anthropic.news:model_launch:4aa825fa107df90f3bd3be77",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "830f1deeee7c5a84363ce53210516ddaa567ae97b6809891ec6ae3cf28e777fe",
+      "fingerprint": "69c1caf2099d39a700fb208829767af16c0fed64597b1def34d8695296d3a327",
+      "retrieved_at": "2026-09-24T11:44:18Z",
+      "selector": "announcement:e2b0591ad8528056",
+      "snapshot_ref": "entry:e2b0591ad8528056",
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
+    }
+  ],
+  "id": "candidate-anthropic-news-e7166b16fcb8c604",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_news_index"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
