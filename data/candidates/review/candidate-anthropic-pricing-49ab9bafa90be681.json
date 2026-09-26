@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "Anthropic official pricing table removed claude-haiku-3.5 cache hit price previously listed at $0.08 / 1M tokens.",
+  "created_at": "2026-09-26T11:23:40Z",
+  "dedupe_key": "anthropic.pricing:pricing_change:05b22ecd3c624560f3f2d4ac",
+  "evidence_refs": [
+    {
+      "authority": "official_pricing",
+      "content_sha256": "d3e3e3c9aa1341f2ac91241b308c471bf19ff7a5fde319760cce506f33792a2e",
+      "fingerprint": "fcb88ee6fa961df5ad53a12f59a363106c1aa1040fed3302104caf73d508293c",
+      "retrieved_at": "2026-09-26T11:23:20Z",
+      "selector": "pricing:c866506fccdfa71f",
+      "snapshot_ref": "row:c866506fccdfa71f",
+      "source_key": "anthropic.pricing",
+      "url": "https://platform.claude.com/docs/en/about-claude/pricing"
+    }
+  ],
+  "id": "candidate-anthropic-pricing-49ab9bafa90be681",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_pricing"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.pricing"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
