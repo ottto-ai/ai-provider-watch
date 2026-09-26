@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-09-22 for amazon-bedrock, api, aws-bedrock, computer-use, gpt-5.6, gpt-6.",
+  "created_at": "2026-09-26T11:23:40Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:c2ae74eba8abcd0d051fdb1f",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "83350402be1256c74773d0659835a1369285d78c1ab7f63cd4941ac4403a1cef",
+      "fingerprint": "5df2c8b8f103003e0e35b548f195d83a565e187e932375a1f61ed4e23f73455c",
+      "retrieved_at": "2026-09-26T11:23:22Z",
+      "selector": "announcement:d083a0ec143896ce",
+      "snapshot_ref": "entry:d083a0ec143896ce",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/09/openai-gpt-6-sol-luna-on-amazon-bedrock/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-6a86ef3bd2b60131",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
