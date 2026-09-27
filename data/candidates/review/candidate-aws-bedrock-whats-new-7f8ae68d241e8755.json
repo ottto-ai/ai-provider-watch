@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-09-22 for amazon-bedrock, aws-bedrock, claude-opus-5, claude-opus-5.5, prompt-caching, tokens.",
+  "created_at": "2026-09-27T12:01:04Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:d78a2655a7393010c050dd1f",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "bac3afda4635fa8763a2e9e6eec82b54b3c1dfb8edf0b8894aef74fab9dc561a",
+      "fingerprint": "5df2c8b8f103003e0e35b548f195d83a565e187e932375a1f61ed4e23f73455c",
+      "retrieved_at": "2026-09-27T12:00:46Z",
+      "selector": "announcement:2f22655115912887",
+      "snapshot_ref": "entry:2f22655115912887",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/09/claude-opus-5-5-aws-govcloud/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-7f8ae68d241e8755",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
