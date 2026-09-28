@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-09-16 for gpt-6.",
+  "created_at": "2026-09-28T13:52:47Z",
+  "dedupe_key": "openai.news:model_launch:884d1374b60b1cae379b8808",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "9b4ef89c270be474ae5845b338bb65154cadaab868142fc28e4a3f487074dc73",
+      "fingerprint": "a181e5e209d95b025a8f7d570fb0d5501b8635c747dffbaffe4d8f053199658b",
+      "retrieved_at": "2026-09-28T13:52:47Z",
+      "selector": "announcement:263ae5128c941853",
+      "snapshot_ref": "entry:263ae5128c941853",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/hex-gpt-6-astra"
+    }
+  ],
+  "id": "candidate-openai-news-28af248e45188810",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
