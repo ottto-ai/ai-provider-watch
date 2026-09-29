@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-09-23 for amazon-bedrock, aws-bedrock.",
+  "created_at": "2026-09-29T12:51:08Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:9c5ba510e8c102c28a59895c",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "be1477b07288b1abdeb60f51a65410ffa4ff3aadbc5b91107eb14314d2457919",
+      "fingerprint": "5cf383fa0979a180451b2a1b581da6ebbeb65b18be133b4af9153fe65c43857c",
+      "retrieved_at": "2026-09-29T12:50:45Z",
+      "selector": "announcement:3da9da1d809542bb",
+      "snapshot_ref": "entry:3da9da1d809542bb",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-managed-knowledge-base-salesforce-zendesk-native-data-source-connectors/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-4d492cae70abef6d",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
