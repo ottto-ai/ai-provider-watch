@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "OpenAI official dated source reports a pricing change on 2026-09-22 for gpt-6.",
+  "created_at": "2026-09-30T12:33:12Z",
+  "dedupe_key": "openai.news:pricing_change:1141b73bf61945f307eb9a0a",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "facaefb9c69e8753e199e32c15e019055474a47cc9ff995585e286a2986af5f2",
+      "fingerprint": "b1ac36990d5c8d12dca4b12835f6efc8aaeaedc4bf6d21ad98d1f057b062c1ad",
+      "retrieved_at": "2026-09-30T12:33:12Z",
+      "selector": "announcement:6ce8d6d945d9f086",
+      "snapshot_ref": "entry:6ce8d6d945d9f086",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna"
+    }
+  ],
+  "id": "candidate-openai-news-ade4ade26d8b0c5d",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
