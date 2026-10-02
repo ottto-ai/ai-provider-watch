@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "AWS Bedrock official dated source reports a pricing change on 2026-09-28 for amazon-bedrock, api, aws-bedrock.",
+  "created_at": "2026-10-02T12:33:17Z",
+  "dedupe_key": "aws_bedrock.whats_new:pricing_change:3e7b9a747638f1a7318fd605",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "7d813a480d35cd593cba88c92e5e7ff3d6f03edf45b2609f0b1a7ac3548d284d",
+      "fingerprint": "6a994b2c56c2b4f21f9cbb76e63d14fe4befee16a16f8fd98f879a6edbd81c6a",
+      "retrieved_at": "2026-10-02T12:32:55Z",
+      "selector": "announcement:0814dbefe393eae8",
+      "snapshot_ref": "entry:0814dbefe393eae8",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-grok-4-7/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-e9fe5e6cd49e1ed3",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
