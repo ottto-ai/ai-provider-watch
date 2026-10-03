@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_retirement",
+  "claim_text": "Anthropic official dated source reports a model retirement on 2026-09-30 for api, claude-sonnet-4-5-20250929, claude-sonnet-4.5, claude-sonnet-5.5.",
+  "created_at": "2026-10-03T11:38:33Z",
+  "dedupe_key": "anthropic.release_notes:model_retirement:e1f828b50d834250dfa91ac8",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "617152300e08cf51bb011d4c8eb3d7a5639cb0fdf3ee946c0b6294fd84f518c8",
+      "fingerprint": "266ded65e7849a4c55844e2e559036ae2a8179934ee67aa5d7528c6c11d568ed",
+      "retrieved_at": "2026-10-03T11:38:12Z",
+      "selector": "announcement:1508037e14a2b0f2",
+      "snapshot_ref": "entry:1508037e14a2b0f2",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-39dbfb9ca36f415b",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
