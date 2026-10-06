@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-09-30 for amazon-bedrock, aws-bedrock, claude-opus-5.5, claude-sonnet-5.",
+  "created_at": "2026-10-06T13:17:22Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:2194d71154ccbf4ffffc8b7c",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "cda5fd7928802c963bb8a4b96252c4aa0bd6235225048de896fff48d5dc6bc9d",
+      "fingerprint": "3310e266b627abc0fbdc0cff14196406ae081be8cf59a1d0f5dcf9e7fb8558ad",
+      "retrieved_at": "2026-10-06T13:17:01Z",
+      "selector": "announcement:5475fa7004843fd5",
+      "snapshot_ref": "entry:5475fa7004843fd5",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/09/claude-region-expansion-lhr/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-6c0ec800de8f9bed",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
