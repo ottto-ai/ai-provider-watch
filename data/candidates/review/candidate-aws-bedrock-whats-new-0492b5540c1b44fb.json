@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-10-02 for amazon-bedrock, api, aws-bedrock, bedrock-agentcore, mcp.",
+  "created_at": "2026-10-07T13:21:27Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:7a04e9efafd8517ded901889",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "cd31d72b38b3ca05f14f4a7af978ff1b768392f22dda05a69446a570f0d4a5b7",
+      "fingerprint": "3310e266b627abc0fbdc0cff14196406ae081be8cf59a1d0f5dcf9e7fb8558ad",
+      "retrieved_at": "2026-10-07T13:21:06Z",
+      "selector": "announcement:0a7dd64079809901",
+      "snapshot_ref": "entry:0a7dd64079809901",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/agentcore-gateway-private-tls-vpc/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-0492b5540c1b44fb",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
