@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "Anthropic official dated source reports a pricing change on 2026-09-28 for claude-sonnet-5.5.",
+  "created_at": "2026-10-08T13:27:32Z",
+  "dedupe_key": "anthropic.news:pricing_change:71f6f91a65455aa227c1d26b",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "0db2d787fef7963dd2ca05548debf6bb779fdcf061aa9ffe1eb16b651b460ab9",
+      "fingerprint": "3d6fc1c4da477c0254e8f9080402239db4062b9807577015504d9bca815f8b99",
+      "retrieved_at": "2026-10-08T13:27:09Z",
+      "selector": "announcement:7531bce14402c214",
+      "snapshot_ref": "entry:7531bce14402c214",
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/claude-sonnet-5-5"
+    }
+  ],
+  "id": "candidate-anthropic-news-f57b140a618ca37b",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_news_index"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

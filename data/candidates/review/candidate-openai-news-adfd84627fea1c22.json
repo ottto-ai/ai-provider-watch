@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "OpenAI official dated source reports a pricing change on 2026-09-29 for api, computer-use, gpt-6.1, tokens.",
+  "created_at": "2026-10-08T13:27:32Z",
+  "dedupe_key": "openai.news:pricing_change:75300a5b75a1ad4e8eef0ade",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "9f63d0b89b8b2e57a1a201827207feb51c6a9e063d99ae780f5be024ac1e20d6",
+      "fingerprint": "fb75f554693f029f7a2313ca60184a96fe7cf554a1d3e9951649a4c3be0f6e3b",
+      "retrieved_at": "2026-10-08T13:27:32Z",
+      "selector": "announcement:3af7d83b877b257a",
+      "snapshot_ref": "entry:3af7d83b877b257a",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/introducing-gpt-6-1-sol"
+    }
+  ],
+  "id": "candidate-openai-news-adfd84627fea1c22",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
