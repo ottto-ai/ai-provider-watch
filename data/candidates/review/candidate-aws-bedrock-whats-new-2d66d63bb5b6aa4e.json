@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "token_accounting_change",
+  "claim_text": "AWS Bedrock official dated source reports a token-accounting change on 2026-10-05 for amazon-bedrock, api, aws-bedrock, prompt-caching, tokens.",
+  "created_at": "2026-10-08T13:27:32Z",
+  "dedupe_key": "aws_bedrock.whats_new:token_accounting_change:d03a73933770d19a8f239187",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "59dc83dba301dfdfd82a1b46b7df0f1054d5fd67e818fae76c31261ef23b4cfc",
+      "fingerprint": "a6140be49bb0aa5e1203053ee0e9ca218b3bc91ee2affc0b072419e20df54fd5",
+      "retrieved_at": "2026-10-08T13:27:11Z",
+      "selector": "announcement:ff60c13d281c124b",
+      "snapshot_ref": "entry:ff60c13d281c124b",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/amazon-bedrock-glm-5-3/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-2d66d63bb5b6aa4e",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
