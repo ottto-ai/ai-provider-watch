@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-10-07 for amazon-bedrock, api, aws-bedrock, claude-haiku-4.5, claude-haiku-5.5, claude-opus-5.5.",
+  "created_at": "2026-10-09T13:15:31Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:bf9ff36c3e7d477ce0dedb2b",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "d897b22317edeca2b508a2701654f72146f4229a4cc125e483cb24a450d777d9",
+      "fingerprint": "456d4402ed34ce0749f7f567b120c3aef5674b16438e1eab103d7ef060e0f3f4",
+      "retrieved_at": "2026-10-09T13:15:09Z",
+      "selector": "announcement:fd9cbe4ac6b5a5de",
+      "snapshot_ref": "entry:fd9cbe4ac6b5a5de",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/claude-haiku-5-5-aws/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-ae1b04873b6b1472",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
