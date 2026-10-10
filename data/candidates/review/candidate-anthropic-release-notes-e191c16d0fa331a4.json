@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official dated source reports a model availability change on 2026-10-07 for amazon-bedrock, api, aws-bedrock, claude-haiku-5-5, claude-haiku-5.5, tokens.",
+  "created_at": "2026-10-10T12:30:39Z",
+  "dedupe_key": "anthropic.release_notes:model_launch:17818789b6d7be6245e2e21d",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "2cb84f1b43a86aa126377376c9383c90178c0c5456a11ad755c8c5f275dc1299",
+      "fingerprint": "cc57a43eb5f54ff6b22e04b7205bd05a5a19ce6ed16d90ec4045182ac8e56d52",
+      "retrieved_at": "2026-10-10T12:30:16Z",
+      "selector": "announcement:ec612007da7d38ca",
+      "snapshot_ref": "entry:ec612007da7d38ca",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-e191c16d0fa331a4",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

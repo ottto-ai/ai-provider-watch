@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-10-02 for gpt-6.",
+  "created_at": "2026-10-10T12:30:39Z",
+  "dedupe_key": "openai.news:workflow_behavior_change:68455af3ae62e0cd57f02d86",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "2283990429201fed5fe72eb2545c81dbc91d668f7624d6f4b9a51caa3daba006",
+      "fingerprint": "fb75f554693f029f7a2313ca60184a96fe7cf554a1d3e9951649a4c3be0f6e3b",
+      "retrieved_at": "2026-10-10T12:30:38Z",
+      "selector": "announcement:e163bc1d51ed195f",
+      "snapshot_ref": "entry:e163bc1d51ed195f",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/practical-guide-building-gpt-6"
+    }
+  ],
+  "id": "candidate-openai-news-12c240f2cc53c534",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
