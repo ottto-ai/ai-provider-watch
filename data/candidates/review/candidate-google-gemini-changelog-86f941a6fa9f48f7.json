@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_deprecation",
+  "claim_text": "Google Gemini/Vertex official dated source reports a model deprecation on 2026-09-18 for api.",
+  "created_at": "2026-10-11T12:48:15Z",
+  "dedupe_key": "google.gemini_changelog:model_deprecation:1f970621a995970faf380a4d",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "2cf22b05b7504cfaa6ac9516a7d6eb8a32b9bd3ea9eed99e449b299f27cc5745",
+      "fingerprint": "d415531fe7376ea0859d55c7b704802e2bb5ea2f4185345f9a11a8f9cf56e19f",
+      "retrieved_at": "2026-10-11T12:48:11Z",
+      "selector": "announcement:5f15559af676576f",
+      "snapshot_ref": "entry:5f15559af676576f",
+      "source_key": "google.gemini_changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog"
+    }
+  ],
+  "id": "candidate-google-gemini-changelog-86f941a6fa9f48f7",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "google_gemini_changelog"
+  },
+  "provider_refs": [
+    "provider:google"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "google.gemini_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
