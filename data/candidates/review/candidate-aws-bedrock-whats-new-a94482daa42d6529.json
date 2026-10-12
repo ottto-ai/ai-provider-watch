@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "AWS Bedrock official dated source reports a pricing change on 2026-10-09 for amazon-bedrock, api, aws-bedrock.",
+  "created_at": "2026-10-12T15:22:33Z",
+  "dedupe_key": "aws_bedrock.whats_new:pricing_change:9243c89420f0e72e38afb7a5",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "5e2cdc7c6b703176a6a25f4533d296d36ff26ede1fd314e29355fd4c22257aba",
+      "fingerprint": "0b82b3a2599956896c5a54f1f4eb622e6a5b3331d945523d71e6e3b1c251e2fe",
+      "retrieved_at": "2026-10-12T15:22:11Z",
+      "selector": "announcement:51f7109c36f343e3",
+      "snapshot_ref": "entry:51f7109c36f343e3",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/twelve-labs-pegasus-1-5-aws/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-a94482daa42d6529",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
