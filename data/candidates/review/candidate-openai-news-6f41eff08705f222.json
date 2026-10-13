@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-09-23 for gpt-6.",
+  "created_at": "2026-10-13T14:10:10Z",
+  "dedupe_key": "openai.news:model_launch:3cdfe5d6ec0e648bb749bbb0",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "11e4018c19f6ec567b9c105cb03ca6cd1a18c5da4e78aa28366ae42b4296dd48",
+      "fingerprint": "fb75f554693f029f7a2313ca60184a96fe7cf554a1d3e9951649a4c3be0f6e3b",
+      "retrieved_at": "2026-10-13T14:10:09Z",
+      "selector": "announcement:ed4cd9607d7d7826",
+      "snapshot_ref": "entry:ed4cd9607d7d7826",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/invideo-builds-with-gpt-6-astra"
+    }
+  ],
+  "id": "candidate-openai-news-6f41eff08705f222",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
