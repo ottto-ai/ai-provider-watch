@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-10-08 for amazon-bedrock, api, aws-bedrock, gpt-6.1.",
+  "created_at": "2026-10-14T11:50:18Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:961026099041420f86adbeab",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "77e95c0661e9e4922458e473a32d77ce43064b576ad2695cfaaac4f9155e4382",
+      "fingerprint": "aeb9ded0154a482542c6136df231069359905b8aa50caccf8ee0bda6008c5204",
+      "retrieved_at": "2026-10-14T11:49:53Z",
+      "selector": "announcement:020e21304271b386",
+      "snapshot_ref": "entry:020e21304271b386",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/openai-gpt-sol-ultrafast-amazon/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-b562fd3637468798",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
