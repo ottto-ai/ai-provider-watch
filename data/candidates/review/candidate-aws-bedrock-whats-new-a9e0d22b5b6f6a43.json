@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-10-09 for amazon-bedrock, api, aws-bedrock, responses-api.",
+  "created_at": "2026-10-16T11:22:26Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:80df80c633065bd5af769659",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "412926f9ba4aec4622fa34a798f93507cc34d73a9fc2e0d56e623ae68939654e",
+      "fingerprint": "4e48c84dbb40876f9a294a96f61a6762085baccb6192b9d4b27f00ac7c2f777f",
+      "retrieved_at": "2026-10-16T11:22:03Z",
+      "selector": "announcement:bff90f46521073db",
+      "snapshot_ref": "entry:bff90f46521073db",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/amazon-bedrock-reasoning-summaries-openai/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-a9e0d22b5b6f6a43",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
