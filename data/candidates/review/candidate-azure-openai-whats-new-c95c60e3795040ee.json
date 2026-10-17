@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Azure OpenAI official dated source reports a model availability change on 2026-02 for api, audio, gpt-audio, gpt-audio-1.5, gpt-realtime, gpt-realtime-1.5.",
+  "created_at": "2026-10-17T10:42:27Z",
+  "dedupe_key": "azure_openai.whats_new:model_launch:06a8a64e5dcc5f3caa621f8f",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "37d6cd2b5342107f84b1aba67463667338d03c6538af7265390fd6c946bff98e",
+      "fingerprint": "5f349b93bcd3623ec50f574dc97ad57cd212779ea5831323d572e774d33f4388",
+      "retrieved_at": "2026-10-17T10:42:21Z",
+      "selector": "announcement:623efe38f7707af1",
+      "snapshot_ref": "entry:623efe38f7707af1",
+      "source_key": "azure_openai.whats_new",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+    }
+  ],
+  "id": "candidate-azure-openai-whats-new-c95c60e3795040ee",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "azure_openai_whats_new"
+  },
+  "provider_refs": [
+    "provider:azure-openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "azure_openai.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
