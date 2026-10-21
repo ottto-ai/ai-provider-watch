@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "token_accounting_change",
+  "claim_text": "AWS Bedrock official dated source reports a token-accounting change on 2026-10-20 for amazon-bedrock, aws-bedrock, tokens.",
+  "created_at": "2026-10-21T11:47:23Z",
+  "dedupe_key": "aws_bedrock.whats_new:token_accounting_change:6eea5e0a29dea5f849e8d9d3",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "ab954f6c14d28f592fb6fe4d4a0f7ee88cbd46fbbd2242a2452d31b9c12d5276",
+      "fingerprint": "766b517ed48d55f57f0d94d07b0fd62b95cea89345dcca603a4468a8dabc68d5",
+      "retrieved_at": "2026-10-21T11:46:59Z",
+      "selector": "announcement:43d2d73f8bdf5074",
+      "snapshot_ref": "entry:43d2d73f8bdf5074",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/bedrock-prompt-optimization-shortening/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-c7579c1041d28bc5",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

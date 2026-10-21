@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-10-13 for aws-bedrock, bedrock-agentcore, mcp, sdk.",
+  "created_at": "2026-10-21T11:47:23Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:5b40903ae9b700a0b2e45ba4",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "ab954f6c14d28f592fb6fe4d4a0f7ee88cbd46fbbd2242a2452d31b9c12d5276",
+      "fingerprint": "766b517ed48d55f57f0d94d07b0fd62b95cea89345dcca603a4468a8dabc68d5",
+      "retrieved_at": "2026-10-21T11:46:59Z",
+      "selector": "announcement:6e8b48d06e3af215",
+      "snapshot_ref": "entry:6e8b48d06e3af215",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/aws-agent-registry-custom-metadata-registry-records"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-262f6d39dff93ac7",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
