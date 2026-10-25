@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-10-16 for codex.",
+  "created_at": "2026-10-25T11:26:02Z",
+  "dedupe_key": "openai.news:workflow_behavior_change:3b3a3654aa739296bcd06642",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "d4dcbc82a15b684af2690668fc8c77ce3f33467d120e2e1293de7d56436d2bef",
+      "fingerprint": "0500a5cc631e0ac51cbf766d565fbe66d4f25ebb36484266eb1bda92b8b636a2",
+      "retrieved_at": "2026-10-25T11:26:01Z",
+      "selector": "announcement:16de1800c992226e",
+      "snapshot_ref": "entry:16de1800c992226e",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/stack-overflow-chatgpt-plugin"
+    }
+  ],
+  "id": "candidate-openai-news-da755336cfaabec8",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
