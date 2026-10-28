@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "default_model_change",
+  "claim_text": "AWS Bedrock official dated source reports a default-model change on 2026-10-20 for amazon-bedrock, api, aws-bedrock, messages-api.",
+  "created_at": "2026-10-28T12:52:48Z",
+  "dedupe_key": "aws_bedrock.whats_new:default_model_change:2871c590cae490c7001a1882",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "5a9ed8a2627a4b3105c8a1a43b47e0f76456e950ca0f73052018ba552ed3170c",
+      "fingerprint": "1e3204da161d1ce08e33058d1f7ee05512748b2718da384abb89d52b6695628c",
+      "retrieved_at": "2026-10-28T12:52:26Z",
+      "selector": "announcement:c44bed337dad88e6",
+      "snapshot_ref": "entry:c44bed337dad88e6",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/10/claude-structured-outputs-bedrock/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-ce683138fb0507d8",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
