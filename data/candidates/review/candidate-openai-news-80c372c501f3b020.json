@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-10-26 for computer-use, gpt-6.1.",
+  "created_at": "2026-10-28T12:52:48Z",
+  "dedupe_key": "openai.news:model_launch:ae3f4a18631d2d4c2a16f7b4",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "809b681a82fdf366e870011a453c75749fdca907c0fa43b1d2f3ef65644c6866",
+      "fingerprint": "8c132b5fb2d1d12b564585f94a3a475be64d8a749c5c41b918777cb1771a123a",
+      "retrieved_at": "2026-10-28T12:52:48Z",
+      "selector": "announcement:ff64d6495fee6280",
+      "snapshot_ref": "entry:ff64d6495fee6280",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/introducing-gpt-6-1-terra"
+    }
+  ],
+  "id": "candidate-openai-news-80c372c501f3b020",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
