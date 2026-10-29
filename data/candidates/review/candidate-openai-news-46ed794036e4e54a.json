@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-10-26 for gpt-6.1.",
+  "created_at": "2026-10-29T12:58:56Z",
+  "dedupe_key": "openai.news:model_launch:263353a2b7674d0b77cd7760",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "bfdb577791d34c7bf5281f4b3b1a9f8f8cd62cf26694bbad14d81f385d732d8a",
+      "fingerprint": "8c132b5fb2d1d12b564585f94a3a475be64d8a749c5c41b918777cb1771a123a",
+      "retrieved_at": "2026-10-29T12:58:55Z",
+      "selector": "announcement:1678d5449e4ed1da",
+      "snapshot_ref": "entry:1678d5449e4ed1da",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/gpt-6-1-sol-coderabbit-code-security"
+    }
+  ],
+  "id": "candidate-openai-news-46ed794036e4e54a",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
