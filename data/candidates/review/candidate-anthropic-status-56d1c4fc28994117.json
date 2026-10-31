@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "status_incident",
+  "claim_text": "Anthropic official status page has a bounded incident or recovery reference that needs maintainer review.",
+  "created_at": "2026-10-31T12:26:03Z",
+  "dedupe_key": "anthropic.status:status_incident:cd3f6005e8b3ec2d724cf253",
+  "evidence_refs": [
+    {
+      "authority": "official_status",
+      "content_sha256": "60dcdf1ef9f05a18d6dda06164035a7008a011b7513a2081f4ee4d3c1b01ec8f",
+      "fingerprint": "a0f7f0f937cb0b71ef3c887a99b9c0b564508a20a45960a4319876ec04e0254d",
+      "retrieved_at": "2026-10-31T12:25:40Z",
+      "selector": "statuspage:fd19b21005fec5b6",
+      "snapshot_ref": "statuspage:fd19b21005fec5b6",
+      "source_key": "anthropic.status",
+      "url": "https://status.claude.com/"
+    }
+  ],
+  "id": "candidate-anthropic-status-56d1c4fc28994117",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "statuspage_html"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.status"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
