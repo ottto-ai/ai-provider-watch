@@ -1,0 +1,35 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official source changed and needs maintainer review for a possible model availability change.",
+  "created_at": "2026-10-31T12:26:03Z",
+  "dedupe_key": "anthropic.news:model_launch:552a7f9453caedb970487753",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "fc2f23fd72af39d5b78f2474318555a7ca47c2d4052bdc3f448db03434d1376d",
+      "fingerprint": "37ddc19510b9add7d93e9d70ed570be69b115b917dcbe0d31fb8a217d65c3cc6",
+      "retrieved_at": "2026-10-31T12:25:39Z",
+      "snapshot_ref": null,
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/news"
+    }
+  ],
+  "id": "candidate-anthropic-news-69d86a68f3a2b046",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_news_index"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
