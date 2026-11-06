@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "Anthropic official dated source reports a pricing change on 2026-10-29 for api.",
+  "created_at": "2026-11-06T14:14:44Z",
+  "dedupe_key": "anthropic.release_notes:pricing_change:65b58a506c79519e93a302a6",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "0d6a01149bc37db718bb3b776e28cca21dccda29ef488c8be30eaf1f59b17f6e",
+      "fingerprint": "06f2e13ecc5b90986b5215dfe742d7cbe41e2ab191698e3e29720d8a136fd7e7",
+      "retrieved_at": "2026-11-06T14:14:22Z",
+      "selector": "announcement:a205078044575922",
+      "snapshot_ref": "entry:a205078044575922",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-02e88b1080346c3d",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
