@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "billing_channel_change",
+  "claim_text": "OpenAI official dated source reports a billing channel change on 2026-10-28 for api.",
+  "created_at": "2026-11-06T14:14:44Z",
+  "dedupe_key": "openai.api_changelog:billing_channel_change:1abaef8269f3e5dc4c2d0b40",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "79525ee6503cea1013856b3e3f2d059f1302f2c0e41dc2d59892488d463952a7",
+      "fingerprint": "0207e0eb446dfbc8d74de256c4c495d911ca073485625c11fdca23fb230e6929",
+      "retrieved_at": "2026-11-06T14:14:42Z",
+      "selector": "announcement:3a000884809b3520",
+      "snapshot_ref": "entry:3a000884809b3520",
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog"
+    }
+  ],
+  "id": "candidate-openai-api-changelog-3e0c5f7911850f34",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_api_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.api_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
