@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "billing_channel_change",
+  "claim_text": "OpenAI official dated source reports a billing channel change on 2026-11-05 for gpt-6-cyber.",
+  "created_at": "2026-11-07T12:58:52Z",
+  "dedupe_key": "openai.api_changelog:billing_channel_change:2494a531c573173611cf57f4",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "90f09646d2a70c991f75a5dea3b3557c683a4c3b810f6814d44ef13e89e7ede7",
+      "fingerprint": "536af4b2cd62a25cd71a106f7df94cda8bcc7e666b990dc709600c391ac036d5",
+      "retrieved_at": "2026-11-07T12:58:50Z",
+      "selector": "announcement:2a664a7bb4ba988c",
+      "snapshot_ref": "entry:2a664a7bb4ba988c",
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog"
+    }
+  ],
+  "id": "candidate-openai-api-changelog-f1efdd536fd90db3",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_api_changelog"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.api_changelog"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
