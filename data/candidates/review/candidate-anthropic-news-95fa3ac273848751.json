@@ -1,0 +1,35 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official source changed and needs maintainer review for a possible model availability change.",
+  "created_at": "2026-11-09T16:15:21Z",
+  "dedupe_key": "anthropic.news:model_launch:552a7f9453caedb970487753",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "eb044e261573c9f1c685d8fa991d6921b88271d2e54d27201264075653bda493",
+      "fingerprint": "15b040c961441871d3071ee0f634bca48f03ef848a1f4c06debe01edd9c97b6e",
+      "retrieved_at": "2026-11-09T16:14:56Z",
+      "snapshot_ref": null,
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/news"
+    }
+  ],
+  "id": "candidate-anthropic-news-95fa3ac273848751",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_news_index"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
