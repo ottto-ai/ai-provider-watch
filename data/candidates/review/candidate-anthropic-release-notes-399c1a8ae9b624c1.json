@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "Anthropic official dated source reports a model availability change on 2026-11-09 for claude-fable-5.1, claude-mythos-5.1.",
+  "created_at": "2026-11-10T14:51:33Z",
+  "dedupe_key": "anthropic.release_notes:model_launch:f1f1e3b70a0e288df7ede580",
+  "evidence_refs": [
+    {
+      "authority": "official_docs",
+      "content_sha256": "58c7ab30eb71359462258ad16a0c3704c1fc2f86e58de20f2c75da62ef53035d",
+      "fingerprint": "c6277cf9abb2bfb9be6c54acbcae79e036014af4a4f9eee5e16d9761409e1f54",
+      "retrieved_at": "2026-11-10T14:51:09Z",
+      "selector": "announcement:fad101f30667b27c",
+      "snapshot_ref": "entry:fad101f30667b27c",
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    }
+  ],
+  "id": "candidate-anthropic-release-notes-399c1a8ae9b624c1",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "anthropic_release_notes"
+  },
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "anthropic.release_notes"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
