@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-11-10 for amazon-bedrock, aws-bedrock, gpt-5.6, gpt-5.6-cyber.",
+  "created_at": "2026-11-12T15:12:34Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:b626b032861c0e35542409cf",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "8e3803fb0d59d5fa77b3073bdff1cdde7047bc591cc7f2927f337024b2ff0e45",
+      "fingerprint": "018606fe1dce31c8424712755d5a2e30e0f19f953db3a9c1995b92d2240f13e6",
+      "retrieved_at": "2026-11-12T15:12:11Z",
+      "selector": "announcement:06aa95abbc945e58",
+      "snapshot_ref": "entry:06aa95abbc945e58",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/openai-gpt-daybreak-on-amazon-bedrock-runtime/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-08078eed9473e7c9",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
