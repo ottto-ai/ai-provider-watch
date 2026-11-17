@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-11-13 for codex.",
+  "created_at": "2026-11-17T15:58:50Z",
+  "dedupe_key": "openai.news:model_launch:62626be304ab199337d4ab0d",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "4bd54eab11ed97d068f564155ac0ffd27653d55289c34c3d2c845e7dfb48f837",
+      "fingerprint": "d9278360e4fbf47d25f01528df6d1c3f8e12a509ed14d006ff091152bdff656a",
+      "retrieved_at": "2026-11-17T15:58:49Z",
+      "selector": "announcement:922aeb7109f201b5",
+      "snapshot_ref": "entry:922aeb7109f201b5",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/introducing-chatgpt-wallet"
+    }
+  ],
+  "id": "candidate-openai-news-4d97e46551a2a7b0",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
