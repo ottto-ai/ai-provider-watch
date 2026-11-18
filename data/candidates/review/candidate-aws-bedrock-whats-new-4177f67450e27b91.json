@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "billing_channel_change",
+  "claim_text": "AWS Bedrock official dated source reports a billing channel change on 2026-11-17 for amazon-bedrock, api, aws-bedrock.",
+  "created_at": "2026-11-18T15:37:54Z",
+  "dedupe_key": "aws_bedrock.whats_new:billing_channel_change:24395e0a336fa60b6d9c0867",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "4d8bb51c8a624a60bf120c365267d5ecdbde64bbe64f8337cfc6e3aa6ba873d0",
+      "fingerprint": "8a3df4e5515dee97d8fd5500ec4c6c5ca85e240cf94d0b02da5eea2d3312c91e",
+      "retrieved_at": "2026-11-18T15:37:31Z",
+      "selector": "announcement:0573ba5b19081ec3",
+      "snapshot_ref": "entry:0573ba5b19081ec3",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/elemental-inference-functions-decisions/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-4177f67450e27b91",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
