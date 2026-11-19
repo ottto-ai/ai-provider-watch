@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-11-17 for amazon-bedrock, aws-bedrock, bedrock-agentcore.",
+  "created_at": "2026-11-19T15:43:12Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:9b5e798d73d07ad2e45ab287",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "891c9fcdbe362c40bd3369ed49691b3bd364ac7c0ccaeca76c41be2ee1112d73",
+      "fingerprint": "6f2d05ec3f5949e0331abdd0b151d8797744d98c3a9b2e5c4664de35813f6c16",
+      "retrieved_at": "2026-11-19T15:42:50Z",
+      "selector": "announcement:cafe681d7f3637d1",
+      "snapshot_ref": "entry:cafe681d7f3637d1",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/amazon-bedrock-agentcore-memory-10-year-retention"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-b2ba34d9e32ff618",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
