@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-11-19 for amazon-bedrock, aws-bedrock, bedrock-agentcore.",
+  "created_at": "2026-11-20T15:25:57Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:b83ca766b254753fe13c81be",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "3d76a5dc2e4bb3d14207edd1cfd0713001d644c4f9ecf2e24f3090375465ffae",
+      "fingerprint": "b1b6ce0fdca38f99cd6cda03998d1f1e6849d1a7dece0f005f37554b9f0e5fb8",
+      "retrieved_at": "2026-11-20T15:25:30Z",
+      "selector": "announcement:bf494c3552eece13",
+      "snapshot_ref": "entry:bf494c3552eece13",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/bedrock-agentcore-identity-private-ca/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-c10c9a0fd9c30bf5",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
