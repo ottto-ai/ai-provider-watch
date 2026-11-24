@@ -1,0 +1,90 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2025-01-27-azure-openai-2025-legacy-preview-retirements",
+  "title": "Azure OpenAI Retired 2025 Legacy And Preview Model IDs",
+  "event_kind": "model_retirement",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:azure-openai"],
+  "event_date": "2025-01-27",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-10T16:51:44Z",
+  "announced_at": null,
+  "effective_at": "2025-01-27T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2025-01-27T00:00:00Z",
+  "summary": "Microsoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "azure_openai.legacy_models",
+      "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models",
+      "retrieved_at": "2026-06-10T16:51:44Z",
+      "authority": "official_docs",
+      "content_sha256": "bd001e951c273b452251bb4aac796a37f99602a82f888cf35ddb706de6ae5659",
+      "snapshot_ref": "reviewed-source:2026-06-10",
+      "selector": "Azure OpenAI retired models table; 2025 retirement rows",
+      "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:azure-openai/api",
+      "impact_kind": "availability",
+      "direction": "removed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "product_engineers", "coding_agent_users"],
+      "recommended_action": "Audit Azure OpenAI deployments, gateway allowlists, and agent model routes for retired 2025 model IDs before replaying old examples or restoring old fallbacks."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:azure-openai/api",
+      "impact_kind": "migration",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "sdk_maintainers"],
+      "recommended_action": "Refresh Azure OpenAI migration notes, test fixtures, and model-selection defaults to use the listed replacement families where applicable."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:davinci-002",
+      "model:dall-e-2",
+      "model:gpt-4o-realtime-preview",
+      "model:gpt-35-turbo",
+      "model:gpt-35-turbo-16k",
+      "model:gpt-4",
+      "model:gpt-4-32k",
+      "model:gpt-4.5-preview",
+      "model:o1-preview"
+    ],
+    "lifecycle_action": "retirement",
+    "replacement_refs": [
+      "model:gpt-image-1",
+      "model:gpt-4o-mini-realtime-preview",
+      "model:gpt-4o-mini",
+      "model:gpt-4.1-mini",
+      "model:gpt-4o",
+      "model:gpt-4.1",
+      "model:o1"
+    ],
+    "deadline": "2025-01-27T00:00:00Z",
+    "migration_notes": "The source table contains per-row 2025 retirement dates from January 27 through July 28. APW uses the earliest retirement date as the event date and migration deadline for this grouped historical event."
+  },
+  "tags": ["source:official_docs", "provider:azure-openai", "impact:model_retirement"],
+  "limitations": [
+    "Historical reviewed event; APW did not observe the original 2025 retirements in real time.",
+    "This event summarizes selected 2025 Azure OpenAI retirement rows and does not reproduce the full provider table.",
+    "Some affected model IDs have later 2025 retirement dates; consumers should check the official table for model-specific deadlines and replacements."
+  ]
+}

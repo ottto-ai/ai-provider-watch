@@ -1,0 +1,2672 @@
+[
+  {
+    "announced_at": "2026-07-12T00:00:00Z",
+    "confidence": "high",
+    "date_confidence": "exact",
+    "detail": {
+      "kind": "quota_change",
+      "quota_items": [
+        {
+          "extension_mechanism": "purchasable_chatgpt_or_workspace_credits",
+          "note": "Weekly limit governs as primary cap; the five-hour window was reported suspended on 2026-07-12 and the current pricing page documents both windows, so exact window state can vary.",
+          "primary_window": "weekly",
+          "scope": "chatgpt_plus_pro_business",
+          "secondary_window": "five_hour_reported_suspended_2026-07-12"
+        }
+      ],
+      "reset_policy": "Banked rate-limit resets are earned through eligible Codex referrals and are usable for 30 days after they are granted.",
+      "schema_version": "apw.event_detail.v0",
+      "window": "Weekly limit reported as the primary cap; the shared five-hour window was reported suspended on Plus, Pro, and Business on 2026-07-12. The current pricing page still documents a shared five-hour window with additional weekly limits, indicating the window state was later adjusted."
+    },
+    "effective_at": "2026-07-12T00:00:00Z",
+    "event_date": "2026-07-12",
+    "event_kind": "quota_change",
+    "evidence_refs": [
+      {
+        "authority": "official_pricing",
+        "content_sha256": "dd90950c58e2f44abdc65ef1b0c725ee20ad6c037c1da3f86522511e1016a0fc",
+        "license_note": "Official OpenAI pricing docs reviewed for factual metadata; no provider prose copied. Hash is sha256 of tag-stripped, whitespace-normalized visible text at retrieval.",
+        "retrieved_at": "2026-07-20T19:29:09Z",
+        "selector": "normalized-visible-text",
+        "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs/pricing@2026-07-20",
+        "source_key": "openai.pricing",
+        "url": "https://learn.chatgpt.com/docs/pricing"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-07-12-openai-chatgpt-weekly-window-agentic-credits",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "high",
+        "direction": "changed",
+        "impact_kind": "quota",
+        "recommended_action": "Track the weekly usage limit as the governing cap for ChatGPT and Codex on Plus, Pro, and Business instead of assuming only a short rolling window; the shorter five-hour window was reported suspended, so plan quota monitoring around weekly consumption.",
+        "scope_ref": "plan:openai/chatgpt-plus-pro-business",
+        "scope_type": "subscription_plan",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "finops",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "estimated_cost_effect": {
+          "basis": "official OpenAI learn.chatgpt.com/docs/pricing page reviewed 2026-07-20",
+          "confidence": "confirmed",
+          "direction": "increase",
+          "magnitude": "optional purchasable ChatGPT credits let Plus and Pro users, and workspace credits let Business/Edu/Enterprise flexible plans, continue past included usage at additional cost"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Budget for optional ChatGPT/workspace credit purchases that extend usage past plan limits; treat them as incremental spend and keep the official pricing page as the source for current credit prices and eligibility.",
+        "scope_ref": "plan:openai/chatgpt",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "quota",
+        "recommended_action": "Account for banked rate-limit resets granted through eligible Codex referrals, which are usable for 30 days after they are granted, when reasoning about short-term available headroom.",
+        "scope_ref": "plan:openai/chatgpt",
+        "scope_type": "subscription_plan",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "finops"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The current OpenAI pricing page still documents a shared five-hour window with additional weekly limits, so the reported five-hour-window suspension was likely adjusted after 2026-07-12.",
+      "Third-party reporting (winbuzzer.com, 2026-07-14) indicates OpenAI eased GPT-5.6 timing limits after the change while keeping weekly caps; it was not used as primary evidence.",
+      "Exact per-plan caps, eligibility, credit prices, and window state can change; the official pricing page remains the source of truth for current numbers.",
+      "No raw provider prose is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-07-20T19:29:09Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_pricing",
+    "summary": "OpenAI restructured ChatGPT and Codex usage limits so a weekly limit governs the primary cap, reported suspending the shared five-hour window on Plus, Pro, and Business plans, while adding purchasable ChatGPT credits to continue past included usage and banked rate-limit resets earned through referrals.",
+    "tags": [
+      "source:official_pricing",
+      "provider:openai",
+      "impact:quota_change",
+      "app:codex",
+      "app:chatgpt"
+    ],
+    "title": "OpenAI Made Weekly Limits Primary For ChatGPT Codex Usage And Added Purchasable Credits"
+  },
+  {
+    "announced_at": "2026-07-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI's 'next chapter for ChatGPT' announcement merged the standalone Codex app into one ChatGPT app offering Chat, Work, and Codex modes, unified ChatGPT Work with Codex usage/pricing/credits, launched the GPT-5.6 Sol/Terra/Luna family, and relocated Codex docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-07-09T00:00:00Z",
+    "event_date": "2026-07-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "0fc0e3d50d6bd45d46409eae2a016b860b110d6816050632908def339ad094a5",
+        "license_note": "Official OpenAI docs reviewed for factual metadata; no provider prose copied. Hash is sha256 of tag-stripped, whitespace-normalized visible text at retrieval.",
+        "retrieved_at": "2026-07-20T19:29:09Z",
+        "selector": "normalized-visible-text",
+        "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs@2026-07-20",
+        "source_key": "openai.codex_docs",
+        "url": "https://learn.chatgpt.com/docs"
+      },
+      {
+        "authority": "official_pricing",
+        "content_sha256": "dd90950c58e2f44abdc65ef1b0c725ee20ad6c037c1da3f86522511e1016a0fc",
+        "license_note": "Official OpenAI pricing docs reviewed for factual metadata; no provider prose copied. Hash is sha256 of tag-stripped, whitespace-normalized visible text at retrieval.",
+        "retrieved_at": "2026-07-20T19:29:09Z",
+        "selector": "normalized-visible-text",
+        "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs/pricing@2026-07-20",
+        "source_key": "openai.pricing",
+        "url": "https://learn.chatgpt.com/docs/pricing"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-07-09-openai-chatgpt-codex-app-unification",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Expect the standalone Codex desktop app to move under the unified ChatGPT app with Chat, Work, and Codex modes; re-verify app install, sign-in, and mode selection before comparing behavior with pre-unification baselines.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "cost",
+        "recommended_action": "ChatGPT Work and Codex now share usage limits, pricing, and credits inside the same plan; re-model per-seat cost and usage attribution because Work-mode activity can draw down the same Codex limits and credits.",
+        "scope_ref": "plan:openai/chatgpt-work-codex",
+        "scope_type": "subscription_plan",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate the new GPT-5.6 Sol, Terra, and Luna variants; each has different quality, speed, and per-message credit costs, so pick the variant per workload before assuming prior default-model behavior.",
+        "scope_ref": "model:openai/gpt-5.6",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Codex developer documentation moved from developers.openai.com/codex/* to learn.chatgpt.com/docs/*; update source watchers, bookmarks, and doc links to the new host to avoid stale or redirected fetches.",
+        "scope_ref": "surface:openai/codex",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public restructure metadata only; exact ChatGPT Work and Codex mode availability, desktop rollout, tenant eligibility, and per-plan pricing vary by account.",
+      "The OpenAI Help Center article help.openai.com/en/articles/20001275-chatgpt-work-and-codex and third-party launch coverage (9to5mac.com, 2026-07-09) corroborate the announcement but were not used as primary evidence.",
+      "No raw provider prose is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-07-20T19:29:09Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI folded the standalone Codex desktop app into a single ChatGPT app with Chat, Work, and Codex modes, made ChatGPT Work share Codex usage limits, pricing, and credits, launched the GPT-5.6 Sol, Terra, and Luna model family, and moved Codex developer docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex",
+      "app:chatgpt"
+    ],
+    "title": "OpenAI Unified The Codex App Into ChatGPT With Chat, Work, And Codex Modes"
+  },
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app capabilities expanded across EEA, UK, and Switzerland, including desktop Computer Use, Chrome extension access, Memories behavior, and Chronicle preview availability.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "regional_availability_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:28Z",
+        "selector": "announcement:7d3577a92340acf0",
+        "snapshot_ref": "entry:7d3577a92340acf0",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-openai-codex-eea-computer-use-chrome-memories",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Re-check regional Codex app enablement, Chrome extension policies, and Computer Use approvals before updating European workspace runbooks.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Confirm Memories defaults and Chronicle eligibility before relying on persisted preferences or screen-context memory in regulated regional workspaces.",
+        "scope_ref": "region:eea-uk-ch",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Rollout timing and workspace eligibility may vary by account, plan, platform, and region."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:28Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI Codex changelog says more Codex app capabilities are rolling out in the European Economic Area, United Kingdom, and Switzerland, including Computer Use, the Chrome extension, Memories behavior, and Chronicle preview availability for Pro users on macOS.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:regional_availability_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Expanded Codex Computer Use, Chrome Extension, Memories, And Chronicle In Europe"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex mobile and CLI updates added workspace/diff controls, MCP approval choices, account usage views, deletion flows, Claude Code import, Bedrock API-key handling, and reliability fixes.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:28Z",
+        "selector": "announcement:3df757e82ec6bf10",
+        "snapshot_ref": "entry:3df757e82ec6bf10",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Review MCP approval scopes, deletion safeguards, credential storage, and mobile workspace access before updating Codex automation policies.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "If using Codex with Bedrock credentials, test managed API-key storage and local policy handling before moving workloads into shared workspaces.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Treat Claude Code import as a migration path that still needs config, credential, and memory review before bulk adoption.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The candidate classified part of this source as API and rate-limit changes; source-owner review records it as a broader Codex workflow/security/credential update. Exact rollout, plan eligibility, and managed credential behavior may vary."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:28Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI Codex changelog records June 15 updates for ChatGPT iOS and Codex CLI, including mobile workspace browsing and diff controls, MCP approval choices, CLI usage views, permanent session deletion, Claude Code import, managed Amazon Bedrock API-key authentication, and credential storage improvements.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex",
+      "app:claude_code",
+      "surface:aws_bedrock"
+    ],
+    "title": "OpenAI Codex Added Mobile Workspace Controls, MCP Approvals, Usage Views, And Bedrock Auth"
+  },
+  {
+    "announced_at": "2026-06-11T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "kind": "rate_limit_change",
+      "rate_items": [
+        {
+          "change": "Codex app 26.609 added rate-limit reset banking for Plus users, including an initial free reset and referral invitations during the launch promotion.",
+          "scope": "plan:chatgpt-plus"
+        },
+        {
+          "change": "Codex app 26.609 added rate-limit reset banking for Pro users, including an initial free reset and referral invitations during the launch promotion.",
+          "scope": "plan:chatgpt-pro"
+        },
+        {
+          "change": "Codex app 26.609 added a separate Business referral path where eligible members can invite coworkers to earn shared workspace credits.",
+          "scope": "plan:chatgpt-business"
+        }
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-11T00:00:00Z",
+    "event_date": "2026-06-11",
+    "event_kind": "rate_limit_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-12T10:40:30Z",
+        "selector": "announcement:aab6a574450e9f37",
+        "snapshot_ref": "entry:aab6a574450e9f37",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "rate_limit",
+        "recommended_action": "Review Codex Plus, Pro, and Business usage policies before relying on reset banking or referral-earned credits in automation planning.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Re-check Codex Computer Use enablement, regional eligibility, and per-app access controls before changing browser or desktop automation runbooks.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "quality",
+        "recommended_action": "Retest browser-debugging workflows that depend on console, network, runtime-error, or page-state inspection because Developer mode adds deeper browser access paths.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official changelog facts only; exact tenant eligibility, referral promotion availability, reset quantities, regional Computer Use availability, and app rollout timing may vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-12T10:40:30Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:rate_limit_change",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "ChatGPT iOS 1.2026.153 expanded Codex Mobile workflow controls for repository setup, goals, reviews, prompt editing, side chat, and usage visibility.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:2c14eb7d1cf246a4",
+        "snapshot_ref": "entry:2c14eb7d1cf246a4",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-mobile-worktrees-goals-review",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Update mobile Codex runbooks and QA checklists for branch/worktree creation, environment setup scripts, goal workflows, and inline review comments.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "official changelog records usage and token activity visibility, not a pricing or token-accounting rule change",
+          "confidence": "confirmed",
+          "direction": "unknown",
+          "magnitude": null
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Use the added usage and token activity views as an observability aid, but do not treat this as a provider pricing or token-accounting change.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records a mobile-app workflow change, not a canonical API pricing, quota, or token-accounting change.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.153 records Codex Mobile support for branch/worktree setup, environment setup scripts, goal management, inline review comments, side chat from transcript selection, prompt editing, and usage/token activity views.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Codex Mobile Worktree, Goal, And Review Controls"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex CLI 0.139 changed agent workflow behavior around code-mode web search, MCP/tool schema compatibility, diagnostics, plugin marketplace metadata, and several CLI reliability paths.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:78597976f1c82cf1",
+        "snapshot_ref": "entry:78597976f1c82cf1",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest Codex CLI code-mode runs that depend on web search, nested tool calls, MCP schemas, plugin marketplace automation, image edits, or resume/fork prompt handling.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Review local diagnostic collection expectations because Codex CLI reports more environment context while redacting raw JSON values.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The plugin catalog cache mentioned in the changelog is software-cache behavior; APW does not classify it as prompt caching or token accounting.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex CLI 0.139 changelog records standalone web search support in code mode, richer tool/connector schema preservation, expanded local diagnostics, plugin marketplace JSON/source metadata, and fixes for resume/fork prompts, MCP startup warnings, image edits, and URL handling.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex CLI Added Web Search, Schema, And Plugin Marketplace Updates"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app 26.608 added migration support from adjacent coding-agent setups, improved plugin management and settings search, and changed several workflow reliability behaviors.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:1dcfa1780ecfef2b",
+        "snapshot_ref": "entry:1dcfa1780ecfef2b",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-app-migration-plugins-settings",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Review imported configuration and plugin permissions when moving teams from Claude Code or Claude Cowork setup into Codex.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Re-check plugin installation flows, settings discoverability, and review-diff ordering before comparing Codex app behavior with pre-26.608 baselines.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the provider changelog metadata only; tenant eligibility, desktop platform rollout, and exact plugin marketplace availability can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for app version 26.608 records new migration flows from Claude Code and Claude Cowork setup, a revamped plugin management screen, broader settings search, and several workflow reliability fixes.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex App Added Migration, Plugin, And Settings Improvements"
+  },
+  {
+    "announced_at": "2026-06-08T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "codex app-server account token usage reads",
+        "v2 personal access token support",
+        "plugin add/remove and marketplace JSON output",
+        "plugin detail default prompts, remote MCP servers, and unavailable app templates",
+        "local image file-path exposure to the model"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "app:codex",
+        "surface:openai/api"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-08T00:00:00Z",
+    "event_date": "2026-06-08",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:9226f7fa6d0c1c5b",
+        "snapshot_ref": "entry:9226f7fa6d0c1c5b",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-08-openai-codex-cli-app-handoff-pat-plugin-json",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Audit integrations that depend on Codex app-server auth, token usage reads, plugin JSON output, remote MCP metadata, image file references, or CLI-to-desktop handoff before relying on 0.138 behavior.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest goal workflows and terminal/app handoff on macOS and Windows if local automation assumes older CLI-only behavior.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records Codex CLI and app-server contract changes from the public changelog; it does not assert broader OpenAI API contract changes outside Codex surfaces.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex CLI 0.138 changelog records CLI-to-desktop app handoff, saved image file-path exposure, model-defined reasoning effort ordering, account token usage reads for app-server integrations, v2 personal access token support, and richer structured plugin command output.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:api_contract_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex CLI Added App Handoff, PAT, And Plugin JSON Contracts"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex CLI 0.137 changed workflow behavior around admin controls, cloud-managed configs, app-server v2 controller RPCs, plugin machine-readable output, hosted tools, and multi-agent metadata.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:05b866bc82b2b539",
+        "snapshot_ref": "entry:05b866bc82b2b539",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-codex-cli-admin-rpc-tools-agents",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "compliance",
+        "recommended_action": "Review Codex enterprise/admin controls for monthly credit limits, cloud-managed config bundles, and controller grant lifecycle before enabling managed workspaces.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest hosted web/image tools, plugin list JSON, cached catalog suggestions, multi-agent runtime metadata, and controller RPC clients against Codex CLI 0.137 or newer.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The plugin catalog cache mentioned in the changelog is software-cache behavior; APW does not classify it as prompt caching or token accounting.",
+      "APW records public changelog metadata only; workspace entitlement and managed-config availability can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex CLI 0.137 changelog records expanded terminal controls, monthly credit-limit and cloud-managed config support for enterprise/admin flows, app-server v2 controller grant RPCs, plugin JSON/catalog improvements, hosted web and image tools in more code-mode flows, multi-agent v2 runtime metadata, and multiple reliability fixes.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex CLI Added Admin Config, Controller RPCs, Hosted Tools, And Multi-Agent Updates"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app 26.602 changed workflow quality and onboarding behavior around Computer Use readiness, appshot reporting, plugin config writes, review/browser UI, and profile usage surfaces.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:bd51c9f398a08a37",
+        "snapshot_ref": "entry:bd51c9f398a08a37",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-codex-app-computer-use-plugin-config",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "quality",
+        "recommended_action": "Re-test Computer Use startup, appshot diagnostics, browser/review UI paths, and plugin installation config writes before attributing failures to local setup.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update onboarding and profile/usage documentation if team guidance references the pre-26.602 Codex app surfaces.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event records app workflow and reliability changes, not a provider status incident or API-level outage.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex app 26.602 changelog records profile activity insights/share cards, Computer Use startup readiness and appshot error-reporting improvements, browser/review UI fixes, expanded onboarding role choices, and a fix for configuration writes after plugin installation.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex App Improved Computer Use Startup And Plugin Config Writes"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "moderation"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:openai/responses",
+        "endpoint:openai/chat-completions"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:77f0d7c2044f227f",
+        "snapshot_ref": "entry:77f0d7c2044f227f",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-moderation-scores-api",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review SDK request/response handling and safety telemetry pipelines if moderation scores should be captured inline with generation responses.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers",
+          "security_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public API contract addition only; exact SDK support, rollout, and moderation-policy handling should be checked against current OpenAI API docs before implementation."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI added moderation-score output support to Responses API and Chat Completions generation requests, letting callers request moderation results for both input and generated output in the same response path.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:api_contract_change",
+      "surface:openai_api"
+    ],
+    "title": "OpenAI Added Moderation Scores To Generation API Responses"
+  },
+  {
+    "announced_at": "2026-06-04T19:12:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "components": [
+        "APIs",
+        "Image API"
+      ],
+      "kind": "status_incident",
+      "provider_incident_id": "01KTA0V0N4KT7VV50DTJZ85XTA",
+      "raw_status": "resolved degraded performance",
+      "resolved_at": "2026-06-04T19:52:18Z",
+      "schema_version": "apw.event_detail.v0",
+      "started_at": "2026-06-04T19:12:00Z",
+      "status": "resolved"
+    },
+    "effective_at": "2026-06-04T19:12:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "status_incident",
+    "evidence_refs": [
+      {
+        "authority": "official_status",
+        "content_sha256": "8d3311ad6083dc333213540f1f5ae8148e97ead3c1ecc97cdc8853df296c3785",
+        "license_note": "Official status page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-04T21:20:13Z",
+        "selector": "Image API 401 status incident",
+        "snapshot_ref": "reviewed-source:2026-06-04",
+        "source_key": "openai.status",
+        "url": "https://status.openai.com/incidents/01KTA0V0N4KT7VV50DTJZ85XTA"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-image-api-401-errors",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "availability",
+        "recommended_action": "Check Image API retries, alert thresholds, and incident annotations for June 4, 2026 before attributing 401 spikes to application credentials.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-04T21:20:13Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_status",
+    "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
+    "tags": [
+      "source:official_status",
+      "provider:openai",
+      "impact:status_incident",
+      "surface:api"
+    ],
+    "title": "OpenAI Image API Requests Returned 401 Errors"
+  },
+  {
+    "announced_at": "2026-06-04T02:57:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "components": [
+        "Codex"
+      ],
+      "kind": "status_incident",
+      "provider_incident_id": "01KT890WC7YQYMX39GY5VG9QAB",
+      "raw_status": "resolved degraded performance",
+      "resolved_at": "2026-06-04T04:37:16Z",
+      "schema_version": "apw.event_detail.v0",
+      "started_at": "2026-06-04T02:57:00Z",
+      "status": "resolved"
+    },
+    "effective_at": "2026-06-04T02:57:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "status_incident",
+    "evidence_refs": [
+      {
+        "authority": "official_status",
+        "content_sha256": "e82345414b31d185a7474ae032a3f29772f37945be4864cabc8f75439df65d30",
+        "license_note": "Official status page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-04T21:20:13Z",
+        "selector": "Codex compaction latency status incident",
+        "snapshot_ref": "reviewed-source:2026-06-04",
+        "source_key": "openai.status",
+        "url": "https://status.openai.com/incidents/01KT890WC7YQYMX39GY5VG9QAB"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-codex-compaction-latency",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Annotate Codex latency or timeout spikes on June 4, 2026 before tuning compaction workflows or task retry policies.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-04T21:20:13Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "low",
+    "source_authority": "official_status",
+    "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
+    "tags": [
+      "source:official_status",
+      "provider:openai",
+      "impact:status_incident",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex Compaction Had Increased Latency"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "ChatGPT for iOS 1.2026.146 changed Codex Mobile workflow behavior around follow-up defaults, code-diff display, Windows SSH host access, side conversations, and mobile task-lock controls.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-12T10:40:30Z",
+        "selector": "announcement:c02b3b4bcf0d9352",
+        "snapshot_ref": "entry:c02b3b4bcf0d9352",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update Codex Mobile team runbooks for follow-up defaults, line wrapping, Windows SSH host setup, side-chat workflows, and mobile task-lock expectations before comparing behavior with earlier iOS builds.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Decide whether mobile device-lock controls should be required for teams that review Codex tasks or changed files on iOS.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official changelog metadata only; exact mobile rollout and account eligibility can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-12T10:40:30Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex Mobile Added Defaults, Windows SSH, And Side Chat Controls"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI changed eligible API container sessions to per-minute billing with a shorter minimum billing window while keeping the underlying per-minute rate unchanged.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "billing_channel_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:7415cf2e82bd760a",
+        "snapshot_ref": "entry:7415cf2e82bd760a",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-container-session-minute-billing",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official OpenAI API changelog entry dated 2026-06-02",
+          "confidence": "confirmed",
+          "direction": "decrease",
+          "magnitude": "eligible shorter container sessions avoid the former full 20-minute minimum and instead use a 5-minute minimum"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Revisit cost models for OpenAI API workflows that create short-lived eligible container sessions, and keep current built-in tool pricing docs as the source for exact rates.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public changelog billing mechanism change only; exact eligibility, tool coverage, account rollout, and current per-minute rates remain governed by OpenAI's pricing documentation."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI changed eligible API container sessions from full-session minimum billing to per-minute billing with a shorter minimum, reducing effective cost for shorter eligible sessions.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:billing_channel_change",
+      "surface:openai_api"
+    ],
+    "title": "OpenAI Changed Eligible Container Sessions To Per-Minute Billing"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-12-01T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "The candidate parser emitted one row that treated GPT Image 2 as retired; source-owner review corrected that field because the official table lists GPT Image 2 as the replacement.",
+      "model_refs": [
+        "model:openai/gpt-image-1-mini",
+        "model:openai/gpt-image-1.5",
+        "model:openai/chatgpt-image-latest"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-image-2"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+        "license_note": "Official deprecations table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:52Z",
+        "selector": "heading:2026-06-02-gpt-image-model-deprecations",
+        "snapshot_ref": "section:2026-06-02-gpt-image-model-deprecations",
+        "source_key": "openai.deprecations",
+        "url": "https://developers.openai.com/api/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-gpt-image-model-deprecations",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Replace deprecated GPT Image IDs in image-generation workflows, allowlists, examples, and tests before December 1, 2026.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event records the model IDs visible in the reviewed source section and does not assert image quality, feature parity, or pricing differences for the replacement."
+    ],
+    "migration_deadline": "2026-12-01T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:52Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_deprecation",
+      "surface:image_generation"
+    ],
+    "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations for workspace sharing and broader knowledge-work automation.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "a21a6169f7bdbd25936eb3e0cef5d8cb505e7c9008475af45b9e9298eff5a487",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T08:40:40Z",
+        "selector": "Codex role plugins, Sites, and annotations announcement",
+        "snapshot_ref": "reviewed-source:2026-06-08",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/codex-for-every-role-tool-workflow/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-codex-role-plugins-sites",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Codex governance, connected-app permissions, and workspace-sharing policies before enabling role plugins or shared Sites for non-engineering teams.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with business data.",
+        "scope_ref": "plan:chatgpt-business",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with enterprise data.",
+        "scope_ref": "plan:chatgpt-enterprise",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records provider-announced availability and behavior changes only; exact workspace rollout and tenant eligibility may vary."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T08:40:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Codex Role Plugins, Sites, And Annotations"
+  },
+  {
+    "announced_at": "2026-06-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI announced that OpenAI frontier models and Codex are generally available on AWS, including Amazon Bedrock and AWS governance channels.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-01T00:00:00Z",
+    "event_date": "2026-06-01",
+    "event_kind": "billing_channel_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "d47637ab003f5f18e59c5a59d6adf6f4d60edf48b4abd4b4db52f6fc794e8984",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T08:40:40Z",
+        "selector": "OpenAI on AWS general availability announcement",
+        "snapshot_ref": "reviewed-source:2026-06-08",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+      },
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official API changelog reviewed for corroborating factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:c1b5b4402748824a",
+        "snapshot_ref": "entry:c1b5b4402748824a",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-01-openai-codex-aws-bedrock-ga",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate whether AWS-native procurement, IAM, network controls, and Bedrock governance change the preferred route for OpenAI model or Codex adoption.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "security_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Compare Codex feature availability and data-governance controls across ChatGPT sign-in, OpenAI API key, and Amazon Bedrock API key configurations.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "compliance",
+        "recommended_action": "For regulated workloads, verify region availability, feature parity, and account approvals before migrating provider access paths.",
+        "scope_ref": "region:aws-govcloud",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records availability and channel facts only; it does not assert feature parity, account eligibility, or exact AWS regional coverage beyond the official announcement."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T08:40:40Z",
+    "provider_refs": [
+      "provider:openai",
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "provider:aws-bedrock",
+      "impact:billing_channel_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Frontier Models And Codex Became Available On AWS"
+  },
+  {
+    "announced_at": "2026-05-29T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "examples": [
+        "Responses API",
+        "Chat Completions API",
+        "Batch API"
+      ],
+      "kind": "token_accounting_change",
+      "metered_units": [
+        "prompt_cache_retention"
+      ],
+      "new_accounting": "24-hour prompt cache retention default for organizations without zero-data-retention enabled",
+      "old_accounting": "in-memory prompt cache retention default for organizations without zero-data-retention enabled",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-29T00:00:00Z",
+    "event_date": "2026-05-29",
+    "event_kind": "token_accounting_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:ce415bdbba26f2a9",
+        "snapshot_ref": "entry:ce415bdbba26f2a9",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-29-openai-prompt-cache-retention-default",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "high",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official OpenAI API changelog entry dated 2026-05-29",
+          "confidence": "high",
+          "direction": "decrease",
+          "magnitude": "affected workloads may receive more extended prompt-cache hits by default"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Review prompt-cache assumptions, privacy controls, and cost forecasts for OpenAI API workloads in organizations without zero-data-retention enabled.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "compliance",
+        "recommended_action": "Confirm organization data-retention settings and explicit prompt-cache controls before relying on previous in-memory-only cache behavior.",
+        "scope_ref": "account:openai-non-zdr",
+        "scope_type": "account_type",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public default-change fact only; exact cache pricing, privacy controls, and opt-out behavior should be verified against current OpenAI API and organization settings documentation."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI changed the default prompt cache retention behavior for organizations without zero-data-retention enabled, making extended prompt caching the default path for affected API calls.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:token_accounting_change",
+      "surface:openai_api"
+    ],
+    "title": "OpenAI Changed Prompt Cache Retention Defaults For Non-ZDR Organizations"
+  },
+  {
+    "announced_at": "2026-05-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "fallback_policy": "Underlying snapshot may update over time; OpenAI's changelog points production users toward stable model choices.",
+      "kind": "default_model_change",
+      "new_default": "model_alias:openai/chat-latest",
+      "old_default": null,
+      "rollout_window": null,
+      "schema_version": "apw.event_detail.v0",
+      "surface_ref": "surface:openai/api"
+    },
+    "effective_at": "2026-05-28T00:00:00Z",
+    "event_date": "2026-05-28",
+    "event_kind": "default_model_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:9ce1a02db80e9ba0",
+        "snapshot_ref": "entry:9ce1a02db80e9ba0",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-28-openai-chat-latest-alias",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Use chat-latest only where floating model behavior is acceptable; pin production workflows to stable model IDs when repeatability matters.",
+        "scope_ref": "model_alias:openai/chat-latest",
+        "scope_type": "model_alias",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records alias behavior only; it does not assert the current underlying model snapshot, quality, latency, or production suitability."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI added the chat-latest API snapshot alias for testing the latest chat improvements, with an underlying model snapshot that can update over time.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:default_model_change",
+      "surface:openai_api",
+      "alias:chat_latest"
+    ],
+    "title": "OpenAI Added The chat-latest API Snapshot Alias"
+  },
+  {
+    "announced_at": "2026-05-26T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "identity_token",
+        "access_token",
+        "api_key_storage"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:openai/auth/workload-identity-federation"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-26T00:00:00Z",
+    "event_date": "2026-05-26",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:3017ae508fb206ee",
+        "snapshot_ref": "entry:3017ae508fb206ee",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-26-openai-workload-identity-federation",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Evaluate workload identity federation for CI, production services, and agent runners that currently store long-lived OpenAI API keys.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "sdk_maintainers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public API access capability only; teams must validate provider documentation, account eligibility, issuer configuration, and rollout status before replacing stored keys."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:15:00Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:api_contract_change",
+      "impact:security",
+      "surface:openai_api"
+    ],
+    "title": "OpenAI Added Workload Identity Federation For API Access"
+  },
+  {
+    "announced_at": "2026-05-07T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records Realtime API model availability and listed pricing. APW does not assert tenant entitlement, regional availability, or compatibility with every existing realtime client.",
+      "model_refs": [
+        "model:openai/gpt-realtime-2",
+        "model:openai/gpt-realtime-translate",
+        "model:openai/gpt-realtime-whisper"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-07T00:00:00Z",
+    "event_date": "2026-05-07",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:f9ec8fe4f40fd511",
+        "snapshot_ref": "entry:f9ec8fe4f40fd511",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-07-openai-realtime-voice-api-models",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Update Realtime API model allowlists, latency tests, tool-call tests, and voice-agent evaluation suites before routing customer traffic to the new models.",
+        "scope_ref": "surface:openai/realtime-api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "OpenAI announcement pricing and availability section.",
+          "confidence": "confirmed",
+          "direction": "unknown",
+          "magnitude": "GPT-Realtime-2: $32/1M audio input tokens, $0.40/1M cached input tokens, $64/1M audio output tokens; Translate: $0.034/min; Whisper: $0.017/min"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Separate token-priced realtime voice usage from per-minute translation and transcription usage in billing dashboards.",
+        "scope_ref": "surface:openai/realtime-api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "quota",
+        "recommended_action": "Review context-window, tool-call, reasoning-effort, and interruption-handling behavior before replacing earlier realtime models.",
+        "scope_ref": "model:openai/gpt-realtime-2",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Pricing is recorded from the announcement; consumers should check the pricing page before billing-sensitive launches.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:model_launch",
+      "impact:cost",
+      "surface:realtime_api"
+    ],
+    "title": "OpenAI Added GPT-Realtime-2, Translate, And Whisper Voice API Models"
+  },
+  {
+    "announced_at": "2026-05-07T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "GPT-5.5-Cyber is described as limited preview for specialized authorized workflows. The announcement also changes trusted-access account-security expectations beginning 2026-06-01.",
+      "model_refs": [
+        "model:openai/gpt-5.5-cyber",
+        "model:openai/gpt-5.5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-07T00:00:00Z",
+    "event_date": "2026-05-07",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:6a792a6a3969e69f",
+        "snapshot_ref": "entry:6a792a6a3969e69f",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-07-openai-gpt-55-cyber-trusted-access",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Treat GPT-5.5-Cyber as gated limited-preview access and verify authorized-use, tenant eligibility, logging, and abuse-monitoring controls before operational use.",
+        "scope_ref": "model:openai/gpt-5.5-cyber",
+        "scope_type": "model",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Require phishing-resistant account security for individual Trusted Access for Cyber users or document equivalent organization-level SSO controls before the June 1, 2026 requirement.",
+        "scope_ref": "account:openai/trusted-access-for-cyber",
+        "scope_type": "account_type",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Re-test defensive-security workflows under the intended trusted-access level because model refusal behavior can vary by access tier.",
+        "scope_ref": "model:openai/gpt-5.5",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "security_engineers",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records public access-policy metadata only; it does not validate eligibility, authorization, or exact tenant rollout state.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": "2026-06-01T00:00:00Z",
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced GPT-5.5-Cyber in limited preview for verified defenders, described Trusted Access for Cyber behavior differences for GPT-5.5, and set account-security requirements for individual trusted-access users.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:model_launch",
+      "impact:security",
+      "model:gpt_5_5_cyber"
+    ],
+    "title": "OpenAI Added GPT-5.5-Cyber Limited Preview And Trusted Access Controls"
+  },
+  {
+    "announced_at": "2026-05-05T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "fallback_policy": "Paid users retain GPT-5.3 Instant in model configuration settings for three months before retirement.",
+      "kind": "default_model_change",
+      "new_default": "model:openai/gpt-5.5-instant",
+      "old_default": "model:openai/gpt-5.3-instant",
+      "rollout_window": "Starting 2026-05-05 for all ChatGPT users and chat-latest in the API.",
+      "schema_version": "apw.event_detail.v0",
+      "surface_ref": "surface:openai/chatgpt"
+    },
+    "effective_at": "2026-05-05T00:00:00Z",
+    "event_date": "2026-05-05",
+    "event_kind": "default_model_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:b86d28fdff223099",
+        "snapshot_ref": "entry:b86d28fdff223099",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/gpt-5-5-instant"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-05-openai-gpt-55-instant-default",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Pin explicit model IDs or rerun evaluation suites if production API workloads depend on chat-latest behavior.",
+        "scope_ref": "model:openai/chat-latest",
+        "scope_type": "model_alias",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "migration",
+        "recommended_action": "Plan fallback testing before the three-month paid-user availability window for GPT-5.3 Instant ends.",
+        "scope_ref": "model:openai/gpt-5.3-instant",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW computes the migration deadline as three months after the announcement date; provider-specific rollout timing can vary.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": "2026-08-05T00:00:00Z",
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced GPT-5.5 Instant as the new default ChatGPT model for all users and as the API chat-latest target, with GPT-5.3 Instant remaining available to paid users for three months before retirement.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:default_model_change",
+      "model:gpt_5_5_instant"
+    ],
+    "title": "OpenAI Replaced GPT-5.3 Instant With GPT-5.5 Instant As Default"
+  },
+  {
+    "announced_at": "2026-04-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records OpenAI-announced AWS limited-preview availability and Codex provider routing. APW does not assert Bedrock account eligibility, regional parity, or final pricing.",
+      "model_refs": [
+        "model:openai/gpt-5.5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-28T00:00:00Z",
+    "event_date": "2026-04-28",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:d259ea1d43cc9c31",
+        "snapshot_ref": "entry:d259ea1d43cc9c31",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/openai-on-aws"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-28-openai-models-codex-aws-bedrock",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify Bedrock access, regional coverage, quotas, pricing, and governance controls before routing OpenAI model traffic through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "finops",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Test Codex CLI, desktop app, and VS Code extension behavior when Bedrock is configured as the provider, including auth, billing attribution, and enterprise policy controls.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock Managed Agents separately from direct model invocation because orchestration, tool use, governance, and metering can differ.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Limited-preview access, AWS account eligibility, regional availability, and exact Bedrock pricing require account-level verification.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai",
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "provider:aws_bedrock",
+      "impact:model_launch",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Models, Codex, And Managed Agents On AWS"
+  },
+  {
+    "announced_at": "2026-04-23T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "The April 23 announcement covers ChatGPT and Codex rollout first, with an April 24 update for API availability. APW records public availability and listed API pricing; account eligibility and final API model IDs should be verified in the target tenant.",
+      "model_refs": [
+        "model:openai/gpt-5.5",
+        "model:openai/gpt-5.5-pro"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-23T00:00:00Z",
+    "event_date": "2026-04-23",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:64228a7542e628e5",
+        "snapshot_ref": "entry:64228a7542e628e5",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/introducing-gpt-5-5"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-23-openai-gpt-55-chatgpt-codex-api",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Review plan eligibility, API allowlists, model routing, context-window assumptions, and regression coverage before moving production traffic to GPT-5.5.",
+        "scope_ref": "model:openai/gpt-5.5",
+        "scope_type": "model",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "OpenAI announcement pricing section; Batch and Flex at half standard rate and Priority at 2.5x standard rate.",
+          "confidence": "confirmed",
+          "direction": "increase",
+          "magnitude": "$5/1M input tokens and $30/1M output tokens for gpt-5.5; $30/1M input and $180/1M output for gpt-5.5-pro"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Update cost models and gateway pricing metadata before exposing GPT-5.5 or GPT-5.5 Pro through API defaults, agent routers, or self-service model selectors.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The announcement says GPT-5.5 is more token efficient than GPT-5.4, but APW records listed unit prices and does not estimate workload-level savings.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced GPT-5.5 and GPT-5.5 Pro availability for ChatGPT and Codex paid/business plans, later updated the announcement to mark API availability, and listed API token pricing plus Batch, Flex, and Priority processing multipliers.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:model_launch",
+      "impact:cost",
+      "model:gpt_5_5"
+    ],
+    "title": "OpenAI Launched GPT-5.5 For ChatGPT, Codex, And API Developers"
+  },
+  {
+    "announced_at": "2026-04-22T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-07-23T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "The source table contains multiple shutdown dates. APW uses the earliest date as the migration_deadline and records this event as a representative high-impact subset rather than an exhaustive copy of the table.",
+      "model_refs": [
+        "model:openai/computer-use-preview-2025-03-11",
+        "model:openai/computer-use-preview",
+        "model:openai/gpt-4o-mini-search-preview-2025-03-11",
+        "model:openai/gpt-4o-mini-tts-2025-03-20",
+        "model:openai/gpt-4o-search-preview-2025-03-11",
+        "model:openai/gpt-5-chat-latest",
+        "model:openai/gpt-5-codex",
+        "model:openai/gpt-5.1-chat-latest",
+        "model:openai/gpt-5.1-codex",
+        "model:openai/gpt-5.1-codex-max",
+        "model:openai/gpt-5.1-codex-mini",
+        "model:openai/gpt-5.2-codex",
+        "model:openai/o1",
+        "model:openai/o1-2024-12-17",
+        "model:openai/o1-pro",
+        "model:openai/o1-pro-2025-03-19",
+        "model:openai/o3-mini",
+        "model:openai/o3-mini-2025-01-31",
+        "model:openai/o4-mini",
+        "model:openai/o4-mini-2025-04-16"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-5.5",
+        "model:openai/gpt-5.5-pro",
+        "model:openai/gpt-5.4-mini",
+        "model:openai/gpt-audio-1.5",
+        "model:openai/gpt-realtime-mini"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-22T00:00:00Z",
+    "event_date": "2026-04-22",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+        "license_note": "Official deprecations table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:52Z",
+        "selector": "heading:2026-04-22-legacy-gpt-model-snapshots",
+        "snapshot_ref": "section:2026-04-22-legacy-gpt-model-snapshots",
+        "source_key": "openai.deprecations",
+        "url": "https://developers.openai.com/api/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-22-openai-legacy-gpt-snapshot-retirements",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Search code, configuration, gateway allowlists, and agent model routes for the retiring model IDs before the earliest July 23, 2026 shutdown date.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Check Codex and coding-agent routing for retired Codex aliases and validate replacements before changing defaults.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event summarizes a deprecations-table section and does not reproduce the full table.",
+      "Some affected model IDs have later October 23, 2026 shutdown dates; consumers should check the official table for model-specific deadlines."
+    ],
+    "migration_deadline": "2026-07-23T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:52Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_retirement",
+      "agent:codex"
+    ],
+    "title": "OpenAI Scheduled Legacy GPT And Codex Snapshot Retirements For July And October 2026"
+  },
+  {
+    "announced_at": "2023-07-06T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2024-01-04T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Legacy completions and embedding model IDs need explicit migration to replacement model families.",
+      "model_refs": [
+        "model:text-ada-001",
+        "model:text-babbage-001",
+        "model:text-curie-001",
+        "model:text-davinci-001",
+        "model:text-davinci-002",
+        "model:text-davinci-003",
+        "model:ada",
+        "model:babbage",
+        "model:curie",
+        "model:davinci",
+        "model:code-davinci-002",
+        "model:text-davinci-edit-001",
+        "model:code-davinci-edit-001",
+        "model:text-similarity-ada-001",
+        "model:text-search-ada-doc-001",
+        "model:text-search-ada-query-001",
+        "model:code-search-ada-code-001",
+        "model:code-search-ada-text-001",
+        "model:text-similarity-babbage-001",
+        "model:text-search-babbage-doc-001",
+        "model:text-search-babbage-query-001",
+        "model:code-search-babbage-code-001",
+        "model:code-search-babbage-text-001",
+        "model:text-similarity-curie-001",
+        "model:text-search-curie-doc-001",
+        "model:text-search-curie-query-001",
+        "model:text-similarity-davinci-001",
+        "model:text-search-davinci-doc-001",
+        "model:text-search-davinci-query-001"
+      ],
+      "replacement_refs": [
+        "model:gpt-3.5-turbo-instruct",
+        "model:babbage-002",
+        "model:davinci-002",
+        "model:text-embedding-3-small",
+        "model:gpt-4o"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-01-04T00:00:00Z",
+    "event_date": "2024-01-04",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "7d7b0591c6e35e02c7b08e92436f79d78c62f644cef43e01bf4c888ca7e5686b",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "2023-07-06 GPT and embeddings deprecation table",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "openai.deprecations",
+        "url": "https://platform.openai.com/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-01-04-openai-gpt3-completions-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Search production and agent configuration for retired model IDs and migrate affected calls before relying on this API surface.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Update SDK defaults, fixture model IDs, and documentation examples that still reference legacy completions models.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical seed event; APW did not observe the original 2023 announcement in real time."
+    ],
+    "migration_deadline": "2024-01-04T00:00:00Z",
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_retirement"
+    ],
+    "title": "OpenAI Retires Older GPT-3 Completions Models"
+  }
+]

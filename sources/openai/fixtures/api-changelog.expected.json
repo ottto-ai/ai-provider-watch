@@ -1,0 +1,53 @@
+{
+  "changed": true,
+  "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "billing_channel_change",
+        "claim_text": "OpenAI official dated source reports a billing channel change on 2026-06-02 for container-sessions.",
+        "evidence_url": "https://developers.openai.com/api/docs/changelog",
+        "selector": "announcement:c66d808201d7f61a",
+        "snapshot_ref": "entry:c66d808201d7f61a"
+      },
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "OpenAI official dated source reports a model availability change on 2026-06-01 for api, gpt-5.4, gpt-5.5, responses-api.",
+        "evidence_url": "https://developers.openai.com/api/docs/changelog",
+        "selector": "announcement:054d087707b1ba66",
+        "snapshot_ref": "entry:054d087707b1ba66"
+      }
+    ],
+    "errors": [],
+    "items": [
+      {
+        "candidate_kind": "billing_channel_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "49e8d0577a5e1f9d20fd4ebedbae38450ca4a65e8e04dd86875bae0a1bd1b4fb",
+        "published_date": "2026-06-02",
+        "source_parser": "openai_api_changelog",
+        "subjects": [
+          "container-sessions"
+        ],
+        "title_sha256": "c66d808201d7f61a200eeb48ca5be6748c2be71c92bf58659a0f0b4634d4586a"
+      },
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "49e8d0577a5e1f9d20fd4ebedbae38450ca4a65e8e04dd86875bae0a1bd1b4fb",
+        "published_date": "2026-06-01",
+        "source_parser": "openai_api_changelog",
+        "subjects": [
+          "api",
+          "gpt-5.4",
+          "gpt-5.5",
+          "responses-api"
+        ],
+        "title_sha256": "054d087707b1ba667d15cd7fb1a68a0a45d29cf1f4336453fdb13f2ac5483e72"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "snapshot_ref": null
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "openai.api_changelog"
+}

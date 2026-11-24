@@ -1,0 +1,73 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-29-openai-prompt-cache-retention-default",
+  "title": "OpenAI Changed Prompt Cache Retention Defaults For Non-ZDR Organizations",
+  "event_kind": "token_accounting_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai"],
+  "event_date": "2026-05-29",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T12:04:40Z",
+  "announced_at": "2026-05-29T00:00:00Z",
+  "effective_at": "2026-05-29T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI changed the default prompt cache retention behavior for organizations without zero-data-retention enabled, making extended prompt caching the default path for affected API calls.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "retrieved_at": "2026-06-11T12:11:27Z",
+      "authority": "official_docs",
+      "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+      "snapshot_ref": "entry:ce415bdbba26f2a9",
+      "selector": "announcement:ce415bdbba26f2a9",
+      "license_note": "Official changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/api",
+      "impact_kind": "cost",
+      "direction": "decrease",
+      "severity": "high",
+      "confidence": "high",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "estimated_cost_effect": {
+        "direction": "decrease",
+        "magnitude": "affected workloads may receive more extended prompt-cache hits by default",
+        "basis": "official OpenAI API changelog entry dated 2026-05-29",
+        "confidence": "high"
+      },
+      "who_should_care": ["platform_engineers", "finops", "product_engineers"],
+      "recommended_action": "Review prompt-cache assumptions, privacy controls, and cost forecasts for OpenAI API workloads in organizations without zero-data-retention enabled."
+    },
+    {
+      "scope_type": "account_type",
+      "scope_ref": "account:openai-non-zdr",
+      "impact_kind": "compliance",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["security_engineers", "platform_engineers", "product_engineers"],
+      "recommended_action": "Confirm organization data-retention settings and explicit prompt-cache controls before relying on previous in-memory-only cache behavior."
+    }
+  ],
+  "detail": {
+    "kind": "token_accounting_change",
+    "schema_version": "apw.event_detail.v0",
+    "metered_units": ["prompt_cache_retention"],
+    "old_accounting": "in-memory prompt cache retention default for organizations without zero-data-retention enabled",
+    "new_accounting": "24-hour prompt cache retention default for organizations without zero-data-retention enabled",
+    "examples": ["Responses API", "Chat Completions API", "Batch API"]
+  },
+  "tags": ["source:official_docs", "provider:openai", "impact:token_accounting_change", "surface:openai_api"],
+  "limitations": ["APW records the public default-change fact only; exact cache pricing, privacy controls, and opt-out behavior should be verified against current OpenAI API and organization settings documentation."]
+}

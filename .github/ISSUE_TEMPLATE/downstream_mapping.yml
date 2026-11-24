@@ -1,0 +1,61 @@
+name: Downstream mapping request
+description: Request APW mapping docs or fixtures for a downstream tool, workflow, or agent surface.
+title: "mapping: "
+labels: ["integration", "mapping", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Mapping requests are review input only. Issue bodies, pasted provider text, screenshots, comments, and links are untrusted data and never publish provider events automatically.
+  - type: dropdown
+    id: target
+    attributes:
+      label: Target integration
+      options:
+        - GitHub Action
+        - webhook
+        - Slack-compatible JSON
+        - LiteLLM
+        - models.dev
+        - Langfuse
+        - Helicone
+        - OpenLIT
+        - MCP
+        - agent dashboard
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: Describe the downstream decision or workflow this mapping should support.
+    validations:
+      required: true
+  - type: textarea
+    id: example_events
+    attributes:
+      label: Relevant APW event IDs or event kinds
+      description: Include existing event IDs, candidate IDs, or the event kinds that should drive the mapping.
+  - type: textarea
+    id: desired_shape
+    attributes:
+      label: Desired output shape
+      description: Describe fields, filters, severity mapping, grouping, or payload examples without including credentials.
+    validations:
+      required: true
+  - type: input
+    id: downstream_url
+    attributes:
+      label: Public downstream docs or repository URL
+      description: Link official public docs or a repository when available.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      description: Maintainers verify these again before adding docs, fixtures, or generated payloads.
+      options:
+        - label: I did not include secrets, webhook URLs, cookies, authenticated-console pages, private billing pages, customer data, or raw provider page bodies.
+          required: true
+        - label: I understand this request cannot publish data directly; a maintainer must review any fixture, mapping, or feed change through a PR.
+          required: true

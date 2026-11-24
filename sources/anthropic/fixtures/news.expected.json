@@ -1,0 +1,51 @@
+{
+  "changed": true,
+  "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "Anthropic official dated source reports a model availability change on 2026-05-28 for claude-code, claude-opus-4.8.",
+        "evidence_url": "https://www.anthropic.com/news/claude-opus-48",
+        "selector": "announcement:23d40beae62bbc68",
+        "snapshot_ref": "entry:23d40beae62bbc68"
+      },
+      {
+        "candidate_kind": "workflow_behavior_change",
+        "claim_text": "Anthropic official dated source reports a workflow behavior change on 2026-06-04 for claude-code.",
+        "evidence_url": "https://www.anthropic.com/news/claude-code-tools",
+        "selector": "announcement:13200fd0ea78d2bd",
+        "snapshot_ref": "entry:13200fd0ea78d2bd"
+      }
+    ],
+    "errors": [],
+    "items": [
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "24e6859314636cfcef87092a276e33974c4ae1ad5a133af4354a7f5682598cb7",
+        "published_date": "2026-05-28",
+        "source_parser": "anthropic_news_index",
+        "subjects": [
+          "claude-code",
+          "claude-opus-4.8"
+        ],
+        "title_sha256": "23d40beae62bbc68cb0b7d330e1405ae9d1e17e706ccf063a66c902e084ab461"
+      },
+      {
+        "candidate_kind": "workflow_behavior_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "d9effc1b4a15e0bcf687a2218bfdd579cb31601c50ab8ce3b7c1cfe98ffd064d",
+        "published_date": "2026-06-04",
+        "source_parser": "anthropic_news_index",
+        "subjects": [
+          "claude-code"
+        ],
+        "title_sha256": "13200fd0ea78d2bd1a7d98fc7a76df5bae6817840b742e8ff855c8392e48aa29"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "snapshot_ref": null
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "anthropic.news"
+}

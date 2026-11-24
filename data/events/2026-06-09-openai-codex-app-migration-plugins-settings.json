@@ -1,0 +1,81 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-09-openai-codex-app-migration-plugins-settings",
+  "title": "OpenAI Codex App Added Migration, Plugin, And Settings Improvements",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-06-09",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T15:12:22Z",
+  "announced_at": "2026-06-09T00:00:00Z",
+  "effective_at": "2026-06-09T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI's Codex changelog for app version 26.608 records new migration flows from Claude Code and Claude Cowork setup, a revamped plugin management screen, broader settings search, and several workflow reliability fixes.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog",
+      "retrieved_at": "2026-06-11T15:12:22Z",
+      "authority": "official_docs",
+      "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+      "snapshot_ref": "entry:1dcfa1780ecfef2b",
+      "selector": "announcement:1dcfa1780ecfef2b",
+      "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "migration",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "none",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers",
+        "security_engineers"
+      ],
+      "recommended_action": "Review imported configuration and plugin permissions when moving teams from Claude Code or Claude Cowork setup into Codex."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "low",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "none",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers"
+      ],
+      "recommended_action": "Re-check plugin installation flows, settings discoverability, and review-diff ordering before comparing Codex app behavior with pre-26.608 baselines."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "Codex app 26.608 added migration support from adjacent coding-agent setups, improved plugin management and settings search, and changed several workflow reliability behaviors."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:openai",
+    "impact:workflow_behavior_change",
+    "app:codex"
+  ],
+  "limitations": [
+    "APW records the provider changelog metadata only; tenant eligibility, desktop platform rollout, and exact plugin marketplace availability can vary.",
+    "No raw changelog body is copied into the event."
+  ]
+}

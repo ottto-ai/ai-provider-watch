@@ -1,0 +1,112 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-07-openai-realtime-voice-api-models",
+  "title": "OpenAI Added GPT-Realtime-2, Translate, And Whisper Voice API Models",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-05-07",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T19:15:39Z",
+  "announced_at": "2026-05-07T00:00:00Z",
+  "effective_at": "2026-05-07T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI announced three Realtime API voice models: GPT-Realtime-2 for reasoning voice agents, GPT-Realtime-Translate for live translation, and GPT-Realtime-Whisper for streaming transcription, with token and per-minute pricing.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api",
+      "retrieved_at": "2026-06-11T19:15:39Z",
+      "authority": "official_blog",
+      "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+      "snapshot_ref": "entry:f9ec8fe4f40fd511",
+      "selector": "announcement:f9ec8fe4f40fd511",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/realtime-api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "Update Realtime API model allowlists, latency tests, tool-call tests, and voice-agent evaluation suites before routing customer traffic to the new models."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/realtime-api",
+      "impact_kind": "cost",
+      "direction": "changed",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "estimated_cost_effect": {
+        "direction": "unknown",
+        "magnitude": "GPT-Realtime-2: $32/1M audio input tokens, $0.40/1M cached input tokens, $64/1M audio output tokens; Translate: $0.034/min; Whisper: $0.017/min",
+        "basis": "OpenAI announcement pricing and availability section.",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "platform_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Separate token-priced realtime voice usage from per-minute translation and transcription usage in billing dashboards."
+    },
+    {
+      "scope_type": "model",
+      "scope_ref": "model:openai/gpt-realtime-2",
+      "impact_kind": "quota",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Review context-window, tool-call, reasoning-effort, and interruption-handling behavior before replacing earlier realtime models."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:openai/gpt-realtime-2",
+      "model:openai/gpt-realtime-translate",
+      "model:openai/gpt-realtime-whisper"
+    ],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "This event records Realtime API model availability and listed pricing. APW does not assert tenant entitlement, regional availability, or compatibility with every existing realtime client."
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:openai",
+    "impact:model_launch",
+    "impact:cost",
+    "surface:realtime_api"
+  ],
+  "limitations": [
+    "Pricing is recorded from the announcement; consumers should check the pricing page before billing-sensitive launches.",
+    "No raw announcement body is copied into APW."
+  ]
+}

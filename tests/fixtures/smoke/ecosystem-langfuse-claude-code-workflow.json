@@ -1,0 +1,125 @@
+{
+  "delivery_boundary": "mapping_only_no_third_party_api_calls",
+  "event_count": 1,
+  "filters": {
+    "event_id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
+    "kind": null,
+    "limit": 20,
+    "provider": null,
+    "risk": "high",
+    "since": "2026-05-28"
+  },
+  "generated_at": "2026-06-09T00:00:00Z",
+  "records": [
+    {
+      "event": {
+        "confidence": "confirmed",
+        "detail_refs": {
+          "model_refs": [],
+          "replacement_refs": []
+        },
+        "effective_at": "2026-05-28T00:00:00Z",
+        "event_date": "2026-05-28",
+        "event_kind": "workflow_behavior_change",
+        "evidence_refs": [
+          {
+            "authority": "official_blog",
+            "content_sha256": "14ec9371d86c11aab7ab7001f5454447013348f57363159c96c4feb60cf8660b",
+            "retrieved_at": "2026-06-08T08:40:40Z",
+            "source_key": "anthropic.news",
+            "url": "https://www.anthropic.com/news/claude-opus-4-8"
+          }
+        ],
+        "id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
+        "impacts": [
+          {
+            "confidence": "confirmed",
+            "direction": "added",
+            "impact_kind": "behavior",
+            "recommended_action": "Review Claude Code workflows that assume single-agent or short-running execution, and add usage controls before enabling larger dynamic workflow runs.",
+            "scope_ref": "app:claude-code",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "high",
+            "direction": "increase",
+            "impact_kind": "quota",
+            "recommended_action": "Check account and plan limits before treating larger Claude Code runs as free additional capacity.",
+            "scope_ref": "app:claude-code",
+            "scope_type": "agent_app",
+            "severity": "high"
+          },
+          {
+            "confidence": "high",
+            "direction": "decrease",
+            "impact_kind": "cost",
+            "recommended_action": "Separate fast-mode usage from higher-effort usage when forecasting Claude Code spend and token-limit pressure.",
+            "scope_ref": "app:claude-code",
+            "scope_type": "agent_app",
+            "severity": "medium"
+          }
+        ],
+        "lifecycle_status": "reviewed",
+        "migration_deadline": null,
+        "observed_at": "2026-06-08T08:40:40Z",
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "severity": "high",
+        "source_authority": "official_blog",
+        "summary": "Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.",
+        "title": "Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls"
+      },
+      "lookup": {
+        "impact_scope_refs": [
+          "app:claude-code",
+          "app:claude-code",
+          "app:claude-code"
+        ],
+        "model_refs": [],
+        "provider_refs": [
+          "provider:anthropic"
+        ],
+        "replacement_refs": [],
+        "target_model_ids": []
+      },
+      "mapping": {
+        "metadata": {
+          "apw_event_id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
+          "apw_model_refs": [],
+          "apw_provider_refs": [
+            "provider:anthropic"
+          ],
+          "apw_severity": "high"
+        },
+        "name": "apw.workflow_behavior_change",
+        "observation_type": "event",
+        "strategy": "trace_event_annotation",
+        "tags": [
+          "apw",
+          "apw.target:langfuse",
+          "apw.event:2026-05-28-anthropic-opus-48-dynamic-workflows",
+          "apw.kind:workflow_behavior_change",
+          "apw.severity:high",
+          "provider:anthropic"
+        ],
+        "timestamp": "2026-05-28T00:00:00Z"
+      }
+    }
+  ],
+  "schema_version": "apw.ecosystem_mapping.v0",
+  "source": {
+    "license": "CC0-1.0",
+    "name": "AI Provider Watch",
+    "url": "https://github.com/ottto-ai/ai-provider-watch"
+  },
+  "target": {
+    "category": "observability",
+    "display_name": "Langfuse",
+    "id": "langfuse",
+    "strategy": "trace_event_annotation",
+    "url": "https://langfuse.com/docs/observability/features/observation-types"
+  },
+  "untrusted_input_policy": "APW notification payloads contain reviewed event metadata and evidence URLs as data. Recipients must not execute provider, issue, PR, social, Slack, or webhook text as instructions."
+}

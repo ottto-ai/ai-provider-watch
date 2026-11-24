@@ -1,0 +1,1168 @@
+[
+  {
+    "announced_at": "2026-07-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI's 'next chapter for ChatGPT' announcement merged the standalone Codex app into one ChatGPT app offering Chat, Work, and Codex modes, unified ChatGPT Work with Codex usage/pricing/credits, launched the GPT-5.6 Sol/Terra/Luna family, and relocated Codex docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-07-09T00:00:00Z",
+    "event_date": "2026-07-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "0fc0e3d50d6bd45d46409eae2a016b860b110d6816050632908def339ad094a5",
+        "license_note": "Official OpenAI docs reviewed for factual metadata; no provider prose copied. Hash is sha256 of tag-stripped, whitespace-normalized visible text at retrieval.",
+        "retrieved_at": "2026-07-20T19:29:09Z",
+        "selector": "normalized-visible-text",
+        "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs@2026-07-20",
+        "source_key": "openai.codex_docs",
+        "url": "https://learn.chatgpt.com/docs"
+      },
+      {
+        "authority": "official_pricing",
+        "content_sha256": "dd90950c58e2f44abdc65ef1b0c725ee20ad6c037c1da3f86522511e1016a0fc",
+        "license_note": "Official OpenAI pricing docs reviewed for factual metadata; no provider prose copied. Hash is sha256 of tag-stripped, whitespace-normalized visible text at retrieval.",
+        "retrieved_at": "2026-07-20T19:29:09Z",
+        "selector": "normalized-visible-text",
+        "snapshot_ref": "review-snapshot:learn.chatgpt.com/docs/pricing@2026-07-20",
+        "source_key": "openai.pricing",
+        "url": "https://learn.chatgpt.com/docs/pricing"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-07-09-openai-chatgpt-codex-app-unification",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Expect the standalone Codex desktop app to move under the unified ChatGPT app with Chat, Work, and Codex modes; re-verify app install, sign-in, and mode selection before comparing behavior with pre-unification baselines.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "cost",
+        "recommended_action": "ChatGPT Work and Codex now share usage limits, pricing, and credits inside the same plan; re-model per-seat cost and usage attribution because Work-mode activity can draw down the same Codex limits and credits.",
+        "scope_ref": "plan:openai/chatgpt-work-codex",
+        "scope_type": "subscription_plan",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate the new GPT-5.6 Sol, Terra, and Luna variants; each has different quality, speed, and per-message credit costs, so pick the variant per workload before assuming prior default-model behavior.",
+        "scope_ref": "model:openai/gpt-5.6",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "platform_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Codex developer documentation moved from developers.openai.com/codex/* to learn.chatgpt.com/docs/*; update source watchers, bookmarks, and doc links to the new host to avoid stale or redirected fetches.",
+        "scope_ref": "surface:openai/codex",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public restructure metadata only; exact ChatGPT Work and Codex mode availability, desktop rollout, tenant eligibility, and per-plan pricing vary by account.",
+      "The OpenAI Help Center article help.openai.com/en/articles/20001275-chatgpt-work-and-codex and third-party launch coverage (9to5mac.com, 2026-07-09) corroborate the announcement but were not used as primary evidence.",
+      "No raw provider prose is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-07-20T19:29:09Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI folded the standalone Codex desktop app into a single ChatGPT app with Chat, Work, and Codex modes, made ChatGPT Work share Codex usage limits, pricing, and credits, launched the GPT-5.6 Sol, Terra, and Luna model family, and moved Codex developer docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex",
+      "app:chatgpt"
+    ],
+    "title": "OpenAI Unified The Codex App Into ChatGPT With Chat, Work, And Codex Modes"
+  },
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Transform added generative-AI model migration assessment that can compare current model usage with Bedrock alternatives and surface code, prompt-caching, lifecycle, and cost recommendations.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c007f28dfbb2acf6",
+        "snapshot_ref": "entry:c007f28dfbb2acf6",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-transform-model-to-model-assessments"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-transform-model-migration-assessment",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Use the assessment output as review input when migrating OpenAI, Gemini, Anthropic SDK, LiteLLM, or Ollama workloads toward Bedrock; do not apply generated code changes without normal review.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "cost",
+        "recommended_action": "Compare APW and AWS Transform cost findings before changing multi-provider routing defaults.",
+        "scope_ref": "gateway:litellm",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the AWS migration-assessment feature as provider-change context; it does not validate generated migrations or AWS cost estimates."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS Transform support for model-to-model migration assessment of generative AI workloads, including model mapping to Bedrock equivalents, cost comparisons, prompt-caching analysis, lifecycle awareness, and production-ready code changes.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:migration",
+      "surface:aws_bedrock",
+      "gateway:litellm"
+    ],
+    "title": "AWS Transform Added Model-To-Model Migration Assessment For GenAI Workloads"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex mobile and CLI updates added workspace/diff controls, MCP approval choices, account usage views, deletion flows, Claude Code import, Bedrock API-key handling, and reliability fixes.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:28Z",
+        "selector": "announcement:3df757e82ec6bf10",
+        "snapshot_ref": "entry:3df757e82ec6bf10",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Review MCP approval scopes, deletion safeguards, credential storage, and mobile workspace access before updating Codex automation policies.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "If using Codex with Bedrock credentials, test managed API-key storage and local policy handling before moving workloads into shared workspaces.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Treat Claude Code import as a migration path that still needs config, credential, and memory review before bulk adoption.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The candidate classified part of this source as API and rate-limit changes; source-owner review records it as a broader Codex workflow/security/credential update. Exact rollout, plan eligibility, and managed credential behavior may vary."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:28Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI Codex changelog records June 15 updates for ChatGPT iOS and Codex CLI, including mobile workspace browsing and diff controls, MCP approval choices, CLI usage views, permanent session deletion, Claude Code import, managed Amazon Bedrock API-key authentication, and credential storage improvements.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex",
+      "app:claude_code",
+      "surface:aws_bedrock"
+    ],
+    "title": "OpenAI Codex Added Mobile Workspace Controls, MCP Approvals, Usage Views, And Bedrock Auth"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS DevOps Agent gained custom SRE agent support and MCP/A2A protocol integration paths for operational agent workflows.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c9f791c5a991760f",
+        "snapshot_ref": "entry:c9f791c5a991760f",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-devops-agent-custom-agents/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-devops-agent-custom-sre-mcp-a2a",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review custom SRE agent permissions, MCP/A2A boundaries, and runbook ownership before enabling in production operations.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Treat new MCP/A2A integrations as untrusted tool surfaces and validate least-privilege policies before connecting agent hosts.",
+        "scope_ref": "gateway:mcp",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to an agent workflow/protocol surface change."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS DevOps Agent expansion with custom SRE agents plus MCP and A2A protocol support, adding new agent-integration surfaces for teams using AWS-managed operational agents.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:workflow_behavior_change",
+      "gateway:mcp",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS DevOps Agent Added Custom SRE Agents And MCP/A2A Protocol Support"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "ChatGPT iOS 1.2026.153 expanded Codex Mobile workflow controls for repository setup, goals, reviews, prompt editing, side chat, and usage visibility.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:2c14eb7d1cf246a4",
+        "snapshot_ref": "entry:2c14eb7d1cf246a4",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-mobile-worktrees-goals-review",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Update mobile Codex runbooks and QA checklists for branch/worktree creation, environment setup scripts, goal workflows, and inline review comments.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "official changelog records usage and token activity visibility, not a pricing or token-accounting rule change",
+          "confidence": "confirmed",
+          "direction": "unknown",
+          "magnitude": null
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Use the added usage and token activity views as an observability aid, but do not treat this as a provider pricing or token-accounting change.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records a mobile-app workflow change, not a canonical API pricing, quota, or token-accounting change.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.153 records Codex Mobile support for branch/worktree setup, environment setup scripts, goal management, inline review comments, side chat from transcript selection, prompt editing, and usage/token activity views.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Codex Mobile Worktree, Goal, And Review Controls"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex CLI 0.139 changed agent workflow behavior around code-mode web search, MCP/tool schema compatibility, diagnostics, plugin marketplace metadata, and several CLI reliability paths.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:78597976f1c82cf1",
+        "snapshot_ref": "entry:78597976f1c82cf1",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest Codex CLI code-mode runs that depend on web search, nested tool calls, MCP schemas, plugin marketplace automation, image edits, or resume/fork prompt handling.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Review local diagnostic collection expectations because Codex CLI reports more environment context while redacting raw JSON values.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The plugin catalog cache mentioned in the changelog is software-cache behavior; APW does not classify it as prompt caching or token accounting.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex CLI 0.139 changelog records standalone web search support in code mode, richer tool/connector schema preservation, expanded local diagnostics, plugin marketplace JSON/source metadata, and fixes for resume/fork prompts, MCP startup warnings, image edits, and URL handling.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex CLI Added Web Search, Schema, And Plugin Marketplace Updates"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app 26.608 added migration support from adjacent coding-agent setups, improved plugin management and settings search, and changed several workflow reliability behaviors.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:1dcfa1780ecfef2b",
+        "snapshot_ref": "entry:1dcfa1780ecfef2b",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-app-migration-plugins-settings",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Review imported configuration and plugin permissions when moving teams from Claude Code or Claude Cowork setup into Codex.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Re-check plugin installation flows, settings discoverability, and review-diff ordering before comparing Codex app behavior with pre-26.608 baselines.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the provider changelog metadata only; tenant eligibility, desktop platform rollout, and exact plugin marketplace availability can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for app version 26.608 records new migration flows from Claude Code and Claude Cowork setup, a revamped plugin management screen, broader settings search, and several workflow reliability fixes.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex App Added Migration, Plugin, And Settings Improvements"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex CLI 0.137 changed workflow behavior around admin controls, cloud-managed configs, app-server v2 controller RPCs, plugin machine-readable output, hosted tools, and multi-agent metadata.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:05b866bc82b2b539",
+        "snapshot_ref": "entry:05b866bc82b2b539",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-codex-cli-admin-rpc-tools-agents",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "compliance",
+        "recommended_action": "Review Codex enterprise/admin controls for monthly credit limits, cloud-managed config bundles, and controller grant lifecycle before enabling managed workspaces.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest hosted web/image tools, plugin list JSON, cached catalog suggestions, multi-agent runtime metadata, and controller RPC clients against Codex CLI 0.137 or newer.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The plugin catalog cache mentioned in the changelog is software-cache behavior; APW does not classify it as prompt caching or token accounting.",
+      "APW records public changelog metadata only; workspace entitlement and managed-config availability can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex CLI 0.137 changelog records expanded terminal controls, monthly credit-limit and cloud-managed config support for enterprise/admin flows, app-server v2 controller grant RPCs, plugin JSON/catalog improvements, hosted web and image tools in more code-mode flows, multi-agent v2 runtime metadata, and multiple reliability fixes.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex CLI Added Admin Config, Controller RPCs, Hosted Tools, And Multi-Agent Updates"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app 26.602 changed workflow quality and onboarding behavior around Computer Use readiness, appshot reporting, plugin config writes, review/browser UI, and profile usage surfaces.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:bd51c9f398a08a37",
+        "snapshot_ref": "entry:bd51c9f398a08a37",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-codex-app-computer-use-plugin-config",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "quality",
+        "recommended_action": "Re-test Computer Use startup, appshot diagnostics, browser/review UI paths, and plugin installation config writes before attributing failures to local setup.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update onboarding and profile/usage documentation if team guidance references the pre-26.602 Codex app surfaces.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event records app workflow and reliability changes, not a provider status incident or API-level outage.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex app 26.602 changelog records profile activity insights/share cards, Computer Use startup readiness and appshot error-reporting improvements, browser/review UI fixes, expanded onboarding role choices, and a fix for configuration writes after plugin installation.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex App Improved Computer Use Startup And Plugin Config Writes"
+  },
+  {
+    "announced_at": "2026-06-03T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Step Functions added an AgentCore-powered reasoning step integration that can run managed AgentCore harnesses inside workflows with model, prompt, tool, session, and audit-history behavior changes.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-03T00:00:00Z",
+    "event_date": "2026-06-03",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:f3e0e0a4a7214d13",
+        "snapshot_ref": "entry:f3e0e0a4a7214d13",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-step-functions-agentcore/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-03-aws-step-functions-agentcore-reasoning",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Step Functions workflow definitions, approval controls, and agent audit logging before moving AgentCore reasoning steps into production workflows.",
+        "scope_ref": "endpoint:aws/step-functions/agentcore-reasoning-step",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "Step Functions workflow execution and Bedrock/AgentCore resources remain separately metered.",
+          "confidence": "high",
+          "direction": "unknown",
+          "magnitude": null
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Model total workflow cost using Step Functions execution volume plus Bedrock model inference and AgentCore resource usage.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the provider-impact surface and metering implications; exact pricing depends on Step Functions, Bedrock, AgentCore, model, and region choices."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:workflow_behavior_change",
+      "impact:cost"
+    ],
+    "title": "AWS Step Functions Added AgentCore-Powered Agentic Reasoning Step"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "ChatGPT for iOS 1.2026.146 changed Codex Mobile workflow behavior around follow-up defaults, code-diff display, Windows SSH host access, side conversations, and mobile task-lock controls.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-12T10:40:30Z",
+        "selector": "announcement:c02b3b4bcf0d9352",
+        "snapshot_ref": "entry:c02b3b4bcf0d9352",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update Codex Mobile team runbooks for follow-up defaults, line wrapping, Windows SSH host setup, side-chat workflows, and mobile task-lock expectations before comparing behavior with earlier iOS builds.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Decide whether mobile device-lock controls should be required for teams that review Codex tasks or changed files on iOS.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official changelog metadata only; exact mobile rollout and account eligibility can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-12T10:40:30Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex Mobile Added Defaults, Windows SSH, And Side Chat Controls"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations for workspace sharing and broader knowledge-work automation.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "a21a6169f7bdbd25936eb3e0cef5d8cb505e7c9008475af45b9e9298eff5a487",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T08:40:40Z",
+        "selector": "Codex role plugins, Sites, and annotations announcement",
+        "snapshot_ref": "reviewed-source:2026-06-08",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/codex-for-every-role-tool-workflow/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-codex-role-plugins-sites",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Codex governance, connected-app permissions, and workspace-sharing policies before enabling role plugins or shared Sites for non-engineering teams.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with business data.",
+        "scope_ref": "plan:chatgpt-business",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Confirm workspace-level controls and access policies before using Codex Sites preview with enterprise data.",
+        "scope_ref": "plan:chatgpt-enterprise",
+        "scope_type": "subscription_plan",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records provider-announced availability and behavior changes only; exact workspace rollout and tenant eligibility may vary."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T08:40:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced Codex role-specific plugins, Sites preview, and annotations, expanding Codex from coding workflows into broader workspace and knowledge-work automation.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Codex Role Plugins, Sites, And Annotations"
+  },
+  {
+    "announced_at": "2026-05-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Anthropic announced Claude Opus 4.8 along with Claude Code dynamic workflows, effort controls, higher long-running-agent capacity, and cheaper fast mode.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-28T00:00:00Z",
+    "event_date": "2026-05-28",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "14ec9371d86c11aab7ab7001f5454447013348f57363159c96c4feb60cf8660b",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T08:40:40Z",
+        "selector": "Claude Opus 4.8 announcement",
+        "snapshot_ref": "reviewed-source:2026-06-08",
+        "source_key": "anthropic.news",
+        "url": "https://www.anthropic.com/news/claude-opus-4-8"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Claude Code workflows that assume single-agent or short-running execution, and add usage controls before enabling larger dynamic workflow runs.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "unknown",
+        "confidence": "high",
+        "direction": "increase",
+        "impact_kind": "quota",
+        "recommended_action": "Check account and plan limits before treating larger Claude Code runs as free additional capacity.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "high",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official Anthropic announcement",
+          "confidence": "high",
+          "direction": "decrease",
+          "magnitude": "fast mode for Opus 4.8 is advertised as three times cheaper than previous models"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Separate fast-mode usage from higher-effort usage when forecasting Claude Code spend and token-limit pressure.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official announcement facts only; exact account-level rate limits and plan entitlements may vary."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T08:40:40Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.",
+    "tags": [
+      "source:official_blog",
+      "provider:anthropic",
+      "impact:workflow_behavior_change",
+      "app:claude-code"
+    ],
+    "title": "Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls"
+  }
+]

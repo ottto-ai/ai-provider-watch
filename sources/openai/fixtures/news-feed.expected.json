@@ -1,0 +1,34 @@
+{
+  "changed": true,
+  "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "OpenAI official dated source reports a model availability change on 2026-06-01 for api, codex, gpt-4.1.",
+        "evidence_url": "https://openai.com/news/codex-gpt-41-availability",
+        "selector": "announcement:ae8203c8b5018b6d",
+        "snapshot_ref": "entry:ae8203c8b5018b6d"
+      }
+    ],
+    "errors": [],
+    "items": [
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "c62deb38a073ed967948ab49703b244eb47334781a589dd5700855dc92c0019f",
+        "published_date": "2026-06-01",
+        "source_parser": "openai_news_feed",
+        "subjects": [
+          "api",
+          "codex",
+          "gpt-4.1"
+        ],
+        "title_sha256": "ae8203c8b5018b6d2e5c824ec9f861a4cb68124d517b625543f3f2cf8df5b5b5"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "snapshot_ref": null
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "openai.news"
+}

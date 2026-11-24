@@ -1,0 +1,67 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
+  "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models",
+  "event_kind": "model_retirement",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:google"],
+  "event_date": "2026-06-01",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-01T10:36:49Z",
+  "announced_at": null,
+  "effective_at": "2026-06-01T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2026-06-01T00:00:00Z",
+  "summary": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "google.vertex_model_versions",
+      "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",
+      "retrieved_at": "2026-06-01T10:36:49Z",
+      "authority": "official_docs",
+      "content_sha256": "7d8656abd449c02462613fd1739193095e0f46ab01c3d0193935f4fd785f1bf5",
+      "snapshot_ref": "reviewed-source:2026-06-01",
+      "selector": "Gemini latest stable models table",
+      "license_note": "Official provider page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:google/vertex-ai",
+      "impact_kind": "availability",
+      "direction": "removed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "product_engineers", "coding_agent_users"],
+      "recommended_action": "Audit Vertex AI model IDs and migrate workloads that still reference Gemini 2.0 Flash stable models."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:google/vertex-ai",
+      "impact_kind": "migration",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "sdk_maintainers"],
+      "recommended_action": "Refresh model allowlists, default model choices, and agent benchmarks to use supported Gemini stable models."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:gemini-2.0-flash-001", "model:gemini-2.0-flash-lite-001"],
+    "lifecycle_action": "retirement",
+    "replacement_refs": ["model:gemini-2.5-flash", "model:gemini-2.5-flash-lite"],
+    "deadline": "2026-06-01T00:00:00Z",
+    "migration_notes": "Vertex AI users should move workloads from retired Gemini 2.0 Flash stable IDs to supported Gemini stable models."
+  },
+  "tags": ["source:official_docs", "provider:google", "impact:model_retirement"],
+  "limitations": ["APW reviewed this source on the retirement date; earlier provider announcement timing was not captured in this seed event."]
+}

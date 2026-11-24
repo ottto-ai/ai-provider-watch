@@ -1,0 +1,81 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-04-openai-codex-app-computer-use-plugin-config",
+  "title": "OpenAI Codex App Improved Computer Use Startup And Plugin Config Writes",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-06-04",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T15:12:22Z",
+  "announced_at": "2026-06-04T00:00:00Z",
+  "effective_at": "2026-06-04T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI's Codex app 26.602 changelog records profile activity insights/share cards, Computer Use startup readiness and appshot error-reporting improvements, browser/review UI fixes, expanded onboarding role choices, and a fix for configuration writes after plugin installation.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog",
+      "retrieved_at": "2026-06-11T15:12:22Z",
+      "authority": "official_docs",
+      "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+      "snapshot_ref": "entry:bd51c9f398a08a37",
+      "selector": "announcement:bd51c9f398a08a37",
+      "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "quality",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers",
+        "reliability_engineers"
+      ],
+      "recommended_action": "Re-test Computer Use startup, appshot diagnostics, browser/review UI paths, and plugin installation config writes before attributing failures to local setup."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "low",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "none",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers"
+      ],
+      "recommended_action": "Update onboarding and profile/usage documentation if team guidance references the pre-26.602 Codex app surfaces."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "Codex app 26.602 changed workflow quality and onboarding behavior around Computer Use readiness, appshot reporting, plugin config writes, review/browser UI, and profile usage surfaces."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:openai",
+    "impact:workflow_behavior_change",
+    "app:codex"
+  ],
+  "limitations": [
+    "This event records app workflow and reliability changes, not a provider status incident or API-level outage.",
+    "No raw changelog body is copied into the event."
+  ]
+}

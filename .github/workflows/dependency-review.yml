@@ -1,0 +1,28 @@
+name: Dependency Review
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_ref:
+        description: Base ref or SHA to compare from.
+        required: true
+        default: main
+      head_ref:
+        description: Head ref or SHA to compare to.
+        required: true
+        default: main
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v5
+        with:
+          base-ref: ${{ inputs.base_ref }}
+          head-ref: ${{ inputs.head_ref }}

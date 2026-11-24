@@ -1,0 +1,254 @@
+{
+  "artifacts": [
+    {
+      "bytes": 15186,
+      "media_type": "application/json",
+      "path": "data/feeds/coverage.json",
+      "sha256": "024bc7f223e4dc99b0a5d98b8b95718c20f9c54aa8b5a2fee3cc07eb49861460"
+    },
+    {
+      "bytes": 252558,
+      "media_type": "application/json",
+      "path": "data/feeds/events.json",
+      "sha256": "7226e64537f11e28afb2efc7d987b7d9b45a8ffce97e51e43cfd88aaa5906ffd"
+    },
+    {
+      "bytes": 211212,
+      "media_type": "application/x-ndjson",
+      "path": "data/feeds/events.ndjson",
+      "sha256": "a2df16132ee45c79535b4056873868b9cfa217ae02739b0f8f2705f42b2dfc1f"
+    },
+    {
+      "bytes": 154704,
+      "media_type": "application/feed+json",
+      "path": "data/feeds/feed.json",
+      "sha256": "288e38e27f78642bd05f44ebce07079cbd62165658c4a24003ee920c3881f927"
+    },
+    {
+      "bytes": 7190,
+      "media_type": "application/json",
+      "path": "data/feeds/freshness.json",
+      "sha256": "dafacbe75e8ac3e0d70bb8e19b730e078267250797eedcb783b9933cd606ce19"
+    },
+    {
+      "bytes": 11970,
+      "media_type": "application/json",
+      "path": "data/feeds/latest.json",
+      "sha256": "f4536e66a6248a55e4433be0cd7e4ba628fd1fc9ba21759e639ed242516dd8f6"
+    },
+    {
+      "bytes": 4434,
+      "media_type": "application/json",
+      "path": "data/feeds/operations.json",
+      "sha256": "7b54a2de343e5964d120d66c2c97589aec48c6312f0bddc860037392febe1f77"
+    },
+    {
+      "bytes": 27469,
+      "media_type": "application/rss+xml",
+      "path": "data/feeds/rss.xml",
+      "sha256": "ebbb533863c9b6b9fbb8172e9a3250c87ee5a1d337e516331337be8e12ea2a94"
+    },
+    {
+      "bytes": 47758,
+      "media_type": "application/json",
+      "path": "data/feeds/source-catalog.json",
+      "sha256": "d87348ca7fcfb36921069ce8aa0a58b3b04178bedf7dfe4bc51e267afea50f67"
+    },
+    {
+      "bytes": 26585,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/api_contract_change.json",
+      "sha256": "0903e5001214e07a83c1fb963179a2b3a57f7fbc65076317f6eb720edd53636a"
+    },
+    {
+      "bytes": 7610,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/billing_channel_change.json",
+      "sha256": "b962d1eaa0148c9fbaf6bf8b405d89f3f3cbb25e2a2910a5ddff9be33a82dead"
+    },
+    {
+      "bytes": 3696,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/caching_change.json",
+      "sha256": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76"
+    },
+    {
+      "bytes": 6253,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/default_model_change.json",
+      "sha256": "08ae7d36e9355d631b946b55b92bcff7bbe0b1ef6c47a1feb7e1cdf0aeff2c60"
+    },
+    {
+      "bytes": 10419,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/model_deprecation.json",
+      "sha256": "d264ed07c84da6e63659a36207c4b0cd510387816dc2e36eda5b633bfe1cfd65"
+    },
+    {
+      "bytes": 71113,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/model_launch.json",
+      "sha256": "7f5d5e98b0faf413b67ba55b0035928751872dfcba6eff13bae558a3add69c00"
+    },
+    {
+      "bytes": 34300,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/model_retirement.json",
+      "sha256": "b893a6a85c1a3978fa8dfa39076f9fb5f9c4618cd1b89038fac4a808eeb6c1cc"
+    },
+    {
+      "bytes": 5934,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/quota_change.json",
+      "sha256": "286729e4bbcacbca6458b622932f5f0b83c4c8beee2ad34d3a828b6e062bf0c4"
+    },
+    {
+      "bytes": 4611,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/rate_limit_change.json",
+      "sha256": "2a44c009aed4cb8ab0c8f0eceb856357bb4a0e504d87d87039c6ee8d2ccd5aef"
+    },
+    {
+      "bytes": 3329,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/regional_availability_change.json",
+      "sha256": "5555c75dc73d5c58db2bbc7ffd81e448c003acfdc98c384eada139e8ad6b5fe9"
+    },
+    {
+      "bytes": 11180,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/status_incident.json",
+      "sha256": "6d1ded4685dadd9bdef6e4af9f59b256f11735518f846f3bac2ff2c16b44ca1a"
+    },
+    {
+      "bytes": 6071,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/subscription_change.json",
+      "sha256": "d53a9fd74e7f6a74c3d697ad839ee417ef46920d458362271d8d4f9a55477913"
+    },
+    {
+      "bytes": 12189,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/token_accounting_change.json",
+      "sha256": "5b3912daf6995145f80dd0641caa4491131dee1c5f3d974abfad6c3858ea1ef9"
+    },
+    {
+      "bytes": 49307,
+      "media_type": "application/json",
+      "path": "data/indexes/kind/workflow_behavior_change.json",
+      "sha256": "6371b60bc5760d5fee659816563ccc9ad59344151aacfc34a9c09e56c4ea091c"
+    },
+    {
+      "bytes": 41691,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/anthropic.json",
+      "sha256": "cc389a0481c96c9c90ff5193c28646ae8997ac9560c01290e8c004b83b827fcf"
+    },
+    {
+      "bytes": 56550,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/aws-bedrock.json",
+      "sha256": "07f86feaa65c5021d94aaa2ca772403fc7d408f157df6a5eefeac3637c79eb98"
+    },
+    {
+      "bytes": 25875,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/azure-openai.json",
+      "sha256": "f7efbff7c6bd0ab20176598c913265b1f391c7b74f8155ed9518fce556c4159b"
+    },
+    {
+      "bytes": 26539,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/google.json",
+      "sha256": "36938bfb152715659219b94a957f77d49d1c373ab0a0621f2fa6a1f642a8c86d"
+    },
+    {
+      "bytes": 110636,
+      "media_type": "application/json",
+      "path": "data/indexes/provider/openai.json",
+      "sha256": "648da7898ff773861cbb72a5513b216a48bf7f6c212548c46642979150298ac2"
+    },
+    {
+      "bytes": 140571,
+      "media_type": "application/json",
+      "path": "data/indexes/severity/high.json",
+      "sha256": "960375bb42921752835d7b721581a0ec618d29b3133f1a25d314bf4daeb536b0"
+    },
+    {
+      "bytes": 8665,
+      "media_type": "application/json",
+      "path": "data/indexes/severity/low.json",
+      "sha256": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b"
+    },
+    {
+      "bytes": 103328,
+      "media_type": "application/json",
+      "path": "data/indexes/severity/medium.json",
+      "sha256": "ffad297c6e9d19118e1bc2936bcdbfee2d50bab4d131c1ae2ea8b4c2dd4bf66d"
+    },
+    {
+      "bytes": 3245,
+      "media_type": "text/plain",
+      "path": "data/releases/dev/checksums.txt",
+      "sha256": "e5a3f48f6bb299be52c30f13782f70a95b19df567b674bc07017507d97ffa082"
+    },
+    {
+      "bytes": 8698,
+      "media_type": "application/json",
+      "path": "data/releases/dev/evidence-index.json",
+      "sha256": "a58c7e336a8f01006adba04723f1801a939706e0233e65da9c9fdbd4f4d23809"
+    }
+  ],
+  "checksums": {
+    "data/feeds/coverage.json": "024bc7f223e4dc99b0a5d98b8b95718c20f9c54aa8b5a2fee3cc07eb49861460",
+    "data/feeds/events.json": "7226e64537f11e28afb2efc7d987b7d9b45a8ffce97e51e43cfd88aaa5906ffd",
+    "data/feeds/events.ndjson": "a2df16132ee45c79535b4056873868b9cfa217ae02739b0f8f2705f42b2dfc1f",
+    "data/feeds/feed.json": "288e38e27f78642bd05f44ebce07079cbd62165658c4a24003ee920c3881f927",
+    "data/feeds/freshness.json": "dafacbe75e8ac3e0d70bb8e19b730e078267250797eedcb783b9933cd606ce19",
+    "data/feeds/latest.json": "f4536e66a6248a55e4433be0cd7e4ba628fd1fc9ba21759e639ed242516dd8f6",
+    "data/feeds/operations.json": "7b54a2de343e5964d120d66c2c97589aec48c6312f0bddc860037392febe1f77",
+    "data/feeds/rss.xml": "ebbb533863c9b6b9fbb8172e9a3250c87ee5a1d337e516331337be8e12ea2a94",
+    "data/feeds/source-catalog.json": "d87348ca7fcfb36921069ce8aa0a58b3b04178bedf7dfe4bc51e267afea50f67",
+    "data/indexes/kind/api_contract_change.json": "0903e5001214e07a83c1fb963179a2b3a57f7fbc65076317f6eb720edd53636a",
+    "data/indexes/kind/billing_channel_change.json": "b962d1eaa0148c9fbaf6bf8b405d89f3f3cbb25e2a2910a5ddff9be33a82dead",
+    "data/indexes/kind/caching_change.json": "f9c6e94b41dd210f0b50de93f7ef2df88f9c4f2f1d8138ad749b0641bdd95e76",
+    "data/indexes/kind/default_model_change.json": "08ae7d36e9355d631b946b55b92bcff7bbe0b1ef6c47a1feb7e1cdf0aeff2c60",
+    "data/indexes/kind/model_deprecation.json": "d264ed07c84da6e63659a36207c4b0cd510387816dc2e36eda5b633bfe1cfd65",
+    "data/indexes/kind/model_launch.json": "7f5d5e98b0faf413b67ba55b0035928751872dfcba6eff13bae558a3add69c00",
+    "data/indexes/kind/model_retirement.json": "b893a6a85c1a3978fa8dfa39076f9fb5f9c4618cd1b89038fac4a808eeb6c1cc",
+    "data/indexes/kind/quota_change.json": "286729e4bbcacbca6458b622932f5f0b83c4c8beee2ad34d3a828b6e062bf0c4",
+    "data/indexes/kind/rate_limit_change.json": "2a44c009aed4cb8ab0c8f0eceb856357bb4a0e504d87d87039c6ee8d2ccd5aef",
+    "data/indexes/kind/regional_availability_change.json": "5555c75dc73d5c58db2bbc7ffd81e448c003acfdc98c384eada139e8ad6b5fe9",
+    "data/indexes/kind/status_incident.json": "6d1ded4685dadd9bdef6e4af9f59b256f11735518f846f3bac2ff2c16b44ca1a",
+    "data/indexes/kind/subscription_change.json": "d53a9fd74e7f6a74c3d697ad839ee417ef46920d458362271d8d4f9a55477913",
+    "data/indexes/kind/token_accounting_change.json": "5b3912daf6995145f80dd0641caa4491131dee1c5f3d974abfad6c3858ea1ef9",
+    "data/indexes/kind/workflow_behavior_change.json": "6371b60bc5760d5fee659816563ccc9ad59344151aacfc34a9c09e56c4ea091c",
+    "data/indexes/provider/anthropic.json": "cc389a0481c96c9c90ff5193c28646ae8997ac9560c01290e8c004b83b827fcf",
+    "data/indexes/provider/aws-bedrock.json": "07f86feaa65c5021d94aaa2ca772403fc7d408f157df6a5eefeac3637c79eb98",
+    "data/indexes/provider/azure-openai.json": "f7efbff7c6bd0ab20176598c913265b1f391c7b74f8155ed9518fce556c4159b",
+    "data/indexes/provider/google.json": "36938bfb152715659219b94a957f77d49d1c373ab0a0621f2fa6a1f642a8c86d",
+    "data/indexes/provider/openai.json": "648da7898ff773861cbb72a5513b216a48bf7f6c212548c46642979150298ac2",
+    "data/indexes/severity/high.json": "960375bb42921752835d7b721581a0ec618d29b3133f1a25d314bf4daeb536b0",
+    "data/indexes/severity/low.json": "c0a9867389c142ffb9444e2c328b45e1ee71c9b6bd3a08d5affcba533d6d472b",
+    "data/indexes/severity/medium.json": "ffad297c6e9d19118e1bc2936bcdbfee2d50bab4d131c1ae2ea8b4c2dd4bf66d",
+    "data/releases/dev/checksums.txt": "e5a3f48f6bb299be52c30f13782f70a95b19df567b674bc07017507d97ffa082",
+    "data/releases/dev/evidence-index.json": "a58c7e336a8f01006adba04723f1801a939706e0233e65da9c9fdbd4f4d23809"
+  },
+  "created_at": "2026-07-20T19:29:09Z",
+  "generated_by": "ai-provider-watch 0.1.18",
+  "notes": "Deterministic development manifest.",
+  "release_id": "dev",
+  "schema_version": "apw.release_manifest.v0",
+  "schema_versions": {
+    "event": "apw.provider_event.v0",
+    "event_detail": "apw.event_detail.v0",
+    "feed_freshness": "apw.feed_freshness.v0",
+    "json_feed": "https://jsonfeed.org/version/1.1",
+    "operations_report": "apw.operations_report.v0",
+    "release_evidence_index": "apw.release_evidence_index.v0",
+    "release_manifest": "apw.release_manifest.v0",
+    "source_catalog": "apw.source_catalog.v0",
+    "source_coverage": "apw.source_coverage.v0"
+  },
+  "source_commit": null
+}

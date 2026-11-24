@@ -1,0 +1,97 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-04-23-openai-gpt-55-chatgpt-codex-api",
+  "title": "OpenAI Launched GPT-5.5 For ChatGPT, Codex, And API Developers",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-04-23",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T19:15:39Z",
+  "announced_at": "2026-04-23T00:00:00Z",
+  "effective_at": "2026-04-23T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI announced GPT-5.5 and GPT-5.5 Pro availability for ChatGPT and Codex paid/business plans, later updated the announcement to mark API availability, and listed API token pricing plus Batch, Flex, and Priority processing multipliers.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/introducing-gpt-5-5",
+      "retrieved_at": "2026-06-11T19:15:39Z",
+      "authority": "official_blog",
+      "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+      "snapshot_ref": "entry:64228a7542e628e5",
+      "selector": "announcement:64228a7542e628e5",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "model",
+      "scope_ref": "model:openai/gpt-5.5",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers",
+        "product_engineers",
+        "finops"
+      ],
+      "recommended_action": "Review plan eligibility, API allowlists, model routing, context-window assumptions, and regression coverage before moving production traffic to GPT-5.5."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/api",
+      "impact_kind": "cost",
+      "direction": "changed",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "estimated_cost_effect": {
+        "direction": "increase",
+        "magnitude": "$5/1M input tokens and $30/1M output tokens for gpt-5.5; $30/1M input and $180/1M output for gpt-5.5-pro",
+        "basis": "OpenAI announcement pricing section; Batch and Flex at half standard rate and Priority at 2.5x standard rate.",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "platform_engineers",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "Update cost models and gateway pricing metadata before exposing GPT-5.5 or GPT-5.5 Pro through API defaults, agent routers, or self-service model selectors."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:openai/gpt-5.5",
+      "model:openai/gpt-5.5-pro"
+    ],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "The April 23 announcement covers ChatGPT and Codex rollout first, with an April 24 update for API availability. APW records public availability and listed API pricing; account eligibility and final API model IDs should be verified in the target tenant."
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:openai",
+    "impact:model_launch",
+    "impact:cost",
+    "model:gpt_5_5"
+  ],
+  "limitations": [
+    "The announcement says GPT-5.5 is more token efficient than GPT-5.4, but APW records listed unit prices and does not estimate workload-level savings.",
+    "No raw announcement body is copied into APW."
+  ]
+}

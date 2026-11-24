@@ -1,0 +1,92 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+  "title": "OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls",
+  "event_kind": "rate_limit_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai"],
+  "event_date": "2026-06-11",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-12T10:40:30Z",
+  "announced_at": "2026-06-11T00:00:00Z",
+  "effective_at": "2026-06-11T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog",
+      "retrieved_at": "2026-06-12T10:40:30Z",
+      "authority": "official_docs",
+      "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+      "snapshot_ref": "entry:aab6a574450e9f37",
+      "selector": "announcement:aab6a574450e9f37",
+      "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "rate_limit",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "finops"],
+      "recommended_action": "Review Codex Plus, Pro, and Business usage policies before relying on reset banking or referral-earned credits in automation planning."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "security_engineers"],
+      "recommended_action": "Re-check Codex Computer Use enablement, regional eligibility, and per-app access controls before changing browser or desktop automation runbooks."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "quality",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "possible",
+      "who_should_care": ["platform_engineers", "reliability_engineers", "coding_agent_users"],
+      "recommended_action": "Retest browser-debugging workflows that depend on console, network, runtime-error, or page-state inspection because Developer mode adds deeper browser access paths."
+    }
+  ],
+  "detail": {
+    "kind": "rate_limit_change",
+    "schema_version": "apw.event_detail.v0",
+    "rate_items": [
+      {
+        "scope": "plan:chatgpt-plus",
+        "change": "Codex app 26.609 added rate-limit reset banking for Plus users, including an initial free reset and referral invitations during the launch promotion."
+      },
+      {
+        "scope": "plan:chatgpt-pro",
+        "change": "Codex app 26.609 added rate-limit reset banking for Pro users, including an initial free reset and referral invitations during the launch promotion."
+      },
+      {
+        "scope": "plan:chatgpt-business",
+        "change": "Codex app 26.609 added a separate Business referral path where eligible members can invite coworkers to earn shared workspace credits."
+      }
+    ]
+  },
+  "tags": ["source:official_docs", "provider:openai", "impact:rate_limit_change", "impact:workflow_behavior_change", "app:codex"],
+  "limitations": [
+    "APW records official changelog facts only; exact tenant eligibility, referral promotion availability, reset quantities, regional Computer Use availability, and app rollout timing may vary.",
+    "No raw changelog body is copied into the event."
+  ]
+}

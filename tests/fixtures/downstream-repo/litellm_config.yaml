@@ -1,0 +1,4 @@
+model_list:
+  - model_name: legacy-completions
+    litellm_params:
+      model: openai/gpt-3.5-turbo-instruct

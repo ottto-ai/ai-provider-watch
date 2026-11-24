@@ -1,0 +1,25 @@
+{
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "aws_bedrock.docs",
+  "changed": true,
+  "expected": {
+    "items": [
+      {"kind": "model_ref", "model_id": "amazon-nova-2-lite", "source_parser": "aws_bedrock_model_cards"},
+      {"kind": "model_ref", "model_id": "amazon-nova-canvas", "source_parser": "aws_bedrock_model_cards"},
+      {"kind": "model_ref", "model_id": "amazon-nova-lite", "source_parser": "aws_bedrock_model_cards"},
+      {"kind": "model_ref", "model_id": "amazon-nova-premier", "source_parser": "aws_bedrock_model_cards"},
+      {"kind": "model_ref", "model_id": "claude-opus-4.8", "source_parser": "aws_bedrock_model_cards"},
+      {"kind": "model_ref", "model_id": "claude-sonnet-4.5", "source_parser": "aws_bedrock_model_cards"},
+      {"kind": "model_ref", "model_id": "llama-4-maverick", "source_parser": "aws_bedrock_model_cards"}
+    ],
+    "raw_excerpt_hashes": [],
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "AWS Bedrock model documentation source changed and needs maintainer review for possible model availability, deprecation, or regional availability changes."
+      }
+    ],
+    "errors": [],
+    "snapshot_ref": null
+  }
+}

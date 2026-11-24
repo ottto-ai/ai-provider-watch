@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "ai-provider-watch": {
+      "command": "uv",
+      "args": [
+        "run",
+        "python",
+        "-m",
+        "ai_provider_watch.mcp.server"
+      ],
+      "cwd": ".",
+      "env": {
+        "APW_REPO_ROOT": "."
+      }
+    }
+  }
+}

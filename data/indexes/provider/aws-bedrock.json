@@ -1,0 +1,1401 @@
+[
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Transform added generative-AI model migration assessment that can compare current model usage with Bedrock alternatives and surface code, prompt-caching, lifecycle, and cost recommendations.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c007f28dfbb2acf6",
+        "snapshot_ref": "entry:c007f28dfbb2acf6",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-transform-model-to-model-assessments"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-transform-model-migration-assessment",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Use the assessment output as review input when migrating OpenAI, Gemini, Anthropic SDK, LiteLLM, or Ollama workloads toward Bedrock; do not apply generated code changes without normal review.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "cost",
+        "recommended_action": "Compare APW and AWS Transform cost findings before changing multi-provider routing defaults.",
+        "scope_ref": "gateway:litellm",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the AWS migration-assessment feature as provider-change context; it does not validate generated migrations or AWS cost estimates."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS Transform support for model-to-model migration assessment of generative AI workloads, including model mapping to Bedrock equivalents, cost comparisons, prompt-caching analysis, lifecycle awareness, and production-ready code changes.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:migration",
+      "surface:aws_bedrock",
+      "gateway:litellm"
+    ],
+    "title": "AWS Transform Added Model-To-Model Migration Assessment For GenAI Workloads"
+  },
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "agentic_workflow_guardrail_api"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/guardrails/agentic-workflows"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:561d3c9e616d78cd",
+        "snapshot_ref": "entry:561d3c9e616d78cd",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-guardrails-api-ai/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-bedrock-guardrails-agentic-api",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Review guardrail integration points for agent workflows before changing safety or compliance controls.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Add compatibility tests for the new Guardrails API if Bedrock agents or custom agent frameworks call guardrails directly.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public AWS announcement only; it does not assert regional coverage, IAM policy details, or SDK version support."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a new Amazon Bedrock Guardrails API targeting agentic AI workflows, adding a developer-facing guardrail integration path for agent systems built on Bedrock.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:api_contract_change",
+      "impact:security",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock Guardrails Added An API For Agentic AI Workflows"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS DevOps Agent gained custom SRE agent support and MCP/A2A protocol integration paths for operational agent workflows.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c9f791c5a991760f",
+        "snapshot_ref": "entry:c9f791c5a991760f",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-devops-agent-custom-agents/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-devops-agent-custom-sre-mcp-a2a",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review custom SRE agent permissions, MCP/A2A boundaries, and runbook ownership before enabling in production operations.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Treat new MCP/A2A integrations as untrusted tool surfaces and validate least-privilege policies before connecting agent hosts.",
+        "scope_ref": "gateway:mcp",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to an agent workflow/protocol surface change."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS DevOps Agent expansion with custom SRE agents plus MCP and A2A protocol support, adding new agent-integration surfaces for teams using AWS-managed operational agents.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:workflow_behavior_change",
+      "gateway:mcp",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS DevOps Agent Added Custom SRE Agents And MCP/A2A Protocol Support"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records Bedrock-hosted model availability, not xAI first-party API availability or exact account eligibility.",
+      "model_refs": [
+        "model:aws-bedrock/grok-4.3"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:6e15c76919cb2949",
+        "snapshot_ref": "entry:6e15c76919cb2949",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/grok-amazon-bedrock/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-bedrock-grok-43-availability",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Grok 4.3 regional availability, quotas, pricing, and tool-calling behavior before adding it to Bedrock routing policies.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "official AWS launch announcement",
+          "confidence": "high",
+          "direction": "unknown",
+          "magnitude": "AWS describes token efficiency and Mantle price/performance, but APW did not verify invoice-level deltas."
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Benchmark Mantle-backed Grok 4.3 price/performance and reasoning-effort settings against existing Bedrock model routes.",
+        "scope_ref": "model:aws-bedrock/grok-4.3",
+        "scope_type": "model",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as a pricing change; source-owner review corrected the event to model availability with cost/performance impact.",
+      "APW does not copy AWS announcement prose or assert measured latency/cost."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced Grok 4.3 from xAI on Amazon Bedrock, describing a reasoning-first model with configurable reasoning effort, tool use, structured output, streaming, and Mantle inference-engine support for price/performance-sensitive workloads.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:model_launch",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock Added Grok 4.3 From xAI"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "long_term_memory_metadata_consistency"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/agentcore-memory"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:dc63cbdab3b50b47",
+        "snapshot_ref": "entry:dc63cbdab3b50b47",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/05/agentcore-memory-scmetadata"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-bedrock-agentcore-memory-metadata",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest agent memory flows that depend on metadata ordering, freshness, or read-after-write assumptions.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Update AgentCore Memory wrappers and tests to account for strictly consistent metadata semantics where enabled.",
+        "scope_ref": "endpoint:aws-bedrock/agentcore-memory",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to AgentCore API/behavior metadata semantics."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced strictly consistent metadata support for Amazon Bedrock AgentCore Memory, a developer-facing change for long-term memory behavior and metadata reads in agent workloads.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:api_contract_change",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock AgentCore Memory Added Strictly Consistent Metadata"
+  },
+  {
+    "announced_at": "2026-06-11T00:12:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records Bedrock regional availability, not OpenAI first-party API availability, account eligibility, exact pricing, or feature parity.",
+      "model_refs": [
+        "model:openai/gpt-5.4",
+        "model:openai/gpt-5.5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-11T00:12:00Z",
+    "event_date": "2026-06-11",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "7c0b3dfac5f9beba2a22ba209bf1039e24cefc262f6d53cfe53ec5e3efa0a7cc",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T09:15:49Z",
+        "selector": "announcement:fab193d75fdfa2ea",
+        "snapshot_ref": "entry:fab193d75fdfa2ea",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/openai-gpt-us-east-virginia-amazon/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify us-east-1 account access, Bedrock model availability, pricing, quotas, and Responses API behavior before routing GPT-5.4 or GPT-5.5 workloads through Bedrock.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Update regional allowlists, data-residency notes, and fallback routing if us-east-1 Bedrock availability changes preferred OpenAI model placement.",
+        "scope_ref": "region:aws-us-east-1",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "quota",
+        "recommended_action": "Refresh model metadata for context-window assumptions, multimodal input support, tool-calling support, and streaming behavior before exposing these Bedrock model IDs through gateways or SDK defaults.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records availability and regional facts only; exact account eligibility, quota, pricing, latency, and feature parity require AWS account-level verification.",
+      "The official announcement was reviewed for factual metadata; no provider prose is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T09:15:49Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "region:aws_us_east_1"
+    ],
+    "title": "AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia"
+  },
+  {
+    "announced_at": "2026-06-10T19:17:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records AWS-hosted Bedrock availability for Gemma 4. APW does not assert Google first-party API availability, exact Bedrock model IDs, account eligibility, pricing, quotas, latency, or feature parity.",
+      "model_refs": [
+        "model:google/gemma-4-31b",
+        "model:google/gemma-4-26b-a4b",
+        "model:google/gemma-4-e2b"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-10T19:17:00Z",
+    "event_date": "2026-06-10",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "2a5ce41ed807dbdae897446b818ae58479f748c382ca2bb40cb1d7a73fb764eb",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T21:32:59Z",
+        "selector": "announcement:767c31f613cededa",
+        "snapshot_ref": "entry:767c31f613cededa",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/gemma-4-amazon-bedrock/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-10-aws-bedrock-gemma-4-availability",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock access, regional availability, pricing, quotas, latency, and model behavior before routing Gemma 4 workloads through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Refresh regional allowlists, deployment docs, data-residency notes, and fallback routing for Bedrock deployments that may adopt Gemma 4.",
+        "scope_ref": "region:aws-us-east-1,aws-us-east-2,aws-us-west-2,aws-eu-central-1",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Benchmark reasoning, multimodal input, function calling, structured output, and streaming behavior before exposing Gemma 4 through gateways, SDK defaults, or coding-agent model routes.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this page as a pricing change; source-owner review corrected the public event to model availability after checking the official announcement.",
+      "APW records regional availability and high-level capability facts only; exact account eligibility, model IDs, pricing, quotas, latency, and feature parity require AWS account-level verification.",
+      "The official announcement was reviewed for factual metadata; no provider prose is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T21:32:59Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced availability of Google DeepMind's Gemma 4 model family on Amazon Bedrock, including Gemma 4 31B, Gemma 4 26B-A4B, and Gemma 4 E2B in US East (N. Virginia), US East (Ohio), US West (Oregon), and Europe (Frankfurt).",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "model:google-gemma-4"
+    ],
+    "title": "AWS Added Gemma 4 Models On Amazon Bedrock"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records AWS-hosted availability. APW does not assert first-party Anthropic API availability, region coverage, exact pricing, or account eligibility.",
+      "model_refs": [
+        "model:anthropic/claude-fable-5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "6f01dc703fe5c6c430428b7d45dd52cbe741ce133c188e21570770b459931be5",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:32Z",
+        "selector": "announcement:9bb2ad4662d4565b",
+        "snapshot_ref": "entry:9bb2ad4662d4565b",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/claude-fable-5-aws/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-aws-bedrock-claude-fable-5-availability",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock model access, regional availability, quotas, and pricing before routing Claude Fable 5 workloads through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Benchmark long-running coding and knowledge-work tasks before promoting this model into default agent routes.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this page as a pricing change; source-owner review corrected the public event to model availability after checking the official announcement.",
+      "APW does not copy provider announcement prose and does not assert workload suitability without independent testing."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-10T10:32:32Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced Claude Fable 5 availability through Amazon Bedrock and Claude Platform on AWS, expanding AWS-hosted access for Anthropic's long-running coding and knowledge-work model family.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Added Claude Fable 5 Availability Through Bedrock And Claude Platform On AWS"
+  },
+  {
+    "announced_at": "2026-06-05T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "runtime-session-id",
+        "shell-id",
+        "websocket-terminal-session",
+        "concurrent-shell-limit"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-05T00:00:00Z",
+    "event_date": "2026-06-05",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:8e4ea67efed31fb6",
+        "snapshot_ref": "entry:8e4ea67efed31fb6",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-runtime/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review AgentCore shell auth, session isolation, audit logging, reconnect behavior, and branch/worktree controls before enabling interactive shells for coding agents.",
+        "scope_ref": "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell",
+        "scope_type": "api_endpoint",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "quota",
+        "recommended_action": "Account for the documented per-runtime concurrent shell cap when designing multi-agent debugging or monitoring workflows.",
+        "scope_ref": "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the API and concurrency metadata; teams must validate IAM, network, and audit-log controls for their own AgentCore deployments."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:api_contract_change",
+      "impact:quota",
+      "app:codex",
+      "app:claude-code"
+    ],
+    "title": "AWS Bedrock AgentCore Runtime Added Interactive Shells"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "openai-responses-compatible-api",
+        "openai-chat-completions-compatible-api",
+        "anthropic-messages-compatible-api",
+        "project-scoped-console-snippets"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/bedrock-mantle"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:5bbd210b346aac7a",
+        "snapshot_ref": "entry:5bbd210b346aac7a",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-redesigned-console-optimized-openai-anthropic-compatible-apis/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-aws-bedrock-compatible-api-console",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Assess whether existing OpenAI or Anthropic client libraries can route through Bedrock with acceptable auth, governance, quota, and pricing behavior.",
+        "scope_ref": "endpoint:aws-bedrock/bedrock-mantle",
+        "scope_type": "api_endpoint",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "security_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update internal Bedrock onboarding docs and SDK snippets if project-scoped endpoint, region, and API-key references change developer setup.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert full compatibility, regional parity, or pricing parity; teams should test target SDKs and Bedrock account settings."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a redesigned Bedrock console workflow for the bedrock-mantle endpoint, surfacing OpenAI Responses, OpenAI Chat Completions, and Anthropic Messages compatible API usage through Bedrock projects.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:api_contract_change"
+    ],
+    "title": "AWS Bedrock Console Added OpenAI And Anthropic-Compatible API Workflow"
+  },
+  {
+    "announced_at": "2026-06-03T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Step Functions added an AgentCore-powered reasoning step integration that can run managed AgentCore harnesses inside workflows with model, prompt, tool, session, and audit-history behavior changes.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-03T00:00:00Z",
+    "event_date": "2026-06-03",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:f3e0e0a4a7214d13",
+        "snapshot_ref": "entry:f3e0e0a4a7214d13",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-step-functions-agentcore/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-03-aws-step-functions-agentcore-reasoning",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Step Functions workflow definitions, approval controls, and agent audit logging before moving AgentCore reasoning steps into production workflows.",
+        "scope_ref": "endpoint:aws/step-functions/agentcore-reasoning-step",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "Step Functions workflow execution and Bedrock/AgentCore resources remain separately metered.",
+          "confidence": "high",
+          "direction": "unknown",
+          "magnitude": null
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Model total workflow cost using Step Functions execution volume plus Bedrock model inference and AgentCore resource usage.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the provider-impact surface and metering implications; exact pricing depends on Step Functions, Bedrock, AgentCore, model, and region choices."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:workflow_behavior_change",
+      "impact:cost"
+    ],
+    "title": "AWS Step Functions Added AgentCore-Powered Agentic Reasoning Step"
+  },
+  {
+    "announced_at": "2026-06-03T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records Bedrock regional availability, not OpenAI first-party API availability or feature parity.",
+      "model_refs": [
+        "model:openai/gpt-5.4"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-03T00:00:00Z",
+    "event_date": "2026-06-03",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:f9a04b022d9843b3",
+        "snapshot_ref": "entry:f9a04b022d9843b3",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/GPT54-available-in-aws-govcloud-us-west/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-03-aws-bedrock-gpt-54-govcloud",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify GovCloud account access, Bedrock model availability, pricing, and compliance controls before routing regulated OpenAI workloads through Bedrock.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "compliance",
+        "recommended_action": "Update region allowlists and procurement notes if GovCloud OpenAI model access changes deployment options.",
+        "scope_ref": "region:aws-govcloud-us-west",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert account eligibility, exact pricing, or feature parity beyond the official availability announcement."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "AWS announced OpenAI GPT-5.4 availability on Amazon Bedrock in AWS GovCloud US-West, expanding regulated-region deployment options for OpenAI model workloads through Bedrock.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:model_launch",
+      "region:aws_govcloud"
+    ],
+    "title": "AWS Bedrock Added OpenAI GPT-5.4 In AWS GovCloud US-West"
+  },
+  {
+    "announced_at": "2026-06-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "OpenAI announced that OpenAI frontier models and Codex are generally available on AWS, including Amazon Bedrock and AWS governance channels.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-01T00:00:00Z",
+    "event_date": "2026-06-01",
+    "event_kind": "billing_channel_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "d47637ab003f5f18e59c5a59d6adf6f4d60edf48b4abd4b4db52f6fc794e8984",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T08:40:40Z",
+        "selector": "OpenAI on AWS general availability announcement",
+        "snapshot_ref": "reviewed-source:2026-06-08",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/"
+      },
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official API changelog reviewed for corroborating factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:c1b5b4402748824a",
+        "snapshot_ref": "entry:c1b5b4402748824a",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-01-openai-codex-aws-bedrock-ga",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate whether AWS-native procurement, IAM, network controls, and Bedrock governance change the preferred route for OpenAI model or Codex adoption.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "security_engineers",
+          "finops"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Compare Codex feature availability and data-governance controls across ChatGPT sign-in, OpenAI API key, and Amazon Bedrock API key configurations.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "high",
+        "direction": "added",
+        "impact_kind": "compliance",
+        "recommended_action": "For regulated workloads, verify region availability, feature parity, and account approvals before migrating provider access paths.",
+        "scope_ref": "region:aws-govcloud",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records availability and channel facts only; it does not assert feature parity, account eligibility, or exact AWS regional coverage beyond the official announcement."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T08:40:40Z",
+    "provider_refs": [
+      "provider:openai",
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced general availability of OpenAI frontier models and Codex on AWS, adding an AWS procurement, governance, and deployment channel for affected customers.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "provider:aws-bedrock",
+      "impact:billing_channel_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Frontier Models And Codex Became Available On AWS"
+  },
+  {
+    "announced_at": "2026-04-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This event records OpenAI-announced AWS limited-preview availability and Codex provider routing. APW does not assert Bedrock account eligibility, regional parity, or final pricing.",
+      "model_refs": [
+        "model:openai/gpt-5.5"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-28T00:00:00Z",
+    "event_date": "2026-04-28",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T19:15:39Z",
+        "selector": "announcement:d259ea1d43cc9c31",
+        "snapshot_ref": "entry:d259ea1d43cc9c31",
+        "source_key": "openai.news",
+        "url": "https://openai.com/index/openai-on-aws"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-28-openai-models-codex-aws-bedrock",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Verify Bedrock access, regional coverage, quotas, pricing, and governance controls before routing OpenAI model traffic through AWS.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "finops",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Test Codex CLI, desktop app, and VS Code extension behavior when Bedrock is configured as the provider, including auth, billing attribution, and enterprise policy controls.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Bedrock Managed Agents separately from direct model invocation because orchestration, tool use, governance, and metering can differ.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Limited-preview access, AWS account eligibility, regional availability, and exact Bedrock pricing require account-level verification.",
+      "No raw announcement body is copied into APW."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T19:15:39Z",
+    "provider_refs": [
+      "provider:openai",
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_blog",
+    "summary": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.",
+    "tags": [
+      "source:official_blog",
+      "provider:openai",
+      "provider:aws_bedrock",
+      "impact:model_launch",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Models, Codex, And Managed Agents On AWS"
+  },
+  {
+    "announced_at": "2024-12-04T18:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "examples": [
+        "Long system prompts or reusable examples can become cache candidates when the model and region support the preview."
+      ],
+      "kind": "token_accounting_change",
+      "metered_units": [
+        "input_tokens",
+        "cached_prompt_tokens"
+      ],
+      "new_accounting": "Supported repeated prompt content can be cached and reused across calls, changing effective prompt-processing cost and latency.",
+      "old_accounting": "Repeated prompt content was processed without Bedrock prompt-cache reuse.",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-12-04T18:00:00Z",
+    "event_date": "2024-12-04",
+    "event_kind": "caching_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "5b95e2edae20030b8aeca8d3b4c465ec2cd196d8e476d3fea73bd2ee742b1d27",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Amazon Bedrock prompt caching announcement",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official AWS announcement",
+          "confidence": "high",
+          "direction": "decrease",
+          "magnitude": "provider-announced preview savings for supported repeated prompts"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Evaluate repeated system prompts and retrieval prefixes for supported Bedrock models before assuming cost reductions in production forecasts.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Verify model, region, and account eligibility before adding cache-dependent request paths.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "low",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Preview availability was limited at launch; eligibility can vary by model, region, and account."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:caching_change"
+    ],
+    "title": "Amazon Bedrock Adds Prompt Caching Preview"
+  }
+]

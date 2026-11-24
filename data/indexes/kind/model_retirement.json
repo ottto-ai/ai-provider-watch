@@ -1,0 +1,866 @@
+[
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-06-15T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "This event records API model retirement from Anthropic release notes. Researchers may have separate access paths; APW does not assert eligibility for exceptions.",
+      "model_refs": [
+        "model:anthropic/claude-sonnet-4-20250514",
+        "model:anthropic/claude-opus-4-20250514"
+      ],
+      "replacement_refs": [
+        "model:anthropic/claude-sonnet-4.6",
+        "model:anthropic/claude-opus-4.8"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "e9de4e04a4e337722f8558767c7b22a5b4495717334b737eeec576667aeb01a8",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:02Z",
+        "selector": "announcement:efe4be97db18acaf",
+        "snapshot_ref": "entry:efe4be97db18acaf",
+        "source_key": "anthropic.release_notes",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-anthropic-sonnet-4-opus-4-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Remove retired Claude Sonnet 4 and Claude Opus 4 IDs from routing allowlists and migrate pinned traffic to supported successor models.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Audit applications, gateways, and eval fixtures for pinned claude-sonnet-4-20250514 or claude-opus-4-20250514 model IDs before retrying failed requests.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official release-note metadata only, not account-specific exception eligibility.",
+      "The release-note candidate also mentioned successor models; APW records them as replacement refs, not as new launches."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:02Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Anthropic release notes say Claude Sonnet 4 and Claude Opus 4 API model IDs were retired on June 15, 2026, with requests to those IDs now returning errors and recommended upgrades to Sonnet 4.6 and Opus 4.8.",
+    "tags": [
+      "source:official_docs",
+      "provider:anthropic",
+      "impact:model_retirement",
+      "surface:anthropic_api"
+    ],
+    "title": "Anthropic Retired Claude Sonnet 4 And Claude Opus 4 API Models"
+  },
+  {
+    "announced_at": "2026-06-05T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-08-05T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Anthropic release notes recommend moving away from the Claude Opus 4.1 API model before the scheduled retirement date. Validate quality, cost, and parameter compatibility on replacement models before changing defaults.",
+      "model_refs": [
+        "model:anthropic/claude-opus-4-1-20250805"
+      ],
+      "replacement_refs": [
+        "model:anthropic/claude-opus-4-8"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": null,
+    "event_date": "2026-06-05",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+        "license_note": "Official release notes reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T19:08:00Z",
+        "selector": "heading:june-5-2026",
+        "snapshot_ref": "section:june-5-2026",
+        "source_key": "anthropic.release_notes",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview#june-5-2026"
+      }
+    ],
+    "expires_at": "2026-08-05T00:00:00Z",
+    "id": "2026-06-05-anthropic-opus-41-api-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "migration",
+        "recommended_action": "Remove claude-opus-4-1-20250805 from production routing, eval baselines, fallback chains, and customer-visible model selectors before August 5, 2026.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event records the Claude API retirement signal only; cloud-provider hosted availability can have separate lifecycle notices.",
+      "No provider release-note body is copied into APW."
+    ],
+    "migration_deadline": "2026-08-05T00:00:00Z",
+    "observed_at": "2026-06-10T19:08:00Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Anthropic's Claude Platform release notes announced deprecation of claude-opus-4-1-20250805 and scheduled Claude API retirement for August 5, 2026, with migration guidance toward newer Opus models.",
+    "tags": [
+      "source:official_docs",
+      "provider:anthropic",
+      "impact:model_retirement",
+      "surface:anthropic_api"
+    ],
+    "title": "Anthropic Scheduled Claude Opus 4.1 API Retirement For August 2026"
+  },
+  {
+    "announced_at": "2026-02-18T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-06-01T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "This event is for the Gemini API surface; a separate existing APW event covers the Vertex AI model-version documentation retirement signal.",
+      "model_refs": [
+        "model:gemini-2.0-flash",
+        "model:gemini-2.0-flash-001",
+        "model:gemini-2.0-flash-lite",
+        "model:gemini-2.0-flash-lite-001"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-lite",
+        "model:gemini-3.5-flash"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-01T00:00:00Z",
+    "event_date": "2026-06-01",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:48826c5dd5b7d2c2",
+        "snapshot_ref": "entry:48826c5dd5b7d2c2",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-01-google-gemini-api-20-flash-shutdown",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Remove Gemini 2.0 Flash API model IDs from production routing, allowlists, and fallback chains.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Audit logs and configs for retired Gemini API model IDs and move workloads to supported Gemini models.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The same family of model IDs may appear on multiple Google surfaces; APW keeps Gemini API and Vertex AI source evidence separate."
+    ],
+    "migration_deadline": "2026-06-01T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog records the June 1, 2026 shutdown of Gemini 2.0 Flash and Gemini 2.0 Flash-Lite model IDs on the Gemini API surface.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_retirement"
+    ],
+    "title": "Google Gemini API Shut Down Gemini 2.0 Flash Models"
+  },
+  {
+    "announced_at": null,
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-06-01T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Vertex AI users should move workloads from retired Gemini 2.0 Flash stable IDs to supported Gemini stable models.",
+      "model_refs": [
+        "model:gemini-2.0-flash-001",
+        "model:gemini-2.0-flash-lite-001"
+      ],
+      "replacement_refs": [
+        "model:gemini-2.5-flash",
+        "model:gemini-2.5-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-01T00:00:00Z",
+    "event_date": "2026-06-01",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "7d8656abd449c02462613fd1739193095e0f46ab01c3d0193935f4fd785f1bf5",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Gemini latest stable models table",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "google.vertex_model_versions",
+        "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Audit Vertex AI model IDs and migrate workloads that still reference Gemini 2.0 Flash stable models.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Refresh model allowlists, default model choices, and agent benchmarks to use supported Gemini stable models.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW reviewed this source on the retirement date; earlier provider announcement timing was not captured in this seed event."
+    ],
+    "migration_deadline": "2026-06-01T00:00:00Z",
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_retirement"
+    ],
+    "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models"
+  },
+  {
+    "announced_at": "2026-05-25T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-05-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "This event records the actual shutdown entry; the May 7 APW event records the earlier GA launch and deprecation announcement.",
+      "model_refs": [
+        "model:gemini-3.1-flash-lite-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-25T00:00:00Z",
+    "event_date": "2026-05-25",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:8de1d295a752c674",
+        "snapshot_ref": "entry:8de1d295a752c674",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-25-google-gemini-31-flash-lite-preview-shutdown",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Remove Gemini 3.1 Flash-Lite preview from routing, tests, and fallback chains and use the GA model where appropriate.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert that every Gemini API region or account had identical preview access before shutdown."
+    ],
+    "migration_deadline": "2026-05-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_retirement"
+    ],
+    "title": "Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview"
+  },
+  {
+    "announced_at": "2026-04-22T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-07-23T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "The source table contains multiple shutdown dates. APW uses the earliest date as the migration_deadline and records this event as a representative high-impact subset rather than an exhaustive copy of the table.",
+      "model_refs": [
+        "model:openai/computer-use-preview-2025-03-11",
+        "model:openai/computer-use-preview",
+        "model:openai/gpt-4o-mini-search-preview-2025-03-11",
+        "model:openai/gpt-4o-mini-tts-2025-03-20",
+        "model:openai/gpt-4o-search-preview-2025-03-11",
+        "model:openai/gpt-5-chat-latest",
+        "model:openai/gpt-5-codex",
+        "model:openai/gpt-5.1-chat-latest",
+        "model:openai/gpt-5.1-codex",
+        "model:openai/gpt-5.1-codex-max",
+        "model:openai/gpt-5.1-codex-mini",
+        "model:openai/gpt-5.2-codex",
+        "model:openai/o1",
+        "model:openai/o1-2024-12-17",
+        "model:openai/o1-pro",
+        "model:openai/o1-pro-2025-03-19",
+        "model:openai/o3-mini",
+        "model:openai/o3-mini-2025-01-31",
+        "model:openai/o4-mini",
+        "model:openai/o4-mini-2025-04-16"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-5.5",
+        "model:openai/gpt-5.5-pro",
+        "model:openai/gpt-5.4-mini",
+        "model:openai/gpt-audio-1.5",
+        "model:openai/gpt-realtime-mini"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-04-22T00:00:00Z",
+    "event_date": "2026-04-22",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+        "license_note": "Official deprecations table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:52Z",
+        "selector": "heading:2026-04-22-legacy-gpt-model-snapshots",
+        "snapshot_ref": "section:2026-04-22-legacy-gpt-model-snapshots",
+        "source_key": "openai.deprecations",
+        "url": "https://developers.openai.com/api/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-04-22-openai-legacy-gpt-snapshot-retirements",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Search code, configuration, gateway allowlists, and agent model routes for the retiring model IDs before the earliest July 23, 2026 shutdown date.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "high",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Check Codex and coding-agent routing for retired Codex aliases and validate replacements before changing defaults.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "high",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event summarizes a deprecations-table section and does not reproduce the full table.",
+      "Some affected model IDs have later October 23, 2026 shutdown dates; consumers should check the official table for model-specific deadlines."
+    ],
+    "migration_deadline": "2026-07-23T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:52Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "high",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's deprecations table schedules shutdowns for older GPT, Codex, search, audio, realtime, and reasoning model snapshots beginning July 23, 2026, with additional legacy GPT snapshot removals on October 23, 2026.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_retirement",
+      "agent:codex"
+    ],
+    "title": "OpenAI Scheduled Legacy GPT And Codex Snapshot Retirements For July And October 2026"
+  },
+  {
+    "announced_at": null,
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2025-01-27T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "The source table contains per-row 2025 retirement dates from January 27 through July 28. APW uses the earliest retirement date as the event date and migration deadline for this grouped historical event.",
+      "model_refs": [
+        "model:davinci-002",
+        "model:dall-e-2",
+        "model:gpt-4o-realtime-preview",
+        "model:gpt-35-turbo",
+        "model:gpt-35-turbo-16k",
+        "model:gpt-4",
+        "model:gpt-4-32k",
+        "model:gpt-4.5-preview",
+        "model:o1-preview"
+      ],
+      "replacement_refs": [
+        "model:gpt-image-1",
+        "model:gpt-4o-mini-realtime-preview",
+        "model:gpt-4o-mini",
+        "model:gpt-4.1-mini",
+        "model:gpt-4o",
+        "model:gpt-4.1",
+        "model:o1"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-01-27T00:00:00Z",
+    "event_date": "2025-01-27",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "bd001e951c273b452251bb4aac796a37f99602a82f888cf35ddb706de6ae5659",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T16:51:44Z",
+        "selector": "Azure OpenAI retired models table; 2025 retirement rows",
+        "snapshot_ref": "reviewed-source:2026-06-10",
+        "source_key": "azure_openai.legacy_models",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-01-27-azure-openai-2025-legacy-preview-retirements",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Audit Azure OpenAI deployments, gateway allowlists, and agent model routes for retired 2025 model IDs before replaying old examples or restoring old fallbacks.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Refresh Azure OpenAI migration notes, test fixtures, and model-selection defaults to use the listed replacement families where applicable.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical reviewed event; APW did not observe the original 2025 retirements in real time.",
+      "This event summarizes selected 2025 Azure OpenAI retirement rows and does not reproduce the full provider table.",
+      "Some affected model IDs have later 2025 retirement dates; consumers should check the official table for model-specific deadlines and replacements."
+    ],
+    "migration_deadline": "2025-01-27T00:00:00Z",
+    "observed_at": "2026-06-10T16:51:44Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Microsoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_retirement"
+    ],
+    "title": "Azure OpenAI Retired 2025 Legacy And Preview Model IDs"
+  },
+  {
+    "announced_at": "2023-07-06T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2024-06-14T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Azure deployments using legacy GPT-3, Codex, or first-generation embedding IDs need migration to supported Azure OpenAI model deployments.",
+      "model_refs": [
+        "model:ada",
+        "model:babbage",
+        "model:curie",
+        "model:davinci",
+        "model:text-ada-001",
+        "model:text-babbage-001",
+        "model:text-curie-001",
+        "model:text-davinci-002",
+        "model:text-davinci-003",
+        "model:code-cushman-001",
+        "model:code-davinci-002",
+        "model:text-similarity-ada-001",
+        "model:text-similarity-babbage-001",
+        "model:text-similarity-curie-001",
+        "model:text-similarity-davinci-001",
+        "model:text-search-ada-doc-001",
+        "model:text-search-ada-query-001",
+        "model:text-search-babbage-doc-001",
+        "model:text-search-babbage-query-001",
+        "model:text-search-curie-doc-001",
+        "model:text-search-curie-query-001",
+        "model:text-search-davinci-doc-001",
+        "model:text-search-davinci-query-001",
+        "model:code-search-ada-code-001",
+        "model:code-search-ada-text-001",
+        "model:code-search-babbage-code-001",
+        "model:code-search-babbage-text-001"
+      ],
+      "replacement_refs": [
+        "model:gpt-35-turbo-instruct",
+        "model:text-embedding-3-small"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-06-14T00:00:00Z",
+    "event_date": "2024-06-14",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "a41c040bf14faf7e945d2bbcecac16c49a6cced3205a4fa1de9601012474595a",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Azure OpenAI retired model table",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "azure_openai.legacy_models",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Audit Azure OpenAI deployments and application configuration for retired legacy model IDs before replaying old examples or templates.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Map retired Azure OpenAI model IDs to currently supported Azure model deployments and update migration notes.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical seed event; APW did not observe the original 2023 deprecation in real time."
+    ],
+    "migration_deadline": "2024-06-14T00:00:00Z",
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_retirement"
+    ],
+    "title": "Azure OpenAI Retires Legacy GPT-3 Model IDs"
+  },
+  {
+    "announced_at": "2023-07-06T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2024-01-04T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Legacy completions and embedding model IDs need explicit migration to replacement model families.",
+      "model_refs": [
+        "model:text-ada-001",
+        "model:text-babbage-001",
+        "model:text-curie-001",
+        "model:text-davinci-001",
+        "model:text-davinci-002",
+        "model:text-davinci-003",
+        "model:ada",
+        "model:babbage",
+        "model:curie",
+        "model:davinci",
+        "model:code-davinci-002",
+        "model:text-davinci-edit-001",
+        "model:code-davinci-edit-001",
+        "model:text-similarity-ada-001",
+        "model:text-search-ada-doc-001",
+        "model:text-search-ada-query-001",
+        "model:code-search-ada-code-001",
+        "model:code-search-ada-text-001",
+        "model:text-similarity-babbage-001",
+        "model:text-search-babbage-doc-001",
+        "model:text-search-babbage-query-001",
+        "model:code-search-babbage-code-001",
+        "model:code-search-babbage-text-001",
+        "model:text-similarity-curie-001",
+        "model:text-search-curie-doc-001",
+        "model:text-search-curie-query-001",
+        "model:text-similarity-davinci-001",
+        "model:text-search-davinci-doc-001",
+        "model:text-search-davinci-query-001"
+      ],
+      "replacement_refs": [
+        "model:gpt-3.5-turbo-instruct",
+        "model:babbage-002",
+        "model:davinci-002",
+        "model:text-embedding-3-small",
+        "model:gpt-4o"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-01-04T00:00:00Z",
+    "event_date": "2024-01-04",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "7d7b0591c6e35e02c7b08e92436f79d78c62f644cef43e01bf4c888ca7e5686b",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "2023-07-06 GPT and embeddings deprecation table",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "openai.deprecations",
+        "url": "https://platform.openai.com/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-01-04-openai-gpt3-completions-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Search production and agent configuration for retired model IDs and migrate affected calls before relying on this API surface.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Update SDK defaults, fixture model IDs, and documentation examples that still reference legacy completions models.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical seed event; APW did not observe the original 2023 announcement in real time."
+    ],
+    "migration_deadline": "2024-01-04T00:00:00Z",
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_retirement"
+    ],
+    "title": "OpenAI Retires Older GPT-3 Completions Models"
+  }
+]

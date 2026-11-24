@@ -1,0 +1,107 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-04-28-openai-models-codex-aws-bedrock",
+  "title": "OpenAI Added Models, Codex, And Managed Agents On AWS",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai",
+    "provider:aws-bedrock"
+  ],
+  "event_date": "2026-04-28",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T19:15:39Z",
+  "announced_at": "2026-04-28T00:00:00Z",
+  "effective_at": "2026-04-28T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI announced limited-preview AWS availability for OpenAI models on Amazon Bedrock, Codex configured to use Bedrock as a provider, and Amazon Bedrock Managed Agents powered by OpenAI.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/openai-on-aws",
+      "retrieved_at": "2026-06-11T19:15:39Z",
+      "authority": "official_blog",
+      "content_sha256": "509ab9ae6357570ce529f5848b8298a72dd4fe41455d8004d0a9bc7db776b4f8",
+      "snapshot_ref": "entry:d259ea1d43cc9c31",
+      "selector": "announcement:d259ea1d43cc9c31",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers",
+        "finops",
+        "security_engineers"
+      ],
+      "recommended_action": "Verify Bedrock access, regional coverage, quotas, pricing, and governance controls before routing OpenAI model traffic through AWS."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers",
+        "security_engineers"
+      ],
+      "recommended_action": "Test Codex CLI, desktop app, and VS Code extension behavior when Bedrock is configured as the provider, including auth, billing attribution, and enterprise policy controls."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/managed-agents",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "platform_engineers",
+        "security_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Evaluate Bedrock Managed Agents separately from direct model invocation because orchestration, tool use, governance, and metering can differ."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:openai/gpt-5.5"
+    ],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "This event records OpenAI-announced AWS limited-preview availability and Codex provider routing. APW does not assert Bedrock account eligibility, regional parity, or final pricing."
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:openai",
+    "provider:aws_bedrock",
+    "impact:model_launch",
+    "app:codex"
+  ],
+  "limitations": [
+    "Limited-preview access, AWS account eligibility, regional availability, and exact Bedrock pricing require account-level verification.",
+    "No raw announcement body is copied into APW."
+  ]
+}

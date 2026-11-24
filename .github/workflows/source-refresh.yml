@@ -1,0 +1,137 @@
+name: Source Refresh
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: uv sync --all-extras
+      - run: uv run apw source test
+      - run: uv run apw source fetch --write-state --observations .apw/source-observations.json --limit-bytes 3000000
+      - name: Generate review candidates
+        run: |
+          created_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "$created_at" > .apw/candidate-created-at.txt
+          uv run apw candidate generate \
+            --observations .apw/source-observations.json \
+            --output data/candidates/review \
+            --created-at "$created_at" \
+            --clean \
+            --skip-reviewed-duplicates \
+            > .apw/candidate-generation.json
+      - name: Rank review candidate quality
+        run: |
+          created_at="$(cat .apw/candidate-created-at.txt)"
+          uv run apw candidate quality \
+            --candidates data/candidates/review \
+            --created-at "$created_at" \
+            --output .apw/candidate-quality.json
+      - name: Decide whether a candidate-review PR is needed
+        id: review_gate
+        run: |
+          uv run apw source review-needed \
+            --observations .apw/source-observations.json \
+            --candidate-generation .apw/candidate-generation.json \
+            --candidate-quality .apw/candidate-quality.json \
+            --output .apw/source-refresh-review-needed.json \
+            --github-output "$GITHUB_OUTPUT" \
+            --summary
+      - name: Upload source-refresh observation artifacts
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: source-refresh-observations
+          path: |
+            .apw/source-observations.json
+            .apw/candidate-generation.json
+            .apw/candidate-quality.json
+            .apw/source-refresh-review-needed.json
+          if-no-files-found: ignore
+      - name: Drop non-reviewable generated candidates for source-state-only PRs
+        if: steps.review_gate.outputs.recommendation == 'open_source_state_refresh_pr'
+        run: find data/candidates/review -type f -name '*.json' -delete
+      - if: steps.review_gate.outputs.review_needed == 'true'
+        run: uv run apw index
+      - if: steps.review_gate.outputs.review_needed == 'true'
+        run: uv run apw validate
+      - if: steps.review_gate.outputs.review_needed == 'true'
+        run: uv run apw index --check
+      - name: Build candidate review PR body
+        if: steps.review_gate.outputs.review_needed == 'true'
+        run: |
+          created_at="$(cat .apw/candidate-created-at.txt)"
+          {
+            echo "uv run apw source test: pass"
+            echo "uv run apw source fetch --write-state --observations .apw/source-observations.json --limit-bytes 3000000: pass"
+            echo "uv run apw candidate generate --observations .apw/source-observations.json --output data/candidates/review --created-at ${created_at} --clean --skip-reviewed-duplicates: pass"
+            echo "uv run apw candidate quality --candidates data/candidates/review --created-at ${created_at} --output .apw/candidate-quality.json: pass"
+            echo "uv run apw source review-needed --observations .apw/source-observations.json --candidate-generation .apw/candidate-generation.json --candidate-quality .apw/candidate-quality.json: pass"
+            echo "uv run apw index: pass"
+            echo "uv run apw validate: pass"
+            echo "uv run apw index --check: pass"
+          } > .apw/candidate-review-validation.txt
+          review_body_args=()
+          if [ "${{ steps.review_gate.outputs.recommendation }}" = "open_source_state_refresh_pr" ]; then
+            review_body_args+=(--source-state-only)
+          fi
+          uv run apw candidate review-pr-body \
+            --observations .apw/source-observations.json \
+            --candidates data/candidates/review \
+            --validation-output .apw/candidate-review-validation.txt \
+            "${review_body_args[@]}" \
+            > .apw/candidate-review-pr-body.md
+      - name: Open candidate review PR when reviewable changes exist
+        if: steps.review_gate.outputs.review_needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain -- data/source-state/fingerprints.json data/candidates data/feeds data/indexes data/releases/dev)" ]; then
+            echo "No source fingerprint, candidate, or generated metadata changes."
+            exit 0
+          fi
+
+          recommendation="${{ steps.review_gate.outputs.recommendation }}"
+          if [ "$recommendation" = "open_source_state_refresh_pr" ]; then
+            branch="data/source-state-refresh-$(date -u +%Y%m%d-%H%M%S)"
+            commit_message="data: refresh source state"
+            pr_title="data: refresh source state"
+          else
+            branch="data/candidate-review-$(date -u +%Y%m%d-%H%M%S)"
+            commit_message="data: review source candidates"
+            pr_title="data: review source candidates"
+          fi
+          pr_created=0
+          cleanup_branch() {
+            if [ "$pr_created" != "1" ]; then
+              git push origin --delete "$branch" >/dev/null 2>&1 || true
+            fi
+          }
+          trap cleanup_branch EXIT
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add data/source-state/fingerprints.json data/candidates data/feeds data/indexes data/releases/dev
+          git commit -m "$commit_message"
+          git push --set-upstream origin "$branch"
+          gh pr create \
+            --draft \
+            --base main \
+            --head "$branch" \
+            --title "$pr_title" \
+            --body-file .apw/candidate-review-pr-body.md
+          pr_created=1
+          trap - EXIT

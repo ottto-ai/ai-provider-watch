@@ -1,0 +1,88 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-09-openai-codex-mobile-worktrees-goals-review",
+  "title": "OpenAI Added Codex Mobile Worktree, Goal, And Review Controls",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-06-09",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T15:12:22Z",
+  "announced_at": "2026-06-09T00:00:00Z",
+  "effective_at": "2026-06-09T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.153 records Codex Mobile support for branch/worktree setup, environment setup scripts, goal management, inline review comments, side chat from transcript selection, prompt editing, and usage/token activity views.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog",
+      "retrieved_at": "2026-06-11T15:12:22Z",
+      "authority": "official_docs",
+      "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+      "snapshot_ref": "entry:2c14eb7d1cf246a4",
+      "selector": "announcement:2c14eb7d1cf246a4",
+      "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Update mobile Codex runbooks and QA checklists for branch/worktree creation, environment setup scripts, goal workflows, and inline review comments."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "cost",
+      "direction": "changed",
+      "severity": "low",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "possible",
+      "estimated_cost_effect": {
+        "direction": "unknown",
+        "magnitude": null,
+        "basis": "official changelog records usage and token activity visibility, not a pricing or token-accounting rule change",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "coding_agent_users",
+        "platform_engineers"
+      ],
+      "recommended_action": "Use the added usage and token activity views as an observability aid, but do not treat this as a provider pricing or token-accounting change."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "ChatGPT iOS 1.2026.153 expanded Codex Mobile workflow controls for repository setup, goals, reviews, prompt editing, side chat, and usage visibility."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:openai",
+    "impact:workflow_behavior_change",
+    "app:codex"
+  ],
+  "limitations": [
+    "APW records a mobile-app workflow change, not a canonical API pricing, quota, or token-accounting change.",
+    "No raw changelog body is copied into the event."
+  ]
+}

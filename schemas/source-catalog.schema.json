@@ -1,0 +1,292 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/source-catalog.schema.json",
+  "title": "SourceCatalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "generated_by",
+    "package_version",
+    "summary",
+    "providers",
+    "sources",
+    "consumer_guidance",
+    "catalog_policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.source_catalog.v0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "generated_by": { "type": "string", "minLength": 1 },
+    "package_version": { "type": "string", "minLength": 1 },
+    "summary": { "$ref": "#/$defs/summary" },
+    "providers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/provider_catalog" }
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source_catalog" }
+    },
+    "consumer_guidance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_reviewed_feed",
+        "immutable_feed",
+        "installed_package_snapshot",
+        "review_boundary"
+      ],
+      "properties": {
+        "current_reviewed_feed": { "type": "string", "minLength": 1 },
+        "immutable_feed": { "type": "string", "minLength": 1 },
+        "installed_package_snapshot": { "type": "string", "minLength": 1 },
+        "review_boundary": { "type": "string", "minLength": 1 }
+      }
+    },
+    "catalog_policy": {
+      "type": "string",
+      "pattern": "no raw provider content"
+    }
+  },
+  "$defs": {
+    "provider_ref": {
+      "type": "string",
+      "pattern": "^provider:[a-z0-9][a-z0-9_-]*$"
+    },
+    "source_key": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_.-]*[a-z0-9]$|^[a-z0-9]$"
+    },
+    "nullable_date": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "nullable_date_time": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "nullable_string": {
+      "type": ["string", "null"]
+    },
+    "count_map": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_count",
+        "source_count",
+        "enabled_deterministic_source_count",
+        "validated_source_count",
+        "reviewed_event_count",
+        "latest_event_date",
+        "candidate_backlog_count",
+        "source_state_latest_retrieved_at",
+        "source_type_counts",
+        "cadence_counts",
+        "validation_status_counts",
+        "event_kind_counts"
+      ],
+      "properties": {
+        "provider_count": { "type": "integer", "minimum": 0 },
+        "source_count": { "type": "integer", "minimum": 0 },
+        "enabled_deterministic_source_count": { "type": "integer", "minimum": 0 },
+        "validated_source_count": { "type": "integer", "minimum": 0 },
+        "reviewed_event_count": { "type": "integer", "minimum": 0 },
+        "latest_event_date": { "$ref": "#/$defs/nullable_date" },
+        "candidate_backlog_count": { "type": "integer", "minimum": 0 },
+        "source_state_latest_retrieved_at": { "$ref": "#/$defs/nullable_date_time" },
+        "source_type_counts": { "$ref": "#/$defs/count_map" },
+        "cadence_counts": { "$ref": "#/$defs/count_map" },
+        "validation_status_counts": { "$ref": "#/$defs/count_map" },
+        "event_kind_counts": { "$ref": "#/$defs/count_map" }
+      }
+    },
+    "provider_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_ref",
+        "display_name",
+        "provider_kind",
+        "homepage_url",
+        "aliases",
+        "source_count",
+        "enabled_deterministic_source_count",
+        "validated_source_count",
+        "source_types",
+        "cadences",
+        "impact_hints",
+        "reviewed_event_count",
+        "latest_event_date",
+        "candidate_backlog_count",
+        "event_kind_counts",
+        "sources",
+        "surfaces"
+      ],
+      "properties": {
+        "provider_ref": { "$ref": "#/$defs/provider_ref" },
+        "display_name": { "type": "string", "minLength": 1 },
+        "provider_kind": { "type": "string", "minLength": 1 },
+        "homepage_url": { "type": "string", "format": "uri" },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "source_count": { "type": "integer", "minimum": 0 },
+        "enabled_deterministic_source_count": { "type": "integer", "minimum": 0 },
+        "validated_source_count": { "type": "integer", "minimum": 0 },
+        "source_types": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "cadences": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "impact_hints": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "reviewed_event_count": { "type": "integer", "minimum": 0 },
+        "latest_event_date": { "$ref": "#/$defs/nullable_date" },
+        "candidate_backlog_count": { "type": "integer", "minimum": 0 },
+        "event_kind_counts": { "$ref": "#/$defs/count_map" },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source_key" }
+        },
+        "surfaces": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/surface" }
+        }
+      }
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "display_name", "url"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "minLength": 1 },
+        "display_name": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "source_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "provider_refs",
+        "source_type",
+        "authority",
+        "url",
+        "cadence",
+        "enabled",
+        "automation_status",
+        "parser",
+        "validation_status",
+        "last_validated_at",
+        "introduced_at",
+        "introduced_ref",
+        "parser_fixture_count",
+        "reviewed_event_count",
+        "latest_event_date",
+        "candidate_backlog_count",
+        "impact_hints",
+        "rate_limit",
+        "robots_policy_note",
+        "snapshot_policy",
+        "license_note",
+        "maintainers",
+        "source_state",
+        "graduation_notes",
+        "graduation_blockers"
+      ],
+      "properties": {
+        "key": { "$ref": "#/$defs/source_key" },
+        "provider_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/provider_ref" }
+        },
+        "source_type": { "type": "string", "minLength": 1 },
+        "authority": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "cadence": { "$ref": "#/$defs/nullable_string" },
+        "enabled": { "type": "boolean" },
+        "automation_status": {
+          "enum": ["enabled_deterministic", "manual_review_only", "blocked_pending_parser"]
+        },
+        "parser": { "type": "string", "minLength": 1 },
+        "validation_status": {
+          "enum": [
+            "validated",
+            "missing_source_state",
+            "missing_parser_fixture",
+            "fetch_error",
+            "manual_review_only",
+            "blocked_pending_parser",
+            "disabled",
+            "unknown"
+          ]
+        },
+        "last_validated_at": { "$ref": "#/$defs/nullable_date_time" },
+        "introduced_at": { "$ref": "#/$defs/nullable_date_time" },
+        "introduced_ref": { "$ref": "#/$defs/nullable_string" },
+        "parser_fixture_count": { "type": "integer", "minimum": 0 },
+        "reviewed_event_count": { "type": "integer", "minimum": 0 },
+        "latest_event_date": { "$ref": "#/$defs/nullable_date" },
+        "candidate_backlog_count": { "type": "integer", "minimum": 0 },
+        "impact_hints": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "rate_limit": { "$ref": "#/$defs/nullable_string" },
+        "robots_policy_note": { "$ref": "#/$defs/nullable_string" },
+        "snapshot_policy": { "$ref": "#/$defs/nullable_string" },
+        "license_note": { "$ref": "#/$defs/nullable_string" },
+        "maintainers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "source_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "present",
+            "retrieved_at",
+            "http_status",
+            "final_url",
+            "content_sha256",
+            "fingerprint"
+          ],
+          "properties": {
+            "present": { "type": "boolean" },
+            "retrieved_at": { "$ref": "#/$defs/nullable_date_time" },
+            "http_status": { "type": ["integer", "null"], "minimum": 100, "maximum": 599 },
+            "final_url": { "$ref": "#/$defs/nullable_string" },
+            "content_sha256": {
+              "type": ["string", "null"],
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "fingerprint": {
+              "type": ["string", "null"],
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "graduation_notes": { "type": "string" },
+        "graduation_blockers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

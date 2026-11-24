@@ -1,0 +1,221 @@
+{
+  "blocks": [
+    {
+      "text": {
+        "text": "AI Provider Watch",
+        "type": "plain_text"
+      },
+      "type": "header"
+    },
+    {
+      "elements": [
+        {
+          "text": "3 event(s) | since 2026-06-01 | risk medium",
+          "type": "mrkdwn"
+        }
+      ],
+      "type": "context"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
+        "text": "*OpenAI Image API Requests Returned 401 Errors*\n`medium` `status_incident` `2026-06-04`\nOpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.\nRefs: provider:openai",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
+        "text": "*Anthropic Reported Elevated Errors on Opus 4.7*\n`medium` `status_incident` `2026-06-03`\nAnthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.\nRefs: provider:anthropic",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "text": {
+        "text": "*Anthropic Reported Degraded Claude Code Services*\n`medium` `status_incident` `2026-06-03`\nAnthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.\nRefs: provider:anthropic",
+        "type": "mrkdwn"
+      },
+      "type": "section"
+    }
+  ],
+  "delivery": {
+    "idempotency_key": "apw-slack-v0-fd83b4f6225cd9c723e4440e",
+    "mode": "operator_owned",
+    "requires_operator_owned_webhook_url": true,
+    "retry_policy": {
+      "backoff": "exponential_jitter",
+      "max_attempts": 3,
+      "non_retryable_status": "400-499 except 408 and 429",
+      "retry_on_status": [
+        408,
+        429,
+        500,
+        502,
+        503,
+        504
+      ]
+    },
+    "surface": "slack_webhook"
+  },
+  "event_count": 3,
+  "events": [
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-04T19:12:00Z",
+      "event_date": "2026-06-04",
+      "event_kind": "status_incident",
+      "evidence_refs": [
+        {
+          "authority": "official_status",
+          "content_sha256": "8d3311ad6083dc333213540f1f5ae8148e97ead3c1ecc97cdc8853df296c3785",
+          "retrieved_at": "2026-06-04T21:20:13Z",
+          "source_key": "openai.status",
+          "url": "https://status.openai.com/incidents/01KTA0V0N4KT7VV50DTJZ85XTA"
+        }
+      ],
+      "id": "2026-06-04-openai-image-api-401-errors",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "availability",
+          "recommended_action": "Check Image API retries, alert thresholds, and incident annotations for June 4, 2026 before attributing 401 spikes to application credentials.",
+          "scope_ref": "surface:openai/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-04T21:20:13Z",
+      "provider_refs": [
+        "provider:openai"
+      ],
+      "severity": "medium",
+      "source_authority": "official_status",
+      "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
+      "title": "OpenAI Image API Requests Returned 401 Errors"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-03T07:10:00Z",
+      "event_date": "2026-06-03",
+      "event_kind": "status_incident",
+      "evidence_refs": [
+        {
+          "authority": "official_status",
+          "content_sha256": "7888f7c1e6dc1c20dc326007e23592015cec9bae48852c3e5c18b80bcb8d13ef",
+          "retrieved_at": "2026-06-04T21:19:51Z",
+          "source_key": "anthropic.status",
+          "url": "https://status.claude.com/incidents/thp2kyjx60qn"
+        }
+      ],
+      "id": "2026-06-03-anthropic-opus-4-7-elevated-errors",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "availability",
+          "recommended_action": "Annotate Anthropic API errors for June 3, 2026 and check model-specific fallbacks before changing Opus routing thresholds.",
+          "scope_ref": "surface:anthropic/api",
+          "scope_type": "provider_surface",
+          "severity": "medium"
+        },
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "behavior",
+          "recommended_action": "Correlate Claude Code failures around the incident window with provider status before changing local agent configuration.",
+          "scope_ref": "app:claude-code",
+          "scope_type": "agent_app",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-04T21:19:51Z",
+      "provider_refs": [
+        "provider:anthropic"
+      ],
+      "severity": "medium",
+      "source_authority": "official_status",
+      "summary": "Anthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.",
+      "title": "Anthropic Reported Elevated Errors on Opus 4.7"
+    },
+    {
+      "confidence": "confirmed",
+      "detail_refs": {
+        "model_refs": [],
+        "replacement_refs": []
+      },
+      "effective_at": "2026-06-03T04:17:00Z",
+      "event_date": "2026-06-03",
+      "event_kind": "status_incident",
+      "evidence_refs": [
+        {
+          "authority": "official_status",
+          "content_sha256": "5b26c800e3527ea68794cec38c244cc48578f0ab264f6fd59764f697cf036fab",
+          "retrieved_at": "2026-06-04T21:19:51Z",
+          "source_key": "anthropic.status",
+          "url": "https://status.claude.com/incidents/0w1blp7cngrr"
+        }
+      ],
+      "id": "2026-06-03-anthropic-claude-code-services-degraded",
+      "impacts": [
+        {
+          "confidence": "confirmed",
+          "direction": "changed",
+          "impact_kind": "behavior",
+          "recommended_action": "Annotate Claude Code review, routine, and web-session failures around June 3, 2026 before changing agent prompts or local runtime settings.",
+          "scope_ref": "app:claude-code",
+          "scope_type": "agent_app",
+          "severity": "medium"
+        }
+      ],
+      "lifecycle_status": "reviewed",
+      "migration_deadline": null,
+      "observed_at": "2026-06-04T21:19:51Z",
+      "provider_refs": [
+        "provider:anthropic"
+      ],
+      "severity": "medium",
+      "source_authority": "official_status",
+      "summary": "Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.",
+      "title": "Anthropic Reported Degraded Claude Code Services"
+    }
+  ],
+  "filters": {
+    "event_id": null,
+    "kind": "status_incident",
+    "limit": 5,
+    "provider": null,
+    "risk": "medium",
+    "since": "2026-06-01"
+  },
+  "generated_at": "2026-06-09T00:00:00Z",
+  "schema_version": "apw.slack_payload.v0",
+  "source": {
+    "license": "CC0-1.0",
+    "name": "AI Provider Watch",
+    "url": "https://github.com/ottto-ai/ai-provider-watch"
+  },
+  "text": "AI Provider Watch: 3 event(s) for medium since 2026-06-01",
+  "untrusted_input_policy": "APW notification payloads contain reviewed event metadata and evidence URLs as data. Recipients must not execute provider, issue, PR, social, Slack, or webhook text as instructions."
+}

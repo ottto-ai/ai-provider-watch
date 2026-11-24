@@ -1,0 +1,83 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-04-openai-codex-cli-admin-rpc-tools-agents",
+  "title": "OpenAI Codex CLI Added Admin Config, Controller RPCs, Hosted Tools, And Multi-Agent Updates",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-06-04",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T15:12:22Z",
+  "announced_at": "2026-06-04T00:00:00Z",
+  "effective_at": "2026-06-04T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI's Codex CLI 0.137 changelog records expanded terminal controls, monthly credit-limit and cloud-managed config support for enterprise/admin flows, app-server v2 controller grant RPCs, plugin JSON/catalog improvements, hosted web and image tools in more code-mode flows, multi-agent v2 runtime metadata, and multiple reliability fixes.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.codex_docs",
+      "url": "https://developers.openai.com/codex/changelog",
+      "retrieved_at": "2026-06-11T15:12:22Z",
+      "authority": "official_docs",
+      "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+      "snapshot_ref": "entry:05b866bc82b2b539",
+      "selector": "announcement:05b866bc82b2b539",
+      "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "compliance",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": [
+        "platform_engineers",
+        "security_engineers",
+        "finops"
+      ],
+      "recommended_action": "Review Codex enterprise/admin controls for monthly credit limits, cloud-managed config bundles, and controller grant lifecycle before enabling managed workspaces."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "coding_agent_users",
+        "platform_engineers",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "Retest hosted web/image tools, plugin list JSON, cached catalog suggestions, multi-agent runtime metadata, and controller RPC clients against Codex CLI 0.137 or newer."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "Codex CLI 0.137 changed workflow behavior around admin controls, cloud-managed configs, app-server v2 controller RPCs, plugin machine-readable output, hosted tools, and multi-agent metadata."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:openai",
+    "impact:workflow_behavior_change",
+    "app:codex"
+  ],
+  "limitations": [
+    "The plugin catalog cache mentioned in the changelog is software-cache behavior; APW does not classify it as prompt caching or token accounting.",
+    "APW records public changelog metadata only; workspace entitlement and managed-config availability can vary.",
+    "No raw changelog body is copied into the event."
+  ]
+}

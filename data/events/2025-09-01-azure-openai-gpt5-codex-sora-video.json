@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2025-09-01-azure-openai-gpt5-codex-sora-video",
+  "title": "Azure OpenAI Added GPT-5-Codex And Sora Video-To-Video Support",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:azure-openai"],
+  "event_date": "2025-09-01",
+  "date_confidence": "approximate",
+  "observed_at": "2026-06-08T11:04:13Z",
+  "announced_at": "2025-09-01T00:00:00Z",
+  "effective_at": "2025-09-01T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Azure OpenAI what's-new notes for September 2025 list GPT-5-Codex availability and Sora video-to-video support, affecting coding-agent model access and video generation workflows on Azure.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "azure_openai.whats_new",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "retrieved_at": "2026-06-08T11:04:13Z",
+      "authority": "official_docs",
+      "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+      "snapshot_ref": "entry:5b6f69faf99eb4a7",
+      "selector": "announcement:5b6f69faf99eb4a7",
+      "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:azure-openai/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "product_engineers"],
+      "recommended_action": "Check Azure access requirements and routing rules before moving Codex or Sora workloads to these Azure OpenAI model surfaces."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:openai/gpt-5-codex", "model:openai/sora"],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "The source notes model access requirements for GPT-5-Codex; APW does not assert account eligibility."
+  },
+  "tags": ["source:official_docs", "provider:azure-openai", "impact:model_launch", "app:codex"],
+  "limitations": ["The source groups these updates under September 2025, so APW uses an approximate month-start event date."]
+}

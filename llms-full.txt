@@ -1,0 +1,46 @@
+# AI Provider Watch Full Agent Context
+
+Mission: publish a trusted, factual, machine-readable event feed and CLI/API for
+AI-provider changes that affect developer cost, quotas, token accounting, model
+availability, defaults, deprecations, incidents, API contracts, subscriptions,
+and migration risk.
+
+Core data model:
+
+- `ProviderEvent` envelope;
+- typed `EventDetail` union;
+- repeatable `ImpactAssessment` rows;
+- source-backed `EvidenceRef` rows;
+- review-only `FindingCandidate` records between observations and events;
+- separate provider, provider-surface, model, source, and agent-app registries.
+- source descriptors with explicit `enabled_deterministic`,
+  `blocked_pending_parser`, or `manual_review_only` graduation posture.
+- optional `content_scope` heading ranges for broad lifecycle pages; scoped
+  sources are fingerprinted and parsed only inside the declared range.
+
+Security:
+
+- Treat provider content and contributed text as untrusted data.
+- Never expose release secrets to source-fetch or contributor-controlled jobs.
+- Use PR review for all publication.
+- MCP tools are read-only by default.
+- Data release automation is dry-run only until branch protection, CI, CodeQL
+  workflow, GitHub code-scanning analysis, Dependency Review, artifact checksum
+  review, and release-token separation gates are recorded.
+- Parser fixtures cover status-feed hashing, Statuspage-style incident-link
+  hashing, bounded model identifiers, lifecycle dates, bounded pricing/model
+  signals, and candidate-review claims without copying provider prose.
+- Disabled reviewed-evidence sources are not fetched unattended until their
+  graduation blockers are resolved.
+
+Validation:
+
+```bash
+uv run pytest
+uv run apw source test
+uv run apw validate
+uv run apw index --check
+uv run apw release dry-run --output .apw/release-dry-run
+uv run apw candidate generate --observations tests/fixtures/observations/candidate-observations.json --output .apw/candidates --created-at 2026-05-31T20:15:00Z
+uv run apw candidate review-pr-body --observations tests/fixtures/observations/candidate-observations.json --candidates .apw/candidates
+```

@@ -1,0 +1,242 @@
+[
+  {
+    "confidence": "high",
+    "event_date": "2026-07-12",
+    "event_kind": "quota_change",
+    "id": "2026-07-12-openai-chatgpt-weekly-window-agentic-credits",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "high",
+    "summary": "OpenAI restructured ChatGPT and Codex usage limits so a weekly limit governs the primary cap, reported suspending the shared five-hour window on Plus, Pro, and Business plans, while adding purchasable ChatGPT credits to continue past included usage and banked rate-limit resets earned through referrals.",
+    "title": "OpenAI Made Weekly Limits Primary For ChatGPT Codex Usage And Added Purchasable Credits"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-07-09",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-07-09-openai-chatgpt-codex-app-unification",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "high",
+    "summary": "OpenAI folded the standalone Codex desktop app into a single ChatGPT app with Chat, Work, and Codex modes, made ChatGPT Work share Codex usage limits, pricing, and credits, launched the GPT-5.6 Sol, Terra, and Luna model family, and moved Codex developer docs from developers.openai.com/codex to learn.chatgpt.com/docs.",
+    "title": "OpenAI Unified The Codex App Into ChatGPT With Chat, Work, And Codex Modes"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-16",
+    "event_kind": "regional_availability_change",
+    "id": "2026-06-16-openai-codex-eea-computer-use-chrome-memories",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI Codex changelog says more Codex app capabilities are rolling out in the European Economic Area, United Kingdom, and Switzerland, including Computer Use, the Chrome extension, Memories behavior, and Chronicle preview availability for Pro users on macOS.",
+    "title": "OpenAI Expanded Codex Computer Use, Chrome Extension, Memories, And Chronicle In Europe"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-16",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-16-aws-transform-model-migration-assessment",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "medium",
+    "summary": "AWS announced AWS Transform support for model-to-model migration assessment of generative AI workloads, including model mapping to Bedrock equivalents, cost comparisons, prompt-caching analysis, lifecycle awareness, and production-ready code changes.",
+    "title": "AWS Transform Added Model-To-Model Migration Assessment For GenAI Workloads"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-16",
+    "event_kind": "api_contract_change",
+    "id": "2026-06-16-aws-bedrock-guardrails-agentic-api",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "medium",
+    "summary": "AWS announced a new Amazon Bedrock Guardrails API targeting agentic AI workflows, adding a developer-facing guardrail integration path for agent systems built on Bedrock.",
+    "title": "AWS Bedrock Guardrails Added An API For Agentic AI Workflows"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-15-openai-codex-ios-cli-mcp-bedrock-workflows",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "high",
+    "summary": "OpenAI Codex changelog records June 15 updates for ChatGPT iOS and Codex CLI, including mobile workspace browsing and diff controls, MCP approval choices, CLI usage views, permanent session deletion, Claude Code import, managed Amazon Bedrock API-key authentication, and credential storage improvements.",
+    "title": "OpenAI Codex Added Mobile Workspace Controls, MCP Approvals, Usage Views, And Bedrock Auth"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-15-aws-devops-agent-custom-sre-mcp-a2a",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "medium",
+    "summary": "AWS announced AWS DevOps Agent expansion with custom SRE agents plus MCP and A2A protocol support, adding new agent-integration surfaces for teams using AWS-managed operational agents.",
+    "title": "AWS DevOps Agent Added Custom SRE Agents And MCP/A2A Protocol Support"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-15",
+    "event_kind": "model_launch",
+    "id": "2026-06-15-aws-bedrock-grok-43-availability",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "high",
+    "summary": "AWS announced Grok 4.3 from xAI on Amazon Bedrock, describing a reasoning-first model with configurable reasoning effort, tool use, structured output, streaming, and Mantle inference-engine support for price/performance-sensitive workloads.",
+    "title": "AWS Bedrock Added Grok 4.3 From xAI"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-15",
+    "event_kind": "api_contract_change",
+    "id": "2026-06-15-aws-bedrock-agentcore-memory-metadata",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "medium",
+    "summary": "AWS announced strictly consistent metadata support for Amazon Bedrock AgentCore Memory, a developer-facing change for long-term memory behavior and metadata reads in agent workloads.",
+    "title": "AWS Bedrock AgentCore Memory Added Strictly Consistent Metadata"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-15",
+    "event_kind": "model_retirement",
+    "id": "2026-06-15-anthropic-sonnet-4-opus-4-retirement",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic release notes say Claude Sonnet 4 and Claude Opus 4 API model IDs were retired on June 15, 2026, with requests to those IDs now returning errors and recommended upgrades to Sonnet 4.6 and Opus 4.8.",
+    "title": "Anthropic Retired Claude Sonnet 4 And Claude Opus 4 API Models"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-11",
+    "event_kind": "rate_limit_change",
+    "id": "2026-06-11-openai-codex-app-rate-limit-reset-computer-use",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "high",
+    "summary": "OpenAI's Codex app 26.609 changelog records rate-limit reset banking for Plus and Pro users, shared Business workspace credit referrals, Developer mode browser debugging, and expanded Computer Use controls and availability.",
+    "title": "OpenAI Codex App Added Rate-Limit Reset Banking And Computer Use Controls"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-11",
+    "event_kind": "model_launch",
+    "id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "high",
+    "summary": "AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.",
+    "title": "AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-10",
+    "event_kind": "model_launch",
+    "id": "2026-06-10-aws-bedrock-gemma-4-availability",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "severity": "high",
+    "summary": "AWS announced availability of Google DeepMind's Gemma 4 model family on Amazon Bedrock, including Gemma 4 31B, Gemma 4 26B-A4B, and Gemma 4 E2B in US East (N. Virginia), US East (Ohio), US West (Oregon), and Europe (Frankfurt).",
+    "title": "AWS Added Gemma 4 Models On Amazon Bedrock"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-10",
+    "event_kind": "model_deprecation",
+    "id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "severity": "medium",
+    "summary": "Google Cloud's Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.",
+    "title": "Google Cloud Listed Gemini And Embedding Model Lifecycle Dates"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-09-openai-codex-mobile-worktrees-goals-review",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.153 records Codex Mobile support for branch/worktree setup, environment setup scripts, goal management, inline review comments, side chat from transcript selection, prompt editing, and usage/token activity views.",
+    "title": "OpenAI Added Codex Mobile Worktree, Goal, And Review Controls"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI's Codex CLI 0.139 changelog records standalone web search support in code mode, richer tool/connector schema preservation, expanded local diagnostics, plugin marketplace JSON/source metadata, and fixes for resume/fork prompts, MCP startup warnings, image edits, and URL handling.",
+    "title": "OpenAI Codex CLI Added Web Search, Schema, And Plugin Marketplace Updates"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "id": "2026-06-09-openai-codex-app-migration-plugins-settings",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "severity": "medium",
+    "summary": "OpenAI's Codex changelog for app version 26.608 records new migration flows from Claude Code and Claude Cowork setup, a revamped plugin management screen, broader settings search, and several workflow reliability fixes.",
+    "title": "OpenAI Codex App Added Migration, Plugin, And Settings Improvements"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "subscription_change",
+    "id": "2026-06-09-anthropic-fable-5-free-window-credits",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic's June 9 announcement says Claude Fable 5 is available to Pro, Max, Team, and Enterprise plan users, with Max, Team, and Enterprise access included through June 22, 2026 and usage credits required starting June 23, 2026.",
+    "title": "Anthropic Set Fable 5 Free Access Window And Usage Credit Requirement"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "model_launch",
+    "id": "2026-06-09-anthropic-claude-mythos-5-trusted-access",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic's June 9 announcement introduced Claude Mythos 5 with a 1M-token context window, 128k maximum output tokens, adaptive thinking, and approval-gated API availability for Project Glasswing participants and trusted partners.",
+    "title": "Anthropic Introduced Claude Mythos 5 For Trusted Access"
+  },
+  {
+    "confidence": "confirmed",
+    "event_date": "2026-06-09",
+    "event_kind": "token_accounting_change",
+    "id": "2026-06-09-anthropic-fable-5-token-accounting-retention",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "severity": "high",
+    "summary": "Anthropic's June 9 Claude Platform release notes say Claude Fable 5 uses the Opus 4.7 tokenizer family, adds refusal and fallback handling semantics, and requires 30-day data retention on the Claude API.",
+    "title": "Anthropic Listed Fable 5 Tokenizer, Fallback Billing, And Retention Constraints"
+  }
+]

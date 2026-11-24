@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/source-coverage.schema.json",
+  "title": "SourceCoverageReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "generated_by",
+    "package_version",
+    "summary",
+    "source_state",
+    "candidate_backlog",
+    "providers",
+    "sources",
+    "warnings",
+    "coverage_policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.source_coverage.v0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "generated_by": { "type": "string", "minLength": 1 },
+    "package_version": { "type": "string", "minLength": 1 },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_count",
+        "source_count",
+        "enabled_deterministic_source_count",
+        "fetched_enabled_source_count",
+        "missing_enabled_source_count",
+        "fetched_enabled_source_ratio",
+        "manual_review_only_source_count",
+        "blocked_pending_parser_source_count",
+        "reviewed_event_count",
+        "latest_event_date",
+        "candidate_backlog_count",
+        "warning_count"
+      ],
+      "properties": {
+        "provider_count": { "type": "integer", "minimum": 0 },
+        "source_count": { "type": "integer", "minimum": 0 },
+        "enabled_deterministic_source_count": { "type": "integer", "minimum": 0 },
+        "fetched_enabled_source_count": { "type": "integer", "minimum": 0 },
+        "missing_enabled_source_count": { "type": "integer", "minimum": 0 },
+        "fetched_enabled_source_ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "manual_review_only_source_count": { "type": "integer", "minimum": 0 },
+        "blocked_pending_parser_source_count": { "type": "integer", "minimum": 0 },
+        "reviewed_event_count": { "type": "integer", "minimum": 0 },
+        "latest_event_date": { "type": ["string", "null"], "format": "date" },
+        "candidate_backlog_count": { "type": "integer", "minimum": 0 },
+        "warning_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "source_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "present", "source_count", "latest_retrieved_at"],
+      "properties": {
+        "path": { "const": "data/source-state/fingerprints.json" },
+        "present": { "type": "boolean" },
+        "source_count": { "type": "integer", "minimum": 0 },
+        "latest_retrieved_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "candidate_backlog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "by_status"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "by_status": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "providers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/provider_coverage" }
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source_coverage" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/coverage_warning" }
+    },
+    "coverage_policy": {
+      "type": "string",
+      "pattern": "no raw provider content"
+    }
+  },
+  "$defs": {
+    "provider_ref": {
+      "type": "string",
+      "pattern": "^provider:[a-z0-9][a-z0-9_-]*$"
+    },
+    "source_key": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_.-]*[a-z0-9]$|^[a-z0-9]$"
+    },
+    "provider_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_ref",
+        "source_count",
+        "enabled_deterministic_source_count",
+        "fetched_enabled_source_count",
+        "manual_review_only_source_count",
+        "blocked_pending_parser_source_count",
+        "missing_enabled_source_keys",
+        "reviewed_event_count",
+        "latest_event_date",
+        "candidate_backlog_count"
+      ],
+      "properties": {
+        "provider_ref": { "$ref": "#/$defs/provider_ref" },
+        "source_count": { "type": "integer", "minimum": 0 },
+        "enabled_deterministic_source_count": { "type": "integer", "minimum": 0 },
+        "fetched_enabled_source_count": { "type": "integer", "minimum": 0 },
+        "manual_review_only_source_count": { "type": "integer", "minimum": 0 },
+        "blocked_pending_parser_source_count": { "type": "integer", "minimum": 0 },
+        "missing_enabled_source_keys": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source_key" }
+        },
+        "reviewed_event_count": { "type": "integer", "minimum": 0 },
+        "latest_event_date": { "type": ["string", "null"], "format": "date" },
+        "candidate_backlog_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "source_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "provider_refs",
+        "authority",
+        "source_type",
+        "enabled",
+        "automation_status",
+        "parser",
+        "coverage_status",
+        "parser_fixture_count",
+        "candidate_backlog_count",
+        "source_state",
+        "graduation_blockers"
+      ],
+      "properties": {
+        "key": { "$ref": "#/$defs/source_key" },
+        "provider_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/provider_ref" }
+        },
+        "authority": { "type": "string", "minLength": 1 },
+        "source_type": { "type": "string", "minLength": 1 },
+        "enabled": { "type": "boolean" },
+        "automation_status": {
+          "enum": ["enabled_deterministic", "manual_review_only", "blocked_pending_parser"]
+        },
+        "parser": { "type": "string", "minLength": 1 },
+        "coverage_status": {
+          "enum": [
+            "enabled_fetched",
+            "enabled_missing_source_state",
+            "manual_review_only",
+            "blocked_pending_parser",
+            "disabled"
+          ]
+        },
+        "parser_fixture_count": { "type": "integer", "minimum": 0 },
+        "candidate_backlog_count": { "type": "integer", "minimum": 0 },
+        "source_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["present", "retrieved_at", "http_status"],
+          "properties": {
+            "present": { "type": "boolean" },
+            "retrieved_at": { "type": ["string", "null"], "format": "date-time" },
+            "http_status": { "type": ["integer", "null"], "minimum": 100, "maximum": 599 }
+          }
+        },
+        "graduation_blockers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "coverage_warning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "code", "detail"],
+      "properties": {
+        "severity": { "enum": ["info", "warning"] },
+        "code": {
+          "enum": [
+            "source_state_missing",
+            "source_state_stale",
+            "enabled_source_missing_source_state",
+            "blocked_official_source",
+            "candidate_backlog_present"
+          ]
+        },
+        "detail": { "type": "string", "minLength": 1 },
+        "provider_ref": { "$ref": "#/$defs/provider_ref" },
+        "source_key": { "$ref": "#/$defs/source_key" }
+      }
+    }
+  }
+}

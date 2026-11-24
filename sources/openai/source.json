@@ -1,0 +1,52 @@
+{
+  "schema_version": "apw.source_package.v0",
+  "provider_ref": "provider:openai",
+  "source_keys": [
+    "openai.pricing",
+    "openai.status",
+    "openai.deprecations",
+    "openai.news",
+    "openai.api_changelog",
+    "openai.codex_docs"
+  ],
+  "status": "parser_fixtures",
+  "fixtures": ["fixtures/expected-sources.json"],
+  "parser_fixtures": [
+    {
+      "source_key": "openai.pricing",
+      "input": "fixtures/pricing.html",
+      "expected": "fixtures/pricing.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "openai.status",
+      "input": "fixtures/status-feed.atom",
+      "expected": "fixtures/status-feed.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "openai.news",
+      "input": "fixtures/news-feed.xml",
+      "expected": "fixtures/news-feed.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "openai.deprecations",
+      "input": "fixtures/deprecations.html",
+      "expected": "fixtures/deprecations.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "openai.api_changelog",
+      "input": "fixtures/api-changelog.html",
+      "expected": "fixtures/api-changelog.expected.json",
+      "changed": true
+    },
+    {
+      "source_key": "openai.codex_docs",
+      "input": "fixtures/codex-changelog.html",
+      "expected": "fixtures/codex-changelog.expected.json",
+      "changed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-28-anthropic-opus-48-dynamic-workflows",
+  "title": "Anthropic Added Opus 4.8 Dynamic Workflows And Effort Controls",
+  "event_kind": "workflow_behavior_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:anthropic"],
+  "event_date": "2026-05-28",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T08:40:40Z",
+  "announced_at": "2026-05-28T00:00:00Z",
+  "effective_at": "2026-05-28T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Anthropic announced Claude Opus 4.8 with Claude Code dynamic workflows, effort controls, expanded long-running agent behavior, and cheaper fast mode for affected users.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "anthropic.news",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "retrieved_at": "2026-06-08T08:40:40Z",
+      "authority": "official_blog",
+      "content_sha256": "14ec9371d86c11aab7ab7001f5454447013348f57363159c96c4feb60cf8660b",
+      "snapshot_ref": "reviewed-source:2026-06-08",
+      "selector": "Claude Opus 4.8 announcement",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:claude-code",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "product_engineers"],
+      "recommended_action": "Review Claude Code workflows that assume single-agent or short-running execution, and add usage controls before enabling larger dynamic workflow runs."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:claude-code",
+      "impact_kind": "quota",
+      "direction": "increase",
+      "severity": "high",
+      "confidence": "high",
+      "subscription_impact": "direct",
+      "api_usage_impact": "unknown",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "finops"],
+      "recommended_action": "Check account and plan limits before treating larger Claude Code runs as free additional capacity."
+    },
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:claude-code",
+      "impact_kind": "cost",
+      "direction": "decrease",
+      "severity": "medium",
+      "confidence": "high",
+      "subscription_impact": "direct",
+      "api_usage_impact": "possible",
+      "estimated_cost_effect": {
+        "direction": "decrease",
+        "magnitude": "fast mode for Opus 4.8 is advertised as three times cheaper than previous models",
+        "basis": "official Anthropic announcement",
+        "confidence": "high"
+      },
+      "who_should_care": ["finops", "coding_agent_users", "platform_engineers"],
+      "recommended_action": "Separate fast-mode usage from higher-effort usage when forecasting Claude Code spend and token-limit pressure."
+    }
+  ],
+  "detail": {
+    "kind": "generic_change",
+    "schema_version": "apw.event_detail.v0",
+    "change_summary": "Anthropic announced Claude Opus 4.8 along with Claude Code dynamic workflows, effort controls, higher long-running-agent capacity, and cheaper fast mode."
+  },
+  "tags": ["source:official_blog", "provider:anthropic", "impact:workflow_behavior_change", "app:claude-code"],
+  "limitations": ["APW records official announcement facts only; exact account-level rate limits and plan entitlements may vary."]
+}

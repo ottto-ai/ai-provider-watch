@@ -1,0 +1,43 @@
+{
+  "name": "ai-provider-watch",
+  "version": "0.1.0",
+  "description": "Read AI-provider change events, check downstream repo impact, and review APW source/data changes.",
+  "author": {
+    "name": "AI Provider Watch maintainers",
+    "url": "https://github.com/ottto-ai"
+  },
+  "homepage": "https://github.com/ottto-ai/ai-provider-watch",
+  "repository": "https://github.com/ottto-ai/ai-provider-watch",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ai-provider-watch",
+    "provider-events",
+    "mcp",
+    "codex",
+    "finops",
+    "model-risk"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "AI Provider Watch",
+    "shortDescription": "Read provider-change events and repo impact",
+    "longDescription": "AI Provider Watch helps Codex consume reviewed AI-provider change events, inspect downstream provider/model references, review source candidates, and prepare APW releases through deterministic local CLI and read-only MCP surfaces.",
+    "developerName": "AI Provider Watch maintainers",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read"
+    ],
+    "websiteURL": "https://github.com/ottto-ai/ai-provider-watch",
+    "privacyPolicyURL": "https://github.com/ottto-ai/ai-provider-watch/blob/main/SECURITY.md",
+    "termsOfServiceURL": "https://github.com/ottto-ai/ai-provider-watch/blob/main/GOVERNANCE.md",
+    "defaultPrompt": [
+      "Check this repo for AI provider changes",
+      "Explain the latest APW provider events",
+      "Review APW source candidates safely"
+    ],
+    "brandColor": "#185ABC",
+    "screenshots": []
+  }
+}

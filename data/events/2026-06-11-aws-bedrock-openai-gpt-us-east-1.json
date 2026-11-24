@@ -1,0 +1,106 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-11-aws-bedrock-openai-gpt-us-east-1",
+  "title": "AWS Bedrock Added OpenAI GPT-5.4 And GPT-5.5 In US East N. Virginia",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "event_date": "2026-06-11",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T09:15:49Z",
+  "announced_at": "2026-06-11T00:12:00Z",
+  "effective_at": "2026-06-11T00:12:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced OpenAI GPT-5.4 and GPT-5.5 availability on Amazon Bedrock in US East (N. Virginia), expanding regional Bedrock access for OpenAI model workloads through the Responses API.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/openai-gpt-us-east-virginia-amazon/",
+      "retrieved_at": "2026-06-11T09:15:49Z",
+      "authority": "official_blog",
+      "content_sha256": "7c0b3dfac5f9beba2a22ba209bf1039e24cefc262f6d53cfe53ec5e3efa0a7cc",
+      "snapshot_ref": "entry:fab193d75fdfa2ea",
+      "selector": "announcement:fab193d75fdfa2ea",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers",
+        "coding_agent_users",
+        "finops"
+      ],
+      "recommended_action": "Verify us-east-1 account access, Bedrock model availability, pricing, quotas, and Responses API behavior before routing GPT-5.4 or GPT-5.5 workloads through Bedrock."
+    },
+    {
+      "scope_type": "cloud_region",
+      "scope_ref": "region:aws-us-east-1",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "security_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Update regional allowlists, data-residency notes, and fallback routing if us-east-1 Bedrock availability changes preferred OpenAI model placement."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "quota",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "sdk_maintainers",
+        "coding_agent_users"
+      ],
+      "recommended_action": "Refresh model metadata for context-window assumptions, multimodal input support, tool-calling support, and streaming behavior before exposing these Bedrock model IDs through gateways or SDK defaults."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:openai/gpt-5.4",
+      "model:openai/gpt-5.5"
+    ],
+    "lifecycle_action": "launch",
+    "replacement_refs": [],
+    "deadline": null,
+    "migration_notes": "This event records Bedrock regional availability, not OpenAI first-party API availability, account eligibility, exact pricing, or feature parity."
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:aws-bedrock",
+    "impact:model_launch",
+    "region:aws_us_east_1"
+  ],
+  "limitations": [
+    "APW records availability and regional facts only; exact account eligibility, quota, pricing, latency, and feature parity require AWS account-level verification.",
+    "The official announcement was reviewed for factual metadata; no provider prose is copied into APW."
+  ]
+}

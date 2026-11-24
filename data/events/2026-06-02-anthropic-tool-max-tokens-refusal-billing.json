@@ -1,0 +1,96 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-02-anthropic-tool-max-tokens-refusal-billing",
+  "title": "Anthropic Added Tool max_tokens And No-Output Refusal Billing Relief",
+  "event_kind": "token_accounting_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "event_date": "2026-06-02",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-10T19:08:00Z",
+  "announced_at": "2026-06-02T00:00:00Z",
+  "effective_at": "2026-06-02T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Anthropic's June 2 Claude Platform release notes list a tool-level max_tokens cap for output control and state that no-output refusal responses on the Claude API are no longer billed.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview#june-2-2026",
+      "retrieved_at": "2026-06-10T19:08:00Z",
+      "authority": "official_docs",
+      "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+      "snapshot_ref": "section:june-2-2026",
+      "selector": "heading:june-2-2026",
+      "license_note": "Official release notes reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:anthropic/api",
+      "impact_kind": "cost",
+      "direction": "decrease",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "estimated_cost_effect": {
+        "direction": "decrease",
+        "magnitude": "bounded tool output and no billing for refusals before output generation",
+        "basis": "official release-note statements about tool max_tokens and no-output refusal billing",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "platform_engineers",
+        "coding_agent_users"
+      ],
+      "recommended_action": "Set tool max_tokens for workloads that do not need full-length tool responses and update billing attribution for no-output refusals."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:anthropic/api",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "low",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "sdk_maintainers",
+        "platform_engineers"
+      ],
+      "recommended_action": "Expose tool max_tokens in API wrappers and make refusal billing logic depend on whether output tokens were generated."
+    }
+  ],
+  "detail": {
+    "kind": "token_accounting_change",
+    "schema_version": "apw.event_detail.v0",
+    "metered_units": [
+      "tool_output_tokens",
+      "refused_request_billing"
+    ],
+    "old_accounting": "Tool calls could produce full-length outputs unless constrained elsewhere; refusal billing needed local invoice verification.",
+    "new_accounting": "Tool definitions can cap output with max_tokens, and Claude API requests that return stop_reason=refusal before output generation are not billed.",
+    "examples": [
+      "Use tools[].max_tokens to cap tool output on short-review workflows.",
+      "Classify no-output refusal responses separately from billed completion responses."
+    ]
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:anthropic",
+    "impact:token_accounting_change",
+    "surface:anthropic_api"
+  ],
+  "limitations": [
+    "APW records provider-stated billing behavior and does not reconcile invoices.",
+    "No raw release-note text is committed."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "changed": true,
+  "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "Azure OpenAI official dated source reports a model availability change on 2026-05 for api, azure-openai, realtime-api.",
+        "evidence_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+        "selector": "announcement:1a70f9ad25711718",
+        "snapshot_ref": "entry:1a70f9ad25711718"
+      },
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "Azure OpenAI official dated source reports a model availability change on 2026-02 for audio, azure-openai, gpt-audio-1.5, gpt-realtime-1.5, realtime-api.",
+        "evidence_url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+        "selector": "announcement:9167e8b91ca9102f",
+        "snapshot_ref": "entry:9167e8b91ca9102f"
+      }
+    ],
+    "errors": [],
+    "items": [
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "584047b719e879ab4ffcc6aaf7ac7c9cdc19e0a82efc4a641dc1b900157adc8c",
+        "published_date": "2026-05",
+        "source_parser": "azure_openai_whats_new",
+        "subjects": [
+          "api",
+          "azure-openai",
+          "realtime-api"
+        ],
+        "title_sha256": "1a70f9ad25711718b0898a1f315a6074533028fe9fc883bf76745a12b3d31133"
+      },
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "584047b719e879ab4ffcc6aaf7ac7c9cdc19e0a82efc4a641dc1b900157adc8c",
+        "published_date": "2026-02",
+        "source_parser": "azure_openai_whats_new",
+        "subjects": [
+          "audio",
+          "azure-openai",
+          "gpt-audio-1.5",
+          "gpt-realtime-1.5",
+          "realtime-api"
+        ],
+        "title_sha256": "9167e8b91ca9102fcf4a86d043e04800113de40f4221aebd55cc7efb11d9b14a"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "snapshot_ref": null
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "azure_openai.whats_new"
+}

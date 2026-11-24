@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-02-01-azure-openai-gpt-realtime-audio-15",
+  "title": "Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:azure-openai"],
+  "event_date": "2026-02-01",
+  "date_confidence": "approximate",
+  "observed_at": "2026-06-08T11:04:13Z",
+  "announced_at": "2026-02-01T00:00:00Z",
+  "effective_at": "2026-02-01T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Azure OpenAI what's-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "azure_openai.whats_new",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new",
+      "retrieved_at": "2026-06-08T11:04:13Z",
+      "authority": "official_docs",
+      "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+      "snapshot_ref": "entry:b4a4be274eb40fa9",
+      "selector": "announcement:b4a4be274eb40fa9",
+      "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:azure-openai/api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": ["product_engineers", "platform_engineers"],
+      "recommended_action": "Evaluate Azure OpenAI GPT-Realtime-1.5 and GPT-Audio-1.5 for voice-first applications, tool calling, and multilingual audio requirements."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:openai/gpt-realtime-1.5", "model:openai/gpt-audio-1.5"],
+    "lifecycle_action": "launch",
+    "replacement_refs": ["model:openai/gpt-realtime", "model:openai/gpt-audio"],
+    "deadline": null,
+    "migration_notes": "This monthly source entry does not enumerate region availability or pricing."
+  },
+  "tags": ["source:official_docs", "provider:azure-openai", "impact:model_launch"],
+  "limitations": ["The source groups these updates under February 2026, so APW uses an approximate month-start event date."]
+}

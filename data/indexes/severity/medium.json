@@ -1,0 +1,2593 @@
+[
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app capabilities expanded across EEA, UK, and Switzerland, including desktop Computer Use, Chrome extension access, Memories behavior, and Chronicle preview availability.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "regional_availability_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "70471a77fe26cbf26530f255ece6cd9a8eeab0067957c684074ccda4383c1d83",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:28Z",
+        "selector": "announcement:7d3577a92340acf0",
+        "snapshot_ref": "entry:7d3577a92340acf0",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-openai-codex-eea-computer-use-chrome-memories",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Re-check regional Codex app enablement, Chrome extension policies, and Computer Use approvals before updating European workspace runbooks.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Confirm Memories defaults and Chronicle eligibility before relying on persisted preferences or screen-context memory in regulated regional workspaces.",
+        "scope_ref": "region:eea-uk-ch",
+        "scope_type": "cloud_region",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Rollout timing and workspace eligibility may vary by account, plan, platform, and region."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:28Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI Codex changelog says more Codex app capabilities are rolling out in the European Economic Area, United Kingdom, and Switzerland, including Computer Use, the Chrome extension, Memories behavior, and Chronicle preview availability for Pro users on macOS.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:regional_availability_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Expanded Codex Computer Use, Chrome Extension, Memories, And Chronicle In Europe"
+  },
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Transform added generative-AI model migration assessment that can compare current model usage with Bedrock alternatives and surface code, prompt-caching, lifecycle, and cost recommendations.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c007f28dfbb2acf6",
+        "snapshot_ref": "entry:c007f28dfbb2acf6",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-transform-model-to-model-assessments"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-transform-model-migration-assessment",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Use the assessment output as review input when migrating OpenAI, Gemini, Anthropic SDK, LiteLLM, or Ollama workloads toward Bedrock; do not apply generated code changes without normal review.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "cost",
+        "recommended_action": "Compare APW and AWS Transform cost findings before changing multi-provider routing defaults.",
+        "scope_ref": "gateway:litellm",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the AWS migration-assessment feature as provider-change context; it does not validate generated migrations or AWS cost estimates."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS Transform support for model-to-model migration assessment of generative AI workloads, including model mapping to Bedrock equivalents, cost comparisons, prompt-caching analysis, lifecycle awareness, and production-ready code changes.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:migration",
+      "surface:aws_bedrock",
+      "gateway:litellm"
+    ],
+    "title": "AWS Transform Added Model-To-Model Migration Assessment For GenAI Workloads"
+  },
+  {
+    "announced_at": "2026-06-16T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "agentic_workflow_guardrail_api"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/guardrails/agentic-workflows"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-16T00:00:00Z",
+    "event_date": "2026-06-16",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:561d3c9e616d78cd",
+        "snapshot_ref": "entry:561d3c9e616d78cd",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-guardrails-api-ai/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-16-aws-bedrock-guardrails-agentic-api",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Review guardrail integration points for agent workflows before changing safety or compliance controls.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Add compatibility tests for the new Guardrails API if Bedrock agents or custom agent frameworks call guardrails directly.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public AWS announcement only; it does not assert regional coverage, IAM policy details, or SDK version support."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a new Amazon Bedrock Guardrails API targeting agentic AI workflows, adding a developer-facing guardrail integration path for agent systems built on Bedrock.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:api_contract_change",
+      "impact:security",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock Guardrails Added An API For Agentic AI Workflows"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS DevOps Agent gained custom SRE agent support and MCP/A2A protocol integration paths for operational agent workflows.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:c9f791c5a991760f",
+        "snapshot_ref": "entry:c9f791c5a991760f",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-devops-agent-custom-agents/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-devops-agent-custom-sre-mcp-a2a",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review custom SRE agent permissions, MCP/A2A boundaries, and runbook ownership before enabling in production operations.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Treat new MCP/A2A integrations as untrusted tool surfaces and validate least-privilege policies before connecting agent hosts.",
+        "scope_ref": "gateway:mcp",
+        "scope_type": "gateway",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to an agent workflow/protocol surface change."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced AWS DevOps Agent expansion with custom SRE agents plus MCP and A2A protocol support, adding new agent-integration surfaces for teams using AWS-managed operational agents.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:workflow_behavior_change",
+      "gateway:mcp",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS DevOps Agent Added Custom SRE Agents And MCP/A2A Protocol Support"
+  },
+  {
+    "announced_at": "2026-06-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "long_term_memory_metadata_consistency"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:aws-bedrock/agentcore-memory"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-15T00:00:00Z",
+    "event_date": "2026-06-15",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+        "license_note": "Official source reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-17T02:17:05Z",
+        "selector": "announcement:dc63cbdab3b50b47",
+        "snapshot_ref": "entry:dc63cbdab3b50b47",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/05/agentcore-memory-scmetadata"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-15-aws-bedrock-agentcore-memory-metadata",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest agent memory flows that depend on metadata ordering, freshness, or read-after-write assumptions.",
+        "scope_ref": "surface:aws-bedrock/managed-agents",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Update AgentCore Memory wrappers and tests to account for strictly consistent metadata semantics where enabled.",
+        "scope_ref": "endpoint:aws-bedrock/agentcore-memory",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source-review candidate classified this as model availability; source-owner review corrected it to AgentCore API/behavior metadata semantics."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-17T02:17:05Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced strictly consistent metadata support for Amazon Bedrock AgentCore Memory, a developer-facing change for long-term memory behavior and metadata reads in agent workloads.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws_bedrock",
+      "impact:api_contract_change",
+      "surface:aws_bedrock"
+    ],
+    "title": "AWS Bedrock AgentCore Memory Added Strictly Consistent Metadata"
+  },
+  {
+    "announced_at": null,
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": "2026-10-16T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "The source uses mixed wording: some model IDs have exact dates, while Gemini 2.5 IDs are listed as not before October 16, 2026 and gemini-embedding-001 is listed as no sooner than May 20, 2028. APW records the earliest listed lifecycle boundary for alerting and keeps exact-date caveats in limitations.",
+      "model_refs": [
+        "model:google/gemini-2.5-pro",
+        "model:google/gemini-2.5-flash",
+        "model:google/gemini-2.5-flash-lite",
+        "model:google/gemini-live-2.5-flash-native-audio",
+        "model:google/gemini-2.5-flash-image",
+        "model:google/gemini-embedding-001",
+        "model:google/text-embedding-005",
+        "model:google/text-embedding-004",
+        "model:google/text-multilingual-embedding-002",
+        "model:google/multimodalembedding@001"
+      ],
+      "replacement_refs": [
+        "model:google/gemini-3.5-flash",
+        "model:google/gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": null,
+    "event_date": "2026-06-10",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "43617b78f364cb2c02bdbd3b5d259ac1089057913e29a4d63d704c06a970fdcf",
+        "license_note": "Official lifecycle table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:49Z",
+        "selector": "heading:latest-stable-models",
+        "snapshot_ref": "section:latest-stable-models",
+        "source_key": "google.vertex_model_versions",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Track the listed lifecycle dates in model allowlists and agent-routing tests, especially if production workloads still pin Gemini 2.5 or older embedding IDs.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "availability",
+        "recommended_action": "Do not treat the October 16, 2026 date as an exact shutdown; use it as the earliest listed lifecycle boundary and monitor the official page for final retirement updates.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event is a planning signal from the reviewed lifecycle table, not a claim that every listed model has the same exact shutdown date.",
+      "Google may update final retirement dates; consumers should monitor the official lifecycle page before making irreversible migrations."
+    ],
+    "migration_deadline": "2026-10-16T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:49Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Cloud's Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_deprecation",
+      "surface:vertex_ai"
+    ],
+    "title": "Google Cloud Listed Gemini And Embedding Model Lifecycle Dates"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "ChatGPT iOS 1.2026.153 expanded Codex Mobile workflow controls for repository setup, goals, reviews, prompt editing, side chat, and usage visibility.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:2c14eb7d1cf246a4",
+        "snapshot_ref": "entry:2c14eb7d1cf246a4",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-mobile-worktrees-goals-review",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Update mobile Codex runbooks and QA checklists for branch/worktree creation, environment setup scripts, goal workflows, and inline review comments.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "official changelog records usage and token activity visibility, not a pricing or token-accounting rule change",
+          "confidence": "confirmed",
+          "direction": "unknown",
+          "magnitude": null
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Use the added usage and token activity views as an observability aid, but do not treat this as a provider pricing or token-accounting change.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "finops",
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records a mobile-app workflow change, not a canonical API pricing, quota, or token-accounting change.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.153 records Codex Mobile support for branch/worktree setup, environment setup scripts, goal management, inline review comments, side chat from transcript selection, prompt editing, and usage/token activity views.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Added Codex Mobile Worktree, Goal, And Review Controls"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex CLI 0.139 changed agent workflow behavior around code-mode web search, MCP/tool schema compatibility, diagnostics, plugin marketplace metadata, and several CLI reliability paths.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:78597976f1c82cf1",
+        "snapshot_ref": "entry:78597976f1c82cf1",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-cli-web-search-schema-marketplace",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Retest Codex CLI code-mode runs that depend on web search, nested tool calls, MCP schemas, plugin marketplace automation, image edits, or resume/fork prompt handling.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "security",
+        "recommended_action": "Review local diagnostic collection expectations because Codex CLI reports more environment context while redacting raw JSON values.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The plugin catalog cache mentioned in the changelog is software-cache behavior; APW does not classify it as prompt caching or token accounting.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex CLI 0.139 changelog records standalone web search support in code mode, richer tool/connector schema preservation, expanded local diagnostics, plugin marketplace JSON/source metadata, and fixes for resume/fork prompts, MCP startup warnings, image edits, and URL handling.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex CLI Added Web Search, Schema, And Plugin Marketplace Updates"
+  },
+  {
+    "announced_at": "2026-06-09T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app 26.608 added migration support from adjacent coding-agent setups, improved plugin management and settings search, and changed several workflow reliability behaviors.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-09T00:00:00Z",
+    "event_date": "2026-06-09",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:1dcfa1780ecfef2b",
+        "snapshot_ref": "entry:1dcfa1780ecfef2b",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-09-openai-codex-app-migration-plugins-settings",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "migration",
+        "recommended_action": "Review imported configuration and plugin permissions when moving teams from Claude Code or Claude Cowork setup into Codex.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Re-check plugin installation flows, settings discoverability, and review-diff ordering before comparing Codex app behavior with pre-26.608 baselines.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the provider changelog metadata only; tenant eligibility, desktop platform rollout, and exact plugin marketplace availability can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for app version 26.608 records new migration flows from Claude Code and Claude Cowork setup, a revamped plugin management screen, broader settings search, and several workflow reliability fixes.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex App Added Migration, Plugin, And Settings Improvements"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "Codex app 26.602 changed workflow quality and onboarding behavior around Computer Use readiness, appshot reporting, plugin config writes, review/browser UI, and profile usage surfaces.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "fc700ef6ee6a531b9ac6914f0471e4222eeb5335511d90fe1ae9b576ecaac4a2",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T15:12:22Z",
+        "selector": "announcement:bd51c9f398a08a37",
+        "snapshot_ref": "entry:bd51c9f398a08a37",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-codex-app-computer-use-plugin-config",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "quality",
+        "recommended_action": "Re-test Computer Use startup, appshot diagnostics, browser/review UI paths, and plugin installation config writes before attributing failures to local setup.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update onboarding and profile/usage documentation if team guidance references the pre-26.602 Codex app surfaces.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event records app workflow and reliability changes, not a provider status incident or API-level outage.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T15:12:22Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex app 26.602 changelog records profile activity insights/share cards, Computer Use startup readiness and appshot error-reporting improvements, browser/review UI fixes, expanded onboarding role choices, and a fix for configuration writes after plugin installation.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex App Improved Computer Use Startup And Plugin Config Writes"
+  },
+  {
+    "announced_at": "2026-06-04T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "moderation"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:openai/responses",
+        "endpoint:openai/chat-completions"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-04T00:00:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:77f0d7c2044f227f",
+        "snapshot_ref": "entry:77f0d7c2044f227f",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-moderation-scores-api",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review SDK request/response handling and safety telemetry pipelines if moderation scores should be captured inline with generation responses.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers",
+          "security_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public API contract addition only; exact SDK support, rollout, and moderation-policy handling should be checked against current OpenAI API docs before implementation."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI added moderation-score output support to Responses API and Chat Completions generation requests, letting callers request moderation results for both input and generated output in the same response path.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:api_contract_change",
+      "surface:openai_api"
+    ],
+    "title": "OpenAI Added Moderation Scores To Generation API Responses"
+  },
+  {
+    "announced_at": "2026-06-04T19:12:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "components": [
+        "APIs",
+        "Image API"
+      ],
+      "kind": "status_incident",
+      "provider_incident_id": "01KTA0V0N4KT7VV50DTJZ85XTA",
+      "raw_status": "resolved degraded performance",
+      "resolved_at": "2026-06-04T19:52:18Z",
+      "schema_version": "apw.event_detail.v0",
+      "started_at": "2026-06-04T19:12:00Z",
+      "status": "resolved"
+    },
+    "effective_at": "2026-06-04T19:12:00Z",
+    "event_date": "2026-06-04",
+    "event_kind": "status_incident",
+    "evidence_refs": [
+      {
+        "authority": "official_status",
+        "content_sha256": "8d3311ad6083dc333213540f1f5ae8148e97ead3c1ecc97cdc8853df296c3785",
+        "license_note": "Official status page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-04T21:20:13Z",
+        "selector": "Image API 401 status incident",
+        "snapshot_ref": "reviewed-source:2026-06-04",
+        "source_key": "openai.status",
+        "url": "https://status.openai.com/incidents/01KTA0V0N4KT7VV50DTJZ85XTA"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-04-openai-image-api-401-errors",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "availability",
+        "recommended_action": "Check Image API retries, alert thresholds, and incident annotations for June 4, 2026 before attributing 401 spikes to application credentials.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-04T21:20:13Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_status",
+    "summary": "OpenAI status recorded a resolved degraded-performance incident where Image API requests returned 401 errors, affecting API users during the incident window.",
+    "tags": [
+      "source:official_status",
+      "provider:openai",
+      "impact:status_incident",
+      "surface:api"
+    ],
+    "title": "OpenAI Image API Requests Returned 401 Errors"
+  },
+  {
+    "announced_at": "2026-06-03T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "AWS Step Functions added an AgentCore-powered reasoning step integration that can run managed AgentCore harnesses inside workflows with model, prompt, tool, session, and audit-history behavior changes.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-03T00:00:00Z",
+    "event_date": "2026-06-03",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+        "license_note": "Official announcement reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:03:55Z",
+        "selector": "announcement:f3e0e0a4a7214d13",
+        "snapshot_ref": "entry:f3e0e0a4a7214d13",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-step-functions-agentcore/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-03-aws-step-functions-agentcore-reasoning",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Review Step Functions workflow definitions, approval controls, and agent audit logging before moving AgentCore reasoning steps into production workflows.",
+        "scope_ref": "endpoint:aws/step-functions/agentcore-reasoning-step",
+        "scope_type": "api_endpoint",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "reliability_engineers",
+          "security_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "estimated_cost_effect": {
+          "basis": "Step Functions workflow execution and Bedrock/AgentCore resources remain separately metered.",
+          "confidence": "high",
+          "direction": "unknown",
+          "magnitude": null
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Model total workflow cost using Step Functions execution volume plus Bedrock model inference and AgentCore resource usage.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "direct",
+        "who_should_care": [
+          "finops",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the provider-impact surface and metering implications; exact pricing depends on Step Functions, Bedrock, AgentCore, model, and region choices."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:03:55Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced an AWS Step Functions integration with Amazon Bedrock AgentCore for agentic reasoning steps, including per-invocation model/tool overrides, workflow history, and separate Step Functions plus Bedrock/AgentCore cost surfaces.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:workflow_behavior_change",
+      "impact:cost"
+    ],
+    "title": "AWS Step Functions Added AgentCore-Powered Agentic Reasoning Step"
+  },
+  {
+    "announced_at": "2026-06-03T07:10:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "components": [
+        "claude.ai",
+        "Claude Console",
+        "Claude API",
+        "Claude Code"
+      ],
+      "kind": "status_incident",
+      "provider_incident_id": "thp2kyjx60qn",
+      "raw_status": "resolved",
+      "resolved_at": "2026-06-03T07:38:00Z",
+      "schema_version": "apw.event_detail.v0",
+      "started_at": "2026-06-03T07:10:00Z",
+      "status": "resolved"
+    },
+    "effective_at": "2026-06-03T07:10:00Z",
+    "event_date": "2026-06-03",
+    "event_kind": "status_incident",
+    "evidence_refs": [
+      {
+        "authority": "official_status",
+        "content_sha256": "7888f7c1e6dc1c20dc326007e23592015cec9bae48852c3e5c18b80bcb8d13ef",
+        "license_note": "Official status page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-04T21:19:51Z",
+        "selector": "Opus 4.7 elevated errors status incident",
+        "snapshot_ref": "reviewed-source:2026-06-04",
+        "source_key": "anthropic.status",
+        "url": "https://status.claude.com/incidents/thp2kyjx60qn"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-03-anthropic-opus-4-7-elevated-errors",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "availability",
+        "recommended_action": "Annotate Anthropic API errors for June 3, 2026 and check model-specific fallbacks before changing Opus routing thresholds.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "reliability_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Correlate Claude Code failures around the incident window with provider status before changing local agent configuration.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The status page names the model display surface but APW does not yet maintain a registered model ref for Opus 4.7."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-04T21:19:51Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_status",
+    "summary": "Anthropic status recorded a resolved incident for elevated errors on Opus 4.7 affecting Claude product and developer surfaces.",
+    "tags": [
+      "source:official_status",
+      "provider:anthropic",
+      "impact:status_incident",
+      "app:claude-code"
+    ],
+    "title": "Anthropic Reported Elevated Errors on Opus 4.7"
+  },
+  {
+    "announced_at": "2026-06-03T04:17:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "components": [
+        "Claude Code"
+      ],
+      "kind": "status_incident",
+      "provider_incident_id": "0w1blp7cngrr",
+      "raw_status": "resolved",
+      "resolved_at": "2026-06-03T07:36:00Z",
+      "schema_version": "apw.event_detail.v0",
+      "started_at": "2026-06-03T04:17:00Z",
+      "status": "resolved"
+    },
+    "effective_at": "2026-06-03T04:17:00Z",
+    "event_date": "2026-06-03",
+    "event_kind": "status_incident",
+    "evidence_refs": [
+      {
+        "authority": "official_status",
+        "content_sha256": "5b26c800e3527ea68794cec38c244cc48578f0ab264f6fd59764f697cf036fab",
+        "license_note": "Official status page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-04T21:19:51Z",
+        "selector": "Claude Code degraded services status incident",
+        "snapshot_ref": "reviewed-source:2026-06-04",
+        "source_key": "anthropic.status",
+        "url": "https://status.claude.com/incidents/0w1blp7cngrr"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-03-anthropic-claude-code-services-degraded",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Annotate Claude Code review, routine, and web-session failures around June 3, 2026 before changing agent prompts or local runtime settings.",
+        "scope_ref": "app:claude-code",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The incident affected Claude Code service behavior; it is not evidence of a model, token-accounting, pricing, or quota change."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-04T21:19:51Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_status",
+    "summary": "Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.",
+    "tags": [
+      "source:official_status",
+      "provider:anthropic",
+      "impact:status_incident",
+      "app:claude-code"
+    ],
+    "title": "Anthropic Reported Degraded Claude Code Services"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "change_summary": "ChatGPT for iOS 1.2026.146 changed Codex Mobile workflow behavior around follow-up defaults, code-diff display, Windows SSH host access, side conversations, and mobile task-lock controls.",
+      "kind": "generic_change",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "workflow_behavior_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "47fd9b7d659da01be202a4313cbf35718c5b0544463e240dca2e13c411f355b5",
+        "license_note": "Official Codex changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-12T10:40:30Z",
+        "selector": "announcement:c02b3b4bcf0d9352",
+        "snapshot_ref": "entry:c02b3b4bcf0d9352",
+        "source_key": "openai.codex_docs",
+        "url": "https://developers.openai.com/codex/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-codex-mobile-defaults-windows-ssh-side-chat",
+    "impacts": [
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Update Codex Mobile team runbooks for follow-up defaults, line wrapping, Windows SSH host setup, side-chat workflows, and mobile task-lock expectations before comparing behavior with earlier iOS builds.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "coding_agent_users",
+          "platform_engineers",
+          "product_engineers"
+        ]
+      },
+      {
+        "api_usage_impact": "none",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Decide whether mobile device-lock controls should be required for teams that review Codex tasks or changed files on iOS.",
+        "scope_ref": "app:codex",
+        "scope_type": "agent_app",
+        "severity": "low",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "security_engineers",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records official changelog metadata only; exact mobile rollout and account eligibility can vary.",
+      "No raw changelog body is copied into the event."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-12T10:40:30Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's Codex changelog for ChatGPT iOS 1.2026.146 records Codex Mobile support for Queue or Steer default follow-up behavior, code-diff line wrapping, Windows SSH connections, side conversations, and device-lock controls.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:workflow_behavior_change",
+      "app:codex"
+    ],
+    "title": "OpenAI Codex Mobile Added Defaults, Windows SSH, And Side Chat Controls"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "examples": [
+        "Use tools[].max_tokens to cap tool output on short-review workflows.",
+        "Classify no-output refusal responses separately from billed completion responses."
+      ],
+      "kind": "token_accounting_change",
+      "metered_units": [
+        "tool_output_tokens",
+        "refused_request_billing"
+      ],
+      "new_accounting": "Tool definitions can cap output with max_tokens, and Claude API requests that return stop_reason=refusal before output generation are not billed.",
+      "old_accounting": "Tool calls could produce full-length outputs unless constrained elsewhere; refusal billing needed local invoice verification.",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "token_accounting_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+        "license_note": "Official release notes reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T19:08:00Z",
+        "selector": "heading:june-2-2026",
+        "snapshot_ref": "section:june-2-2026",
+        "source_key": "anthropic.release_notes",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview#june-2-2026"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-anthropic-tool-max-tokens-refusal-billing",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official release-note statements about tool max_tokens and no-output refusal billing",
+          "confidence": "confirmed",
+          "direction": "decrease",
+          "magnitude": "bounded tool output and no billing for refusals before output generation"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Set tool max_tokens for workloads that do not need full-length tool responses and update billing attribution for no-output refusals.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "finops",
+          "platform_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "behavior",
+        "recommended_action": "Expose tool max_tokens in API wrappers and make refusal billing logic depend on whether output tokens were generated.",
+        "scope_ref": "surface:anthropic/api",
+        "scope_type": "provider_surface",
+        "severity": "low",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "sdk_maintainers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records provider-stated billing behavior and does not reconcile invoices.",
+      "No raw release-note text is committed."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-10T19:08:00Z",
+    "provider_refs": [
+      "provider:anthropic"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Anthropic's June 2 Claude Platform release notes list a tool-level max_tokens cap for output control and state that no-output refusal responses on the Claude API are no longer billed.",
+    "tags": [
+      "source:official_docs",
+      "provider:anthropic",
+      "impact:token_accounting_change",
+      "surface:anthropic_api"
+    ],
+    "title": "Anthropic Added Tool max_tokens And No-Output Refusal Billing Relief"
+  },
+  {
+    "announced_at": "2026-06-02T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-12-01T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "The candidate parser emitted one row that treated GPT Image 2 as retired; source-owner review corrected that field because the official table lists GPT Image 2 as the replacement.",
+      "model_refs": [
+        "model:openai/gpt-image-1-mini",
+        "model:openai/gpt-image-1.5",
+        "model:openai/chatgpt-image-latest"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-image-2"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-02T00:00:00Z",
+    "event_date": "2026-06-02",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+        "license_note": "Official deprecations table reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T10:32:52Z",
+        "selector": "heading:2026-06-02-gpt-image-model-deprecations",
+        "snapshot_ref": "section:2026-06-02-gpt-image-model-deprecations",
+        "source_key": "openai.deprecations",
+        "url": "https://developers.openai.com/api/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-02-openai-gpt-image-model-deprecations",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Replace deprecated GPT Image IDs in image-generation workflows, allowlists, examples, and tests before December 1, 2026.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "This event records the model IDs visible in the reviewed source section and does not assert image quality, feature parity, or pricing differences for the replacement."
+    ],
+    "migration_deadline": "2026-12-01T00:00:00Z",
+    "observed_at": "2026-06-10T10:32:52Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_deprecation",
+      "surface:image_generation"
+    ],
+    "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown"
+  },
+  {
+    "announced_at": null,
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-06-01T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Vertex AI users should move workloads from retired Gemini 2.0 Flash stable IDs to supported Gemini stable models.",
+      "model_refs": [
+        "model:gemini-2.0-flash-001",
+        "model:gemini-2.0-flash-lite-001"
+      ],
+      "replacement_refs": [
+        "model:gemini-2.5-flash",
+        "model:gemini-2.5-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-06-01T00:00:00Z",
+    "event_date": "2026-06-01",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "7d8656abd449c02462613fd1739193095e0f46ab01c3d0193935f4fd785f1bf5",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Gemini latest stable models table",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "google.vertex_model_versions",
+        "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-06-01-google-vertex-gemini-2-0-flash-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Audit Vertex AI model IDs and migrate workloads that still reference Gemini 2.0 Flash stable models.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Refresh model allowlists, default model choices, and agent benchmarks to use supported Gemini stable models.",
+        "scope_ref": "surface:google/vertex-ai",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW reviewed this source on the retirement date; earlier provider announcement timing was not captured in this seed event."
+    ],
+    "migration_deadline": "2026-06-01T00:00:00Z",
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Vertex AI model-version documentation lists Gemini 2.0 Flash stable model IDs with a June 1, 2026 retirement date and points developers toward newer Gemini stable models.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_retirement"
+    ],
+    "title": "Google Vertex AI Retires Gemini 2.0 Flash Stable Models"
+  },
+  {
+    "announced_at": "2026-05-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "fallback_policy": "Underlying snapshot may update over time; OpenAI's changelog points production users toward stable model choices.",
+      "kind": "default_model_change",
+      "new_default": "model_alias:openai/chat-latest",
+      "old_default": null,
+      "rollout_window": null,
+      "schema_version": "apw.event_detail.v0",
+      "surface_ref": "surface:openai/api"
+    },
+    "effective_at": "2026-05-28T00:00:00Z",
+    "event_date": "2026-05-28",
+    "event_kind": "default_model_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:9ce1a02db80e9ba0",
+        "snapshot_ref": "entry:9ce1a02db80e9ba0",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-28-openai-chat-latest-alias",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Use chat-latest only where floating model behavior is acceptable; pin production workflows to stable model IDs when repeatability matters.",
+        "scope_ref": "model_alias:openai/chat-latest",
+        "scope_type": "model_alias",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records alias behavior only; it does not assert the current underlying model snapshot, quality, latency, or production suitability."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:04:40Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI added the chat-latest API snapshot alias for testing the latest chat improvements, with an underlying model snapshot that can update over time.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:default_model_change",
+      "surface:openai_api",
+      "alias:chat_latest"
+    ],
+    "title": "OpenAI Added The chat-latest API Snapshot Alias"
+  },
+  {
+    "announced_at": "2026-05-28T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-06-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "deprecation",
+      "migration_notes": "Gemini API image preview model consumers should migrate to supported image model IDs and refresh allowlists, tests, and fallback routing.",
+      "model_refs": [
+        "model:gemini-3.1-flash-image-preview",
+        "model:gemini-3-pro-image-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-image",
+        "model:gemini-3-pro-image"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-28T00:00:00Z",
+    "event_date": "2026-05-28",
+    "event_kind": "model_deprecation",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:d4be0e8a5abed300",
+        "snapshot_ref": "entry:d4be0e8a5abed300",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-28-google-gemini-image-preview-deprecations",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Replace deprecated Gemini image preview model IDs before the June 25, 2026 shutdown date.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the model IDs and shutdown deadline from the changelog; replacement model suitability is workload-specific."
+    ],
+    "migration_deadline": "2026-06-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog deprecated Gemini image preview model IDs and gave a June 25, 2026 shutdown date, creating a migration deadline for image-generation and multimodal workflows.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_deprecation"
+    ],
+    "title": "Google Gemini API Deprecated Gemini Image Preview Models"
+  },
+  {
+    "announced_at": "2026-05-26T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "changed_parameters": [
+        "identity_token",
+        "access_token",
+        "api_key_storage"
+      ],
+      "compatibility": "compatible",
+      "endpoint_refs": [
+        "endpoint:openai/auth/workload-identity-federation"
+      ],
+      "kind": "api_contract_change",
+      "migration_deadline": null,
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-26T00:00:00Z",
+    "event_date": "2026-05-26",
+    "event_kind": "api_contract_change",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-11T12:11:27Z",
+        "selector": "announcement:3017ae508fb206ee",
+        "snapshot_ref": "entry:3017ae508fb206ee",
+        "source_key": "openai.api_changelog",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-26-openai-workload-identity-federation",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "security",
+        "recommended_action": "Evaluate workload identity federation for CI, production services, and agent runners that currently store long-lived OpenAI API keys.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "security_engineers",
+          "sdk_maintainers",
+          "reliability_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the public API access capability only; teams must validate provider documentation, account eligibility, issuer configuration, and rollout status before replacing stored keys."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-11T12:15:00Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:api_contract_change",
+      "impact:security",
+      "surface:openai_api"
+    ],
+    "title": "OpenAI Added Workload Identity Federation For API Access"
+  },
+  {
+    "announced_at": "2026-05-25T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-05-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "This event records the actual shutdown entry; the May 7 APW event records the earlier GA launch and deprecation announcement.",
+      "model_refs": [
+        "model:gemini-3.1-flash-lite-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-25T00:00:00Z",
+    "event_date": "2026-05-25",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:8de1d295a752c674",
+        "snapshot_ref": "entry:8de1d295a752c674",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-25-google-gemini-31-flash-lite-preview-shutdown",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Remove Gemini 3.1 Flash-Lite preview from routing, tests, and fallback chains and use the GA model where appropriate.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert that every Gemini API region or account had identical preview access before shutdown."
+    ],
+    "migration_deadline": "2026-05-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog records the shutdown of the Gemini 3.1 Flash-Lite preview model and directs developers to the generally available Gemini 3.1 Flash-Lite model.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_retirement"
+    ],
+    "title": "Google Gemini API Shut Down Gemini 3.1 Flash-Lite Preview"
+  },
+  {
+    "announced_at": "2026-05-07T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2026-05-25T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "The GA model launch and preview deprecation are captured together because they are announced in the same changelog entry.",
+      "model_refs": [
+        "model:gemini-3.1-flash-lite",
+        "model:gemini-3.1-flash-lite-preview"
+      ],
+      "replacement_refs": [
+        "model:gemini-3.1-flash-lite"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-05-07T00:00:00Z",
+    "event_date": "2026-05-07",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+        "license_note": "Official changelog reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:15Z",
+        "selector": "announcement:c49577c9ea994109",
+        "snapshot_ref": "entry:c49577c9ea994109",
+        "source_key": "google.gemini_changelog",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Gemini 3.1 Flash-Lite GA for cost-sensitive Gemini API workloads and move off the preview model before shutdown.",
+        "scope_ref": "surface:google/gemini-api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "finops"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW does not assert workload-level cost savings; verify pricing and quality before migration."
+    ],
+    "migration_deadline": "2026-05-25T00:00:00Z",
+    "observed_at": "2026-06-08T11:04:15Z",
+    "provider_refs": [
+      "provider:google"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.",
+    "tags": [
+      "source:official_docs",
+      "provider:google",
+      "impact:model_launch",
+      "impact:model_deprecation"
+    ],
+    "title": "Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview"
+  },
+  {
+    "announced_at": "2026-02-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "This monthly source entry does not enumerate region availability or pricing.",
+      "model_refs": [
+        "model:openai/gpt-realtime-1.5",
+        "model:openai/gpt-audio-1.5"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-realtime",
+        "model:openai/gpt-audio"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2026-02-01T00:00:00Z",
+    "event_date": "2026-02-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:b4a4be274eb40fa9",
+        "snapshot_ref": "entry:b4a4be274eb40fa9",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2026-02-01-azure-openai-gpt-realtime-audio-15",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Evaluate Azure OpenAI GPT-Realtime-1.5 and GPT-Audio-1.5 for voice-first applications, tool calling, and multilingual audio requirements.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source groups these updates under February 2026, so APW uses an approximate month-start event date."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for February 2026 list GPT-Realtime-1.5 and GPT-Audio-1.5 availability for existing chat-completion API usage in Microsoft Foundry.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT-Realtime-1.5 And GPT-Audio-1.5"
+  },
+  {
+    "announced_at": "2025-12-15T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "Some models may require limited-access approval; APW does not assert access eligibility.",
+      "model_refs": [
+        "model:openai/gpt-image-1.5",
+        "model:openai/gpt-4o-mini-transcribe-2025-12-15",
+        "model:openai/gpt-realtime-mini-2025-12-15",
+        "model:openai/gpt-4o-mini-tts-2025-12-15"
+      ],
+      "replacement_refs": [
+        "model:openai/gpt-image-1",
+        "model:openai/gpt-4o-transcribe-mini"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-12-15T00:00:00Z",
+    "event_date": "2025-12-15",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:6784ee397c68e714",
+        "snapshot_ref": "entry:6784ee397c68e714",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-12-15-azure-openai-gpt-image-audio-model-updates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Refresh Azure OpenAI image and audio model allowlists, tests, and access requests for the December model updates.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "APW records the listed Azure OpenAI model-update facts; exact regions and access gates should be checked in Azure before deployment."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes list GPT-image-1.5 availability plus December 2025 transcription, realtime-mini, and text-to-speech model updates for API-only audio and image workflows.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added GPT-Image-1.5 And December Audio Model Updates"
+  },
+  {
+    "announced_at": "2025-10-01T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "approximate",
+    "detail": {
+      "deadline": null,
+      "kind": "model_lifecycle",
+      "lifecycle_action": "launch",
+      "migration_notes": "Realtime SIP support is tracked in this model-availability event as an adjacent API workflow change.",
+      "model_refs": [
+        "model:openai/gpt-4o-transcribe-diarize",
+        "model:openai/gpt-image-1-mini"
+      ],
+      "replacement_refs": [],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-10-01T00:00:00Z",
+    "event_date": "2025-10-01",
+    "event_kind": "model_launch",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "94a6f365a2bcb67a6fbf507e6201e84e8c2205b40cd79cc5d7bdf0253bb9a9b4",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-08T11:04:13Z",
+        "selector": "announcement:d7e34b7a124014a9",
+        "snapshot_ref": "entry:d7e34b7a124014a9",
+        "source_key": "azure_openai.whats_new",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/whats-new"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-10-01-azure-openai-audio-image-model-updates",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "availability",
+        "recommended_action": "Review Azure OpenAI audio, realtime, and image-generation model options for routing, access, cost, and feature-fit changes.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "product_engineers",
+          "platform_engineers",
+          "finops"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "The source groups these updates under October 2025, so APW uses an approximate month-start event date."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-08T11:04:13Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Azure OpenAI what's-new notes for October 2025 list Realtime API SIP support, GPT-4o transcribe diarization, and GPT-image-1-mini global deployment availability.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_launch"
+    ],
+    "title": "Azure OpenAI Added Realtime SIP, GPT-4o Diarization, And GPT-Image-1-Mini"
+  },
+  {
+    "announced_at": null,
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2025-01-27T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "The source table contains per-row 2025 retirement dates from January 27 through July 28. APW uses the earliest retirement date as the event date and migration deadline for this grouped historical event.",
+      "model_refs": [
+        "model:davinci-002",
+        "model:dall-e-2",
+        "model:gpt-4o-realtime-preview",
+        "model:gpt-35-turbo",
+        "model:gpt-35-turbo-16k",
+        "model:gpt-4",
+        "model:gpt-4-32k",
+        "model:gpt-4.5-preview",
+        "model:o1-preview"
+      ],
+      "replacement_refs": [
+        "model:gpt-image-1",
+        "model:gpt-4o-mini-realtime-preview",
+        "model:gpt-4o-mini",
+        "model:gpt-4.1-mini",
+        "model:gpt-4o",
+        "model:gpt-4.1",
+        "model:o1"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2025-01-27T00:00:00Z",
+    "event_date": "2025-01-27",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "bd001e951c273b452251bb4aac796a37f99602a82f888cf35ddb706de6ae5659",
+        "license_note": "Official Microsoft Learn page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-10T16:51:44Z",
+        "selector": "Azure OpenAI retired models table; 2025 retirement rows",
+        "snapshot_ref": "reviewed-source:2026-06-10",
+        "source_key": "azure_openai.legacy_models",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models"
+      }
+    ],
+    "expires_at": null,
+    "id": "2025-01-27-azure-openai-2025-legacy-preview-retirements",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Audit Azure OpenAI deployments, gateway allowlists, and agent model routes for retired 2025 model IDs before replaying old examples or restoring old fallbacks.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Refresh Azure OpenAI migration notes, test fixtures, and model-selection defaults to use the listed replacement families where applicable.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical reviewed event; APW did not observe the original 2025 retirements in real time.",
+      "This event summarizes selected 2025 Azure OpenAI retirement rows and does not reproduce the full provider table.",
+      "Some affected model IDs have later 2025 retirement dates; consumers should check the official table for model-specific deadlines and replacements."
+    ],
+    "migration_deadline": "2025-01-27T00:00:00Z",
+    "observed_at": "2026-06-10T16:51:44Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Microsoft Learn lists Azure OpenAI 2025 retirements for legacy and preview model IDs including davinci-002, DALL-E 2, GPT-35 Turbo variants, GPT-4 snapshots, GPT-4.5 preview, GPT-4o realtime preview, and o1-preview.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_retirement"
+    ],
+    "title": "Azure OpenAI Retired 2025 Legacy And Preview Model IDs"
+  },
+  {
+    "announced_at": "2024-12-04T18:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "examples": [
+        "Long system prompts or reusable examples can become cache candidates when the model and region support the preview."
+      ],
+      "kind": "token_accounting_change",
+      "metered_units": [
+        "input_tokens",
+        "cached_prompt_tokens"
+      ],
+      "new_accounting": "Supported repeated prompt content can be cached and reused across calls, changing effective prompt-processing cost and latency.",
+      "old_accounting": "Repeated prompt content was processed without Bedrock prompt-cache reuse.",
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-12-04T18:00:00Z",
+    "event_date": "2024-12-04",
+    "event_kind": "caching_change",
+    "evidence_refs": [
+      {
+        "authority": "official_blog",
+        "content_sha256": "5b95e2edae20030b8aeca8d3b4c465ec2cd196d8e476d3fea73bd2ee742b1d27",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Amazon Bedrock prompt caching announcement",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "aws_bedrock.whats_new",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-bedrock-preview-prompt-caching/"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-12-04-aws-bedrock-prompt-caching-preview",
+    "impacts": [
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "decrease",
+        "estimated_cost_effect": {
+          "basis": "official AWS announcement",
+          "confidence": "high",
+          "direction": "decrease",
+          "magnitude": "provider-announced preview savings for supported repeated prompts"
+        },
+        "impact_kind": "cost",
+        "recommended_action": "Evaluate repeated system prompts and retrieval prefixes for supported Bedrock models before assuming cost reductions in production forecasts.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "possible",
+        "who_should_care": [
+          "platform_engineers",
+          "finops",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "possible",
+        "confidence": "confirmed",
+        "direction": "added",
+        "impact_kind": "behavior",
+        "recommended_action": "Verify model, region, and account eligibility before adding cache-dependent request paths.",
+        "scope_ref": "surface:aws-bedrock/api",
+        "scope_type": "provider_surface",
+        "severity": "low",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Preview availability was limited at launch; eligibility can vary by model, region, and account."
+    ],
+    "migration_deadline": null,
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:aws-bedrock"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_blog",
+    "summary": "AWS announced a preview of Amazon Bedrock prompt caching, allowing supported models and regions to reuse repeated prompt content and change token-processing cost behavior.",
+    "tags": [
+      "source:official_blog",
+      "provider:aws-bedrock",
+      "impact:caching_change"
+    ],
+    "title": "Amazon Bedrock Adds Prompt Caching Preview"
+  },
+  {
+    "announced_at": "2023-07-06T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2024-06-14T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Azure deployments using legacy GPT-3, Codex, or first-generation embedding IDs need migration to supported Azure OpenAI model deployments.",
+      "model_refs": [
+        "model:ada",
+        "model:babbage",
+        "model:curie",
+        "model:davinci",
+        "model:text-ada-001",
+        "model:text-babbage-001",
+        "model:text-curie-001",
+        "model:text-davinci-002",
+        "model:text-davinci-003",
+        "model:code-cushman-001",
+        "model:code-davinci-002",
+        "model:text-similarity-ada-001",
+        "model:text-similarity-babbage-001",
+        "model:text-similarity-curie-001",
+        "model:text-similarity-davinci-001",
+        "model:text-search-ada-doc-001",
+        "model:text-search-ada-query-001",
+        "model:text-search-babbage-doc-001",
+        "model:text-search-babbage-query-001",
+        "model:text-search-curie-doc-001",
+        "model:text-search-curie-query-001",
+        "model:text-search-davinci-doc-001",
+        "model:text-search-davinci-query-001",
+        "model:code-search-ada-code-001",
+        "model:code-search-ada-text-001",
+        "model:code-search-babbage-code-001",
+        "model:code-search-babbage-text-001"
+      ],
+      "replacement_refs": [
+        "model:gpt-35-turbo-instruct",
+        "model:text-embedding-3-small"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-06-14T00:00:00Z",
+    "event_date": "2024-06-14",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "a41c040bf14faf7e945d2bbcecac16c49a6cced3205a4fa1de9601012474595a",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "Azure OpenAI retired model table",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "azure_openai.legacy_models",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/legacy-models"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-06-14-azure-openai-legacy-gpt3-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Audit Azure OpenAI deployments and application configuration for retired legacy model IDs before replaying old examples or templates.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Map retired Azure OpenAI model IDs to currently supported Azure model deployments and update migration notes.",
+        "scope_ref": "surface:azure-openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical seed event; APW did not observe the original 2023 deprecation in real time."
+    ],
+    "migration_deadline": "2024-06-14T00:00:00Z",
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:azure-openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "Microsoft Learn lists legacy Azure OpenAI GPT-3, Codex, and first-generation embedding model IDs as retired, with replacement guidance for newer instruct and embedding models.",
+    "tags": [
+      "source:official_docs",
+      "provider:azure-openai",
+      "impact:model_retirement"
+    ],
+    "title": "Azure OpenAI Retires Legacy GPT-3 Model IDs"
+  },
+  {
+    "announced_at": "2023-07-06T00:00:00Z",
+    "confidence": "confirmed",
+    "date_confidence": "exact",
+    "detail": {
+      "deadline": "2024-01-04T00:00:00Z",
+      "kind": "model_lifecycle",
+      "lifecycle_action": "retirement",
+      "migration_notes": "Legacy completions and embedding model IDs need explicit migration to replacement model families.",
+      "model_refs": [
+        "model:text-ada-001",
+        "model:text-babbage-001",
+        "model:text-curie-001",
+        "model:text-davinci-001",
+        "model:text-davinci-002",
+        "model:text-davinci-003",
+        "model:ada",
+        "model:babbage",
+        "model:curie",
+        "model:davinci",
+        "model:code-davinci-002",
+        "model:text-davinci-edit-001",
+        "model:code-davinci-edit-001",
+        "model:text-similarity-ada-001",
+        "model:text-search-ada-doc-001",
+        "model:text-search-ada-query-001",
+        "model:code-search-ada-code-001",
+        "model:code-search-ada-text-001",
+        "model:text-similarity-babbage-001",
+        "model:text-search-babbage-doc-001",
+        "model:text-search-babbage-query-001",
+        "model:code-search-babbage-code-001",
+        "model:code-search-babbage-text-001",
+        "model:text-similarity-curie-001",
+        "model:text-search-curie-doc-001",
+        "model:text-search-curie-query-001",
+        "model:text-similarity-davinci-001",
+        "model:text-search-davinci-doc-001",
+        "model:text-search-davinci-query-001"
+      ],
+      "replacement_refs": [
+        "model:gpt-3.5-turbo-instruct",
+        "model:babbage-002",
+        "model:davinci-002",
+        "model:text-embedding-3-small",
+        "model:gpt-4o"
+      ],
+      "schema_version": "apw.event_detail.v0"
+    },
+    "effective_at": "2024-01-04T00:00:00Z",
+    "event_date": "2024-01-04",
+    "event_kind": "model_retirement",
+    "evidence_refs": [
+      {
+        "authority": "official_docs",
+        "content_sha256": "7d7b0591c6e35e02c7b08e92436f79d78c62f644cef43e01bf4c888ca7e5686b",
+        "license_note": "Official provider page reviewed for factual metadata; no provider prose copied.",
+        "retrieved_at": "2026-06-01T10:36:49Z",
+        "selector": "2023-07-06 GPT and embeddings deprecation table",
+        "snapshot_ref": "reviewed-source:2026-06-01",
+        "source_key": "openai.deprecations",
+        "url": "https://platform.openai.com/docs/deprecations"
+      }
+    ],
+    "expires_at": null,
+    "id": "2024-01-04-openai-gpt3-completions-retirement",
+    "impacts": [
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "removed",
+        "impact_kind": "availability",
+        "recommended_action": "Search production and agent configuration for retired model IDs and migrate affected calls before relying on this API surface.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "subscription_impact": "none",
+        "who_should_care": [
+          "platform_engineers",
+          "product_engineers",
+          "coding_agent_users"
+        ]
+      },
+      {
+        "api_usage_impact": "direct",
+        "confidence": "confirmed",
+        "direction": "changed",
+        "impact_kind": "migration",
+        "recommended_action": "Update SDK defaults, fixture model IDs, and documentation examples that still reference legacy completions models.",
+        "scope_ref": "surface:openai/api",
+        "scope_type": "provider_surface",
+        "severity": "medium",
+        "who_should_care": [
+          "platform_engineers",
+          "sdk_maintainers"
+        ]
+      }
+    ],
+    "lifecycle_status": "reviewed",
+    "limitations": [
+      "Historical seed event; APW did not observe the original 2023 announcement in real time."
+    ],
+    "migration_deadline": "2024-01-04T00:00:00Z",
+    "observed_at": "2026-06-01T10:36:49Z",
+    "provider_refs": [
+      "provider:openai"
+    ],
+    "schema_version": "apw.provider_event.v0",
+    "severity": "medium",
+    "source_authority": "official_docs",
+    "summary": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.",
+    "tags": [
+      "source:official_docs",
+      "provider:openai",
+      "impact:model_retirement"
+    ],
+    "title": "OpenAI Retires Older GPT-3 Completions Models"
+  }
+]

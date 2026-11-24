@@ -1,0 +1,66 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-06-google-gemini-interactions-api-breaking-change",
+  "title": "Google Gemini API Announced Interactions API Schema Cutover",
+  "event_kind": "api_contract_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:google"],
+  "event_date": "2026-05-06",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T11:04:15Z",
+  "announced_at": "2026-05-06T00:00:00Z",
+  "effective_at": "2026-05-26T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2026-06-08T00:00:00Z",
+  "summary": "Google Gemini API changelog announced a breaking Interactions API request/response schema cutover, with a new default schema on May 26, 2026 and legacy schema removal on June 8, 2026.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "google.gemini_changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "retrieved_at": "2026-06-08T11:04:15Z",
+      "authority": "official_docs",
+      "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+      "snapshot_ref": "entry:c15caec61e8b794e",
+      "selector": "announcement:c15caec61e8b794e",
+      "license_note": "Official changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "api_endpoint",
+      "scope_ref": "endpoint:google/gemini-api/interactions",
+      "impact_kind": "migration",
+      "direction": "changed",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "sdk_maintainers", "product_engineers"],
+      "recommended_action": "Update Interactions API request/response handling before the legacy schema removal deadline."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:google/gemini-api",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "api_usage_impact": "direct",
+      "who_should_care": ["sdk_maintainers", "coding_agent_users"],
+      "recommended_action": "Refresh SDK adapters, response parsers, fixtures, and eval harnesses that consume Interactions API output."
+    }
+  ],
+  "detail": {
+    "kind": "api_contract_change",
+    "schema_version": "apw.event_detail.v0",
+    "endpoint_refs": ["endpoint:google/gemini-api/interactions"],
+    "changed_parameters": ["outputs-to-steps-schema", "response_format-output-configuration"],
+    "compatibility": "breaking",
+    "migration_deadline": "2026-06-08T00:00:00Z"
+  },
+  "tags": ["source:official_docs", "provider:google", "impact:api_contract_change"],
+  "limitations": ["APW records the changelog-level schema and deadline facts; implementation details should be verified against the official migration guide before code changes."]
+}

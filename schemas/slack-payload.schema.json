@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/slack-payload.schema.json",
+  "title": "SlackPayload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "source",
+    "filters",
+    "delivery",
+    "text",
+    "blocks",
+    "event_count",
+    "events",
+    "untrusted_input_policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.slack_payload.v0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "source": { "$ref": "#/$defs/source" },
+    "filters": { "$ref": "#/$defs/filters" },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "surface",
+        "requires_operator_owned_webhook_url",
+        "idempotency_key",
+        "retry_policy"
+      ],
+      "properties": {
+        "mode": { "const": "operator_owned" },
+        "surface": { "const": "slack_webhook" },
+        "requires_operator_owned_webhook_url": { "const": true },
+        "idempotency_key": { "type": "string", "pattern": "^apw-slack-v0-[a-f0-9]{24}$" },
+        "retry_policy": { "$ref": "#/$defs/retry_policy" }
+      }
+    },
+    "text": { "type": "string", "minLength": 1, "maxLength": 4000 },
+    "blocks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": { "enum": ["header", "context", "divider", "section"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "event_count": { "type": "integer", "minimum": 0 },
+    "events": { "type": "array", "items": { "$ref": "#/$defs/event" } },
+    "untrusted_input_policy": { "type": "string", "minLength": 40, "maxLength": 400 }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "url", "license"],
+      "properties": {
+        "name": { "const": "AI Provider Watch" },
+        "url": { "type": "string", "format": "uri" },
+        "license": { "const": "CC0-1.0" }
+      }
+    },
+    "filters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["since", "risk", "provider", "kind", "event_id", "limit"],
+      "properties": {
+        "since": { "type": "string", "minLength": 2, "maxLength": 20 },
+        "risk": { "type": ["string", "null"], "enum": ["info", "low", "medium", "high", "critical", null] },
+        "provider": { "type": ["string", "null"], "maxLength": 120 },
+        "kind": { "type": ["string", "null"], "maxLength": 80 },
+        "event_id": { "type": ["string", "null"], "maxLength": 160 },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 100 }
+      }
+    },
+    "retry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_attempts", "backoff", "retry_on_status", "non_retryable_status"],
+      "properties": {
+        "max_attempts": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "backoff": { "const": "exponential_jitter" },
+        "retry_on_status": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 100, "maximum": 599 }
+        },
+        "non_retryable_status": { "type": "string", "minLength": 3, "maxLength": 80 }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "event_kind",
+        "lifecycle_status",
+        "event_date",
+        "observed_at",
+        "effective_at",
+        "migration_deadline",
+        "severity",
+        "confidence",
+        "source_authority",
+        "provider_refs",
+        "summary",
+        "detail_refs",
+        "impacts",
+        "evidence_refs"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "title": { "type": "string", "minLength": 8, "maxLength": 140 },
+        "event_kind": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "lifecycle_status": { "type": "string", "minLength": 3, "maxLength": 40 },
+        "event_date": { "type": "string", "format": "date" },
+        "observed_at": { "type": "string", "format": "date-time" },
+        "effective_at": { "type": ["string", "null"], "format": "date-time" },
+        "migration_deadline": { "type": ["string", "null"], "format": "date-time" },
+        "severity": { "enum": ["info", "low", "medium", "high", "critical"] },
+        "confidence": { "enum": ["low", "medium", "high", "confirmed"] },
+        "source_authority": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "provider_refs": { "type": "array", "items": { "type": "string", "minLength": 3 } },
+        "summary": { "type": "string", "minLength": 20, "maxLength": 420 },
+        "detail_refs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["model_refs", "replacement_refs"],
+          "properties": {
+            "model_refs": { "type": "array", "items": { "type": "string" } },
+            "replacement_refs": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "impacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "scope_type": { "type": "string" },
+              "scope_ref": { "type": "string" },
+              "impact_kind": { "type": "string" },
+              "direction": { "type": "string" },
+              "severity": { "type": "string" },
+              "confidence": { "type": "string" },
+              "recommended_action": { "type": "string" }
+            }
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source_key", "url", "authority", "retrieved_at", "content_sha256"],
+            "properties": {
+              "source_key": { "type": "string", "minLength": 1, "maxLength": 120 },
+              "url": { "type": "string", "format": "uri" },
+              "authority": { "type": "string", "minLength": 3, "maxLength": 80 },
+              "retrieved_at": { "type": "string", "format": "date-time" },
+              "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-09-anthropic-fable-5-token-accounting-retention",
+  "title": "Anthropic Listed Fable 5 Tokenizer, Fallback Billing, And Retention Constraints",
+  "event_kind": "token_accounting_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:anthropic"
+  ],
+  "event_date": "2026-06-09",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-10T19:08:00Z",
+  "announced_at": "2026-06-09T00:00:00Z",
+  "effective_at": "2026-06-09T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Anthropic's June 9 Claude Platform release notes say Claude Fable 5 uses the Opus 4.7 tokenizer family, adds refusal and fallback handling semantics, and requires 30-day data retention on the Claude API.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "anthropic.release_notes",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview#june-9-2026",
+      "retrieved_at": "2026-06-10T19:08:00Z",
+      "authority": "official_docs",
+      "content_sha256": "bdb1c9f2a3da8f2bedeb0ef24a58aa07789f4a8a9608e97357a0690258b115bd",
+      "snapshot_ref": "section:june-9-2026",
+      "selector": "heading:june-9-2026",
+      "license_note": "Official release notes reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:anthropic/api",
+      "impact_kind": "cost",
+      "direction": "changed",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "estimated_cost_effect": {
+        "direction": "unknown",
+        "magnitude": "token counts can increase versus models before Claude Opus 4.7; fallback requests are billed at the fallback model rates",
+        "basis": "official release-note statements about tokenizer and fallback billing",
+        "confidence": "confirmed"
+      },
+      "who_should_care": [
+        "finops",
+        "platform_engineers",
+        "coding_agent_users"
+      ],
+      "recommended_action": "Re-run token counting and cost forecasts before routing Fable 5 traffic, especially for long-context workloads and fallback chains."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:anthropic/api",
+      "impact_kind": "compliance",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "security_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Keep zero-retention workloads off Fable 5 until the provider documents support for those accounts or an approved exception exists."
+    }
+  ],
+  "detail": {
+    "kind": "token_accounting_change",
+    "schema_version": "apw.event_detail.v0",
+    "metered_units": [
+      "input_tokens",
+      "output_tokens",
+      "refused_requests",
+      "fallback_requests",
+      "data_retention_eligibility"
+    ],
+    "old_accounting": "Pre-Fable Anthropic routes may have used older tokenizer assumptions, no Fable-specific refusal category, and existing retention eligibility rules.",
+    "new_accounting": "Claude Fable 5 uses the Opus 4.7 tokenizer family, no-output refusals are not billed, fallback retries are billed at fallback-model rates, and the model is not available under zero data retention.",
+    "examples": [
+      "Run token counting with model claude-fable-5 before changing cost budgets.",
+      "Test fallback chains because a refused request can rerun on another model with different billing."
+    ]
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:anthropic",
+    "impact:token_accounting_change",
+    "surface:anthropic_api"
+  ],
+  "limitations": [
+    "APW records provider-stated accounting semantics, not measured invoice deltas.",
+    "No raw release-note body is copied into the event."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-04-openai-codex-compaction-latency",
+  "title": "OpenAI Codex Compaction Had Increased Latency",
+  "event_kind": "status_incident",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai"],
+  "event_date": "2026-06-04",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-04T21:20:13Z",
+  "announced_at": "2026-06-04T02:57:00Z",
+  "effective_at": "2026-06-04T02:57:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI status recorded a resolved degraded-performance incident for increased Codex compaction latency affecting a subset of users.",
+  "severity": "low",
+  "confidence": "confirmed",
+  "source_authority": "official_status",
+  "evidence_refs": [
+    {
+      "source_key": "openai.status",
+      "url": "https://status.openai.com/incidents/01KT890WC7YQYMX39GY5VG9QAB",
+      "retrieved_at": "2026-06-04T21:20:13Z",
+      "authority": "official_status",
+      "content_sha256": "e82345414b31d185a7474ae032a3f29772f37945be4864cabc8f75439df65d30",
+      "snapshot_ref": "reviewed-source:2026-06-04",
+      "selector": "Codex compaction latency status incident",
+      "license_note": "Official status page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:codex",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "low",
+      "confidence": "confirmed",
+      "api_usage_impact": "possible",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "reliability_engineers"],
+      "recommended_action": "Annotate Codex latency or timeout spikes on June 4, 2026 before tuning compaction workflows or task retry policies."
+    }
+  ],
+  "detail": {
+    "kind": "status_incident",
+    "schema_version": "apw.event_detail.v0",
+    "provider_incident_id": "01KT890WC7YQYMX39GY5VG9QAB",
+    "status": "resolved",
+    "started_at": "2026-06-04T02:57:00Z",
+    "resolved_at": "2026-06-04T04:37:16Z",
+    "components": ["Codex"],
+    "raw_status": "resolved degraded performance"
+  },
+  "tags": ["source:official_status", "provider:openai", "impact:status_incident", "app:codex"],
+  "limitations": ["OpenAI incident HTML omits an explicit timezone; APW uses the Atom feed UTC updated timestamp for resolved_at and the incident update sequence for started_at."]
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-26-openai-workload-identity-federation",
+  "title": "OpenAI Added Workload Identity Federation For API Access",
+  "event_kind": "api_contract_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai"],
+  "event_date": "2026-05-26",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-11T12:15:00Z",
+  "announced_at": "2026-05-26T00:00:00Z",
+  "effective_at": "2026-05-26T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "OpenAI added workload identity federation for API access, allowing trusted workloads to use externally issued identity tokens for short-lived OpenAI access tokens instead of storing long-lived API keys.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.api_changelog",
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "retrieved_at": "2026-06-11T12:11:27Z",
+      "authority": "official_docs",
+      "content_sha256": "121922ecf0550aa8badbac8723ed3a94dd58603b5142ac443e0f684e2f5c2650",
+      "snapshot_ref": "entry:3017ae508fb206ee",
+      "selector": "announcement:3017ae508fb206ee",
+      "license_note": "Official changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/api",
+      "impact_kind": "security",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "security_engineers", "sdk_maintainers", "reliability_engineers"],
+      "recommended_action": "Evaluate workload identity federation for CI, production services, and agent runners that currently store long-lived OpenAI API keys."
+    }
+  ],
+  "detail": {
+    "kind": "api_contract_change",
+    "schema_version": "apw.event_detail.v0",
+    "endpoint_refs": ["endpoint:openai/auth/workload-identity-federation"],
+    "changed_parameters": ["identity_token", "access_token", "api_key_storage"],
+    "compatibility": "compatible",
+    "migration_deadline": null
+  },
+  "tags": ["source:official_docs", "provider:openai", "impact:api_contract_change", "impact:security", "surface:openai_api"],
+  "limitations": ["APW records the public API access capability only; teams must validate provider documentation, account eligibility, issuer configuration, and rollout status before replacing stored keys."]
+}

@@ -1,0 +1,300 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from jsonschema import Draft202012Validator, FormatChecker
+
+from ai_provider_watch.cli import main
+from ai_provider_watch.core.validation import load_schemas
+from ai_provider_watch.pipeline.candidates import (
+    build_candidates,
+    read_observation_bundle,
+    write_candidate_files,
+)
+from ai_provider_watch.pipeline.live import (
+    DEFAULT_LIVE_BASE_URL,
+    build_live_artifacts,
+    live_artifact_url,
+    validate_live_artifacts,
+    write_live_artifacts,
+)
+from ai_provider_watch.sources.registry import load_source_descriptors
+
+ROOT = Path(__file__).resolve().parents[1]
+OBSERVATIONS = ROOT / "tests" / "fixtures" / "observations" / "candidate-observations.json"
+CREATED_AT = "2026-06-14T12:00:00Z"
+
+
+def _candidate_dir(tmp_path: Path) -> Path:
+    result = build_candidates(
+        read_observation_bundle(OBSERVATIONS),
+        load_source_descriptors(ROOT, enabled_only=False),
+        created_at=CREATED_AT,
+    )
+    candidate_dir = tmp_path / "candidates"
+    write_candidate_files(candidate_dir, result.candidates, clean=True)
+    return candidate_dir
+
+
+def test_live_artifacts_include_lenient_official_candidates(tmp_path) -> None:
+    candidate_dir = _candidate_dir(tmp_path)
+    output_dir = tmp_path / "live"
+    result = build_live_artifacts(
+        ROOT,
+        candidate_dir=candidate_dir,
+        observations_path=OBSERVATIONS,
+        created_at=CREATED_AT,
+        limit=100,
+    )
+    write_live_artifacts(output_dir, result.artifacts)
+
+    assert validate_live_artifacts(ROOT, output_dir) == []
+    latest = json.loads((output_dir / "latest.json").read_text(encoding="utf-8"))
+    states_by_kind = {
+        item["event_kind"]: item["state"]
+        for item in latest["items"]
+        if item["derived_from"]["kind"] == "finding_candidate"
+    }
+    assert states_by_kind["status_incident"] == "automated"
+    assert states_by_kind["pricing_change"] == "needs_followup"
+    assert states_by_kind["model_launch"] == "needs_followup"
+    assert any(item["state"] == "promoted" for item in latest["items"])
+
+    health = json.loads((output_dir / "health.json").read_text(encoding="utf-8"))
+    assert health["status"] == "ok"
+    assert health["source"]["observation_count"] == 4
+    assert health["source"]["changed_source_count"] == 3
+    assert health["source"]["source_error_count"] == 0
+    assert health["source"]["candidate_count"] == 3
+    assert health["items"]["automated"] == 1
+    assert health["items"]["needs_followup"] == 2
+    assert any(artifact["path"] == "index.html" for artifact in health["artifacts"])
+    assert any(artifact["path"] == "source-catalog.json" for artifact in health["artifacts"])
+
+    index = (output_dir / "index.html").read_text(encoding="utf-8")
+    assert "AI Provider Watch Live Feed" in index
+    assert "apw live latest --base-url https://ai-provider-watch.ottto.net/v1 --limit 10" in index
+    assert 'href="health.json"' in index
+
+    source_catalog = json.loads((output_dir / "source-catalog.json").read_text(encoding="utf-8"))
+    assert source_catalog["schema_version"] == "apw.source_catalog.v0"
+    assert source_catalog["generated_at"] == CREATED_AT
+    assert source_catalog["summary"]["provider_count"] == 5
+
+    schemas = load_schemas(ROOT)
+    for item in latest["items"]:
+        assert not list(
+            Draft202012Validator(
+                schemas["live_event"],
+                format_checker=FormatChecker(),
+            ).iter_errors(item)
+        )
+
+
+def test_live_health_is_degraded_when_source_fetch_errors(tmp_path) -> None:
+    observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
+    observations["source_error_keys"] = ["openai.status"]
+    observations["observations"].append(
+        {
+            "schema_version": "apw.observation.v0",
+            "source_key": "openai.status",
+            "retrieved_at": CREATED_AT,
+            "final_url": "https://status.openai.com/feed.atom",
+            "http_status": 405,
+            "content_type": None,
+            "content_sha256": "e3b0c44298fc1c149afbf4c8996fb924"
+            "27ae41e4649b934ca495991b7852b855",
+            "fingerprint": "c" * 64,
+            "changed": False,
+            "items": [],
+            "raw_excerpt_hashes": [],
+            "candidate_claims": [],
+            "errors": ["source fetch failed: HTTP 405 Not Allowed"],
+            "snapshot_ref": "fetch_error:405",
+        }
+    )
+    observations_path = tmp_path / "observations.json"
+    observations_path.write_text(json.dumps(observations), encoding="utf-8")
+
+    result = build_live_artifacts(
+        ROOT,
+        observations_path=observations_path,
+        created_at=CREATED_AT,
+        limit=3,
+    )
+    output_dir = tmp_path / "live"
+    write_live_artifacts(output_dir, result.artifacts)
+
+    assert validate_live_artifacts(ROOT, output_dir) == []
+    health = json.loads((output_dir / "health.json").read_text(encoding="utf-8"))
+    assert health["status"] == "degraded"
+    assert health["source"]["source_error_count"] == 1
+
+
+def test_live_candidate_titles_respect_schema_limit(tmp_path) -> None:
+    candidate_dir = tmp_path / "candidates"
+    candidate_dir.mkdir()
+    long_claim = (
+        "AWS Bedrock official dated source reports a model availability change on "
+        "2026-06-09 for amazon-bedrock, aws-bedrock, claude-fable-5, "
+        "claude-fable-5-20260609, us-east-1, us-west-2, eu-central-1, and ap-southeast-2."
+    )
+    (candidate_dir / "aws-long-title.json").write_text(
+        json.dumps(
+            {
+                "id": "candidate-aws-bedrock-long-title-1234567890abcdef",
+                "candidate_kind": "model_launch",
+                "provider_refs": ["provider:aws-bedrock"],
+                "claim_text": long_claim,
+                "parser": {"name": "aws_bedrock_whats_new_feed"},
+                "evidence_refs": [
+                    {
+                        "source_key": "aws-bedrock.whats_new",
+                        "url": "https://aws.amazon.com/about-aws/whats-new/",
+                        "retrieved_at": CREATED_AT,
+                        "authority": "official_docs",
+                        "content_sha256": "a" * 64,
+                        "fingerprint": "b" * 64,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    output_dir = tmp_path / "live"
+    result = build_live_artifacts(
+        ROOT,
+        candidate_dir=candidate_dir,
+        created_at=CREATED_AT,
+        include_reviewed=False,
+    )
+    write_live_artifacts(output_dir, result.artifacts)
+
+    assert validate_live_artifacts(ROOT, output_dir) == []
+    latest = json.loads((output_dir / "latest.json").read_text(encoding="utf-8"))
+    title = latest["items"][0]["title"]
+    assert len(title) <= 140
+    assert title.endswith("...")
+
+
+def test_live_cli_build_gate_latest_and_health(tmp_path, capsys) -> None:
+    output_dir = tmp_path / "live"
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "live",
+                "build",
+                "--output",
+                str(output_dir),
+                "--created-at",
+                CREATED_AT,
+                "--limit",
+                "3",
+            ]
+        )
+        == 0
+    )
+    build_output = json.loads(capsys.readouterr().out)
+    assert build_output["artifact_count"] == 10
+    assert build_output["item_count"] == 3
+
+    assert main(["--root", str(ROOT), "live", "gate", "--input", str(output_dir), "--summary"]) == 0
+    gate_output = capsys.readouterr().out
+    assert "status: ok" in gate_output
+    assert "item_count: 3" in gate_output
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "live",
+                "latest",
+                "--input",
+                str(output_dir / "latest.json"),
+                "--limit",
+                "2",
+            ]
+        )
+        == 0
+    )
+    latest = json.loads(capsys.readouterr().out)
+    assert len(latest) == 2
+    assert all(item["schema_version"] == "apw.live_event.v0" for item in latest)
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "live",
+                "health",
+                "--input",
+                str(output_dir / "health.json"),
+                "--summary",
+            ]
+        )
+        == 0
+    )
+    assert "promoted:" in capsys.readouterr().out
+
+
+def test_live_cli_reads_public_url(monkeypatch, tmp_path, capsys) -> None:
+    output_dir = tmp_path / "live"
+    result = build_live_artifacts(ROOT, created_at=CREATED_AT, limit=3)
+    write_live_artifacts(output_dir, result.artifacts)
+    latest_payload = json.loads((output_dir / "latest.json").read_text(encoding="utf-8"))
+    health_payload = json.loads((output_dir / "health.json").read_text(encoding="utf-8"))
+    fetched_urls: list[str] = []
+
+    def fake_fetch_live_json(url: str, *, timeout: float, limit_bytes: int):
+        fetched_urls.append(url)
+        assert timeout == 20.0
+        assert limit_bytes == 5_000_000
+        if url.endswith("/latest.json"):
+            return latest_payload
+        if url.endswith("/health.json"):
+            return health_payload
+        raise AssertionError(url)
+
+    monkeypatch.setattr("ai_provider_watch.cli.fetch_live_json", fake_fetch_live_json)
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "live",
+                "latest",
+                "--base-url",
+                DEFAULT_LIVE_BASE_URL,
+                "--limit",
+                "1",
+            ]
+        )
+        == 0
+    )
+    latest = json.loads(capsys.readouterr().out)
+    assert len(latest) == 1
+    assert fetched_urls[-1] == live_artifact_url(DEFAULT_LIVE_BASE_URL, "latest")
+
+    assert (
+        main(
+            [
+                "--root",
+                str(ROOT),
+                "live",
+                "health",
+                "--url",
+                live_artifact_url(DEFAULT_LIVE_BASE_URL, "health"),
+                "--summary",
+            ]
+        )
+        == 0
+    )
+    assert "status: ok" in capsys.readouterr().out
+    assert fetched_urls[-1] == live_artifact_url(DEFAULT_LIVE_BASE_URL, "health")

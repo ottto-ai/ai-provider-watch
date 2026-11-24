@@ -1,0 +1,87 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-15-aws-bedrock-agentcore-memory-metadata",
+  "title": "AWS Bedrock AgentCore Memory Added Strictly Consistent Metadata",
+  "event_kind": "api_contract_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "event_date": "2026-06-15",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-17T02:17:05Z",
+  "announced_at": "2026-06-15T00:00:00Z",
+  "effective_at": "2026-06-15T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced strictly consistent metadata support for Amazon Bedrock AgentCore Memory, a developer-facing change for long-term memory behavior and metadata reads in agent workloads.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/05/agentcore-memory-scmetadata",
+      "retrieved_at": "2026-06-17T02:17:05Z",
+      "authority": "official_blog",
+      "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+      "snapshot_ref": "entry:dc63cbdab3b50b47",
+      "selector": "announcement:dc63cbdab3b50b47",
+      "license_note": "Official source reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/managed-agents",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers",
+        "reliability_engineers"
+      ],
+      "recommended_action": "Retest agent memory flows that depend on metadata ordering, freshness, or read-after-write assumptions."
+    },
+    {
+      "scope_type": "api_endpoint",
+      "scope_ref": "endpoint:aws-bedrock/agentcore-memory",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "sdk_maintainers",
+        "platform_engineers"
+      ],
+      "recommended_action": "Update AgentCore Memory wrappers and tests to account for strictly consistent metadata semantics where enabled."
+    }
+  ],
+  "detail": {
+    "kind": "api_contract_change",
+    "schema_version": "apw.event_detail.v0",
+    "endpoint_refs": [
+      "endpoint:aws-bedrock/agentcore-memory"
+    ],
+    "changed_parameters": [
+      "long_term_memory_metadata_consistency"
+    ],
+    "compatibility": "compatible",
+    "migration_deadline": null
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:aws_bedrock",
+    "impact:api_contract_change",
+    "surface:aws_bedrock"
+  ],
+  "limitations": [
+    "The source-review candidate classified this as model availability; source-owner review corrected it to AgentCore API/behavior metadata semantics."
+  ]
+}

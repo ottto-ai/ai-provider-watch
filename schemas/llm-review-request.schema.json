@@ -1,0 +1,314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/llm-review-request.schema.json",
+  "title": "LLMReviewRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "reviewer",
+    "prompt",
+    "input_policy",
+    "capabilities",
+    "required_local_checks",
+    "candidate_count",
+    "candidates",
+    "output_contract"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.llm_review_request.v0" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backend", "display_name", "model", "execution"],
+      "properties": {
+        "backend": { "enum": ["codex", "vertex-gemini-flash"] },
+        "display_name": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "model": { "type": "string", "minLength": 3, "maxLength": 120 },
+        "execution": { "const": "manual_or_operator_owned" }
+      }
+    },
+    "prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "text"],
+      "properties": {
+        "version": { "const": "apw.llm_review_prompt.v0" },
+        "text": { "type": "string", "minLength": 80, "maxLength": 3000 }
+      }
+    },
+    "input_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["untrusted_surfaces", "claim_text_policy", "redteam_fixture"],
+      "properties": {
+        "untrusted_surfaces": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "provider_page",
+              "issue_body",
+              "pr_comment",
+              "social_post",
+              "mcp_resource",
+              "generated_candidate"
+            ]
+          }
+        },
+        "claim_text_policy": { "type": "string", "minLength": 10, "maxLength": 160 },
+        "redteam_fixture": { "const": "tests/fixtures/redteam/untrusted-input-cases.json" }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_actions", "forbidden_actions"],
+      "properties": {
+        "allowed_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "forbidden_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    },
+    "required_local_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 3, "maxLength": 160 }
+    },
+    "candidate_count": { "type": "integer", "minimum": 0 },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate_summary" }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "allowed_verdicts",
+        "allowed_review_decisions",
+        "allowed_promotion_readiness",
+        "promotion_readiness_policy",
+        "candidate_quality_policy",
+        "required_fields"
+      ],
+      "properties": {
+        "schema_version": { "const": "apw.llm_review_result.v0" },
+        "allowed_verdicts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["no_blockers_found", "changes_requested", "needs_human_review"] }
+        },
+        "required_fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["verdict", "findings", "review_decisions", "residual_risks"] }
+        },
+        "allowed_review_decisions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["promote", "reject", "duplicate", "split", "needs_human_review"] }
+        },
+        "allowed_promotion_readiness": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "not_ready",
+              "needs_source_owner_review",
+              "auto_promotion_eligible",
+              "duplicate_or_superseded"
+            ]
+          }
+        },
+        "promotion_readiness_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "auto_promotion_eligible",
+            "needs_source_owner_review",
+            "not_ready",
+            "duplicate_or_superseded"
+          ],
+          "properties": {
+            "auto_promotion_eligible": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "needs_source_owner_review": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "not_ready": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "duplicate_or_superseded": { "type": "string", "minLength": 20, "maxLength": 500 }
+          }
+        },
+        "candidate_quality_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["high_value", "reviewable", "low_signal", "duplicate", "blocked"],
+          "properties": {
+            "high_value": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "reviewable": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "low_signal": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "duplicate": { "type": "string", "minLength": 20, "maxLength": 500 },
+            "blocked": { "type": "string", "minLength": 20, "maxLength": 500 }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "candidate_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "id",
+        "candidate_kind",
+        "source_keys",
+        "provider_refs",
+        "review_status",
+        "claim_text",
+        "evidence_refs"
+      ],
+      "properties": {
+        "path": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "id": { "type": "string", "minLength": 3, "maxLength": 120 },
+        "candidate_kind": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "source_keys": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "provider_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "review_status": { "type": "string", "minLength": 3, "maxLength": 40 },
+        "claim_text": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["included", "policy", "char_count", "sha256", "prompt_like"],
+          "properties": {
+            "included": { "const": false },
+            "policy": { "type": "string", "minLength": 10, "maxLength": 120 },
+            "char_count": { "type": "integer", "minimum": 0 },
+            "sha256": { "type": "string", "pattern": "^(<invalid-sha256>|[a-f0-9]{64})$" },
+            "prompt_like": { "type": "boolean" }
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_key",
+              "url",
+              "authority",
+              "retrieved_at",
+              "content_sha256",
+              "fingerprint"
+            ],
+            "properties": {
+              "source_key": { "type": "string", "minLength": 1, "maxLength": 120 },
+              "url": { "type": "string", "minLength": 3, "maxLength": 500 },
+              "authority": { "type": "string", "minLength": 3, "maxLength": 80 },
+              "retrieved_at": { "type": "string", "minLength": 3, "maxLength": 40 },
+              "content_sha256": { "type": "string", "pattern": "^(<invalid-sha256>|[a-f0-9]{64})$" },
+              "fingerprint": { "type": "string", "pattern": "^(<invalid-sha256>|[a-f0-9]{64})$" }
+            }
+          }
+        },
+        "promotion_readiness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "readiness",
+            "recommendation",
+            "score",
+            "flags",
+            "reasons",
+            "promotion_blockers",
+            "canonical_event_hints",
+            "evidence_refs"
+          ],
+          "properties": {
+            "readiness": {
+              "enum": [
+                "not_ready",
+                "needs_source_owner_review",
+                "auto_promotion_eligible",
+                "duplicate_or_superseded"
+              ]
+            },
+            "recommendation": { "enum": ["promote", "reject", "duplicate", "needs_human_review"] },
+            "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "flags": {
+              "type": "object",
+              "additionalProperties": { "type": "boolean" }
+            },
+            "reasons": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 240 }
+            },
+            "promotion_blockers": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 300 }
+            },
+            "canonical_event_hints": {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["source_key", "url", "authority", "retrieved_at"],
+                "properties": {
+                  "source_key": { "type": "string", "minLength": 1, "maxLength": 120 },
+                  "url": { "type": "string", "minLength": 3, "maxLength": 500 },
+                  "authority": { "type": "string", "minLength": 3, "maxLength": 80 },
+                  "retrieved_at": { "type": "string", "minLength": 3, "maxLength": 40 }
+                }
+              }
+            }
+          }
+        },
+        "candidate_quality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "quality_tier",
+            "recommended_action",
+            "score",
+            "dimensions",
+            "reasons",
+            "quality_blockers",
+            "duplicate_event_ids",
+            "canonical_event_hints"
+          ],
+          "properties": {
+            "quality_tier": {
+              "enum": ["high_value", "reviewable", "low_signal", "duplicate", "blocked"]
+            },
+            "recommended_action": {
+              "enum": ["promote", "reject", "duplicate", "needs_human_review"]
+            },
+            "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "dimensions": {
+              "type": "object",
+              "additionalProperties": { "type": "boolean" }
+            },
+            "reasons": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 240 }
+            },
+            "quality_blockers": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 300 }
+            },
+            "duplicate_event_ids": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 3, "maxLength": 160 }
+            },
+            "canonical_event_hints": {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "changed": true,
+  "expected": {
+    "candidate_claims": [
+      {
+        "candidate_kind": "model_launch",
+        "claim_text": "Anthropic official dated source reports a model availability change on 2026-06-09 for api, claude-fable-5, messages-api.",
+        "evidence_url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "selector": "announcement:0596df121fbafbb9",
+        "snapshot_ref": "entry:0596df121fbafbb9"
+      },
+      {
+        "candidate_kind": "token_accounting_change",
+        "claim_text": "Anthropic official dated source reports a token-accounting change on 2026-06-09 for claude-fable-5, prompt-caching, tokens.",
+        "evidence_url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "selector": "announcement:6684ee9bf50ab793",
+        "snapshot_ref": "entry:6684ee9bf50ab793"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "claim_text": "Anthropic official dated source reports a model retirement on 2026-06-05 for api, claude-opus-4.1, claude-opus-4.8.",
+        "evidence_url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "selector": "announcement:71d0a3b2f38e58ec",
+        "snapshot_ref": "entry:71d0a3b2f38e58ec"
+      },
+      {
+        "candidate_kind": "token_accounting_change",
+        "claim_text": "Anthropic official dated source reports a token-accounting change on 2026-06-02 for tokens.",
+        "evidence_url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "selector": "announcement:cb682d9fc11f2d8d",
+        "snapshot_ref": "entry:cb682d9fc11f2d8d"
+      },
+      {
+        "candidate_kind": "api_contract_change",
+        "claim_text": "Anthropic official dated source reports an API contract change on 2026-06-02 for api, batch-api, message-batches, messages-api.",
+        "evidence_url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "selector": "announcement:99901910f4662b7a",
+        "snapshot_ref": "entry:99901910f4662b7a"
+      },
+      {
+        "candidate_kind": "workflow_behavior_change",
+        "claim_text": "Anthropic official dated source reports a workflow behavior change on 2026-05-30 for claude-code, claude-managed-agents.",
+        "evidence_url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "selector": "announcement:0cb495261266d73d",
+        "snapshot_ref": "entry:0cb495261266d73d"
+      }
+    ],
+    "errors": [],
+    "items": [
+      {
+        "candidate_kind": "model_launch",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "4182359e79e632d3734e01b3cd5836ba41ea87f9ffa80056ead3738bb3c1b686",
+        "published_date": "2026-06-09",
+        "source_parser": "anthropic_release_notes",
+        "subjects": [
+          "api",
+          "claude-fable-5",
+          "messages-api"
+        ],
+        "title_sha256": "0596df121fbafbb951d2fb31a402378c610965eac3bd3d92ab8132811bf3b99d"
+      },
+      {
+        "candidate_kind": "token_accounting_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "4182359e79e632d3734e01b3cd5836ba41ea87f9ffa80056ead3738bb3c1b686",
+        "published_date": "2026-06-09",
+        "source_parser": "anthropic_release_notes",
+        "subjects": [
+          "claude-fable-5",
+          "prompt-caching",
+          "tokens"
+        ],
+        "title_sha256": "6684ee9bf50ab7936ec2244d066ce6b283265bdc2aa274c72a3106be227e0448"
+      },
+      {
+        "candidate_kind": "model_retirement",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "4182359e79e632d3734e01b3cd5836ba41ea87f9ffa80056ead3738bb3c1b686",
+        "published_date": "2026-06-05",
+        "source_parser": "anthropic_release_notes",
+        "subjects": [
+          "api",
+          "claude-opus-4.1",
+          "claude-opus-4.8"
+        ],
+        "title_sha256": "71d0a3b2f38e58ecc64643a8ae6e67a5ada8b9e2972e78c491b2da6dfe289392"
+      },
+      {
+        "candidate_kind": "token_accounting_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "4182359e79e632d3734e01b3cd5836ba41ea87f9ffa80056ead3738bb3c1b686",
+        "published_date": "2026-06-02",
+        "source_parser": "anthropic_release_notes",
+        "subjects": [
+          "tokens"
+        ],
+        "title_sha256": "cb682d9fc11f2d8de8a02e33e0609a694314ac05cbe64c0a136389a77a37d6c1"
+      },
+      {
+        "candidate_kind": "api_contract_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "4182359e79e632d3734e01b3cd5836ba41ea87f9ffa80056ead3738bb3c1b686",
+        "published_date": "2026-06-02",
+        "source_parser": "anthropic_release_notes",
+        "subjects": [
+          "api",
+          "batch-api",
+          "message-batches",
+          "messages-api"
+        ],
+        "title_sha256": "99901910f4662b7aea2148331ba9a0048c206f28badd02849d1c559f3cbad95f"
+      },
+      {
+        "candidate_kind": "workflow_behavior_change",
+        "kind": "dated_announcement_ref",
+        "link_sha256": "4182359e79e632d3734e01b3cd5836ba41ea87f9ffa80056ead3738bb3c1b686",
+        "published_date": "2026-05-30",
+        "source_parser": "anthropic_release_notes",
+        "subjects": [
+          "claude-code",
+          "claude-managed-agents"
+        ],
+        "title_sha256": "0cb495261266d73d7b13c8da6f63e39fd238f45b4b4ed520b4fc7c5ae93de3a4"
+      }
+    ],
+    "raw_excerpt_hashes": [],
+    "snapshot_ref": null
+  },
+  "schema_version": "apw.parser_fixture.expected.v0",
+  "source_key": "anthropic.release_notes"
+}

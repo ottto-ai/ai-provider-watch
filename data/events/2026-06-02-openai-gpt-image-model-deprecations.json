@@ -1,0 +1,75 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-02-openai-gpt-image-model-deprecations",
+  "title": "OpenAI Deprecated Older GPT Image Model IDs For December 2026 Shutdown",
+  "event_kind": "model_deprecation",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "event_date": "2026-06-02",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-10T10:32:52Z",
+  "announced_at": "2026-06-02T00:00:00Z",
+  "effective_at": "2026-06-02T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2026-12-01T00:00:00Z",
+  "summary": "OpenAI's deprecations page records older GPT Image model IDs as deprecated, with API removal scheduled for December 1, 2026 and GPT Image 2 listed as the replacement target.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.deprecations",
+      "url": "https://developers.openai.com/api/docs/deprecations",
+      "retrieved_at": "2026-06-10T10:32:52Z",
+      "authority": "official_docs",
+      "content_sha256": "6e2eb5fd35ebc8a760a9208eec3d2c873ebb9f560888cf189d8d60b9757d915f",
+      "snapshot_ref": "section:2026-06-02-gpt-image-model-deprecations",
+      "selector": "heading:2026-06-02-gpt-image-model-deprecations",
+      "license_note": "Official deprecations table reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/api",
+      "impact_kind": "migration",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "product_engineers",
+        "platform_engineers",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "Replace deprecated GPT Image IDs in image-generation workflows, allowlists, examples, and tests before December 1, 2026."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:openai/gpt-image-1-mini",
+      "model:openai/gpt-image-1.5",
+      "model:openai/chatgpt-image-latest"
+    ],
+    "lifecycle_action": "deprecation",
+    "replacement_refs": [
+      "model:openai/gpt-image-2"
+    ],
+    "deadline": "2026-12-01T00:00:00Z",
+    "migration_notes": "The candidate parser emitted one row that treated GPT Image 2 as retired; source-owner review corrected that field because the official table lists GPT Image 2 as the replacement."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:openai",
+    "impact:model_deprecation",
+    "surface:image_generation"
+  ],
+  "limitations": [
+    "This event records the model IDs visible in the reviewed source section and does not assert image quality, feature parity, or pricing differences for the replacement."
+  ]
+}

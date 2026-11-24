@@ -1,0 +1,88 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-16-aws-bedrock-guardrails-agentic-api",
+  "title": "AWS Bedrock Guardrails Added An API For Agentic AI Workflows",
+  "event_kind": "api_contract_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "event_date": "2026-06-16",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-17T02:17:05Z",
+  "announced_at": "2026-06-16T00:00:00Z",
+  "effective_at": "2026-06-16T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced a new Amazon Bedrock Guardrails API targeting agentic AI workflows, adding a developer-facing guardrail integration path for agent systems built on Bedrock.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-guardrails-api-ai/",
+      "retrieved_at": "2026-06-17T02:17:05Z",
+      "authority": "official_blog",
+      "content_sha256": "96fe6009fc0e3548cbce7266df4c49b50443c2a8adb0e5297ed39478f37f2ff5",
+      "snapshot_ref": "entry:561d3c9e616d78cd",
+      "selector": "announcement:561d3c9e616d78cd",
+      "license_note": "Official source reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/api",
+      "impact_kind": "security",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "security_engineers",
+        "platform_engineers",
+        "product_engineers"
+      ],
+      "recommended_action": "Review guardrail integration points for agent workflows before changing safety or compliance controls."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:aws-bedrock/managed-agents",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "possible",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "Add compatibility tests for the new Guardrails API if Bedrock agents or custom agent frameworks call guardrails directly."
+    }
+  ],
+  "detail": {
+    "kind": "api_contract_change",
+    "schema_version": "apw.event_detail.v0",
+    "endpoint_refs": [
+      "endpoint:aws-bedrock/guardrails/agentic-workflows"
+    ],
+    "changed_parameters": [
+      "agentic_workflow_guardrail_api"
+    ],
+    "compatibility": "compatible",
+    "migration_deadline": null
+  },
+  "tags": [
+    "source:official_blog",
+    "provider:aws_bedrock",
+    "impact:api_contract_change",
+    "impact:security",
+    "surface:aws_bedrock"
+  ],
+  "limitations": [
+    "APW records the public AWS announcement only; it does not assert regional coverage, IAM policy details, or SDK version support."
+  ]
+}

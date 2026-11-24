@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/event-detail.schema.json",
+  "title": "EventDetail",
+  "oneOf": [
+    { "$ref": "#/$defs/price_change" },
+    { "$ref": "#/$defs/quota_change" },
+    { "$ref": "#/$defs/rate_limit_change" },
+    { "$ref": "#/$defs/model_lifecycle" },
+    { "$ref": "#/$defs/default_model_change" },
+    { "$ref": "#/$defs/token_accounting_change" },
+    { "$ref": "#/$defs/api_contract_change" },
+    { "$ref": "#/$defs/status_incident" },
+    { "$ref": "#/$defs/subscription_change" },
+    { "$ref": "#/$defs/generic_change" }
+  ],
+  "$defs": {
+    "price_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "price_items"],
+      "properties": {
+        "kind": { "const": "price_change" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "unit_basis": { "type": "string" },
+        "region_scope": { "type": "array", "items": { "type": "string" } },
+        "execution_mode": { "type": ["string", "null"] },
+        "effective_at": { "type": ["string", "null"], "format": "date-time" },
+        "price_items": { "type": "array", "minItems": 1, "items": { "type": "object" } }
+      }
+    },
+    "quota_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "quota_items"],
+      "properties": {
+        "kind": { "const": "quota_change" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "window": { "type": ["string", "null"] },
+        "reset_policy": { "type": ["string", "null"] },
+        "quota_items": { "type": "array", "minItems": 1, "items": { "type": "object" } }
+      }
+    },
+    "rate_limit_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "rate_items"],
+      "properties": {
+        "kind": { "const": "rate_limit_change" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "rate_items": { "type": "array", "minItems": 1, "items": { "type": "object" } }
+      }
+    },
+    "model_lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "model_refs", "lifecycle_action"],
+      "properties": {
+        "kind": { "const": "model_lifecycle" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "model_refs": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "lifecycle_action": { "enum": ["launch", "deprecation", "retirement", "replacement", "correction"] },
+        "replacement_refs": { "type": "array", "items": { "type": "string" } },
+        "deadline": { "type": ["string", "null"], "format": "date-time" },
+        "migration_notes": { "type": "string" }
+      }
+    },
+    "default_model_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "surface_ref", "new_default"],
+      "properties": {
+        "kind": { "const": "default_model_change" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "surface_ref": { "type": "string" },
+        "old_default": { "type": ["string", "null"] },
+        "new_default": { "type": "string" },
+        "rollout_window": { "type": ["string", "null"] },
+        "fallback_policy": { "type": ["string", "null"] }
+      }
+    },
+    "token_accounting_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "metered_units", "new_accounting"],
+      "properties": {
+        "kind": { "const": "token_accounting_change" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "metered_units": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "old_accounting": { "type": ["string", "null"] },
+        "new_accounting": { "type": "string" },
+        "examples": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "api_contract_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "endpoint_refs", "compatibility"],
+      "properties": {
+        "kind": { "const": "api_contract_change" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "endpoint_refs": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "changed_parameters": { "type": "array", "items": { "type": "string" } },
+        "compatibility": { "enum": ["compatible", "breaking", "unknown"] },
+        "migration_deadline": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "status_incident": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "status", "components"],
+      "properties": {
+        "kind": { "const": "status_incident" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "provider_incident_id": { "type": ["string", "null"] },
+        "status": { "enum": ["investigating", "identified", "monitoring", "resolved", "unknown"] },
+        "started_at": { "type": ["string", "null"], "format": "date-time" },
+        "resolved_at": { "type": ["string", "null"], "format": "date-time" },
+        "components": { "type": "array", "items": { "type": "string" } },
+        "raw_status": { "type": ["string", "null"] }
+      }
+    },
+    "subscription_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "plan_refs", "entitlement_changes"],
+      "properties": {
+        "kind": { "const": "subscription_change" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "plan_refs": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "entitlement_changes": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "old_terms": { "type": ["string", "null"] },
+        "new_terms": { "type": ["string", "null"] },
+        "effective_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "generic_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schema_version", "change_summary"],
+      "properties": {
+        "kind": { "const": "generic_change" },
+        "schema_version": { "const": "apw.event_detail.v0" },
+        "change_summary": { "type": "string", "minLength": 10, "maxLength": 800 }
+      }
+    }
+  }
+}

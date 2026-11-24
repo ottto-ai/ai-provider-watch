@@ -1,0 +1,67 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-05-aws-bedrock-agentcore-runtime-interactive-shells",
+  "title": "AWS Bedrock AgentCore Runtime Added Interactive Shells",
+  "event_kind": "api_contract_change",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:aws-bedrock"],
+  "event_date": "2026-06-05",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T11:03:55Z",
+  "announced_at": "2026-06-05T00:00:00Z",
+  "effective_at": "2026-06-05T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "AWS announced interactive shells for Amazon Bedrock AgentCore Runtime, adding a WebSocket terminal API for running agent sessions and documenting a ten-shell concurrency cap per agent runtime.",
+  "severity": "high",
+  "confidence": "confirmed",
+  "source_authority": "official_blog",
+  "evidence_refs": [
+    {
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-runtime/",
+      "retrieved_at": "2026-06-08T11:03:55Z",
+      "authority": "official_blog",
+      "content_sha256": "837c23fdaf8a114882d72ccee6e31c671ceb769e8dc09b47560dc7b41ec06288",
+      "snapshot_ref": "entry:8e4ea67efed31fb6",
+      "selector": "announcement:8e4ea67efed31fb6",
+      "license_note": "Official announcement reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "api_endpoint",
+      "scope_ref": "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell",
+      "impact_kind": "behavior",
+      "direction": "added",
+      "severity": "high",
+      "confidence": "confirmed",
+      "subscription_impact": "direct",
+      "api_usage_impact": "direct",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "security_engineers", "reliability_engineers"],
+      "recommended_action": "Review AgentCore shell auth, session isolation, audit logging, reconnect behavior, and branch/worktree controls before enabling interactive shells for coding agents."
+    },
+    {
+      "scope_type": "api_endpoint",
+      "scope_ref": "endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell",
+      "impact_kind": "quota",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "reliability_engineers"],
+      "recommended_action": "Account for the documented per-runtime concurrent shell cap when designing multi-agent debugging or monitoring workflows."
+    }
+  ],
+  "detail": {
+    "kind": "api_contract_change",
+    "schema_version": "apw.event_detail.v0",
+    "endpoint_refs": ["endpoint:aws-bedrock/agentcore-runtime/invoke-agent-runtime-command-shell"],
+    "changed_parameters": ["runtime-session-id", "shell-id", "websocket-terminal-session", "concurrent-shell-limit"],
+    "compatibility": "compatible",
+    "migration_deadline": null
+  },
+  "tags": ["source:official_blog", "provider:aws-bedrock", "impact:api_contract_change", "impact:quota", "app:codex", "app:claude-code"],
+  "limitations": ["APW records the API and concurrency metadata; teams must validate IAM, network, and audit-log controls for their own AgentCore deployments."]
+}

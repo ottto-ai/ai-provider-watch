@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-05-07-google-gemini-31-flash-lite-ga-preview-deprecation",
+  "title": "Google Gemini API Released Gemini 3.1 Flash-Lite And Deprecated Preview",
+  "event_kind": "model_launch",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:google"],
+  "event_date": "2026-05-07",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-08T11:04:15Z",
+  "announced_at": "2026-05-07T00:00:00Z",
+  "effective_at": "2026-05-07T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2026-05-25T00:00:00Z",
+  "summary": "Google Gemini API changelog listed Gemini 3.1 Flash-Lite as generally available and announced the Gemini 3.1 Flash-Lite preview deprecation and May 25, 2026 shutdown date.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "google.gemini_changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "retrieved_at": "2026-06-08T11:04:15Z",
+      "authority": "official_docs",
+      "content_sha256": "d4b0591379a8d6754e310483af146de01bdd01be458a3446d33e2860746a853d",
+      "snapshot_ref": "entry:c49577c9ea994109",
+      "selector": "announcement:c49577c9ea994109",
+      "license_note": "Official changelog reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:google/gemini-api",
+      "impact_kind": "availability",
+      "direction": "added",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["product_engineers", "platform_engineers", "finops"],
+      "recommended_action": "Evaluate Gemini 3.1 Flash-Lite GA for cost-sensitive Gemini API workloads and move off the preview model before shutdown."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": ["model:gemini-3.1-flash-lite", "model:gemini-3.1-flash-lite-preview"],
+    "lifecycle_action": "launch",
+    "replacement_refs": ["model:gemini-3.1-flash-lite"],
+    "deadline": "2026-05-25T00:00:00Z",
+    "migration_notes": "The GA model launch and preview deprecation are captured together because they are announced in the same changelog entry."
+  },
+  "tags": ["source:official_docs", "provider:google", "impact:model_launch", "impact:model_deprecation"],
+  "limitations": ["APW does not assert workload-level cost savings; verify pricing and quality before migration."]
+}

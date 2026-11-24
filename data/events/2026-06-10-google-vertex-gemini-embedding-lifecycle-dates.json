@@ -1,0 +1,100 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-10-google-vertex-gemini-embedding-lifecycle-dates",
+  "title": "Google Cloud Listed Gemini And Embedding Model Lifecycle Dates",
+  "event_kind": "model_deprecation",
+  "lifecycle_status": "reviewed",
+  "provider_refs": [
+    "provider:google"
+  ],
+  "event_date": "2026-06-10",
+  "date_confidence": "approximate",
+  "observed_at": "2026-06-10T10:32:49Z",
+  "announced_at": null,
+  "effective_at": null,
+  "expires_at": null,
+  "migration_deadline": "2026-10-16T00:00:00Z",
+  "summary": "Google Cloud's Gemini Enterprise Agent Platform model-version page lists future lifecycle dates for Gemini 2.5, Gemini Live native audio, Gemini image, and embedding model IDs, giving developers migration-planning windows for Vertex and agent-platform workloads.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "google.vertex_model_versions",
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
+      "retrieved_at": "2026-06-10T10:32:49Z",
+      "authority": "official_docs",
+      "content_sha256": "43617b78f364cb2c02bdbd3b5d259ac1089057913e29a4d63d704c06a970fdcf",
+      "snapshot_ref": "section:latest-stable-models",
+      "selector": "heading:latest-stable-models",
+      "license_note": "Official lifecycle table reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:google/vertex-ai",
+      "impact_kind": "migration",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "product_engineers",
+        "coding_agent_users",
+        "sdk_maintainers"
+      ],
+      "recommended_action": "Track the listed lifecycle dates in model allowlists and agent-routing tests, especially if production workloads still pin Gemini 2.5 or older embedding IDs."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:google/vertex-ai",
+      "impact_kind": "availability",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": [
+        "platform_engineers",
+        "coding_agent_users"
+      ],
+      "recommended_action": "Do not treat the October 16, 2026 date as an exact shutdown; use it as the earliest listed lifecycle boundary and monitor the official page for final retirement updates."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:google/gemini-2.5-pro",
+      "model:google/gemini-2.5-flash",
+      "model:google/gemini-2.5-flash-lite",
+      "model:google/gemini-live-2.5-flash-native-audio",
+      "model:google/gemini-2.5-flash-image",
+      "model:google/gemini-embedding-001",
+      "model:google/text-embedding-005",
+      "model:google/text-embedding-004",
+      "model:google/text-multilingual-embedding-002",
+      "model:google/multimodalembedding@001"
+    ],
+    "lifecycle_action": "deprecation",
+    "replacement_refs": [
+      "model:google/gemini-3.5-flash",
+      "model:google/gemini-3.1-flash-lite"
+    ],
+    "deadline": "2026-10-16T00:00:00Z",
+    "migration_notes": "The source uses mixed wording: some model IDs have exact dates, while Gemini 2.5 IDs are listed as not before October 16, 2026 and gemini-embedding-001 is listed as no sooner than May 20, 2028. APW records the earliest listed lifecycle boundary for alerting and keeps exact-date caveats in limitations."
+  },
+  "tags": [
+    "source:official_docs",
+    "provider:google",
+    "impact:model_deprecation",
+    "surface:vertex_ai"
+  ],
+  "limitations": [
+    "This event is a planning signal from the reviewed lifecycle table, not a claim that every listed model has the same exact shutdown date.",
+    "Google may update final retirement dates; consumers should monitor the official lifecycle page before making irreversible migrations."
+  ]
+}

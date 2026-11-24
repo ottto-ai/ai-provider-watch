@@ -1,0 +1,56 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2026-06-03-anthropic-claude-code-services-degraded",
+  "title": "Anthropic Reported Degraded Claude Code Services",
+  "event_kind": "status_incident",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:anthropic"],
+  "event_date": "2026-06-03",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-04T21:19:51Z",
+  "announced_at": "2026-06-03T04:17:00Z",
+  "effective_at": "2026-06-03T04:17:00Z",
+  "expires_at": null,
+  "migration_deadline": null,
+  "summary": "Anthropic status recorded a resolved incident where some Claude Code services were degraded, including review, routine, and web-session surfaces.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_status",
+  "evidence_refs": [
+    {
+      "source_key": "anthropic.status",
+      "url": "https://status.claude.com/incidents/0w1blp7cngrr",
+      "retrieved_at": "2026-06-04T21:19:51Z",
+      "authority": "official_status",
+      "content_sha256": "5b26c800e3527ea68794cec38c244cc48578f0ab264f6fd59764f697cf036fab",
+      "snapshot_ref": "reviewed-source:2026-06-04",
+      "selector": "Claude Code degraded services status incident",
+      "license_note": "Official status page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "agent_app",
+      "scope_ref": "app:claude-code",
+      "impact_kind": "behavior",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "api_usage_impact": "possible",
+      "who_should_care": ["coding_agent_users", "platform_engineers", "reliability_engineers"],
+      "recommended_action": "Annotate Claude Code review, routine, and web-session failures around June 3, 2026 before changing agent prompts or local runtime settings."
+    }
+  ],
+  "detail": {
+    "kind": "status_incident",
+    "schema_version": "apw.event_detail.v0",
+    "provider_incident_id": "0w1blp7cngrr",
+    "status": "resolved",
+    "started_at": "2026-06-03T04:17:00Z",
+    "resolved_at": "2026-06-03T07:36:00Z",
+    "components": ["Claude Code"],
+    "raw_status": "resolved"
+  },
+  "tags": ["source:official_status", "provider:anthropic", "impact:status_incident", "app:claude-code"],
+  "limitations": ["The incident affected Claude Code service behavior; it is not evidence of a model, token-accounting, pricing, or quota change."]
+}

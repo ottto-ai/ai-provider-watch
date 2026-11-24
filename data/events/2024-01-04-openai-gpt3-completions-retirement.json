@@ -1,0 +1,103 @@
+{
+  "schema_version": "apw.provider_event.v0",
+  "id": "2024-01-04-openai-gpt3-completions-retirement",
+  "title": "OpenAI Retires Older GPT-3 Completions Models",
+  "event_kind": "model_retirement",
+  "lifecycle_status": "reviewed",
+  "provider_refs": ["provider:openai"],
+  "event_date": "2024-01-04",
+  "date_confidence": "exact",
+  "observed_at": "2026-06-01T10:36:49Z",
+  "announced_at": "2023-07-06T00:00:00Z",
+  "effective_at": "2024-01-04T00:00:00Z",
+  "expires_at": null,
+  "migration_deadline": "2024-01-04T00:00:00Z",
+  "summary": "OpenAI retired older GPT-3 completions-era model IDs and first-generation embedding models, requiring applications that still referenced those IDs to migrate to replacement models.",
+  "severity": "medium",
+  "confidence": "confirmed",
+  "source_authority": "official_docs",
+  "evidence_refs": [
+    {
+      "source_key": "openai.deprecations",
+      "url": "https://platform.openai.com/docs/deprecations",
+      "retrieved_at": "2026-06-01T10:36:49Z",
+      "authority": "official_docs",
+      "content_sha256": "7d7b0591c6e35e02c7b08e92436f79d78c62f644cef43e01bf4c888ca7e5686b",
+      "snapshot_ref": "reviewed-source:2026-06-01",
+      "selector": "2023-07-06 GPT and embeddings deprecation table",
+      "license_note": "Official provider page reviewed for factual metadata; no provider prose copied."
+    }
+  ],
+  "impacts": [
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/api",
+      "impact_kind": "availability",
+      "direction": "removed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "subscription_impact": "none",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "product_engineers", "coding_agent_users"],
+      "recommended_action": "Search production and agent configuration for retired model IDs and migrate affected calls before relying on this API surface."
+    },
+    {
+      "scope_type": "provider_surface",
+      "scope_ref": "surface:openai/api",
+      "impact_kind": "migration",
+      "direction": "changed",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "api_usage_impact": "direct",
+      "who_should_care": ["platform_engineers", "sdk_maintainers"],
+      "recommended_action": "Update SDK defaults, fixture model IDs, and documentation examples that still reference legacy completions models."
+    }
+  ],
+  "detail": {
+    "kind": "model_lifecycle",
+    "schema_version": "apw.event_detail.v0",
+    "model_refs": [
+      "model:text-ada-001",
+      "model:text-babbage-001",
+      "model:text-curie-001",
+      "model:text-davinci-001",
+      "model:text-davinci-002",
+      "model:text-davinci-003",
+      "model:ada",
+      "model:babbage",
+      "model:curie",
+      "model:davinci",
+      "model:code-davinci-002",
+      "model:text-davinci-edit-001",
+      "model:code-davinci-edit-001",
+      "model:text-similarity-ada-001",
+      "model:text-search-ada-doc-001",
+      "model:text-search-ada-query-001",
+      "model:code-search-ada-code-001",
+      "model:code-search-ada-text-001",
+      "model:text-similarity-babbage-001",
+      "model:text-search-babbage-doc-001",
+      "model:text-search-babbage-query-001",
+      "model:code-search-babbage-code-001",
+      "model:code-search-babbage-text-001",
+      "model:text-similarity-curie-001",
+      "model:text-search-curie-doc-001",
+      "model:text-search-curie-query-001",
+      "model:text-similarity-davinci-001",
+      "model:text-search-davinci-doc-001",
+      "model:text-search-davinci-query-001"
+    ],
+    "lifecycle_action": "retirement",
+    "replacement_refs": [
+      "model:gpt-3.5-turbo-instruct",
+      "model:babbage-002",
+      "model:davinci-002",
+      "model:text-embedding-3-small",
+      "model:gpt-4o"
+    ],
+    "deadline": "2024-01-04T00:00:00Z",
+    "migration_notes": "Legacy completions and embedding model IDs need explicit migration to replacement model families."
+  },
+  "tags": ["source:official_docs", "provider:openai", "impact:model_retirement"],
+  "limitations": ["Historical seed event; APW did not observe the original 2023 announcement in real time."]
+}

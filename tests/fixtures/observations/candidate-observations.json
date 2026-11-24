@@ -1,0 +1,90 @@
+{
+  "changed_source_keys": [
+    "anthropic.pricing",
+    "google.ai_docs",
+    "openai.status"
+  ],
+  "created_at": "2026-05-31T20:00:00Z",
+  "observations": [
+    {
+      "candidate_claims": [
+        {
+          "candidate_kind": "status_incident",
+          "claim_text": "OpenAI status feed changed with a possible API incident update."
+        }
+      ],
+      "changed": true,
+      "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "content_type": "application/atom+xml",
+      "errors": [],
+      "final_url": "https://status.openai.com/feed.atom",
+      "fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+      "http_status": 200,
+      "items": [],
+      "raw_excerpt_hashes": [],
+      "retrieved_at": "2026-05-31T20:00:00Z",
+      "schema_version": "apw.observation.v0",
+      "snapshot_ref": null,
+      "source_key": "openai.status"
+    },
+    {
+      "candidate_claims": [
+        {
+          "candidate_kind": "pricing_change",
+          "claim_text": "Anthropic pricing page changed a token pricing table and needs maintainer review."
+        }
+      ],
+      "changed": true,
+      "content_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "content_type": "text/html; charset=utf-8",
+      "errors": [],
+      "final_url": "https://docs.anthropic.com/en/docs/about-claude/pricing",
+      "fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+      "http_status": 200,
+      "items": [],
+      "raw_excerpt_hashes": [],
+      "retrieved_at": "2026-05-31T20:00:00Z",
+      "schema_version": "apw.observation.v0",
+      "snapshot_ref": null,
+      "source_key": "anthropic.pricing"
+    },
+    {
+      "candidate_claims": [
+        {
+          "candidate_kind": "model_launch",
+          "claim_text": "Google Gemini model documentation changed the supported model list."
+        }
+      ],
+      "changed": true,
+      "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "content_type": "text/html; charset=utf-8",
+      "errors": [],
+      "final_url": "https://ai.google.dev/gemini-api/docs/models",
+      "fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+      "http_status": 200,
+      "items": [],
+      "raw_excerpt_hashes": [],
+      "retrieved_at": "2026-05-31T20:00:00Z",
+      "schema_version": "apw.observation.v0",
+      "snapshot_ref": null,
+      "source_key": "google.ai_docs"
+    },
+    {
+      "candidate_claims": [],
+      "changed": false,
+      "content_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "content_type": "text/html; charset=utf-8",
+      "errors": [],
+      "final_url": "https://aws.amazon.com/bedrock/pricing/",
+      "fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+      "http_status": 200,
+      "items": [],
+      "raw_excerpt_hashes": [],
+      "retrieved_at": "2026-05-31T20:00:00Z",
+      "schema_version": "apw.observation.v0",
+      "snapshot_ref": null,
+      "source_key": "aws_bedrock.pricing"
+    }
+  ],
+  "schema_version": "apw.source_observations.v0"
+}

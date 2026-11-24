@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/live-provenance.schema.json",
+  "title": "APW Live Provenance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "generated_by",
+    "repository",
+    "artifacts",
+    "policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.live_provenance.v0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "generated_by": { "type": "string", "minLength": 1 },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "name", "url", "default_branch"],
+      "properties": {
+        "owner": { "const": "ottto-ai" },
+        "name": { "const": "ai-provider-watch" },
+        "url": { "const": "https://github.com/ottto-ai/ai-provider-watch" },
+        "default_branch": { "const": "main" }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/artifact" }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "release_authority", "correction_policy", "source_policy"],
+      "properties": {
+        "mode": { "const": "provisional_live_news" },
+        "release_authority": { "const": "not_a_signed_data_release" },
+        "correction_policy": { "type": "string", "pattern": "superseded|retracted|promoted" },
+        "source_policy": { "type": "string", "pattern": "official" }
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "media_type", "sha256", "bytes"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "media_type": { "type": "string", "minLength": 3 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "bytes": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

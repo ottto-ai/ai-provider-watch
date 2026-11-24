@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-provider-watch.org/schemas/live-feed.schema.json",
+  "title": "APW Live Feed",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "generated_by",
+    "feed_kind",
+    "cadence_minutes",
+    "item_count",
+    "items",
+    "policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "apw.live_feed.v0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "generated_by": { "type": "string", "minLength": 1 },
+    "feed_kind": { "enum": ["latest", "events"] },
+    "cadence_minutes": { "const": 15 },
+    "item_count": { "type": "integer", "minimum": 0 },
+    "items": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "review_posture", "source_posture"],
+      "properties": {
+        "mode": { "const": "provisional_live_news" },
+        "review_posture": { "type": "string", "pattern": "lenient" },
+        "source_posture": { "type": "string", "pattern": "official" }
+      }
+    }
+  }
+}
