@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "OpenAI official dated source reports a model availability change on 2026-11-18 for gpt-6.",
+  "created_at": "2026-11-25T17:15:51Z",
+  "dedupe_key": "openai.news:model_launch:a24b4bc37356a499ebf51bb1",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "f15471314dbce2d784b19326623654e50cd6900fbeab22e8d68cc7c8efad92e6",
+      "fingerprint": "7829e4ab55b0c4e70f62b7bad3cc6be30ae4ac5aaa91beaa41287d7a1f8a3716",
+      "retrieved_at": "2026-11-25T17:15:51Z",
+      "selector": "announcement:d316ea998dd4406c",
+      "snapshot_ref": "entry:d316ea998dd4406c",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/advancing-chip-design-with-our-models"
+    }
+  ],
+  "id": "candidate-openai-news-58b31e2e1003632d",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
