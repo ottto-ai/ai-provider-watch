@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "model_launch",
+  "claim_text": "AWS Bedrock official dated source reports a model availability change on 2026-11-24 for amazon-bedrock, aws-bedrock, gpt-5.6-cyber.",
+  "created_at": "2026-11-26T16:56:45Z",
+  "dedupe_key": "aws_bedrock.whats_new:model_launch:0a9e0be20d9af051321857a9",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "86da639b7d1867959d5caf885c0a214a46bcc4e009fdccbc8c21c6fb6b8a0e57",
+      "fingerprint": "e933918f52384d5c32d2988dc4ab33e03a3fb6feac4e40741fb8e0543b30f24f",
+      "retrieved_at": "2026-11-26T16:56:22Z",
+      "selector": "announcement:2ce63c0efe9022fe",
+      "snapshot_ref": "entry:2ce63c0efe9022fe",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/gpt-daybreak-red-runtime-govcloud/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-5115b8baee84d6fe",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
