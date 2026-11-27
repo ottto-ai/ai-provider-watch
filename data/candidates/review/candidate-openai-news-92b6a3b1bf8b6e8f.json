@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "workflow_behavior_change",
+  "claim_text": "OpenAI official dated source reports a workflow behavior change on 2026-11-19 for codex.",
+  "created_at": "2026-11-27T16:42:13Z",
+  "dedupe_key": "openai.news:workflow_behavior_change:307f76efde03369e7a9b7015",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "c409c831f3f7d68adc5ca472ef6d9e3182216c052ebd41bc85663cbb6f1d37bb",
+      "fingerprint": "7829e4ab55b0c4e70f62b7bad3cc6be30ae4ac5aaa91beaa41287d7a1f8a3716",
+      "retrieved_at": "2026-11-27T16:42:12Z",
+      "selector": "announcement:ce58bf9bf9d9f863",
+      "snapshot_ref": "entry:ce58bf9bf9d9f863",
+      "source_key": "openai.news",
+      "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast"
+    }
+  ],
+  "id": "candidate-openai-news-92b6a3b1bf8b6e8f",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "openai_news_feed"
+  },
+  "provider_refs": [
+    "provider:openai"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "openai.news"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}

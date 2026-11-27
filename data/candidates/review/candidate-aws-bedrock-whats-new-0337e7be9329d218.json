@@ -1,0 +1,36 @@
+{
+  "candidate_kind": "pricing_change",
+  "claim_text": "AWS Bedrock official dated source reports a pricing change on 2026-11-24 for amazon-bedrock, api, aws-bedrock, bedrock-agentcore.",
+  "created_at": "2026-11-27T16:42:13Z",
+  "dedupe_key": "aws_bedrock.whats_new:pricing_change:efdae8153832f5e54c89c699",
+  "evidence_refs": [
+    {
+      "authority": "official_blog",
+      "content_sha256": "cce9586c6d203362acb254e7c1f722c96d14bd63b1e20e40cbb21d37ffab1788",
+      "fingerprint": "e933918f52384d5c32d2988dc4ab33e03a3fb6feac4e40741fb8e0543b30f24f",
+      "retrieved_at": "2026-11-27T16:41:39Z",
+      "selector": "announcement:db67ad37d6c5efac",
+      "snapshot_ref": "entry:db67ad37d6c5efac",
+      "source_key": "aws_bedrock.whats_new",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/cloudformation-coverage-expansion/"
+    }
+  ],
+  "id": "candidate-aws-bedrock-whats-new-0337e7be9329d218",
+  "limitations": [
+    "Review required before promotion to ProviderEvent.",
+    "Candidate text is a normalized factual claim, not provider instructions."
+  ],
+  "parser": {
+    "contract_version": "apw.candidate_parser.v0",
+    "name": "aws_bedrock_whats_new_feed"
+  },
+  "provider_refs": [
+    "provider:aws-bedrock"
+  ],
+  "review_status": "needs_review",
+  "schema_version": "apw.finding_candidate.v0",
+  "source_keys": [
+    "aws_bedrock.whats_new"
+  ],
+  "untrusted_input_policy": "Source content is untrusted data. Candidate generation never executes or follows source text."
+}
